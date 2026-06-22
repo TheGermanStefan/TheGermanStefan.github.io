@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B2 Vocabulary — TheGermanStefan</title>
+<style>
+:root{--lc:#c62828;--lc2:#7f0000;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:52px;z-index:190;}
+.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
+.mode-tab{border:none;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;}
+.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid #ddd;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;}
+.fbtn.on{background:var(--lc);color:#fff;border-color:var(--lc);}
+.fbtn:hover:not(.on){background:var(--off);}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:6px 12px;font-size:13px;min-width:160px;outline:none;color:var(--navy);}
+.search-box:focus{border-color:var(--lc);}
+.cat-select{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;outline:none;}
+#list-view{padding:16px;max-width:1100px;margin:0 auto;}
+.word-count{font-size:12px;color:#888;margin-bottom:10px;}
+.word-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.word-table th{background:var(--lc);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.word-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid #f0f2f8;vertical-align:middle;}
+.word-table tr:last-child td{border-bottom:none;}
+.word-table tr:hover td{background:#fff5f5;}
+.de-word{font-weight:700;color:var(--navy);}
+.de-art{color:var(--lc);font-weight:600;font-size:12px;margin-right:4px;}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tb-n{background:#e3f2fd;color:#1565c0;}.tb-v{background:#e8f5e9;color:#2e7d32;}.tb-adj{background:#fce4ec;color:#c62828;}.tb-adv{background:#fff3e0;color:#e65100;}.tb-exp{background:#f3e5f5;color:#6a1b9a;}.tb-prep{background:#e0f2f1;color:#00695c;}.tb-conj{background:#fff8e1;color:#f57f17;}.tb-num{background:#fbe9e7;color:#bf360c;}.tb-pron{background:#e8eaf6;color:#283593;}
+.ex-text{font-style:italic;color:#666;font-size:12px;}
+.no-results{text-align:center;padding:40px;color:#999;font-size:14px;}
+#flash-view{display:none;padding:20px 16px;max-width:700px;margin:0 auto;}
+.flash-progress-bar{height:6px;background:#e0e4ee;border-radius:3px;margin-bottom:16px;overflow:hidden;}
+.flash-progress-fill{height:100%;background:var(--lc);border-radius:3px;transition:width .3s;}
+.flash-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;color:#666;}
+.flash-counter{font-weight:700;color:var(--navy);}
+.flash-known{color:#2e7d32;font-weight:700;}.flash-learning{color:#c62828;font-weight:700;}
+.card-wrap{perspective:1000px;margin-bottom:20px;}
+.card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;border-radius:16px;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.10);}
+.card-front{background:#fff;border:2px solid var(--lc);}
+.card-back{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;transform:rotateY(180deg);}
+.card-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);background:rgba(198,40,40,.08);border-radius:20px;padding:3px 12px;margin-bottom:16px;}
+.card-back .card-cat{color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);}
+.card-article{font-size:22px;font-weight:600;color:var(--lc);margin-bottom:4px;}
+.card-word{font-size:38px;font-weight:900;color:var(--navy);letter-spacing:-1px;}
+.card-back .card-word{color:#fff;font-size:30px;}
+.card-translation{font-size:28px;font-weight:800;margin-bottom:12px;}
+.card-example{font-size:13px;opacity:.85;font-style:italic;margin-top:8px;line-height:1.5;}
+.card-hint{font-size:12px;color:#aaa;margin-top:16px;}
+.flash-btns{display:flex;gap:12px;justify-content:center;margin-bottom:16px;}
+.flash-btn{padding:12px 32px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;}
+.btn-know{background:#2e7d32;color:#fff;}.btn-know:hover{background:#1b5e20;}
+.btn-learn{background:#c62828;color:#fff;}.btn-learn:hover{background:#7f0000;}
+.flash-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.flash-nav-btn{padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;}
+.flash-nav-btn:hover{background:var(--off);}
+.flash-done{text-align:center;padding:40px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.flash-done h2{font-size:28px;font-weight:900;margin-bottom:10px;}
+.flash-done .score{font-size:48px;font-weight:900;color:var(--lc);}
+.flash-done p{color:#666;margin-bottom:20px;}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:40px;}
+@media(max-width:600px){.word-table th:nth-child(4),.word-table td:nth-child(4){display:none;}.card-word{font-size:24px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → B2</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Upper Intermediate</div>
+  <div class="lvl-name">B2</div>
+  <div class="lvl-desc" data-t="level_desc">Complex topics, nuanced expression, academic &amp; professional language</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" id="total-count">~2000 words</span>
+    <span class="lvl-stat" data-t="stat_topics">22 topics</span>
+    <span class="lvl-stat" data-t="stat_flash">Flashcards included</span>
+  </div>
+</div>
+<div class="controls">
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-list" onclick="switchMode('list')" data-t="mode_list">📋 Word List</button>
+    <button class="mode-tab" id="tab-flash" onclick="switchMode('flash')" data-t="mode_flash">🃏 Flashcards</button>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn on" data-type="all" onclick="setType('all')" data-t="type_all">All</button>
+    <button class="fbtn" data-type="n" onclick="setType('n')" data-t="type_n">Nouns</button>
+    <button class="fbtn" data-type="v" onclick="setType('v')" data-t="type_v">Verbs</button>
+    <button class="fbtn" data-type="adj" onclick="setType('adj')" data-t="type_adj">Adjectives</button>
+    <button class="fbtn" data-type="adv" onclick="setType('adv')" data-t="type_adv">Adverbs</button>
+    <button class="fbtn" data-type="exp" onclick="setType('exp')" data-t="type_exp">Expressions</button>
+    <button class="fbtn" data-type="prep" onclick="setType('prep')" data-t="type_prep">Prepositions</button>
+    <button class="fbtn" data-type="conj" onclick="setType('conj')" data-t="type_conj">Conjunctions</button>
+  </div>
+  <select class="cat-select" id="cat-select" onchange="setCat(this.value)"></select>
+  <input class="search-box" id="search-box" placeholder="Search..." oninput="doSearch(this.value)" data-t-placeholder="search_ph">
+</div>
+<div id="list-view">
+  <div class="word-count" id="word-count"></div>
+  <table class="word-table">
+    <thead><tr>
+      <th data-t="col_word">Word</th><th data-t="col_type">Type</th><th data-t="col_category">Category</th><th data-t="col_translation">Translation</th><th data-t="col_example">Example</th>
+    </tr></thead>
+    <tbody id="word-tbody"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none" data-t="no_results">No words found.</div>
+</div>
+<div id="flash-view">
+  <div class="flash-progress-bar"><div class="flash-progress-fill" id="flash-fill"></div></div>
+  <div class="flash-stats-row">
+    <span class="flash-counter" id="flash-counter"></span>
+    <span><span class="flash-known" id="flash-known">✓ 0</span> &nbsp; <span class="flash-learning" id="flash-learning">✗ 0</span></span>
+  </div>
+  <div class="card-wrap">
+    <div class="card" id="flash-card" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-cat" id="cf-cat"></div>
+        <div class="card-article" id="cf-art"></div>
+        <div class="card-word" id="cf-word"></div>
+        <div class="card-hint" data-t="card_click">Click to reveal translation</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="cb-cat"></div>
+        <div class="card-translation" id="cb-trans"></div>
+        <div class="card-example" id="cb-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div id="flash-done" class="flash-done" style="display:none">
+    <div style="font-size:48px">🎉</div>
+    <h2 data-t="done_title">Round complete!</h2>
+    <div class="score" id="done-score"></div>
+    <p data-t="done_sub">words marked as known this round</p>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="restart_btn">Restart all</button>
+    <button class="flash-nav-btn" onclick="reviewLearning()" data-t="review_btn">Review still learning</button>
+  </div>
+  <div class="flash-btns" id="flash-action-btns">
+    <button class="flash-btn btn-know" onclick="markCard(true)" data-t="btn_know">✓ Know it</button>
+    <button class="flash-btn btn-learn" onclick="markCard(false)" data-t="btn_learn">✗ Still learning</button>
+  </div>
+  <div class="flash-nav">
+    <button class="flash-nav-btn" onclick="prevCard()" data-t="btn_prev">← Previous</button>
+    <button class="flash-nav-btn" onclick="shuffleCards()" data-t="btn_shuffle">🔀 Shuffle</button>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="btn_restart">↺ Restart</button>
+    <button class="flash-nav-btn" onclick="nextCard()" data-t="btn_next">Next →</button>
+  </div>
+</div>
+<div style="text-align:center"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
+<div class="footer">TheGermanStefan — B2 Vocabulary © 2025</div>
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → B2',level_tag:'Upper Intermediate',level_desc:'Complex topics, nuanced expression, academic & professional language',stat_topics:'22 topics',stat_flash:'Flashcards included',mode_list:'📋 Word List',mode_flash:'🃏 Flashcards',type_all:'All',type_n:'Nouns',type_v:'Verbs',type_adj:'Adjectives',type_adv:'Adverbs',type_exp:'Expressions',type_prep:'Prepositions',type_conj:'Conjunctions',cat_all:'All Categories',search_ph:'Search...',col_word:'Word',col_type:'Type',col_category:'Category',col_translation:'Translation',col_example:'Example',no_results:'No words found.',card_click:'Click to reveal translation',done_title:'Round complete!',done_sub:'words marked as known this round',restart_btn:'Restart all',review_btn:'Review still learning',btn_know:'✓ Know it',btn_learn:'✗ Still learning',btn_prev:'← Previous',btn_shuffle:'🔀 Shuffle',btn_restart:'↺ Restart',btn_next:'Next →',back_hub:'← Back to Vocabulary Hub',wc_showing:'Showing',wc_of:'of',wc_words:'words',card_of:'Card',card_of2:'of',tname_n:'Noun',tname_v:'Verb',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Number',tname_pron:'Pronoun'},
+fr:{crumb:'📚 Centre Vocab → B2',level_tag:'Intermédiaire supérieur',level_desc:'Sujets complexes, expression nuancée, langage académique et professionnel',stat_topics:'22 thèmes',stat_flash:'Cartes incluses',mode_list:'📋 Liste de mots',mode_flash:'🃏 Cartes',type_all:'Tout',type_n:'Noms',type_v:'Verbes',type_adj:'Adjectifs',type_adv:'Adverbes',type_exp:'Expressions',type_prep:'Prépositions',type_conj:'Conjonctions',cat_all:'Toutes catégories',search_ph:'Rechercher...',col_word:'Mot',col_type:'Type',col_category:'Catégorie',col_translation:'Traduction',col_example:'Exemple',no_results:'Aucun mot trouvé.',card_click:'Cliquez pour révéler',done_title:'Série terminée !',done_sub:'mots marqués comme sus',restart_btn:'Recommencer',review_btn:'Revoir à apprendre',btn_know:'✓ Je sais',btn_learn:'✗ À revoir',btn_prev:'← Précédent',btn_shuffle:'🔀 Mélanger',btn_restart:'↺ Recommencer',btn_next:'Suivant →',back_hub:'← Retour au Hub',wc_showing:'Affichage',wc_of:'sur',wc_words:'mots',card_of:'Carte',card_of2:'sur',tname_n:'Nom',tname_v:'Verbe',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prép.',tname_conj:'Conj.',tname_num:'Nombre',tname_pron:'Pronom'},
+es:{crumb:'📚 Centro Vocab → B2',level_tag:'Intermedio-alto',level_desc:'Temas complejos, expresión matizada, lenguaje académico y profesional',stat_topics:'22 temas',stat_flash:'Tarjetas incluidas',mode_list:'📋 Lista',mode_flash:'🃏 Tarjetas',type_all:'Todo',type_n:'Sustantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Adverbios',type_exp:'Expresiones',type_prep:'Preposiciones',type_conj:'Conjunciones',cat_all:'Todas las categorías',search_ph:'Buscar...',col_word:'Palabra',col_type:'Tipo',col_category:'Categoría',col_translation:'Traducción',col_example:'Ejemplo',no_results:'No se encontraron palabras.',card_click:'Haz clic para revelar',done_title:'¡Ronda completa!',done_sub:'palabras conocidas',restart_btn:'Reiniciar todo',review_btn:'Repasar pendientes',btn_know:'✓ Lo sé',btn_learn:'✗ Repasando',btn_prev:'← Anterior',btn_shuffle:'🔀 Mezclar',btn_restart:'↺ Reiniciar',btn_next:'Siguiente →',back_hub:'← Volver al Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palabras',card_of:'Tarjeta',card_of2:'de',tname_n:'Sust.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expresión',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'},
+it:{crumb:'📚 Centro Vocab → B2',level_tag:'Intermedio-avanzato',level_desc:'Argomenti complessi, espressione sfumata, linguaggio accademico e professionale',stat_topics:'22 argomenti',stat_flash:'Schede incluse',mode_list:'📋 Lista parole',mode_flash:'🃏 Schede',type_all:'Tutto',type_n:'Sostantivi',type_v:'Verbi',type_adj:'Aggettivi',type_adv:'Avverbi',type_exp:'Espressioni',type_prep:'Preposizioni',type_conj:'Congiunzioni',cat_all:'Tutte le categorie',search_ph:'Cerca...',col_word:'Parola',col_type:'Tipo',col_category:'Categoria',col_translation:'Traduzione',col_example:'Esempio',no_results:'Nessuna parola trovata.',card_click:'Clicca per rivelare',done_title:'Round completato!',done_sub:'parole conosciute questo round',restart_btn:'Ricominciare',review_btn:'Rivedere da imparare',btn_know:'✓ Lo so',btn_learn:'✗ Da rivedere',btn_prev:'← Precedente',btn_shuffle:'🔀 Mescola',btn_restart:'↺ Ricomincia',btn_next:'Successivo →',back_hub:'← Torna all\'Hub',wc_showing:'Mostrando',wc_of:'di',wc_words:'parole',card_of:'Scheda',card_of2:'di',tname_n:'Sost.',tname_v:'Verbo',tname_adj:'Agg.',tname_adv:'Avv.',tname_exp:'Espressione',tname_prep:'Prep.',tname_conj:'Cong.',tname_num:'Numero',tname_pron:'Pron.'},
+pt:{crumb:'📚 Centro Vocab → B2',level_tag:'Intermediário-superior',level_desc:'Tópicos complexos, expressão matizada, linguagem acadêmica e profissional',stat_topics:'22 tópicos',stat_flash:'Flashcards incluídos',mode_list:'📋 Lista',mode_flash:'🃏 Flashcards',type_all:'Tudo',type_n:'Substantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Advérbios',type_exp:'Expressões',type_prep:'Preposições',type_conj:'Conjunções',cat_all:'Todas as categorias',search_ph:'Pesquisar...',col_word:'Palavra',col_type:'Tipo',col_category:'Categoria',col_translation:'Tradução',col_example:'Exemplo',no_results:'Nenhuma palavra encontrada.',card_click:'Clique para revelar',done_title:'Rodada concluída!',done_sub:'palavras conhecidas nesta rodada',restart_btn:'Reiniciar tudo',review_btn:'Rever ainda aprendendo',btn_know:'✓ Já sei',btn_learn:'✗ Ainda aprendendo',btn_prev:'← Anterior',btn_shuffle:'🔀 Embaralhar',btn_restart:'↺ Reiniciar',btn_next:'Próximo →',back_hub:'← Voltar ao Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palavras',card_of:'Card',card_of2:'de',tname_n:'Subst.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expressão',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'}
+};
+const VOCAB=[
+// ACADEMIC LANGUAGE
+{w:'These',a:'die',t:'n',cat:'Academic Language',en:'thesis',fr:'thèse',es:'tesis',it:'tesi',pt:'tese',ex:'Ich verteidige meine These.'},
+{w:'Hypothese',a:'die',t:'n',cat:'Academic Language',en:'hypothesis',fr:'hypothèse',es:'hipótesis',it:'ipotesi',pt:'hipótese',ex:'Die Hypothese muss bewiesen werden.'},
+{w:'Analyse',a:'die',t:'n',cat:'Academic Language',en:'analysis',fr:'analyse',es:'análisis',it:'analisi',pt:'análise',ex:'Die Analyse zeigt klare Ergebnisse.'},
+{w:'Methode',a:'die',t:'n',cat:'Academic Language',en:'method',fr:'méthode',es:'método',it:'metodo',pt:'método',ex:'Welche Methode verwendest du?'},
+{w:'Ergebnis',a:'das',t:'n',cat:'Academic Language',en:'result / finding',fr:'résultat',es:'resultado',it:'risultato',pt:'resultado',ex:'Das Ergebnis ist eindeutig.'},
+{w:'Schlussfolgerung',a:'die',t:'n',cat:'Academic Language',en:'conclusion',fr:'conclusion',es:'conclusión',it:'conclusione',pt:'conclusão',ex:'Die Schlussfolgerung ist logisch.'},
+{w:'Studie',a:'die',t:'n',cat:'Academic Language',en:'study',fr:'étude',es:'estudio',it:'studio',pt:'estudo',ex:'Die Studie belegt das.'},
+{w:'Quelle',a:'die',t:'n',cat:'Academic Language',en:'source',fr:'source',es:'fuente',it:'fonte',pt:'fonte',ex:'Nenne deine Quellen!'},
+{w:'Belege',a:'die',t:'n',cat:'Academic Language',en:'evidence / proof',fr:'preuves / données',es:'evidencias / pruebas',it:'prove / dati',pt:'evidências / provas',ex:'Die Belege sind überzeugend.'},
+{w:'Perspektive',a:'die',t:'n',cat:'Academic Language',en:'perspective',fr:'perspective',es:'perspectiva',it:'prospettiva',pt:'perspectiva',ex:'Ich sehe das aus einer anderen Perspektive.'},
+{w:'Kontext',a:'der',t:'n',cat:'Academic Language',en:'context',fr:'contexte',es:'contexto',it:'contesto',pt:'contexto',ex:'Im Kontext bedeutet es etwas anderes.'},
+{w:'Konzept',a:'das',t:'n',cat:'Academic Language',en:'concept',fr:'concept',es:'concepto',it:'concetto',pt:'conceito',ex:'Das Konzept ist innovativ.'},
+{w:'Paradigma',a:'das',t:'n',cat:'Academic Language',en:'paradigm',fr:'paradigme',es:'paradigma',it:'paradigma',pt:'paradigma',ex:'Das ist ein Paradigmenwechsel.'},
+{w:'Kriterium',a:'das',t:'n',cat:'Academic Language',en:'criterion',fr:'critère',es:'criterio',it:'criterio',pt:'critério',ex:'Das ist ein wichtiges Kriterium.'},
+{w:'analysieren',a:'',t:'v',cat:'Academic Language',en:'to analyse',fr:'analyser',es:'analizar',it:'analizzare',pt:'analisar',ex:'Wir analysieren die Daten.'},
+{w:'interpretieren',a:'',t:'v',cat:'Academic Language',en:'to interpret',fr:'interpréter',es:'interpretar',it:'interpretare',pt:'interpretar',ex:'Wie interpretierst du das?'},
+{w:'veranschaulichen',a:'',t:'v',cat:'Academic Language',en:'to illustrate',fr:'illustrer',es:'ilustrar',it:'illustrare',pt:'ilustrar',ex:'Das Diagramm veranschaulicht den Trend.'},
+{w:'widerlegen',a:'',t:'v',cat:'Academic Language',en:'to refute / disprove',fr:'réfuter / infirmer',es:'refutar / rebatir',it:'confutare / smentire',pt:'refutar',ex:'Er widerlegt die Theorie.'},
+{w:'aufzeigen',a:'',t:'v',cat:'Academic Language',en:'to demonstrate / show',fr:'démontrer / mettre en évidence',es:'demostrar / evidenciar',it:'dimostrare / evidenziare',pt:'demonstrar',ex:'Die Studie zeigt deutliche Mängel auf.'},
+// POLITICS & SOCIETY B2
+{w:'Verfassung',a:'die',t:'n',cat:'Politics & Society B2',en:'constitution',fr:'constitution',es:'constitución',it:'costituzione',pt:'constituição',ex:'Das Recht steht in der Verfassung.'},
+{w:'Grundrecht',a:'das',t:'n',cat:'Politics & Society B2',en:'fundamental right',fr:'droit fondamental',es:'derecho fundamental',it:'diritto fondamentale',pt:'direito fundamental',ex:'Meinungsfreiheit ist ein Grundrecht.'},
+{w:'Souveränität',a:'die',t:'n',cat:'Politics & Society B2',en:'sovereignty',fr:'souveraineté',es:'soberanía',it:'sovranità',pt:'soberania',ex:'Die staatliche Souveränität ist wichtig.'},
+{w:'Ideologie',a:'die',t:'n',cat:'Politics & Society B2',en:'ideology',fr:'idéologie',es:'ideología',it:'ideologia',pt:'ideologia',ex:'Jede Partei hat eine Ideologie.'},
+{w:'Globaliserung',a:'die',t:'n',cat:'Politics & Society B2',en:'globalisation',fr:'mondialisation',es:'globalización',it:'globalizzazione',pt:'globalização',ex:'Globalisierung schafft Chancen und Risiken.'},
+{w:'Migration',a:'die',t:'n',cat:'Politics & Society B2',en:'migration',fr:'migration',es:'migración',it:'migrazione',pt:'migração',ex:'Migration ist ein komplexes Thema.'},
+{w:'Diskriminierung',a:'die',t:'n',cat:'Politics & Society B2',en:'discrimination',fr:'discrimination',es:'discriminación',it:'discriminazione',pt:'discriminação',ex:'Diskriminierung ist verboten.'},
+{w:'Vorurteil',a:'das',t:'n',cat:'Politics & Society B2',en:'prejudice',fr:'préjugé',es:'prejuicio',it:'pregiudizio',pt:'preconceito',ex:'Vorurteile müssen überwunden werden.'},
+{w:'Toleranz',a:'die',t:'n',cat:'Politics & Society B2',en:'tolerance',fr:'tolérance',es:'tolerancia',it:'tolleranza',pt:'tolerância',ex:'Toleranz ist eine Tugend.'},
+{w:'Vielfalt',a:'die',t:'n',cat:'Politics & Society B2',en:'diversity',fr:'diversité',es:'diversidad',it:'diversità',pt:'diversidade',ex:'Vielfalt bereichert unsere Gesellschaft.'},
+{w:'Minderheit',a:'die',t:'n',cat:'Politics & Society B2',en:'minority',fr:'minorité',es:'minoría',it:'minoranza',pt:'minoria',ex:'Minderheiten brauchen Schutz.'},
+{w:'Mehrheit',a:'die',t:'n',cat:'Politics & Society B2',en:'majority',fr:'majorité',es:'mayoría',it:'maggioranza',pt:'maioria',ex:'Die Mehrheit entscheidet.'},
+{w:'Menschenrecht',a:'das',t:'n',cat:'Politics & Society B2',en:'human right',fr:'droit de l\'homme',es:'derecho humano',it:'diritto umano',pt:'direito humano',ex:'Menschenrechte müssen geschützt werden.'},
+{w:'Korruption',a:'die',t:'n',cat:'Politics & Society B2',en:'corruption',fr:'corruption',es:'corrupción',it:'corruzione',pt:'corrupção',ex:'Korruption untergräbt die Demokratie.'},
+{w:'Bürokratie',a:'die',t:'n',cat:'Politics & Society B2',en:'bureaucracy',fr:'bureaucratie',es:'burocracia',it:'burocrazia',pt:'burocracia',ex:'Die Bürokratie ist zu komplex.'},
+{w:'Reform',a:'die',t:'n',cat:'Politics & Society B2',en:'reform',fr:'réforme',es:'reforma',it:'riforma',pt:'reforma',ex:'Die Reform ist dringend nötig.'},
+// BUSINESS & MANAGEMENT B2
+{w:'Strategie',a:'die',t:'n',cat:'Business B2',en:'strategy',fr:'stratégie',es:'estrategia',it:'strategia',pt:'estratégia',ex:'Wir brauchen eine neue Strategie.'},
+{w:'Konkurrenz',a:'die',t:'n',cat:'Business B2',en:'competition / competitors',fr:'concurrence / concurrents',es:'competencia / competidores',it:'concorrenza / concorrenti',pt:'concorrência / concorrentes',ex:'Die Konkurrenz ist stark.'},
+{w:'Markt',a:'der',t:'n',cat:'Business B2',en:'market',fr:'marché',es:'mercado',it:'mercato',pt:'mercado',ex:'Der Markt ist gesättigt.'},
+{w:'Umsatz',a:'der',t:'n',cat:'Business B2',en:'turnover / revenue',fr:'chiffre d\'affaires',es:'facturación / ingresos',it:'fatturato',pt:'faturamento / receita',ex:'Der Umsatz ist gestiegen.'},
+{w:'Budget',a:'das',t:'n',cat:'Business B2',en:'budget',fr:'budget',es:'presupuesto',it:'budget',pt:'orçamento',ex:'Das Budget ist erschöpft.'},
+{w:'Geschäftsführer',a:'der',t:'n',cat:'Business B2',en:'managing director / CEO',fr:'directeur général / PDG',es:'director general / CEO',it:'amministratore delegato',pt:'diretor-executivo / CEO',ex:'Der Geschäftsführer trifft die Entscheidung.'},
+{w:'Vorstand',a:'der',t:'n',cat:'Business B2',en:'board of directors / executive board',fr:'conseil d\'administration',es:'junta directiva',it:'consiglio di amministrazione',pt:'conselho de administração',ex:'Der Vorstand hat zugestimmt.'},
+{w:'Kooperation',a:'die',t:'n',cat:'Business B2',en:'cooperation / partnership',fr:'coopération / partenariat',es:'cooperación / colaboración',it:'cooperazione / collaborazione',pt:'cooperação / parceria',ex:'Die Kooperation ist erfolgreich.'},
+{w:'Fusion',a:'die',t:'n',cat:'Business B2',en:'merger',fr:'fusion',es:'fusión',it:'fusione',pt:'fusão',ex:'Die Fusion wird nächste Woche abgeschlossen.'},
+{w:'Insolvenz',a:'die',t:'n',cat:'Business B2',en:'insolvency / bankruptcy',fr:'insolvabilité / faillite',es:'insolvencia / quiebra',it:'insolvenza / fallimento',pt:'insolvência / falência',ex:'Das Unternehmen meldet Insolvenz an.'},
+{w:'verhandeln',a:'',t:'v',cat:'Business B2',en:'to negotiate',fr:'négocier',es:'negociar',it:'negoziare',pt:'negociar',ex:'Wir verhandeln über den Vertrag.'},
+{w:'präsentieren',a:'',t:'v',cat:'Business B2',en:'to present',fr:'présenter',es:'presentar',it:'presentare',pt:'apresentar',ex:'Er präsentiert die Ergebnisse.'},
+{w:'optimieren',a:'',t:'v',cat:'Business B2',en:'to optimise',fr:'optimiser',es:'optimizar',it:'ottimizzare',pt:'otimizar',ex:'Wir optimieren den Prozess.'},
+// TECHNOLOGY & INNOVATION
+{w:'Künstliche Intelligenz',a:'die',t:'n',cat:'Technology',en:'artificial intelligence',fr:'intelligence artificielle',es:'inteligencia artificial',it:'intelligenza artificiale',pt:'inteligência artificial',ex:'Künstliche Intelligenz verändert alles.'},
+{w:'Algorithmus',a:'der',t:'n',cat:'Technology',en:'algorithm',fr:'algorithme',es:'algoritmo',it:'algoritmo',pt:'algoritmo',ex:'Der Algorithmus ist sehr effizient.'},
+{w:'Digitalisierung',a:'die',t:'n',cat:'Technology',en:'digitalisation',fr:'numérisation',es:'digitalización',it:'digitalizzazione',pt:'digitalização',ex:'Die Digitalisierung schreitet voran.'},
+{w:'Automatisierung',a:'die',t:'n',cat:'Technology',en:'automation',fr:'automatisation',es:'automatización',it:'automazione',pt:'automação',ex:'Automatisierung ersetzt viele Jobs.'},
+{w:'Daten',a:'die',t:'n',cat:'Technology',en:'data',fr:'données',es:'datos',it:'dati',pt:'dados',ex:'Die Daten werden analysiert.'},
+{w:'Datenschutz',a:'der',t:'n',cat:'Technology',en:'data protection / privacy',fr:'protection des données',es:'protección de datos',it:'protezione dei dati',pt:'proteção de dados',ex:'Datenschutz ist sehr wichtig.'},
+{w:'Netzwerk',a:'das',t:'n',cat:'Technology',en:'network',fr:'réseau',es:'red',it:'rete',pt:'rede',ex:'Das Netzwerk ist ausgefallen.'},
+{w:'Software',a:'die',t:'n',cat:'Technology',en:'software',fr:'logiciel',es:'software',it:'software',pt:'software',ex:'Die Software muss aktualisiert werden.'},
+{w:'Plattform',a:'die',t:'n',cat:'Technology',en:'platform',fr:'plateforme',es:'plataforma',it:'piattaforma',pt:'plataforma',ex:'Die Plattform hat Millionen Nutzer.'},
+{w:'Innovation',a:'die',t:'n',cat:'Technology',en:'innovation',fr:'innovation',es:'innovación',it:'innovazione',pt:'inovação',ex:'Innovation ist der Schlüssel zum Erfolg.'},
+{w:'implementieren',a:'',t:'v',cat:'Technology',en:'to implement',fr:'implémenter / mettre en œuvre',es:'implementar',it:'implementare',pt:'implementar',ex:'Wir implementieren die neue Software.'},
+{w:'programmieren',a:'',t:'v',cat:'Technology',en:'to program / code',fr:'programmer',es:'programar',it:'programmare',pt:'programar',ex:'Er kann gut programmieren.'},
+// CULTURE & ARTS
+{w:'Literatur',a:'die',t:'n',cat:'Culture & Arts',en:'literature',fr:'littérature',es:'literatura',it:'letteratura',pt:'literatura',ex:'Ich lese viel Literatur.'},
+{w:'Philosophie',a:'die',t:'n',cat:'Culture & Arts',en:'philosophy',fr:'philosophie',es:'filosofía',it:'filosofia',pt:'filosofia',ex:'Die Philosophie fragt nach dem Sinn.'},
+{w:'Ästhetik',a:'die',t:'n',cat:'Culture & Arts',en:'aesthetics',fr:'esthétique',es:'estética',it:'estetica',pt:'estética',ex:'Die Ästhetik des Gebäudes ist beeindruckend.'},
+{w:'Ausstellung',a:'die',t:'n',cat:'Culture & Arts',en:'exhibition',fr:'exposition',es:'exposición',it:'mostra / esposizione',pt:'exposição',ex:'Die Ausstellung läuft bis Ende des Monats.'},
+{w:'Werk',a:'das',t:'n',cat:'Culture & Arts',en:'work (of art)',fr:'œuvre',es:'obra',it:'opera',pt:'obra',ex:'Das Werk ist ein Meisterwerk.'},
+{w:'Autor',a:'der',t:'n',cat:'Culture & Arts',en:'author / writer',fr:'auteur',es:'autor',it:'autore',pt:'autor',ex:'Der Autor schreibt seinen dritten Roman.'},
+{w:'Epoche',a:'die',t:'n',cat:'Culture & Arts',en:'epoch / era',fr:'époque',es:'época',it:'epoca',pt:'época',ex:'Das Gemälde stammt aus der Barockepoche.'},
+{w:'Metapher',a:'die',t:'n',cat:'Culture & Arts',en:'metaphor',fr:'métaphore',es:'metáfora',it:'metafora',pt:'metáfora',ex:'Das ist eine schöne Metapher.'},
+// COMPLEX ADJECTIVES
+{w:'ambivalent',a:'',t:'adj',cat:'Complex Adjectives',en:'ambivalent',fr:'ambivalent',es:'ambivalente',it:'ambivalente',pt:'ambivalente',ex:'Meine Gefühle sind ambivalent.'},
+{w:'subtil',a:'',t:'adj',cat:'Complex Adjectives',en:'subtle',fr:'subtil',es:'sutil',it:'sottile / sottile',pt:'sutil',ex:'Es ist ein subtiler Unterschied.'},
+{w:'ambitioniert',a:'',t:'adj',cat:'Complex Adjectives',en:'ambitious',fr:'ambitieux',es:'ambicioso',it:'ambizioso',pt:'ambicioso',ex:'Sie ist sehr ambitioniert.'},
+{w:'konservativ',a:'',t:'adj',cat:'Complex Adjectives',en:'conservative',fr:'conservateur',es:'conservador',it:'conservatore',pt:'conservador',ex:'Er hat konservative Ansichten.'},
+{w:'progressiv',a:'',t:'adj',cat:'Complex Adjectives',en:'progressive',fr:'progressiste / progressif',es:'progresista',it:'progressista',pt:'progressista',ex:'Die Partei ist progressiv.'},
+{w:'nachdrücklich',a:'',t:'adj',cat:'Complex Adjectives',en:'emphatic / insistent',fr:'insistant / vif',es:'enfático / insistente',it:'enfatico / insistente',pt:'enfático / insistente',ex:'Ich empfehle das nachdrücklich.'},
+{w:'erheblich',a:'',t:'adj',cat:'Complex Adjectives',en:'considerable / significant',fr:'considérable / important',es:'considerable / significativo',it:'considerevole / significativo',pt:'considerável / significativo',ex:'Das ist ein erheblicher Unterschied.'},
+{w:'ausschlaggebend',a:'',t:'adj',cat:'Complex Adjectives',en:'decisive / crucial',fr:'décisif / déterminant',es:'decisivo / determinante',it:'decisivo / determinante',pt:'decisivo / determinante',ex:'Das war der ausschlaggebende Faktor.'},
+{w:'fragwürdig',a:'',t:'adj',cat:'Complex Adjectives',en:'questionable / dubious',fr:'douteux / discutable',es:'cuestionable / dudoso',it:'discutibile / dubbio',pt:'questionável / duvidoso',ex:'Das Verhalten ist fragwürdig.'},
+{w:'vielversprechend',a:'',t:'adj',cat:'Complex Adjectives',en:'promising',fr:'prometteur',es:'prometedor',it:'promettente',pt:'promissor',ex:'Das ist ein vielversprechender Ansatz.'},
+{w:'umstritten',a:'',t:'adj',cat:'Complex Adjectives',en:'controversial / disputed',fr:'controversé / contesté',es:'controvertido / polémico',it:'controverso',pt:'controverso / polêmico',ex:'Das Thema ist sehr umstritten.'},
+{w:'tiefgreifend',a:'',t:'adj',cat:'Complex Adjectives',en:'profound / far-reaching',fr:'profond / radical',es:'profundo / de gran alcance',it:'profondo / radicale',pt:'profundo / radical',ex:'Das ist eine tiefgreifende Veränderung.'},
+// COMPLEX VERBS B2
+{w:'in Betracht ziehen',a:'',t:'v',cat:'Complex Verbs B2',en:'to consider / take into account',fr:'prendre en considération',es:'considerar / tomar en cuenta',it:'prendere in considerazione',pt:'considerar / levar em conta',ex:'Das sollten wir in Betracht ziehen.'},
+{w:'sich auseinandersetzen mit',a:'',t:'v',cat:'Complex Verbs B2',en:'to deal with / engage with',fr:'s\'occuper de / se confronter à',es:'tratar / ocuparse de',it:'confrontarsi con / occuparsi di',pt:'lidar com / se debruçar sobre',ex:'Ich setze mich mit dem Problem auseinander.'},
+{w:'in Anspruch nehmen',a:'',t:'v',cat:'Complex Verbs B2',en:'to make use of / claim',fr:'utiliser / recourir à',es:'hacer uso de / recurrir a',it:'avvalersi di / utilizzare',pt:'fazer uso de / recorrer a',ex:'Ich nehme das Angebot in Anspruch.'},
+{w:'berücksichtigen',a:'',t:'v',cat:'Complex Verbs B2',en:'to take into account / consider',fr:'prendre en compte',es:'tener en cuenta / considerar',it:'tenere conto di',pt:'levar em consideração',ex:'Das muss berücksichtigt werden.'},
+{w:'gewährleisten',a:'',t:'v',cat:'Complex Verbs B2',en:'to ensure / guarantee',fr:'garantir / assurer',es:'garantizar / asegurar',it:'garantire / assicurare',pt:'garantir / assegurar',ex:'Das muss gewährleistet sein.'},
+{w:'sich herausstelllen',a:'',t:'v',cat:'Complex Verbs B2',en:'to turn out / emerge',fr:'s\'avérer / se révéler',es:'resultar / revelarse',it:'risultare / rivelarsi',pt:'revelar-se / resultar',ex:'Es stellte sich heraus, dass er Recht hatte.'},
+{w:'verdeutlichen',a:'',t:'v',cat:'Complex Verbs B2',en:'to clarify / make clear',fr:'clarifier / rendre clair',es:'aclarar / poner de manifiesto',it:'chiarire / mettere in chiaro',pt:'esclarecer / deixar claro',ex:'Das verdeutlicht das Problem.'},
+{w:'beeinträchtigen',a:'',t:'v',cat:'Complex Verbs B2',en:'to impair / affect negatively',fr:'nuire à / affecter',es:'perjudicar / afectar negativamente',it:'pregiudicare / influire negativamente',pt:'prejudicar / afetar negativamente',ex:'Das beeinträchtigt meine Konzentration.'},
+{w:'voraussetzen',a:'',t:'v',cat:'Complex Verbs B2',en:'to presuppose / require',fr:'présupposer / exiger',es:'presuponer / requerir',it:'presupporre / richiedere',pt:'pressupor / requerer',ex:'Das setzt gute Kenntnisse voraus.'},
+{w:'zurückzuführen sein auf',a:'',t:'v',cat:'Complex Verbs B2',en:'to be attributable to',fr:'être dû à / être attribuable à',es:'atribuirse a / deberse a',it:'essere attribuibile a',pt:'ser atribuível a',ex:'Das ist auf den Klimawandel zurückzuführen.'},
+// DISCOURSE MARKERS & ACADEMIC ADVERBS
+{w:'demnach',a:'',t:'adv',cat:'Discourse Markers',en:'therefore / accordingly',fr:'donc / par conséquent',es:'por tanto / en consecuencia',it:'quindi / di conseguenza',pt:'portanto / consequentemente',ex:'Demnach ist die Theorie falsch.'},
+{w:'folglich',a:'',t:'adv',cat:'Discourse Markers',en:'consequently / thus',fr:'par conséquent / donc',es:'por consiguiente / en consecuencia',it:'di conseguenza / quindi',pt:'consequentemente / portanto',ex:'Folglich müssen wir handeln.'},
+{w:'überdies',a:'',t:'adv',cat:'Discourse Markers',en:'moreover / furthermore',fr:'de surcroît / en outre',es:'además / por otra parte',it:'inoltre / per di più',pt:'além disso / ademais',ex:'Überdies ist es teuer.'},
+{w:'gleichwohl',a:'',t:'adv',cat:'Discourse Markers',en:'nonetheless / nevertheless',fr:'néanmoins / pourtant',es:'sin embargo / no obstante',it:'eppure / ciononostante',pt:'não obstante / ainda assim',ex:'Gleichwohl versuche ich es.'},
+{w:'infolgedessen',a:'',t:'adv',cat:'Discourse Markers',en:'as a result / consequently',fr:'par suite / en conséquence',es:'como resultado / por consiguiente',it:'di conseguenza / per questo motivo',pt:'como resultado / em consequência',ex:'Infolgedessen mussten wir umplanen.'},
+{w:'insofern',a:'',t:'adv',cat:'Discourse Markers',en:'in so far as / in that respect',fr:'dans la mesure où / en ce sens',es:'en la medida en que / en ese sentido',it:'nella misura in cui / in tal senso',pt:'na medida em que / nesse sentido',ex:'Insofern hat er Recht.'},
+{w:'nichtsdestotrotz',a:'',t:'adv',cat:'Discourse Markers',en:'nevertheless / nonetheless',fr:'néanmoins / malgré tout',es:'no obstante / a pesar de todo',it:'ciononostante / nondimeno',pt:'não obstante / ainda assim',ex:'Nichtsdestotrotz gebe ich nicht auf.'},
+{w:'im Hinblick auf',a:'',t:'prep',cat:'Discourse Markers',en:'with regard to / in view of',fr:'au regard de / eu égard à',es:'con respecto a / en relación con',it:'per quanto riguarda / in relazione a',pt:'com relação a / no que diz respeito a',ex:'Im Hinblick auf die Kosten ist es günstig.'},
+{w:'angesichts',a:'',t:'prep',cat:'Discourse Markers',en:'in view of / given',fr:'au vu de / vu',es:'en vista de / dado que',it:'alla luce di / visto',pt:'diante de / à luz de',ex:'Angesichts der Krise müssen wir handeln.'},
+{w:'im Zuge',a:'',t:'prep',cat:'Discourse Markers',en:'in the course of / as part of',fr:'dans le cadre de / au fil de',es:'en el marco de / en el curso de',it:'nel corso di / nel contesto di',pt:'no curso de / no contexto de',ex:'Im Zuge der Digitalisierung ändert sich viel.'},
+// B2 COMPLEX EXPRESSIONS
+{w:'zur Debatte stehen',a:'',t:'exp',cat:'B2 Expressions',en:'to be up for debate / under discussion',fr:'être en débat / être discuté',es:'estar en debate / estar en discusión',it:'essere in discussione',pt:'estar em debate',ex:'Das Thema steht zur Debatte.'},
+{w:'ins Gewicht fallen',a:'',t:'exp',cat:'B2 Expressions',en:'to carry weight / be significant',fr:'avoir de l\'importance / peser lourd',es:'tener peso / ser significativo',it:'avere peso / essere significativo',pt:'ter peso / ser significativo',ex:'Dieses Argument fällt ins Gewicht.'},
+{w:'auf dem Spiel stehen',a:'',t:'exp',cat:'B2 Expressions',en:'to be at stake',fr:'être en jeu',es:'estar en juego',it:'essere in gioco',pt:'estar em jogo',ex:'Viel steht auf dem Spiel.'},
+{w:'den Finger auf die Wunde legen',a:'',t:'exp',cat:'B2 Expressions',en:'to put one\'s finger on the sore spot',fr:'mettre le doigt sur la plaie',es:'poner el dedo en la llaga',it:'mettere il dito nella piaga',pt:'tocar na ferida',ex:'Er legt den Finger auf die Wunde.'},
+{w:'unter einem Dach sein',a:'',t:'exp',cat:'B2 Expressions',en:'to be under one roof',fr:'être sous un même toit',es:'estar bajo un mismo techo',it:'essere sotto lo stesso tetto',pt:'estar sob o mesmo teto',ex:'Alle Abteilungen sind jetzt unter einem Dach.'},
+{w:'es auf den Tisch legen',a:'',t:'exp',cat:'B2 Expressions',en:'to put it on the table / be transparent',fr:'mettre les choses sur la table',es:'poner las cartas sobre la mesa',it:'mettere le carte in tavola',pt:'colocar as cartas na mesa',ex:'Legen wir es auf den Tisch!'},
+{w:'über den Tellerrand schauen',a:'',t:'exp',cat:'B2 Expressions',en:'to think outside the box / broaden one\'s horizons',fr:'voir au-delà de son assiette / penser hors des sentiers battus',es:'mirar más allá / pensar fuera de la caja',it:'guardare oltre / pensare fuori dagli schemi',pt:'pensar além / pensar fora da caixa',ex:'Wir müssen über den Tellerrand schauen.'},
+{w:'im großen und ganzen',a:'',t:'exp',cat:'B2 Expressions',en:'on the whole / by and large',fr:'dans l\'ensemble / globalement',es:'en términos generales / en conjunto',it:'nel complesso / nell\'insieme',pt:'em geral / no geral',ex:'Im großen und ganzen bin ich zufrieden.'},
+// ETHICS & VALUES
+{w:'Ethik',a:'die',t:'n',cat:'Ethics & Values',en:'ethics',fr:'éthique',es:'ética',it:'etica',pt:'ética',ex:'Ethik spielt eine wichtige Rolle.'},
+{w:'Moral',a:'die',t:'n',cat:'Ethics & Values',en:'morality / morals',fr:'moralité / morale',es:'moralidad / moral',it:'moralità / morale',pt:'moralidade / moral',ex:'Er hat keine Moral.'},
+{w:'Integrität',a:'die',t:'n',cat:'Ethics & Values',en:'integrity',fr:'intégrité',es:'integridad',it:'integrità',pt:'integridade',ex:'Integrität ist wichtig.'},
+{w:'Transparenz',a:'die',t:'n',cat:'Ethics & Values',en:'transparency',fr:'transparence',es:'transparencia',it:'trasparenza',pt:'transparência',ex:'Transparenz schafft Vertrauen.'},
+{w:'Rechenschaft',a:'die',t:'n',cat:'Ethics & Values',en:'accountability',fr:'responsabilité / reddition de comptes',es:'rendición de cuentas / responsabilidad',it:'responsabilità / rendiconto',pt:'responsabilização / prestação de contas',ex:'Er muss Rechenschaft ablegen.'},
+{w:'Würde',a:'die',t:'n',cat:'Ethics & Values',en:'dignity',fr:'dignité',es:'dignidad',it:'dignità',pt:'dignidade',ex:'Jeder Mensch hat Würde.'},
+// PSYCHOLOGY B2
+{w:'Bewusstsein',a:'das',t:'n',cat:'Psychology B2',en:'consciousness / awareness',fr:'conscience',es:'conciencia',it:'coscienza / consapevolezza',pt:'consciência',ex:'Das Bewusstsein für das Problem wächst.'},
+{w:'Unterbewusstsein',a:'das',t:'n',cat:'Psychology B2',en:'subconscious',fr:'subconscient',es:'subconsciente',it:'subconscio',pt:'subconsciente',ex:'Das Unterbewusstsein steuert viel.'},
+{w:'Wahrnehmung',a:'die',t:'n',cat:'Psychology B2',en:'perception',fr:'perception',es:'percepción',it:'percezione',pt:'percepção',ex:'Unsere Wahrnehmung wird beeinflusst.'},
+{w:'Instinkt',a:'der',t:'n',cat:'Psychology B2',en:'instinct',fr:'instinct',es:'instinto',it:'istinto',pt:'instinto',ex:'Er folgt seinem Instinkt.'},
+{w:'Empathie',a:'die',t:'n',cat:'Psychology B2',en:'empathy',fr:'empathie',es:'empatía',it:'empatia',pt:'empatia',ex:'Empathie ist eine wichtige Eigenschaft.'},
+{w:'Frustration',a:'die',t:'n',cat:'Psychology B2',en:'frustration',fr:'frustration',es:'frustración',it:'frustrazione',pt:'frustração',ex:'Die Frustration wächst.'},
+// CONJUNCTIONS B2
+{w:'wenngleich',a:'',t:'conj',cat:'Conjunctions B2',en:'although / even though',fr:'bien que / quoique',es:'aunque / si bien',it:'sebbene / benché',pt:'embora / ainda que',ex:'Wenngleich es schwer ist, gebe ich nicht auf.'},
+{w:'sofern',a:'',t:'conj',cat:'Conjunctions B2',en:'provided that / as long as',fr:'pourvu que / à condition que',es:'siempre que / con tal de que',it:'purché / a condizione che',pt:'desde que / contanto que',ex:'Ich helfe, sofern du mich bittest.'},
+{w:'sodass',a:'',t:'conj',cat:'Conjunctions B2',en:'so that / with the result that',fr:'de sorte que / si bien que',es:'de modo que / de forma que',it:'così che / in modo che',pt:'de modo que / de forma que',ex:'Er lernte hart, sodass er bestand.'},
+{w:'indem',a:'',t:'conj',cat:'Conjunctions B2',en:'by (doing) / in that',fr:'en (faisant) / de sorte que',es:'al / haciendo',it:'facendo / mentre',pt:'ao / fazendo',ex:'Er hilft, indem er zuhört.'},
+{w:'zumal',a:'',t:'conj',cat:'Conjunctions B2',en:'all the more so as / especially since',fr:'d\'autant plus que',es:'tanto más cuanto que / especialmente porque',it:'tanto più che',pt:'tanto mais que',ex:'Das ist schwierig, zumal er krank ist.'},
+// MEDIA & DISCOURSE B2
+{w:'Glaubwürdigkeit',a:'die',t:'n',cat:'Media & Discourse',en:'credibility',fr:'crédibilité',es:'credibilidad',it:'credibilità',pt:'credibilidade',ex:'Die Glaubwürdigkeit der Quelle ist wichtig.'},
+{w:'Propaganda',a:'die',t:'n',cat:'Media & Discourse',en:'propaganda',fr:'propagande',es:'propaganda',it:'propaganda',pt:'propaganda',ex:'Propaganda manipuliert die Meinungen.'},
+{w:'Manipulation',a:'die',t:'n',cat:'Media & Discourse',en:'manipulation',fr:'manipulation',es:'manipulación',it:'manipolazione',pt:'manipulação',ex:'Manipulation ist gefährlich.'},
+{w:'Meinungsfreiheit',a:'die',t:'n',cat:'Media & Discourse',en:'freedom of speech / opinion',fr:'liberté d\'expression',es:'libertad de expresión',it:'libertà di espressione',pt:'liberdade de expressão',ex:'Meinungsfreiheit ist ein Grundrecht.'},
+{w:'Zensur',a:'die',t:'n',cat:'Media & Discourse',en:'censorship',fr:'censure',es:'censura',it:'censura',pt:'censura',ex:'Zensur widerspricht der Freiheit.'},
+{w:'Algorithmus',a:'der',t:'n',cat:'Media & Discourse',en:'algorithm',fr:'algorithme',es:'algoritmo',it:'algoritmo',pt:'algoritmo',ex:'Der Algorithmus bestimmt, was wir sehen.'},
+// ENVIRONMENT B2
+{w:'Ökosystem',a:'das',t:'n',cat:'Environment B2',en:'ecosystem',fr:'écosystème',es:'ecosistema',it:'ecosistema',pt:'ecossistema',ex:'Das Ökosystem ist bedroht.'},
+{w:'Biodiversität',a:'die',t:'n',cat:'Environment B2',en:'biodiversity',fr:'biodiversité',es:'biodiversidad',it:'biodiversità',pt:'biodiversidade',ex:'Biodiversität ist lebenswichtig.'},
+{w:'Emission',a:'die',t:'n',cat:'Environment B2',en:'emission',fr:'émission',es:'emisión',it:'emissione',pt:'emissão',ex:'Emissionen müssen reduziert werden.'},
+{w:'fossile Brennstoffe',a:'die',t:'n',cat:'Environment B2',en:'fossil fuels',fr:'combustibles fossiles',es:'combustibles fósiles',it:'combustibili fossili',pt:'combustíveis fósseis',ex:'Fossile Brennstoffe schaden dem Klima.'},
+{w:'erneuerbare Energien',a:'die',t:'n',cat:'Environment B2',en:'renewable energies',fr:'énergies renouvelables',es:'energías renovables',it:'energie rinnovabili',pt:'energias renováveis',ex:'Erneuerbare Energien sind die Zukunft.'},
+// HEALTH & MEDICINE B2
+{w:'Diagnose',a:'die',t:'n',cat:'Health B2',en:'diagnosis',fr:'diagnostic',es:'diagnóstico',it:'diagnosi',pt:'diagnóstico',ex:'Die Diagnose kam überraschend.'},
+{w:'Symptom',a:'das',t:'n',cat:'Health B2',en:'symptom',fr:'symptôme',es:'síntoma',it:'sintomo',pt:'sintoma',ex:'Das Symptom ist eindeutig.'},
+{w:'Nebenwirkung',a:'die',t:'n',cat:'Health B2',en:'side effect',fr:'effet secondaire',es:'efecto secundario',it:'effetto collaterale',pt:'efeito colateral',ex:'Das Medikament hat Nebenwirkungen.'},
+{w:'Prävention',a:'die',t:'n',cat:'Health B2',en:'prevention',fr:'prévention',es:'prevención',it:'prevenzione',pt:'prevenção',ex:'Prävention ist besser als Therapie.'},
+{w:'Rehabilitation',a:'die',t:'n',cat:'Health B2',en:'rehabilitation',fr:'rééducation / réhabilitation',es:'rehabilitación',it:'riabilitazione',pt:'reabilitação',ex:'Die Rehabilitation dauert Monate.'}
+];
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curType='all',curCat='all',curSearch='',curMode='list';
+let flashDeck=[],flashIdx=0,flashKnown=new Set(),flashLearning=new Set(),isFlipped=false;
+function t(k){return(UI[CL]||UI.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){el.placeholder=t(el.getAttribute('data-t-placeholder'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+  buildCatDropdown();renderList();if(curMode==='flash')renderCard();
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+function typeName(c){var m={n:'tname_n',v:'tname_v',adj:'tname_adj',adv:'tname_adv',exp:'tname_exp',prep:'tname_prep',conj:'tname_conj',num:'tname_num',pron:'tname_pron'};return t(m[c]||c);}
+function typeBadge(c){return '<span class="type-badge tb-'+c+'">'+typeName(c)+'</span>';}
+function filtered(){return VOCAB.filter(function(w){if(curType!=='all'&&w.t!==curType)return false;if(curCat!=='all'&&w.cat!==curCat)return false;if(curSearch){var s=curSearch.toLowerCase();if(!(w.w.toLowerCase().includes(s)||(w[CL]&&w[CL].toLowerCase().includes(s))||w.en.toLowerCase().includes(s)))return false;}return true;});}
+function buildCatDropdown(){var sel=document.getElementById('cat-select');var cats=[...new Set(VOCAB.map(function(w){return w.cat;}))].sort();sel.innerHTML='<option value="all">'+t('cat_all')+'</option>';cats.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;if(c===curCat)o.selected=true;sel.appendChild(o);});}
+function renderList(){var data=filtered();var tbody=document.getElementById('word-tbody');var noRes=document.getElementById('no-results');document.getElementById('word-count').textContent=t('wc_showing')+' '+data.length+' '+t('wc_of')+' '+VOCAB.length+' '+t('wc_words');if(data.length===0){tbody.innerHTML='';noRes.style.display='block';return;}noRes.style.display='none';tbody.innerHTML=data.map(function(w){return '<tr><td class="de-word">'+(w.a?'<span class="de-art">'+w.a+'</span>':'')+w.w+'</td><td>'+typeBadge(w.t)+'</td><td>'+w.cat+'</td><td>'+(w[CL]||w.en)+'</td><td class="ex-text">'+w.ex+'</td></tr>';}).join('');}
+function setType(type){curType=type;document.querySelectorAll('[data-type]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-type')===type);});if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function setCat(cat){curCat=cat;if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function doSearch(val){curSearch=val;renderList();}
+function switchMode(mode){curMode=mode;document.getElementById('list-view').style.display=mode==='list'?'block':'none';document.getElementById('flash-view').style.display=mode==='flash'?'block':'none';document.getElementById('tab-list').classList.toggle('on',mode==='list');document.getElementById('tab-flash').classList.toggle('on',mode==='flash');document.getElementById('search-box').style.display=mode==='list'?'inline-block':'none';if(mode==='flash'){initFlash();renderCard();}}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t2=arr[i];arr[i]=arr[j];arr[j]=t2;}return arr;}
+function initFlash(){flashDeck=shuffle(filtered().slice());flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';}
+function renderCard(){if(flashDeck.length===0||flashIdx>=flashDeck.length){document.getElementById('flash-done').style.display='block';document.getElementById('flash-action-btns').style.display='none';document.querySelector('.flash-nav').style.display='none';document.getElementById('done-score').textContent=flashKnown.size;document.getElementById('flash-card').style.display='none';return;}document.getElementById('flash-card').style.display='block';var w=flashDeck[flashIdx];isFlipped=false;document.getElementById('flash-card').classList.remove('flipped');document.getElementById('cf-cat').textContent=w.cat;document.getElementById('cf-art').textContent=w.a||'';document.getElementById('cf-word').textContent=w.w;document.getElementById('cb-cat').textContent=w.cat;document.getElementById('cb-trans').textContent=w[CL]||w.en;document.getElementById('cb-ex').textContent=w.ex;var total=flashDeck.length;document.getElementById('flash-fill').style.width=(flashIdx/total*100)+'%';document.getElementById('flash-counter').textContent=t('card_of')+' '+(flashIdx+1)+' '+t('card_of2')+' '+total;document.getElementById('flash-known').textContent='✓ '+flashKnown.size;document.getElementById('flash-learning').textContent='✗ '+flashLearning.size;}
+function flipCard(){isFlipped=!isFlipped;document.getElementById('flash-card').classList.toggle('flipped',isFlipped);}
+function markCard(know){var w=flashDeck[flashIdx];if(know)flashKnown.add(w.w);else flashLearning.add(w.w);flashIdx++;isFlipped=false;renderCard();}
+function nextCard(){flashIdx=Math.min(flashIdx+1,flashDeck.length-1);isFlipped=false;renderCard();}
+function prevCard(){flashIdx=Math.max(flashIdx-1,0);isFlipped=false;renderCard();}
+function shuffleCards(){shuffle(flashDeck);flashIdx=0;flashKnown=new Set();flashLearning=new Set();renderCard();}
+function restartFlash(){initFlash();renderCard();}
+function reviewLearning(){flashDeck=shuffle(VOCAB.filter(function(w){return flashLearning.has(w.w);}));flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';document.getElementById('flash-card').style.display='block';renderCard();}
+buildCatDropdown();renderList();applyLang();
+</script>
+</body>
+</html>

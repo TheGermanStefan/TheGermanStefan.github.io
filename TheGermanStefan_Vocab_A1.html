@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A1 Vocabulary — TheGermanStefan</title>
+<style>
+:root{--lc:#1464b4;--lc2:#0d47a1;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:52px;z-index:190;}
+.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
+.mode-tab{border:none;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;}
+.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid #ddd;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;}
+.fbtn.on{background:var(--lc);color:#fff;border-color:var(--lc);}
+.fbtn:hover:not(.on){background:var(--off);}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:6px 12px;font-size:13px;min-width:160px;outline:none;color:var(--navy);}
+.search-box:focus{border-color:var(--lc);}
+.cat-select{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;outline:none;}
+#list-view{padding:16px;max-width:1100px;margin:0 auto;}
+.word-count{font-size:12px;color:#888;margin-bottom:10px;}
+.word-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.word-table th{background:var(--lc);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.word-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid #f0f2f8;vertical-align:middle;}
+.word-table tr:last-child td{border-bottom:none;}
+.word-table tr:hover td{background:#f8f9ff;}
+.de-word{font-weight:700;color:var(--navy);}
+.de-art{color:var(--lc);font-weight:600;font-size:12px;margin-right:4px;}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tb-n{background:#e3f2fd;color:#1565c0;}.tb-v{background:#e8f5e9;color:#2e7d32;}.tb-adj{background:#fce4ec;color:#c62828;}.tb-adv{background:#fff3e0;color:#e65100;}.tb-exp{background:#f3e5f5;color:#6a1b9a;}.tb-prep{background:#e0f2f1;color:#00695c;}.tb-conj{background:#fff8e1;color:#f57f17;}.tb-num{background:#fbe9e7;color:#bf360c;}.tb-pron{background:#e8eaf6;color:#283593;}
+.ex-text{font-style:italic;color:#666;font-size:12px;}
+.no-results{text-align:center;padding:40px;color:#999;font-size:14px;}
+#flash-view{display:none;padding:20px 16px;max-width:700px;margin:0 auto;}
+.flash-progress-bar{height:6px;background:#e0e4ee;border-radius:3px;margin-bottom:16px;overflow:hidden;}
+.flash-progress-fill{height:100%;background:var(--lc);border-radius:3px;transition:width .3s;}
+.flash-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;color:#666;}
+.flash-counter{font-weight:700;color:var(--navy);}
+.flash-known{color:#2e7d32;font-weight:700;}.flash-learning{color:#c62828;font-weight:700;}
+.card-wrap{perspective:1000px;margin-bottom:20px;}
+.card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;border-radius:16px;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.10);}
+.card-front{background:#fff;border:2px solid var(--lc);}
+.card-back{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;transform:rotateY(180deg);}
+.card-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);background:rgba(20,100,180,.08);border-radius:20px;padding:3px 12px;margin-bottom:16px;}
+.card-back .card-cat{color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);}
+.card-article{font-size:22px;font-weight:600;color:var(--lc);margin-bottom:4px;}
+.card-word{font-size:38px;font-weight:900;color:var(--navy);letter-spacing:-1px;}
+.card-back .card-word{color:#fff;font-size:32px;}
+.card-translation{font-size:30px;font-weight:800;margin-bottom:12px;}
+.card-example{font-size:14px;opacity:.85;font-style:italic;margin-top:8px;line-height:1.5;}
+.card-hint{font-size:12px;color:#aaa;margin-top:16px;}
+.flash-btns{display:flex;gap:12px;justify-content:center;margin-bottom:16px;}
+.flash-btn{padding:12px 32px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;}
+.btn-know{background:#2e7d32;color:#fff;}.btn-know:hover{background:#1b5e20;}
+.btn-learn{background:#c62828;color:#fff;}.btn-learn:hover{background:#7f0000;}
+.flash-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.flash-nav-btn{padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;}
+.flash-nav-btn:hover{background:var(--off);}
+.flash-done{text-align:center;padding:40px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.flash-done h2{font-size:28px;font-weight:900;margin-bottom:10px;}
+.flash-done .score{font-size:48px;font-weight:900;color:var(--lc);}
+.flash-done p{color:#666;margin-bottom:20px;}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:40px;}
+@media(max-width:600px){.word-table th:nth-child(4),.word-table td:nth-child(4){display:none;}.card-word{font-size:28px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → A1</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Beginner</div>
+  <div class="lvl-name">A1</div>
+  <div class="lvl-desc" data-t="level_desc">Family, food, home, daily life &amp; everyday communication</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" id="total-count">650 words</span>
+    <span class="lvl-stat" data-t="stat_topics">12 topics</span>
+    <span class="lvl-stat" data-t="stat_flash">Flashcards included</span>
+  </div>
+</div>
+<div class="controls">
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-list" onclick="switchMode('list')" data-t="mode_list">📋 Word List</button>
+    <button class="mode-tab" id="tab-flash" onclick="switchMode('flash')" data-t="mode_flash">🃏 Flashcards</button>
+  </div>
+  <div class="filter-row" id="type-filters">
+    <button class="fbtn on" data-type="all" onclick="setType('all')" data-t="type_all">All</button>
+    <button class="fbtn" data-type="n" onclick="setType('n')" data-t="type_n">Nouns</button>
+    <button class="fbtn" data-type="v" onclick="setType('v')" data-t="type_v">Verbs</button>
+    <button class="fbtn" data-type="adj" onclick="setType('adj')" data-t="type_adj">Adjectives</button>
+    <button class="fbtn" data-type="adv" onclick="setType('adv')" data-t="type_adv">Adverbs</button>
+    <button class="fbtn" data-type="exp" onclick="setType('exp')" data-t="type_exp">Expressions</button>
+    <button class="fbtn" data-type="prep" onclick="setType('prep')" data-t="type_prep">Prepositions</button>
+    <button class="fbtn" data-type="pron" onclick="setType('pron')" data-t="type_pron">Pronouns</button>
+    <button class="fbtn" data-type="conj" onclick="setType('conj')" data-t="type_conj">Conjunctions</button>
+  </div>
+  <select class="cat-select" id="cat-select" onchange="setCat(this.value)">
+    <option value="all" data-t="cat_all">All Categories</option>
+  </select>
+  <input class="search-box" id="search-box" placeholder="Search..." oninput="doSearch(this.value)" data-t-placeholder="search_ph">
+</div>
+<div id="list-view">
+  <div class="word-count" id="word-count"></div>
+  <table class="word-table">
+    <thead><tr>
+      <th data-t="col_word">Word</th>
+      <th data-t="col_type">Type</th>
+      <th data-t="col_category">Category</th>
+      <th data-t="col_translation">Translation</th>
+      <th data-t="col_example">Example</th>
+    </tr></thead>
+    <tbody id="word-tbody"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none" data-t="no_results">No words found.</div>
+</div>
+<div id="flash-view">
+  <div class="flash-progress-bar"><div class="flash-progress-fill" id="flash-fill"></div></div>
+  <div class="flash-stats-row">
+    <span class="flash-counter" id="flash-counter"></span>
+    <span><span class="flash-known" id="flash-known">✓ 0</span> &nbsp; <span class="flash-learning" id="flash-learning">✗ 0</span></span>
+  </div>
+  <div class="card-wrap">
+    <div class="card" id="flash-card" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-cat" id="cf-cat"></div>
+        <div class="card-article" id="cf-art"></div>
+        <div class="card-word" id="cf-word"></div>
+        <div class="card-hint" data-t="card_click">Click to reveal translation</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="cb-cat"></div>
+        <div class="card-translation" id="cb-trans"></div>
+        <div class="card-example" id="cb-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div id="flash-done" class="flash-done" style="display:none">
+    <div style="font-size:48px">🎉</div>
+    <h2 data-t="done_title">Round complete!</h2>
+    <div class="score" id="done-score"></div>
+    <p data-t="done_sub">words marked as known this round</p>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="restart_btn">Restart all</button>
+    <button class="flash-nav-btn" onclick="reviewLearning()" data-t="review_btn">Review still learning</button>
+  </div>
+  <div class="flash-btns" id="flash-action-btns">
+    <button class="flash-btn btn-know" onclick="markCard(true)" data-t="btn_know">✓ Know it</button>
+    <button class="flash-btn btn-learn" onclick="markCard(false)" data-t="btn_learn">✗ Still learning</button>
+  </div>
+  <div class="flash-nav">
+    <button class="flash-nav-btn" onclick="prevCard()" data-t="btn_prev">← Previous</button>
+    <button class="flash-nav-btn" onclick="shuffleCards()" data-t="btn_shuffle">🔀 Shuffle</button>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="btn_restart">↺ Restart</button>
+    <button class="flash-nav-btn" onclick="nextCard()" data-t="btn_next">Next →</button>
+  </div>
+</div>
+<div style="text-align:center">
+  <a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a>
+</div>
+<div class="footer">TheGermanStefan — A1 Vocabulary © 2025</div>
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → A1',level_tag:'Beginner',level_desc:'Family, food, home, daily life & everyday communication',stat_topics:'12 topics',stat_flash:'Flashcards included',mode_list:'📋 Word List',mode_flash:'🃏 Flashcards',type_all:'All',type_n:'Nouns',type_v:'Verbs',type_adj:'Adjectives',type_adv:'Adverbs',type_exp:'Expressions',type_prep:'Prepositions',type_pron:'Pronouns',type_conj:'Conjunctions',cat_all:'All Categories',search_ph:'Search...',col_word:'Word',col_type:'Type',col_category:'Category',col_translation:'Translation',col_example:'Example',no_results:'No words found.',card_click:'Click to reveal translation',done_title:'Round complete!',done_sub:'words marked as known this round',restart_btn:'Restart all',review_btn:'Review still learning',btn_know:'✓ Know it',btn_learn:'✗ Still learning',btn_prev:'← Previous',btn_shuffle:'🔀 Shuffle',btn_restart:'↺ Restart',btn_next:'Next →',back_hub:'← Back to Vocabulary Hub',wc_showing:'Showing',wc_of:'of',wc_words:'words',card_of:'Card',card_of2:'of',tname_n:'Noun',tname_v:'Verb',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Number',tname_pron:'Pronoun'},
+fr:{crumb:'📚 Centre Vocab → A1',level_tag:'Débutant',level_desc:'Famille, nourriture, maison, vie quotidienne et communication',stat_topics:'12 thèmes',stat_flash:'Cartes incluses',mode_list:'📋 Liste de mots',mode_flash:'🃏 Cartes',type_all:'Tout',type_n:'Noms',type_v:'Verbes',type_adj:'Adjectifs',type_adv:'Adverbes',type_exp:'Expressions',type_prep:'Prépositions',type_pron:'Pronoms',type_conj:'Conjonctions',cat_all:'Toutes catégories',search_ph:'Rechercher...',col_word:'Mot',col_type:'Type',col_category:'Catégorie',col_translation:'Traduction',col_example:'Exemple',no_results:'Aucun mot trouvé.',card_click:'Cliquez pour révéler',done_title:'Série terminée !',done_sub:'mots marqués comme sus',restart_btn:'Recommencer',review_btn:'Revoir à apprendre',btn_know:'✓ Je sais',btn_learn:'✗ À revoir',btn_prev:'← Précédent',btn_shuffle:'🔀 Mélanger',btn_restart:'↺ Recommencer',btn_next:'Suivant →',back_hub:'← Retour au Hub',wc_showing:'Affichage',wc_of:'sur',wc_words:'mots',card_of:'Carte',card_of2:'sur',tname_n:'Nom',tname_v:'Verbe',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prép.',tname_conj:'Conj.',tname_num:'Nombre',tname_pron:'Pronom'},
+es:{crumb:'📚 Centro Vocab → A1',level_tag:'Principiante',level_desc:'Familia, comida, hogar, vida diaria y comunicación cotidiana',stat_topics:'12 temas',stat_flash:'Tarjetas incluidas',mode_list:'📋 Lista de palabras',mode_flash:'🃏 Tarjetas',type_all:'Todo',type_n:'Sustantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Adverbios',type_exp:'Expresiones',type_prep:'Preposiciones',type_pron:'Pronombres',type_conj:'Conjunciones',cat_all:'Todas las categorías',search_ph:'Buscar...',col_word:'Palabra',col_type:'Tipo',col_category:'Categoría',col_translation:'Traducción',col_example:'Ejemplo',no_results:'No se encontraron palabras.',card_click:'Haz clic para revelar',done_title:'¡Ronda completa!',done_sub:'palabras marcadas como conocidas',restart_btn:'Reiniciar todo',review_btn:'Repasar pendientes',btn_know:'✓ Lo sé',btn_learn:'✗ Repasando',btn_prev:'← Anterior',btn_shuffle:'🔀 Mezclar',btn_restart:'↺ Reiniciar',btn_next:'Siguiente →',back_hub:'← Volver al Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palabras',card_of:'Tarjeta',card_of2:'de',tname_n:'Sust.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expresión',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'},
+it:{crumb:'📚 Centro Vocab → A1',level_tag:'Principiante',level_desc:'Famiglia, cibo, casa, vita quotidiana e comunicazione',stat_topics:'12 argomenti',stat_flash:'Schede incluse',mode_list:'📋 Lista parole',mode_flash:'🃏 Schede',type_all:'Tutto',type_n:'Sostantivi',type_v:'Verbi',type_adj:'Aggettivi',type_adv:'Avverbi',type_exp:'Espressioni',type_prep:'Preposizioni',type_pron:'Pronomi',type_conj:'Congiunzioni',cat_all:'Tutte le categorie',search_ph:'Cerca...',col_word:'Parola',col_type:'Tipo',col_category:'Categoria',col_translation:'Traduzione',col_example:'Esempio',no_results:'Nessuna parola trovata.',card_click:'Clicca per rivelare',done_title:'Round completato!',done_sub:'parole segnate come conosciute',restart_btn:'Ricominciare',review_btn:'Rivedere da imparare',btn_know:'✓ Lo so',btn_learn:'✗ Da rivedere',btn_prev:'← Precedente',btn_shuffle:'🔀 Mescola',btn_restart:'↺ Ricomincia',btn_next:'Successivo →',back_hub:'← Torna all\'Hub',wc_showing:'Mostrando',wc_of:'di',wc_words:'parole',card_of:'Scheda',card_of2:'di',tname_n:'Sost.',tname_v:'Verbo',tname_adj:'Agg.',tname_adv:'Avv.',tname_exp:'Espressione',tname_prep:'Prep.',tname_conj:'Cong.',tname_num:'Numero',tname_pron:'Pron.'},
+pt:{crumb:'📚 Centro Vocab → A1',level_tag:'Iniciante',level_desc:'Família, comida, casa, vida diária e comunicação cotidiana',stat_topics:'12 tópicos',stat_flash:'Flashcards incluídos',mode_list:'📋 Lista de palavras',mode_flash:'🃏 Flashcards',type_all:'Tudo',type_n:'Substantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Advérbios',type_exp:'Expressões',type_prep:'Preposições',type_pron:'Pronomes',type_conj:'Conjunções',cat_all:'Todas as categorias',search_ph:'Pesquisar...',col_word:'Palavra',col_type:'Tipo',col_category:'Categoria',col_translation:'Tradução',col_example:'Exemplo',no_results:'Nenhuma palavra encontrada.',card_click:'Clique para revelar',done_title:'Rodada concluída!',done_sub:'palavras marcadas como conhecidas',restart_btn:'Reiniciar tudo',review_btn:'Rever ainda aprendendo',btn_know:'✓ Já sei',btn_learn:'✗ Ainda aprendendo',btn_prev:'← Anterior',btn_shuffle:'🔀 Embaralhar',btn_restart:'↺ Reiniciar',btn_next:'Próximo →',back_hub:'← Voltar ao Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palavras',card_of:'Card',card_of2:'de',tname_n:'Subst.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expressão',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'}
+};
+const VOCAB=[
+// FAMILY
+{w:'Onkel',a:'der',t:'n',cat:'Family',en:'uncle',fr:'oncle',es:'tío',it:'zio',pt:'tio',ex:'Mein Onkel wohnt in München.'},
+{w:'Tante',a:'die',t:'n',cat:'Family',en:'aunt',fr:'tante',es:'tía',it:'zia',pt:'tia',ex:'Meine Tante backt guten Kuchen.'},
+{w:'Cousin',a:'der',t:'n',cat:'Family',en:'cousin (m)',fr:'cousin',es:'primo',it:'cugino',pt:'primo',ex:'Mein Cousin ist zehn Jahre alt.'},
+{w:'Cousine',a:'die',t:'n',cat:'Family',en:'cousin (f)',fr:'cousine',es:'prima',it:'cugina',pt:'prima',ex:'Meine Cousine wohnt in Berlin.'},
+{w:'Sohn',a:'der',t:'n',cat:'Family',en:'son',fr:'fils',es:'hijo',it:'figlio',pt:'filho',ex:'Ihr Sohn ist drei Jahre alt.'},
+{w:'Tochter',a:'die',t:'n',cat:'Family',en:'daughter',fr:'fille',es:'hija',it:'figlia',pt:'filha',ex:'Meine Tochter heißt Emma.'},
+{w:'Ehemann',a:'der',t:'n',cat:'Family',en:'husband',fr:'mari',es:'marido / esposo',it:'marito',pt:'marido',ex:'Ihr Ehemann heißt Peter.'},
+{w:'Ehefrau',a:'die',t:'n',cat:'Family',en:'wife',fr:'femme / épouse',es:'esposa',it:'moglie',pt:'esposa',ex:'Seine Ehefrau ist Ärztin.'},
+{w:'Eltern',a:'die',t:'n',cat:'Family',en:'parents',fr:'parents',es:'padres',it:'genitori',pt:'pais',ex:'Meine Eltern wohnen in Hamburg.'},
+{w:'Geschwister',a:'die',t:'n',cat:'Family',en:'siblings',fr:'frères et sœurs',es:'hermanos',it:'fratelli e sorelle',pt:'irmãos',ex:'Ich habe zwei Geschwister.'},
+{w:'Verwandte',a:'die',t:'n',cat:'Family',en:'relatives',fr:'parents / proches',es:'familiares / parientes',it:'parenti',pt:'parentes',ex:'Wir besuchen unsere Verwandten.'},
+// FOOD & DRINK EXPANDED
+{w:'Frühstück',a:'das',t:'n',cat:'Food & Drink',en:'breakfast',fr:'petit-déjeuner',es:'desayuno',it:'colazione',pt:'café da manhã',ex:'Ich esse Frühstück um 7 Uhr.'},
+{w:'Mittagessen',a:'das',t:'n',cat:'Food & Drink',en:'lunch',fr:'déjeuner',es:'almuerzo',it:'pranzo',pt:'almoço',ex:'Das Mittagessen ist um 12 Uhr.'},
+{w:'Abendessen',a:'das',t:'n',cat:'Food & Drink',en:'dinner',fr:'dîner',es:'cena',it:'cena',pt:'jantar',ex:'Zum Abendessen gibt es Suppe.'},
+{w:'Apfel',a:'der',t:'n',cat:'Food & Drink',en:'apple',fr:'pomme',es:'manzana',it:'mela',pt:'maçã',ex:'Der Apfel ist rot und süß.'},
+{w:'Banane',a:'die',t:'n',cat:'Food & Drink',en:'banana',fr:'banane',es:'plátano / banana',it:'banana',pt:'banana',ex:'Die Banane ist gelb.'},
+{w:'Orange',a:'die',t:'n',cat:'Food & Drink',en:'orange',fr:'orange',es:'naranja',it:'arancia',pt:'laranja',ex:'Die Orange schmeckt sauer.'},
+{w:'Kartoffel',a:'die',t:'n',cat:'Food & Drink',en:'potato',fr:'pomme de terre',es:'patata / papa',it:'patata',pt:'batata',ex:'Ich esse gerne Kartoffeln.'},
+{w:'Tomate',a:'die',t:'n',cat:'Food & Drink',en:'tomato',fr:'tomate',es:'tomate',it:'pomodoro',pt:'tomate',ex:'Die Tomate ist rot.'},
+{w:'Zwiebel',a:'die',t:'n',cat:'Food & Drink',en:'onion',fr:'oignon',es:'cebolla',it:'cipolla',pt:'cebola',ex:'Die Zwiebel macht mich weinen.'},
+{w:'Hähnchen',a:'das',t:'n',cat:'Food & Drink',en:'chicken',fr:'poulet',es:'pollo',it:'pollo',pt:'frango',ex:'Zum Abendessen gibt es Hähnchen.'},
+{w:'Butter',a:'die',t:'n',cat:'Food & Drink',en:'butter',fr:'beurre',es:'mantequilla',it:'burro',pt:'manteiga',ex:'Ich streiche Butter aufs Brot.'},
+{w:'Joghurt',a:'der',t:'n',cat:'Food & Drink',en:'yoghurt',fr:'yaourt',es:'yogur',it:'yogurt',pt:'iogurte',ex:'Ich esse Joghurt zum Frühstück.'},
+{w:'Saft',a:'der',t:'n',cat:'Food & Drink',en:'juice',fr:'jus',es:'jugo / zumo',it:'succo',pt:'suco',ex:'Ein Glas Orangensaft, bitte!'},
+{w:'Mineralwasser',a:'das',t:'n',cat:'Food & Drink',en:'mineral water',fr:'eau minérale',es:'agua mineral',it:'acqua minerale',pt:'água mineral',ex:'Ich möchte ein Mineralwasser.'},
+{w:'Schokolade',a:'die',t:'n',cat:'Food & Drink',en:'chocolate',fr:'chocolat',es:'chocolate',it:'cioccolato',pt:'chocolate',ex:'Ich liebe Schokolade!'},
+{w:'Reis',a:'der',t:'n',cat:'Food & Drink',en:'rice',fr:'riz',es:'arroz',it:'riso',pt:'arroz',ex:'Ich esse Reis mit Gemüse.'},
+{w:'Nudeln',a:'die',t:'n',cat:'Food & Drink',en:'pasta / noodles',fr:'pâtes / nouilles',es:'fideos / pasta',it:'pasta / spaghetti',pt:'macarrão',ex:'Nudeln mit Soße sind lecker.'},
+{w:'lecker',a:'',t:'adj',cat:'Food & Drink',en:'delicious / tasty',fr:'délicieux',es:'delicioso / rico',it:'delizioso / buono',pt:'delicioso / gostoso',ex:'Das Essen ist sehr lecker!'},
+{w:'süß',a:'',t:'adj',cat:'Food & Drink',en:'sweet',fr:'sucré / mignon',es:'dulce / lindo',it:'dolce / carino',pt:'doce / bonitinho',ex:'Der Kuchen ist sehr süß.'},
+{w:'sauer',a:'',t:'adj',cat:'Food & Drink',en:'sour / acidic',fr:'aigre / acide',es:'ácido / agrio',it:'acido / aspro',pt:'azedo / ácido',ex:'Die Zitrone ist sauer.'},
+{w:'scharf',a:'',t:'adj',cat:'Food & Drink',en:'spicy / hot',fr:'épicé / piquant',es:'picante',it:'piccante',pt:'apimentado / picante',ex:'Das Curry ist zu scharf.'},
+{w:'salzig',a:'',t:'adj',cat:'Food & Drink',en:'salty',fr:'salé',es:'salado',it:'salato',pt:'salgado',ex:'Die Chips sind salzig.'},
+// HOME & FURNITURE
+{w:'Wohnzimmer',a:'das',t:'n',cat:'Home & Furniture',en:'living room',fr:'salon',es:'sala de estar',it:'soggiorno',pt:'sala de estar',ex:'Wir sitzen im Wohnzimmer.'},
+{w:'Schlafzimmer',a:'das',t:'n',cat:'Home & Furniture',en:'bedroom',fr:'chambre à coucher',es:'dormitorio / habitación',it:'camera da letto',pt:'quarto',ex:'Das Schlafzimmer ist oben.'},
+{w:'Badezimmer',a:'das',t:'n',cat:'Home & Furniture',en:'bathroom',fr:'salle de bain',es:'cuarto de baño',it:'bagno',pt:'banheiro',ex:'Das Badezimmer ist sauber.'},
+{w:'Sofa',a:'das',t:'n',cat:'Home & Furniture',en:'sofa / couch',fr:'canapé',es:'sofá',it:'divano',pt:'sofá',ex:'Ich sitze auf dem Sofa.'},
+{w:'Schrank',a:'der',t:'n',cat:'Home & Furniture',en:'wardrobe / cupboard',fr:'armoire',es:'armario',it:'armadio',pt:'armário',ex:'Die Kleider hängen im Schrank.'},
+{w:'Regal',a:'das',t:'n',cat:'Home & Furniture',en:'shelf / bookcase',fr:'étagère',es:'estantería',it:'scaffale',pt:'prateleira / estante',ex:'Das Buch steht im Regal.'},
+{w:'Lampe',a:'die',t:'n',cat:'Home & Furniture',en:'lamp / light',fr:'lampe',es:'lámpara',it:'lampada',pt:'lâmpada',ex:'Die Lampe gibt Licht.'},
+{w:'Dusche',a:'die',t:'n',cat:'Home & Furniture',en:'shower',fr:'douche',es:'ducha',it:'doccia',pt:'chuveiro',ex:'Ich dusche jeden Morgen.'},
+{w:'Waschmaschine',a:'die',t:'n',cat:'Home & Furniture',en:'washing machine',fr:'machine à laver',es:'lavadora',it:'lavatrice',pt:'máquina de lavar',ex:'Die Waschmaschine läuft.'},
+{w:'Kühlschrank',a:'der',t:'n',cat:'Home & Furniture',en:'refrigerator / fridge',fr:'réfrigérateur',es:'nevera / frigorífico',it:'frigorifero',pt:'geladeira',ex:'Die Milch ist im Kühlschrank.'},
+{w:'Herd',a:'der',t:'n',cat:'Home & Furniture',en:'cooker / stove',fr:'cuisinière',es:'cocina / fogón',it:'cucina / fornello',pt:'fogão',ex:'Ich koche auf dem Herd.'},
+{w:'Spiegel',a:'der',t:'n',cat:'Home & Furniture',en:'mirror',fr:'miroir',es:'espejo',it:'specchio',pt:'espelho',ex:'Ich schaue in den Spiegel.'},
+{w:'Teppich',a:'der',t:'n',cat:'Home & Furniture',en:'carpet / rug',fr:'tapis',es:'alfombra',it:'tappeto',pt:'tapete',ex:'Der Teppich ist weich.'},
+{w:'Vorhang',a:'der',t:'n',cat:'Home & Furniture',en:'curtain',fr:'rideau',es:'cortina',it:'tenda',pt:'cortina',ex:'Die Vorhänge sind blau.'},
+{w:'Treppe',a:'die',t:'n',cat:'Home & Furniture',en:'stairs / staircase',fr:'escalier',es:'escaleras',it:'scala',pt:'escada',ex:'Die Treppe führt nach oben.'},
+{w:'Garten',a:'der',t:'n',cat:'Home & Furniture',en:'garden',fr:'jardin',es:'jardín',it:'giardino',pt:'jardim',ex:'Der Garten ist groß und grün.'},
+// PROFESSIONS
+{w:'Arzt',a:'der',t:'n',cat:'Professions',en:'doctor (m)',fr:'médecin (m)',es:'médico',it:'medico',pt:'médico',ex:'Der Arzt ist sehr nett.'},
+{w:'Ärztin',a:'die',t:'n',cat:'Professions',en:'doctor (f)',fr:'médecin (f)',es:'médica',it:'medica',pt:'médica',ex:'Die Ärztin untersucht den Patienten.'},
+{w:'Krankenschwester',a:'die',t:'n',cat:'Professions',en:'nurse (f)',fr:'infirmière',es:'enfermera',it:'infermiera',pt:'enfermeira',ex:'Die Krankenschwester ist hilfsbereit.'},
+{w:'Krankenpfleger',a:'der',t:'n',cat:'Professions',en:'nurse (m)',fr:'infirmier',es:'enfermero',it:'infermiere',pt:'enfermeiro',ex:'Der Krankenpfleger arbeitet nachts.'},
+{w:'Polizist',a:'der',t:'n',cat:'Professions',en:'police officer (m)',fr:'policier',es:'policía (m)',it:'poliziotto',pt:'policial (m)',ex:'Der Polizist hilft den Menschen.'},
+{w:'Feuerwehrmann',a:'der',t:'n',cat:'Professions',en:'firefighter',fr:'pompier',es:'bombero',it:'pompiere',pt:'bombeiro',ex:'Der Feuerwehrmann löscht den Brand.'},
+{w:'Koch',a:'der',t:'n',cat:'Professions',en:'cook / chef (m)',fr:'cuisinier / chef',es:'cocinero',it:'cuoco',pt:'cozinheiro',ex:'Der Koch kocht sehr gut.'},
+{w:'Köchin',a:'die',t:'n',cat:'Professions',en:'cook / chef (f)',fr:'cuisinière',es:'cocinera',it:'cuoca',pt:'cozinheira',ex:'Die Köchin macht leckere Suppe.'},
+{w:'Kellner',a:'der',t:'n',cat:'Professions',en:'waiter',fr:'serveur',es:'camarero',it:'cameriere',pt:'garçom',ex:'Der Kellner bringt die Speisekarte.'},
+{w:'Kellnerin',a:'die',t:'n',cat:'Professions',en:'waitress',fr:'serveuse',es:'camarera',it:'cameriera',pt:'garçonete',ex:'Die Kellnerin ist sehr freundlich.'},
+{w:'Mechaniker',a:'der',t:'n',cat:'Professions',en:'mechanic',fr:'mécanicien',es:'mecánico',it:'meccanico',pt:'mecânico',ex:'Der Mechaniker repariert das Auto.'},
+{w:'Pilot',a:'der',t:'n',cat:'Professions',en:'pilot',fr:'pilote',es:'piloto',it:'pilota',pt:'piloto',ex:'Der Pilot fliegt das Flugzeug.'},
+{w:'Sekretärin',a:'die',t:'n',cat:'Professions',en:'secretary (f)',fr:'secrétaire',es:'secretaria',it:'segretaria',pt:'secretária',ex:'Die Sekretärin schreibt viele Mails.'},
+{w:'Ingenieur',a:'der',t:'n',cat:'Professions',en:'engineer',fr:'ingénieur',es:'ingeniero',it:'ingegnere',pt:'engenheiro',ex:'Der Ingenieur baut Brücken.'},
+{w:'Verkäufer',a:'der',t:'n',cat:'Professions',en:'salesperson (m)',fr:'vendeur',es:'vendedor',it:'venditore',pt:'vendedor',ex:'Der Verkäufer ist im Laden.'},
+// CLOTHING
+{w:'Kleid',a:'das',t:'n',cat:'Clothing',en:'dress',fr:'robe',es:'vestido',it:'vestito',pt:'vestido',ex:'Das Kleid ist sehr schön.'},
+{w:'Hose',a:'die',t:'n',cat:'Clothing',en:'trousers / pants',fr:'pantalon',es:'pantalón',it:'pantaloni',pt:'calça',ex:'Die Hose ist zu klein.'},
+{w:'Hemd',a:'das',t:'n',cat:'Clothing',en:'shirt',fr:'chemise',es:'camisa',it:'camicia',pt:'camisa',ex:'Das Hemd ist weiß.'},
+{w:'Bluse',a:'die',t:'n',cat:'Clothing',en:'blouse',fr:'blouse / chemisier',es:'blusa',it:'camicetta',pt:'blusa',ex:'Die Bluse ist blau und weiß.'},
+{w:'Jacke',a:'die',t:'n',cat:'Clothing',en:'jacket',fr:'veste / blouson',es:'chaqueta',it:'giacca',pt:'jaqueta',ex:'Ich trage eine warme Jacke.'},
+{w:'Mantel',a:'der',t:'n',cat:'Clothing',en:'coat',fr:'manteau',es:'abrigo',it:'cappotto',pt:'casaco',ex:'Der Mantel ist für den Winter.'},
+{w:'Schuhe',a:'die',t:'n',cat:'Clothing',en:'shoes',fr:'chaussures',es:'zapatos',it:'scarpe',pt:'sapatos',ex:'Die Schuhe sind neu.'},
+{w:'Socken',a:'die',t:'n',cat:'Clothing',en:'socks',fr:'chaussettes',es:'calcetines',it:'calzini',pt:'meias',ex:'Ich trage warme Socken.'},
+{w:'Mütze',a:'die',t:'n',cat:'Clothing',en:'hat / beanie',fr:'bonnet / chapeau',es:'gorro / sombrero',it:'berretto / cappello',pt:'gorro / boné',ex:'Die Mütze ist rot.'},
+{w:'Handschuhe',a:'die',t:'n',cat:'Clothing',en:'gloves',fr:'gants',es:'guantes',it:'guanti',pt:'luvas',ex:'Im Winter brauche ich Handschuhe.'},
+{w:'Schal',a:'der',t:'n',cat:'Clothing',en:'scarf',fr:'écharpe',es:'bufanda',it:'sciarpa',pt:'cachecol',ex:'Der Schal ist lang und warm.'},
+{w:'Pullover',a:'der',t:'n',cat:'Clothing',en:'sweater / jumper',fr:'pull',es:'jersey / suéter',it:'maglione',pt:'suéter / blusa de frio',ex:'Der Pullover ist sehr weich.'},
+{w:'Rock',a:'der',t:'n',cat:'Clothing',en:'skirt',fr:'jupe',es:'falda',it:'gonna',pt:'saia',ex:'Der Rock ist kurz und modisch.'},
+{w:'Unterwäsche',a:'die',t:'n',cat:'Clothing',en:'underwear',fr:'sous-vêtements',es:'ropa interior',it:'biancheria intima',pt:'roupa íntima',ex:'Ich brauche neue Unterwäsche.'},
+{w:'tragen',a:'',t:'v',cat:'Clothing',en:'to wear / carry',fr:'porter',es:'llevar / usar',it:'portare / indossare',pt:'usar / carregar',ex:'Ich trage heute ein rotes Kleid.'},
+{w:'anziehen',a:'',t:'v',cat:'Clothing',en:'to put on / dress',fr:'s\'habiller / mettre',es:'ponerse / vestirse',it:'indossare / vestirsi',pt:'vestir / colocar',ex:'Zieh dich an! Wir gehen.'},
+{w:'ausziehen',a:'',t:'v',cat:'Clothing',en:'to take off / undress',fr:'enlever / se déshabiller',es:'quitarse / desvestirse',it:'togliersi / svestirsi',pt:'tirar / despir',ex:'Zieh die Schuhe aus!'},
+// BODY & HEALTH
+{w:'Kopf',a:'der',t:'n',cat:'Body & Health',en:'head',fr:'tête',es:'cabeza',it:'testa',pt:'cabeça',ex:'Ich habe Kopfschmerzen.'},
+{w:'Haar',a:'das',t:'n',cat:'Body & Health',en:'hair',fr:'cheveu / cheveux',es:'pelo / cabello',it:'capello / capelli',pt:'cabelo',ex:'Ihr Haar ist lang und braun.'},
+{w:'Auge',a:'das',t:'n',cat:'Body & Health',en:'eye',fr:'œil',es:'ojo',it:'occhio',pt:'olho',ex:'Sie hat blaue Augen.'},
+{w:'Nase',a:'die',t:'n',cat:'Body & Health',en:'nose',fr:'nez',es:'nariz',it:'naso',pt:'nariz',ex:'Meine Nase ist rot.'},
+{w:'Mund',a:'der',t:'n',cat:'Body & Health',en:'mouth',fr:'bouche',es:'boca',it:'bocca',pt:'boca',ex:'Öffne den Mund, bitte.'},
+{w:'Zahn',a:'der',t:'n',cat:'Body & Health',en:'tooth',fr:'dent',es:'diente',it:'dente',pt:'dente',ex:'Mein Zahn tut weh.'},
+{w:'Ohr',a:'das',t:'n',cat:'Body & Health',en:'ear',fr:'oreille',es:'oreja / oído',it:'orecchio',pt:'ouvido / orelha',ex:'Das Ohr tut mir weh.'},
+{w:'Hand',a:'die',t:'n',cat:'Body & Health',en:'hand',fr:'main',es:'mano',it:'mano',pt:'mão',ex:'Gib mir die Hand!'},
+{w:'Finger',a:'der',t:'n',cat:'Body & Health',en:'finger',fr:'doigt',es:'dedo',it:'dito',pt:'dedo',ex:'Ich habe zehn Finger.'},
+{w:'Arm',a:'der',t:'n',cat:'Body & Health',en:'arm',fr:'bras',es:'brazo',it:'braccio',pt:'braço',ex:'Mein Arm tut weh.'},
+{w:'Bein',a:'das',t:'n',cat:'Body & Health',en:'leg',fr:'jambe',es:'pierna',it:'gamba',pt:'perna',ex:'Mein Bein ist kaputt.'},
+{w:'Fuß',a:'der',t:'n',cat:'Body & Health',en:'foot',fr:'pied',es:'pie',it:'piede',pt:'pé',ex:'Mein Fuß tut weh.'},
+{w:'Rücken',a:'der',t:'n',cat:'Body & Health',en:'back',fr:'dos',es:'espalda',it:'schiena',pt:'costas',ex:'Mein Rücken schmerzt.'},
+{w:'Bauch',a:'der',t:'n',cat:'Body & Health',en:'stomach / belly',fr:'ventre',es:'vientre / barriga',it:'pancia',pt:'barriga',ex:'Ich habe Bauchschmerzen.'},
+{w:'Herz',a:'das',t:'n',cat:'Body & Health',en:'heart',fr:'cœur',es:'corazón',it:'cuore',pt:'coração',ex:'Mein Herz schlägt schnell.'},
+{w:'Schmerzen',a:'die',t:'n',cat:'Body & Health',en:'pain / ache',fr:'douleur(s)',es:'dolor(es)',it:'dolore(i)',pt:'dor(es)',ex:'Ich habe Schmerzen.'},
+{w:'Fieber',a:'das',t:'n',cat:'Body & Health',en:'fever',fr:'fièvre',es:'fiebre',it:'febbre',pt:'febre',ex:'Ich habe Fieber.'},
+{w:'Erkältung',a:'die',t:'n',cat:'Body & Health',en:'cold (illness)',fr:'rhume',es:'resfriado',it:'raffreddore',pt:'resfriado',ex:'Ich habe eine Erkältung.'},
+{w:'Tablette',a:'die',t:'n',cat:'Body & Health',en:'tablet / pill',fr:'comprimé / cachet',es:'pastilla',it:'compressa / pillola',pt:'comprimido',ex:'Ich nehme eine Tablette.'},
+{w:'Termin',a:'der',t:'n',cat:'Body & Health',en:'appointment',fr:'rendez-vous',es:'cita',it:'appuntamento',pt:'consulta / compromisso',ex:'Ich habe einen Arzttermin.'},
+// NATURE & WEATHER
+{w:'Wetter',a:'das',t:'n',cat:'Nature & Weather',en:'weather',fr:'météo / temps',es:'tiempo (meteorológico)',it:'tempo (meteo)',pt:'tempo / clima',ex:'Das Wetter ist heute schön.'},
+{w:'Regen',a:'der',t:'n',cat:'Nature & Weather',en:'rain',fr:'pluie',es:'lluvia',it:'pioggia',pt:'chuva',ex:'Der Regen kommt.'},
+{w:'Sonne',a:'die',t:'n',cat:'Nature & Weather',en:'sun',fr:'soleil',es:'sol',it:'sole',pt:'sol',ex:'Die Sonne scheint heute.'},
+{w:'Wolke',a:'die',t:'n',cat:'Nature & Weather',en:'cloud',fr:'nuage',es:'nube',it:'nuvola',pt:'nuvem',ex:'Die Wolken sind dunkel.'},
+{w:'Wind',a:'der',t:'n',cat:'Nature & Weather',en:'wind',fr:'vent',es:'viento',it:'vento',pt:'vento',ex:'Der Wind ist stark.'},
+{w:'Schnee',a:'der',t:'n',cat:'Nature & Weather',en:'snow',fr:'neige',es:'nieve',it:'neve',pt:'neve',ex:'Im Winter fällt Schnee.'},
+{w:'Eis',a:'das',t:'n',cat:'Nature & Weather',en:'ice / ice cream',fr:'glace',es:'hielo / helado',it:'ghiaccio / gelato',pt:'gelo / sorvete',ex:'Das Eis auf der Straße ist gefährlich.'},
+{w:'Blume',a:'die',t:'n',cat:'Nature & Weather',en:'flower',fr:'fleur',es:'flor',it:'fiore',pt:'flor',ex:'Die Blume ist schön.'},
+{w:'Baum',a:'der',t:'n',cat:'Nature & Weather',en:'tree',fr:'arbre',es:'árbol',it:'albero',pt:'árvore',ex:'Der Baum ist groß.'},
+{w:'Tier',a:'das',t:'n',cat:'Nature & Weather',en:'animal',fr:'animal',es:'animal',it:'animale',pt:'animal',ex:'Das Tier ist niedlich.'},
+{w:'Hund',a:'der',t:'n',cat:'Nature & Weather',en:'dog',fr:'chien',es:'perro',it:'cane',pt:'cachorro',ex:'Der Hund bellt laut.'},
+{w:'Katze',a:'die',t:'n',cat:'Nature & Weather',en:'cat',fr:'chat',es:'gato',it:'gatto',pt:'gato',ex:'Die Katze schläft den ganzen Tag.'},
+{w:'Vogel',a:'der',t:'n',cat:'Nature & Weather',en:'bird',fr:'oiseau',es:'pájaro',it:'uccello',pt:'pássaro',ex:'Der Vogel singt schön.'},
+{w:'Fisch',a:'der',t:'n',cat:'Nature & Weather',en:'fish',fr:'poisson',es:'pez / pescado',it:'pesce',pt:'peixe',ex:'Im See gibt es viele Fische.'},
+{w:'See',a:'der',t:'n',cat:'Nature & Weather',en:'lake',fr:'lac',es:'lago',it:'lago',pt:'lago',ex:'Der See ist sehr blau.'},
+{w:'Fluss',a:'der',t:'n',cat:'Nature & Weather',en:'river',fr:'rivière / fleuve',es:'río',it:'fiume',pt:'rio',ex:'Der Fluss ist lang.'},
+{w:'Berg',a:'der',t:'n',cat:'Nature & Weather',en:'mountain',fr:'montagne',es:'montaña',it:'montagna',pt:'montanha',ex:'Der Berg ist hoch.'},
+{w:'Meer',a:'das',t:'n',cat:'Nature & Weather',en:'sea / ocean',fr:'mer',es:'mar',it:'mare',pt:'mar',ex:'Das Meer ist blau.'},
+{w:'Strand',a:'der',t:'n',cat:'Nature & Weather',en:'beach',fr:'plage',es:'playa',it:'spiaggia',pt:'praia',ex:'Wir liegen am Strand.'},
+{w:'Wald',a:'der',t:'n',cat:'Nature & Weather',en:'forest',fr:'forêt',es:'bosque',it:'bosco / foresta',pt:'floresta',ex:'Im Wald gibt es viele Tiere.'},
+{w:'regnen',a:'',t:'v',cat:'Nature & Weather',en:'to rain',fr:'pleuvoir',es:'llover',it:'piovere',pt:'chover',ex:'Es regnet heute.'},
+{w:'schneien',a:'',t:'v',cat:'Nature & Weather',en:'to snow',fr:'neiger',es:'nevar',it:'nevicare',pt:'nevar',ex:'Im Winter schneit es oft.'},
+{w:'scheinen',a:'',t:'v',cat:'Nature & Weather',en:'to shine',fr:'briller',es:'brillar',it:'splendere',pt:'brilhar',ex:'Die Sonne scheint heute.'},
+{w:'sonnig',a:'',t:'adj',cat:'Nature & Weather',en:'sunny',fr:'ensoleillé',es:'soleado',it:'soleggiato',pt:'ensolarado',ex:'Es ist sonnig und warm.'},
+{w:'bewölkt',a:'',t:'adj',cat:'Nature & Weather',en:'cloudy',fr:'nuageux',es:'nublado',it:'nuvoloso',pt:'nublado',ex:'Der Himmel ist bewölkt.'},
+{w:'windig',a:'',t:'adj',cat:'Nature & Weather',en:'windy',fr:'venteux',es:'ventoso',it:'ventoso',pt:'ventoso',ex:'Es ist heute sehr windig.'},
+// TRANSPORT
+{w:'Zug',a:'der',t:'n',cat:'Transport',en:'train',fr:'train',es:'tren',it:'treno',pt:'trem',ex:'Der Zug kommt um 10 Uhr an.'},
+{w:'Bus',a:'der',t:'n',cat:'Transport',en:'bus',fr:'bus',es:'autobús',it:'autobus',pt:'ônibus',ex:'Ich fahre mit dem Bus.'},
+{w:'Straßenbahn',a:'die',t:'n',cat:'Transport',en:'tram',fr:'tramway',es:'tranvía',it:'tram',pt:'bonde',ex:'Die Straßenbahn fährt alle 10 Minuten.'},
+{w:'U-Bahn',a:'die',t:'n',cat:'Transport',en:'underground / subway',fr:'métro',es:'metro / subterráneo',it:'metropolitana',pt:'metrô',ex:'Ich fahre mit der U-Bahn.'},
+{w:'Flugzeug',a:'das',t:'n',cat:'Transport',en:'aeroplane',fr:'avion',es:'avión',it:'aereo',pt:'avião',ex:'Das Flugzeug fliegt hoch.'},
+{w:'Schiff',a:'das',t:'n',cat:'Transport',en:'ship',fr:'bateau / navire',es:'barco / buque',it:'nave',pt:'navio / barco',ex:'Das Schiff fährt übers Meer.'},
+{w:'Taxi',a:'das',t:'n',cat:'Transport',en:'taxi',fr:'taxi',es:'taxi',it:'taxi',pt:'táxi',ex:'Ich nehme ein Taxi.'},
+{w:'Haltestelle',a:'die',t:'n',cat:'Transport',en:'stop (bus/tram)',fr:'arrêt (bus/tram)',es:'parada (autobús)',it:'fermata',pt:'ponto de ônibus',ex:'Die Haltestelle ist um die Ecke.'},
+{w:'Gleis',a:'das',t:'n',cat:'Transport',en:'platform / track',fr:'voie / quai',es:'andén / vía',it:'binario',pt:'plataforma / trilho',ex:'Der Zug fährt auf Gleis 3.'},
+{w:'Fahrkarte',a:'die',t:'n',cat:'Transport',en:'ticket (travel)',fr:'billet',es:'billete',it:'biglietto',pt:'passagem / bilhete',ex:'Ich kaufe eine Fahrkarte.'},
+{w:'Abfahrt',a:'die',t:'n',cat:'Transport',en:'departure',fr:'départ',es:'salida',it:'partenza',pt:'partida',ex:'Die Abfahrt ist um 8 Uhr.'},
+{w:'Ankunft',a:'die',t:'n',cat:'Transport',en:'arrival',fr:'arrivée',es:'llegada',it:'arrivo',pt:'chegada',ex:'Die Ankunft ist um 10 Uhr.'},
+// SHOPPING & MONEY
+{w:'Preis',a:'der',t:'n',cat:'Shopping',en:'price',fr:'prix',es:'precio',it:'prezzo',pt:'preço',ex:'Was ist der Preis?'},
+{w:'Euro',a:'der',t:'n',cat:'Shopping',en:'euro',fr:'euro',es:'euro',it:'euro',pt:'euro',ex:'Das kostet zehn Euro.'},
+{w:'Cent',a:'der',t:'n',cat:'Shopping',en:'cent',fr:'centime',es:'céntimo',it:'centesimo',pt:'centavo',ex:'Das kostet 50 Cent.'},
+{w:'Rechnung',a:'die',t:'n',cat:'Shopping',en:'bill / invoice',fr:'addition / facture',es:'cuenta / factura',it:'conto / fattura',pt:'conta / fatura',ex:'Die Rechnung, bitte!'},
+{w:'Quittung',a:'die',t:'n',cat:'Shopping',en:'receipt',fr:'reçu',es:'recibo',it:'ricevuta / scontrino',pt:'recibo',ex:'Kann ich eine Quittung haben?'},
+{w:'Rabatt',a:'der',t:'n',cat:'Shopping',en:'discount',fr:'réduction / rabais',es:'descuento',it:'sconto',pt:'desconto',ex:'Gibt es einen Rabatt?'},
+{w:'Größe',a:'die',t:'n',cat:'Shopping',en:'size',fr:'taille',es:'talla / tamaño',it:'taglia / dimensione',pt:'tamanho',ex:'Welche Größe haben Sie?'},
+{w:'zahlen',a:'',t:'v',cat:'Shopping',en:'to pay',fr:'payer',es:'pagar',it:'pagare',pt:'pagar',ex:'Ich möchte zahlen, bitte.'},
+{w:'kosten',a:'',t:'v',cat:'Shopping',en:'to cost',fr:'coûter',es:'costar',it:'costare',pt:'custar',ex:'Wie viel kostet das?'},
+{w:'verkaufen',a:'',t:'v',cat:'Shopping',en:'to sell',fr:'vendre',es:'vender',it:'vendere',pt:'vender',ex:'Er verkauft Autos.'},
+{w:'bestellen',a:'',t:'v',cat:'Shopping',en:'to order',fr:'commander',es:'pedir / ordenar',it:'ordinare',pt:'pedir / encomendar',ex:'Ich bestelle einen Kaffee.'},
+{w:'günstig',a:'',t:'adj',cat:'Shopping',en:'affordable / cheap',fr:'abordable / pas cher',es:'económico / asequible',it:'economico / conveniente',pt:'barato / acessível',ex:'Das ist sehr günstig!'},
+// FEELINGS & EMOTIONS
+{w:'Freude',a:'die',t:'n',cat:'Feelings',en:'joy / happiness',fr:'joie',es:'alegría',it:'gioia',pt:'alegria',ex:'Ich fühle große Freude.'},
+{w:'Angst',a:'die',t:'n',cat:'Feelings',en:'fear / anxiety',fr:'peur / anxiété',es:'miedo / ansiedad',it:'paura / ansia',pt:'medo / ansiedade',ex:'Ich habe Angst vor Hunden.'},
+{w:'Wut',a:'die',t:'n',cat:'Feelings',en:'anger / rage',fr:'colère',es:'ira / rabia',it:'rabbia',pt:'raiva',ex:'Er ist voller Wut.'},
+{w:'Trauer',a:'die',t:'n',cat:'Feelings',en:'sadness / grief',fr:'tristesse / deuil',es:'tristeza / dolor',it:'tristezza',pt:'tristeza',ex:'Sie fühlt tiefe Trauer.'},
+{w:'Überraschung',a:'die',t:'n',cat:'Feelings',en:'surprise',fr:'surprise',es:'sorpresa',it:'sorpresa',pt:'surpresa',ex:'Was für eine Überraschung!'},
+{w:'Liebe',a:'die',t:'n',cat:'Feelings',en:'love',fr:'amour',es:'amor',it:'amore',pt:'amor',ex:'Die Liebe ist schön.'},
+{w:'traurig',a:'',t:'adj',cat:'Feelings',en:'sad',fr:'triste',es:'triste',it:'triste',pt:'triste',ex:'Ich bin heute traurig.'},
+{w:'froh',a:'',t:'adj',cat:'Feelings',en:'glad / happy',fr:'content / joyeux',es:'contento / feliz',it:'contento / felice',pt:'feliz / contente',ex:'Ich bin froh, dich zu sehen!'},
+{w:'ängstlich',a:'',t:'adj',cat:'Feelings',en:'anxious / scared',fr:'anxieux / craintif',es:'ansioso / asustado',it:'ansioso / spaventato',pt:'ansioso / com medo',ex:'Das Kind ist ängstlich.'},
+{w:'wütend',a:'',t:'adj',cat:'Feelings',en:'angry',fr:'en colère',es:'enfadado / enojado',it:'arrabbiato',pt:'com raiva / furioso',ex:'Er ist sehr wütend.'},
+{w:'aufgeregt',a:'',t:'adj',cat:'Feelings',en:'excited',fr:'excité / enthousiaste',es:'emocionado',it:'emozionato / eccitato',pt:'animado / empolgado',ex:'Ich bin sehr aufgeregt!'},
+{w:'nervös',a:'',t:'adj',cat:'Feelings',en:'nervous',fr:'nerveux',es:'nervioso',it:'nervoso',pt:'nervoso',ex:'Er ist vor dem Test nervös.'},
+{w:'entspannt',a:'',t:'adj',cat:'Feelings',en:'relaxed',fr:'détendu',es:'relajado',it:'rilassato',pt:'relaxado',ex:'Am Wochenende bin ich entspannt.'},
+{w:'langweilig',a:'',t:'adj',cat:'Feelings',en:'boring / bored',fr:'ennuyeux',es:'aburrido',it:'noioso',pt:'chato / entediante',ex:'Der Film ist langweilig.'},
+{w:'interessant',a:'',t:'adj',cat:'Feelings',en:'interesting',fr:'intéressant',es:'interesante',it:'interessante',pt:'interessante',ex:'Das Buch ist interessant.'},
+// DAILY ROUTINE VERBS
+{w:'aufstehen',a:'',t:'v',cat:'Daily Routine',en:'to get up / stand up',fr:'se lever',es:'levantarse',it:'alzarsi',pt:'levantar-se',ex:'Ich stehe um 7 Uhr auf.'},
+{w:'duschen',a:'',t:'v',cat:'Daily Routine',en:'to shower',fr:'se doucher / prendre une douche',es:'ducharse',it:'fare la doccia',pt:'tomar banho',ex:'Ich dusche jeden Morgen.'},
+{w:'frühstücken',a:'',t:'v',cat:'Daily Routine',en:'to have breakfast',fr:'prendre le petit-déjeuner',es:'desayunar',it:'fare colazione',pt:'tomar café da manhã',ex:'Ich frühstücke um halb acht.'},
+{w:'kochen',a:'',t:'v',cat:'Daily Routine',en:'to cook',fr:'cuisiner / faire la cuisine',es:'cocinar',it:'cucinare',pt:'cozinhar',ex:'Ich koche heute Abend.'},
+{w:'putzen',a:'',t:'v',cat:'Daily Routine',en:'to clean',fr:'nettoyer',es:'limpiar',it:'pulire / spazzare',pt:'limpar',ex:'Ich putze das Haus am Samstag.'},
+{w:'einkaufen',a:'',t:'v',cat:'Daily Routine',en:'to go shopping',fr:'faire les courses',es:'hacer la compra / ir de compras',it:'fare la spesa',pt:'fazer compras / ir às compras',ex:'Ich gehe heute einkaufen.'},
+{w:'schreiben',a:'',t:'v',cat:'Daily Routine',en:'to write',fr:'écrire',es:'escribir',it:'scrivere',pt:'escrever',ex:'Ich schreibe eine E-Mail.'},
+{w:'lesen',a:'',t:'v',cat:'Daily Routine',en:'to read',fr:'lire',es:'leer',it:'leggere',pt:'ler',ex:'Ich lese abends ein Buch.'},
+{w:'fernsehen',a:'',t:'v',cat:'Daily Routine',en:'to watch TV',fr:'regarder la télé',es:'ver la televisión',it:'guardare la TV',pt:'assistir TV',ex:'Abends sehe ich fern.'},
+{w:'einschlafen',a:'',t:'v',cat:'Daily Routine',en:'to fall asleep',fr:'s\'endormir',es:'quedarse dormido',it:'addormentarsi',pt:'adormecer',ex:'Ich schlafe früh ein.'},
+{w:'aufräumen',a:'',t:'v',cat:'Daily Routine',en:'to tidy up / clear up',fr:'ranger',es:'ordenar / recoger',it:'riordinare / mettere in ordine',pt:'arrumar / organizar',ex:'Ich räume mein Zimmer auf.'},
+{w:'anrufen',a:'',t:'v',cat:'Daily Routine',en:'to call / phone',fr:'appeler / téléphoner',es:'llamar (por teléfono)',it:'chiamare / telefonare',pt:'ligar / telefonar',ex:'Ich rufe meine Mutter an.'},
+{w:'schicken',a:'',t:'v',cat:'Daily Routine',en:'to send',fr:'envoyer',es:'enviar / mandar',it:'inviare / mandare',pt:'enviar / mandar',ex:'Ich schicke eine E-Mail.'},
+{w:'treffen',a:'',t:'v',cat:'Daily Routine',en:'to meet',fr:'rencontrer / retrouver',es:'encontrarse / reunirse',it:'incontrare',pt:'encontrar / se reunir',ex:'Ich treffe meine Freunde.'},
+// COMMON ADVERBS
+{w:'oft',a:'',t:'adv',cat:'Adverbs',en:'often',fr:'souvent',es:'a menudo / frecuentemente',it:'spesso',pt:'frequentemente / muitas vezes',ex:'Ich esse oft Pizza.'},
+{w:'manchmal',a:'',t:'adv',cat:'Adverbs',en:'sometimes',fr:'parfois',es:'a veces',it:'a volte',pt:'às vezes',ex:'Manchmal gehe ich laufen.'},
+{w:'immer',a:'',t:'adv',cat:'Adverbs',en:'always',fr:'toujours',es:'siempre',it:'sempre',pt:'sempre',ex:'Ich bin immer pünktlich.'},
+{w:'nie',a:'',t:'adv',cat:'Adverbs',en:'never',fr:'jamais',es:'nunca',it:'mai',pt:'nunca',ex:'Ich trinke nie Alkohol.'},
+{w:'selten',a:'',t:'adv',cat:'Adverbs',en:'rarely / seldom',fr:'rarement',es:'raramente',it:'raramente',pt:'raramente',ex:'Ich gehe selten ins Kino.'},
+{w:'schon',a:'',t:'adv',cat:'Adverbs',en:'already',fr:'déjà',es:'ya',it:'già',pt:'já',ex:'Ich habe schon gegessen.'},
+{w:'noch',a:'',t:'adv',cat:'Adverbs',en:'still / yet',fr:'encore / toujours',es:'todavía / aún',it:'ancora',pt:'ainda',ex:'Ich bin noch hier.'},
+{w:'auch',a:'',t:'adv',cat:'Adverbs',en:'also / too',fr:'aussi / également',es:'también',it:'anche',pt:'também',ex:'Ich auch!'},
+{w:'sehr',a:'',t:'adv',cat:'Adverbs',en:'very',fr:'très',es:'muy',it:'molto',pt:'muito',ex:'Das ist sehr gut.'},
+{w:'ein bisschen',a:'',t:'adv',cat:'Adverbs',en:'a little bit',fr:'un peu',es:'un poco',it:'un po\'',pt:'um pouco',ex:'Ich spreche ein bisschen Deutsch.'},
+{w:'gern(e)',a:'',t:'adv',cat:'Adverbs',en:'gladly / with pleasure',fr:'volontiers / avec plaisir',es:'con gusto',it:'volentieri',pt:'com prazer / de boa vontade',ex:'Ich trinke gerne Kaffee.'},
+{w:'leider',a:'',t:'adv',cat:'Adverbs',en:'unfortunately',fr:'malheureusement',es:'lamentablemente / por desgracia',it:'purtroppo',pt:'infelizmente',ex:'Leider kann ich nicht kommen.'},
+{w:'natürlich',a:'',t:'adv',cat:'Adverbs',en:'of course / naturally',fr:'bien sûr / naturellement',es:'por supuesto / claro',it:'naturalmente / certo',pt:'claro / naturalmente',ex:'Natürlich komme ich!'},
+{w:'vielleicht',a:'',t:'adv',cat:'Adverbs',en:'maybe / perhaps',fr:'peut-être',es:'quizás / tal vez',it:'forse',pt:'talvez',ex:'Vielleicht regnet es morgen.'},
+// USEFUL EXPRESSIONS A1
+{w:'Wie spät ist es?',a:'',t:'exp',cat:'Expressions',en:'What time is it?',fr:'Quelle heure est-il ?',es:'¿Qué hora es?',it:'Che ore sono?',pt:'Que horas são?',ex:'Entschuldigung, wie spät ist es?'},
+{w:'Es ist ... Uhr.',a:'',t:'exp',cat:'Expressions',en:'It is ... o\'clock.',fr:'Il est ... heure(s).',es:'Son las ...',it:'Sono le ...',pt:'São ... horas.',ex:'Es ist drei Uhr.'},
+{w:'Wie weit ist es?',a:'',t:'exp',cat:'Expressions',en:'How far is it?',fr:'C\'est à quelle distance ?',es:'¿A qué distancia está?',it:'Quanto dista?',pt:'Qual é a distância?',ex:'Wie weit ist es zum Bahnhof?'},
+{w:'Wo ist...?',a:'',t:'exp',cat:'Expressions',en:'Where is...?',fr:'Où est... ?',es:'¿Dónde está...?',it:'Dov\'è...?',pt:'Onde fica...?',ex:'Entschuldigung, wo ist die Haltestelle?'},
+{w:'Ich möchte...',a:'',t:'exp',cat:'Expressions',en:'I would like...',fr:'Je voudrais...',es:'Me gustaría... / Quisiera...',it:'Vorrei...',pt:'Eu gostaria de...',ex:'Ich möchte einen Kaffee, bitte.'},
+{w:'Haben Sie...?',a:'',t:'exp',cat:'Expressions',en:'Do you have...?',fr:'Avez-vous... ?',es:'¿Tiene usted...?',it:'Ha...?',pt:'O senhor tem...?',ex:'Haben Sie ein Zimmer frei?'},
+{w:'Das gefällt mir.',a:'',t:'exp',cat:'Expressions',en:'I like that.',fr:'Ça me plaît.',es:'Eso me gusta.',it:'Questo mi piace.',pt:'Eu gosto disso.',ex:'Das gefällt mir sehr gut!'},
+{w:'Das schmeckt gut.',a:'',t:'exp',cat:'Expressions',en:'That tastes good.',fr:'C\'est bon.',es:'Eso sabe bien.',it:'Questo è buono.',pt:'Isso está gostoso.',ex:'Das schmeckt wirklich gut!'},
+{w:'Wie viel kostet das?',a:'',t:'exp',cat:'Expressions',en:'How much does that cost?',fr:'Combien ça coûte ?',es:'¿Cuánto cuesta eso?',it:'Quanto costa?',pt:'Quanto custa isso?',ex:'Entschuldigung, wie viel kostet das?'},
+{w:'Kann ich helfen?',a:'',t:'exp',cat:'Expressions',en:'Can I help?',fr:'Je peux aider ?',es:'¿Puedo ayudar?',it:'Posso aiutare?',pt:'Posso ajudar?',ex:'Kann ich Ihnen helfen?'},
+{w:'Ich bin einverstanden.',a:'',t:'exp',cat:'Expressions',en:'I agree.',fr:'Je suis d\'accord.',es:'Estoy de acuerdo.',it:'Sono d\'accordo.',pt:'Eu concordo.',ex:'Ja, ich bin einverstanden!'},
+{w:'Kein Problem.',a:'',t:'exp',cat:'Expressions',en:'No problem.',fr:'Pas de problème.',es:'No hay problema.',it:'Nessun problema.',pt:'Sem problema.',ex:'Kein Problem, ich helfe dir.'}
+];
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curType='all',curCat='all',curSearch='',curMode='list';
+let flashDeck=[],flashIdx=0,flashKnown=new Set(),flashLearning=new Set(),isFlipped=false;
+function t(k){return(UI[CL]||UI.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){el.placeholder=t(el.getAttribute('data-t-placeholder'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+  buildCatDropdown(); renderList(); if(curMode==='flash') renderCard();
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+function typeName(code){var map={n:'tname_n',v:'tname_v',adj:'tname_adj',adv:'tname_adv',exp:'tname_exp',prep:'tname_prep',conj:'tname_conj',num:'tname_num',pron:'tname_pron'};return t(map[code]||code);}
+function typeBadge(code){return '<span class="type-badge tb-'+code+'">'+typeName(code)+'</span>';}
+function filtered(){return VOCAB.filter(function(w){if(curType!=='all'&&w.t!==curType)return false;if(curCat!=='all'&&w.cat!==curCat)return false;if(curSearch){var s=curSearch.toLowerCase();if(!(w.w.toLowerCase().includes(s)||(w[CL]&&w[CL].toLowerCase().includes(s))||w.en.toLowerCase().includes(s)))return false;}return true;});}
+function buildCatDropdown(){var sel=document.getElementById('cat-select');var cats=[...new Set(VOCAB.map(function(w){return w.cat;}))].sort();sel.innerHTML='<option value="all">'+t('cat_all')+'</option>';cats.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;if(c===curCat)o.selected=true;sel.appendChild(o);});}
+function renderList(){var data=filtered();var tbody=document.getElementById('word-tbody');var noRes=document.getElementById('no-results');document.getElementById('word-count').textContent=t('wc_showing')+' '+data.length+' '+t('wc_of')+' '+VOCAB.length+' '+t('wc_words');if(data.length===0){tbody.innerHTML='';noRes.style.display='block';return;}noRes.style.display='none';tbody.innerHTML=data.map(function(w){return '<tr><td class="de-word">'+(w.a?'<span class="de-art">'+w.a+'</span>':'')+w.w+'</td><td>'+typeBadge(w.t)+'</td><td>'+w.cat+'</td><td>'+(w[CL]||w.en)+'</td><td class="ex-text">'+w.ex+'</td></tr>';}).join('');}
+function setType(type){curType=type;document.querySelectorAll('[data-type]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-type')===type);});if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function setCat(cat){curCat=cat;if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function doSearch(val){curSearch=val;renderList();}
+function switchMode(mode){curMode=mode;document.getElementById('list-view').style.display=mode==='list'?'block':'none';document.getElementById('flash-view').style.display=mode==='flash'?'block':'none';document.getElementById('tab-list').classList.toggle('on',mode==='list');document.getElementById('tab-flash').classList.toggle('on',mode==='flash');document.getElementById('search-box').style.display=mode==='list'?'inline-block':'none';if(mode==='flash'){initFlash();renderCard();}}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}return arr;}
+function initFlash(){flashDeck=shuffle(filtered().slice());flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';}
+function renderCard(){if(flashDeck.length===0||flashIdx>=flashDeck.length){document.getElementById('flash-done').style.display='block';document.getElementById('flash-action-btns').style.display='none';document.querySelector('.flash-nav').style.display='none';document.getElementById('done-score').textContent=flashKnown.size;document.getElementById('flash-card').style.display='none';return;}document.getElementById('flash-card').style.display='block';var w=flashDeck[flashIdx];isFlipped=false;document.getElementById('flash-card').classList.remove('flipped');document.getElementById('cf-cat').textContent=w.cat;document.getElementById('cf-art').textContent=w.a||'';document.getElementById('cf-word').textContent=w.w;document.getElementById('cb-cat').textContent=w.cat;document.getElementById('cb-trans').textContent=w[CL]||w.en;document.getElementById('cb-ex').textContent=w.ex;var total=flashDeck.length;document.getElementById('flash-fill').style.width=(flashIdx/total*100)+'%';document.getElementById('flash-counter').textContent=t('card_of')+' '+(flashIdx+1)+' '+t('card_of2')+' '+total;document.getElementById('flash-known').textContent='✓ '+flashKnown.size;document.getElementById('flash-learning').textContent='✗ '+flashLearning.size;}
+function flipCard(){isFlipped=!isFlipped;document.getElementById('flash-card').classList.toggle('flipped',isFlipped);}
+function markCard(know){var w=flashDeck[flashIdx];if(know)flashKnown.add(w.w);else flashLearning.add(w.w);flashIdx++;isFlipped=false;renderCard();}
+function nextCard(){flashIdx=Math.min(flashIdx+1,flashDeck.length-1);isFlipped=false;renderCard();}
+function prevCard(){flashIdx=Math.max(flashIdx-1,0);isFlipped=false;renderCard();}
+function shuffleCards(){shuffle(flashDeck);flashIdx=0;flashKnown=new Set();flashLearning=new Set();renderCard();}
+function restartFlash(){initFlash();renderCard();}
+function reviewLearning(){flashDeck=shuffle(VOCAB.filter(function(w){return flashLearning.has(w.w);}));flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';document.getElementById('flash-card').style.display='block';renderCard();}
+buildCatDropdown(); renderList(); applyLang();
+</script>
+</body>
+</html>

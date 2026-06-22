@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat C2 – Modellprüfung 3</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:110px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#b71c1c 0%,#880e4f 40%,#0b2545 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid #880e4f;padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:22px 0}
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:13px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:18px 22px;font-size:13.5px;line-height:2.1;margin-bottom:14px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:8px;font-style:italic}
+.sbox h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.sbox p{margin-bottom:12px}
+.sbox p:last-child{margin-bottom:0}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#ff9800;border-color:#ff9800;color:#fff}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.7}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.mci{margin-bottom:16px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+.warea{width:100%;min-height:320px;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 15px;font-size:14px;font-family:inherit;resize:vertical;outline:none;color:#111;background:#fdf8ff;line-height:1.85}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff;min-height:280px}
+.warea2:focus{border-color:#3949ab}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;font-size:13px;line-height:2;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px;line-height:1.75}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.gaprow{margin-bottom:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.gnum{font-weight:700;color:var(--blue);min-width:22px}
+.gfin{border:none;border-bottom:2px solid var(--blue);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.gfin:focus{background:#e3f2fd;border-radius:3px 3px 0 0}
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.c2note{background:#ede7f6;border-left:3px solid #7b1fa2;border-radius:0 6px 6px 0;padding:9px 14px;font-size:12.5px;color:#333;margin:9px 0}
+.c2note strong{color:#4a148c}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">4:00:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 100'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 100'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 3</div>
+    <h1>Goethe-Zertifikat C2 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>240 Minuten</strong> (schriftlich) + <strong>15 Min.</strong> (Sprechen) &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">C2<span>Test 3</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 100 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 100 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 100 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="c2note"><strong>C2-Niveau:</strong> Texte mit Subtext, historischem Tiefgang und philosophischer Nuancierung. Standpunkte identifizieren, die zwischen den Zeilen formuliert werden, und rhetorische Absichten erkennen.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Literarisch-essayistischer Text – R/F/N (6 Aussagen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text und beurteilen Sie die Aussagen (1–6): Richtig (R), Falsch (F) oder Nicht im Text (N)?</div>
+
+    <div class="sbox">
+      <div class="smeta">„Literatur und Gesellschaft" – Neue Rundschau, Frühjahr 2026</div>
+      <h3>Das Schweigen der Archive: Zur Ethik des historischen Erinnerns</h3>
+      <p>Archive lügen nicht – aber sie schweigen. Was in ihnen fehlt, erzählt mindestens ebenso viel wie das, was sie enthalten. Die Geschichte des europäischen Kolonialismus ist in vielen Nationalarchiven durch eine doppelte Absenz geprägt: Erstens durch das, was nicht aufgezeichnet wurde – die mündliche Überlieferung unterdrückter Gesellschaften, die Stimmen der Sklaven, der Koloniesierten. Zweitens durch das, was vernichtet wurde – in Nairobi, in Lissabon, in Paris wurden kurz vor der Unabhängigkeit Akten verbrannt.</p>
+      <p>Diese Abwesenheit ist nicht neutral. Sie hat politische Konsequenzen bis heute: Wer kein Archiv hat, hat keine Grundlage für Reparationsforderungen, keinen juristischen Nachweis, kein Recht auf „offizielle" Erinnerung. Das Archiv ist deshalb nicht nur Ort des Gedächtnisses, sondern auch Instrument der Macht. Wer die Quellen kontrolliert, kontrolliert die Geschichte – und wer die Geschichte kontrolliert, kontrolliert die Legitimation politischer Gegenwart.</p>
+      <p>Der südafrikanische Historiker Achille Mbembe spricht in diesem Zusammenhang von der „Gewalt des Archivs" – nicht als Metapher, sondern als analytische Kategorie. Archive reproduzieren die Hierarchien ihrer Entstehungskontexte. Selbst gut gemeinte Digitalisierungsprojekte, die indigenes Wissen zugänglich machen, können koloniale Muster fortschreiben, wenn die Kategorisierung und Erschließung wieder von außen auferlegt wird.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Laut Text fehlen in europäischen Archiven zum Kolonialismus Quellen durch unterlassene Aufzeichnung und gezielte Vernichtung.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Der Autor stellt Archive als neutrale, machtfreie Wissensspeicher dar.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Fehlende Archive können die Grundlage für Reparationsforderungen schwächen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Achille Mbembe kommt aus Namibia und entwickelte dort sein Archivkonzept.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Auch Digitalisierungsprojekte können laut Text koloniale Strukturen reproduzieren.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">6.</td><td>Der Begriff „Gewalt des Archivs" bei Mbembe ist eine bloß metaphorische Formulierung.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Expertinnen und Texte</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Welcher Text (a–h) passt am besten zu welcher Person?</div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Dr. Sven Bergström</div>Sven ist Klimaökonom und sucht aktuelle Forschungen zu marktwirtschaftlichen Instrumenten für Klimaschutz – CO₂-Steuer vs. Emissionshandel, Effizienz, Verteilungsgerechtigkeit.</div>
+      <div class="person"><div class="pname">Person 2 – Prof. Dr. Yasmin Al-Rashid</div>Yasmin ist Strafrechtsphilosophin und sucht normative Theorien zur Rechtfertigung von Strafe – Vergeltung, Generalprävention, Resozialisierung.</div>
+      <div class="person"><div class="pname">Person 3 – Kwame Asante</div>Kwame ist Kulturökonom und sucht Forschung zur ökonomischen Wertschöpfung von Kreativwirtschaft und Kulturinstitutionen in europäischen Städten.</div>
+      <div class="person"><div class="pname">Person 4 – Dr. Mei-Ling Chang</div>Mei-Ling ist Demografin und sucht Projektionen zur alternden Gesellschaft in Ostasien – Japan, Südkorea, China – und zu Sozialversicherungsreformen.</div>
+      <div class="person"><div class="pname">Person 5 – Prof. Olamide Adeyemi</div>Olamide ist Anthropologin und sucht ethnografische Forschung zu Ritualpraktiken und sozialer Kohäsion in urbanen westafrikanischen Gesellschaften – Lagos, Accra.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><strong>„Preis auf Kohlenstoff"</strong> – Umweltökonomik<br>Kohlenstoffmarkt vs. CO₂-Steuer: Wirksamkeit, Regressivität, internationale Wettbewerbsfähigkeit.</div>
+      <div class="notice"><div class="nlabel">b</div><strong>„Warum bestrafen wir?"</strong> – Rechtsphilosophie<br>Retributivismus, Abschreckung und Reintegration: Eine systematische Gegenüberstellung straftheoretischer Positionen.</div>
+      <div class="notice"><div class="nlabel">c</div><strong>„Die kreative Stadt"</strong> – Kulturökonomik<br>Museen, Theater, Festivals: Multiplikatoreffekte auf Tourismus, Beschäftigung und Stadtimage in Hamburg, Wien, Amsterdam.</div>
+      <div class="notice"><div class="nlabel">d</div><strong>„Silberne Welle"</strong> – Demografie<br>Geburtenrückgang, Rentenalter und Pflegequoten in Japan und Südkorea: Was lernen wir für Deutschland?</div>
+      <div class="notice"><div class="nlabel">e</div><strong>„Egungun und Urbanität"</strong> – Sozialanthropologie<br>Ahnenritual, kollektive Identität und sozialer Wandel in Lagos: Ethnografie einer Yoruba-Gemeinschaft.</div>
+      <div class="notice"><div class="nlabel">f</div><strong>„Erneuerbare und Netzstabilität"</strong> – Energietechnik<br>Speichertechnologien, Flexibilitätsmärkte, virtuelle Kraftwerke – kein Klimarecht, keine Ökonomik.</div>
+      <div class="notice"><div class="nlabel">g</div><strong>„Kriminologie der Gewalt"</strong> – Kriminologie<br>Empirische Daten zu Häufigkeit, Opferprofilen und Täterstrukturen – keine normative Straftheorie.</div>
+      <div class="notice"><div class="nlabel">h</div><strong>„Demografie Subsahara"</strong> – Bevölkerungswissenschaft<br>Hohe Geburtenraten, Urbanisierungsdruck, Jugendarbeitslosigkeit in Nigeria, Kenia – kein Ostasien-Fokus.</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welcher Text (a–h) passt?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Sven (Klimaschutz, Marktinstrumente)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Yasmin (Straftheorie, Rechtsphilosophie)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Kwame (Kreativwirtschaft, Kulturökonomie)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Mei-Ling (Demografin, Ostasien)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Olamide (Ritual, Westafrika, Ethnografie)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Hochkomplexer Essaytext – Multiple Choice (6 Fragen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen und wählen Sie die korrekte Antwort.</div>
+
+    <div class="sbox">
+      <div class="smeta">„Sozialphilosophie" – Leviathan: Berliner Zeitschrift für Sozialwissenschaft, 54(1), 2026</div>
+      <h3>Grenzen des Konsensmodells: Zur Kritik deliberativer Demokratietheorien</h3>
+      <p>Jürgen Habermas' Theorie deliberativer Demokratie hat das politische Denken der letzten Jahrzehnte maßgeblich geprägt. Ihr Kernpostulat: Legitime politische Entscheidungen entstehen nicht durch Mehrheitswillen allein, sondern durch rationalen Diskurs, an dem alle Betroffenen gleichberechtigt teilnehmen und der allein durch den „eigentümlich zwanglosen Zwang des besseren Arguments" (Habermas) überzeugt. Konsens ist das Telos dieses Verfahrens.</p>
+      <p>Chantal Mouffe hat dieses Modell einer fundamentalen Kritik unterzogen. Für Mouffe ist der Glaube an rationalen Konsens nicht nur naiv, sondern politisch gefährlich: Er leugnet den irreduzibel antagonistischen Charakter des Politischen. Konflikt, Leidenschaft und Identität lassen sich nicht durch Vernunftdiskurs aufheben – sie konstituieren das Politische. Der Versuch, sie zu eliminieren, verdrängt den Antagonismus in subpolitische oder subinstitutionelle Räume, wo er destruktiver explodiert.</p>
+      <p>Mouffe plädiert stattdessen für „agonistische Demokratie": nicht Elimination des Konflikts, sondern seine Zivilisierung. Antagonismus – der Kampf zwischen Feinden – wird zum Agonismus – dem fairen Wettstreit zwischen Gegnern, die füreinander Respekt aufbringen, auch wenn sie tiefe Wertdifferenzen nicht auflösen. Die Institutionen der Demokratie sind nicht Orte rationalen Konsenses, sondern Rahmen zur Regulierung legitimer Konfliktivität.</p>
+      <p>Diese Konzeption hat Stärken: Sie ist realistischer als Habermas' ideale Sprechsituation und nimmt politische Emotionen ernst. Sie hat auch Grenzen: Wie unterscheidet man legitimen Agonismus von unzivilisiertem Antagonismus? Mouffe gibt darauf keine vollständig befriedigende Antwort.</p>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Was ist laut Habermas das Kriterium legitimer politischer Entscheidungen?</div>
+      <div class="mco" data-grp="l11">
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">a</span> Mehrheitswille und Wahlergebnis allein</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">b</span> Rationaler Diskurs mit gleichberechtigter Teilnahme und dem besten Argument</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">c</span> Einstimmige Entscheidung eines Expertengremiums</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Warum ist Mouffe der Glaube an rationalen Konsens nicht nur naiv, sondern gefährlich?</div>
+      <div class="mco" data-grp="l12">
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">a</span> Weil er zu teuren Verfahren führt</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">b</span> Weil er den Antagonismus verdrängt, der dann destruktiver explodiert</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">c</span> Weil Habermas keine empirische Forschung zitiert</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Was unterscheidet „Agonismus" von „Antagonismus" bei Mouffe?</div>
+      <div class="mco" data-grp="l13">
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">a</span> Agonismus ist der Kampf zwischen Feinden, Antagonismus zwischen respektierenden Gegnern</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">b</span> Antagonismus ist Feindeskonflikt, Agonismus ist fairer Wettstreit respektierender Gegner</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">c</span> Beide Begriffe sind bei Mouffe synonym</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Was versteht Mouffe unter der Funktion demokratischer Institutionen?</div>
+      <div class="mco" data-grp="l14">
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">a</span> Orte rationalen Konsenses</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">b</span> Rahmen zur Regulierung legitimer Konfliktivität</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">c</span> Instrumente staatlicher Machtausübung</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Welche Stärke von Mouffes Konzeption nennt der Text?</div>
+      <div class="mco" data-grp="l15">
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">a</span> Sie bietet konkrete rechtliche Verfahrensregeln</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">b</span> Realistischer als Habermas und nimmt politische Emotionen ernst</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">c</span> Vollständig empirisch validiert</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Was bleibt laut Text bei Mouffe unbefriedigend beantwortet?</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Wie Wahlen organisiert werden sollen</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> Wie legitimer Agonismus von unzivilisiertem Antagonismus unterschieden wird</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> Wie Konsens in der Praxis herbeigeführt wird</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Anspruchsvolle Kurztexte – Fragen 17–20</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Lesen und antworten Sie (17–20).</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – Wirtschaftsethik</div>Milton Friedman schrieb 1970 in der New York Times: „The Social Responsibility of Business Is to Increase Its Profits." Diese Position – häufig als shareholder-primacy-Modell bezeichnet – wurde jahrzehntelang als herrschende Unternehmensethik gelehrt. Seit dem Business Roundtable Statement 2019, das stakeholder value über shareholder value stellt, ist die Debatte neu entflammt.</div>
+      <div class="stcard"><div class="stclabel">Text B – Historische Quelle</div>„Wer nicht für mich ist, ist gegen mich" – das Prinzip, das im Kalten Krieg die bipolare Weltordnung strukturierte, basiert auf der Logik des ausgeschlossenen Dritten in der Geopolitik. Die Blockfreiheitsbewegung (Non-Aligned Movement), 1961 in Belgrad gegründet, widersetzte sich explizit dieser Logik und repräsentierte zeitweise über 100 Staaten.</div>
+      <div class="stcard"><div class="stclabel">Text C – Sprachphilosophie</div>Ludwig Wittgensteins Satz „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt" (Tractatus logico-philosophicus, 1921) wird häufig als These über sprachlichen Determinismus verstanden. In seinem Spätwerk (Philosophische Untersuchungen) revidiert er sein frühes Bild: Bedeutung ist nicht propositional fixiert, sondern entsteht im „Sprachspiel" sozialer Praxis.</div>
+      <div class="stcard"><div class="stclabel">Text D – Umweltrecht</div>Das Prinzip der intergenerationellen Gerechtigkeit – dass heutige Generationen der Zukunft keine irreversiblen Schäden hinterlassen dürfen – ist in der Umwelt- und Klimarecht inzwischen fest verankert. Der Europäische Gerichtshof für Menschenrechte (EGMR) hat 2024 in <em>Verein KlimaSeniorinnen vs. Schweiz</em> erstmals staatenübergreifend ein Recht auf wirksamen Klimaschutz anerkannt.</div>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was bedeutet „shareholder-primacy-Modell" laut Text A?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Soziale Verantwortung ist die erste Unternehmenspflicht</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Die primäre Pflicht des Unternehmens ist die Gewinnmaximierung für Aktionäre</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> Stakeholder-Interessen haben Vorrang vor Aktionärsinteressen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Wogegen richtete sich die Blockfreiheitsbewegung laut Text B?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> Gegen den wirtschaftlichen Imperialismus der USA</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> Gegen die bipolare Entweder-oder-Logik des Kalten Krieges</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> Gegen die Vereinten Nationen als Machtinstrument der Supermächte</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Wie verändert sich Wittgensteins Bedeutungsbegriff laut Text C vom Früh- zum Spätwerk?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Von einem propositionalen zu einem sozialen Bedeutungsbegriff im Sprachspiel</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Von einem sozialen zu einem mathematisch-formalen Bedeutungsbegriff</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Der Bedeutungsbegriff bleibt im Früh- und Spätwerk identisch</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was hat der EGMR 2024 im Fall der KlimaSeniorinnen entschieden?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Die Klage wurde aus Zuständigkeitsgründen abgewiesen</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> Er anerkannte erstmals ein Recht auf wirksamen Klimaschutz</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Er verwies die Klage an den Internationalen Strafgerichtshof</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Komplexer syntaktischer Lückentext</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Ergänzen Sie (21–24). Es gibt nur eine korrekte (oder eng verwandte) Antwort pro Lücke.</div>
+
+    <div class="sbox">
+      <p>Die Debatte über das Konzept der Menschenwürde dreht <span style="font-weight:700;color:var(--blue)">(21) ________</span> häufig im Kreis: Sie ist normativ unverzichtbar, aber philosophisch schwer zu begründen. Immanuel Kant leitete sie aus der Vernunftfähigkeit des Menschen ab – nur vernunftfähige Wesen können sich selbst moralisch Gesetz <span style="font-weight:700;color:var(--blue)">(22) ________</span>. Moderne Bioethik hat diesen Ansatz jedoch in Frage gestellt: Was gilt für Neugeborene, Menschen im Koma oder Menschen mit schwerer geistiger Behinderung, die keine Vernunft <span style="font-weight:700;color:var(--blue)">(23) ________</span>? Die Konsequenz – dass diese keine Würde hätten – ist für die meisten moralisch inakzeptabel. Deshalb wird Würde heute häufig nicht mehr an Eigenschaften geknüpft, sondern <span style="font-weight:700;color:var(--blue)">(24) ________</span> als intrinsisch betrachtet: Sie kommt dem Menschen als solchem zu, unabhängig von Fähigkeiten oder Zuständen.</div>
+    </div>
+
+    <div class="gaprow"><span class="gnum">21.</span> <input class="gfin" type="text" placeholder="Verb + Reflexivpronomen (sich ...)"></div>
+    <div class="gaprow"><span class="gnum">22.</span> <input class="gfin" type="text" placeholder="sein / geben (Infinitiv oder Partizip)"></div>
+    <div class="gaprow"><span class="gnum">23.</span> <input class="gfin" type="text" placeholder="Verb (Verneinung: …ausüben/besitzen/haben)"></div>
+    <div class="gaprow"><span class="gnum">24.</span> <input class="gfin" type="text" placeholder="Adverb (vielmehr / stattdessen / eher ...)"></div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C2-Lehrerhinweis:</strong> Ironische und implizit wertende Formulierungen erkennen. Alle Teile zweimal vorlesen. T3 enthält Allgemeinbildung auf universitärem Niveau.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Radiomeldungen – Richtig oder Falsch? (5 Aussagen)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Richtig (R) oder Falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Beitrag 1</div>„Gesundheit: Die WHO hat ihren Bericht zur globalen Antibiotikaresistenz vorgestellt. Demnach sterben weltweit jährlich mindestens <strong>1,27 Millionen Menschen</strong> direkt an Infektionen durch resistente Erreger – Tendenz steigend. Als Hauptursachen werden übermäßiger Antibiotikaeinsatz in der Tierhaltung sowie unvollständige Therapieverläufe beim Menschen genannt."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">1.</td><td>Laut WHO sterben pro Jahr weniger als eine Million Menschen direkt an Antibiotikaresistenz.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 2</div>„Recht: Das Bundesverfassungsgericht hat heute eine Verfassungsbeschwerde eines Klimaaktivisten als unzulässig abgewiesen. Das Gericht begründete dies nicht inhaltlich, sondern wegen fehlender Beschwerdebefugnis: Der Kläger habe nicht hinreichend dargelegt, unmittelbar, gegenwärtig und persönlich betroffen zu sein."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">2.</td><td>Die Verfassungsbeschwerde wurde aus inhaltlichen Gründen abgewiesen.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 3</div>„Kultur: Das Hamburger Museum für Völkerkunde – heute Markk – hat die ersten <strong>32 Objekte</strong> aus seiner Sammlung offiziell an die Republik Benin restituiert. Die Objekte, sogenannte Benin-Bronzen, waren im 19. Jahrhundert von britischen Kolonialtruppen geraubt worden."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">3.</td><td>Die zurückgegebenen Benin-Bronzen wurden ursprünglich von deutschen Kolonialtruppen geraubt.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 4</div>„Wirtschaft: Der Deutsche Aktienindex DAX hat heute erstmals die Marke von <strong>22.000 Punkten</strong> überschritten. Analysten führen den Anstieg auf besser als erwartete Quartalsergebnisse im Exportsektor und sinkende Inflationserwartungen zurück."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">4.</td><td>Der DAX hat die 22.000-Punkte-Marke zum ersten Mal überschritten.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 5</div>„Politik: Im Europäischen Parlament wurde heute über den neuen EU-Haushalt 2027–2033 abgestimmt. Der Haushalt sieht eine deutliche Erhöhung der Mittel für Verteidigung und Sicherheit vor, während Mittel für Kohäsionspolitik um <strong>12 %</strong> gekürzt werden. Das Ergebnis war umstritten: <strong>389 für, 218 gegen</strong>, bei 47 Enthaltungen."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">5.</td><td>Der neue EU-Haushalt sieht Kürzungen sowohl bei Verteidigung als auch bei Kohäsionspolitik vor.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Hochakademisches Streitgespräch – R/F/N (6 Aussagen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">R / F / N?</div>
+
+    <div class="dial"><div class="dlabel">Gespräch: Historikerin Prof. Dr. Helena Vogel &amp; Wirtschaftssoziologe Dr. Tobias Renz</div>
+      <span class="sa">Prof. Vogel:</span> Ich behaupte, dass der Neoliberalismus der 1980er Jahre nicht das Ergebnis eines freien Ideenwettbewerbs war, sondern dass er durch eine gezielte institutionelle Infrastruktur – Denkfabriken, Netzwerke, Stiftungen – aktiv konstruiert worden ist. Das Hayek-Netzwerk, die Mont Pèlerin Society: Das war Ideologieproduktion, keine neutrale Wissenschaft.<br>
+      <span class="sb">Dr. Renz:</span> Ich stimme Ihnen zu, dass diese institutionelle Infrastruktur wichtig war. Aber ich würde dem hinzufügen: Der Neoliberalismus siegte auch, weil er auf reale Probleme traf – die Stagflation der 1970er hatte das keynesianische Paradigma erschöpft. Es gab einen Erklärungsbedarf, den Hayek und Friedman bedienten.<br>
+      <span class="sa">Prof. Vogel:</span> Das mag sein – aber das erklärt nicht, warum gerade diese und keine alternativen Antworten dominant wurden. Die alternativen Linken und post-keynesianischen Programme waren durchaus vorhanden.<br>
+      <span class="sb">Dr. Renz:</span> Das sehe ich anders. Die linke Alternative in den 1970ern war in der Krise – nicht nur ideell, sondern auch institutionell. Gewerkschaften galten als inflationsfördernd, Planwirtschaft als gescheitert. Die neoliberale Antwort hatte schlicht bessere politische Anschlussfähigkeit – in den Medien, bei Unternehmern, bei der Mittelklasse.<br>
+      <span class="sa">Prof. Vogel:</span> Einverstanden – aber lassen Sie uns festhalten: Ideen gewinnen nicht einfach durch ihre Qualität. Macht, Ressourcen und strategische Kommunikation spielen eine entscheidende Rolle. Das sollte uns auch für heutige Debatten sensibilisieren.</div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>Prof. Vogel sieht den Aufstieg des Neoliberalismus als Ergebnis gezielter institutioneller Konstruktion.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>Dr. Renz widerspricht Vogel vollständig und sieht keine Rolle für institutionelle Infrastruktur.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Die Stagflation der 1970er Jahre hatte das keynesianische Paradigma erschöpft, so Dr. Renz.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>Prof. Vogel bestreitet, dass es in den 1970ern alternative wirtschaftspolitische Programme gab.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Dr. Renz argumentiert, der Neoliberalismus hatte bessere politische Anschlussfähigkeit bei Medien, Unternehmern und Mittelklasse.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">11.</td><td>Das Gespräch endet ohne jegliche Einigkeit – die Positionen bleiben vollständig unvereinbar.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Allgemeinbildungsgespräche – Lücken (12–18)</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Notieren Sie die fehlende Information (12–18).</div>
+
+    <div class="dial"><div class="dlabel">Gespräche 12–18 (2× vorlesen)</div>
+      <strong>G12:</strong> „Was bedeutet ‚cogito ergo sum'?" – „Descartes' Kernsatz: ‚Ich denke, also <strong>bin ich</strong>.'"<br><br>
+      <strong>G13:</strong> „Wie viele Länder sind in der NATO?" – „Stand 2025: <strong>32</strong> Mitgliedsstaaten."<br><br>
+      <strong>G14:</strong> „Was ist der Unterschied zwischen BIP und BNE?" – „Das BNE schließt <strong>Einkommen von Inländern im Ausland</strong> ein, das BIP nicht."<br><br>
+      <strong>G15:</strong> „Wann fand die Französische Revolution statt?" – „<strong>1789</strong>."<br><br>
+      <strong>G16:</strong> „Wie heißt das Verbot der Doppelbestrafung im deutschen Recht?" – „<strong>Ne bis in idem</strong> – niemand darf zweimal für dieselbe Tat bestraft werden."<br><br>
+      <strong>G17:</strong> „Was ist der Human Development Index?" – „Ein von der UNDP entwickelter Index, der <strong>Lebenserwartung, Bildung und Einkommen</strong> kombiniert."<br><br>
+      <strong>G18:</strong> „Was ist das Prinzip der negativen Freiheit?" – „Freiheit als Abwesenheit äußerer <strong>Einschränkungen oder Hindernisse</strong> – im Gegensatz zur positiven Freiheit als Fähigkeit zur Selbstverwirklichung."</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">12.</span> cogito ergo sum: Ich denke, also <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">13.</span> NATO-Mitgliedsstaaten 2025: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">14.</span> BNE schließt ein: Einkommen von <input class="filin" type="text" placeholder=""> im Ausland.</div>
+      <div class="filrow"><span class="filn">15.</span> Französische Revolution: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">16.</span> Doppelbestrafungsverbot heißt: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">17.</span> HDI kombiniert: Lebenserwartung, Bildung und <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">18.</span> Negative Freiheit = Abwesenheit äußerer <input class="filin" type="text" placeholder=""></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Akademisches Feature / Vortrag – Multiple Choice (7 Fragen)</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören einen Vortrag. Wählen Sie (19–25) die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Vortrag: Prof. Dr. Amina Sow – „Das Ende der Arbeit? Automatisierung, Beschäftigung und soziale Gerechtigkeit" (Lehrer liest vor)</div>
+      „Die Frage, ob Automatisierung Arbeitsplätze vernichtet oder schafft, ist so alt wie die industrielle Revolution. Die Maschinenstürmer des frühen 19. Jahrhunderts glaubten, Maschinen würden Arbeit dauerhaft vernichten – sie irrten. Historisch hat jede Welle der Automatisierung neue Beschäftigungsformen erzeugt, die die alten ersetzten.<br><br>
+      Doch heute stehen wir vor einem qualitativen Unterschied: Künstliche Intelligenz dringt nicht nur in körperliche, sondern in kognitive Arbeit vor – in Bereiche, die lange als maschinenresistent galten: Diagnose, Recht, Kreativität, Beratung. David Autor von MIT hat gezeigt, dass der technologische Wandel zwar Produktivität steigert, aber zunehmend nicht mehr zu neuer Beschäftigung auf der mittleren Qualifikationsstufe führt – das nennt er ‚Polarisierung des Arbeitsmarkts'.<br><br>
+      Das sozialpolitische Dilemma ist real: Wenn Automatisierung Gewinne generiert, aber Arbeit vernichtet, brauchen wir Umverteilungsmechanismen. Vorschläge reichen vom Grundeinkommen über eine Maschinensteuer (Bill Gates) bis zur Arbeitszeitverkürzung. Keiner dieser Vorschläge ist unproblematisch – aber untätig zu sein ist es auch nicht.<br><br>
+      Meine Prognose: Die Frage ist nicht, ob KI Jobs ersetzt, sondern welche – und was wir mit den freigesetzten Ressourcen: menschlicher Zeit, menschlichem Potential – anfangen. Das ist eine politische, keine technische Frage."</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Welche Gruppe zweifelte im 19. Jahrhundert an der positiven Wirkung der Industrialisierung?</div>
+      <div class="mco" data-grp="h19">
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">a</span> Die Frühsozialisten</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">b</span> Die Maschinenstürmer</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">c</span> Die Physiokraten</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was ist laut Vortrag der qualitative Unterschied der heutigen Automatisierung?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Sie ist schneller als frühere Automatisierungswellen</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> KI dringt in kognitive Tätigkeiten vor, die lange als maschinenresistent galten</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Sie betrifft erstmals auch den Dienstleistungssektor</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Was versteht David Autor laut Vortrag unter „Polarisierung des Arbeitsmarkts"?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> Wachstum sowohl im Hochlohn- als auch Niedriglohnbereich, Schrumpfung der Mitte</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> Zunahme von Arbeitslosigkeit in allen Qualifikationsstufen</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Politische Polarisierung zwischen Befürwortern und Gegnern der Automatisierung</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Welchen Vorschlag hat Bill Gates laut Prof. Sow gemacht?</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> Abschaffung der Körperschaftssteuer</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> Eine Maschinensteuer</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> Verpflichtende Umschulung für Automatisierungsverlierer</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Welche Konsequenz aus historischen Automatisierungswellen nennt der Vortrag?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Dauerhafter Abbau von Arbeitsplätzen ohne Kompensation</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Neue Beschäftigungsformen ersetzten jeweils die alten</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Löhne sanken dauerhaft auf breiter Basis</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Welche Frage ist laut Prof. Sow entscheidend – und was ist ihre Art?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Ob KI Jobs ersetzt – eine technische Frage</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> Was wir mit freigesetzten menschlichen Ressourcen anfangen – eine politische Frage</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Welche Branchen am stärksten betroffen sind – eine ökonomische Frage</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">25.</span> Welche Haltung nimmt Prof. Sow gegenüber Untätigkeit ein?</div>
+      <div class="mco" data-grp="h25">
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">a</span> Untätigkeit sei die sicherste politische Option</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">b</span> Untätigkeit sei genauso problematisch wie voreilige Eingriffe</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">c</span> Untätigkeit sei ebenfalls nicht unproblematisch</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 100 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Wissenschaftlicher Essay – Analyse &amp; Argumentation (min. 250 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen analytischen Essay (mindestens <strong>250 Wörter</strong>).</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:13px;font-size:13.5px;line-height:1.85">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:7px">📋 Aufgabe:</div>
+      <em style="font-size:14px">„Koloniales Erbe und Gegenwart: Restitution, Erinnerung, Gerechtigkeit"</em><br><br>
+      Analysieren Sie die ethischen und politischen Dimensionen der Restitutionsdebatte:
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Beschreiben Sie das Kernproblem: Was macht Restitution von Kulturgütern und Archiven moralisch dringend?</li>
+        <li>Erörtern Sie die wichtigsten Gegenargumente (Bewahrungsauftrag, Universalmuseum, technische Hürden)</li>
+        <li>Analysieren Sie, ob und wie Restitution ein Beitrag zur Aufarbeitung kolonialer Unrechtsgeschichte sein kann</li>
+        <li>Formulieren Sie eine eigene Position: Was sollte Deutschland (oder Europa) konkret tun?</li>
+      </ol>
+    </div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',250,370)" placeholder="Die Frage der Restitution kolonialer Kulturgüter ist längst keine akademische mehr …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 250</span></div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Erörternder Kommentar / Positionspapier (min. 200 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie ein Positionspapier oder einen Kommentar (mindestens <strong>200 Wörter</strong>).</div>
+
+    <div style="background:#e8eaf6;border:1.5px solid #9fa8da;border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#3949ab;margin-bottom:5px">📋 Aufgabe:</div>
+      Das Bundesministerium für Arbeit plant, die Wochenarbeitszeit durch ein neues Gesetz auf <strong>32 Stunden</strong> zu reduzieren – bei vollem Lohnausgleich. Gewerkschaften unterstützen den Plan. Arbeitgeberverbände drohen mit Arbeitsplatzverlagerungen ins Ausland.<br><br>
+      Schreiben Sie ein Positionspapier für einen wirtschafts- und sozialpolitischen Thinktank:
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Analysieren Sie die Kernthese der Arbeitszeitverkürzung (Produktivität, Work-Life-Balance, Umwelt)</li>
+        <li>Beurteilen Sie das Argument der Arbeitgeber (Standortverlagerung, Wettbewerbsfähigkeit)</li>
+        <li>Prüfen Sie empirische Evidenz (Island, Pilotprojekte Großbritannien 2022–2023)</li>
+        <li>Formulieren Sie eine nuancierte Empfehlung: Bedingungen, unter denen eine Reform sinnvoll wäre</li>
+      </ol>
+    </div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',200,300)" placeholder="Positionspapier: Zur geplanten Einführung der 32-Stunden-Woche&#10;&#10;I. Einleitung und Problemstellung&#10;&#10;Der vorliegende Gesetzentwurf …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 200</span></div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C2-Lehrerhinweis:</strong> Abstraktion, moralische Tiefe, stilistische Eleganz. Prüfende fordern aktiv Stellungnahmen zu Gegenbeispielen und hypothetischen Szenarien.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Analytischer Kurzvortrag – Wahl A–D</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">5 Min. Vorbereitung, 6–8 Min. Vortrag, 3–4 Min. kritische Diskussion.</div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">These A</div><div class="scq">🕊 Postkoloniale Schuld</div>Haben Nachkommen von Kolonialmächten eine moralische (nicht nur rechtliche) Verantwortung gegenüber ehemaligen Kolonien? Was könnte diese Verantwortung konkret bedeuten?</div>
+      <div class="spcard"><div class="scn">These B</div><div class="scq">🧠 Neuroethik</div>Wenn Hirnscans Verhalten vorhersagen können – sollte das im Strafrecht eine Rolle spielen? Determinismus und Strafverantwortlichkeit.</div>
+      <div class="spcard"><div class="scn">These C</div><div class="scq">📚 Bildungsgerechtigkeit</div>Ist das Bildungssystem in Deutschland ein Verstärker oder ein Korrektiv sozialer Ungleichheit? Was müsste sich strukturell ändern?</div>
+      <div class="spcard"><div class="scn">These D</div><div class="scq">🌍 Globales Regieren</div>Brauchen wir eine Weltregierung für globale Probleme wie Klimawandel, Pandemien und KI-Regulierung – oder wäre das demokratisch illegitim?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Ethisches Verhandlungsszenario – höchste Komplexitätsstufe</span><span class="ppts">15 Punkte</span></div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:14px 18px;margin-bottom:12px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;margin-bottom:8px">📋 Szenario</div>
+      <div style="font-size:13.5px;line-height:2">
+        Ein deutsches Pharmaunternehmen hat ein Medikament entwickelt, das Demenz im Frühstadium mit 80 % Wahrscheinlichkeit aufhalten kann. Das Mittel kostet in der Produktion ca. 2.000 €/Jahr pro Patient. Das Unternehmen verlangt <strong>38.000 €/Jahr</strong> als Listenpreis – mit Verweis auf 12 Jahre Forschungskosten und Patentschutz.<br><br>
+        Die Krankenkassen können und wollen diesen Preis nicht flächendeckend übernehmen. Das bedeutet: Reiche können das Medikament privat kaufen, Ärmere nicht. Der Bundesrat hat einen Antrag eingebracht, das Medikament unter Lizenz für 3.000 €/Jahr zu produzieren (Zwangslizenz gemäß § 24 PatG), was das Pharmaunternehmen als Eigentumsangriff bezeichnet.<br><br>
+        Sie sitzen in einem parlamentarischen Vermittlungsausschuss. Diskutieren Sie:
+        <ul style="padding-left:18px;line-height:2.4;margin-top:5px">
+          <li>Kann Eigentumsrecht (Patentschutz) über dem Recht auf Gesundheit stehen?</li>
+          <li>Wäre eine Zwangslizenz verfassungsrechtlich und ethisch gerechtfertigt?</li>
+          <li>Welche Folgen hätte ein Zwangslizenzpräzedenzfall für zukünftige Pharmainvestitionen?</li>
+          <li>Wie lösen Sie das Dilemma: Innovationsanreiz erhalten und Gesundheitsgerechtigkeit sichern?</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen C2 – Beurteilungsbogen</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung, Argumentation, Kohärenz, moralische Tiefe</td><td>8</td><td><input class="sin" type="number" min="0" max="8" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Diskurskompetenz (Gegenhypothesen, Konzessionen, Gegenargumentation)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (Differenzierung, akademische Idiomatik, Stilbrillanz)</td><td>5</td><td><input class="sin" type="number" min="0" max="5" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik (syntaktische Eleganz, Komplexität, Fehlerfreiheit)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Archive &amp; Kolonialismus R/F/N</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">R</strong></div>
+          <div class="chip">2 → <strong class="ok">F</strong> (Text stellt Archive als Machtinstrument dar, nicht neutral)</div>
+          <div class="chip">3 → <strong class="ok">R</strong></div>
+          <div class="chip">4 → <strong class="ok">N</strong> (Mbembe wird als „südafrikanisch" bezeichnet; keine Angabe zu Namibia oder wo er das Konzept entwickelte)</div>
+          <div class="chip">5 → <strong class="ok">R</strong></div>
+          <div class="chip">6 → <strong class="ok">F</strong> (Mbembe nennt es ausdrücklich „analytische Kategorie", nicht Metapher)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4>
+        <div class="chips">
+          <div class="chip">1 Sven → <strong class="ok">a</strong></div>
+          <div class="chip">2 Yasmin → <strong class="ok">b</strong></div>
+          <div class="chip">3 Kwame → <strong class="ok">c</strong></div>
+          <div class="chip">4 Mei-Ling → <strong class="ok">d</strong></div>
+          <div class="chip">5 Olamide → <strong class="ok">e</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Nicht passend: f (Energietechnik, keine Ökonomik), g (Kriminologie empirisch, keine Straftheorie), h (Subsahara-Demografie, kein Ostasien)</div>
+      </div>
+      <div class="akp"><h4>T3 – Deliberative Demokratie MC</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">b</strong></div><div class="chip">12 → <strong class="ok">b</strong></div>
+          <div class="chip">13 → <strong class="ok">b</strong></div><div class="chip">14 → <strong class="ok">b</strong></div>
+          <div class="chip">15 → <strong class="ok">b</strong></div><div class="chip">16 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Kurztexte</h4>
+        <div class="chips">
+          <div class="chip">17 → <strong class="ok">b</strong></div><div class="chip">18 → <strong class="ok">b</strong></div>
+          <div class="chip">19 → <strong class="ok">a</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T5 – Menschenwürde Lückentext</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">sich (dreht sich …)</strong></div>
+          <div class="chip">22 → <strong class="ok">sein / geben (Gesetz sein / Gesetz geben)</strong></div>
+          <div class="chip">23 → <strong class="ok">ausüben können / besitzen / haben</strong></div>
+          <div class="chip">24 → <strong class="ok">vielmehr / eher / stattdessen</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Radio R/F</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (1,27 Mio. = mehr als 1 Mio.)</div>
+          <div class="chip">2 → <strong class="ok">F</strong> (aus formalen Gründen, nicht inhaltlich)</div>
+          <div class="chip">3 → <strong class="ok">F</strong> (von britischen, nicht deutschen Kolonialtruppen)</div>
+          <div class="chip">4 → <strong class="ok">R</strong></div>
+          <div class="chip">5 → <strong class="ok">F</strong> (Verteidigung erhöht, Kohäsionspolitik gekürzt – nicht beides gekürzt)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Neoliberalismus-Gespräch R/F/N</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">R</strong></div>
+          <div class="chip">7 → <strong class="ok">F</strong> (Renz stimmt Vogel beim institutionellen Faktor zu)</div>
+          <div class="chip">8 → <strong class="ok">R</strong></div>
+          <div class="chip">9 → <strong class="ok">F</strong> (Vogel betont, es gab Alternativen)</div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+          <div class="chip">11 → <strong class="ok">F</strong> (Vogel stimmt Renz am Ende zu – es gibt Annäherung)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T3 – Allgemeinbildungsgespräche</h4>
+        <div class="chips">
+          <div class="chip">12 → <strong class="ok">bin ich</strong></div>
+          <div class="chip">13 → <strong class="ok">32</strong></div>
+          <div class="chip">14 → <strong class="ok">Inländern</strong></div>
+          <div class="chip">15 → <strong class="ok">1789</strong></div>
+          <div class="chip">16 → <strong class="ok">Ne bis in idem</strong></div>
+          <div class="chip">17 → <strong class="ok">Einkommen / Lebensstandard</strong></div>
+          <div class="chip">18 → <strong class="ok">Einschränkungen / Hindernisse</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Automatisierung Vortrag MC</h4>
+        <div class="chips">
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+          <div class="chip">21 → <strong class="ok">a</strong> (impliziert aus Text: Mitte schrumpft)</div>
+          <div class="chip">22 → <strong class="ok">b</strong></div><div class="chip">23 → <strong class="ok">b</strong></div>
+          <div class="chip">24 → <strong class="ok">b</strong></div><div class="chip">25 → <strong class="ok">c</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Frage 21: Im Vortrag nicht explizit erklärt, aber durch Kontext (Produktivitätssteigerung ohne neue Mittelschichtjobs) impliziert → a ist die beste Antwort.</div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Restitutionsessay (15 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte: moralische Dringlichkeit, Gegenargumente fair gewichtet, Analyse Restitution als Aufarbeitung, konkrete Position</td><td>0 – 6 Pkt.</td></tr>
+          <tr><td>Eigenständige, nuancierte Stellungnahme; kein Schwarz-Weiß-Denken</td><td>0 – 4 Pkt.</td></tr>
+          <tr><td>Wissenschaftlicher Stil; Absatzstruktur; Quellenreferenz (auch wenn fiktiv benannt)</td><td>0 – 3 Pkt.</td></tr>
+          <tr><td>C2-Lexik, Grammatikvielfalt, Stilpräzision</td><td>0 – 2 Pkt.</td></tr>
+        </table></div>
+      </div>
+      <div class="akp"><h4>T2 – Positionspapier 32-Stunden-Woche (10 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte; Kernthese und Gegenargument ausgewogen; empirische Belege (Island/UK) erwähnt</td><td>0 – 5 Pkt.</td></tr>
+          <tr><td>Nuancierte Empfehlung mit Bedingungen (kein Absolutismus)</td><td>0 – 2 Pkt.</td></tr>
+          <tr><td>Sachlich-analytischer Stil; Positionspapierstruktur; C2-Register</td><td>0 – 3 Pkt.</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe C2 Modellprüfung Nr. 3 · Generische Version · Viel Erfolg! 🍀
+</div>
+</div>
+
+<script>
+function pickRF3(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => { b.classList.remove('selR','selF','selN'); });
+  if (choice==='R') btn.classList.add('selR');
+  else if (choice==='F') btn.classList.add('selF');
+  else btn.classList.add('selN');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId), pill = document.getElementById(pillId);
+  if (!ta||!pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  pill.textContent = n+' / min. '+min;
+  pill.className = 'wcpill';
+  if (n>=min&&n<=max) pill.classList.add('ok');
+  else if (n>max) pill.classList.add('over');
+}
+(function(){
+  const TOTAL=240*60;
+  const MODS=[{id:'tp1',from:TOTAL,to:TOTAL-100*60},{id:'tp2',from:TOTAL-100*60,to:TOTAL-140*60},{id:'tp3',from:TOTAL-140*60,to:0},{id:'tp4',from:0,to:-1}];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

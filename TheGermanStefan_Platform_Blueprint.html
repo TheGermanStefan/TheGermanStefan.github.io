@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan – Platform Blueprint</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--teal:#00695c;
+  --purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;
+  --gold:#ffd600;--bg:#f0f2f5;--card:#fff;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.7}
+/* HERO */
+.hero{background:linear-gradient(135deg,#0b2545 0%,#1464b4 50%,#00695c 100%);color:#fff;padding:48px 40px 36px;text-align:center}
+.hero .logo{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.hero h1{font-size:34px;font-weight:900;margin-bottom:8px}
+.hero h1 span{color:var(--gold)}
+.hero .tagline{font-size:16px;opacity:.8;max-width:600px;margin:0 auto 20px}
+.hero .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 16px;border-radius:20px;font-size:12px;font-weight:700}
+/* NAV TABS */
+.nav-tabs{background:var(--navy);display:flex;overflow-x:auto;gap:0;padding:0 20px}
+.ntab{color:rgba(255,255,255,.55);padding:12px 18px;font-size:13px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s}
+.ntab.on,.ntab:hover{color:#fff;border-bottom-color:var(--gold)}
+/* SECTIONS */
+.section{display:none;max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+.section.on{display:block}
+/* CARDS */
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:22px;overflow:hidden}
+.card-h{padding:14px 20px;font-size:15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px}
+.card-b{padding:18px 20px}
+.ch-blue{background:linear-gradient(90deg,#0b2545,#1464b4)}
+.ch-green{background:linear-gradient(90deg,#1b5e20,#2e7d32)}
+.ch-purple{background:linear-gradient(90deg,#4a148c,#6a1b9a)}
+.ch-teal{background:linear-gradient(90deg,#004d40,#00695c)}
+.ch-orange{background:linear-gradient(90deg,#bf360c,#e65100)}
+.ch-amber{background:linear-gradient(90deg,#e65100,#f9a825)}
+.ch-red{background:linear-gradient(90deg,#b71c1c,#c62828)}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+/* TIER CARDS */
+.tier{border-radius:12px;padding:20px;border:2px solid #eee;text-align:center}
+.tier.free{border-color:#9e9e9e}
+.tier.basic{border-color:var(--blue);background:#f0f7ff}
+.tier.pro{border-color:var(--purple);background:#f9f0ff}
+.tier.vip{border-color:var(--amber);background:#fffde7}
+.tier-name{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.tier.free .tier-name{color:#666}
+.tier.basic .tier-name{color:var(--blue)}
+.tier.pro .tier-name{color:var(--purple)}
+.tier.vip .tier-name{color:var(--orange)}
+.tier-price{font-size:28px;font-weight:900;margin-bottom:4px}
+.tier-sub{font-size:11px;color:#888;margin-bottom:14px}
+.tier-feat{list-style:none;text-align:left;font-size:12.5px;line-height:2}
+.tier-feat li::before{content:'✓ ';color:var(--green);font-weight:800}
+.tier-feat li.no::before{content:'✗ ';color:#ccc}
+.tier-btn{display:block;margin-top:14px;padding:8px;border-radius:8px;font-weight:800;font-size:13px;text-align:center}
+.tier.free .tier-btn{background:#eee;color:#555}
+.tier.basic .tier-btn{background:var(--blue);color:#fff}
+.tier.pro .tier-btn{background:var(--purple);color:#fff}
+.tier.vip .tier-btn{background:var(--orange);color:#fff}
+/* LEVEL BLOCKS */
+.lvl{border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.lvl-a1{background:#e3f2fd;border-left:4px solid #1464b4}
+.lvl-a2{background:#e8f5e9;border-left:4px solid #2e7d32}
+.lvl-b1{background:#f3e5f5;border-left:4px solid #6a1b9a}
+.lvl-b2{background:#fff3e0;border-left:4px solid #e65100}
+.lvl-c1{background:#fce4ec;border-left:4px solid #c62828}
+.lvl-c2{background:#e8eaf6;border-left:4px solid #283593}
+.lvl h3{font-size:14px;font-weight:800;margin-bottom:6px}
+.lvl-a1 h3{color:#1464b4}.lvl-a2 h3{color:#2e7d32}.lvl-b1 h3{color:#6a1b9a}
+.lvl-b2 h3{color:#e65100}.lvl-c1 h3{color:#c62828}.lvl-c2 h3{color:#283593}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.tag{font-size:11px;padding:2px 9px;border-radius:12px;font-weight:700;background:rgba(0,0,0,.06)}
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-weight:700}
+td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+tr:nth-child(even) td{background:#f9f9f9}
+tr.hl td{font-weight:700;background:#fffde7}
+/* PIPELINE */
+.pipe{display:flex;gap:0;align-items:stretch;flex-wrap:wrap;margin:10px 0}
+.pstep{flex:1;min-width:150px;padding:14px 16px;position:relative;font-size:13px}
+.pstep::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:18px;color:#aaa;z-index:1}
+.pstep:last-child::after{display:none}
+.pstep .ps-n{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;opacity:.6}
+.pstep .ps-t{font-weight:800;font-size:14px;margin-bottom:3px}
+.pstep .ps-d{font-size:12px;opacity:.7}
+.ps1{background:#e3f2fd}.ps2{background:#e8f5e9}.ps3{background:#f3e5f5}.ps4{background:#fff3e0}.ps5{background:#e8eaf6}
+/* ROADMAP */
+.rm-month{border-left:3px solid var(--blue);margin-bottom:20px;padding-left:16px}
+.rm-month h3{font-size:14px;font-weight:900;color:var(--blue);margin-bottom:8px}
+.rm-item{display:flex;gap:10px;align-items:baseline;margin-bottom:5px;font-size:13px}
+.rm-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.rt-build{background:#e3f2fd;color:#1464b4}
+.rt-launch{background:#e8f5e9;color:#2e7d32}
+.rt-social{background:#f3e5f5;color:#6a1b9a}
+.rt-comm{background:#fff3e0;color:#e65100}
+/* CONTENT MATRIX */
+.matrix{width:100%;border-collapse:collapse;font-size:12px}
+.matrix th{padding:6px 10px;background:#0b2545;color:#fff}
+.matrix td{padding:6px 10px;border:1px solid #e0e0e0;vertical-align:middle}
+.matrix .lh{background:#f5f5f5;font-weight:800;font-size:11px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:3px}
+.d-done{background:#2e7d32}.d-build{background:#f9a825}.d-plan{background:#bbb}
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column;align-items:center;gap:0}
+.fl{width:100%;padding:12px 20px;text-align:center;font-weight:700;font-size:13px;color:#fff;position:relative}
+.fl::after{content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);border-left:16px solid transparent;border-right:16px solid transparent;z-index:1}
+.f1{background:#c62828;clip-path:polygon(5% 0,95% 0,100% 100%,0 100%)}
+.f1::after{border-top:12px solid #c62828}
+.f2{background:#e65100;width:90%;clip-path:polygon(4% 0,96% 0,100% 100%,0 100%)}
+.f2::after{border-top:12px solid #e65100}
+.f3{background:#f9a825;color:#333;width:80%;clip-path:polygon(3% 0,97% 0,100% 100%,0 100%)}
+.f3::after{border-top:12px solid #f9a825}
+.f4{background:#2e7d32;width:70%}
+.f4::after{border-top:12px solid #2e7d32}
+.f5{background:#1464b4;width:60%}
+/* STAMMTISCH */
+.stam{background:linear-gradient(135deg,#004d40,#1b5e20);border-radius:12px;padding:20px;color:#fff;margin-bottom:14px}
+.stam h3{font-size:16px;font-weight:800;margin-bottom:10px}
+.stam-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stam-item{background:rgba(255,255,255,.1);border-radius:8px;padding:10px 13px;font-size:13px}
+.stam-item strong{display:block;font-size:11px;opacity:.6;text-transform:uppercase;margin-bottom:3px}
+/* BADGE */
+.badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:800}
+.b-done{background:#c8e6c9;color:#1b5e20}
+.b-build{background:#fff9c4;color:#f57f17}
+.b-plan{background:#e0e0e0;color:#555}
+/* ALERTS */
+.alert{padding:11px 15px;border-radius:8px;font-size:13px;margin-bottom:12px;border-left:4px solid}
+.a-blue{background:#e3f2fd;border-color:var(--blue);color:#0d47a1}
+.a-green{background:#e8f5e9;border-color:var(--green);color:#1b5e20}
+.a-amber{background:#fffde7;border-color:var(--amber);color:#e65100}
+.a-purple{background:#f3e5f5;border-color:var(--purple);color:#4a148c}
+/* RESPONSIVE */
+@media(max-width:700px){.g2,.g3,.g4{grid-template-columns:1fr}.stam-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo">Platform Blueprint · Internal Document</div>
+  <h1>The<span>German</span>Stefan</h1>
+  <p class="tagline">The global online community for German learners — exam prep, grammar, live Stammtisch, and a community that keeps you motivated.</p>
+  <div class="pills">
+    <span class="pill">🎓 A1 – C2 Exam Prep</span>
+    <span class="pill">📝 Grammar Exercises</span>
+    <span class="pill">🍺 Weekly Stammtisch</span>
+    <span class="pill">💬 Member Community</span>
+    <span class="pill">📱 TikTok · Instagram · Facebook</span>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <div class="ntab on" onclick="show('vision')">🎯 Vision</div>
+  <div class="ntab" onclick="show('platform')">🏗️ Platform</div>
+  <div class="ntab" onclick="show('content')">📚 Content Map</div>
+  <div class="ntab" onclick="show('membership')">💳 Membership</div>
+  <div class="ntab" onclick="show('community')">🍺 Community</div>
+  <div class="ntab" onclick="show('pipeline')">⚙️ Content Pipeline</div>
+  <div class="ntab" onclick="show('funnel')">📣 Social Funnel</div>
+  <div class="ntab" onclick="show('roadmap')">🗓️ Roadmap</div>
+</div>
+
+<!-- ============================================================ VISION -->
+<div id="vision" class="section on">
+
+  <div class="card">
+    <div class="card-h ch-blue">🎯 Mission & Positioning</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <p style="font-size:15px;font-weight:800;margin-bottom:8px">What we are</p>
+          <p style="font-size:13px;color:#444;line-height:1.8">
+            The world's most exam-focused, community-driven German learning platform. Not another grammar website — a <strong>results-driven membership</strong> for people who need to pass a specific Goethe exam and want a live, supportive community around them while they do it.
+          </p>
+          <br>
+          <p style="font-size:15px;font-weight:800;margin-bottom:8px">Why we win</p>
+          <ul style="font-size:13px;color:#444;line-height:2;padding-left:16px">
+            <li>30 full Goethe mock exams (A1–C2) — more than any free resource</li>
+            <li>Exercises mapped to exact Goethe module structure</li>
+            <li>A live human face behind it: Stefan, TikTok/IG creator</li>
+            <li>Weekly Stammtisch — you practice with real people</li>
+            <li>Priced for the world, not just Europe</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:15px;font-weight:800;margin-bottom:8px">Who we serve</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="alert a-blue"><strong>Primary:</strong> Adults worldwide preparing for a specific Goethe exam for visa, university, or job reasons. High motivation, time pressure, willing to pay.</div>
+            <div class="alert a-green"><strong>Secondary:</strong> German learners wanting structured self-study with community accountability. No exam deadline but want progress.</div>
+            <div class="alert a-purple"><strong>Tertiary:</strong> Teachers and tutors who assign exercises and mock exams to their own students.</div>
+            <div class="alert a-amber"><strong>Channel:</strong> All reached primarily through TheGermanStefan on TikTok, Instagram, Facebook, YouTube.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-teal">💎 Core Value Proposition</div>
+    <div class="card-b">
+      <div class="g3">
+        <div style="text-align:center;padding:16px;border-radius:10px;background:#e8f5e9">
+          <div style="font-size:32px;margin-bottom:6px">📝</div>
+          <div style="font-weight:800;margin-bottom:4px">Exam-Ready Content</div>
+          <div style="font-size:12px;color:#555">30 full mock exams + targeted exercises built exactly for Goethe format. Nothing generic.</div>
+        </div>
+        <div style="text-align:center;padding:16px;border-radius:10px;background:#e3f2fd">
+          <div style="font-size:32px;margin-bottom:6px">🍺</div>
+          <div style="font-weight:800;margin-bottom:4px">Live Community</div>
+          <div style="font-size:12px;color:#555">Weekly Stammtisch, chat channels, accountability partners. You learn with people, not alone.</div>
+        </div>
+        <div style="text-align:center;padding:16px;border-radius:10px;background:#f3e5f5">
+          <div style="font-size:32px;margin-bottom:6px">🎯</div>
+          <div style="font-weight:800;margin-bottom:4px">Clear Progress</div>
+          <div style="font-size:12px;color:#555">Track scores test by test. Know exactly where you stand before exam day.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ PLATFORM -->
+<div id="platform" class="section">
+
+  <div class="alert a-blue"><strong>Recommended Platform: Skool.com</strong> — Best combination of community + courses + live events. €99/month flat fee, unlimited members, clean UX. Alternatives noted below.</div>
+
+  <div class="card">
+    <div class="card-h ch-blue">🏗️ Platform Architecture</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <p style="font-weight:800;margin-bottom:10px">What lives on Skool</p>
+          <table>
+            <tr><th>Area</th><th>What's there</th></tr>
+            <tr><td>📚 Classroom</td><td>Courses organized by level (A1–C2). Each level = one course with modules.</td></tr>
+            <tr><td>💬 Community</td><td>Feed posts, level-tagged discussions, question threads, progress shares.</td></tr>
+            <tr><td>📅 Events</td><td>Weekly Stammtisch (Zoom link embedded), recordings uploaded after.</td></tr>
+            <tr><td>🏆 Leaderboard</td><td>Skool's built-in points system — members earn points for activity.</td></tr>
+            <tr><td>🔒 Gating</td><td>Free vs. paid tiers handled by Skool access levels.</td></tr>
+          </table>
+        </div>
+        <div>
+          <p style="font-weight:800;margin-bottom:10px">What lives as HTML files (our content)</p>
+          <table>
+            <tr><th>Asset</th><th>Format</th></tr>
+            <tr><td>30 Mock Exams (A1–C2)</td><td>Interactive HTML, hosted/linked from Skool</td></tr>
+            <tr><td>Grammar Exercise Hub</td><td>HTML files per level/topic</td></tr>
+            <tr><td>Reading Room</td><td>HTML files per level with comprehension</td></tr>
+            <tr><td>Vocabulary Drills</td><td>HTML flashcard-style files</td></tr>
+            <tr><td>Writing Feedback Templates</td><td>PDF / HTML worksheets</td></tr>
+            <tr><td>Interview Prep Module</td><td>HTML interactive scenarios</td></tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <p style="font-weight:800;margin-bottom:8px">Hosting the HTML files</p>
+      <div class="g3">
+        <div class="alert a-blue"><strong>Option A (Easiest):</strong> Upload HTML files directly to Skool as downloadable resources per module.</div>
+        <div class="alert a-green"><strong>Option B (Best UX):</strong> Host files on a simple website (e.g. Netlify — free) and embed/link from Skool. Members open in browser, fully interactive.</div>
+        <div class="alert a-amber"><strong>Option C (Full control):</strong> Custom WordPress site for the exercises, Skool for community. Login integrates via email. More work but most scalable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-teal">🔀 Platform Alternatives</div>
+    <div class="card-b">
+      <table>
+        <tr><th>Platform</th><th>Pros</th><th>Cons</th><th>Cost</th></tr>
+        <tr class="hl"><td><strong>Skool ⭐ Recommended</strong></td><td>Community-first, beautiful UX, built-in live events, gamification</td><td>No custom domain on basic plan</td><td>€99/mo flat</td></tr>
+        <tr><td>Kajabi</td><td>All-in-one: courses + email + website + payments</td><td>Expensive, weaker community features</td><td>€149+/mo</td></tr>
+        <tr><td>Circle.so</td><td>Great community + courses, more customizable</td><td>More complex to set up</td><td>€89+/mo</td></tr>
+        <tr><td>WordPress + MemberPress</td><td>Full control, cheapest long-term</td><td>Requires tech setup, hosting, maintenance</td><td>€20–50/mo</td></tr>
+        <tr><td>Teachable / Thinkific</td><td>Good for courses only</td><td>No real community features</td><td>€39+/mo</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-purple">📂 Skool Course Structure</div>
+    <div class="card-b">
+      <p style="font-size:13px;color:#444;margin-bottom:14px">Each level is one Classroom course. Inside, modules map to content types. This makes it easy to add new exercises at any time — just add to the right module.</p>
+      <div class="g2">
+        <div>
+          <div class="lvl lvl-a1"><h3>🔵 A1 – Starter</h3>
+            <div class="tags">
+              <span class="tag">Module 1: About This Level</span>
+              <span class="tag">Module 2: Grammar Exercises</span>
+              <span class="tag">Module 3: Reading Texts</span>
+              <span class="tag">Module 4: Vocabulary</span>
+              <span class="tag">Module 5: Mock Exams (5×)</span>
+              <span class="tag">Module 6: Writing Templates</span>
+            </div>
+          </div>
+          <div class="lvl lvl-a2"><h3>🟢 A2 – Elementary</h3>
+            <div class="tags">
+              <span class="tag">Module 1–6 same structure</span>
+              <span class="tag">+ Module 7: Hören Practice</span>
+            </div>
+          </div>
+          <div class="lvl lvl-b1"><h3>🟣 B1 – Intermediate</h3>
+            <div class="tags">
+              <span class="tag">Module 1–7</span>
+              <span class="tag">+ Module 8: Schreiben (min. 80W drills)</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="lvl lvl-b2"><h3>🟠 B2 – Upper Intermediate</h3>
+            <div class="tags">
+              <span class="tag">Module 1–8</span>
+              <span class="tag">+ Module 9: Essay Writing (150W+)</span>
+            </div>
+          </div>
+          <div class="lvl lvl-c1"><h3>🔴 C1 – Advanced</h3>
+            <div class="tags">
+              <span class="tag">Module 1–9</span>
+              <span class="tag">+ Module 10: Job Interview Prep</span>
+              <span class="tag">+ Module 11: Academic Writing</span>
+            </div>
+          </div>
+          <div class="lvl lvl-c2"><h3>🔷 C2 – Mastery</h3>
+            <div class="tags">
+              <span class="tag">Module 1–11</span>
+              <span class="tag">+ Module 12: Thesis / Complex Writing</span>
+              <span class="tag">+ Module 13: C2 Sprechen Mastery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ CONTENT MAP -->
+<div id="content" class="section">
+
+  <div class="card">
+    <div class="card-h ch-blue">📚 Full Content Library Map</div>
+    <div class="card-b">
+      <p style="font-size:13px;color:#555;margin-bottom:14px">
+        <span class="badge b-done">✓ Done</span> = already built &nbsp;
+        <span class="badge b-build">⚙ Build next</span> = to be created &nbsp;
+        <span class="badge b-plan">◉ Planned</span> = future phase
+      </p>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th class="lh">Content Type</th>
+            <th>A1</th><th>A2</th><th>B1</th><th>B2</th><th>C1</th><th>C2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lh">📝 Full Mock Exams</td>
+            <td><span class="badge b-done">5 ✓</span></td>
+            <td><span class="badge b-done">5 ✓</span></td>
+            <td><span class="badge b-done">5 ✓</span></td>
+            <td><span class="badge b-done">5 ✓</span></td>
+            <td><span class="badge b-done">5 ✓</span></td>
+            <td><span class="badge b-done">5 ✓</span></td>
+          </tr>
+          <tr>
+            <td class="lh">🔤 Grammar Exercises</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">📖 Reading Texts + Questions</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">🔊 Hören Practice Texts</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">📝 Writing Templates + Prompts</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">💬 Sprechen Scenario Cards</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">🃏 Vocabulary Flashcard Sets</td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-build">⚙ Build</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+          <tr>
+            <td class="lh">💼 Interview Prep Module</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+            <td><span class="badge b-plan">◉ Plan</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-green">🔤 Grammar Exercise Topics by Level</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <div class="lvl lvl-a1"><h3>A1 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Personalpronomen</span><span class="tag">Verb sein / haben</span>
+              <span class="tag">Präsens Konjugation</span><span class="tag">Artikel: der/die/das</span>
+              <span class="tag">Nein / kein</span><span class="tag">Zahlen 1–100</span>
+              <span class="tag">Ja/Nein Fragen</span><span class="tag">Farben & Adjektive</span>
+              <span class="tag">Trennbare Verben</span><span class="tag">Satzbau SVO</span>
+            </div>
+          </div>
+          <div class="lvl lvl-a2"><h3>A2 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Perfekt (regelmäßig)</span><span class="tag">Perfekt (unregelmäßig)</span>
+              <span class="tag">Akkusativ</span><span class="tag">Dativ</span>
+              <span class="tag">Präpositionen + Akkusativ</span><span class="tag">Präpositionen + Dativ</span>
+              <span class="tag">Modalverben</span><span class="tag">Komparativ / Superlativ</span>
+              <span class="tag">Nebensätze: weil, dass</span><span class="tag">Imperativ</span>
+            </div>
+          </div>
+          <div class="lvl lvl-b1"><h3>B1 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Konjunktiv II (würde)</span><span class="tag">Passiv Präsens</span>
+              <span class="tag">Relativsätze</span><span class="tag">Zweiteilige Konnektoren</span>
+              <span class="tag">Genitiv</span><span class="tag">Reflexive Verben</span>
+              <span class="tag">Plusquamperfekt</span><span class="tag">Futur I</span>
+              <span class="tag">Infinitivkonstruktionen</span><span class="tag">Adjektivdeklination</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="lvl lvl-b2"><h3>B2 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Passiv Vergangenheit</span><span class="tag">Konjunktiv I (indirekte Rede)</span>
+              <span class="tag">Erweiterte Partizipialkonstruktionen</span>
+              <span class="tag">Konzessivsätze (obwohl, trotzdem)</span>
+              <span class="tag">Kausale / Finale Konnektoren</span>
+              <span class="tag">Nominalisierung</span><span class="tag">Präpositionale Adverbien</span>
+            </div>
+          </div>
+          <div class="lvl lvl-c1"><h3>C1 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Komplexe Satzstrukturen</span>
+              <span class="tag">Modalpartikeln (doch, halt, eben)</span>
+              <span class="tag">Doppelte Infinitivkonstruktionen</span>
+              <span class="tag">Stilistische Varianz</span>
+              <span class="tag">Wissenschaftliches Register</span>
+            </div>
+          </div>
+          <div class="lvl lvl-c2"><h3>C2 Grammar Topics</h3>
+            <div class="tags">
+              <span class="tag">Rhetorik & Persuasion</span>
+              <span class="tag">Formell vs. Informell: Nuancen</span>
+              <span class="tag">Idiomatische Wendungen</span>
+              <span class="tag">Akademischer Stil</span>
+              <span class="tag">Register-Switching</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-orange">📖 Reading Room — Text Topics by Level</div>
+    <div class="card-b">
+      <p style="font-size:13px;color:#555;margin-bottom:12px">Each reading text = 150–400 words + 5 comprehension questions (MC). New texts added monthly.</p>
+      <table>
+        <tr><th>Level</th><th>Topics (5 texts to start)</th><th>Word count</th><th>Question type</th></tr>
+        <tr><td><strong>A1</strong></td><td>Familie, Wohnung, Einkaufen, Schule, Freizeit</td><td>80–120W</td><td>True/False + MC</td></tr>
+        <tr><td><strong>A2</strong></td><td>Alltag, Reisen, Gesundheit, Arbeit, Hobby</td><td>120–200W</td><td>MC 4 options</td></tr>
+        <tr><td><strong>B1</strong></td><td>Umwelt, Technologie, Gesellschaft, Kultur, Bildung</td><td>200–300W</td><td>MC + open question</td></tr>
+        <tr><td><strong>B2</strong></td><td>Politik, Wirtschaft, Wissenschaft, Migration, Medien</td><td>300–450W</td><td>MC + R/F/N</td></tr>
+        <tr><td><strong>C1</strong></td><td>Soziologie, Recht, Urbanismus, Philosophie (light)</td><td>400–550W</td><td>MC + R/F/N + gap</td></tr>
+        <tr><td><strong>C2</strong></td><td>Philosophie, Demokratie, Ästhetik, KI-Ethik, Linguistik</td><td>500–700W</td><td>Full Goethe format</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ MEMBERSHIP -->
+<div id="membership" class="section">
+
+  <div class="card">
+    <div class="card-h ch-purple">💳 Membership Tiers</div>
+    <div class="card-b">
+      <div class="g4">
+        <div class="tier free">
+          <div class="tier-name">Free</div>
+          <div class="tier-price">€0</div>
+          <div class="tier-sub">forever</div>
+          <ul class="tier-feat">
+            <li>1 mock exam per level (6 total)</li>
+            <li>3 grammar exercises (A1)</li>
+            <li>Community read access</li>
+            <li class="no">Stammtisch access</li>
+            <li class="no">Full exercise library</li>
+            <li class="no">Writing feedback</li>
+          </ul>
+          <div class="tier-btn">Join Free →</div>
+        </div>
+        <div class="tier basic">
+          <div class="tier-name">⭐ Learner</div>
+          <div class="tier-price">€15</div>
+          <div class="tier-sub">per month</div>
+          <ul class="tier-feat">
+            <li>All 30 mock exams (A1–C2)</li>
+            <li>Full grammar exercise hub</li>
+            <li>Reading Room (all levels)</li>
+            <li>Vocabulary drills</li>
+            <li>Community full access</li>
+            <li class="no">Live Stammtisch</li>
+            <li class="no">Writing feedback</li>
+          </ul>
+          <div class="tier-btn">Start Learning →</div>
+        </div>
+        <div class="tier pro">
+          <div class="tier-name">🚀 Pro</div>
+          <div class="tier-price">€35</div>
+          <div class="tier-sub">per month</div>
+          <ul class="tier-feat">
+            <li>Everything in Learner</li>
+            <li>Weekly Stammtisch (live)</li>
+            <li>Stammtisch recordings</li>
+            <li>Writing feedback (2×/month)</li>
+            <li>Interview Prep module</li>
+            <li>Priority community support</li>
+            <li class="no">1:1 session with Stefan</li>
+          </ul>
+          <div class="tier-btn">Go Pro →</div>
+        </div>
+        <div class="tier vip">
+          <div class="tier-name">👑 VIP</div>
+          <div class="tier-price">€90</div>
+          <div class="tier-sub">per month</div>
+          <ul class="tier-feat">
+            <li>Everything in Pro</li>
+            <li>Monthly 1:1 with Stefan (30 min)</li>
+            <li>Personalised study plan</li>
+            <li>Unlimited writing feedback</li>
+            <li>Early access to new content</li>
+            <li>VIP Stammtisch group</li>
+          </ul>
+          <div class="tier-btn">Go VIP →</div>
+        </div>
+      </div>
+      <br>
+      <div class="alert a-green"><strong>Annual discount:</strong> Offer 2 months free on annual plans (Learner €150/yr, Pro €350/yr, VIP €900/yr). Annual members churn far less.</div>
+      <div class="alert a-blue"><strong>Pricing flexibility:</strong> Consider PPP (Purchasing Power Parity) pricing — offer 30–50% discount for members from lower-income countries (e.g. via Gumroad's PPP tool). This dramatically expands your global reach without hurting European revenue.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-teal">📊 Revenue Model</div>
+    <div class="card-b">
+      <table>
+        <tr><th>Scenario</th><th>Free Members</th><th>Learner (€15)</th><th>Pro (€35)</th><th>VIP (€90)</th><th>MRR</th></tr>
+        <tr><td>Month 3 (Launch)</td><td>200</td><td>30</td><td>10</td><td>2</td><td>€980</td></tr>
+        <tr><td>Month 6</td><td>800</td><td>80</td><td>25</td><td>5</td><td>€2,525</td></tr>
+        <tr><td>Month 12</td><td>3,000</td><td>200</td><td>60</td><td>15</td><td>€5,550</td></tr>
+        <tr class="hl"><td>Month 18</td><td>8,000</td><td>500</td><td>150</td><td>30</td><td>€14,450</td></tr>
+      </table>
+      <div class="alert a-amber" style="margin-top:12px"><strong>Key insight:</strong> TikTok/IG virality can accelerate this dramatically. One viral video can add 500–2000 free members overnight. The funnel converts ~5–10% to paid over time.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ COMMUNITY -->
+<div id="community" class="section">
+
+  <div class="stam">
+    <h3>🍺 The Stammtisch — Your #1 Retention Tool</h3>
+    <p style="font-size:13px;opacity:.8;margin-bottom:14px">People don't cancel memberships for communities they feel part of. The Stammtisch is the heartbeat of the platform.</p>
+    <div class="stam-grid">
+      <div class="stam-item"><strong>Format</strong>Zoom or Google Meet. 60 minutes. Stefan facilitates. Breakout rooms by level.</div>
+      <div class="stam-item"><strong>Frequency</strong>Weekly (same day/time). E.g. Wednesday 19:00 CET. Record every session.</div>
+      <div class="stam-item"><strong>Structure</strong>10' warm-up game · 20' topic discussion (rotating themes) · 20' free Konversation · 10' Q&A with Stefan</div>
+      <div class="stam-item"><strong>Access</strong>Pro + VIP members. Recording uploaded to Learner tier 48h later.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-green">💬 Community Channels (Skool Feed)</div>
+    <div class="card-b">
+      <table>
+        <tr><th>Channel</th><th>Purpose</th><th>Who posts</th></tr>
+        <tr><td>📣 Announcements</td><td>New content, Stammtisch links, events</td><td>Stefan only</td></tr>
+        <tr><td>🎉 Introductions</td><td>New members introduce themselves in German</td><td>All members</td></tr>
+        <tr><td>🔵 A1/A2 Corner</td><td>Questions, tips, wins for beginners</td><td>All</td></tr>
+        <tr><td>🟣 B1/B2 Zone</td><td>Intermediate discussion, grammar help</td><td>All</td></tr>
+        <tr><td>🔴 C1/C2 Lounge</td><td>Advanced topics, exam strategy, writing critique</td><td>All</td></tr>
+        <tr><td>✍️ Writing Corner</td><td>Post your writing for peer feedback</td><td>All</td></tr>
+        <tr><td>🏆 Exam Results</td><td>Share your Goethe results!</td><td>All</td></tr>
+        <tr><td>❓ Help Desk</td><td>Grammar questions, exercise issues</td><td>All</td></tr>
+        <tr><td>🍺 Stammtisch Recap</td><td>Post notes, vocab, highlights after each session</td><td>Stefan + members</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-orange">🎮 Gamification & Engagement</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <p style="font-weight:800;margin-bottom:8px">Skool built-in points (auto)</p>
+          <ul style="font-size:13px;line-height:2;padding-left:16px">
+            <li>Post in community → +2 pts</li>
+            <li>Comment on someone's post → +1 pt</li>
+            <li>Receive a like → +1 pt</li>
+            <li>Complete a classroom module → +5 pts</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:800;margin-bottom:8px">Custom milestones (you award manually)</p>
+          <ul style="font-size:13px;line-height:2;padding-left:16px">
+            <li>🏅 "Erstes Exam bestanden" — completed test 1</li>
+            <li>🥇 "Stammtisch Veteran" — 10 Stammtisch sessions</li>
+            <li>📝 "Schreibprofi" — 5 writing submissions</li>
+            <li>🎓 "Goethe Bestanden!" — passed real exam</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-purple">📅 Monthly Community Calendar</div>
+    <div class="card-b">
+      <table>
+        <tr><th>Week</th><th>Event</th><th>Format</th></tr>
+        <tr><td>Week 1</td><td>Stammtisch: Thema des Monats</td><td>Live Zoom · 60 min</td></tr>
+        <tr><td>Week 2</td><td>Writing Challenge: Submit + peer review</td><td>Community post</td></tr>
+        <tr><td>Week 3</td><td>Stammtisch: Freie Konversation</td><td>Live Zoom · 60 min</td></tr>
+        <tr><td>Week 4</td><td>Mock Exam Sprint: Do one test, share scores</td><td>Community challenge</td></tr>
+        <tr><td>Monthly</td><td>New content drop: exercises + reading texts</td><td>Announcement post</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ PIPELINE -->
+<div id="pipeline" class="section">
+
+  <div class="alert a-green"><strong>Core principle:</strong> All content is self-contained HTML files. Adding new content = creating a new HTML file and uploading/linking it in the right Skool module. No database, no CMS, no coding required after setup.</div>
+
+  <div class="card">
+    <div class="card-h ch-blue">⚙️ Content Creation Pipeline</div>
+    <div class="card-b">
+      <p style="font-weight:800;margin-bottom:10px">How new exercises get added (repeatable process)</p>
+      <div class="pipe">
+        <div class="pstep ps1"><div class="ps-n">Step 1</div><div class="ps-t">Topic Decision</div><div class="ps-d">Stefan picks theme + level. 5 min.</div></div>
+        <div class="pstep ps2"><div class="ps-n">Step 2</div><div class="ps-t">Claude builds it</div><div class="ps-d">I generate the HTML exercise file. 5–10 min.</div></div>
+        <div class="pstep ps3"><div class="ps-n">Step 3</div><div class="ps-t">Stefan reviews</div><div class="ps-d">Quick check of content accuracy. 5 min.</div></div>
+        <div class="pstep ps4"><div class="ps-n">Step 4</div><div class="ps-t">Upload to Skool</div><div class="ps-d">Add to right level + module. 2 min.</div></div>
+        <div class="pstep ps5"><div class="ps-n">Step 5</div><div class="ps-t">Announce</div><div class="ps-d">Post in community + IG story. 2 min.</div></div>
+      </div>
+      <div class="alert a-blue" style="margin-top:10px">Total time from idea → live content: <strong>~20 minutes</strong>. This is the scalability advantage.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-teal">📦 Content Asset Types & Templates</div>
+    <div class="card-b">
+      <table>
+        <tr><th>Asset</th><th>Template exists?</th><th>Time to build</th><th>Freshness</th></tr>
+        <tr><td>📝 Grammar Exercise Set (20 Q)</td><td>✅ Yes (same as exam format)</td><td>10 min</td><td>Add monthly per topic</td></tr>
+        <tr><td>📖 Reading Text + 5 Q</td><td>✅ Yes (Lesen module format)</td><td>8 min</td><td>Add 2–4/month per level</td></tr>
+        <tr><td>🃏 Vocabulary Drill (30 cards)</td><td>⚙ Build template</td><td>10 min</td><td>Add per topic/theme</td></tr>
+        <tr><td>💬 Sprechen Scenario Cards</td><td>⚙ Build template</td><td>5 min</td><td>Add weekly for Stammtisch</td></tr>
+        <tr><td>✍️ Writing Prompt + Rubric</td><td>⚙ Build template</td><td>5 min</td><td>Add 1–2/month</td></tr>
+        <tr><td>🎯 Full Mock Exam</td><td>✅ Yes (30 built already)</td><td>60–90 min</td><td>Add quarterly per level</td></tr>
+        <tr><td>💼 Interview Prep Scenario</td><td>◉ Planned</td><td>15 min</td><td>Add monthly</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-purple">📅 Monthly Content Rhythm</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <p style="font-weight:800;margin-bottom:10px">Every Month (minimum)</p>
+          <ul style="font-size:13px;line-height:2.2;padding-left:16px">
+            <li>4 new grammar exercise sets (one per A1–B2)</li>
+            <li>8 new reading texts (across all levels)</li>
+            <li>2 new writing prompts + rubrics</li>
+            <li>4 Stammtisch sessions (live + recorded)</li>
+            <li>1 monthly community challenge</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:800;margin-bottom:10px">Every Quarter</p>
+          <ul style="font-size:13px;line-height:2.2;padding-left:16px">
+            <li>1 new mock exam per level (6 total)</li>
+            <li>New vocabulary drill sets</li>
+            <li>Sprechen scenario card packs</li>
+            <li>Review + improve existing content</li>
+            <li>Optional: themed "exam sprint" week</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ FUNNEL -->
+<div id="funnel" class="section">
+
+  <div class="card">
+    <div class="card-h ch-red">📣 Social Media → Membership Funnel</div>
+    <div class="card-b">
+      <div class="g2">
+        <div>
+          <div class="funnel">
+            <div class="fl f1" style="padding:10px 20px;border-radius:4px 4px 0 0">👁 TikTok / IG / YouTube Short<br><span style="font-size:11px;opacity:.75">Hook: grammar tip, vocab, exam myth, funny mistake</span></div>
+            <div style="height:14px"></div>
+            <div class="fl f2" style="padding:10px 20px;border-radius:4px">🔗 Link in Bio / Story<br><span style="font-size:11px;opacity:.75">"Get free A1 mock exam → link in bio"</span></div>
+            <div style="height:14px"></div>
+            <div class="fl f3" style="padding:10px 20px;border-radius:4px">📧 Landing Page / Skool free join<br><span style="font-size:11px;opacity:.75">Email captured. Free tier access granted.</span></div>
+            <div style="height:14px"></div>
+            <div class="fl f4" style="padding:10px 20px;border-radius:4px">💬 Community Nurture<br><span style="font-size:11px;opacity:.75">Active in community. Stammtisch preview. Content teases.</span></div>
+            <div style="height:14px"></div>
+            <div class="fl f5" style="padding:10px 20px;border-radius:8px;background:var(--blue)">💳 Paid Conversion<br><span style="font-size:11px;opacity:.75">Upgrades to Learner / Pro / VIP</span></div>
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:800;margin-bottom:10px">Content strategy by platform</p>
+          <div style="margin-bottom:12px">
+            <div style="font-weight:800;font-size:13px;margin-bottom:6px">📱 TikTok / Instagram Reels</div>
+            <ul style="font-size:12.5px;line-height:2;padding-left:16px;color:#444">
+              <li>Short grammar tips (15–30 sec): "3 ways Germans say YES"</li>
+              <li>Exam format reveals: "What the A2 exam actually looks like"</li>
+              <li>Reaction videos: "German words with no English equivalent"</li>
+              <li>Student success stories (social proof)</li>
+              <li>Stammtisch clips (show the community is alive)</li>
+              <li>CTA: always one free resource + link in bio</li>
+            </ul>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-weight:800;font-size:13px;margin-bottom:6px">📘 Facebook Group (TheGermanStefan)</div>
+            <ul style="font-size:12.5px;line-height:2;padding-left:16px;color:#444">
+              <li>Longer-form tips, weekly challenges</li>
+              <li>Cross-post TikTok content</li>
+              <li>Announce Stammtisch sessions</li>
+              <li>Facebook audience = older learners, more buying power</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:13px;margin-bottom:6px">📧 Email List (essential!)</div>
+            <ul style="font-size:12.5px;line-height:2;padding-left:16px;color:#444">
+              <li>Capture email when joining free tier</li>
+              <li>Weekly email: 1 tip + 1 new exercise + Stammtisch reminder</li>
+              <li>Email converts 3–5× better than social for paid offers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-amber">🎁 Lead Magnets (Free Giveaways)</div>
+    <div class="card-b">
+      <div class="g3">
+        <div style="background:#e3f2fd;border-radius:10px;padding:14px;font-size:13px">
+          <div style="font-weight:800;margin-bottom:6px">🔵 A1/A2 Starter Pack</div>
+          Free mock exam + 10 grammar exercises + vocabulary sheet. Perfect for absolute beginners. High-volume audience.
+        </div>
+        <div style="background:#e8f5e9;border-radius:10px;padding:14px;font-size:13px">
+          <div style="font-weight:800;margin-bottom:6px">🟣 B1 Exam Cheat Sheet</div>
+          "What's really on the B1 exam" — module breakdown, timing tips, what Goethe actually tests. High search intent.
+        </div>
+        <div style="background:#f3e5f5;border-radius:10px;padding:14px;font-size:13px">
+          <div style="font-weight:800;margin-bottom:6px">🔴 C1/C2 Essay Templates</div>
+          Writing structure templates for C1/C2. Appeals to advanced learners who are most likely to pay.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ ROADMAP -->
+<div id="roadmap" class="section">
+
+  <div class="card">
+    <div class="card-h ch-blue">🗓️ 6-Month Launch Roadmap</div>
+    <div class="card-b">
+
+      <div class="rm-month">
+        <h3>Month 1 — Foundation</h3>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Set up Skool community (free trial → paid)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Upload all 30 mock exams into correct level modules</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Build first grammar exercise sets: A1 + A2 (5 topics each)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Create landing page / Skool welcome message + onboarding</div>
+        <div class="rm-item"><span class="rm-tag rt-social">Social</span> 3 TikTok/IG posts per week introducing the platform concept</div>
+        <div class="rm-item"><span class="rm-tag rt-launch">Launch</span> Soft launch: invite your existing followers to join free</div>
+      </div>
+
+      <div class="rm-month">
+        <h3>Month 2 — Community Launch</h3>
+        <div class="rm-item"><span class="rm-tag rt-comm">Community</span> First Stammtisch session (even with 5 people — record it)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Add B1 + B2 grammar exercises (5 topics each)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Build Reading Room: 5 texts per level A1–B1</div>
+        <div class="rm-item"><span class="rm-tag rt-launch">Launch</span> Open paid tiers — announce with early-bird pricing (20% off first 3 months)</div>
+        <div class="rm-item"><span class="rm-tag rt-social">Social</span> Post Stammtisch clip → TikTok/IG "this is what we do every week"</div>
+      </div>
+
+      <div class="rm-month">
+        <h3>Month 3 — Content Momentum</h3>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Vocabulary drill sets: A1 + A2 (500 flashcards)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Writing prompts + rubrics for B1, B2, C1</div>
+        <div class="rm-item"><span class="rm-tag rt-comm">Community</span> First monthly exam sprint challenge</div>
+        <div class="rm-item"><span class="rm-tag rt-social">Social</span> First student success post: someone shares Goethe result</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Sprechen scenario card packs (A1/A2 + B1/B2)</div>
+      </div>
+
+      <div class="rm-month">
+        <h3>Month 4 — Growth Phase</h3>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Interview prep module (B2/C1/C2)</div>
+        <div class="rm-item"><span class="rm-tag rt-launch">Launch</span> Affiliate program: existing members get 20% commission for referrals</div>
+        <div class="rm-item"><span class="rm-tag rt-social">Social</span> Facebook group activated — cross-post all content</div>
+        <div class="rm-item"><span class="rm-tag rt-comm">Community</span> Introduce peer writing review pairs (member-to-member)</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> New mock exam round: 1 per level (6 total) = Tests 6</div>
+      </div>
+
+      <div class="rm-month">
+        <h3>Month 5–6 — Scale & Optimize</h3>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> C1/C2 reading room + advanced grammar exercises</div>
+        <div class="rm-item"><span class="rm-tag rt-comm">Community</span> Level-specific Stammtisch groups (A-level vs B-level vs C-level)</div>
+        <div class="rm-item"><span class="rm-tag rt-launch">Launch</span> Annual membership push: "Pay for 10 months, get 12"</div>
+        <div class="rm-item"><span class="rm-tag rt-social">Social</span> YouTube: long-form "How I passed B2 in 3 months" case study</div>
+        <div class="rm-item"><span class="rm-tag rt-build">Build</span> Partner outreach: language schools, tutors (B2B potential)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-h ch-teal">✅ Immediate Next Actions (This Week)</div>
+    <div class="card-b">
+      <table>
+        <tr><th>#</th><th>Action</th><th>Time needed</th><th>Who</th></tr>
+        <tr><td>1</td><td>Sign up for Skool free trial at skool.com</td><td>10 min</td><td>Stefan</td></tr>
+        <tr><td>2</td><td>Set community name + cover image + welcome message</td><td>30 min</td><td>Stefan</td></tr>
+        <tr><td>3</td><td>Create 6 level courses (A1–C2) and upload mock exams</td><td>1–2 hours</td><td>Stefan + Claude</td></tr>
+        <tr><td>4</td><td>Build first Grammar Exercise Hub HTML (A1 Personalpronomen etc.)</td><td>Claude builds</td><td>Claude</td></tr>
+        <tr><td>5</td><td>Post 1 TikTok: "I'm building a free German learning community"</td><td>15 min</td><td>Stefan</td></tr>
+        <tr><td>6</td><td>Schedule first Stammtisch date + create Zoom link</td><td>5 min</td><td>Stefan</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  event.target.classList.add('on');
+}
+</script>
+</body>
+</html>

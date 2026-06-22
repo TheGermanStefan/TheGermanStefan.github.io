@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat C1 – Modellprüfung 3</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:110px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#33691e 0%,#558b2f 35%,#37474f 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid #558b2f;padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:22px 0}
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:13px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:18px 22px;font-size:13.5px;line-height:2;margin-bottom:14px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:8px;font-style:italic}
+.sbox h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.sbox p{margin-bottom:12px}
+.sbox p:last-child{margin-bottom:0}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#ff9800;border-color:#ff9800;color:#fff}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.7}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.mci{margin-bottom:16px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+.warea{width:100%;min-height:280px;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 15px;font-size:14px;font-family:inherit;resize:vertical;outline:none;color:#111;background:#fdf8ff;line-height:1.85}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff;min-height:240px}
+.warea2:focus{border-color:#3949ab}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;font-size:13px;line-height:2;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+.sc{font-weight:700;color:#00695c}
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px;line-height:1.75}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.gaprow{margin-bottom:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.gnum{font-weight:700;color:var(--blue);min-width:22px}
+.gfin{border:none;border-bottom:2px solid var(--blue);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.gfin:focus{background:#e3f2fd;border-radius:3px 3px 0 0}
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.c1note{background:#fce4ec;border-left:3px solid #e91e63;border-radius:0 6px 6px 0;padding:9px 14px;font-size:12.5px;color:#333;margin:9px 0}
+.c1note strong{color:#880e4f}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">3:30:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 90'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 80'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 3</div>
+    <h1>Goethe-Zertifikat C1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>210 Minuten</strong> (schriftlich) + <strong>15 Min.</strong> (Sprechen) &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">C1<span>Test 3</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 90 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 80 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 90 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="c1note"><strong>C1-Niveau:</strong> Implizite Argumente, Autorenposition und widersprüchliche Standpunkte erkennen und evaluieren.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Feuilleton / Essay – R/F/Nicht im Text</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen (1–6) <strong>R</strong>, <strong>F</strong> oder <strong>N</strong>?</div>
+
+    <div class="sbox">
+      <div class="smeta">„Kultur &amp; Technik" – Die Zeit, April 2026</div>
+      <h3>Übersetzungsmaschinen und das Ende der Fremdheit</h3>
+      <p>Wer heute mit dem Smartphone nach Kyoto, Quito oder Dakar reist, braucht keine Sprachkenntnisse mehr. Echtzeit-Übersetzungsapps überbrücken Sprachbarrieren mit wachsender Perfektion. Und doch wäre es voreilig, darin nur einen Gewinn zu sehen. Denn Sprache ist mehr als Kommunikationsmittel – sie ist Denk- und Welterschließungswerkzeug.</p>
+      <p>Der Philosoph Ludwig Wittgenstein schrieb: „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt." Wer eine Fremdsprache erlernt, erwirbt nicht nur Vokabeln und Grammatikregeln, sondern eine alternative Kategoriensystematik, eine andere Art, die Wirklichkeit zu segmentieren. Das Japanische kennt den Begriff <em>Ma</em> – eine Art bedeutungsvoller Zwischenraum, eine Pause, die zählt. Das Deutsche kennt <em>Weltschmerz</em> und <em>Fingerspitzengefühl</em>. Diese Konzepte sind nur bedingt übersetzbar, weil sie kulturgebundene Erfahrungsweisen verkörpern.</p>
+      <p>KI-Übersetzungen glätten eben jene semantischen Eigenheiten oft ein, wählen das statistisch wahrscheinlichste Äquivalent und erzeugen damit zwar verständliche, aber selten präzise oder kulturell resonante Texte. Der Verlust ist subtil und deshalb gefährlich: Er vollzieht sich, ohne dass wir ihn bemerken.</p>
+      <p>Dies bedeutet nicht, dass Übersetzungstools wertlos wären – für pragmatische Alltagskommunikation sind sie unverzichtbar geworden. Aber sie können die kulturelle Arbeit des Sprachenlernens nicht ersetzen, sondern allenfalls ergänzen. Eine Gesellschaft, die aufhört, Fremdsprachen zu lernen, verliert allmählich die Fähigkeit, sich in fremde Denkwelten hineinzuversetzen.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Der Autor sieht KI-Übersetzungstools ausschließlich als positiven Fortschritt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Wittgenstein wird im Text mit einem Zitat über Sprache und Welt angeführt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Das japanische Konzept <em>Ma</em> ist laut Text vollständig ins Deutsche übersetzbar.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Der Autor hält KI-Übersetzungen für wertlos im Alltag.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Laut Autor ist der kulturelle Verlust durch KI-Übersetzungen besonders gefährlich, weil er subtil ist.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">6.</td><td>Der Text nennt konkrete Studien über den Rückgang des Sprachenlernens in Deutschland.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Welcher Text (a–h) passt am besten?</div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Dr. Nathalie Bourgeois</div>Nathalie ist Völkerrechtlerin und sucht aktuelle Debatten über die rechtlichen Rahmenbedingungen von Offshore-Windparks in internationalen Gewässern – insbesondere Eigentumsrechte und Umwelthaftung.</div>
+      <div class="person"><div class="pname">Person 2 – Pablo Ramos</div>Pablo ist Migrationssoziologe und interessiert sich für qualitative Forschung über die Integrationsverläufe der zweiten Generation – Kinder von Einwanderern.</div>
+      <div class="person"><div class="pname">Person 3 – Prof. Dr. Yuki Tanaka</div>Yuki ist Quantenphysikerin und sucht aktuelle Preprints und Reviews über Fortschritte bei fehlertoleranter Quantencomputation.</div>
+      <div class="person"><div class="pname">Person 4 – Maria Lorenz</div>Maria ist Kulturwissenschaftlerin und sucht vergleichende Analysen zu Erinnerungskultur und kollektivem Gedächtnis in postkommunistischen Gesellschaften.</div>
+      <div class="person"><div class="pname">Person 5 – Ahmed Siddiqui</div>Ahmed ist Ernährungsökonom und sucht empirische Daten zu den globalen Auswirkungen von Fleischkonsum auf Land- und Wassernutzung sowie Treibhausgasemissionen.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><strong>„Seerecht und Erneuerbare Energien"</strong> – International Law Review<br>UNCLOS-Artikel und die Regulierungslücken bei Offshore-Windanlagen – wer haftet für Schäden am Meeresboden?</div>
+      <div class="notice"><div class="nlabel">b</div><strong>„Zwischen den Kulturen: Zweite Generation"</strong> – Migrationsforschung Quarterly<br>Interviews mit 45 jungen Erwachsenen aus Migrationsfamilien: Identitätsaushandlung, Diskriminierungserfahrungen, Zugehörigkeitsgefühl.</div>
+      <div class="notice"><div class="nlabel">c</div><strong>„Quantenfehlerkorrektur 2026"</strong> – Physical Review Letters<br>Übersichtsartikel zu Surface Codes, logischen Qubits und aktuellen Fortschritten bei IBM und Google Quantum AI.</div>
+      <div class="notice"><div class="nlabel">d</div><strong>„Vergangenheit als Ressource"</strong> – Osteuropa-Studien<br>Erinnerungskultur in Polen, Tschechien und Ungarn: Zwischen staatlicher Instrumentalisierung und zivilgesellschaftlichem Widerstand.</div>
+      <div class="notice"><div class="nlabel">e</div><strong>„Der Preis des Steaks"</strong> – Nature Food<br>Metaanalyse: Globaler Flächenfußabdruck von Tierhaltung, Wasserverbrauch pro kg Protein, Emissionen nach Nutztierkategorie.</div>
+      <div class="notice"><div class="nlabel">f</div><strong>„Solarkraftwerke auf See"</strong> – Energie &amp; Technik<br>Schwimmende Photovoltaikmodule auf Stauseen – Technologie, Kosten, Pilotprojekte in Singapur und Norwegen. Kein Windstrom, kein Meeresrecht.</div>
+      <div class="notice"><div class="nlabel">g</div><strong>„Inklusion in deutschen Schulen"</strong> – Bildungsforschung<br>Förderbedarf und Ressourcen – fokussiert auf Kinder mit Behinderungen, nicht auf Migrationshintergrund.</div>
+      <div class="notice"><div class="nlabel">h</div><strong>„Quantenpunkte und LED"</strong> – Photonik Magazin<br>Quantenpunkte in der Beleuchtungstechnik – Halbleiterphysik, keine Quantencomputation.</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welcher Text (a–h) passt?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Nathalie (Offshore-Wind, Seerecht)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Pablo (zweite Generation, Integration)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Yuki (fehlertolerante Quantencomputation)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Maria (Erinnerungskultur, Postkommunismus)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Ahmed (Fleisch, Land/Wasser, Emissionen)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Analysetext – Multiple Choice (6 Fragen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Artikel. Wählen Sie die richtige Antwort.</div>
+
+    <div class="sbox">
+      <div class="smeta">„Wirtschaft &amp; Gesellschaft" – Handelsblatt Magazin, Mai 2026</div>
+      <h3>Plattformkapitalismus: Wenn der Markt zum Algorithmus wird</h3>
+      <p>Amazon, Uber, Airbnb, Deliveroo – die Plattformunternehmen des 21. Jahrhunderts haben eine neue Wirtschaftsform hervorgebracht, die der Ökonom Nick Srnicek „Plattformkapitalismus" nennt. Ihr Geschäftsmodell basiert nicht auf der Produktion von Waren oder Dienstleistungen, sondern auf der Kontrolle von Infrastruktur: Plattformen vermitteln zwischen Anbietern und Nachfragern und ziehen ihren Wert aus den dabei generierten Daten.</p>
+      <p>Das Machtgefälle ist strukturell. Plattformen setzen die Regeln: Sie bestimmen, wer sichtbar ist, welche Preise gelten, unter welchen Bedingungen man tätig sein darf. „Selbstständige" Fahrradkuriere oder Fahrdienstleister sind de facto weisungsgebunden, ohne die rechtlichen Schutzrechte von Angestellten zu genießen. Die EU hat auf diese Grauzone reagiert: Die Plattformarbeitsrichtlinie von 2024 führt eine Beschäftigungsvermutung ein – Plattformen müssen nun beweisen, dass ihre Arbeitenden tatsächlich selbstständig sind.</p>
+      <p>Hinzu kommt die Frage der Marktkonzentration. Plattformmärkte neigen zu „Winner-takes-most"-Dynamiken: Netzwerkeffekte begünstigen die Marktführer so stark, dass neue Wettbewerber kaum eindringen können. Diese natürlichen Monopoltendenzen rechtfertigen kartellrechtliche Eingriffe – was sowohl die EU mit dem Digital Markets Act als auch die USA mit Antitrust-Verfahren gegen Apple, Google und Meta versuchen.</p>
+      <p>Kritiker sehen im Plattformkapitalismus eine neue Form der Feudalisierung: Arbeiter zahlen Plattformen „Tribut" – in Form von Provisionen und Datenüberlassung – ähnlich wie mittelalterliche Bauern dem Grundherrn. Ob diese Analogie überspitzt ist oder auf einen realen Machtverlust hinweist, bleibt Gegenstand intensiver akademischer Debatte.</p>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Worauf basiert laut Text das Geschäftsmodell von Plattformunternehmen?</div>
+      <div class="mco" data-grp="l11">
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">a</span> Auf der Produktion innovativer Waren</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">b</span> Auf der Kontrolle von Infrastruktur und Datengewinnung</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">c</span> Auf günstigeren Preisen als klassische Unternehmen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Was besagt die EU-Plattformarbeitsrichtlinie von 2024?</div>
+      <div class="mco" data-grp="l12">
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">a</span> Alle Plattformarbeiter werden automatisch zu Festangestellten</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">b</span> Plattformen müssen beweisen, dass ihre Arbeitenden tatsächlich selbstständig sind</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">c</span> Plattformarbeit wird in der EU vollständig verboten</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Was sind „Winner-takes-most"-Dynamiken laut Text?</div>
+      <div class="mco" data-grp="l13">
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">a</span> Wettbewerb, der durch staatliche Eingriffe entsteht</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">b</span> Netzwerkeffekte, die Marktführer so stark begünstigen, dass Konkurrenz kaum eindringen kann</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">c</span> Ein EU-Konzept für faire Marktaufteilung</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Mit welchem historischen Bild vergleichen Kritiker den Plattformkapitalismus?</div>
+      <div class="mco" data-grp="l14">
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">a</span> Sklaverei im römischen Reich</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">b</span> Feudalismus: Arbeiter als „Tributzahler" an die Plattform</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">c</span> Kolonialismus und Ressourcenausbeutung</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Was versuchen EU und USA mit kartellrechtlichen Maßnahmen?</div>
+      <div class="mco" data-grp="l15">
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">a</span> Plattformen zu zerschlagen und zu verstaatlichen</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">b</span> Den natürlichen Monopoltendenzen von Plattformmärkten entgegenzuwirken</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">c</span> Europäische Plattformen vor US-Konkurrenz zu schützen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Wie beschreibt der Text die Situation der „selbstständigen" Plattformarbeitenden?</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Vollständig autonom, ohne Kontrolle durch die Plattform</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> De facto weisungsgebunden, ohne Schutzrechte von Angestellten</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> Rechtlich gleichgestellt mit regulären Arbeitnehmern</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Kurztexte – Multiple Choice (4 Fragen)</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Lesen Sie vier anspruchsvolle Kurztexte. Wählen Sie für 17–20 die richtige Antwort.</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – Vertragsbedingungen</div>„Die vorliegenden Allgemeinen Geschäftsbedingungen unterliegen dem Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG). Streitigkeiten sind, sofern kein Verbraucher beteiligt ist, ausschließlich vor den Gerichten des Unternehmenssitzes zu klären. Bei Unwirksamkeit einzelner Klauseln bleibt der Vertrag im Übrigen wirksam (salvatorische Klausel)."</div>
+      <div class="stcard"><div class="stclabel">Text B – Forschungsmitteilung</div>„Eine Metaanalyse von 47 randomisiert-kontrollierten Studien (n = 12.000) zeigt, dass Mindfulness-Based Stress Reduction (MBSR) bei leicht bis mittelschwer depressiven Erwachsenen signifikante Effekte aufweist (Cohen's d = 0.53). Die Wirksamkeit ist vergleichbar mit kognitiver Verhaltenstherapie bei geringeren Abbrecherquoten."</div>
+      <div class="stcard"><div class="stclabel">Text C – Politische Erklärung</div>„Der G7-Gipfel 2026 in Turin endete mit einer gemeinsamen Erklärung zur KI-Governance. Die Staats- und Regierungschefs bekräftigen das Prinzip ‚KI muss menschlichen Werten dienen' und fordern ein internationales Monitoring-Gremium unter UN-Mandat. Konkrete Sanktionsmechanismen wurden nicht vereinbart."</div>
+      <div class="stcard"><div class="stclabel">Text D – Museumskatalog-Auszug</div>„Joseph Beuys' Installation ‚Das Rudel' (1969) besteht aus einem VW-Bus, aus dem 24 Holzschlitten mit Überlebenspaketen (Fett und Filz) strömen. Das Werk steht im Kontext seiner Expanded-Concept-of-Art-Theorie: Kunst als soziale Plastik, jeder Mensch als Künstler."</div>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was regelt die „salvatorische Klausel" laut Text A?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Bei Unwirksamkeit einer Klausel bleibt der Vertrag im Übrigen gültig</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Alle Streitigkeiten werden vor internationalem Gericht geregelt</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> UN-Kaufrecht gilt als vorrangig</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was zeigt die Metaanalyse laut Text B über MBSR?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> MBSR ist wirksamer als KVT und hat keine Abbrecherquoten</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> MBSR wirkt vergleichbar mit KVT, aber mit geringeren Abbrecherquoten</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> MBSR hat keine nachweisbaren Effekte bei Depressionen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was fehlt laut Text C in der G7-Erklärung zur KI?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Jegliche Einigung über KI-Governance</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Konkrete Sanktionsmechanismen</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Die Forderung nach einem Monitoring-Gremium</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was bezeichnet Beuys mit „sozialer Plastik"?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Skulpturen aus sozialen Materialien wie Filz und Fett</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> Kunst als gesellschaftlich gestaltende Praxis, bei der jeder Mensch Künstler ist</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Soziale Skulptur im öffentlichen Raum</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Lückentext – freies Einsetzen</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Ergänzen Sie den Text. Schreiben Sie das fehlende Wort (21–24).</div>
+
+    <div class="sbox">
+      <p>Die Frage, ob Tiere moralischen Status besitzen, war lange ein Randthema der Philosophie. Erst mit Peter Singers einflussreichem Werk „Animal Liberation" (1975) <span style="font-weight:700;color:var(--blue)">(21) ________</span> sie in den philosophischen Mainstream. Singer argumentiert vom utilitaristischen <span style="font-weight:700;color:var(--blue)">(22) ________</span> aus: Leidensfähigkeit, nicht Sprachvermögen oder Vernunft, begründet moralische Berücksichtigung. Wer Tiere ausschließt, <span style="font-weight:700;color:var(--blue)">(23) ________</span> sich des Speziesismus – einer Diskriminierung, die Singer dem Rassismus strukturell gleichstellt. Diese Position ist nicht unumstritten: Kritiker bemängeln, dass die Analogie zum Rassismus Unterschiede verwische, <span style="font-weight:700;color:var(--blue)">(24) ________</span> zwischen kognitiven Fähigkeiten menschlicher und nichtmenschlicher Wesen ethisch relevant sind.</div>
+    </div>
+
+    <div class="gaprow"><span class="gnum">21.</span> <input class="gfin" type="text" placeholder="Verb (Perfekt oder Präteritum)"></div>
+    <div class="gaprow"><span class="gnum">22.</span> <input class="gfin" type="text" placeholder="Nomen (Standpunkt / Blickwinkel ...)"></div>
+    <div class="gaprow"><span class="gnum">23.</span> <input class="gfin" type="text" placeholder="Verb (macht sich schuldig / begeht ...)"></div>
+    <div class="gaprow"><span class="gnum">24.</span> <input class="gfin" type="text" placeholder="da / weil / obwohl ..."></div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C1-Lehrerhinweis:</strong> Zweimal vorlesen. C1-Texte erfordern das Erkennen impliziter Positionen und Widersprüche.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzmeldungen – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Richtig (R) oder Falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Beitrag 1</div>„Medizin: Ein deutsch-britisches Forscherkonsortium meldet den ersten klinischen Erfolg einer personalisierten mRNA-Krebsimpfung gegen Melanome. In der Phase-II-Studie reduzierte die individuelle Impfung das Rückfallrisiko um 44 % im Vergleich zur Kontrollgruppe."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">1.</td><td>Die Studie zeigt eine vollständige Heilung von Melanomen durch mRNA-Impfung.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 2</div>„Datenschutz: Das Bundesdatenschutzamt hat heute gegen das US-amerikanische Unternehmen DataSync eine Rekordstrafe von <strong>820 Millionen Euro</strong> verhängt. Grund: systematische Verarbeitung sensibler Gesundheitsdaten ohne Einwilligung der Betroffenen, entgegen DSGVO-Art. 9."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">2.</td><td>DataSync wurde wegen einer Verletzung des Datenschutzrechts mit einer Rekordstrafe belegt.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 3</div>„Archäologie: Im Großraum Kassel wurden bei Ausgrabungen Relikte einer bisher unbekannten germanischen Siedlung aus dem <strong>3. Jahrhundert n. Chr.</strong> freigelegt. Darunter befinden sich Webgewichte, Tongefäße und ein ungewöhnlich gut erhaltenes Bronzeamulett."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">3.</td><td>Die Siedlung aus dem 3. Jh. war bereits vor dem aktuellen Fund dokumentiert.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 4</div>„Bildung: Die OECD empfiehlt in ihrem neuen Bildungsbericht, das Unterrichtsfach Philosophie/Ethik ab der 5. Klasse verpflichtend einzuführen. Als Begründung werden gestärkte Argumentationsfähigkeit, Empathie und demokratisches Denken bei Schülerinnen und Schülern angeführt."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">4.</td><td>Die OECD empfiehlt Philosophieunterricht ab der Sekundarstufe II (Oberstufe).</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 5</div>„Astronomie: Das europäische Raumfahrtprogramm PLATO soll 2026 gestartet werden und nach erdähnlichen Planeten in der bewohnbaren Zone sonnenähnlicher Sterne suchen. PLATO ergänzt die Mission des James-Webb-Teleskops um die Suche nach Planeten mit stabilen Umlaufbahnen."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">5.</td><td>PLATO und James Webb haben identische Forschungsziele.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Akademisches Gespräch – R/F/N (6 Aussagen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sind die Aussagen über das Gespräch <strong>R/F/N</strong>?</div>
+
+    <div class="dial"><div class="dlabel">Gespräch: Historiker Prof. Dr. Markus Bauer &amp; Literaturwissenschaftlerin Dr. Elif Çelik (Lehrer liest vor)</div>
+      <span class="sa">Prof. Bauer:</span> Ich bin überzeugt, dass Romane historische Quellen ersten Ranges sind – nicht für Fakten, aber für mentale Realitäten: Was haben Menschen gedacht, gefühlt, gefürchtet?<br>
+      <span class="sb">Dr. Çelik:</span> Vollkommen einverstanden. Ich würde sogar weitergehen: Gerade fiktionale Literatur kann Wahrheiten über soziale Strukturen artikulieren, die nüchterne Historiographie nicht erfassen kann – weil sie die Subjektivität ins Zentrum stellt.<br>
+      <span class="sa">Prof. Bauer:</span> Das stimmt, aber wir müssen vorsichtig sein. Romane durchlaufen Redaktionsprozesse, sie sind interessengebunden, stilisiert. Ein Arbeiterroman aus dem Jahr 1920 sagt mir mehr über das Selbstbild der sozialistischen Intellektuellen als über das tatsächliche Leben im Bergwerk.<br>
+      <span class="sb">Dr. Çelik:</span> Das ist ein wichtiger Einwand. Aber das gilt auch für Akten und Zensusberichte: Auch sie sind konstruiert, perspektivisch, selektiv. Kein Dokument ist eine neutrale Widerspiegelung der Realität.<br>
+      <span class="sa">Prof. Bauer:</span> Da haben Sie absolut Recht. Dann sind wir uns einig: Literatur als historische Quelle – ja, aber mit quellenkritischer Reflexion.<br>
+      <span class="sb">Dr. Çelik:</span> Exakt. Und das gilt für alle Gattungen gleichermaßen.</div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>Prof. Bauer hält Romane für historische Quellen über mentale Realitäten, nicht Fakten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>Dr. Çelik ist der Meinung, Romane könnten Wahrheiten artikulieren, die Historiographie nicht kann.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Prof. Bauer warnt davor, Romane unkritisch als Spiegel der historischen Realität zu lesen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>Dr. Çelik bestreitet, dass auch Archivdokumente perspektivisch und selektiv sind.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Beide einigen sich am Ende darauf, Literatur als Quelle zu nutzen, aber quellenkritisch.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">11.</td><td>Das Gespräch endet mit der Forderung nach einer neuen Hilfswissenschaft der Literaturhistorie.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Kurze Gespräche – Informationslücken</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Notieren Sie die fehlende Information (12–18).</div>
+
+    <div class="dial"><div class="dlabel">Gespräche 12–18 (2× vorlesen)</div>
+      <strong>G12:</strong> „Wie viel Übergewicht darf das Handgepäck beim Check-in maximal haben?" – „Bis zu <strong>2 Kilogramm</strong> Übergewicht werden ohne Aufschlag toleriert."<br><br>
+      <strong>G13:</strong> „Wie lange ist die Wartezeit auf einen Facharzttermin laut der neuen Regelung?" – „Sie darf maximal <strong>4 Wochen</strong> betragen."<br><br>
+      <strong>G14:</strong> „Wann wird die neue U-Bahn-Linie eröffnet?" – „Die Eröffnung ist für <strong>Frühjahr 2028</strong> geplant."<br><br>
+      <strong>G15:</strong> „Wie viele Unterschriften wurden für die Bürgerinitiative gesammelt?" – „Bis heute sind es <strong>23.000 Unterschriften</strong>."<br><br>
+      <strong>G16:</strong> „Was ist die Mindestlaufzeit des Vertrags?" – „Der Mindestvertrag läuft über <strong>24 Monate</strong>."<br><br>
+      <strong>G17:</strong> „In welchem Raum findet die Verleihung statt?" – „Im großen Festsaal, das ist <strong>Raum 104</strong> im Erdgeschoss."<br><br>
+      <strong>G18:</strong> „Bis wann muss die Widerspruchsfrist eingelegt werden?" – „Bis spätestens <strong>30 Tage</strong> nach Zustellung des Bescheids."</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">12.</span> Handgepäck-Toleranz: <input class="filin" type="text" placeholder=""> kg.</div>
+      <div class="filrow"><span class="filn">13.</span> Max. Wartezeit Facharzt: <input class="filin" type="text" placeholder=""> Wochen.</div>
+      <div class="filrow"><span class="filn">14.</span> U-Bahn-Eröffnung: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">15.</span> Unterschriften Bürgerinitiative: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">16.</span> Mindestvertragslaufzeit: <input class="filin" type="text" placeholder=""> Monate.</div>
+      <div class="filrow"><span class="filn">17.</span> Verleihung in Raum <input class="filin" type="text" placeholder=""> (Erdgeschoss).</div>
+      <div class="filrow"><span class="filn">18.</span> Widerspruchsfrist: <input class="filin" type="text" placeholder=""> Tage nach Zustellung.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Wissenschaftlicher Vortrag – Multiple Choice (7 Fragen)</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören einen Auszug aus einem Universitätsvortrag. Wählen Sie (19–25) die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Vortrag: „Die Psychologie des Geldes – warum wir irrational entscheiden" (Lehrer liest vor)</div>
+      <span class="sa">Dozentin:</span> Wir glauben gerne, dass wir finanzielle Entscheidungen rational treffen – nach dem Prinzip des Homo oeconomicus: Nutzenmaximierung unter vollständiger Information. Die Verhaltensökonomik der letzten 40 Jahre zeigt: Das ist eine Fiktion.<br><br>
+      Nehmen wir den „Ankereffekt". Daniel Kahneman und Amos Tversky zeigten schon in den 1970er Jahren: Menschen lassen sich von irrelevanten Zahlen bei Schätzungen beeinflussen. Sie drehen ein Glücksrad mit zufälligen Zahlen – und nennen danach höhere Schätzwerte für Afrika-Bevölkerungen, wenn das Rad auf 65 stand, als wenn es auf 10 stand.<br><br>
+      Oder Verlust-Aversion: Menschen empfinden Verluste psychologisch rund doppelt so stark wie gleichwertige Gewinne. Das erklärt, warum Investorinnen Verluste länger halten als rentable Gewinne – in der Hoffnung, das Minus noch auszugleichen. Kahneman nennt das „Prospect Theory".<br><br>
+      Ein weiteres Beispiel: Mental Accounting. Menschen behandeln Geld unterschiedlich, je nachdem woher es kommt. Steuererstattung von 500 Euro fühlt sich wie Geschenk an – und wird konsumiert statt gespart. Das gleiche Geld aus dem Ersparten würde sorgfältig investiert. Rational ist das inkonsistent, menschlich aber sehr verständlich.<br><br>
+      Was folgt daraus für Politik? Nudges – sanfte Schubser: Standartoptionen im Rentensystem, die automatische Anmeldung statt aktiver Wahl. In Großbritannien hat das die Altersvorsorgebeteiligung um 40 % erhöht.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was versteht man unter dem „Ankereffekt"?</div>
+      <div class="mco" data-grp="h19">
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">a</span> Die Tendenz, an verlustreichen Investitionen festzuhalten</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">b</span> Die Beeinflussung von Schätzungen durch irrelevante Ausgangszahlen</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">c</span> Die Neigung, Geld je nach Herkunft unterschiedlich zu behandeln</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was beschreibt die Prospect Theory?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Dass Gewinne doppelt so stark empfunden werden wie Verluste</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> Dass Verluste psychologisch rund doppelt so stark wiegen wie gleich große Gewinne</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Dass Menschen grundsätzlich risikofreudig sind</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Was ist mit „Mental Accounting" gemeint?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> Eine Buchführungsmethode für Haushalte</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> Die psychologisch unterschiedliche Behandlung von Geld je nach Herkunft</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Das rationale Management von Konten unter Unsicherheit</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Wie wirkt die Steuererstattung laut dem Beispiel psychologisch?</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> Wird rational wie eigenes Erspartes behandelt</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> Fühlt sich wie ein Geschenk an und wird konsumiert statt gespart</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> Wird sofort in Rentenfonds investiert</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Wer hat den Ankereffekt erstmals beschrieben?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Milton Friedman und Friedrich Hayek</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Daniel Kahneman und Amos Tversky</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Richard Thaler und Cass Sunstein</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Was ist ein „Nudge" laut Vortrag?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Ein gesetzliches Verbot irrationaler Entscheidungen</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> Ein sanfter Schubser – z.B. Standardoption für automatische Rentenanmeldung</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Ein finanzieller Anreiz für rationales Sparverhalten</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">25.</span> Was hat die Nudge-Strategie in Großbritannien bei der Altersvorsorge bewirkt?</div>
+      <div class="mco" data-grp="h25">
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">a</span> Senkung der Beiträge um 40 %</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">b</span> Erhöhung der Beteiligung um 40 %</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">c</span> Verdopplung der staatlichen Rentenzuschüsse</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 80 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Argumentierender Essay (min. 200 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen strukturierten Essay (mindestens <strong>200 Wörter</strong>).</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:13px;font-size:13.5px;line-height:1.85">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:7px">📋 These:</div>
+      <em style="font-size:14px">„Plattformarbeit (Gig-Economy): Flexibilität als Freiheit oder als Prekarisierung?"</em><br><br>
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Erklären Sie, warum das Thema gesellschaftlich bedeutsam ist</li>
+        <li>Entwickeln Sie ≥ 2 differenzierte Argumente dafür (mit möglichen Einschränkungen)</li>
+        <li>Entwickeln Sie ≥ 2 differenzierte Argumente dagegen</li>
+        <li>Formulieren Sie eine nuancierte eigene Schlussposition</li>
+      </ol>
+    </div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',200,300)" placeholder="Die Digitalisierung hat in den vergangenen Jahren eine neue Form des Arbeitens hervorgebracht …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 200</span></div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Argumentierender Kommentar / offener Brief (min. 150 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen formellen Text (mindestens <strong>150 Wörter</strong>).</div>
+
+    <div style="background:#e8eaf6;border:1.5px solid #9fa8da;border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#3949ab;margin-bottom:5px">📋 Situation:</div>
+      Ihre Stadtverwaltung plant, den öffentlichen Nahverkehr komplett zu privatisieren. Sie haben diesen Vorschlag in einer Stadtratssitzung gehört. Schreiben Sie einen offenen Brief an den Stadtrat:
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Fassen Sie den Vorschlag kurz und sachlich zusammen</li>
+        <li>Erläutern Sie, welche gesellschaftlichen Gruppen besonders von der Privatisierung betroffen wären</li>
+        <li>Benennen Sie strukturelle Risiken (z.B. Preissteigerungen, Abbau unrentabler Linien)</li>
+        <li>Schlagen Sie ein alternatives Modell vor (z.B. public-private partnership, Bürgergenossenschaft)</li>
+      </ol>
+    </div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',150,220)" placeholder="An den Stadtrat der Stadt …&#10;&#10;Sehr geehrte Damen und Herren,&#10;&#10;ich schreibe Ihnen als Bürger dieser Stadt bezüglich des Vorschlags zur vollständigen Privatisierung des öffentlichen Nahverkehrs …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 150</span></div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C1-Lehrerhinweis:</strong> Komplexe Argumentationsstruktur, Einwandbehandlung und sprachliche Präzision bewerten.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">These analysieren und vertreten</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Wählen Sie eine These. 4 Min. Vorbereitung, 5–6 Min. Vortrag, 3 Min. Diskussion.</div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">These A</div><div class="scq">🌱 Vegane Ernährung als Pflicht</div>Haben Menschen angesichts des Klimawandels eine moralische Pflicht, ihre Ernährung zu ändern? Oder ist Ernährung Privatsache?</div>
+      <div class="spcard"><div class="scn">These B</div><div class="scq">🏛 Direkte Demokratie</div>Sollten wichtige Entscheidungen – z.B. über Verfassungsänderungen oder internationale Verträge – per Volksabstimmung getroffen werden? Chancen und Risiken.</div>
+      <div class="spcard"><div class="scn">These C</div><div class="scq">📖 Literatur und Empathie</div>Macht das Lesen von Romanen Menschen empathischer? Ist das empirisch belegbar – oder handelt es sich um einen bildungsbürgerlichen Mythos?</div>
+      <div class="spcard"><div class="scn">These D</div><div class="scq">🏙 Gentrifizierung</div>Ist Gentrifizierung ein unaufhaltbarer Marktprozess oder ein politisch steuerbares Phänomen? Was können Städte tun – und sollten sie eingreifen?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Komplexes Planungsgespräch</span><span class="ppts">15 Punkte</span></div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:14px 18px;margin-bottom:12px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;margin-bottom:8px">📋 Aufgabe</div>
+      <div style="font-size:13.5px;line-height:2">
+        Ihre Universität erhält eine einmalige Schenkung von <strong>2 Millionen Euro</strong> ohne Zweckbindung. Eine Kommission soll über die Verwendung entscheiden. Diskutieren Sie mit Ihrem Partner:<br><br>
+        <ul style="padding-left:18px;line-height:2.4;margin-top:5px">
+          <li>🔬 <strong>Forschungslabor für KI-Ethik</strong> (1,8 Mio. €)</li>
+          <li>🏠 <strong>Studierendenheim mit 80 Plätzen</strong> (2 Mio. €)</li>
+          <li>🎓 <strong>Stipendienprogramm für erste Hochschulgeneration</strong> (500.000 € + dauerhafter Fonds)</li>
+          <li>🌍 <strong>Internationales Austauschprogramm</strong> mit 3 Partneruniversitäten (1,2 Mio. €)</li>
+        </ul>
+        <br>Begründen Sie Ihre Präferenz, reagieren Sie auf Einwände und suchen Sie gemeinsam einen Konsens.
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen C1 – Beurteilungsbogen</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung, Argumentation, Differenzierung</td><td>8</td><td><input class="sin" type="number" min="0" max="8" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Diskurskompetenz (Einwände, Nuancen, Konsens)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (Präzision, Register, Idiomatik)</td><td>5</td><td><input class="sin" type="number" min="0" max="5" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik (Komplexität, Richtigkeit)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Übersetzungsmaschinen R/F/N</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (nicht ausschließlich positiv)</div>
+          <div class="chip">2 → <strong class="ok">R</strong></div>
+          <div class="chip">3 → <strong class="ok">F</strong> (nur bedingt übersetzbar)</div>
+          <div class="chip">4 → <strong class="ok">F</strong> (für Alltag unverzichtbar)</div>
+          <div class="chip">5 → <strong class="ok">R</strong></div>
+          <div class="chip">6 → <strong class="ok">N</strong> (keine konkreten Studien)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4>
+        <div class="chips">
+          <div class="chip">1 Nathalie → <strong class="ok">a</strong></div>
+          <div class="chip">2 Pablo → <strong class="ok">b</strong></div>
+          <div class="chip">3 Yuki → <strong class="ok">c</strong></div>
+          <div class="chip">4 Maria → <strong class="ok">d</strong></div>
+          <div class="chip">5 Ahmed → <strong class="ok">e</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Nicht passend: f (Solaranlagen auf Stauseen, kein Meeresrecht), g (Inklusion/Behinderung, nicht Migration), h (Quantenpunkte/LED, keine Computation)</div>
+      </div>
+      <div class="akp"><h4>T3 – Plattformkapitalismus MC</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">b</strong></div><div class="chip">12 → <strong class="ok">b</strong></div>
+          <div class="chip">13 → <strong class="ok">b</strong></div><div class="chip">14 → <strong class="ok">b</strong></div>
+          <div class="chip">15 → <strong class="ok">b</strong></div><div class="chip">16 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Kurztexte</h4>
+        <div class="chips">
+          <div class="chip">17 → <strong class="ok">a</strong></div><div class="chip">18 → <strong class="ok">b</strong></div>
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T5 – Tierethik Lückentext</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">rückte / gelangte / trat</strong> (z.B. „rückte sie in den Mainstream")</div>
+          <div class="chip">22 → <strong class="ok">Standpunkt / Blickwinkel</strong></div>
+          <div class="chip">23 → <strong class="ok">macht sich schuldig / begeht</strong></div>
+          <div class="chip">24 → <strong class="ok">da / weil</strong> (kausale Konjunktion)</div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Radio R/F</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (Rückfallrisiko reduziert, keine Heilung)</div>
+          <div class="chip">2 → <strong class="ok">R</strong></div>
+          <div class="chip">3 → <strong class="ok">F</strong> (bisher unbekannt)</div>
+          <div class="chip">4 → <strong class="ok">F</strong> (ab Klasse 5, nicht Oberstufe)</div>
+          <div class="chip">5 → <strong class="ok">F</strong> (PLATO ergänzt James Webb, unterschiedliche Ziele)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Historiker-Gespräch R/F/N</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">R</strong></div>
+          <div class="chip">7 → <strong class="ok">R</strong></div>
+          <div class="chip">8 → <strong class="ok">R</strong></div>
+          <div class="chip">9 → <strong class="ok">F</strong> (bestätigt, dass auch Dokumente perspektivisch sind)</div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+          <div class="chip">11 → <strong class="ok">N</strong> (keine solche Forderung)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T3 – Gespräche</h4>
+        <div class="chips">
+          <div class="chip">12 → <strong class="ok">2</strong></div>
+          <div class="chip">13 → <strong class="ok">4</strong></div>
+          <div class="chip">14 → <strong class="ok">Frühjahr 2028</strong></div>
+          <div class="chip">15 → <strong class="ok">23.000</strong></div>
+          <div class="chip">16 → <strong class="ok">24</strong></div>
+          <div class="chip">17 → <strong class="ok">104</strong></div>
+          <div class="chip">18 → <strong class="ok">30</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Verhaltensökonomik Vortrag</h4>
+        <div class="chips">
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+          <div class="chip">21 → <strong class="ok">b</strong></div><div class="chip">22 → <strong class="ok">b</strong></div>
+          <div class="chip">23 → <strong class="ok">b</strong></div><div class="chip">24 → <strong class="ok">b</strong></div>
+          <div class="chip">25 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Gig-Economy Essay (15 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte; ≥ 2 differenzierte Argumente je Seite + Nuancen</td><td>0 – 6 Pkt.</td></tr>
+          <tr><td>Eigene Position: nuanciert, begründet, kohärent</td><td>0 – 4 Pkt.</td></tr>
+          <tr><td>Textstruktur, Kohäsion, Übergänge</td><td>0 – 3 Pkt.</td></tr>
+          <tr><td>C1-Wortschatz, Grammatikvielfalt</td><td>0 – 2 Pkt.</td></tr>
+        </table></div>
+      </div>
+      <div class="akp"><h4>T2 – Offener Brief ÖPNV (10 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte, sachlich-diplomatischer Ton, betroffene Gruppen klar benannt</td><td>0 – 5 Pkt.</td></tr>
+          <tr><td>Konkretes Alternativmodell entwickelt</td><td>0 – 2 Pkt.</td></tr>
+          <tr><td>Formelle Konventionen (Anrede, Grußformel), Grammatik, Wortschatz</td><td>0 – 3 Pkt.</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe C1 Modellprüfung Nr. 3 · Generische Version · Viel Erfolg! 🍀
+</div>
+</div>
+
+<script>
+function pickRF3(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => { b.classList.remove('selR','selF','selN'); });
+  if (choice==='R') btn.classList.add('selR');
+  else if (choice==='F') btn.classList.add('selF');
+  else btn.classList.add('selN');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId), pill = document.getElementById(pillId);
+  if (!ta||!pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  pill.textContent = n+' / min. '+min;
+  pill.className = 'wcpill';
+  if (n>=min&&n<=max) pill.classList.add('ok');
+  else if (n>max) pill.classList.add('over');
+}
+(function(){
+  const TOTAL=210*60;
+  const MODS=[{id:'tp1',from:TOTAL,to:TOTAL-90*60},{id:'tp2',from:TOTAL-90*60,to:TOTAL-130*60},{id:'tp3',from:TOTAL-130*60,to:0},{id:'tp4',from:0,to:-1}];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

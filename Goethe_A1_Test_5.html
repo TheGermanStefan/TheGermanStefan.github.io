@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat A1 – Modellprüfung 5</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.7}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:90px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 40%,#0b2545 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
+.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:18px 20px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999}
+.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
+.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.65}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.sn{font-weight:700;min-width:18px}
+.st{flex:1}
+.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:50px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:30px;font-weight:700;color:#666}
+table.rf .ra{width:90px;text-align:center}
+.rf-wrap{display:flex;gap:6px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.mci{margin-bottom:14px}
+.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
+.qn{color:var(--blue);margin-right:4px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:20px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:120px;outline:none}
+.formbox{background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:12px}
+.formrow{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.flabel{font-weight:700;color:var(--purple);min-width:130px}
+.finput{border:none;border-bottom:1.5px solid #9c27b0;background:transparent;font-size:13px;padding:2px 6px;min-width:180px;outline:none}
+.warea{width:100%;min-height:120px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
+.warea:focus{border-color:var(--purple)}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scq{font-weight:700;font-size:13px;color:var(--orange)}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
+.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
+.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:11px}
+.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:12px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:18px 20px}
+.akm{margin-bottom:18px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
+.akp{margin-bottom:8px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.gapbox{background:#e3f2fd;border:1px solid #b0cef8;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:2;margin-bottom:12px}
+.gn{color:var(--blue);font-weight:800}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">1:25:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 25'</span>
+    <span class="tpill" id="tp2">Hören 20'</span>
+    <span class="tpill" id="tp3">Schreiben 20'</span>
+    <span class="tpill" id="tp4">Sprechen 15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 5</div>
+    <h1>Goethe-Zertifikat A1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>60</strong> &nbsp;·&nbsp; Bestanden ab: <strong>36 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>85 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 9 / 15 = bestanden
+    </div>
+  </div>
+  <div class="badge">A1<span>Test 5</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">15 Pkt · 25 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">15 Pkt · 20 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">15 Pkt · 20 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">15 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">60 Pkt · ≥ 36 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 3 Teile</div></div>
+    <div class="mp"><strong>15</strong> Punkte · 25 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Schilder in der Bibliothek – Zuordnung</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie die Schilder (A–E). Welches passt zu welcher Situation (1–5)?</div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">A</div>Die Bibliothek ist <strong>Montag bis Freitag von 9 bis 20 Uhr</strong> geöffnet. Samstags von 10 bis 16 Uhr.</div>
+      <div class="notice"><div class="nlabel">B</div>Sie können hier bis zu <strong>5 Bücher</strong> für <strong>4 Wochen</strong> ausleihen. Bitte bringen Sie Ihren Bibliotheksausweis.</div>
+      <div class="notice"><div class="nlabel">C</div>Im Lesebereich bitte <strong>Ruhe halten</strong>. Handys müssen lautlos sein. Essen und Trinken verboten.</div>
+      <div class="notice"><div class="nlabel">D</div>Kostenloser <strong>WLAN-Zugang</strong> für alle Besucher. Passwort: <em>lesen2024</em></div>
+      <div class="notice"><div class="nlabel">E</div>Rückgabe von Büchern: Werfen Sie die Bücher in den <strong>Rückgabekasten</strong> links am Eingang – auch außerhalb der Öffnungszeiten möglich.</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welches Schild (A–E) passt?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Sie möchten wissen, wann die Bibliothek am Samstag öffnet.</span>
+        <select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Sie möchten sechs Bücher ausleihen. Ist das möglich?</span>
+        <select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Sie möchten im Internet surfen. Wie ist das Passwort?</span>
+        <select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Sie möchten im Lesebereich telefonieren. Dürfen Sie das?</span>
+        <select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Die Bibliothek ist geschlossen, aber Sie möchten ein Buch zurückgeben.</span>
+        <select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Profil – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+
+    <div class="sbox">
+      <div class="smeta">Steckbrief aus einem Deutschkurs</div>
+      Ich heiße <strong>David</strong> und bin <strong>28 Jahre alt</strong>. Ich komme aus <strong>Spanien</strong>, aus Madrid. Seit sechs Monaten wohne ich in <strong>München</strong> und arbeite dort als <strong>Ingenieur</strong>.<br><br>
+      Ich lerne Deutsch, weil meine Kolleginnen und Kollegen oft Deutsch sprechen. In meiner Freizeit spiele ich gern <strong>Fußball</strong> – jeden Dienstag mit einer Gruppe. Ich mag auch Musik – ich spiele <strong>Gitarre</strong>. Meine Lieblingsspeise ist Pizza, aber ich koche auch gern spanische Gerichte.
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>David kommt aus Portugal.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>David wohnt seit sechs Monaten in München.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>David lernt Deutsch für die Arbeit.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>David spielt jeden Mittwoch Fußball.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>David spielt ein Musikinstrument.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Lückentext – Wort a, b oder c?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Welches Wort passt in die Lücke (11–15)?</div>
+
+    <div class="gapbox">
+      Im Oktober <span class="gn">(11)</span>___ unsere Schule ein Herbstfest. Alle Schülerinnen und Schüler <span class="gn">(12)</span>___ Kuchen und Kekse mit. Die Lehrerin <span class="gn">(13)</span>___ Musik, und wir tanzen zusammen. Das Fest <span class="gn">(14)</span>___ immer sehr lustig! Am Ende <span class="gn">(15)</span>___ wir alle nach Hause.
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">(11)</span> Im Oktober ___ unsere Schule ein Herbstfest.</div>
+      <div class="mco" data-grp="q11">
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> kauft</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> macht</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> liest</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">(12)</span> Alle Schülerinnen und Schüler ___ Kuchen mit.</div>
+      <div class="mco" data-grp="q12">
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> bringen</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> kochen</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> kaufen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">(13)</span> Die Lehrerin ___ Musik.</div>
+      <div class="mco" data-grp="q13">
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> singt</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> macht</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> hört</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">(14)</span> Das Fest ___ immer sehr lustig.</div>
+      <div class="mco" data-grp="q14">
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> arbeitet</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> beginnt</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> ist</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">(15)</span> Am Ende ___ wir alle nach Hause.</div>
+      <div class="mco" data-grp="q15">
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> gehen</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> schlafen</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> spielen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Lehrer/in liest jeden Dialog zweimal vor</div></div>
+    <div class="mp"><strong>15</strong> Punkte · 20 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurze Gespräche – Multiple Choice</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören 5 kurze Gespräche. Wählen Sie die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Gespräch 1</div>„Wie alt ist dein Bruder?" – „Er ist <strong>16 Jahre alt</strong> und geht noch in die Schule."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Wie alt ist der Bruder?</div>
+      <div class="mco" data-grp="q16">
+        <button class="mcb" onclick="pickMC(this,'q16')"><span class="ll">a</span> 14 Jahre</button>
+        <button class="mcb" onclick="pickMC(this,'q16')"><span class="ll">b</span> 16 Jahre</button>
+        <button class="mcb" onclick="pickMC(this,'q16')"><span class="ll">c</span> 18 Jahre</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Gespräch 2</div>„Haben Sie das Buch ‚Deutsch macht Spaß'?" – „Nein, das Buch ist leider <strong>ausverkauft</strong>. Wir können es bestellen."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was sagt der Verkäufer?</div>
+      <div class="mco" data-grp="q17">
+        <button class="mcb" onclick="pickMC(this,'q17')"><span class="ll">a</span> Das Buch ist sehr teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q17')"><span class="ll">b</span> Das Buch ist ausverkauft</button>
+        <button class="mcb" onclick="pickMC(this,'q17')"><span class="ll">c</span> Das Buch ist auf Lager</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Gespräch 3</div>„Was machst du nach der Schule?" – „Ich gehe zuerst <strong>schwimmen</strong>, dann mache ich Hausaufgaben."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was macht die Person nach der Schule zuerst?</div>
+      <div class="mco" data-grp="q18">
+        <button class="mcb" onclick="pickMC(this,'q18')"><span class="ll">a</span> Hausaufgaben machen</button>
+        <button class="mcb" onclick="pickMC(this,'q18')"><span class="ll">b</span> Schwimmen gehen</button>
+        <button class="mcb" onclick="pickMC(this,'q18')"><span class="ll">c</span> Fernsehen</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Gespräch 4</div>„Entschuldigung, wie komme ich zum Bahnhof?" – „Fahren Sie mit der <strong>U3</strong> bis Hauptbahnhof – das sind <strong>drei Stationen</strong>."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Wie fährt man zum Bahnhof?</div>
+      <div class="mco" data-grp="q19">
+        <button class="mcb" onclick="pickMC(this,'q19')"><span class="ll">a</span> Mit dem Bus Linie 5</button>
+        <button class="mcb" onclick="pickMC(this,'q19')"><span class="ll">b</span> Mit der U3, drei Stationen</button>
+        <button class="mcb" onclick="pickMC(this,'q19')"><span class="ll">c</span> Zu Fuß, zehn Minuten</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Gespräch 5</div>„Was kostet ein Kaffee und ein Stück Kuchen?" – „Das macht zusammen <strong>4,50 Euro</strong>, bitte."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was kostet Kaffee und Kuchen?</div>
+      <div class="mco" data-grp="q20">
+        <button class="mcb" onclick="pickMC(this,'q20')"><span class="ll">a</span> 3,50 €</button>
+        <button class="mcb" onclick="pickMC(this,'q20')"><span class="ll">b</span> 4,50 €</button>
+        <button class="mcb" onclick="pickMC(this,'q20')"><span class="ll">c</span> 5,50 €</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Dialog – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie die Aussagen. Hören Sie den Dialog. Richtig (R) oder Falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Dialog: Anna und ihr Nachbar Herr Müller</div>
+      <strong>Anna:</strong> Guten Tag, Herr Müller! Wohin fahren Sie mit dem Koffer?<br>
+      <strong>Herr Müller:</strong> Guten Tag, Anna! Ich fahre nächste Woche nach <strong>Österreich</strong>, nach Wien.<br>
+      <strong>Anna:</strong> Oh, schön! Fahren Sie mit dem Zug?<br>
+      <strong>Herr Müller:</strong> Nein, ich fliege. Der Flug dauert nur <strong>eine Stunde</strong>.<br>
+      <strong>Anna:</strong> Wie lange bleiben Sie in Wien?<br>
+      <strong>Herr Müller:</strong> <strong>Zwei Wochen</strong>. Meine Schwester wohnt dort. Ich besuche sie.<br>
+      <strong>Anna:</strong> Das klingt wunderbar! Haben Sie ein Hotel?<br>
+      <strong>Herr Müller:</strong> Nein, ich schlafe bei meiner Schwester. Das ist viel billiger!
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">21.</td><td>Herr Müller fährt nach Deutschland.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">22.</td><td>Herr Müller fliegt nach Wien.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">23.</td><td>Der Flug dauert zwei Stunden.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">24.</td><td>Herr Müller besucht seine Schwester.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">25.</td><td>Er schläft in einem Hotel.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Kurze Informationen – Lücken ergänzen</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Hören Sie und ergänzen Sie (2× vorlesen).</div>
+
+    <div class="dial"><div class="dlabel">Ansage: Deutschkurs am Sprachenzentrum München</div>
+      „Willkommen am Sprachenzentrum München! Unser Deutschkurs für Anfänger beginnt am <strong>5. September</strong>. Der Kurs findet <strong>dienstags und donnerstags</strong> von <strong>18 bis 20 Uhr</strong> statt. Der Kurs kostet <strong>120 Euro</strong> pro Semester. Die Anmeldung ist online möglich – die Adresse ist: sprachenzentrum-muenchen.de. Für Fragen rufen Sie uns an: <strong>089 / 44521</strong>."</div>
+
+    <div class="filrow"><span class="filn">26.</span> Kursbeginn: <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">27.</span> Kurstage: <input class="filin" type="text" placeholder="z.B. Mo und Mi"></div>
+    <div class="filrow"><span class="filn">28.</span> Kurszeit: <input class="filin" type="text" placeholder=""> bis <input class="filin" type="text" placeholder=""> Uhr.</div>
+    <div class="filrow"><span class="filn">29.</span> Kursgebühr: <input class="filin" type="text" placeholder=""> Euro / Semester.</div>
+    <div class="filrow"><span class="filn">30.</span> Telefon: <input class="filin" type="text" placeholder=""></div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>15</strong> Punkte · 20 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Formular ausfüllen – Kursanmeldung</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Füllen Sie das Anmeldeformular für den Deutschkurs aus. Schreiben Sie Ihre (echten oder erfundenen) Daten.</div>
+
+    <div class="formbox">
+      <div style="font-weight:800;color:var(--purple);margin-bottom:11px;font-size:14px">Sprachenzentrum München – Kursanmeldung</div>
+      <div class="formrow"><span class="flabel">Vorname:</span><input class="finput" type="text" placeholder=""></div>
+      <div class="formrow"><span class="flabel">Nachname:</span><input class="finput" type="text" placeholder=""></div>
+      <div class="formrow"><span class="flabel">Geburtsland:</span><input class="finput" type="text" placeholder=""></div>
+      <div class="formrow"><span class="flabel">Muttersprache:</span><input class="finput" type="text" placeholder=""></div>
+      <div class="formrow"><span class="flabel">E-Mail:</span><input class="finput" type="text" placeholder="name@beispiel.de"></div>
+      <div class="formrow"><span class="flabel">Telefon:</span><input class="finput" type="text" placeholder=""></div>
+      <div class="formrow"><span class="flabel">Sprachkenntnisse DE:</span><input class="finput" type="text" placeholder="A1 / A2 / B1 ..."></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Kurze E-Mail schreiben (30–40 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie eine kurze E-Mail. Schreiben Sie zu diesen drei Punkten: <strong>Warum schreiben Sie? · Was möchten Sie wissen? · Wann können Sie kommen?</strong></div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:12px;font-size:13px;line-height:1.8">
+      <strong style="color:var(--purple)">Situation:</strong> Sie möchten den Deutschkurs besuchen. Schreiben Sie eine E-Mail an das Sprachenzentrum. Fragen Sie nach dem Kursraum und sagen Sie, wann Sie Zeit haben.
+    </div>
+    <textarea class="warea" id="write1" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>15</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="instr">Die Lehrkraft führt das Gespräch. Dieser Teil wird benotet.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Vorstellen und Erzählen (3–4 Min.)</span><span class="ppts">6 Punkte</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      Sprechen Sie über sich: <strong>Name · Alter · Herkunftsland · Wohnort · Beruf oder Studium · Sprachen · Hobbys · Familie</strong>
+    </div>
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Alltagsgespräch und Bild (5–6 Min.)</span><span class="ppts">9 Punkte</span></div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Karte A – Bild</div><div class="scq">📚 In der Bibliothek</div>Beschreiben Sie das Bild: Was machen die Personen? Was sehen Sie?</div>
+      <div class="spcard"><div class="scn">Karte B – Fragen</div><div class="scq">💬 Im Gespräch</div>
+        Fragen Sie:<br>
+        • Lesen Sie gern Bücher?<br>
+        • Welche Bücher mögen Sie?<br>
+        • Haben Sie eine Bibliothek in Ihrer Stadt?</div>
+      <div class="spcard"><div class="scn">Karte C – Bild</div><div class="scq">🎉 Ein Schulfest</div>Beschreiben Sie: Wo sind die Leute? Was machen sie? Wie ist die Atmosphäre?</div>
+      <div class="spcard"><div class="scn">Karte D – Fragen</div><div class="scq">💬 Im Gespräch</div>
+        Antworten Sie:<br>
+        • Feiern Sie gern?<br>
+        • Welche Feste kennen Sie in Deutschland?<br>
+        • Was ist Ihr Lieblingsfest?</div>
+    </div>
+
+    <table class="stbl" style="margin-top:12px">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Verständlichkeit &amp; Aussprache</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Wortschatz &amp; Grammatik</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>15</strong></td><td><input class="sin" type="number" min="0" max="15"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥9)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>15</td><td><input class="sin" type="number" min="0" max="15"></td><td style="font-size:12px;color:#888">ab 9 ✓</td></tr>
+      <tr><td>② Hören</td><td>15</td><td><input class="sin" type="number" min="0" max="15"></td><td style="font-size:12px;color:#888">ab 9 ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>15</td><td><input class="sin" type="number" min="0" max="15"></td><td style="font-size:12px;color:#888">ab 9 ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>15</td><td><input class="sin" type="number" min="0" max="15"></td><td style="font-size:12px;color:#888">ab 9 ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>60</strong></td><td><input class="sin" type="number" min="0" max="60"></td><td style="font-weight:700;color:var(--green)">ab 36 = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen</h3>
+      <div class="akp"><h4>T1 – Bibliotheksschilder</h4>
+        <div class="chips"><div class="chip">1 → <strong class="ok">A</strong></div><div class="chip">2 → <strong class="ok">B</strong> (max. 5 Bücher)</div><div class="chip">3 → <strong class="ok">D</strong></div><div class="chip">4 → <strong class="ok">C</strong> (verboten)</div><div class="chip">5 → <strong class="ok">E</strong></div></div>
+      </div>
+      <div class="akp"><h4>T2 – David</h4>
+        <div class="chips"><div class="chip">6 → <strong class="ok">F</strong> (Spanien)</div><div class="chip">7 → <strong class="ok">R</strong></div><div class="chip">8 → <strong class="ok">R</strong></div><div class="chip">9 → <strong class="ok">F</strong> (dienstags)</div><div class="chip">10 → <strong class="ok">R</strong> (Gitarre)</div></div>
+      </div>
+      <div class="akp"><h4>T3 – Herbstfest</h4>
+        <div class="chips"><div class="chip">11 → <strong class="ok">b (macht)</strong></div><div class="chip">12 → <strong class="ok">a (bringen)</strong></div><div class="chip">13 → <strong class="ok">a (singt)</strong></div><div class="chip">14 → <strong class="ok">c (ist)</strong></div><div class="chip">15 → <strong class="ok">a (gehen)</strong></div></div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören</h3>
+      <div class="akp"><h4>T1 – Gespräche</h4>
+        <div class="chips"><div class="chip">16 → <strong class="ok">b</strong></div><div class="chip">17 → <strong class="ok">b</strong></div><div class="chip">18 → <strong class="ok">b</strong></div><div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div></div>
+      </div>
+      <div class="akp"><h4>T2 – Herr Müller</h4>
+        <div class="chips"><div class="chip">21 → <strong class="ok">F</strong> (Österreich)</div><div class="chip">22 → <strong class="ok">R</strong></div><div class="chip">23 → <strong class="ok">F</strong> (eine Stunde)</div><div class="chip">24 → <strong class="ok">R</strong></div><div class="chip">25 → <strong class="ok">F</strong> (bei Schwester)</div></div>
+      </div>
+      <div class="akp"><h4>T3 – Kursinfos</h4>
+        <div class="chips"><div class="chip">26 → <strong class="ok">5. September</strong></div><div class="chip">27 → <strong class="ok">Di und Do</strong></div><div class="chip">28 → <strong class="ok">18 / 20</strong></div><div class="chip">29 → <strong class="ok">120</strong></div><div class="chip">30 → <strong class="ok">089/44521</strong></div></div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben</h3>
+      <div class="akp"><h4>T1 – Formular</h4>Je Feld 1 Punkt (max. 5 Pkt.).</div>
+      <div class="akp"><h4>T2 – E-Mail</h4>Inhalt (3 Punkte): Warum? Frage? Wann? – Je 1 Pkt. · Sprache: 7 Pkt. (Verständlichkeit, einfache korrekte Sätze)</div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe A1 Modellprüfung Nr. 5 · Viel Erfolg! 🍀</div>
+</div>
+
+<script>
+function pickRF(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => b.classList.remove('selR','selF'));
+  btn.classList.add(choice === 'R' ? 'selR' : 'selF');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+(function(){
+  const TOTAL = 85 * 60;
+  const MODS = [
+    { id: 'tp1', from: TOTAL,         to: TOTAL - 25*60 },
+    { id: 'tp2', from: TOTAL - 25*60, to: TOTAL - 45*60 },
+    { id: 'tp3', from: TOTAL - 45*60, to: TOTAL - 65*60 },
+    { id: 'tp4', from: TOTAL - 65*60, to: 0 }
+  ];
+  let rem = TOTAL, running = true, iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

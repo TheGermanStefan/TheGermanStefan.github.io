@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat A2 – Modellprüfung</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--green:#2e7d32;
+  --purple:#6a1b9a;--red:#c62828;--orange:#e65100;
+  --amber:#f9a825;--teal:#00695c;--bg:#f0f2f5;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.65}
+
+/* TIMER */
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:92px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+@media print{#timer-bar{display:none}}
+
+/* COVER */
+.cover{background:linear-gradient(135deg,#0b2545 0%,#1a3a6b 55%,#1e5278 100%);
+  color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;
+  padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+
+/* CANDIDATE */
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;
+  display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;
+  width:160px;outline:none;background:transparent}
+.ci:focus{border-bottom-color:var(--blue);background:#eef5ff;border-radius:3px 3px 0 0}
+
+/* TIMELINE */
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+
+/* WRAP */
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+
+/* MODULE CARD */
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen  .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+
+/* PART HEADER */
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen  .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:20px 0}
+
+/* INSTRUCTION */
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;
+  font-style:italic;color:#333;margin-bottom:13px}
+.lesen  .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+
+/* PEOPLE GRID (T1) */
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+
+/* NOTICES */
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+
+/* SITS */
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sit:last-child{margin-bottom:0}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;
+  font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+
+/* SOURCE BOX */
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:14px 18px;
+  font-size:13.5px;line-height:1.95;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:7px}
+
+/* R/F TABLE */
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:96px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;
+  font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+
+/* GAP / DROPDOWN */
+.gapbox{background:#f8f9ff;border:1px solid #dde;border-radius:8px;padding:14px 17px;
+  font-size:14px;line-height:2.4;margin:9px 0}
+.gapbox select.gsel{padding:3px 7px;border-radius:5px;border:1.5px solid var(--blue);
+  background:#e8f0fe;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;
+  margin:0 2px;outline:none}
+.gapbox select.gsel:focus{background:#d0e4ff}
+.wbank{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;
+  font-size:13px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.wbank .wblabel{font-weight:700;color:var(--green);font-size:12px;white-space:nowrap}
+.wchip{background:#fff;border:1.5px solid #a5d6a7;border-radius:20px;padding:3px 12px;font-size:13px;font-weight:600}
+
+/* MC */
+.mci{margin-bottom:14px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;
+  border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;
+  cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+
+/* SHORT TEXT CARDS */
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+
+/* DIALOGUE */
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;
+  font-size:13px;line-height:1.9;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+
+/* FILL */
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;
+  font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:110px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+
+/* FORM TABLE */
+.ftbl{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;border-radius:8px;overflow:hidden;border:1px solid #ddd}
+.ftbl th{background:#f3e5f5;color:var(--purple);font-weight:700;padding:9px 13px;text-align:left;width:36%;border-bottom:1px solid #ddd}
+.ftbl td{padding:6px 9px;border-bottom:1px solid #eee}
+.ftbl tr:last-child th,.ftbl tr:last-child td{border-bottom:none}
+.fin{width:100%;border:none;border-bottom:1.5px solid #aaa;background:transparent;
+  font-size:14px;padding:4px 4px;outline:none;color:#111}
+.fin:focus{border-bottom-color:var(--purple);background:#faf5ff}
+
+/* TEXTAREA */
+.warea{width:100%;min-height:165px;border:1.5px solid #ce93d8;border-radius:8px;
+  padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;
+  color:#111;background:#fdf8ff;line-height:1.8}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff}
+.warea2:focus{border-color:#3949ab;box-shadow:0 0 0 3px rgba(57,73,171,.1)}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+
+/* TEACHER NOTE */
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;
+  padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+
+/* SPEAK CARDS */
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+
+/* SCORE */
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;
+  width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.sin:focus{border-bottom-color:var(--blue);background:#e8f0fe;border-radius:3px 3px 0 0}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+
+/* ANSWER KEY */
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.chip strong{color:var(--navy)}
+.ok{color:var(--green);font-weight:700}
+.wrong{color:var(--red);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric h4{font-weight:700;color:#795548;font-size:12px;margin-bottom:5px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+
+/* RESULT CARD */
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+
+@media print{
+  body{background:#fff}
+  .ak{page-break-before:always}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- TIMER -->
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">1:40:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 30'</span>
+    <span class="tpill" id="tp2">Hören 30'</span>
+    <span class="tpill" id="tp3">Schreiben 30'</span>
+    <span class="tpill" id="tp4">Sprechen 15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil</div>
+    <h1>Goethe-Zertifikat A2 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>105 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">A2<span>Prüfung</span></div>
+</div>
+
+<!-- CANDIDATE -->
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- ████ LESEN ████ -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Reading comprehension – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 30 Min.</div>
+  </div>
+  <div class="mb">
+
+    <!-- L-T1 -->
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Personen und Anzeigen – Welche Anzeige passt?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Fünf Personen suchen etwas. Lesen Sie die Anzeigen (a – h) und die Situationen. Welche Anzeige passt? <em>Drei Anzeigen passen nicht.</em></div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Nadia</div>Nadia ist neu in der Stadt und sucht einen Deutschkurs für Fortgeschrittene, der abends stattfindet.</div>
+      <div class="person"><div class="pname">Person 2 – Thomas</div>Thomas sucht eine Wohnung mit zwei Zimmern, nicht zu weit vom Stadtzentrum, maximal 800 Euro Miete.</div>
+      <div class="person"><div class="pname">Person 3 – Yuki</div>Yuki möchte in ihrer Freizeit Yoga lernen. Sie hat nur am Wochenende Zeit.</div>
+      <div class="person"><div class="pname">Person 4 – Rafael</div>Rafael sucht eine günstige Mitfahrgelegenheit nach München, möglichst am Freitagabend.</div>
+      <div class="person"><div class="pname">Person 5 – Leila</div>Leila sucht einen Babysitter für ihre Tochter (3 Jahre) für zwei Nachmittage pro Woche.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><div><strong>Deutschkurs B1 – Abendkurs</strong><br>Mo + Mi 18:30 – 20:00 Uhr<br>Volkshochschule Mitte · ab 12 €/Stunde<br>Anmeldung: vhs@stadtmitte.de</div></div>
+      <div class="notice"><div class="nlabel">b</div><div><strong>2-Zimmer-Wohnung zu vermieten</strong><br>55 m², Stadtmitte, ruhige Lage<br>Miete: 790 € + Nebenkosten<br>📞 0176-334 55 12</div></div>
+      <div class="notice"><div class="nlabel">c</div><div><strong>Yoga für Anfänger</strong><br>Samstag und Sonntag 10:00 – 11:30 Uhr<br>Studio Harmonie · 10 € / Stunde<br>yoga-harmonie.de</div></div>
+      <div class="notice"><div class="nlabel">d</div><div><strong>Mitfahrt nach München gesucht</strong><br>Abfahrt: Freitag ab 17 Uhr<br>Kosten teilen · Raucher/in okay<br>Bitte SMS: 0162-77 88 99</div></div>
+      <div class="notice"><div class="nlabel">e</div><div><strong>Biete Babysitting</strong><br>Ich passe gern auf Kinder auf!<br>Erfahren mit Kindern ab 2 Jahren<br>Di, Do Nachmittag · 12 €/Stunde</div></div>
+      <div class="notice"><div class="nlabel">f</div><div><strong>Fahrrad zu verkaufen</strong><br>City-Bike, 7 Gang, wie neu<br>Preis: 180 € (VB) · Abholung<br>📞 0178 – 22 33 44</div></div>
+      <div class="notice"><div class="nlabel">g</div><div><strong>3-Zimmer-Wohnung</strong><br>80 m², Stadtrand, Garten<br>Miete: 1.100 € warm<br>Verfügbar ab 1. Oktober</div></div>
+      <div class="notice"><div class="nlabel">h</div><div><strong>Mitfahrt nach Hamburg</strong><br>Freitag 15 Uhr, Rückfahrt Sonntag<br>Kostenbeteiligung erwünscht<br>hans.mayer@web.de</div></div>
+    </div>
+
+    <div class="sits">
+      <h4>Welche Anzeige passt zu welcher Person? (a – h)</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Nadia (Deutschkurs, abends)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Thomas (2-Zimmer-Wohnung, max. 800 €)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Yuki (Yoga, nur am Wochenende)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Rafael (Mitfahrt nach München, Freitagabend)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Leila (Babysitter, 2 Nachmittage/Woche)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- L-T2 -->
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Zeitungsartikel – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Artikel. Sind die Aussagen (6–10) richtig (R) oder falsch (F)?</div>
+
+    <div class="sbox">
+      <div class="smeta">Artikel aus „Stadtblatt Hannover" · 14. Mai 2026</div>
+      <p><strong>Homeoffice: Fluch oder Segen?</strong></p><br>
+      <p>Immer mehr Menschen in Deutschland arbeiten zumindest teilweise von zu Hause aus – das sogenannte <em>Homeoffice</em>. Eine neue Studie zeigt, dass bereits <strong>45 Prozent</strong> der deutschen Arbeitnehmer regelmäßig im Homeoffice arbeiten, vor allem in Büroberufen.</p><br>
+      <p>Viele Arbeitnehmer schätzen die <strong>Flexibilität</strong>: Man spart Zeit und Geld für den Weg zur Arbeit, kann die Arbeitszeit besser einteilen und ist oft konzentrierter. Besonders Eltern mit kleinen Kindern profitieren davon.</p><br>
+      <p>Aber es gibt auch Nachteile. Viele Homeoffice-Arbeiter fühlen sich <strong>einsam</strong> und vermissen den Kontakt zu Kollegen. Außerdem ist es manchmal schwierig, Arbeit und Freizeit klar zu trennen – man arbeitet abends oder am Wochenende weiter.</p><br>
+      <p>Experten empfehlen eine <strong>Mischung</strong> aus Homeoffice und Büro. So behält man die Vorteile beider Welten. Einige Firmen haben bereits feste „Bürotage" eingeführt, zum Beispiel dienstags und donnerstags.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R &nbsp; F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>45 Prozent der deutschen Arbeitnehmer arbeiten regelmäßig im Homeoffice.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>Im Homeoffice hat man mehr Kosten für den Weg zur Arbeit.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Viele Homeoffice-Arbeiter vermissen den Kontakt zu Kollegen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>Experten empfehlen, immer vollständig im Büro zu arbeiten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Manche Firmen haben feste Tage für die Arbeit im Büro eingeführt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- L-T3 -->
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Text mit Lücken – Wählen Sie das passende Wort</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Wählen Sie für jede Lücke (11–15) das richtige Wort aus der Liste.</div>
+
+    <div class="wbank">
+      <span class="wblabel">Wortliste:</span>
+      <span class="wchip">benutzen</span><span class="wchip">deshalb</span><span class="wchip">getrennt</span>
+      <span class="wchip">kaufen</span><span class="wchip">obwohl</span><span class="wchip">recyceln</span>
+      <span class="wchip">verbrauchen</span><span class="wchip">weniger</span>
+    </div>
+
+    <div class="gapbox">
+      Umweltschutz ist heute ein wichtiges Thema. Viele Menschen möchten <select class="gsel" id="g11"><option value="">▼</option><option>benutzen</option><option>deshalb</option><option>getrennt</option><option>kaufen</option><option>obwohl</option><option>recyceln</option><option>verbrauchen</option><option>weniger</option></select>
+      Plastik im Alltag. Sie
+      <select class="gsel" id="g12"><option value="">▼</option><option>benutzen</option><option>deshalb</option><option>getrennt</option><option>kaufen</option><option>obwohl</option><option>recyceln</option><option>verbrauchen</option><option>weniger</option></select>
+      zum Beispiel Stofftaschen beim Einkaufen und
+      <select class="gsel" id="g13"><option value="">▼</option><option>benutzen</option><option>deshalb</option><option>getrennt</option><option>kaufen</option><option>obwohl</option><option>recyceln</option><option>verbrauchen</option><option>weniger</option></select>
+      ihre Flaschen und Papier. Müll wird in Deutschland
+      <select class="gsel" id="g14"><option value="">▼</option><option>benutzen</option><option>deshalb</option><option>getrennt</option><option>kaufen</option><option>obwohl</option><option>recyceln</option><option>verbrauchen</option><option>weniger</option></select>
+      gesammelt.
+      <select class="gsel" id="g15"><option value="">▼</option><option>benutzen</option><option>deshalb</option><option>getrennt</option><option>kaufen</option><option>obwohl</option><option>recyceln</option><option>verbrauchen</option><option>weniger</option></select>
+      es manchmal unbequem ist, lohnt sich das für die Umwelt.
+    </div>
+
+    <hr class="divider">
+
+    <!-- L-T4 -->
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Kurze Alltagstexte – Was ist richtig?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie die fünf kurzen Texte. Wählen Sie für jede Frage (16–20) die richtige Antwort (a, b oder c).</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – WhatsApp</div>„Hallo! Kannst du heute Abend nicht kommen? Ich mache Abendessen für uns. Ich koche Pasta! Bring bitte noch ein bisschen Salat mit, wenn du möchtest. Bis 19 Uhr! – Mia"</div>
+      <div class="stcard"><div class="stclabel">Text B – Aushang Büro</div>„Achtung! Die Kaffeemaschine im 2. OG ist kaputt. Bitte benutzen Sie bis auf Weiteres die Maschine im Erdgeschoss (Raum 012). Danke für Ihr Verständnis. – Die Hausverwaltung"</div>
+      <div class="stcard"><div class="stclabel">Text C – Online-Kommentar</div>„Das neue Café in der Bahnhofstraße ist super! Der Kaffee ist sehr gut und die Kuchen sind frisch. Ich war schon dreimal da. Nur die Preise sind etwas hoch. 4 von 5 Sternen!" – Nina_K</div>
+      <div class="stcard"><div class="stclabel">Text D – Zettel an der Tür</div>„Lieber Nachbar, Ihr Paket war heute da, aber Sie waren nicht zu Hause. Ich habe es für Sie angenommen. Klingeln Sie bei mir – Wohnung 14. – Frau Bergmann"</div>
+    </div>
+    <div class="stcard" style="margin-bottom:12px"><div class="stclabel">Text E – E-Mail-Betreff + Kurztext</div>„Betreff: Ihr Termin am Mittwoch. Sehr geehrte Frau Torres, leider müssen wir Ihren Zahnarzttermin am Mittwoch, den 18. Juni um 14:30 Uhr verschieben. Bitte rufen Sie uns an, um einen neuen Termin zu vereinbaren. Tel: 030-445 566. Freundliche Grüße, Zahnarztpraxis Dr. Müller"</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Mia möchte, dass ihre Freundin…</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Pasta mitbringt.</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> zum Abendessen kommt und Salat mitbringt.</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> kochen kommt.</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was sollen die Mitarbeiter tun?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Die Maschine im 2. OG reparieren.</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Keinen Kaffee trinken.</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> Die Kaffeemaschine im Erdgeschoss benutzen.</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was findet die Kommentatorin nicht so gut?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> Den Kaffee</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> Die Preise</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> Den Kuchen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was hat Frau Bergmann gemacht?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Sie hat ein Paket für den Nachbarn angenommen.</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Sie hat ein Paket verschickt.</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Sie hat an der Tür geklingelt.</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was soll Frau Torres tun?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Am Mittwoch um 14:30 Uhr zur Praxis kommen.</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> Die Praxis anrufen, um einen neuen Termin zu vereinbaren.</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Eine E-Mail an die Praxis schreiben.</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- L-T5 -->
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Einen Brief verstehen – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Brief. Sind die Aussagen (21–25) richtig (R) oder falsch (F)?</div>
+
+    <div class="sbox">
+      <div class="smeta">Von: Sprachschule Global · An: Kursteilnehmer · Betreff: Informationen zu Ihrem Kurs</div>
+      <p>Sehr geehrte Kursteilnehmerinnen und Kursteilnehmer,</p><br>
+      <p>wir freuen uns, Sie in unserem neuen <strong>Deutschkurs B1</strong> begrüßen zu dürfen! Der Kurs beginnt am <strong>Montag, den 7. Juli</strong>, und findet jeden Montag und Mittwoch von <strong>18:00 bis 20:00 Uhr</strong> statt. Der Kursraum ist <strong>Raum 203</strong> im zweiten Obergeschoss.</p><br>
+      <p>Bitte bringen Sie zum ersten Kurstag Folgendes mit: ein Notizheft, einen Stift und – falls vorhanden – Ihre bisherigen Deutschunterlagen. Ein <strong>Lehrbuch</strong> wird von der Schule gestellt. Sie müssen es <strong>nicht kaufen</strong>.</p><br>
+      <p>Die Kursgebühr beträgt <strong>180 Euro</strong> für 12 Wochen. Zahlung ist per Überweisung oder bar möglich. Bei Fragen kontaktieren Sie uns bitte unter info@global-sprachen.de.</p><br>
+      <p>Wir wünschen Ihnen viel Erfolg!</p><br>
+      <p>Mit freundlichen Grüßen, das Team der Sprachschule Global</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R &nbsp; F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">21.</td><td>Der Kurs findet montags und mittwochs statt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">22.</td><td>Der Unterricht ist im dritten Obergeschoss.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">23.</td><td>Die Teilnehmer müssen kein Lehrbuch kaufen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">24.</td><td>Die Kursgebühr beträgt 200 Euro.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">25.</td><td>Man kann per Überweisung oder bar zahlen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<!-- ████ HÖREN ████ -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Lehrer/in liest jeden Text zweimal vor</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~30 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis:</strong> Jeden Dialog / Text <strong>zweimal</strong> vorlesen. Pause zwischen den Lesungen. Natürliches Sprechtempo.</div>
+
+    <!-- H-T1 -->
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Radiomeldungen – Was ist richtig? (a, b oder c)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören fünf kurze Radiomeldungen oder Ansagen. Wählen Sie jeweils die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Meldung 1 – Wetterbericht (Lehrer liest vor)</div>
+    „Guten Morgen! Hier ist der Wetterbericht für heute, Donnerstag, den 19. Juni. In Norddeutschland bleibt es bewölkt mit einzelnen Regenschauern, Temperaturen um 15 Grad. Im Süden scheint die Sonne, bis zu 24 Grad. Für das Wochenende erwarten wir überall freundliches Wetter."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">1.</span> Wie ist das Wetter heute im Süden?</div>
+      <div class="mco" data-grp="h1">
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">a</span> Bewölkt und regnerisch</button>
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">b</span> Sonnig, bis 24 Grad</button>
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">c</span> Windig und kalt</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="dial"><div class="dlabel">Meldung 2 – Radionachrichten (Lehrer liest vor)</div>
+    „Die Stadt Hamburg plant ab Oktober eine neue Fahrradstraße in der Innenstadt. Die Straße soll vier Kilometer lang sein und den Hauptbahnhof mit dem Stadtpark verbinden. Autos dürfen diese Straße dann nicht mehr benutzen. Das Projekt kostet rund 2,5 Millionen Euro."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">2.</span> Was plant Hamburg?</div>
+      <div class="mco" data-grp="h2">
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">a</span> Einen neuen Bahnhof</button>
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">b</span> Eine neue Fahrradstraße in der Innenstadt</button>
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">c</span> Einen neuen Stadtpark</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="dial"><div class="dlabel">Meldung 3 – Durchsage im Kaufhaus (Lehrer liest vor)</div>
+    „Sehr geehrte Kunden, wir möchten Sie darauf hinweisen, dass unsere Sommerschlussverkauf-Aktion heute endet. Alle Sommerartikel sind noch bis 20 Uhr um 30 Prozent reduziert. Außerdem: Ab morgen, Freitag, finden Sie uns auch in einer neuen Filiale in der Berliner Straße. Vielen Dank für Ihren Besuch!"</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">3.</span> Wie viel Prozent Rabatt gibt es auf Sommerartikel?</div>
+      <div class="mco" data-grp="h3">
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">a</span> 20 Prozent</button>
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">b</span> 30 Prozent</button>
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">c</span> 50 Prozent</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="dial"><div class="dlabel">Meldung 4 – Ansage im Schwimmbad (Lehrer liest vor)</div>
+    „Liebe Badegäste, wir informieren Sie: Das Schwimmbecken für Kinder ist heute von 14 bis 16 Uhr wegen eines Schwimmkurses gesperrt. Das große Schwimmbecken und die Sauna sind wie gewohnt geöffnet. Ab 16:30 Uhr steht auch das Kinderbecken wieder allen zur Verfügung."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">4.</span> Ab wann ist das Kinderbecken wieder für alle geöffnet?</div>
+      <div class="mco" data-grp="h4">
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">a</span> Ab 14:00 Uhr</button>
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">b</span> Ab 16:00 Uhr</button>
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">c</span> Ab 16:30 Uhr</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="dial"><div class="dlabel">Meldung 5 – Radiosendung (Lehrer liest vor)</div>
+    „Und jetzt zu unserer Höreraktion: Schreiben Sie uns, welches Buch Sie in diesem Sommer lesen möchten, und gewinnen Sie eine Reise nach Wien! Einsendeschluss ist der 30. Juni. Teilnehmen kann jede Person ab 18 Jahren. Die Gewinner werden am 5. Juli bekanntgegeben."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">5.</span> Wann werden die Gewinner bekannt gegeben?</div>
+      <div class="mco" data-grp="h5">
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">a</span> Am 30. Juni</button>
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">b</span> Am 5. Juli</button>
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">c</span> Am 18. Juli</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- H-T2 -->
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Interview – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören ein Radiointerview. Sind die Aussagen (6–10) richtig (R) oder falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Interview mit Köchin Sandra Berger (Lehrer liest vor)</div>
+      <span class="sa">Moderator:</span> Guten Morgen, Frau Berger! Sie sind Köchin von Beruf. Seit wann machen Sie das?<br>
+      <span class="sb">Sandra:</span> Ich bin jetzt seit <strong>zwölf Jahren</strong> Köchin. Ich habe meine Ausbildung in München gemacht.<br>
+      <span class="sa">Moderator:</span> Und warum wollten Sie Köchin werden?<br>
+      <span class="sb">Sandra:</span> Meine <strong>Großmutter</strong> hat immer viel gekocht. Das hat mich als Kind sehr inspiriert.<br>
+      <span class="sa">Moderator:</span> Arbeiten Sie immer noch in München?<br>
+      <span class="sb">Sandra:</span> Nein, ich lebe jetzt in <strong>Berlin</strong>. Ich habe hier mein eigenes kleines Restaurant eröffnet – vor zwei Jahren.<br>
+      <span class="sa">Moderator:</span> Was kochen Sie am liebsten?<br>
+      <span class="sb">Sandra:</span> Ich liebe <strong>italienische Küche</strong> – Pasta, Risotto, alles mit frischen Zutaten.<br>
+      <span class="sa">Moderator:</span> Kochen Sie auch zu Hause, nach der Arbeit?<br>
+      <span class="sb">Sandra:</span> Ehrlich gesagt – <strong>nicht so oft</strong>! Nach dem langen Tag im Restaurant bin ich oft zu müde. Manchmal bestelle ich sogar Pizza. (lacht)</div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R &nbsp; F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>Sandra Berger ist seit zwölf Jahren Köchin.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>Sandras Mutter hat sie zum Kochen inspiriert.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Sandra hat ihr Restaurant vor zwei Jahren in Berlin eröffnet.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>Sandra kocht am liebsten französische Küche.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Nach der Arbeit kocht Sandra nicht immer selbst.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- H-T3 -->
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Telefonansagen – Informationen notieren</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören fünf kurze Telefonansagen. Schreiben Sie die fehlende Information.</div>
+
+    <div class="dial"><div class="dlabel">Ansagen 11 – 15 (Lehrer liest vor, je 2×)</div>
+      <strong>Ansage 11:</strong> „Willkommen bei der Stadtbücherei! Unsere Öffnungszeiten: Montag bis Freitag 9 bis 19 Uhr. Am Samstag bis <strong>14 Uhr</strong>. Sonntag geschlossen."<br><br>
+      <strong>Ansage 12:</strong> „Hier ist die Nachricht von Herrn Schneider. Ihr Termin am Dienstag muss leider verschoben werden. Bitte rufen Sie unter der Nummer <strong>030 – 44 55 66</strong> zurück."<br><br>
+      <strong>Ansage 13:</strong> „Guten Tag! Die Fitnessstudio-Mitgliedschaft kostet ab Juli nur noch <strong>29 Euro</strong> pro Monat – statt 39 Euro! Kommen Sie einfach vorbei."<br><br>
+      <strong>Ansage 14:</strong> „Hallo, hier ist das Reisebüro Sonnenschein. Ihre Reise nach Spanien ist gebucht. Abflug: <strong>23. August</strong>, Frankfurt, 7:20 Uhr. Schönen Urlaub!"<br><br>
+      <strong>Ansage 15:</strong> „Dies ist eine automatische Nachricht der Paketstation. Ihr Paket liegt seit <strong>3 Tagen</strong> in der Station. Bitte holen Sie es bis morgen ab, sonst wird es zurückgeschickt."</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">11.</span> Die Bücherei ist samstags bis <input class="filin" type="text" placeholder=""> Uhr geöffnet.</div>
+      <div class="filrow"><span class="filn">12.</span> Rückrufnummer bei Herrn Schneider: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">13.</span> Die Mitgliedschaft kostet ab Juli <input class="filin" type="text" placeholder=""> € pro Monat.</div>
+      <div class="filrow"><span class="filn">14.</span> Abflug nach Spanien: <input class="filin" type="text" placeholder=""> August.</div>
+      <div class="filrow"><span class="filn">15.</span> Das Paket liegt seit <input class="filin" type="text" placeholder=""> Tagen in der Station.</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- H-T4 -->
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Längeres Gespräch – Was ist richtig?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören ein Gespräch. Wählen Sie die richtige Antwort (a, b oder c).</div>
+
+    <div class="dial"><div class="dlabel">Gespräch – Urlaub planen (Lehrer liest vor)</div>
+      <span class="sa">Felix:</span> Hast du schon Urlaub geplant diesen Sommer, Laura?<br>
+      <span class="sb">Laura:</span> Ja! Ich fahre nach <strong>Portugal</strong>. Drei Wochen.<br>
+      <span class="sa">Felix:</span> Wow, alleine oder mit jemandem?<br>
+      <span class="sb">Laura:</span> Mit meiner <strong>Schwester</strong>. Wir wollten schon lange zusammen verreisen.<br>
+      <span class="sa">Felix:</span> Wie fahrt ihr – Flugzeug?<br>
+      <span class="sb">Laura:</span> Ja, wir fliegen. Mit dem Auto wäre es zu lang. Wir haben auch schon ein <strong>Ferienhaus</strong> direkt am Meer gemietet. Kein Hotel – das ist günstiger und gemütlicher.<br>
+      <span class="sa">Felix:</span> Klingt toll! Und was wollt ihr dort machen?<br>
+      <span class="sb">Laura:</span> Viel <strong>schwimmen</strong> und Radfahren. Und ich möchte auch die lokale Küche ausprobieren – besonders den Fisch.<br>
+      <span class="sa">Felix:</span> Wann reist ihr ab?<br>
+      <span class="sb">Laura:</span> Am <strong>15. Juli</strong>. Und zurück am 4. August.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Wohin fährt Laura?</div>
+      <div class="mco" data-grp="h16">
+        <button class="mcb" onclick="pickMC(this,'h16')"><span class="ll">a</span> Nach Spanien</button>
+        <button class="mcb" onclick="pickMC(this,'h16')"><span class="ll">b</span> Nach Portugal</button>
+        <button class="mcb" onclick="pickMC(this,'h16')"><span class="ll">c</span> Nach Italien</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Mit wem reist Laura?</div>
+      <div class="mco" data-grp="h17">
+        <button class="mcb" onclick="pickMC(this,'h17')"><span class="ll">a</span> Mit einem Freund</button>
+        <button class="mcb" onclick="pickMC(this,'h17')"><span class="ll">b</span> Alleine</button>
+        <button class="mcb" onclick="pickMC(this,'h17')"><span class="ll">c</span> Mit ihrer Schwester</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Wo übernachten sie?</div>
+      <div class="mco" data-grp="h18">
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">a</span> In einem Hotel</button>
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">b</span> In einem Ferienhaus am Meer</button>
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">c</span> Bei Freunden</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was möchte Laura im Urlaub essen?</div>
+      <div class="mco" data-grp="h19">
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">a</span> Pasta</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">b</span> Lokalen Fisch</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">c</span> Portugiesische Suppe</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Wann fährt Laura ab?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Am 4. Juli</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> Am 15. Juli</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Am 15. August</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- H-T5 -->
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurze Gespräche – Was ist richtig?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören fünf kurze Gespräche. Wählen Sie die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Gespräch A (Lehrer liest vor)</div>
+      <span class="sa">A:</span> Wie war das Konzert gestern?<br>
+      <span class="sb">B:</span> Es war wirklich fantastisch! Die Band war super, aber die Tickets waren teuer – 65 Euro pro Person.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Was fand B nicht so gut?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> Die Musik</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> Den Preis der Tickets</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Das Wetter</button>
+      </div>
+    </div>
+
+    <div class="dial" style="margin-top:12px"><div class="dlabel">Gespräch B (Lehrer liest vor)</div>
+      <span class="sa">A:</span> Entschuldigung, ist dieser Platz noch frei?<br>
+      <span class="sb">B:</span> Nein, tut mir leid, der ist besetzt. Aber dort drüben sind noch Plätze frei.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Was antwortet B?</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> Der Platz ist frei.</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> Der Platz ist besetzt, aber es gibt andere freie Plätze.</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> B weiß es nicht.</button>
+      </div>
+    </div>
+
+    <div class="dial" style="margin-top:12px"><div class="dlabel">Gespräch C (Lehrer liest vor)</div>
+      <span class="sa">Verkäuferin:</span> Guten Tag! Kann ich Ihnen helfen?<br>
+      <span class="sb">Kundin:</span> Ja, ich suche dieses Kleid in Größe 38. Haben Sie es auch in Blau?<br>
+      <span class="sa">Verkäuferin:</span> In Blau leider nicht. Aber wir haben es in Rot und in Grün.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Was möchte die Kundin?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Ein blaues Kleid in Größe 38</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Ein rotes Kleid in Größe 36</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Ein grünes Kleid</button>
+      </div>
+    </div>
+
+    <div class="dial" style="margin-top:12px"><div class="dlabel">Gespräch D (Lehrer liest vor)</div>
+      <span class="sa">A:</span> Ich komme leider morgen zu spät zum Unterricht. Mein Zug hat Verspätung.<br>
+      <span class="sb">B:</span> Kein Problem! Schreib mir einfach eine kurze Nachricht, wenn du weißt, wie spät du bist.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Was soll A machen?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Nicht zum Unterricht kommen</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> B eine Nachricht schicken</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Den Zug wechseln</button>
+      </div>
+    </div>
+
+    <div class="dial" style="margin-top:12px"><div class="dlabel">Gespräch E (Lehrer liest vor)</div>
+      <span class="sa">A:</span> Gehst du heute zum Sportverein?<br>
+      <span class="sb">B:</span> Eigentlich ja. Aber ich bin so müde. Ich glaube, ich bleibe heute ausnahmsweise zu Hause und gehe morgen.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">25.</span> Was macht B heute?</div>
+      <div class="mco" data-grp="h25">
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">a</span> B geht zum Sport.</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">b</span> B bleibt zu Hause.</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">c</span> B geht schlafen.</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ████ SCHREIBEN ████ -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Written production – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 30 Min.</div>
+  </div>
+  <div class="mb">
+
+    <!-- S-T1 -->
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Eine E-Mail / einen Brief schreiben (mind. 40 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Sie haben diese E-Mail von Ihrem Freund/Ihrer Freundin bekommen. Schreiben Sie eine Antwort (mindestens <strong>40 Wörter</strong>). Antworten Sie auf alle drei Punkte.</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 17px;margin-bottom:13px;font-size:13.5px">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:6px">📩 E-Mail von Markus:</div>
+      „Hallo! Ich plane nächsten Monat einen Besuch bei dir. Ich bleibe gerne drei oder vier Tage. Kannst du mir sagen, ob das passt? Was können wir zusammen unternehmen? Und wo soll ich schlafen – bei dir zu Hause oder im Hotel? Ich freue mich auf deine Antwort! – Markus"
+    </div>
+
+    <div style="background:#e8eaf6;border:1px solid #9fa8da;border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:12.5px">
+      <strong>Schreiben Sie zu diesen Punkten:</strong>
+      <ul style="margin-top:5px;padding-left:18px;line-height:2.2">
+        <li><strong>Wann</strong> passt der Besuch für Sie?</li>
+        <li><strong>Was</strong> können Sie zusammen machen?</li>
+        <li><strong>Wo</strong> soll Markus schlafen?</li>
+      </ul>
+    </div>
+
+    <div style="font-size:13px;color:#555;margin-bottom:6px;font-weight:600">Ihre Antwort an Markus (min. 40 Wörter):</div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',40,60)" placeholder="Schreiben Sie hier Ihre Antwort…"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 40</span></div>
+
+    <hr class="divider">
+
+    <!-- S-T2 -->
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Forumsbeitrag / kurze Mitteilung (mind. 30 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen Beitrag im Online-Forum (mindestens <strong>30 Wörter</strong>). Antworten Sie auf die Frage und geben Sie Ihren Kommentar.</div>
+
+    <div style="background:#e8f4fd;border:1.5px solid #90caf9;border-radius:8px;padding:13px 17px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#1565c0;margin-bottom:5px">🌐 Online-Forum: „Leben in der Stadt vs. auf dem Land"</div>
+      <div style="font-size:12.5px;color:#333">Forumsfrage: <em>Wo möchten Sie lieber leben – in der Stadt oder auf dem Land? Warum? Was sind die Vorteile für Sie?</em></div>
+    </div>
+
+    <div style="font-size:13px;color:#555;margin-bottom:6px;font-weight:600">Ihr Forumsbeitrag (min. 30 Wörter):</div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',30,50)" placeholder="Schreiben Sie hier Ihren Beitrag…"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 30</span></div>
+
+  </div>
+</div>
+
+
+<!-- ████ SPRECHEN ████ -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – Lehrer/in führt das Gespräch</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis:</strong> Auf Kommunikationserfolg achten. Fehler am Ende des jeweiligen Teils kommentieren, nicht während des Sprechens.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Sich und die eigene Person vorstellen</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Stellen Sie sich vor. Sprechen Sie zu den folgenden Punkten (etwas ausführlicher als A1).</div>
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Thema 1</div><div class="scq">👤 Person</div>Name, Alter, Herkunft, Wohnort</div>
+      <div class="spcard"><div class="scn">Thema 2</div><div class="scq">👨‍👩‍👧 Familie</div>Haben Sie Geschwister? Sind Sie verheiratet?</div>
+      <div class="spcard"><div class="scn">Thema 3</div><div class="scq">💼 Arbeit / Schule</div>Was machen Sie beruflich oder was studieren Sie?</div>
+      <div class="spcard"><div class="scn">Thema 4</div><div class="scq">🎯 Alltag &amp; Freizeit</div>Was machen Sie in Ihrer Freizeit? Welche Hobbys haben Sie?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Über Alltag und Erfahrungen sprechen</span><span class="ppts">8 Punkte</span></div>
+    <div class="instr">Der Prüfer stellt Fragen. Antworten Sie mit ganzen Sätzen und erzählen Sie etwas. Stellen Sie auch selbst eine Frage.</div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:13px 17px;margin-bottom:10px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px">🎙 Prüferfragen</div>
+      <ol style="padding-left:17px;font-size:13.5px;line-height:2.6">
+        <li>Erzählen Sie von Ihrer Wohnung / Ihrem Haus. Wie wohnen Sie?</li>
+        <li>Was machen Sie normalerweise am Morgen vor der Arbeit / Schule?</li>
+        <li>Wie verbringen Sie Ihre Abende – allein oder mit anderen?</li>
+        <li>Was ist Ihr Lieblingsessen? Können Sie es selbst kochen?</li>
+        <li>Haben Sie schon einmal eine Reise ins Ausland gemacht? Erzählen Sie.</li>
+        <li>Was stört Sie manchmal im Alltag? Gibt es etwas, das Sie ärgert?</li>
+        <li>Welche Sprachen sprechen Sie? Wie lernen Sie Deutsch?</li>
+        <li>Was möchten Sie in Zukunft lernen oder erleben?</li>
+      </ol>
+    </div>
+    <div style="background:#f8f8f8;border:1.5px dashed #bbb;border-radius:8px;padding:10px 14px;font-size:13px">
+      <strong>Eigene Frage:</strong> Stellen Sie dem Prüfer/der Prüferin eine Frage über seinen/ihren Alltag oder Erfahrungen.
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Bitten und Anfragen – Karten ziehen</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Ziehen Sie eine Karte. Formulieren Sie eine höfliche Bitte oder reagieren Sie angemessen auf eine Aussage.</div>
+    <div class="spgrid">
+      <div class="spcard" style="border-color:#e57373">
+        <div class="scn" style="color:#c62828">Karte A – Bitte formulieren</div>
+        <div class="scq" style="color:#c62828">📚 Das Buch</div>
+        Sie möchten sich ein Buch von einem Kollegen/einer Kollegin leihen. Fragen Sie höflich.
+      </div>
+      <div class="spcard" style="border-color:#e57373">
+        <div class="scn" style="color:#c62828">Karte B – Bitte formulieren</div>
+        <div class="scq" style="color:#c62828">🚪 Das Fenster</div>
+        Es ist sehr warm im Raum. Bitten Sie jemanden, das Fenster zu öffnen.
+      </div>
+      <div class="spcard" style="border-color:#e57373">
+        <div class="scn" style="color:#c62828">Karte C – Reagieren</div>
+        <div class="scq" style="color:#c62828">🍽 Das Essen</div>
+        Jemand fragt Sie: „Haben Sie ein gutes Restaurant in der Nähe empfehlen?"
+      </div>
+      <div class="spcard" style="border-color:#e57373">
+        <div class="scn" style="color:#c62828">Karte D – Reagieren</div>
+        <div class="scq" style="color:#c62828">🚌 Der Bus</div>
+        Jemand fragt Sie: „Wissen Sie, wann der nächste Bus nach Hauptbahnhof fährt?"
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Bild beschreiben und kommentieren</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Beschreiben Sie das Bild, das Ihr Prüfer/Ihre Prüferin zeigt. Sprechen Sie zu allen Punkten.</div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 17px;font-size:13px">
+      <ul style="padding-left:18px;line-height:2.5">
+        <li><strong>Was sehen Sie?</strong> (Personen, Ort, Gegenstände, Farben)</li>
+        <li><strong>Was passiert gerade?</strong> Was machen die Personen?</li>
+        <li><strong>Wo könnte das sein?</strong> (Stadt, Natur, zu Hause, Arbeit …)</li>
+        <li><strong>Wie fühlen sich die Personen?</strong> Was denken Sie?</li>
+        <li><strong>Haben Sie ähnliche Erfahrungen?</strong> Erzählen Sie kurz.</li>
+      </ul>
+      <div style="margin-top:7px;font-size:12px;color:#aaa">Bildvorschlag: Familienfest im Park, Einkaufsmarkt, Stadtführung, Arztpraxis, Büroalltag, Supermarkt-Schlange.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen – Beurteilungsbogen</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabe erfüllt / Kommunikationserfolg</td><td>7</td><td><input class="sin" type="number" min="0" max="7" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Aussprache &amp; Verständlichkeit</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (A2-Niveau)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik &amp; Satzbau</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<!-- ERGEBNIS -->
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- LÖSUNGSSCHLÜSSEL -->
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+
+    <div class="akm">
+      <h3>📖 Modul 1 – Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>Teil 1 – Zuordnung Personen/Anzeigen (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">1 Nadia → <strong class="ok">a</strong> (Abendkurs Deutsch)</div>
+          <div class="chip">2 Thomas → <strong class="ok">b</strong> (2-Zi., 790 €)</div>
+          <div class="chip">3 Yuki → <strong class="ok">c</strong> (Yoga am Wochenende)</div>
+          <div class="chip">4 Rafael → <strong class="ok">d</strong> (Mitfahrt München, Fr.)</div>
+          <div class="chip">5 Leila → <strong class="ok">e</strong> (Babysitting, Di/Do)</div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Übrig: f (Fahrrad), g (3-Zi. teuer), h (Hamburg)</div>
+      </div>
+      <div class="akp"><h4>Teil 2 – Artikel R/F (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">R</strong></div>
+          <div class="chip">7 → <strong class="wrong">F</strong> (man spart Kosten)</div>
+          <div class="chip">8 → <strong class="ok">R</strong></div>
+          <div class="chip">9 → <strong class="wrong">F</strong> (Mischung empfohlen)</div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 3 – Lückentext (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">weniger</strong></div>
+          <div class="chip">12 → <strong class="ok">benutzen</strong></div>
+          <div class="chip">13 → <strong class="ok">recyceln</strong></div>
+          <div class="chip">14 → <strong class="ok">getrennt</strong></div>
+          <div class="chip">15 → <strong class="ok">obwohl</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 4 – Kurze Texte MC (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">16 → <strong class="ok">b</strong></div>
+          <div class="chip">17 → <strong class="ok">c</strong></div>
+          <div class="chip">18 → <strong class="ok">b</strong></div>
+          <div class="chip">19 → <strong class="ok">a</strong></div>
+          <div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 5 – Brief R/F (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">R</strong></div>
+          <div class="chip">22 → <strong class="wrong">F</strong> (2. OG, nicht 3.)</div>
+          <div class="chip">23 → <strong class="ok">R</strong></div>
+          <div class="chip">24 → <strong class="wrong">F</strong> (180 €, nicht 200 €)</div>
+          <div class="chip">25 → <strong class="ok">R</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="akm">
+      <h3>🎧 Modul 2 – Hören (25 Punkte)</h3>
+      <div class="akp"><h4>Teil 1 – Radiomeldungen MC (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">b</strong> (sonnig, 24°)</div>
+          <div class="chip">2 → <strong class="ok">b</strong> (Fahrradstraße)</div>
+          <div class="chip">3 → <strong class="ok">b</strong> (30 %)</div>
+          <div class="chip">4 → <strong class="ok">c</strong> (16:30 Uhr)</div>
+          <div class="chip">5 → <strong class="ok">b</strong> (5. Juli)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 2 – Interview R/F (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">R</strong></div>
+          <div class="chip">7 → <strong class="wrong">F</strong> (Großmutter, nicht Mutter)</div>
+          <div class="chip">8 → <strong class="ok">R</strong></div>
+          <div class="chip">9 → <strong class="wrong">F</strong> (italienische Küche)</div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 3 – Ansagen ausfüllen (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">14</strong></div>
+          <div class="chip">12 → <strong class="ok">030 – 44 55 66</strong></div>
+          <div class="chip">13 → <strong class="ok">29</strong></div>
+          <div class="chip">14 → <strong class="ok">23.</strong> (August)</div>
+          <div class="chip">15 → <strong class="ok">3</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 4 – Urlaubsgespräch MC (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">16 → <strong class="ok">b</strong> (Portugal)</div>
+          <div class="chip">17 → <strong class="ok">c</strong> (Schwester)</div>
+          <div class="chip">18 → <strong class="ok">b</strong> (Ferienhaus)</div>
+          <div class="chip">19 → <strong class="ok">b</strong> (lokaler Fisch)</div>
+          <div class="chip">20 → <strong class="ok">b</strong> (15. Juli)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 5 – Kurze Gespräche MC (5 Pkt)</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">b</strong></div>
+          <div class="chip">22 → <strong class="ok">b</strong></div>
+          <div class="chip">23 → <strong class="ok">a</strong></div>
+          <div class="chip">24 → <strong class="ok">b</strong></div>
+          <div class="chip">25 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="akm">
+      <h3>✏️ Modul 3 – Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>Teil 1 – E-Mail an Markus (15 Pkt) – Bewertungsraster</h4>
+        <div class="rubric">
+          <h4>Musterlösung:</h4>
+          <div style="background:#f9f9ff;border:1px solid #dde;border-radius:6px;padding:9px 12px;font-style:italic;font-size:13px;margin-bottom:7px">
+            „Lieber Markus! Ich freue mich sehr auf deinen Besuch! Am besten passt mir die zweite Woche des nächsten Monats. Wir können zusammen die Stadt besichtigen, ins Museum gehen oder ein gutes Restaurant ausprobieren. Du kannst gerne bei mir zu Hause schlafen – ich habe ein Gästezimmer. Bis bald! Viele Grüße."
+          </div>
+          <table>
+            <tr><th>Kriterium</th><th>0–5 Pkt</th></tr>
+            <tr><td>Alle 3 Inhaltspunkte angesprochen</td><td>0 / 1-2 / 3 Pkt. (je Punkt)</td></tr>
+            <tr><td>Verständlichkeit &amp; Kohärenz</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Wortschatz A2</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Grammatik &amp; Rechtschreibung</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Wortanzahl ≥ 40</td><td>0 oder 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="akp"><h4>Teil 2 – Forumsbeitrag (10 Pkt) – Bewertungsraster</h4>
+        <div class="rubric">
+          <h4>Bewertung:</h4>
+          <table>
+            <tr><th>Kriterium</th><th>Punkte</th></tr>
+            <tr><td>Position klar und begründet</td><td>0 – 4 Pkt.</td></tr>
+            <tr><td>Wortschatz &amp; Ausdrucksweise</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Grammatik &amp; Satzbau</td><td>0 – 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe A2 Modellprüfung · Generische Version · Für den Unterricht · Viel Erfolg! 🍀
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// R/F
+function pickRF(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => b.classList.remove('selR','selF'));
+  btn.classList.add(choice === 'R' ? 'selR' : 'selF');
+}
+
+// MC
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="' + grp + '"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+// Word count
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId);
+  const pill = document.getElementById(pillId);
+  if (!ta || !pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+  pill.textContent = n + ' / min. ' + min;
+  pill.className = 'wcpill';
+  if (n >= min && n <= max) pill.classList.add('ok');
+  else if (n > max) pill.classList.add('over');
+}
+
+// Timer – 100 min total
+(function () {
+  const TOTAL = 100 * 60;
+  const MODS = [
+    { id: 'tp1', from: TOTAL,         to: TOTAL - 30*60 },
+    { id: 'tp2', from: TOTAL - 30*60, to: TOTAL - 60*60 },
+    { id: 'tp3', from: TOTAL - 60*60, to: TOTAL - 90*60 },
+    { id: 'tp4', from: TOTAL - 90*60, to: 0 },
+  ];
+  let rem = TOTAL, running = true, iv;
+
+  function fmt(s) {
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+    return h > 0
+      ? h + ':' + String(m).padStart(2,'0') + ':' + String(ss).padStart(2,'0')
+      : m + ':' + String(ss).padStart(2,'0');
+  }
+
+  function draw() {
+    const el = document.getElementById('timer-digits');
+    if (!el) return;
+    el.textContent = rem <= 0 ? 'Zeit um!' : fmt(rem);
+    el.className = rem <= 0 ? 'danger' : rem <= 5*60 ? 'danger' : rem <= 15*60 ? 'warn' : '';
+    MODS.forEach(m => {
+      const p = document.getElementById(m.id);
+      if (p) p.className = 'tpill' + (rem <= m.from && rem > m.to ? ' on' : '');
+    });
+  }
+
+  window.toggleTimer = function () {
+    running = !running;
+    const b = document.getElementById('tbtn');
+    if (b) b.textContent = running ? '⏸ Pause' : '▶ Weiter';
+  };
+
+  document.addEventListener('DOMContentLoaded', () => { draw(); iv = setInterval(tick, 1000); });
+
+  function tick() {
+    if (!running || rem <= 0) return;
+    rem--;
+    draw();
+    if (rem === 0) { clearInterval(iv); const b = document.getElementById('tbtn'); if (b) b.disabled = true; }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat C1 – Modellprüfung 5</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:100px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#004d40 0%,#00695c 35%,#4a148c 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy)}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
+.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:18px 20px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
+.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
+.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
+.rn{width:30px;font-weight:700;color:#666}.ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:5px;justify-content:center}
+.rfb{width:28px;height:28px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:11px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#6a1b9a;border-color:#6a1b9a;color:#fff}
+.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
+.qn{color:var(--blue);margin-right:4px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.sn{font-weight:700;min-width:20px}.st{flex:1}
+.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:60px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:20px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:140px;outline:none}
+.gfin{border:none;border-bottom:2px dashed var(--purple);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:120px;outline:none}
+.warea{width:100%;min-height:220px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
+.warea:focus{border-color:var(--purple)}
+.wcpill{display:inline-block;background:#e0e0e0;color:#555;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:6px}
+.wcpill.ok{background:#c8e6c9;color:var(--green)}.wcpill.over{background:#ffcdd2;color:var(--red)}
+.personbox{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 12px;background:#f4f8ff;font-size:12.5px;min-width:150px}
+.pname{font-weight:800;color:var(--blue);margin-bottom:3px}
+.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.85;margin-bottom:9px}
+.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:4px}
+.wbox{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:10px}
+.wbox b{color:var(--green)}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.lc{background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;padding:9px 14px;font-size:13px;line-height:1.85;margin-bottom:10px}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
+.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
+.rfn-note{font-size:11px;font-style:italic;color:#888;margin-bottom:8px}
+.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
+.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#004d40;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
+.akb{padding:18px 20px}.akm{margin-bottom:18px}
+.akm h3{font-size:14px;font-weight:700;color:#004d40;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
+.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">3:30:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 90'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 80'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 5</div>
+    <h1>Goethe-Zertifikat C1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>210 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">C1<span>Test 5</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs:</label><input class="ci" type="text"></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 90 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 80 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 90 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Philosophischer Text – R / F / Nicht im Text</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R), falsch (F) oder nicht im Text (N)?</div>
+    <div class="rfn-note">R = stimmt mit dem Text überein · F = widerspricht dem Text · N = nicht im Text erwähnt</div>
+    <div class="sbox">
+      <div class="smeta">Aus einem philosophischen Essayband</div>
+      <strong>Posthumanismus: Wenn die Grenzen des Menschen fließend werden</strong><br><br>
+      Der Posthumanismus ist keine Science-Fiction mehr – er ist ein philosophisches Forschungsfeld und eine gesellschaftliche Realität. Die Möglichkeit, menschliche Fähigkeiten durch Technologie zu erweitern, sei es durch Neuralimplantate, genetische Eingriffe oder exoskelettale Prothesen, wirft grundlegende Fragen über das auf, was wir als „menschlich" verstehen.<br><br>
+      Der Transhumanismus, eine Strömung innerhalb des Posthumanismus, strebt aktiv die Überwindung biologischer Grenzen an. Vertreter wie Nick Bostrom argumentieren, dass die moralische Pflicht der Menschheit darin bestehe, ihre kognitiven und physischen Fähigkeiten zu maximieren. Kritiker hingegen – darunter Philosophen wie Michael Sandel – warnen vor einer „Tyrannei der Perfektion": Die Akzeptanz des Zufälligen, des Unvollkommenen, sei eine wesentliche Bedingung für Würde und Mitgefühl.<br><br>
+      Besonders kontrovers ist die Frage der sozialen Gerechtigkeit: Wenn Enhancement-Technologien nur für Wohlhabende zugänglich sind, droht eine biologische Spaltung der Gesellschaft, die weit über bisherige Ungleichheiten hinausgeht. Juristen und Ethiker diskutieren bereits, ob „Genmodifikation zum Selbstvorteil" in Verfassungsrechte eingreift oder ob im Gegenteil ein Recht auf Selbstverbesserung existiert.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Nick Bostrom sieht es als moralische Pflicht, menschliche Fähigkeiten zu maximieren.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Michael Sandel unterstützt aktiv den technologischen Enhancement-Ansatz.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Der Text nennt konkrete Zahlen dazu, wie viele Menschen weltweit Neuralimplantate besitzen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Die Gefahr einer biologischen gesellschaftlichen Spaltung wird im Text angesprochen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Laut Text ist der Transhumanismus nur ein Randphänomen ohne gesellschaftliche Relevanz.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Wer passt wozu?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Welcher Text (A–I) passt zu welcher Person? Nicht alle Texte werden verwendet.</div>
+    <div class="personbox">
+      <div class="pcard"><div class="pname">6. Aziz</div>Migrant; sucht Rechtsberatung zu Asylverfahren in Deutschland</div>
+      <div class="pcard"><div class="pname">7. Dr. Papadopoulos</div>Philosophiedozentin; sucht Primärquellen zum Posthumanismus</div>
+      <div class="pcard"><div class="pname">8. Lena</div>HR-Managerin; sucht Konzepte zur 4-Tage-Woche im Unternehmen</div>
+      <div class="pcard"><div class="pname">9. Osman</div>sucht Deutschkurs für anerkannte Flüchtlinge</div>
+      <div class="pcard"><div class="pname">10. Frau Becker</div>Arbeitsrechtlerin; sucht Urteil zu Homeoffice-Pflicht</div>
+    </div>
+    <div class="textblock"><div class="textlbl">Text A</div>Nick Bostrom: „In Defense of Posthuman Dignity." Bioethics, Vol. 19, No. 3. Oxford Academic. Open Access unter academic.oup.com</div>
+    <div class="textblock"><div class="textlbl">Text B</div>Refugee Law Clinic Berlin: Kostenlose Rechtsberatung für Asylsuchende. Mo, Mi, Fr 10–14 Uhr. Anmeldung erforderlich. rlc-berlin.org</div>
+    <div class="textblock"><div class="textlbl">Text C</div>Pilotprojekt: „4-Tage-Woche Deutschland 2024." Leitfaden für Unternehmen zur Implementierung. Download: viertagewochen.de/leitfaden</div>
+    <div class="textblock"><div class="textlbl">Text D</div>Bundesverwaltungsgericht, Az. 6 C 12/23: Urteil zur Zulässigkeit von Homeoffice-Anordnungen durch Arbeitgeber. Volltext unter bverwg.de</div>
+    <div class="textblock"><div class="textlbl">Text E</div>Volkshochschule Frankfurt: Integrationskurs „Deutsch für anerkannte Geflüchtete." B1-Vorbereitung. Kostenlos mit BAMF-Berechtigung. Nächster Start: 1. Oktober.</div>
+    <div class="textblock"><div class="textlbl">Text F</div>Stellenbörse: Social Worker (m/w/d) für Migrantenberatung. Caritas Berlin. Kenntnisse in Arabisch/Dari von Vorteil. caritas.de/jobs</div>
+    <div class="textblock"><div class="textlbl">Text G</div>Bericht: „Neue Arbeitsmodelle 2025 – zwischen Effizienz und Work-Life-Balance." Bundesministerium für Arbeit. Kostenloser Download.</div>
+    <div class="textblock"><div class="textlbl">Text H</div>Konferenz: „Grenzen des Menschen – Posthumanismus zwischen Utopie und Gefahr." Internationale Tagung, Humboldt-Universität Berlin, 14.–16. November.</div>
+    <div class="textblock"><div class="textlbl">Text I</div>Podcast: „Neue Arbeit, neues Glück?" – Folge 34: Vier-Tage-Woche in Island – Erkenntnisse aus dem größten Experiment der Welt. Hören auf Spotify.</div>
+    <div class="sits" style="margin-top:8px">
+      <div class="sit"><span class="sn">6.</span><span class="st">Aziz</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
+      <div class="sit"><span class="sn">7.</span><span class="st">Dr. Papadopoulos</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
+      <div class="sit"><span class="sn">8.</span><span class="st">Lena</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
+      <div class="sit"><span class="sn">9.</span><span class="st">Osman</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
+      <div class="sit"><span class="sn">10.</span><span class="st">Frau Becker</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Komplexer Artikel – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Artikel. Was ist richtig: a, b oder c?</div>
+    <div class="sbox">
+      <div class="smeta">Aus einem politikwissenschaftlichen Journal</div>
+      <strong>Migrationspolitik zwischen humanitärer Pflicht und nationalstaatlicher Souveränität</strong><br><br>
+      Migration ist keine Ausnahme, sondern ein Strukturmerkmal moderner Gesellschaften. Dennoch bleibt die politische Steuerung von Migration eine der umstrittensten Fragen der Gegenwart. In der Europäischen Union prallen unterschiedliche Rechtstraditionen, wirtschaftliche Interessen und moralische Überzeugungen aufeinander.<br><br>
+      Das Dubliner Abkommen, das seit 1990 den Grundsatz regelt, dass Asylsuchende in dem EU-Land Asyl beantragen müssen, in dem sie zuerst einreisten, gilt als strukturell ungerecht gegenüber Staaten an den EU-Außengrenzen wie Italien, Griechenland oder Malta. Trotz jahrelanger Verhandlungen blieb eine umfassende Reform aus. Der 2024 verabschiedete EU-Migrationspakt versucht, durch verpflichtende Solidaritätsmechanismen ein ausgewogeneres System zu schaffen, stößt aber auf Widerstand mehrerer Mitgliedstaaten.<br><br>
+      Für Philosophen wie Seyla Benhabib stellt sich die Grundfrage: Können Nationalstaaten das Recht auf Migration einschränken ohne fundamentale Menschenrechte zu verletzen? Benhabib plädiert für ein universales Recht auf Einreise und betont, dass die Zugehörigkeit zu einer politischen Gemeinschaft nicht an den Geburtsort geknüpft sein sollte. Gegenüber diesem kosmopolitischen Standpunkt stehen staatszentrierte Ansätze, die das Recht auf Selbstbestimmung von Gemeinschaften betonen.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">11.</span> Was regelt das Dubliner Abkommen?</div>
+      <div class="mco" data-grp="q11">
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> Die finanzielle Hilfe für Migranten</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> Asyl muss im EU-Land beantragt werden, in dem man zuerst eintraf</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> Den freien Grenzverkehr innerhalb der EU</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">12.</span> Warum gilt das Dublin-Abkommen als strukturell ungerecht?</div>
+      <div class="mco" data-grp="q12">
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> Es bevorzugt nördliche EU-Staaten</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> Es belastet Außengrenzstaaten wie Italien und Griechenland unverhältnismäßig</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> Es erlaubt keine Abschiebungen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">13.</span> Was versucht der EU-Migrationspakt 2024?</div>
+      <div class="mco" data-grp="q13">
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> Das Dublin-Abkommen ganz abschaffen</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> Durch Solidaritätsmechanismen ein ausgewogeneres System zu schaffen</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> Migrationsquoten für jeden Staat festzulegen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">14.</span> Was fordert Seyla Benhabib?</div>
+      <div class="mco" data-grp="q14">
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> Strikte Grenzen zum Schutz nationaler Identität</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> Ein universales Recht auf Einreise unabhängig vom Geburtsort</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Ein supranationales Gericht für Migrationsfragen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">15.</span> Was betonen staatszentrierte Ansätze im Gegensatz zu Benhabib?</div>
+      <div class="mco" data-grp="q15">
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Das Recht auf Selbstbestimmung von Gemeinschaften</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Das Recht auf Wohlstand für alle Menschen</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Die Abschaffung von Nationalstaaten</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Lückentext – freie Ergänzung</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Ergänzen Sie die Lücken mit je einem passenden Wort oder einer kurzen Wendung.</div>
+    <div class="sbox" style="line-height:2.4">
+      Das Konzept der „Neuen Arbeit" – geprägt von Frithjof Bergmann in den 1980er Jahren – geht weit über flexible <input class="gfin" type="text" placeholder="(16)"> hinaus. Es stellt die Frage: Was will der Mensch wirklich, wirklich tun? In einer Gesellschaft, in der Automatisierung immer mehr <input class="gfin" type="text" placeholder="(17)"> übernimmt, muss Arbeit neu definiert werden. Die 4-Tage-Woche ist ein konkretes <input class="gfin" type="text" placeholder="(18)"> dieses Wandels: Island und Großbritannien haben erste Erfahrungen gesammelt, die auf <input class="gfin" type="text" placeholder="(19)"> bei gleichbleibender Produktivität hindeuten. Doch nicht alle Berufsgruppen können Arbeitszeiten so flexibel <input class="gfin" type="text" placeholder="(20)"> – Pflegekräfte, Erzieherinnen und Schichtarbeiter bleiben oft außen vor.
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurztexte – richtige Aussage identifizieren</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Was meinen die folgenden Texte? Wählen Sie a, b oder c.</div>
+    <div class="lc"><strong>Text 1:</strong> „Bundesverfassungsgericht 2024: Asylverfahren müssen individuell und rechtsstaatlich gestaltet sein. Sammelabschiebungen ohne Einzelfallprüfung verstoßen gegen das Grundgesetz."</div>
+    <div class="mci"><div class="mcs"><span class="qn">21.</span> Was hat das BVerfG entschieden?</div>
+      <div class="mco" data-grp="q21">
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">a</span> Sammelabschiebungen sind legal</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">b</span> Asylverfahren brauchen Einzelfallprüfung – Sammelabschiebungen sind verfassungswidrig</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">c</span> Das Asylrecht soll abgeschafft werden</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 2:</strong> „Studie: Unternehmen, die eine Vier-Tage-Woche einführten, berichteten in 90 % der Fälle von gleichbleibender oder gesteigerter Mitarbeiterproduktivität."</div>
+    <div class="mci"><div class="mcs"><span class="qn">22.</span> Was zeigt die Studie zur 4-Tage-Woche?</div>
+      <div class="mco" data-grp="q22">
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">a</span> Die Produktivität sank in den meisten Fällen</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">b</span> In 90 % der Fälle blieb die Produktivität gleich oder stieg</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">c</span> Unternehmen lehnen die 4-Tage-Woche mehrheitlich ab</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 3:</strong> „Gastkolumne: Posthumanistische Technologien sollten der gesamten Gesellschaft zugutekommen – nicht nur jenen, die sie sich leisten können. Sonst züchten wir eine Spezieskaste der Privilegierten."</div>
+    <div class="mci"><div class="mcs"><span class="qn">23.</span> Was fordert der Autor?</div>
+      <div class="mco" data-grp="q23">
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">a</span> Ein Verbot posthumanistischer Technologien</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">b</span> Gerechte Verteilung des Zugangs zu Enhancement-Technologien</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">c</span> Mehr Forschungsbudget für KI</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 4:</strong> „Warnung der UN: Staaten, die Geflüchtete an den Außengrenzen zurückdrängen (Push-backs), verletzen internationales Recht – konkret die Genfer Flüchtlingskonvention."</div>
+    <div class="mci"><div class="mcs"><span class="qn">24.</span> Was behauptet die UN?</div>
+      <div class="mco" data-grp="q24">
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">a</span> Push-backs sind legal unter bestimmten Bedingungen</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">b</span> Push-backs verstoßen gegen die Genfer Flüchtlingskonvention</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">c</span> Push-backs schützen die Genfer Konvention</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 5:</strong> „Arbeitgeberpräsident Funke: ‚Eine gesetzliche Vier-Tage-Woche wäre der falsche Weg – wir brauchen Flexibilität, keine Regulierung. Betriebe sollen selbst entscheiden.'"</div>
+    <div class="mci"><div class="mcs"><span class="qn">25.</span> Welche Position vertritt Funke?</div>
+      <div class="mco" data-grp="q25">
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">a</span> Er unterstützt ein gesetzliches Modell der Vier-Tage-Woche</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">b</span> Er lehnt gesetzliche Regulierung ab und plädiert für betriebliche Eigenverantwortung</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">c</span> Er fordert die Abschaffung der 40-Stunden-Woche</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Akademischer Vortrag – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie den Vortrag (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Vortrag: Transhumanismus – zwischen Fortschritt und Kontrollverlust</div>
+      „Das Neuralink-Implantat des Unternehmens von Elon Musk hat 2024 erstmals erlaubt, dass ein gelähmter Patient einen Computer allein mit Gedanken steuern konnte. Das ist unbestreitbar ein medizinischer Durchbruch. Doch wer kontrolliert die Daten? Wer haftet, wenn das System versagt? Der Neurologe Prof. Krebs warnt: ‚Wir implantieren Geräte in menschliche Gehirne, bevor wir die ethischen Rahmenbedingungen geklärt haben. Das ist fahrlässig.' Gleichzeitig betonen Befürworter, dass Cochlea-Implantate und Herzschrittmacher – heute Routinetechnologie – einst als ebenso provokant galten. Die Frage ist nicht ob, sondern wie wir Enhancement-Technologien regulieren. Ohne internationale Standards drohen ‚Enhancementtourismus' und eine unzugängliche Technologie-Elite. Die EU arbeitet derzeit an einem <strong>AI-Act 2.0</strong>, der erstmals auch Neurotechnologien einschließen soll – ein überfälliger Schritt laut vielen Experten.'
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">26.</span> Was gelang dem Neuralink-Patienten erstmals?</div>
+      <div class="mco" data-grp="q26">
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> Laufen nach einem Unfall</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> Einen Computer mit Gedanken steuern</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> Sprechen ohne Hirnschaden</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">27.</span> Was kritisiert Prof. Krebs?</div>
+      <div class="mco" data-grp="q27">
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> Die Technologie sei zu teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> Implantate werden eingesetzt, bevor ethische Rahmenbedingungen geklärt sind</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> Die Hersteller verdienen zu viel</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">28.</span> Welche heutigen Geräte werden als frühere Beispiele provokanter Technik genannt?</div>
+      <div class="mco" data-grp="q28">
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> Smartphones und Hörgeräte</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> Cochlea-Implantate und Herzschrittmacher</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> KI-Diagnosesysteme</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">29.</span> Was wird als Gefahr ohne internationale Standards genannt?</div>
+      <div class="mco" data-grp="q29">
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Verlangsamung der Forschung</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> Enhancementtourismus und Technologie-Elite</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> Datenverlust in Krankenhäusern</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">30.</span> Woran arbeitet die EU laut Vortrag?</div>
+      <div class="mco" data-grp="q30">
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Ein Verbot von Neuralimplantaten</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> AI-Act 2.0 mit Einschluss von Neurotechnologien</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Eine Förderung für Startups in diesem Bereich</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Diskussion – Richtig / Falsch / Nicht im Text</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie die Diskussion (2×). R, F oder N?</div>
+    <div class="rfn-note">R = stimmt überein · F = widerspricht · N = nicht erwähnt</div>
+    <div class="dial"><div class="dlabel">Talkshow: Migrationspolitik – Zwischen Abschreckung und Integration</div>
+      <strong>Moderatorin:</strong> Braucht Deutschland härtere Abschiebegesetze?<br>
+      <strong>Innenexpertin Frau Strauss:</strong> Klare Regeln ja – aber die eigentliche Debatte muss sein: Wie integrieren wir die Menschen, die bleiben? Wir investieren Milliarden in Abschreckung und zu wenig in <strong>Sprachkurse, Qualifizierung und Arbeitsmarkt-Integration</strong>.<br>
+      <strong>Herr Beck (Oppositionspolitiker):</strong> Das stimmt, aber ohne Kontrolle verlieren wir die gesellschaftliche Akzeptanz für Zuwanderung insgesamt. <strong>Irreguläre Migration</strong> und <strong>legale Arbeitsmigration</strong> müssen klar getrennt werden.<br>
+      <strong>Frau Strauss:</strong> Da bin ich einverstanden. Die Lösung ist ein funktionierendes <strong>Punktesystem</strong> wie in Kanada – Qualifikation statt Herkunftsstaat.<br>
+      <strong>Beck:</strong> Und schnellere Verfahren – sechs Monate Bearbeitungszeit statt zwei Jahre.<br>
+      <strong>Frau Strauss:</strong> Das kostet Ressourcen beim BAMF. Die müssen wir bereitstellen.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">31.</td><td>Frau Strauss fordert mehr Investitionen in Integration als in Abschreckung.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">32.</td><td>Herr Beck lehnt jede Form von kontrollierter Einwanderung ab.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">33.</td><td>Frau Strauss schlägt ein kanadisches Punktesystem vor.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">34.</td><td>Herr Beck wünscht sich eine Bearbeitungszeit von sechs Monaten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">35.</td><td>Die Diskussion nennt konkrete Zahlen für die Kosten von Integrationsprogrammen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Radiobeitrag – Informationen ergänzen</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie den Beitrag (2×) und notieren Sie.</div>
+    <div class="dial"><div class="dlabel">Radiobeitrag: Pilotprojekt 4-Tage-Woche in Deutschland</div>
+      „Das Pilotprojekt ‚4-Tage-Woche Deutschland' läuft seit <strong>Februar 2024</strong> und umfasst <strong>45 Unternehmen</strong> mit insgesamt rund <strong>2.200 Mitarbeitenden</strong>. Die Teilnehmer reduzieren ihre Wochenarbeitszeit von <strong>40 auf 32 Stunden</strong> – bei vollem Lohnausgleich. Die Studie läuft über einen Zeitraum von <strong>sechs Monaten</strong>. Erste Zwischenergebnisse zeigen: <strong>78 Prozent</strong> der Mitarbeitenden berichten von weniger Stress. <strong>62 Prozent</strong> der Unternehmensleiter geben an, dass die Produktivität gleich geblieben oder gestiegen ist. Projektleiter Dr. Wirtz: ‚Wir erwarten die abschließenden Ergebnisse bis <strong>September 2024</strong>.'"
+    </div>
+    <div class="filrow"><span class="filn">36.</span> Startdatum des Pilotprojekts: <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">37.</span> Anzahl teilnehmender Unternehmen: <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">38.</span> Neue Wochenstundenzahl: <input class="filin" type="text"> Stunden</div>
+    <div class="filrow"><span class="filn">39.</span> Anteil Mitarbeitende mit weniger Stress: <input class="filin" type="text"> %</div>
+    <div class="filrow"><span class="filn">40.</span> Abschluss der Studie: <input class="filin" type="text"></div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Expertengespräch – Multiple Choice</span><span class="ppts">10 Pkt</span></div>
+    <div class="instr">Hören Sie das Gespräch (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Expertengespräch: Kosmopolitismus vs. Nationalstaat – die Migrationsdebatte in der Philosophie</div>
+      <strong>Moderatorin:</strong> Prof. Merkel, Frau Dr. Stein – kann ein Nationalstaat Migration moralisch einschränken?<br>
+      <strong>Prof. Merkel:</strong> Ja, aber nur unter bestimmten Bedingungen. Ein Staat hat das Recht, seine Identität und Ressourcen zu schützen – aber nicht auf Kosten fundamentaler Menschenrechte. Refoulement, also die Zurückweisung in Verfolgungsgefahr, ist unter keinen Umständen legitim.<br>
+      <strong>Dr. Stein:</strong> Ich gehe weiter: Das Recht auf Freizügigkeit sollte universell gelten. Grenzen sind historische Konstrukte – warum sollte der Geburtsort über Lebenschancen entscheiden?<br>
+      <strong>Prof. Merkel:</strong> Weil demokratische Gemeinschaften Kohäsion brauchen. Offene Grenzen ohne Management schaffen Gegenreaktionen – Rechtspopulismus, Xenophobie.<br>
+      <strong>Dr. Stein:</strong> Das ist ein empirisches Argument, kein moralisches. Unsere moralischen Prinzipien sollten nicht von populistischen Reaktionen abhängen.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">41.</span> Unter welcher Bedingung hält Prof. Merkel Einschränkungen für legitim?</div>
+      <div class="mco" data-grp="q41">
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">a</span> Unter allen Bedingungen</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">b</span> Nur wenn fundamentale Menschenrechte nicht verletzt werden</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">c</span> Nur bei Wirtschaftsmigration</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">42.</span> Was ist laut Prof. Merkel „Refoulement"?</div>
+      <div class="mco" data-grp="q42">
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">a</span> Freiwillige Rückkehr</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">b</span> Zurückweisung in Verfolgungsgefahr – unter keinen Umständen legitim</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">c</span> Legale Ausweisungsverfahren</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">43.</span> Was fordert Dr. Stein?</div>
+      <div class="mco" data-grp="q43">
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">a</span> Stärkere Grenzkontrollen</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">b</span> Universelle Freizügigkeit unabhängig vom Geburtsort</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">c</span> Quotensysteme für Migration</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">44.</span> Welches Gegenargument bringt Prof. Merkel gegen offene Grenzen?</div>
+      <div class="mco" data-grp="q44">
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">a</span> Sicherheitsrisiken durch Terrorismus</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">b</span> Demokratische Gemeinschaften brauchen Kohäsion; offene Grenzen riskieren Rechtspopulismus</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">c</span> Wirtschaftliche Überbelastung</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">45.</span> Wie bezeichnet Dr. Stein Prof. Merkels Argument über Rechtspopulismus?</div>
+      <div class="mco" data-grp="q45">
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">a</span> Als moralisches Argument</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">b</span> Als empirisches, nicht moralisches Argument</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">c</span> Als Beweis für die Unhaltbarkeit offener Grenzen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 80 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Argumentativer Text (mind. 200 Wörter)</span><span class="ppts">13 Pkt</span></div>
+    <div class="instr">Schreiben Sie einen strukturierten, argumentativen Text (mind. 200 Wörter). Bearbeiten Sie alle Aspekte.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px;line-height:1.85">
+      <strong style="color:var(--purple)">Thema:</strong> „Migration als Herausforderung und Chance – Zwischen Abwehr und Willkommenskultur"<br>
+      Schreiben Sie einen Meinungsartikel für eine überregionale Zeitung. Gehen Sie auf folgende Aspekte ein:<br>
+      <strong>① Was sind die Hauptursachen internationaler Migration heute?<br>② Welche gesellschaftlichen Vorteile bringt Migration mit sich?<br>③ Welche Herausforderungen stellen sich an Politik und Gesellschaft?<br>④ Wie sollte eine gerechte Migrationspolitik aussehen? Beziehen Sie klar Stellung.</strong>
+    </div>
+    <textarea class="warea" id="w1" oninput="countW('w1','wc1',200,280)" placeholder="Die Frage der Migration ist nicht neu ..."></textarea>
+    <div id="wc1" class="wcpill">0 / min. 200</div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Formeller Brief (mind. 150 Wörter)</span><span class="ppts">12 Pkt</span></div>
+    <div class="instr">Schreiben Sie einen formellen Brief oder eine E-Mail (mind. 150 Wörter). Bearbeiten Sie alle vier Punkte.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px">
+      <strong style="color:var(--purple)">Situation:</strong> Ihr Unternehmen erwägt die Einführung einer 4-Tage-Woche. Als Arbeitnehmervertreter/-vertreterin schreiben Sie an die Unternehmensleitung:<br>
+      <strong>① Begrüßen Sie die Initiative ② Beschreiben Sie zwei potenzielle Vorteile für Mitarbeitende ③ Benennen Sie eine konkrete Herausforderung ④ Schlagen Sie einen Pilotversuch vor</strong>
+    </div>
+    <textarea class="warea" id="w2" oninput="countW('w2','wc2',150,220)" placeholder="Sehr geehrte Geschäftsleitung, ..."></textarea>
+    <div id="wc2" class="wcpill">0 / min. 150</div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="instr">Die Lehrkraft leitet die Prüfung. Dieser Teil wird nach Kriterien benotet.</div>
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzpräsentation (5–6 Min.)</span><span class="ppts">8 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      Wählen Sie ein Thema: <strong>A) Posthumanismus – Bedrohung oder Befreiung?</strong> oder <strong>B) Warum braucht Europa eine neue Migrationspolitik?</strong><br>
+      Bereiten Sie 3 Minuten vor. Sprechen Sie 4–5 Minuten.
+    </div>
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Stellungnahme und Diskussion</span><span class="ppts">9 Pkt</span></div>
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">These A</div>„Die 4-Tage-Woche ist nur für gut bezahlte Wissensarbeiter realistisch – für Pflegekräfte und Handwerker bleibt sie eine leere Verheißung." Stimmen Sie zu oder widersprechen Sie?</div>
+      <div class="spcard"><div class="scn">These B</div>„Neuronale Implantate zum Leistungs-Enhancement sollten wie Doping im Sport behandelt werden – also in bestimmten Bereichen verboten." Diskutieren Sie Analogien und Unterschiede.</div>
+    </div>
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Komplexes Szenario</span><span class="ppts">8 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;font-size:13px">
+      <strong>Szenario:</strong> Sie sind Mitglied eines internationalen Ethikrats, der Empfehlungen zum Umgang mit Enhancement-Technologien ausarbeitet. Ihr Auftrag: Formulieren Sie drei Grundprinzipien, auf die sich Ihre Gruppe einigen kann – und begründen Sie jedes Prinzip unter Bezugnahme auf Gerechtigkeit, Sicherheit und menschliche Würde.
+    </div>
+    <table class="stbl" style="margin-top:12px">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
+      <tbody>
+        <tr><td>Inhaltliche Tiefe &amp; Argumentation</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
+        <tr><td>Diskurs &amp; Interaktion</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Lexikalische Kompetenz</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Grammatische Korrektheit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen</h3>
+      <div class="akp"><h4>T1 – Posthumanismus (R/F/N)</h4><div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (er warnt)</span></div><div class="chip">3→<span class="ok">N</span></div><div class="chip">4→<span class="ok">R</span></div><div class="chip">5→<span class="ok">F (ist Forschungsfeld + Realität)</span></div></div></div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4><div class="chips"><div class="chip">6→<span class="ok">B</span></div><div class="chip">7→<span class="ok">A</span></div><div class="chip">8→<span class="ok">C</span></div><div class="chip">9→<span class="ok">E</span></div><div class="chip">10→<span class="ok">D</span></div></div></div>
+      <div class="akp"><h4>T3 – Migrationspolitik</h4><div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">b</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">b</span></div><div class="chip">15→<span class="ok">a</span></div></div></div>
+      <div class="akp"><h4>T4 – Lückentext Neue Arbeit (Musterantworten)</h4><div class="chips"><div class="chip">16→<span class="ok">Arbeitszeiten / Arbeitsmodelle</span></div><div class="chip">17→<span class="ok">Tätigkeiten / Aufgaben</span></div><div class="chip">18→<span class="ok">Ausdruck / Symbol</span></div><div class="chip">19→<span class="ok">Verbesserung des Wohlbefindens</span></div><div class="chip">20→<span class="ok">anpassen / gestalten</span></div></div></div>
+      <div class="akp"><h4>T5 – Kurztexte</h4><div class="chips"><div class="chip">21→<span class="ok">b</span></div><div class="chip">22→<span class="ok">b</span></div><div class="chip">23→<span class="ok">b</span></div><div class="chip">24→<span class="ok">b</span></div><div class="chip">25→<span class="ok">b</span></div></div></div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören</h3>
+      <div class="akp"><h4>T1 – Transhumanismus / Neuralink</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">b</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T2 – Migrationsdebatte (R/F/N)</h4><div class="chips"><div class="chip">31→<span class="ok">R</span></div><div class="chip">32→<span class="ok">F (er trennt irreguläre/legale M.)</span></div><div class="chip">33→<span class="ok">R</span></div><div class="chip">34→<span class="ok">R</span></div><div class="chip">35→<span class="ok">N</span></div></div></div>
+      <div class="akp"><h4>T3 – 4-Tage-Woche Pilotprojekt</h4><div class="chips"><div class="chip">36→<span class="ok">Februar 2024</span></div><div class="chip">37→<span class="ok">45</span></div><div class="chip">38→<span class="ok">32</span></div><div class="chip">39→<span class="ok">78</span></div><div class="chip">40→<span class="ok">September 2024</span></div></div></div>
+      <div class="akp"><h4>T4 – Philosophisches Gespräch</h4><div class="chips"><div class="chip">41→<span class="ok">b</span></div><div class="chip">42→<span class="ok">b</span></div><div class="chip">43→<span class="ok">b</span></div><div class="chip">44→<span class="ok">b</span></div><div class="chip">45→<span class="ok">b</span></div></div></div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe C1 Modellprüfung Nr. 5 · Viel Erfolg! 🍀</div>
+</div>
+
+<script>
+function pickRF3(btn,choice){const w=btn.parentElement;w.querySelectorAll('.rfb').forEach(b=>{b.classList.remove('selR','selF','selN');});if(choice==='R')btn.classList.add('selR');else if(choice==='F')btn.classList.add('selF');else btn.classList.add('selN');}
+function pickMC(btn,grp){const c=btn.closest('[data-grp="'+grp+'"]');if(!c)return;c.querySelectorAll('.mcb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function countW(taId,pillId,min,max){const ta=document.getElementById(taId),pill=document.getElementById(pillId);if(!ta||!pill)return;const n=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;pill.textContent=n+' / min. '+min;pill.className='wcpill';if(n>=min&&n<=max)pill.classList.add('ok');else if(n>max)pill.classList.add('over');}
+(function(){
+  const TOTAL=210*60;
+  const MODS=[
+    {id:'tp1',from:TOTAL,to:TOTAL-90*60},
+    {id:'tp2',from:TOTAL-90*60,to:TOTAL-130*60},
+    {id:'tp3',from:TOTAL-130*60,to:0},
+    {id:'tp4',from:0,to:-1}
+  ];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){const el=document.getElementById('timer-digits');if(!el)return;el.textContent=rem<=0?'Zeit um!':fmt(rem);el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});}
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

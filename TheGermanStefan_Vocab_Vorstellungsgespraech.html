@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vorstellungsgespräch — TheGermanStefan</title>
+<style>
+:root{--lc:#1a4fa8;--lc2:#0d3271;--lv:#2d6fd4;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;
+  --green:#1a7a4a;--red:#c0392b;--orange:#c45c0a;--mid:#4a7ac8;--blue:#1a4fa8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1.1;}
+.lvl-desc{font-size:14px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:8px 14px;display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:52px;z-index:190;}
+.mode-tab{border:none;background:var(--off);color:#666;border-radius:7px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.mode-tab.on{background:var(--lc);color:#fff;}
+.mode-tab:hover:not(.on){background:#e4ebff;color:var(--lc);}
+.content{padding:16px;max-width:920px;margin:0 auto;}
+
+/* ── INTRO BANNER ── */
+.intro-banner{background:linear-gradient(135deg,rgba(26,79,168,.12),rgba(13,50,113,.08));border:2px solid rgba(26,79,168,.25);border-radius:14px;padding:14px 18px;margin-bottom:16px;text-align:center;}
+.intro-banner h2{color:var(--navy);font-size:1.05rem;margin-bottom:4px;}
+.intro-banner p{color:#555;font-size:0.84rem;line-height:1.6;}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);overflow:hidden;}
+.card-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;}
+.card-header:hover{background:#fafbff;}
+.card-num{width:32px;height:32px;background:var(--lc);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;}
+.card-title-wrap{flex:1;}
+.card-de{font-size:0.95rem;font-weight:700;color:var(--navy);line-height:1.3;}
+.card-en{font-size:0.78rem;color:#888;font-style:italic;margin-top:2px;}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.tag{font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:20px;}
+.tag-strategic{background:#e8f0ff;color:var(--blue);}
+.tag-behavioral{background:#fff0e0;color:var(--orange);}
+.tag-personal{background:#e8fff0;color:var(--green);}
+.tag-tricky{background:#ffe8e8;color:var(--red);}
+.card-toggle{font-size:1.1rem;color:#aaa;transition:transform .2s;flex-shrink:0;}
+.card.open .card-toggle{transform:rotate(180deg);}
+.card-body{display:none;border-top:1px solid #eee;}
+.card.open .card-body{display:block;}
+.card-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.col{padding:14px 16px;}
+.col:first-child{border-right:1px solid #eee;}
+.col h4{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.col.why h4{color:var(--blue);}
+.col.how h4{color:var(--green);}
+.col p,.col li{font-size:0.84rem;line-height:1.6;color:#444;}
+.col ul{list-style:none;}
+.col ul li::before{content:'→ ';color:#aaa;}
+.col ul li{margin-bottom:3px;}
+.card-avoid{padding:10px 16px;background:#fff5f5;border-top:1px solid #fdd;}
+.card-avoid h4{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.card-avoid ul{list-style:none;font-size:0.83rem;}
+.card-avoid ul li::before{content:'✗ ';color:var(--red);font-weight:700;}
+.card-avoid ul li{margin-bottom:2px;}
+.card-opener{padding:12px 16px;background:linear-gradient(135deg,#f0f5ff,#e8f0ff);border-top:1px solid #d0dff0;}
+.card-opener h4{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:5px;}
+.card-opener p{font-size:0.86rem;font-style:italic;color:var(--navy);line-height:1.6;}
+.card-opener em{font-style:normal;font-weight:700;color:var(--blue);}
+@media(max-width:600px){.card-cols{grid-template-columns:1fr;}.col:first-child{border-right:none;border-bottom:1px solid #eee;}}
+
+/* ── STAR BOX ── */
+.star-box{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;border-radius:16px;padding:22px;margin-bottom:16px;}
+.star-box h3{color:var(--gold);font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:14px;}
+.star-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.star-item{background:rgba(255,255,255,.1);border-radius:10px;padding:12px;text-align:center;}
+.star-letter{font-size:2rem;font-weight:900;color:var(--gold);line-height:1;}
+.star-word{font-size:0.8rem;font-weight:700;margin:5px 0 3px;}
+.star-desc{font-size:0.72rem;opacity:.75;line-height:1.4;}
+.star-example{margin-top:14px;background:rgba(255,255,255,.08);border-radius:10px;padding:12px;font-size:0.84rem;opacity:.9;line-height:1.7;}
+.star-example strong{color:var(--gold);}
+@media(max-width:600px){.star-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── FRAGEN STELLEN ── */
+.ask-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.ask-card{background:#fff;border:1px solid #dde3eb;border-radius:10px;padding:12px 14px;}
+.ask-q{font-size:0.86rem;font-weight:600;font-style:italic;margin-bottom:4px;color:var(--navy);}
+.ask-why{font-size:0.76rem;color:var(--green);font-weight:600;}
+
+/* ── LEBENSLAUF ── */
+.cv-section{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.cv-section h3{font-size:0.92rem;color:var(--lc2);font-weight:800;margin-bottom:12px;padding-bottom:8px;border-bottom:2px dashed #eee;display:flex;align-items:center;gap:8px;}
+.cv-rule{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed #eee;font-size:0.85rem;align-items:flex-start;}
+.cv-rule:last-child{border-bottom:none;}
+.cv-num{width:24px;height:24px;background:var(--lc);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.72rem;flex-shrink:0;margin-top:1px;}
+.cv-rule-text{flex:1;color:#444;line-height:1.6;}
+.cv-rule-text strong{color:var(--navy);}
+.cv-do-dont{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.cv-do{background:#e8fff4;border:1px solid #b6ddc8;border-radius:10px;padding:12px;}
+.cv-dont{background:#fff0f0;border:1px solid #e8b8b8;border-radius:10px;padding:12px;}
+.cv-do h5{color:var(--green);font-size:0.78rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;}
+.cv-dont h5{color:var(--red);font-size:0.78rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;}
+.cv-do li,.cv-dont li{font-size:0.8rem;color:#444;list-style:none;margin-bottom:4px;line-height:1.5;}
+.cv-do li::before{content:'✓ ';color:var(--green);font-weight:700;}
+.cv-dont li::before{content:'✗ ';color:var(--red);font-weight:700;}
+.cv-example-box{background:linear-gradient(135deg,#f0f5ff,#e8f0ff);border-left:4px solid var(--lc);border-radius:8px;padding:12px 14px;margin-top:12px;font-size:0.83rem;line-height:1.7;color:#333;font-style:italic;}
+.cv-example-box strong{font-style:normal;color:var(--lc2);}
+.struktur-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px;}
+.s-block{background:var(--off);border-radius:10px;padding:10px 12px;border-left:3px solid var(--lc);}
+.s-block .s-title{font-size:0.8rem;font-weight:700;color:var(--lc2);margin-bottom:4px;}
+.s-block .s-detail{font-size:0.75rem;color:#666;line-height:1.5;}
+.s-block.req{border-left-color:var(--green);}
+.s-block.opt{border-left-color:#aaa;}
+.req-label{font-size:0.68rem;background:var(--green);color:#fff;border-radius:4px;padding:1px 6px;margin-left:4px;}
+.opt-label{font-size:0.68rem;background:#aaa;color:#fff;border-radius:4px;padding:1px 6px;margin-left:4px;}
+@media(max-width:550px){.cv-do-dont{grid-template-columns:1fr;}}
+
+/* ── SALARY ── */
+.salary-box{background:#fff;border:2px solid var(--gold);border-radius:14px;padding:18px;margin-bottom:14px;}
+.salary-box h3{font-size:0.9rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.salary-rule{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed #eee;font-size:0.85rem;align-items:flex-start;}
+.salary-rule:last-child{border-bottom:none;}
+.s-rnum{width:24px;height:24px;background:var(--navy);color:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.72rem;flex-shrink:0;margin-top:1px;}
+.salary-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:0.82rem;}
+.salary-table th{background:var(--lc);color:#fff;padding:7px 10px;text-align:left;font-size:0.78rem;}
+.salary-table td{padding:6px 10px;border-bottom:1px solid #eee;color:#444;}
+.salary-table tr:last-child td{border-bottom:none;}
+.salary-table tr:nth-child(even) td{background:#f9faff;}
+
+/* ── ROLLENSPIEL ── */
+.rp-card{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.rp-top{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:14px 18px;}
+.rp-top h3{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
+.rp-top p{font-size:0.78rem;opacity:.8;}
+.rp-body{padding:16px 18px;}
+.rp-context{background:#fffbea;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;margin-bottom:12px;font-size:0.84rem;line-height:1.6;}
+.rp-roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.rp-role{border-radius:10px;padding:12px;}
+.rp-role.candidate{background:#f0f5ff;border:1.5px solid #a8c0e8;}
+.rp-role.interviewer{background:#f0fff5;border:1.5px solid #a8d8b0;}
+.rp-role h4{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.rp-role.candidate h4{color:var(--blue);}
+.rp-role.interviewer h4{color:var(--green);}
+.rp-role ul{list-style:none;font-size:0.82rem;}
+.rp-role ul li{margin-bottom:4px;padding-left:12px;position:relative;line-height:1.5;}
+.rp-role ul li::before{content:'·';position:absolute;left:0;color:#aaa;}
+.rp-script{background:var(--off);border-radius:10px;padding:12px;margin-bottom:12px;}
+.rp-script h4{font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:10px;}
+.script-line{display:flex;gap:8px;margin-bottom:7px;font-size:0.84rem;}
+.script-who{font-weight:700;font-size:0.76rem;min-width:80px;flex-shrink:0;}
+.script-who.i{color:var(--green);}
+.script-who.c{color:var(--blue);}
+.script-blank{border-bottom:2px dashed #ccc;display:inline-block;min-width:150px;font-style:italic;color:#888;}
+.debrief-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.debrief-item{font-size:0.8rem;background:var(--off);border-radius:7px;padding:6px 9px;}
+.debrief-item.check{border-left:3px solid var(--green);}
+.debrief-item.watch{border-left:3px solid var(--orange);}
+@media(max-width:560px){.rp-roles,.debrief-grid{grid-template-columns:1fr;}}
+
+/* ── CHECKLISTE ── */
+.checklist{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed #eee;font-size:0.88rem;cursor:pointer;user-select:none;}
+.cl-item:last-child{border-bottom:none;}
+.cl-box{width:20px;height:20px;border:2px solid #ccc;border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:all .15s;}
+.cl-item.done .cl-box{background:var(--green);border-color:var(--green);color:#fff;}
+.cl-item.done span{text-decoration:line-through;color:#aaa;}
+.cl-progress{height:6px;background:#eee;border-radius:3px;margin-bottom:14px;overflow:hidden;}
+.cl-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
+
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:32px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → Vorstellungsgespräch</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Special — Career & Work</div>
+  <div class="lvl-name" data-t="lvl_name">💼 Vorstellungsgespräch</div>
+  <div class="lvl-desc" data-t="level_desc">15 core questions · CV guide · salary negotiation · role plays — 100% interview-ready</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" data-t="stat1">15 interview questions</span>
+    <span class="lvl-stat" data-t="stat2">CV & Anschreiben guide</span>
+    <span class="lvl-stat" data-t="stat3">B2+ · C1</span>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="mode-tab on" id="tab-star" onclick="switchMode('star')" data-t="tab_star">⭐ STAR-Methode</button>
+  <button class="mode-tab" id="tab-fragen" onclick="switchMode('fragen')" data-t="tab_fragen">❓ 15 Fragen</button>
+  <button class="mode-tab" id="tab-cv" onclick="switchMode('cv')" data-t="tab_cv">📄 Lebenslauf</button>
+  <button class="mode-tab" id="tab-gehalt" onclick="switchMode('gehalt')" data-t="tab_gehalt">💶 Gehaltsverhandlung</button>
+  <button class="mode-tab" id="tab-rp" onclick="switchMode('rp')" data-t="tab_rp">🎭 Rollenspiel</button>
+  <button class="mode-tab" id="tab-check" onclick="switchMode('check')" data-t="tab_check">✅ Checkliste</button>
+</div>
+
+<!-- ══ STAR VIEW ══ -->
+<div id="star-view" class="content">
+  <div class="intro-banner">
+    <h2 data-t="star_title">⭐ Die STAR-Methode — Dein universelles Antwortframework</h2>
+    <p data-t="star_desc">Use STAR for every behavioural question. Answer first — then check strategy.</p>
+  </div>
+  <div class="star-box">
+    <h3>⭐ STAR — Struktur für Verhaltensfragen</h3>
+    <div class="star-grid">
+      <div class="star-item"><div class="star-letter">S</div><div class="star-word">Situation</div><div class="star-desc">Set the scene. When, where, what context?</div></div>
+      <div class="star-item"><div class="star-letter">T</div><div class="star-word">Task / Aufgabe</div><div class="star-desc">What was YOUR specific challenge or responsibility?</div></div>
+      <div class="star-item"><div class="star-letter">A</div><div class="star-word">Action / Aktion</div><div class="star-desc">What did YOU do? Use "ich" not "wir". This is the main part.</div></div>
+      <div class="star-item"><div class="star-letter">R</div><div class="star-word">Result / Ergebnis</div><div class="star-desc">What was the outcome? Quantify it. What did you learn?</div></div>
+    </div>
+    <div class="star-example">
+      <strong>Beispiel:</strong> "Erzählen Sie von einem Konflikt mit einem Kollegen." →
+      <strong>S:</strong> „In meinem letzten Job gab es Spannungen über die Zuständigkeiten im Projekt…"
+      <strong>T:</strong> „Ich war verantwortlich für die Kommunikation mit dem Kunden, aber mein Kollege…"
+      <strong>A:</strong> „Ich habe ein direktes Gespräch gesucht und vorgeschlagen, dass wir…"
+      <strong>R:</strong> „Das Ergebnis: wir schlossen das Projekt zwei Wochen früher ab, und die Kundenzufriedenheit stieg auf 96%."
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div style="padding:16px;background:linear-gradient(135deg,#f0f5ff,#e8efff);border-radius:14px;">
+      <h3 style="font-size:0.9rem;font-weight:800;color:var(--lc2);margin-bottom:12px;">🎯 Bereite 4 STAR-Geschichten vor — sie decken fast alle Fragen ab</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">
+        <div style="background:#fff;border-radius:10px;padding:12px;border-left:4px solid var(--green);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--green);margin-bottom:4px;">1. ERFOLG</div>
+          <div style="font-size:0.8rem;color:#444;">A situation where you excelled, solved a complex problem, or achieved a measurable result.</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:12px;border-left:4px solid var(--orange);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--orange);margin-bottom:4px;">2. KONFLIKT</div>
+          <div style="font-size:0.8rem;color:#444;">A conflict with a colleague or stakeholder — and how you resolved it constructively.</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:12px;border-left:4px solid var(--red);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--red);margin-bottom:4px;">3. FEHLER</div>
+          <div style="font-size:0.8rem;color:#444;">A genuine mistake — and what you learned from it. Shows honesty and growth mindset.</div>
+        </div>
+        <div style="background:#fff;border-radius:10px;padding:12px;border-left:4px solid var(--blue);">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--blue);margin-bottom:4px;">4. DRUCK</div>
+          <div style="font-size:0.8rem;color:#444;">A high-pressure deadline or crisis — and how you stayed calm and delivered.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-banner" style="text-align:left;">
+    <h2 style="font-size:0.9rem;margin-bottom:8px;">💡 Schlüsselregeln für das Gespräch</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Use <strong>„ich"</strong> not <strong>„wir"</strong> — they hired you, not your team.</div>
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Self-presentation max <strong>90 seconds</strong> — practice it out loud.</div>
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Never criticise <strong>your former employer</strong> — ever.</div>
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Research 3 <strong>specific facts</strong> about the company before you go.</div>
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Use <strong>„Sie"</strong> (formal) unless they switch to <strong>„du"</strong> first.</div>
+      <div style="font-size:0.82rem;color:#444;background:#fff;border-radius:8px;padding:8px 12px;border-left:3px solid var(--lc);">Bring <strong>printed copies</strong> of your CV — always.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FRAGEN VIEW ══ -->
+<div id="fragen-view" class="content" style="display:none;">
+  <div class="intro-banner">
+    <h2 data-t="fragen_title">❓ Die 15 Kernfragen — Strategie & Musterantworten</h2>
+    <p data-t="fragen_desc">Answer each question naturally first — then click to reveal the hidden agenda and strategy.</p>
+  </div>
+  <div id="q-container"></div>
+
+  <div style="margin-top:20px;">
+    <div class="intro-banner" style="text-align:left;">
+      <h2 style="font-size:0.9rem;margin-bottom:12px;">🙋 Fragen, die SIE stellen sollten</h2>
+      <p style="font-size:0.82rem;color:#666;margin-bottom:12px;">The quality of your questions signals intelligence and preparation. Never say "Nein, ich habe keine Fragen."</p>
+    </div>
+    <div class="ask-grid" id="ask-grid"></div>
+  </div>
+</div>
+
+<!-- ══ LEBENSLAUF VIEW ══ -->
+<div id="cv-view" class="content" style="display:none;">
+  <div class="intro-banner">
+    <h2 data-t="cv_title">📄 Der deutsche Lebenslauf — Vollständiger Leitfaden</h2>
+    <p data-t="cv_desc">German CVs follow specific conventions — different from UK/US resumes. Know the rules.</p>
+  </div>
+
+  <div class="cv-section">
+    <h3>🗂️ Struktur des Lebenslaufs</h3>
+    <p style="font-size:0.84rem;color:#555;margin-bottom:12px;">German CVs follow a strict, expected structure. Deviating from it raises red flags. The golden rule: <strong>lückenloses Leitprinzip</strong> — no unexplained gaps.</p>
+    <div class="struktur-grid">
+      <div class="s-block req"><div class="s-title">1. Persönliche Daten <span class="req-label">Pflicht</span></div><div class="s-detail">Name, Adresse, Telefon, E-Mail, Geburtsdatum. LinkedIn optional but recommended.</div></div>
+      <div class="s-block req"><div class="s-title">2. Foto <span class="req-label">Pflicht in DE</span></div><div class="s-detail">Professional headshot — called „Bewerbungsfoto". Not a selfie. Business attire. Recent. Top-right corner.</div></div>
+      <div class="s-block req"><div class="s-title">3. Berufserfahrung <span class="req-label">Pflicht</span></div><div class="s-detail">Reverse chronological. Current/most recent first. Month + year for each. Bullet points of key tasks + achievements.</div></div>
+      <div class="s-block req"><div class="s-title">4. Ausbildung <span class="req-label">Pflicht</span></div><div class="s-detail">Degrees, vocational training, Abitur. Include grades if strong. Reverse chronological.</div></div>
+      <div class="s-block req"><div class="s-title">5. Kenntnisse & Skills <span class="req-label">Pflicht</span></div><div class="s-detail">Languages (level: A1–C2 or native), IT skills, certifications, tools.</div></div>
+      <div class="s-block opt"><div class="s-title">6. Hobbys & Interessen <span class="opt-label">Optional</span></div><div class="s-detail">Only include if they add value. Leadership sports, volunteering, relevant hobbies — yes. TV and cooking — no.</div></div>
+      <div class="s-block opt"><div class="s-title">7. Datum & Unterschrift <span class="opt-label">Üblich</span></div><div class="s-detail">Sign and date at the bottom. Still expected in formal German applications.</div></div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h3>✍️ Berufserfahrung — Formulierungen</h3>
+    <p style="font-size:0.84rem;color:#555;margin-bottom:12px;">German employers value precision. Use strong action verbs and quantify wherever possible.</p>
+    <div class="cv-do-dont">
+      <div class="cv-do">
+        <h5>✓ Starke Formulierungen</h5>
+        <li>„Verantwortlich für die Leitung eines Teams von 8 Mitarbeitern"</li>
+        <li>„Steigerung des Umsatzes um 23% innerhalb von 12 Monaten"</li>
+        <li>„Einführung eines neuen CRM-Systems für 200 Nutzer"</li>
+        <li>„Durchführung von Kundengesprächen auf C-Level"</li>
+        <li>„Koordination mit internationalen Teams (DE/FR/UK)"</li>
+      </div>
+      <div class="cv-dont">
+        <h5>✗ Schwache Formulierungen</h5>
+        <li>„War zuständig für verschiedene Aufgaben"</li>
+        <li>„Mitarbeit im Team"</li>
+        <li>„Unterstützung des Managements"</li>
+        <li>„Gute Kommunikation mit Kunden"</li>
+        <li>„Zuständig für diverse Projekte"</li>
+      </div>
+    </div>
+    <div class="cv-example-box">
+      <strong>Beispiel — Berufserfahrung Eintrag:</strong><br>
+      03/2021 – heute &nbsp;|&nbsp; <strong>Senior Marketing Manager</strong> &nbsp;|&nbsp; Musterfirma GmbH, Berlin<br>
+      · Leitung des Content-Marketing-Teams (5 Personen) und Verantwortung für ein Jahresbudget von €250k<br>
+      · Steigerung des organischen Website-Traffics um 45% durch SEO-Optimierung und Content-Strategie<br>
+      · Einführung eines Marketing-Automation-Systems (HubSpot) mit 30% Effizienzsteigerung
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h3>⚠️ Häufige Fehler im Lebenslauf</h3>
+    <div id="cv-rules-container"></div>
+  </div>
+
+  <div class="cv-section">
+    <h3>📝 Das Anschreiben (Cover Letter)</h3>
+    <p style="font-size:0.84rem;color:#555;margin-bottom:12px;">Unlike in English-speaking countries, the <strong>Anschreiben</strong> is still expected in Germany — and taken seriously. It's not just a repeat of your CV.</p>
+    <div id="anschreiben-rules"></div>
+    <div class="cv-example-box" style="margin-top:12px;">
+      <strong>Anschreiben-Struktur (4 Absätze):</strong><br><br>
+      <strong>1. Einstieg (2 Sätze):</strong> Warum diese Stelle? Warum jetzt? Ein spezifischer Grund — nicht "Ihr Unternehmen ist bekannt für Qualität."<br><br>
+      <strong>2. Was Sie mitbringen (3–4 Sätze):</strong> Top 2–3 relevante Erfahrungen mit je einer Zahl oder konkretem Ergebnis.<br><br>
+      <strong>3. Warum dieses Unternehmen (2–3 Sätze):</strong> Zeigen Sie, dass Sie recherchiert haben. Produkt, Strategie, Werte.<br><br>
+      <strong>4. Abschluss (2 Sätze):</strong> Freude auf Gespräch ausdrücken. Keinen Druck, keine Unterwürfigkeit.
+    </div>
+    <div class="cv-do-dont" style="margin-top:12px;">
+      <div class="cv-do">
+        <h5>✓ Starker Einstieg</h5>
+        <li>„Die Ausschreibung Ihrer Stelle als X hat mich sofort angesprochen, da sie exakt an der Schnittstelle von Y und Z liegt — dem Bereich, in dem ich in den letzten 3 Jahren nachweislich Ergebnisse erzielt habe."</li>
+      </div>
+      <div class="cv-dont">
+        <h5>✗ Schwacher Einstieg</h5>
+        <li>„Hiermit bewerbe ich mich auf die oben genannte Stelle."</li>
+        <li>„Mit großem Interesse habe ich Ihre Anzeige gelesen."</li>
+        <li>„Ich bin eine kommunikative und teamfähige Person, die..."</li>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h3>🌐 Sprachen im Lebenslauf — Standardniveaus</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:8px;">
+      <div style="background:var(--off);border-radius:8px;padding:10px 12px;border-left:3px solid #2e7d32;"><div style="font-size:0.78rem;font-weight:700;color:#2e7d32;">Muttersprache</div><div style="font-size:0.75rem;color:#555;">= Native speaker</div></div>
+      <div style="background:var(--off);border-radius:8px;padding:10px 12px;border-left:3px solid #1464b4;"><div style="font-size:0.78rem;font-weight:700;color:#1464b4;">Fließend (C1–C2)</div><div style="font-size:0.75rem;color:#555;">= Business-level fluency</div></div>
+      <div style="background:var(--off);border-radius:8px;padding:10px 12px;border-left:3px solid #6a1b9a;"><div style="font-size:0.78rem;font-weight:700;color:#6a1b9a;">Verhandlungssicher (B2)</div><div style="font-size:0.75rem;color:#555;">= Negotiation level</div></div>
+      <div style="background:var(--off);border-radius:8px;padding:10px 12px;border-left:3px solid #e65100;"><div style="font-size:0.78rem;font-weight:700;color:#e65100;">Gute Kenntnisse (B1)</div><div style="font-size:0.75rem;color:#555;">= Good working knowledge</div></div>
+      <div style="background:var(--off);border-radius:8px;padding:10px 12px;border-left:3px solid #c62828;"><div style="font-size:0.78rem;font-weight:700;color:#c62828;">Grundkenntnisse (A1–A2)</div><div style="font-size:0.75rem;color:#555;">= Basic knowledge</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GEHALT VIEW ══ -->
+<div id="gehalt-view" class="content" style="display:none;">
+  <div class="intro-banner">
+    <h2 data-t="gehalt_title">💶 Gehaltsverhandlung — Strategie & Marktdaten</h2>
+    <p data-t="gehalt_desc">Whoever names a number first often loses. Know your value — and negotiate confidently.</p>
+  </div>
+
+  <div class="salary-box">
+    <h3>📋 Die 7 goldenen Regeln der Gehaltsverhandlung</h3>
+    <div id="salary-rules"></div>
+  </div>
+
+  <div class="cv-section">
+    <h3>📊 Gehaltsübersicht Deutschland — Referenzwerte (Brutto/Jahr)</h3>
+    <p style="font-size:0.83rem;color:#666;margin-bottom:10px;">Figures are approximate mid-market ranges for major German cities (2024/25). Adjust ±15% for region, company size, and sector.</p>
+    <table class="salary-table">
+      <tr><th>Bereich</th><th>Junior (0–3J)</th><th>Mid (3–7J)</th><th>Senior (7J+)</th></tr>
+      <tr><td>Marketing / PR</td><td>€35k–45k</td><td>€48k–65k</td><td>€68k–90k</td></tr>
+      <tr><td>IT / Softwareentwicklung</td><td>€45k–60k</td><td>€65k–85k</td><td>€90k–130k</td></tr>
+      <tr><td>Projektmanagement</td><td>€40k–52k</td><td>€58k–78k</td><td>€80k–110k</td></tr>
+      <tr><td>Unternehmensberatung</td><td>€50k–65k</td><td>€70k–95k</td><td>€100k–160k</td></tr>
+      <tr><td>HR / Personal</td><td>€32k–42k</td><td>€45k–60k</td><td>€65k–85k</td></tr>
+      <tr><td>Finanz / Controlling</td><td>€38k–50k</td><td>€55k–75k</td><td>€80k–115k</td></tr>
+      <tr><td>Vertrieb / Sales</td><td>€35k–48k</td><td>€55k–80k</td><td>€85k–130k+ (inkl. Bonus)</td></tr>
+      <tr><td>Logistik / Supply Chain</td><td>€33k–43k</td><td>£48k–65k</td><td>€68k–90k</td></tr>
+    </table>
+    <p style="font-size:0.76rem;color:#999;margin-top:8px;">Sources: Gehalt.de, Stepstone Gehaltsreport, LinkedIn Salary Insights. Always do your own research for your specific role.</p>
+  </div>
+
+  <div class="cv-section">
+    <h3>💬 Gehaltsverhandlung — Musterformulierungen</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:#f0f5ff;border-left:4px solid var(--lc);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--lc);margin-bottom:4px;">Wenn nach Gehaltsvorstellungen gefragt:</div>
+        <div style="font-size:0.85rem;font-style:italic;color:var(--navy);">„Auf Basis meiner Recherche und meiner [X] Jahre Erfahrung in [Bereich] orientiere ich mich an einem Jahresgehalt zwischen <em>[Betrag]</em> und <em>[Betrag]</em> brutto. Das ist natürlich abhängig vom Gesamtpaket und dem Entwicklungspotenzial."</div>
+      </div>
+      <div style="background:#f0f5ff;border-left:4px solid var(--lc);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--lc);margin-bottom:4px;">Wenn das Angebot zu niedrig ist:</div>
+        <div style="font-size:0.85rem;font-style:italic;color:var(--navy);">„Ich freue mich über das Angebot. Auf Basis meiner Recherche und meiner spezifischen Erfahrung mit [X] hatte ich eher an [Betrag] gedacht. Gibt es hier Spielraum?"</div>
+      </div>
+      <div style="background:#f0f5ff;border-left:4px solid var(--lc);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--lc);margin-bottom:4px;">Wenn früh nach Gehalt gefragt (zu früh):</div>
+        <div style="font-size:0.85rem;font-style:italic;color:var(--navy);">„Das hängt natürlich vom Gesamtpaket und den genauen Aufgaben ab — darf ich zuerst mehr über die Stelle erfahren, bevor wir über das Gehalt sprechen?"</div>
+      </div>
+      <div style="background:#fff3cd;border-left:4px solid var(--gold);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#856404;margin-bottom:4px;">⚠️ Sag NIEMALS:</div>
+        <div style="font-size:0.85rem;color:#444;">„Ich bin flexibel." (→ you'll get the minimum) &nbsp;|&nbsp; „Das ist vielleicht etwas viel, aber…" (→ never apologise for your number) &nbsp;|&nbsp; Namen eines Wunschgehalts ohne Begründung</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ROLLENSPIEL VIEW ══ -->
+<div id="rp-view" class="content" style="display:none;">
+  <div class="intro-banner">
+    <h2 data-t="rp_title">🎭 Rollenspiele — Vollständige Interview-Simulationen</h2>
+    <p data-t="rp_desc">Run the full interview without interruptions first. Then debrief with the checklist.</p>
+  </div>
+  <div id="rp-container"></div>
+</div>
+
+<!-- ══ CHECKLISTE VIEW ══ -->
+<div id="check-view" class="content" style="display:none;">
+  <div class="intro-banner">
+    <h2 data-t="check_title">✅ Vor dem Interview — Deine Checkliste</h2>
+    <p data-t="check_desc">Click each item as you prepare. Aim for 100% before the interview!</p>
+  </div>
+  <div class="checklist">
+    <div class="cl-progress"><div class="cl-fill" id="cl-fill" style="width:0%"></div></div>
+    <div id="cl-container"></div>
+  </div>
+</div>
+
+<div style="text-align:center;padding-bottom:60px;"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
+<div class="footer">TheGermanStefan — Vorstellungsgespräch © 2025</div>
+
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → Interview Prep',level_tag:'Special — Career & Work',lvl_name:'💼 Vorstellungsgespräch',level_desc:'15 core questions · CV guide · salary negotiation · role plays — 100% interview-ready',stat1:'15 interview questions',stat2:'CV & Anschreiben guide',stat3:'B2+ · C1',tab_star:'⭐ STAR-Methode',tab_fragen:'❓ 15 Fragen',tab_cv:'📄 Lebenslauf',tab_gehalt:'💶 Gehaltsverhandlung',tab_rp:'🎭 Rollenspiel',tab_check:'✅ Checkliste',star_title:'⭐ Die STAR-Methode — Your universal answer framework',star_desc:'Use STAR for every behavioural question.',fragen_title:'❓ The 15 Core Questions — Strategy & Sample Answers',fragen_desc:'Answer each question naturally first — then click to reveal the hidden agenda.',cv_title:'📄 The German Lebenslauf — Complete Guide',cv_desc:'German CVs follow specific conventions — different from UK/US resumes.',gehalt_title:'💶 Salary Negotiation — Strategy & Market Data',gehalt_desc:'Whoever names a number first often loses. Know your value.',rp_title:'🎭 Role Plays — Full Interview Simulations',rp_desc:'Run the full interview without interruptions. Then debrief.',check_title:'✅ Before the Interview — Your Checklist',check_desc:'Click each item as you prepare. Aim for 100%!',back_hub:'← Back to Vocabulary Hub'},
+fr:{crumb:'📚 Centre Vocab → Entretien',level_tag:'Spécial — Carrière & Travail',lvl_name:'💼 Vorstellungsgespräch',level_desc:'15 questions · Guide CV · Négociation salariale · Jeux de rôle',stat1:'15 questions d\'entretien',stat2:'Guide CV & lettre de motivation',stat3:'B2+ · C1',tab_star:'⭐ Méthode STAR',tab_fragen:'❓ 15 Questions',tab_cv:'📄 Curriculum Vitae',tab_gehalt:'💶 Négociation salariale',tab_rp:'🎭 Jeux de rôle',tab_check:'✅ Liste de contrôle',star_title:'⭐ La méthode STAR — Votre framework universel',star_desc:'Utilisez STAR pour chaque question comportementale.',fragen_title:'❓ Les 15 questions clés — Stratégie & exemples',fragen_desc:'Répondez d\'abord naturellement — puis cliquez pour voir la stratégie.',cv_title:'📄 Le Lebenslauf allemand — Guide complet',cv_desc:'Les CV allemands suivent des conventions spécifiques.',gehalt_title:'💶 Négociation salariale — Stratégie & données',gehalt_desc:'Celui qui nomme un chiffre en premier perd souvent.',rp_title:'🎭 Jeux de rôle — Simulations complètes',rp_desc:'Faites l\'entretien complet sans interruption.',check_title:'✅ Avant l\'entretien — Votre liste de contrôle',check_desc:'Cochez chaque élément en vous préparant.',back_hub:'← Retour au Hub'},
+es:{crumb:'📚 Centro Vocab → Entrevista',level_tag:'Especial — Carrera & Trabajo',lvl_name:'💼 Vorstellungsgespräch',level_desc:'15 preguntas · Guía de CV · Negociación salarial · Juegos de rol',stat1:'15 preguntas de entrevista',stat2:'Guía CV & carta de motivación',stat3:'B2+ · C1',tab_star:'⭐ Método STAR',tab_fragen:'❓ 15 Preguntas',tab_cv:'📄 Currículum',tab_gehalt:'💶 Negociación salarial',tab_rp:'🎭 Juegos de rol',tab_check:'✅ Lista de control',star_title:'⭐ El método STAR — Tu framework universal',star_desc:'Usa STAR para cada pregunta conductual.',fragen_title:'❓ Las 15 preguntas clave — Estrategia y respuestas',fragen_desc:'Responde primero — luego haz clic para ver la estrategia.',cv_title:'📄 El Lebenslauf alemán — Guía completa',cv_desc:'Los CVs alemanes siguen convenciones específicas.',gehalt_title:'💶 Negociación salarial — Estrategia y datos',gehalt_desc:'Quien nombra un número primero suele perder.',rp_title:'🎭 Juegos de rol — Simulaciones completas',rp_desc:'Haz la entrevista completa sin interrupciones.',check_title:'✅ Antes de la entrevista — Tu lista de control',check_desc:'Marca cada elemento mientras te preparas.',back_hub:'← Volver al Hub'},
+it:{crumb:'📚 Centro Vocab → Colloquio',level_tag:'Speciale — Carriera & Lavoro',lvl_name:'💼 Vorstellungsgespräch',level_desc:'15 domande · Guida CV · Negoziazione stipendio · Giochi di ruolo',stat1:'15 domande di colloquio',stat2:'Guida CV & lettera di motivazione',stat3:'B2+ · C1',tab_star:'⭐ Metodo STAR',tab_fragen:'❓ 15 Domande',tab_cv:'📄 Curriculum Vitae',tab_gehalt:'💶 Negoziazione stipendio',tab_rp:'🎭 Giochi di ruolo',tab_check:'✅ Lista di controllo',star_title:'⭐ Il metodo STAR — Il tuo framework universale',star_desc:'Usa STAR per ogni domanda comportamentale.',fragen_title:'❓ Le 15 domande chiave — Strategia & risposte',fragen_desc:'Rispondi prima naturalmente — poi clicca per la strategia.',cv_title:'📄 Il Lebenslauf tedesco — Guida completa',cv_desc:'I CV tedeschi seguono convenzioni specifiche.',gehalt_title:'💶 Negoziazione stipendio — Strategia & dati',gehalt_desc:'Chi nomina un numero per primo spesso perde.',rp_title:'🎭 Giochi di ruolo — Simulazioni complete',rp_desc:'Fai il colloquio completo senza interruzioni.',check_title:'✅ Prima del colloquio — La tua lista di controllo',check_desc:'Spunta ogni elemento durante la preparazione.',back_hub:'← Torna al Hub'},
+pt:{crumb:'📚 Centro Vocab → Entrevista',level_tag:'Especial — Carreira & Trabalho',lvl_name:'💼 Vorstellungsgespräch',level_desc:'15 perguntas · Guia de CV · Negociação salarial · Simulações',stat1:'15 perguntas de entrevista',stat2:'Guia CV & carta de motivação',stat3:'B2+ · C1',tab_star:'⭐ Método STAR',tab_fragen:'❓ 15 Perguntas',tab_cv:'📄 Currículo',tab_gehalt:'💶 Negociação salarial',tab_rp:'🎭 Simulações',tab_check:'✅ Lista de verificação',star_title:'⭐ O método STAR — Seu framework universal',star_desc:'Use o STAR para cada pergunta comportamental.',fragen_title:'❓ As 15 perguntas principais — Estratégia & respostas',fragen_desc:'Responda primeiro — depois clique para ver a estratégia.',cv_title:'📄 O Lebenslauf alemão — Guia completo',cv_desc:'CVs alemães seguem convenções específicas.',gehalt_title:'💶 Negociação salarial — Estratégia & dados',gehalt_desc:'Quem nomeia um número primeiro geralmente perde.',rp_title:'🎭 Simulações — Entrevistas completas',rp_desc:'Faça a entrevista completa sem interrupções.',check_title:'✅ Antes da entrevista — Sua lista de verificação',check_desc:'Marque cada item enquanto se prepara.',back_hub:'← Voltar ao Hub'}
+};
+
+const QUESTIONS=[
+{n:1,de:'„Erzählen Sie mir etwas über sich."',en:'Tell me about yourself.',type:'strategic',
+why:'Not an invitation to tell your life story. They want: <strong>Can you communicate concisely? Do you understand what\'s relevant for this role?</strong> A confident opener sets the tone for the whole interview.',
+how:['Use the <strong>Present–Past–Future</strong> formula','Start with current role / what you do NOW','Add 1–2 relevant past experiences','End with why THIS job, why NOW','Keep it to <strong>90 seconds max</strong>','Tailor every word to the job description'],
+avoid:['Chronological life story from birth to present','Starting with „Ich bin 1988 in… geboren"','Repeating the CV word for word','Being too modest: „Ich bin eigentlich nur…"'],
+opener:'„Aktuell arbeite ich als <em>[Position]</em> bei <em>[Unternehmen]</em>, wo ich hauptsächlich für <em>[Kernaufgabe]</em> zuständig bin. Davor habe ich <em>[relevante Erfahrung]</em> gesammelt. Diese Stelle interessiert mich, weil <em>[konkreter Bezug zum Job]</em>."'},
+{n:2,de:'„Warum möchten Sie bei uns arbeiten?"',en:'Why do you want to work here?',type:'strategic',
+why:'They want to know: <strong>Did you actually research us? Or are you applying everywhere?</strong> A vague answer is an immediate red flag.',
+how:['Research 3 specific things about this company first','Mention something <em>specific</em>: product, project, value, market position','Connect their strength to YOUR goal','Show you understand their mission, not just their brand'],
+avoid:['„Ich habe gehört, Sie zahlen gut." (Never mention salary here)','Generic praise: „Sie sind ja sehr bekannt…"','Focusing only on what YOU get, not what you BRING'],
+opener:'„Was mich besonders an <em>[Unternehmen]</em> begeistert, ist <em>[spezifisches Detail]</em>. Ich habe gelesen, dass Sie gerade <em>[aktuelles Projekt]</em> vorantreiben — und genau hier möchte ich meine Erfahrung in <em>[relevante Stärke]</em> einbringen."'},
+{n:3,de:'„Was sind Ihre größten Stärken?"',en:'What are your greatest strengths?',type:'personal',
+why:'They\'re checking: <strong>self-awareness</strong>, <strong>relevance</strong>, and <strong>credibility</strong>. Anyone can say "I\'m a team player." They want evidence.',
+how:['Choose 2–3 strengths <em>directly relevant to the job</em>','For each: name it → prove it with an example → link to value for them','Formula: "Eine meiner Stärken ist X. Das zeigte sich, als… Das bedeutet für Sie, dass…"','Depth beats breadth — don\'t list 7 strengths'],
+avoid:['Soft clichés without proof: „Ich bin sehr teamfähig und kommunikativ"','Strengths unrelated to the role','Being falsely modest: „Na ja, ich versuche halt, meine Arbeit gut zu machen"'],
+opener:'„Eine meiner größten Stärken ist <em>[Stärke]</em>. Das hat sich besonders gezeigt, als ich bei <em>[Unternehmen/Situation]</em> <em>[konkrete Handlung]</em>. Das Ergebnis war <em>[messbares Resultat]</em> — und ich denke, das ist genau das, was in dieser Rolle gefragt ist."'},
+{n:4,de:'„Was ist Ihre größte Schwäche?"',en:'What is your greatest weakness?',type:'tricky',
+why:'A <strong>trap question</strong> — but also a golden opportunity. They\'re testing: <strong>honesty, self-awareness, and growth mindset</strong>. People who claim no weaknesses are never trusted.',
+how:['Pick a <strong>real</strong> weakness — not a disguised strength','Choose something <em>not critical</em> to the core job','Always follow with what you\'ve done to improve','Formula: weakness → context → what you changed → current status','End positively: „Seitdem hat sich das deutlich verbessert"'],
+avoid:['„Ich bin ein Perfektionist." (Overused, transparent)','„Ich habe eigentlich keine wirklichen Schwächen."','Naming a weakness core to the job (e.g. numbers for a finance role)','Going too deep — max 45 seconds'],
+opener:'„Früher hatte ich manchmal Schwierigkeiten mit <em>[echte, unkritische Schwäche]</em>. Seitdem habe ich aktiv daran gearbeitet, indem ich <em>[konkrete Maßnahme]</em>. Das hat sich deutlich verbessert, auch wenn ich weiterhin darauf achte."'},
+{n:5,de:'„Wo sehen Sie sich in fünf Jahren?"',en:'Where do you see yourself in five years?',type:'strategic',
+why:'They want to know: <strong>Will you stay? Are you ambitious in a way that benefits us?</strong> They\'re checking commitment and compatibility.',
+how:['Stay within realistic scope — don\'t say „Ich will CEO sein"','Show ambition that <em>serves the company</em>','Anchor to THIS role: „Ich sehe diese Stelle als Grundlage, um…"','Make it clear you want to grow <em>within</em> the organisation'],
+avoid:['„Ich weiß es ehrlich gesagt nicht genau." (Shows no ambition)','Goals unrelated to the field: „Ich möchte dann selbstständig sein"','Saying you want their boss\'s job within 2 years'],
+opener:'„In fünf Jahren möchte ich meine Expertise in <em>[Bereich]</em> deutlich vertieft haben und idealerweise <em>[mehr Verantwortung / Spezialisierung]</em> übernehmen. Diese Stelle ist für mich ein wichtiger Schritt, weil <em>[konkreter Bezug]</em>."'},
+{n:6,de:'„Warum verlassen Sie Ihren aktuellen Job?"',en:'Why are you leaving your current job?',type:'tricky',
+why:'They\'re listening for <strong>red flags</strong>: Are you fleeing a disaster? Do you speak badly about employers? This reveals character and professionalism.',
+how:['<strong>Never</strong> criticise your employer, boss, or colleagues','Frame as pull, not push: moving TOWARD something, not AWAY','Good reasons: new challenge, growth ceiling, new direction','If leaving due to conflict: say „kulturelle Unterschiede" and move on quickly'],
+avoid:['Complaining about boss, team, pay, or culture','„Die Firma läuft nicht gut" (sounds like a deserter)','Vague: „Ich suche einfach was Neues" — no direction','Too much detail about internal conflicts'],
+opener:'„Ich habe in meiner aktuellen Stelle viel gelernt und bin dankbar für die Erfahrungen. Allerdings merke ich, dass ich die Möglichkeiten dort weitgehend ausgeschöpft habe und nach einer neuen Herausforderung suche — insbesondere in <em>[Bereich]</em>."'},
+{n:7,de:'„Beschreiben Sie eine schwierige Situation und wie Sie sie gelöst haben."',en:'Describe a difficult situation and how you solved it.',type:'behavioral',
+why:'Past behaviour predicts future behaviour. They want to see <strong>problem-solving, resilience, and how you actually function under pressure</strong> — not how you imagine you\'d function. Use STAR.',
+how:['Prepare 3–4 strong STAR stories before the interview','Choose a situation where <em>you</em> made a real difference','Make the Action section the longest — that\'s what they care about','Include a quantifiable result: „um 20% schneller", „das Team von 8 Personen"','End with a learning'],
+avoid:['A situation where YOU caused the problem (unless growth is the point)','Using „wir" throughout — what did YOU do?','No clear result: „Es hat sich dann irgendwie gelöst"','A trivial situation'],
+opener:'„<strong>S:</strong> In meinem letzten Job war ich konfrontiert mit… <strong>T:</strong> Meine Aufgabe war… <strong>A:</strong> Ich habe mich entschieden, zunächst… und dann… <strong>R:</strong> Das Ergebnis war, dass… und ich habe daraus gelernt, dass…"'},
+{n:8,de:'„Wie gehen Sie mit Druck und Stress um?"',en:'How do you handle pressure and stress?',type:'behavioral',
+why:'They want to know if you\'ll <strong>fall apart under pressure</strong> — or function, prioritise, and deliver. People who claim they never get stressed are not trusted.',
+how:['Acknowledge that pressure exists — don\'t pretend you\'re unaffected','Describe a <em>concrete method</em> (prioritisation, time-boxing, communication)','Give a brief example of performing well under pressure','Show self-regulation: you notice stress early and act'],
+avoid:['„Ich kenne das nicht wirklich, ich stresse mich nie." (Unbelievable)','Describing yourself falling apart','Abstract answer with no example'],
+opener:'„Ich kenne Drucksituationen gut und habe gelernt, damit strukturiert umzugehen. Wenn viel auf einmal kommt, priorisiere ich nach <em>[Methode]</em> und kommuniziere frühzeitig. Ein Beispiel: <em>[kurze STAR-Situation]</em>."'},
+{n:9,de:'„Wie würden Ihre Kollegen oder Ihr Chef Sie beschreiben?"',en:'How would your colleagues or manager describe you?',type:'personal',
+why:'A <strong>third-party credibility check</strong>. Your own description is marketing. „Others\'" description feels objective. They want cultural fit — are you the kind of person they want on the team?',
+how:['Choose 2–3 traits you genuinely have AND that are relevant','Ground each in a real example: „Meine Kollegin hat mir mal gesagt, dass…"','If you have a Zeugnis with positive phrases, use those words — pre-verified','Include one trait about your impact on the team'],
+avoid:['Making it up — they may check with references','Too vague: „Ich glaube, sie finden mich nett und zuverlässig"','Only task skills, no interpersonal qualities'],
+opener:'„Ich denke, meine Kolleginnen würden sagen, dass ich <em>[Eigenschaft 1]</em> bin. Mein letzter Vorgesetzter hat mir tatsächlich in meinem Zeugnis bescheinigt, dass ich <em>[Zitat/Umschreibung]</em>."'},
+{n:10,de:'„Was war Ihre größte berufliche Leistung?"',en:'What was your greatest professional achievement?',type:'behavioral',
+why:'This reveals your <strong>standards and ambitions</strong>. It also tests whether you can quantify impact — not just describe activities. Did you move the needle?',
+how:['Choose something with a measurable, impressive result','Make it <strong>relevant to THIS role</strong>','Use numbers: revenue, time saved, team size, percentage growth','Apply STAR — but make A and R the bulk','End with: what this says about you as a professional'],
+avoid:['Team achievement using only „wir"','No numbers or vague impact: „Das Projekt lief sehr gut"','Something irrelevant: personal hobbies, private achievements'],
+opener:'„Eine Leistung, auf die ich besonders stolz bin, war <em>[Beschreibung]</em>. Die Ausgangssituation: <em>[Problem]</em>. Ich habe <em>[konkrete Schritte]</em> unternommen, was dazu führte, dass <em>[messbares Ergebnis mit Zahlen!]</em>."'},
+{n:11,de:'„Wie arbeiten Sie im Team?"',en:'How do you work in a team?',type:'behavioral',
+why:'Probing for <strong>cultural fit and conflict behaviour</strong>. „I\'m a great team player" is the most useless sentence in any interview. They want proof.',
+how:['Describe your natural role — and show flexibility','Include a specific example of successful collaboration','Mention how you handle disagreements constructively','Show both leading AND following'],
+avoid:['„Ich arbeite sowohl gut alleine als auch im Team." (Means nothing)','Only describing the ideal team, not your actual role','Implying you\'re always right in disagreements'],
+opener:'„Im Team übernehme ich je nach Bedarf unterschiedliche Rollen — mal koordiniere ich, mal treibe ich inhaltlich voran. Was mir wichtig ist: offene Kommunikation bei Konflikten. Beispiel: <em>[kurze STAR-Situation]</em>."'},
+{n:12,de:'„Was motiviert Sie?"',en:'What motivates you?',type:'personal',
+why:'Can the job actually keep you engaged? Is your motivation sustainable (intrinsic) or purely external? A person motivated by salary alone will leave for the next offer.',
+how:['Choose intrinsic motivators: solving problems, impact, learning, creativity, autonomy','Link your motivation directly to THIS role','Be specific — „Ich liebe Herausforderungen" is not enough','Use an example of when you felt most energised at work'],
+avoid:['Saying „Geld" or „Sicherheit" (save for salary talks)','Generic: „Ich möchte wachsen und lernen" with no specifics','Motivation unrelated to the role'],
+opener:'„Am meisten motiviert mich <em>[konkrete intrinsische Motivation]</em>. Ich merke das besonders, wenn <em>[Situation im Job]</em>. In dieser Stelle reizt mich vor allem <em>[spezifisches Element]</em>, weil das genau das ist, was ich als bedeutungsvoll erlebe."'},
+{n:13,de:'„Was wissen Sie über unser Unternehmen?"',en:'What do you know about our company?',type:'strategic',
+why:'Purely a <strong>homework check</strong>. A candidate who can\'t answer this has disrespected the interviewer\'s time. The more specific and insightful, the more you stand out.',
+how:['Research: website, LinkedIn, news, annual report, Glassdoor','Know: what they do, their customers, recent news, their values','Go beyond basics: mention something specific you find impressive','End with a connection to your own experience'],
+avoid:['Only repeating the first sentence of their website','Getting facts wrong — better to say less than be corrected','„Ich kenne Ihre Website, aber nicht so sehr…"'],
+opener:'„Ich habe mich intensiv vorbereitet. <em>[Unternehmen]</em> ist bekannt für <em>[Kernprodukt]</em> und bedient hauptsächlich <em>[Zielmarkt]</em>. Was mich besonders beeindruckt hat, war <em>[spezifische Information aus Recherche]</em>."'},
+{n:14,de:'„Haben Sie Fragen an uns?"',en:'Do you have any questions for us?',type:'strategic',
+why:'This is your <strong>second interview — of them</strong>. The quality of your questions reveals intellectual curiosity and how seriously you\'ve evaluated the role. „No questions" is the worst answer possible.',
+how:['Prepare 5–6 questions — some may get answered during the interview','Ask about the role, team, challenges, success metrics','Ask the interviewer a personal question: „Was schätzen Sie persönlich an der Arbeit hier?"','Avoid salary, holidays, sick leave in early rounds','Never ask anything you could Google in 30 seconds'],
+avoid:['„Nein, ich glaube, alles wurde geklärt." (Fatal)','Asking about salary and benefits in the first round','„Was machen Sie eigentlich genau?" (You should know this!)'],
+opener:'„Ja, ich habe einige Fragen. Erstens: <em>[substantielle Frage zur Rolle/Herausforderungen]</em>. Und: Wie würde ein Erfolg in dieser Stelle nach dem ersten Jahr aussehen? Persönlich — was schätzen Sie am meisten an der Arbeit hier?"'},
+{n:15,de:'„Was sind Ihre Gehaltsvorstellungen?"',en:'What are your salary expectations?',type:'tricky',
+why:'They want to know if you\'re <strong>affordable and realistic</strong>. But this is also a negotiation. They\'re testing if you know your market value and negotiate confidently.',
+how:['Research the market salary range for this role BEFORE the interview','Give a range where your target is at the <em>lower end</em>','Anchor high — it\'s easier to come down than up','If pressed early: „Das hängt vom Gesamtpaket ab — erzählen Sie mir erst mehr über die Stelle"','In Germany: Jahresgehalt (annual gross) is standard'],
+avoid:['Saying „Ich bin flexibel" — you\'ll get the minimum','Number without market research (too low = undersell, too high = disqualified)','Apologising: „Ich weiß, das ist vielleicht etwas viel, aber…"'],
+opener:'„Auf Basis meiner Recherche und meiner <em>[X] Jahre</em> Erfahrung orientiere ich mich an einem Jahresgehalt zwischen <em>[Betrag]</em> und <em>[Betrag]</em> brutto — abhängig vom Gesamtpaket und dem Entwicklungspotenzial."'}
+];
+
+const ASK_QUESTIONS=[
+  {q:'„Wie sieht ein typischer Arbeitstag in dieser Rolle aus?"',why:'✅ Shows role curiosity, not just title interest'},
+  {q:'„Welche Herausforderungen muss die Person in den ersten 6 Monaten meistern?"',why:'✅ Shows you think about impact, not just tasks'},
+  {q:'„Woran würde man nach einem Jahr erkennen, dass ich erfolgreich war?"',why:'✅ Reveals their success criteria — shows ambition'},
+  {q:'„Wie würden Sie die Teamkultur beschreiben?"',why:'✅ You\'re evaluating fit too — shows confidence'},
+  {q:'„Was schätzen Sie persönlich am meisten an der Arbeit hier?"',why:'✅ Personal question — builds rapport, reveals real culture'},
+  {q:'„Warum ist diese Stelle vakant? Neuschaffung oder Nachbesetzung?"',why:'✅ Smart due diligence — reveals turnover patterns'},
+  {q:'„Wie fördern Sie die Weiterentwicklung Ihrer Mitarbeiter?"',why:'✅ Shows long-term thinking — you plan to stay and grow'},
+  {q:'„Was sind die nächsten Schritte im Bewerbungsprozess?"',why:'✅ Shows initiative — always ask this at the end'}
+];
+
+const CV_RULES=[
+  {text:'<strong>Keine Lücken</strong> — every period of your career must be accounted for. Gaps raise red flags. Explain them briefly: "Familienzeit", "Weiterbildung", "Freiwilligenarbeit".'},
+  {text:'<strong>Umgekehrte Chronologie</strong> — most recent first. Always. Employers scan from the top.'},
+  {text:'<strong>Bewerbungsfoto</strong> — professional headshot is expected in Germany. Business attire, neutral background, recent (within 1–2 years). Top right corner of the first page.'},
+  {text:'<strong>1–2 Seiten</strong> — junior to mid-level: max 1 page. Senior / 10+ years: 2 pages. 3 pages is almost always too long.'},
+  {text:'<strong>Handschriftliche Unterschrift</strong> — sign and date the bottom of the CV. Still standard for formal German applications.'},
+  {text:'<strong>Keine Gehaltsangaben im Lebenslauf</strong> — salary expectations belong in the Anschreiben or in the interview, not in the CV.'},
+  {text:'<strong>Zeugnis mitbringen</strong> — German employers expect references in the form of written "Arbeitszeugnisse" (employer certificates). Bring copies to the interview.'},
+  {text:'<strong>Kein Selfie als Foto</strong> — have a professional photographer or at minimum use a proper camera with good lighting. Your photo is your first impression.'}
+];
+
+const ANSCHREIBEN=[
+  {text:'<strong>Adressieren Sie eine echte Person</strong> — never „Sehr geehrte Damen und Herren" if you can find the name. Research on LinkedIn or call the company.'},
+  {text:'<strong>Kein Copy-Paste</strong> — each Anschreiben must be tailored. Companies can spot generic letters instantly. Even 3 personalised sentences make a difference.'},
+  {text:'<strong>Zahlen und Ergebnisse</strong> — include at least one quantified achievement. „Ich habe Erfahrung mit Marketing" vs „Ich habe in meiner letzten Rolle den Web-Traffic um 40% gesteigert."'},
+  {text:'<strong>Selbstbewusster Abschluss</strong> — don\'t beg. Instead: „Ich freue mich auf ein persönliches Gespräch, in dem ich Ihnen zeigen kann, wie ich zu Ihrem Erfolg beitragen kann."'}
+];
+
+const SALARY_RULES=[
+  {text:'<strong>Recherchiere den Markt</strong> — use Gehalt.de, Stepstone Gehaltsreport, LinkedIn Salary, Glassdoor. Know the range for YOUR role, in YOUR city, at a company of THAT size.'},
+  {text:'<strong>Nenne immer eine Spanne</strong> — give a range of €10k–15k where your actual target sits at the <em>lower end</em>. They\'ll anchor to the lower figure; you can negotiate up.'},
+  {text:'<strong>Anchor high</strong> — it\'s psychologically easier to come down than go up. Start 10–15% above your real minimum.'},
+  {text:'<strong>Jahresgehalt brutto</strong> — Germany uses annual gross salary (Jahresgehalt). Don\'t confuse with monthly (monatlich). Bonus structures and benefits are discussed separately.'},
+  {text:'<strong>Timing matters</strong> — ideally, don\'t name a figure in the first round. Push it to when they\'ve shown real interest: „Darf ich das Thema Gehalt aufgreifen, sobald wir uns beide sicher sind, dass ich der richtige Kandidat bin?"'},
+  {text:'<strong>Schweig nach deiner Zahl</strong> — name your range, then stop talking. Silence is uncomfortable — they\'ll fill it. The first person to speak after a salary is stated often concedes.'},
+  {text:'<strong>Gesamtpaket bedenken</strong> — salary is one component. Also consider: home office days, BVG-Ticket, Urlaubstage (statutory minimum: 20, typical: 25–30), Weiterbildungsbudget, Altersvorsorge.'}
+];
+
+const ROLE_PLAYS=[
+  {title:'🎭 Rollenspiel 1 — Marketing Manager, Tech-Startup Berlin',sub:'Mid-level · Moderne Unternehmenskultur · Semi-formell (du-Form)',context:'Die Bewerberin bewirbt sich um eine Marketing Manager-Stelle bei einem Berliner SaaS-Startup (~150 Mitarbeiter). Das Unternehmen wächst 40% YoY und hat gerade Series-B-Funding erhalten. Das Interview ist mit dem Head of Marketing (Lehrer). Semi-formell, du-Form erwartet. Dauer: 15–20 Minuten.',candidate:['3 Jahre Erfahrung im Digital Marketing (Agenturen + In-House)','Kenntnisse in Content, SEO, Paid Social','Letzter Job: Stelle wegen Restrukturierung verlassen','Gehaltsvorstellung: €58.000–65.000','Ziel: Head of Marketing in 3–4 Jahren','STAR-Geschichte über Kampagnenerfolg vorbereiten'],interviewer:['Start: „Erzähl mir kurz von dir."','Fragen nach einem gescheiterten Projekt','Challenge: „Du hast keine B2B-Erfahrung. Warum sollten wir dich nehmen?"','Gehalt mid-interview fragen (nicht am Ende)','„Hast du noch Fragen an mich?"','Vagen Zeitplan nennen — testet, ob sie um Klarheit bittet'],script:[{who:'i',name:'Interviewer',text:'„Danke, dass du heute da bist. Ich bin [Name], Head of Marketing. Magst du kurz erzählen, wer du bist und was dich zu uns gebracht hat?"'},{who:'c',name:'Bewerberin',blank:true,text:'[Student answers freely — 60–90 sec pitch]'},{who:'i',name:'Interviewer',text:'„Interessant. Kannst du mir von einer Kampagne erzählen, auf die du besonders stolz bist?"'},{who:'c',name:'Bewerberin',blank:true,text:'[STAR answer — 2–3 min]'},{who:'i',name:'Interviewer',text:'„Und jetzt die schwierige Frage: Was war mal ein Projekt, das nicht gut gelaufen ist? Was hast du daraus gelernt?"'}],debrief:{check:['Öffner: klar, prägnant, relevant?','STAR-Struktur sichtbar?','Messbare Ergebnisse genannt?','Schwierige Frage souverän beantwortet?'],watch:['Zu viel „wir" statt „ich"?','Auf Provokation ruhig geblieben?','Gehalt selbstbewusst genannt?','Starke Rückfragen gestellt?']}},
+  {title:'🎭 Rollenspiel 2 — Projektleiterin, Unternehmensberatung München',sub:'Führungsposition · Formelle Unternehmenskultur · Druckinterview (Sie-Form)',context:'Die Kandidatin bewirbt sich um eine Projektleiterin-Stelle bei einer mittelgroßen Unternehmensberatung in München. Formelle Kultur, durchgängige Sie-Form. Der Interviewer (Lehrer) ist ein Partner, der Verhaltens- und Druckfragen verwendet. Die Firma berät DAX-Unternehmen bei der digitalen Transformation. Dauer: 15 Minuten.',candidate:['5 Jahre Projektmanagement, PMP-zertifiziert','Hat cross-funktionale Teams von 10+ geleitet','Wechselgrund: mehr strategische Verantwortung','Gehaltsvorstellung: €80.000–90.000','STAR-Geschichte: Projekt, das zu scheitern drohte, und wie sie es gerettet hat','2 intelligente Fragen am Ende stellen'],interviewer:['Formeller, leicht einschüchternder Ton','Unterbrechungen bei vagen Antworten: „Das ist mir zu allgemein — ein konkretes Beispiel bitte."','Challenge: „Warum sollten wir eine externe Person nehmen?"','Gehaltsdruck: „Das übersteigt unser Budget. Wie flexibel sind Sie?"','Zeitdruck: „Wir haben noch 5 Minuten."'],script:[{who:'i',name:'Interviewer',text:'„Guten Tag. Ich habe Ihren Lebenslauf gelesen. Fassen Sie bitte in zwei Minuten zusammen, warum Sie die richtige Person für diese Stelle sind."'},{who:'c',name:'Bewerberin',blank:true,text:'[Confident, concise, value-focused pitch — no life story]'},{who:'i',name:'Interviewer',text:'„Beschreiben Sie mir eine Situation, in der ein Projekt zu scheitern drohte. Was haben Sie konkret getan?"'},{who:'c',name:'Bewerberin',blank:true,text:'[STAR — focus on personal action and measurable result]'},{who:'i',name:'Interviewer',text:'„Interessant. Und was würden Sie sagen, war Ihr größter Fehler als Führungskraft?"'}],debrief:{check:['Pitch: strategisch, nicht biographisch?','Unterbrechungen souverän gemeistert?','„Fehler"-Frage ehrlich ohne Übertreibung beantwortet?','Beim Gehalt standhaft geblieben oder intelligent nachgegeben?'],watch:['Register: Sie-Form durchgehend?','Resilienz unter Druck gezeigt?','Füllwörter / lange Pausen vermieden?','Fragen am Ende: substanziell, nicht generisch?']}}
+];
+
+const CHECKLIST_ITEMS=[
+  'Ich habe 3–4 STAR-Geschichten vorbereitet (Erfolg, Konflikt, Fehler, Druck)',
+  'Ich kenne meine 90-Sekunden-Selbstpräsentation auswendig',
+  'Ich habe das Unternehmen recherchiert (Website, News, LinkedIn, Glassdoor)',
+  'Ich kenne den Marktgehalt für diese Stelle in dieser Stadt',
+  'Ich habe 5–6 Fragen vorbereitet, die ich dem Interviewer stellen kann',
+  'Ich habe die Stellenbeschreibung mit meinem Lebenslauf abgeglichen',
+  'Ich weiß, was mich an DIESER Stelle und DIESEM Unternehmen wirklich interessiert',
+  'Ich habe meine Gehaltsvorstellung als Spanne mit Begründung vorbereitet',
+  'Mein Lebenslauf ist auf dem neuesten Stand und professionell gestaltet',
+  'Mein Anschreiben ist für dieses Unternehmen individualisiert — kein Copy-Paste',
+  'Ich habe das Rollenspiel mindestens einmal durchgeführt',
+  'Ich weiß, wie ich auf die Schwächefrage antworte — ohne Klischees',
+  'Ich bringe gedruckte Kopien meines Lebenslaufs und meiner Arbeitszeugnisse mit',
+  'Ich kenne die Route zum Interview und die Anfahrtszeit (+ 15 Min. Puffer)',
+  'Ich habe entsprechende Kleidung vorbereitet (Business-Casual oder formell)'
+];
+
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curMode='star';
+let openCards=new Set();
+
+function t(k){return(UI[CL]||UI.en)[k]||k;}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+
+function switchMode(mode){
+  curMode=mode;
+  var modes=['star','fragen','cv','gehalt','rp','check'];
+  modes.forEach(function(m){
+    var el=document.getElementById(m+'-view');if(el)el.style.display=m===mode?'block':'none';
+    var tab=document.getElementById('tab-'+m);if(tab)tab.classList.toggle('on',m===mode);
+  });
+  window.scrollTo(0,0);
+}
+
+function buildQuestions(){
+  var c=document.getElementById('q-container');c.innerHTML='';
+  QUESTIONS.forEach(function(q){
+    var typeMap={strategic:'tag-strategic',behavioral:'tag-behavioral',personal:'tag-personal',tricky:'tag-tricky'};
+    var typeLbl={strategic:'Strategic',behavioral:'Behavioral',personal:'Personal',tricky:'⚠️ Tricky'};
+    var how=q.how.map(function(h){return'<li>'+h+'</li>';}).join('');
+    var avoid=q.avoid.map(function(a){return'<li>'+a+'</li>';}).join('');
+    var div=document.createElement('div');div.className='card';div.id='qc'+q.n;
+    div.innerHTML='<div class="card-header" onclick="toggleQ('+q.n+')"><div class="card-num">'+q.n+'</div><div class="card-title-wrap"><div class="card-de">'+q.de+'</div><div class="card-en">'+q.en+'</div><div class="card-tags"><span class="tag '+typeMap[q.type]+'">'+typeLbl[q.type]+'</span></div></div><div class="card-toggle">▾</div></div><div class="card-body"><div class="card-cols"><div class="col why"><h4>🔍 Was sie wirklich testen</h4><p>'+q.why+'</p></div><div class="col how"><h4>✅ Die beste Strategie</h4><ul>'+how+'</ul></div></div><div class="card-avoid"><h4>✗ Häufige Fehler</h4><ul>'+avoid+'</ul></div><div class="card-opener"><h4>💬 Startsatz-Vorlage</h4><p>'+q.opener+'</p></div></div>';
+    c.appendChild(div);
+  });
+}
+
+function toggleQ(n){
+  var card=document.getElementById('qc'+n);
+  if(card.classList.contains('open')){card.classList.remove('open');}
+  else{document.querySelectorAll('.card.open').forEach(function(c){c.classList.remove('open');});card.classList.add('open');}
+}
+
+function buildAskGrid(){
+  var g=document.getElementById('ask-grid');g.innerHTML='';
+  ASK_QUESTIONS.forEach(function(a){
+    var d=document.createElement('div');d.className='ask-card';
+    d.innerHTML='<div class="ask-q">'+a.q+'</div><div class="ask-why">'+a.why+'</div>';
+    g.appendChild(d);
+  });
+}
+
+function buildCVRules(){
+  var c=document.getElementById('cv-rules-container');if(!c)return;
+  CV_RULES.forEach(function(r,i){
+    var d=document.createElement('div');d.className='cv-rule';
+    d.innerHTML='<div class="cv-num">'+(i+1)+'</div><div class="cv-rule-text">'+r.text+'</div>';
+    c.appendChild(d);
+  });
+  var a=document.getElementById('anschreiben-rules');if(!a)return;
+  ANSCHREIBEN.forEach(function(r,i){
+    var d=document.createElement('div');d.className='cv-rule';
+    d.innerHTML='<div class="cv-num">'+(i+1)+'</div><div class="cv-rule-text">'+r.text+'</div>';
+    a.appendChild(d);
+  });
+}
+
+function buildSalaryRules(){
+  var c=document.getElementById('salary-rules');if(!c)return;
+  SALARY_RULES.forEach(function(r,i){
+    var d=document.createElement('div');d.className='salary-rule';
+    d.innerHTML='<div class="s-rnum">'+(i+1)+'</div><div>'+r.text+'</div>';
+    c.appendChild(d);
+  });
+}
+
+function buildRolePlays(){
+  var c=document.getElementById('rp-container');if(!c)return;c.innerHTML='';
+  ROLE_PLAYS.forEach(function(rp){
+    var scriptHtml=rp.script.map(function(s){
+      var line=s.blank?'<span class="script-blank">['+s.text+']</span>':s.text;
+      return'<div class="script-line"><span class="script-who '+s.who+'">'+s.name+':</span><span>'+line+'</span></div>';
+    }).join('');
+    var checks=rp.debrief.check.map(function(x){return'<div class="debrief-item check">✅ '+x+'</div>';}).join('');
+    var watches=rp.debrief.watch.map(function(x){return'<div class="debrief-item watch">👁 '+x+'</div>';}).join('');
+    var cand=rp.candidate.map(function(x){return'<li>'+x+'</li>';}).join('');
+    var intv=rp.interviewer.map(function(x){return'<li>'+x+'</li>';}).join('');
+    var html='<div class="rp-card"><div class="rp-top"><h3>'+rp.title+'</h3><p>'+rp.sub+'</p></div><div class="rp-body"><div class="rp-context"><strong>Kontext:</strong> '+rp.context+'</div><div class="rp-roles"><div class="rp-role candidate"><h4>🧑‍💼 Bewerberin</h4><ul>'+cand+'</ul></div><div class="rp-role interviewer"><h4>🎤 Interviewer (Teacher)</h4><ul>'+intv+'</ul></div></div><div class="rp-script"><h4>💬 Gesprächseinstieg</h4>'+scriptHtml+'</div><div class="rp-debrief" style="margin-top:12px;"><h4 style="font-size:.78rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:10px;">📋 Debrief-Checkliste</h4><div class="debrief-grid">'+checks+watches+'</div></div></div></div>';
+    c.innerHTML+=html;
+  });
+}
+
+function buildChecklist(){
+  var c=document.getElementById('cl-container');if(!c)return;
+  CHECKLIST_ITEMS.forEach(function(item,i){
+    var d=document.createElement('div');d.className='cl-item';d.id='cl-'+i;
+    d.innerHTML='<div class="cl-box">✓</div><span>'+item+'</span>';
+    d.addEventListener('click',function(){d.classList.toggle('done');updateProgress();});
+    c.appendChild(d);
+  });
+}
+
+function updateProgress(){
+  var done=document.querySelectorAll('.cl-item.done').length;
+  var total=CHECKLIST_ITEMS.length;
+  var pct=Math.round(done/total*100);
+  document.getElementById('cl-fill').style.width=pct+'%';
+}
+
+buildQuestions();buildAskGrid();buildCVRules();buildSalaryRules();buildRolePlays();buildChecklist();applyLang();
+</script>
+</body>
+</html>

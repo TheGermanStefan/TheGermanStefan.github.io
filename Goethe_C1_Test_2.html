@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat C1 – Modellprüfung 2</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:110px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#01579b 0%,#0277bd 35%,#4a148c 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid #0277bd;padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:22px 0}
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:13px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:18px 22px;font-size:13.5px;line-height:2;margin-bottom:14px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:8px;font-style:italic}
+.sbox h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.sbox p{margin-bottom:12px}
+.sbox p:last-child{margin-bottom:0}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#ff9800;border-color:#ff9800;color:#fff}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.7}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.mci{margin-bottom:16px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+.warea{width:100%;min-height:280px;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 15px;font-size:14px;font-family:inherit;resize:vertical;outline:none;color:#111;background:#fdf8ff;line-height:1.85}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff;min-height:240px}
+.warea2:focus{border-color:#3949ab}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;font-size:13px;line-height:2;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+.sc{font-weight:700;color:#00695c}
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px;line-height:1.75}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.gaprow{margin-bottom:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.gnum{font-weight:700;color:var(--blue);min-width:22px}
+.gfin{border:none;border-bottom:2px solid var(--blue);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.gfin:focus{background:#e3f2fd;border-radius:3px 3px 0 0}
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.c1note{background:#fce4ec;border-left:3px solid #e91e63;border-radius:0 6px 6px 0;padding:9px 14px;font-size:12.5px;color:#333;margin:9px 0}
+.c1note strong{color:#880e4f}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">3:30:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 90'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 80'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 2</div>
+    <h1>Goethe-Zertifikat C1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>210 Minuten</strong> (schriftlich) + <strong>15 Min.</strong> (Sprechen) &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">C1<span>Test 2</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 90 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 80 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 90 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="c1note"><strong>C1-Niveau:</strong> Implizite Schlussfolgerungen, Autorenintention und rhetorische Strategie erkennen.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Wissenschaftlicher Artikel – R/F/Nicht im Text</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen (1–6) <strong>R</strong>, <strong>F</strong> oder <strong>N</strong> (nicht im Text)?</div>
+
+    <div class="sbox">
+      <div class="smeta">„Stadtplanung &amp; Mobilität" – Architektur + Gesellschaft, März 2026</div>
+      <h3>Die 15-Minuten-Stadt: Utopie, Ideologie oder Stadtplanung der Zukunft?</h3>
+      <p>Das Konzept der „15-Minuten-Stadt", maßgeblich vom frankokolombinanischen Urbanisten Carlos Moreno geprägt, postuliert, dass alle wesentlichen Alltagsfunktionen – Arbeit, Einkauf, Bildung, Gesundheit, Freizeit – innerhalb von 15 Gehminuten vom Wohnort erreichbar sein sollen. Paris war 2020 Bürgermeisterin Anne Hidalgos Pilotprojekt; Melbourne, Ottawa und Seoul folgten mit eigenen Interpretationen.</p>
+      <p>Was urbanistisch als Effizienz- und Nachhaltigkeitsversprechen beginnt, hat sich zu einem politisch aufgeladenen Konzept entwickelt. In sozialen Medien kursiert die Verschwörungserzählung, die 15-Minuten-Stadt sei ein Instrument staatlicher Überwachung und Bewegungseinschränkung – Bürgerinnen würden faktisch in „digitalen Gefängnissen" eingesperrt. Diese Narrative haben, so Forscher der Universität Bath, zu echter Verunsicherung und sogar Protesten in mehreren englischen Städten geführt.</p>
+      <p>Aus urbanistischer Sicht greift die Kritik am Kern des Konzepts ins Leere. Die 15-Minuten-Stadt schreibt weder Aufenthaltspflichten vor noch schränkt sie Mobilität ein – sie versucht lediglich, Stadtviertel so zu gestalten, dass weite Wege optional, nicht zwingend sind. Die implizierte Idee, kurze Wege seien Ausdruck totalitärer Kontrolle, verwechselt Angebot mit Pflicht.</p>
+      <p>Gleichwohl sind urbanistische Einwände legitim: Gentrification-Risiken steigen, wenn zentrumsnahe, gut vernetzte Stadtquartiere aufgewertet werden. Auch die Frage, wer die Kosten solcher Umstrukturierungen trägt – und wer von ihnen profitiert –, bleibt zu häufig unbeantwortet. Das Konzept ist kein Allheilmittel, aber als Planungsrahmem wertvoll.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Das Konzept der 15-Minuten-Stadt wurde von Carlos Moreno maßgeblich entwickelt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Paris war das erste und bisher einzige Pilotprojekt weltweit.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Laut Forschern der Universität Bath haben Verschwörungsnarrative zu realen Protesten geführt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Das Konzept schreibt laut Autor Aufenthaltspflichten vor.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Gentrification ist ein legitimer urbanistischer Einwand gegen das Konzept.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">6.</td><td>Der Autor nennt konkrete Kostenschätzungen für die Umstrukturierung von Städten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Welcher Text (a–h) passt am besten zu jeder Person?</div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Prof. Dr. Lena Richter</div>Lena ist Rechtswissenschaftlerin und sucht aktuelle Debatten über das Verhältnis von internationalen Menschenrechtsstandards und staatlicher Souveränität.</div>
+      <div class="person"><div class="pname">Person 2 – Oluwafemi Adeyemi</div>Femi ist Ökonom und sucht empirische Analysen zum Zusammenhang zwischen wirtschaftlicher Ungleichheit und politischer Stabilität.</div>
+      <div class="person"><div class="pname">Person 3 – Dr. Katja Hoffmann</div>Katja ist Klimaforscherin und sucht aktuelle Daten und Modelle zur Kipppunktdynamik im Erdsystem – insbesondere zu Permafrostauftauen.</div>
+      <div class="person"><div class="pname">Person 4 – Hamid Nazari</div>Hamid ist Bildungswissenschaftler und interessiert sich für vergleichende Studien zu Hochschulsystemen – besonders zur Reproduktion sozialer Ungleichheit durch Universitätszulassung.</div>
+      <div class="person"><div class="pname">Person 5 – Ingrid Svensson</div>Ingrid ist Psychiaterin und sucht Forschungsliteratur zu den langfristigen psychischen Folgen von Einsamkeit und sozialer Isolation.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><strong>„Menschenrechte vs. Souveränität"</strong> – Völkerrechtszeitschrift<br>Universalismus vs. kultureller Relativismus: aktuelle Spannungsfelder im UN-System und bei Schutzverantwortung.</div>
+      <div class="notice"><div class="nlabel">b</div><strong>„Ungleichheit und demokratische Erosion"</strong> – Political Economy Review<br>Datensätze aus 80 Ländern: Gini-Koeffizient und Korrelation mit Populismusaufstieg und institutioneller Schwäche.</div>
+      <div class="notice"><div class="nlabel">c</div><strong>„Permafrost: die schlafende Bombe"</strong> – Nature Climate Change<br>Methanemissionen aus auftauendem Permafrost in Sibirien und Kanada: Modelle, Kipppunktszenarien, Rückkopplungen.</div>
+      <div class="notice"><div class="nlabel">d</div><strong>„Eliteuniversitäten und sozialer Aufstieg – ein Mythos?"</strong> – Hochschulforschung<br>Vergleich UK, USA, Deutschland: Wie Zulassungsverfahren bestehende Ungleichheiten reproduzieren.</div>
+      <div class="notice"><div class="nlabel">e</div><strong>„Einsamkeit als Gesundheitsrisiko"</strong> – Lancet Psychiatry<br>Longitudinalstudien zu Depressionen, Demenz und Mortalität bei chronisch sozial isolierten Erwachsenen.</div>
+      <div class="notice"><div class="nlabel">f</div><strong>„Bildung als Menschenrecht"</strong> – UNESCO-Bericht<br>Globale Schulbesuchsquoten, Alphabetisierung, Gender-Gap – deskriptive Statistik, kein Menschenrechtsvergleich.</div>
+      <div class="notice"><div class="nlabel">g</div><strong>„Stress im Homeoffice"</strong> – Arbeitspsychologie<br>Erschöpfung und Abgrenzungsprobleme bei Fernarbeit – fokussiert auf Arbeit, nicht Einsamkeit per se.</div>
+      <div class="notice"><div class="nlabel">h</div><strong>„Arktisches Eis und Meeresspiegel"</strong> – Glaziologie<br>Gletscher und Eisschilde: Schmelzraten und Seespiegelprognosen. Kein Permafrost, keine Methanemissionen.</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welcher Text (a–h) passt?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Prof. Richter (Menschenrechte / Souveränität)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Femi (Ungleichheit &amp; politische Stabilität)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Dr. Hoffmann (Permafrost, Kipppunkte)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Hamid (Hochschulsysteme, Zulassung, Ungleichheit)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Ingrid (Einsamkeit, psychische Folgen)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Langer Text – Multiple Choice (6 Fragen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text und wählen Sie für jede Frage die richtige Antwort.</div>
+
+    <div class="sbox">
+      <div class="smeta">„Biopolitik und Gesellschaft" – Lettre International, Frühjahr 2026</div>
+      <h3>Der vermessene Mensch: Quantified Self zwischen Gesundheitsoptimierung und Kontrollgesellschaft</h3>
+      <p>Schrittzähler, Herzfrequenzmonitore, Schlaftracker, Stimmungsapps – das Arsenal der Selbstvermessung ist inzwischen Legion. Das sogenannte „Quantified Self", also die datentechnische Überwachung des eigenen Körpers und Verhaltens, versprach zunächst Empowerment: Der Mensch wird zum Experten seiner selbst, Arztbesuche werden präventiv überflüssig, Verhalten wird rational optimierbar.</p>
+      <p>Was dabei unterschätzt wird, ist die epistemologische Verschiebung: Wenn Wohlbefinden nur noch als messbarer Datenpunkt existiert, verliert subjektives Erleben seinen Status als primäre Erkenntnisquelle. Wer sich trotz guter Schlafdaten erschöpft fühlt, zweifelt zunehmend an sich selbst statt an der App. Michel Foucaults Konzept der Biomacht bekommt eine neue, digitale Dimension: nicht mehr der Staat, sondern Algorithmen normieren den Körper.</p>
+      <p>Hinzu kommt die Frage der Datensouveränität. Gesundheits- und Verhaltensdaten sind hochsensibel; ihre Nutzung durch Versicherungen, Arbeitgeber oder staatliche Akteure ist in den meisten Ländern rechtlich noch unzureichend reguliert. In den USA dürfen Krankenversicherungen in einigen Bundesstaaten bereits Prämien an Fitnessdaten koppeln. In Deutschland sind solche Modelle derzeit unzulässig – aber die Diskussion läuft.</p>
+      <p>Gleichwohl wäre eine pauschale Ablehnung von Selbstvermessungstechnologien verfehlt. Für chronisch Kranke können Trackingdaten lebensrettend sein, Übertragungs-Delays zu Ärzten reduzieren und Therapieverläufe dokumentieren. Die Frage ist nicht, ob wir uns vermessen, sondern wer die Daten kontrolliert und zu welchem Zweck – und ob wir das Recht haben, unsere Daten zu besitzen und zu löschen.</p>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Was versprach das „Quantified Self" ursprünglich?</div>
+      <div class="mco" data-grp="l11">
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">a</span> Vollständige Abschaffung von Arztbesuchen</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">b</span> Empowerment und rationale Selbstoptimierung</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">c</span> Staatliche Gesundheitskontrolle</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Was passiert laut Text, wenn Wohlbefinden nur noch als Datenpunkt gilt?</div>
+      <div class="mco" data-grp="l12">
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">a</span> Subjektives Erleben wird stärker gewichtet</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">b</span> Subjektives Erleben verliert seinen Status als primäre Erkenntnisquelle</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">c</span> Arzt-Patient-Beziehungen verbessern sich</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Inwiefern erhält Foucaults „Biomacht" eine neue Dimension?</div>
+      <div class="mco" data-grp="l13">
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">a</span> Der Staat übernimmt erneut direkte Körperkontrolle</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">b</span> Nicht mehr der Staat, sondern Algorithmen normieren den Körper</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">c</span> Individuen emanzipieren sich von staatlicher Norm</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Was ist in Deutschland bezüglich Fitnessdaten und Krankenversicherungen derzeit der Fall?</div>
+      <div class="mco" data-grp="l14">
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">a</span> Prämienanpassung anhand Fitnessdaten ist bereits erlaubt</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">b</span> Solche Modelle sind derzeit unzulässig, die Diskussion läuft</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">c</span> Es gibt ein explizites Verbot solcher Modelle im Grundgesetz</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Für wen können Tracking-Daten laut Text lebensrettend sein?</div>
+      <div class="mco" data-grp="l15">
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">a</span> Für alle, die Sport treiben</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">b</span> Für chronisch Kranke</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">c</span> Für Arbeitgeber und Versicherungen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Was ist laut Autor die entscheidende Frage?</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Ob wir uns überhaupt vermessen sollten</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> Wer die Daten kontrolliert und zu welchem Zweck</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> Wie präzise die Tracking-Technologien sind</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Kurztexte – Fachlich anspruchsvoll</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Vier Texte, vier Fragen (17–20). Wählen Sie die richtige Antwort.</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – Rechtstext</div>„Das Recht auf Vergessenwerden, verankert in Art. 17 DSGVO, ermächtigt betroffene Personen, die Löschung sie betreffender personenbezogener Daten zu verlangen. Es gilt nicht absolut: Es besteht kein Anspruch, wenn die Verarbeitung zur Ausübung des Rechts auf freie Meinungsäußerung, zur Erfüllung rechtlicher Verpflichtungen oder aus Gründen des öffentlichen Interesses erforderlich ist."</div>
+      <div class="stcard"><div class="stclabel">Text B – Wissenschaftskommunikation</div>„CRISPR-Cas9 ermöglicht gezielte Eingriffe ins Erbgut mit bisher unerreichter Präzision und Effizienz. Seit dem Skandal um He Jiankuis gentechnisch veränderte Babys (2018) hat die Wissenschaftsgemeinde strenge ethische Richtlinien für Keimbahneingriffe erarbeitet. Therapeutische somatische Eingriffe hingegen befinden sich bereits in klinischen Studien für Erkrankungen wie Sichelzellanämie."</div>
+      <div class="stcard"><div class="stclabel">Text C – Wirtschaftsbericht</div>„Das Bruttoinlandsprodukt Deutschlands schrumpfte 2025 zum zweiten Mal in Folge – ein Indikator für eine technische Rezession. Strukturelle Faktoren: Deindustrialisierung in der Automobilbranche, hohe Energiepreise, Rückgang der Exportnachfrage aus China. Temporäre Stimuli durch Konjunkturpakete haben die Trendwende nicht bewirkt."</div>
+      <div class="stcard"><div class="stclabel">Text D – Akademisches Zitat</div>„‚Die Aufgabe der Kritischen Theorie', schrieb Horkheimer 1937, ‚ist es, die gesellschaftliche Totalität in ihrer historischen Entwicklung zu begreifen und die Möglichkeiten ihrer Transformation aufzuzeigen.' Diese programmatische Aussage trennt die Frankfurter Schule von positivistischen Sozialtheorien, die gesellschaftliche Strukturen als gegeben beschreiben, nicht als veränderbar kritisieren."</div>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Wann gilt das Recht auf Vergessenwerden (Art. 17 DSGVO) NICHT?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Bei allen privaten Unternehmen</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Bei Meinungsfreiheit, rechtlichen Verpflichtungen oder öffentlichem Interesse</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> Bei Regierungsbehörden grundsätzlich immer</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was unterscheidet somatische von Keimbahnein griffen bei CRISPR laut Text?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> Somatische Eingriffe sind bereits in klinischen Studien; Keimbahneingriffe haben strenge ethische Richtlinien</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> Keimbahneingriffe sind vollständig verboten weltweit</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> CRISPR ist nur für Sichelzellanämie zugelassen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was sind laut Bericht strukturelle Ursachen der deutschen Wirtschaftsschwäche?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Zu hohe Staatsquote und niedrige Exportpreise</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Deindustrialisierung, hohe Energiepreise, Rückgang der Exportnachfrage aus China</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Fehlende Konjunkturpakete und schlechte Fiskalpolitik</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was unterscheidet die Frankfurter Schule vom Positivismus laut dem Zitat?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Positivisten kritisieren Strukturen, Frankfurter akzeptieren sie</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> Frankfurter begreifen Strukturen als veränderbar und kritisierbar; Positivisten beschreiben sie als gegeben</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Beide Schulen sind inhaltlich identisch</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Lückentext – freies Einsetzen</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Ergänzen Sie den Text. Schreiben Sie das fehlende Wort (21–24).</div>
+
+    <div class="sbox">
+      <p>Demokratien sind keine Selbstläufer. Die politische Philosophie des 20. Jahrhunderts – von Popper <span style="font-weight:700;color:var(--blue)">(21) ________</span> Habermas – hat immer wieder darauf hingewiesen, dass demokratische Institutionen aktiver Pflege bedürfen. Besonders fragil ist die Demokratie dort, <span style="font-weight:700;color:var(--blue)">(22) ________</span> soziale Ungleichheit, mangelnde Anerkennung und politische Exklusion zusammenkommen. In solchen Kontexten bieten populistische Bewegungen eine – wenn auch verzerrte – Sprache für reale Frustrationen an. Der Fehler liberaler Demokratien besteht <span style="font-weight:700;color:var(--blue)">(23) ________</span> oft darin, auf diese Herausforderungen entweder mit technokratischer Arroganz oder mit bloßer Desinformationsbekämpfung zu reagieren. Was fehlt, ist die Bereitschaft <span style="font-weight:700;color:var(--blue)">(24) ________</span> substanziellen institutionellen Selbstkritik.</p>
+    </div>
+
+    <div class="gaprow"><span class="gnum">21.</span> <input class="gfin" type="text" placeholder="Präposition (bis / von)"></div>
+    <div class="gaprow"><span class="gnum">22.</span> <input class="gfin" type="text" placeholder="Konjunktion / Relativwort"></div>
+    <div class="gaprow"><span class="gnum">23.</span> <input class="gfin" type="text" placeholder="Adverb / Partikel"></div>
+    <div class="gaprow"><span class="gnum">24.</span> <input class="gfin" type="text" placeholder="Präposition (zu / für)"></div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C1-Lehrerhinweis:</strong> Texte zweimal vorlesen. Auf implizite Argumentation und feine Bedeutungsnuancen achten lassen.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzmeldungen – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sind die Aussagen richtig (R) oder falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Beitrag 1</div>„Biotechnologie: Wissenschaftlerinnen der ETH Zürich haben eine neue Methode entwickelt, mit der Plastik-abbauende Enzyme aus Bakterien so stabilisiert werden können, dass sie auch bei hohen Temperaturen aktiv bleiben – eine Voraussetzung für industriellen Einsatz bei der Plastikrecycling."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">1.</td><td>Die neue Methode macht plastikabbauende Enzyme auch bei Kälte effizienter.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 2</div>„Sozialpolitik: Der Bundestag hat heute mit knapper Mehrheit das neue Pflegereformgesetz verabschiedet. Es sieht eine Erhöhung des Pflegebeitrags um 0,4 Prozentpunkte vor sowie die Einführung einer bundesweiten Koordinierungsstelle für Pflegeheimplätze."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">2.</td><td>Das Pflegereformgesetz wurde einstimmig beschlossen.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 3</div>„Literatur: Der Internationale Booker Prize 2026 geht an die kenianische Autorin Yvonne Adhiambo Owuor für ihren Roman ‚Der Weg der Regen'. Die Jury würdigte insbesondere die sprachliche Dichte und die polyphone Erzählstruktur des Werks."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">3.</td><td>Der Booker Prize 2026 geht an einen Roman über europäische Geschichte.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 4</div>„Astronomie: Das Ereignishorizont-Teleskop hat erstmals ein Bild eines supermassiven Schwarzen Lochs in einer Zwerggalaxie aufgenommen. Bisher gelang dies nur bei Galaxien mit aktiven galaktischen Kernen. Die Aufnahme zeigt einen Akkretionsring von etwa 3 Lichtjahren Durchmesser."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">4.</td><td>Es handelt sich um das erste Foto eines Schwarzen Lochs in einer Zwerggalaxie.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 5</div>„Verkehr: Die Deutsche Bahn hat heute angekündigt, bis 2030 alle verbliebenen Dieselzüge im Nah- und Regionalverkehr durch Wasserstoff- oder Batteriezüge zu ersetzen. Investitionsvolumen: 12 Milliarden Euro. Kritiker bezweifeln die Realisierbarkeit angesichts bestehender Lieferkettenprobleme."</div>
+    <table class="rf"><tbody><tr><td style="width:34px;font-weight:700">5.</td><td>Es gibt laut Meldung keine kritischen Stimmen zu dem Vorhaben der Deutschen Bahn.</td>
+      <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr></tbody></table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Wissenschaftliche Debatte – R/F/N (6 Aussagen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sind die Aussagen über das folgende Gespräch <strong>R/F/N</strong>?</div>
+
+    <div class="dial"><div class="dlabel">Gespräch: Philosoph Prof. Dr. Tarek Amir &amp; Ethikerin Dr. Simone Kraus (Lehrer liest vor)</div>
+      <span class="sa">Prof. Amir:</span> Die Frage, ob KI-Systeme moralisch handeln können, ist letztlich eine Frage der Definition von Moralität. Wenn wir Moralität als regelbasiertes Verhalten definieren, dann können KI-Systeme bereits heute moralischer handeln als Menschen.<br>
+      <span class="sb">Dr. Kraus:</span> Ich widerspreche entschieden. Moralität setzt meines Erachtens Intentionalität voraus – die Fähigkeit, aus einem echten Verständnis heraus zu handeln, nicht nur regelkonform zu reagieren. Das fehlt heutigen Systemen völlig.<br>
+      <span class="sa">Prof. Amir:</span> Aber wie wissen wir, dass Menschen wirklich intentional handeln und nicht ebenfalls neuronal determiniert sind? Das ist doch eine alte Debatte zwischen Kompatibilismus und hartem Determinismus.<br>
+      <span class="sb">Dr. Kraus:</span> Das ist wahr. Aber selbst wenn wir menschliche Intentionalität hinterfragen, bleibt der Unterschied: KI-Systeme haben keine Geschichte der Verletzlichkeit, kein Embodiment, keine emotionalen Substrat. Ohne diese Grundlagen ist echte Moral nicht möglich.<br>
+      <span class="sa">Prof. Amir:</span> Eine interessante Einschränkung. Dann wären wir uns einig, dass zumindest aktuelle KI keine Moral haben kann – die Frage bleibt aber offen, ob zukünftige Systeme dies könnten?<br>
+      <span class="sb">Dr. Kraus:</span> Ja, das lasse ich offen – aber eher als philosophische Gedankenübung als als realistische Prognose.</div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">6.</td><td>Prof. Amir behauptet, KI könne bereits regelbasiert moralischer handeln als Menschen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">7.</td><td>Dr. Kraus sieht Intentionalität als notwendige Bedingung für Moralität.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Prof. Amir zieht den Kompatibilismus vor und lehnt Determinismus ab.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>Dr. Kraus nennt Embodiment als eine der Grundlagen echter Moral.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Am Ende sind sich beide einig, dass aktuelle KI keine Moral haben kann.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">11.</td><td>Dr. Kraus hält es für wahrscheinlich, dass zukünftige KI tatsächlich Moral entwickeln wird.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Gespräche – Informationslücken</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Notieren Sie die fehlende Information für jedes Gespräch (12–18).</div>
+
+    <div class="dial"><div class="dlabel">Gespräche 12–18 (2× vorlesen)</div>
+      <strong>G12:</strong> „Wie hoch ist der Selbstbehalt bei der Hausratversicherung?" – „Standardmäßig sind das <strong>250 Euro</strong> pro Schadensfall."<br><br>
+      <strong>G13:</strong> „Wann endet die Einreichungsfrist für den Förderantrag?" – „Letzter Einreichungstag ist der <strong>15. Juli</strong>."<br><br>
+      <strong>G14:</strong> „Auf welchem Gleis fährt der RegionalExpress nach Köln?" – „Auf <strong>Gleis 9</strong>, Abfahrt in 12 Minuten."<br><br>
+      <strong>G15:</strong> „Wie lange dauert die Zertifizierung nach Kursabschluss?" – „In der Regel <strong>6 bis 8 Wochen</strong>."<br><br>
+      <strong>G16:</strong> „Was kostet die Express-Lieferung?" – „Das wären zusätzliche <strong>12 Euro</strong> auf den normalen Preis."<br><br>
+      <strong>G17:</strong> „Wie viele Kreditpunkte (ECTS) bringt das Seminar?" – „Das Seminar ist mit <strong>5 ECTS</strong> kreditiert."<br><br>
+      <strong>G18:</strong> „Wann ist der Beginn der Ausstellung?" – „Die Vernissage findet am <strong>3. Oktober</strong> um 19 Uhr statt."</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">12.</span> Selbstbehalt Hausrat: <input class="filin" type="text" placeholder=""> Euro.</div>
+      <div class="filrow"><span class="filn">13.</span> Förderantrag-Frist: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">14.</span> RegionalExpress nach Köln: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">15.</span> Zertifizierung dauert: <input class="filin" type="text" placeholder=""> Wochen.</div>
+      <div class="filrow"><span class="filn">16.</span> Express-Lieferung: zusätzlich <input class="filin" type="text" placeholder=""> Euro.</div>
+      <div class="filrow"><span class="filn">17.</span> ECTS für das Seminar: <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">18.</span> Vernissage: <input class="filin" type="text" placeholder=""> Oktober.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Radio-Feature – Multiple Choice (7 Fragen)</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören ein Feature aus dem Deutschlandfunk. Wählen Sie (19–25) die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Feature: „Zwischen Recht und Gerechtigkeit: Restorative Justice" – Deutschlandfunk (Lehrer liest vor)</div>
+      <span class="sa">Sprecherin:</span> Wenn ein Verbrechen begangen wird, denken wir zuerst an Strafe. Das Strafrechtssystem westlicher Demokratien basiert auf dem Prinzip der Vergeltung: Schuld wird mit Sanktion beantwortet. Aber ist das der einzige Weg?<br><br>
+      Restorative Justice – zu Deutsch: Wiedergutmachende Justiz – verfolgt einen anderen Ansatz. Im Mittelpunkt steht nicht die Bestrafung des Täters, sondern die Wiederherstellung des durch die Tat entstandenen Schadens: für die Opfer, für die Gemeinschaft, manchmal auch für den Täter selbst.<br><br>
+      In der Praxis bedeutet das: strukturierte Gespräche zwischen Täter und Opfer, moderiert von ausgebildeten Fachkräften. Studien aus Neuseeland, wo Restorative Justice im Jugendstrafrecht seit den 1990er Jahren fest verankert ist, zeigen: Die Rückfallquote bei Tätern, die an solchen Prozessen teilgenommen haben, liegt signifikant unter der von Tätern, die ausschließlich inhaftiert waren.<br><br>
+      Kritiker warnen vor Verharmlosung schwerer Verbrechen. Bei Mord, sexueller Gewalt oder Terrorismus sei ein Ausgleichsgespräch weder angemessen noch zumutbar – und dürfe nicht als Ersatz für staatliche Strafverfolgung dienen.<br><br>
+      Befürworter betonen: Restorative Justice ist kein Gegensatz zur Strafverfolgung, sondern eine Ergänzung. Opfer berichten häufig, dass sie durch den direkten Dialog eine Erklärung erhalten, die ein Gerichtsurteil allein nicht bieten kann. Das Gefühl, gehört zu werden, hat therapeutischen Wert.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Auf welchem Prinzip basiert laut Feature das westliche Strafrechtssystem traditionell?</div>
+      <div class="mco" data-grp="h19">
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">a</span> Rehabilitation</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">b</span> Vergeltung</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">c</span> Prävention</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was steht bei Restorative Justice im Mittelpunkt?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Maximale Bestrafung des Täters</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> Wiederherstellung des Schadens für Opfer, Gemeinschaft und ggf. Täter</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Beschleunigung des Gerichtsverfahrens</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Wo ist Restorative Justice im Jugendstrafrecht seit den 1990er Jahren etabliert?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> Australien</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> Neuseeland</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Kanada</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Was zeigen Studien über Rückfallquoten?</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> Täter aus RJ-Programmen rückfällig wie andere</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> Rückfallquote signifikant unter der von nur inhaftierten Tätern</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> RJ erhöht die Rückfallquote</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Wogegen warnen Kritiker?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Vor hohen Kosten der RJ-Programme</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Vor Verharmlosung schwerer Verbrechen und Ersatz für staatliche Strafverfolgung</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Vor fehlender wissenschaftlicher Evidenz</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Wie sehen Befürworter das Verhältnis von RJ zu Strafverfolgung?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Als Ersatz</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> Als Ergänzung</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Als grundlegenden Widerspruch</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">25.</span> Was können Opfer durch den direkten Dialog laut Feature erhalten?</div>
+      <div class="mco" data-grp="h25">
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">a</span> Finanzielle Entschädigung</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">b</span> Eine Erklärung, die ein Gerichtsurteil nicht bieten kann, und therapeutischen Wert</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">c</span> Ein Mitspracherecht bei der Strafbemessung</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 80 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Argumentierender Essay (min. 200 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen strukturierten, argumentativen Essay (mindestens <strong>200 Wörter</strong>).</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:13px;font-size:13.5px;line-height:1.85">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:7px">📋 These:</div>
+      <em style="font-size:14px">„Quantified Self und digitale Selbstvermessung: Befreiung oder neue Form der Kontrolle?"</em><br><br>
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Erläutern Sie, warum die Frage heute gesellschaftlich relevant ist</li>
+        <li>Entwickeln Sie <strong>≥ 2 differenzierte Argumente dafür</strong> (mit möglichen Einschränkungen)</li>
+        <li>Entwickeln Sie <strong>≥ 2 differenzierte Argumente dagegen</strong></li>
+        <li>Formulieren Sie eine nuancierte, persönliche und begründete Schlussposition</li>
+      </ol>
+    </div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',200,300)" placeholder="Wearables und Gesundheits-Apps haben sich in wenigen Jahren von Nischengeräten zu Massenphänomenen entwickelt …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 200</span></div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Formelles Schreiben (min. 150 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen formellen Text (mindestens <strong>150 Wörter</strong>).</div>
+
+    <div style="background:#e8eaf6;border:1.5px solid #9fa8da;border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#3949ab;margin-bottom:5px">📋 Situation:</div>
+      Sie arbeiten in einem internationalen Unternehmen. Das Management plant, alle internen Meetings durch KI-Systeme protokollieren und zusammenfassen zu lassen – inklusive automatischer Aufzeichnung. Mitarbeitende wurden nicht vorab konsultiert.<br><br>
+      Schreiben Sie eine formelle E-Mail / einen Brief an die Geschäftsführung:
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Zeigen Sie Verständnis für die Effizienzabsicht der Maßnahme</li>
+        <li>Benennen Sie konkrete datenschutzrechtliche und ethische Bedenken</li>
+        <li>Beziehen Sie sich auf das Recht auf informationelle Selbstbestimmung</li>
+        <li>Schlagen Sie eine Alternative vor (z.B. freiwillige Teilnahme, anonymisierte Protokolle)</li>
+      </ol>
+    </div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',150,220)" placeholder="Sehr geehrte Damen und Herren der Geschäftsführung,&#10;&#10;mit großem Interesse habe ich von der geplanten Einführung KI-gestützter Meeting-Protokollierung erfahren …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 150</span></div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 C1-Lehrerhinweis:</strong> Auf Präzision, Nuancierung, Abstraktionsfähigkeit und Einwandbehandlung achten.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">These analysieren – strukturierter Vortrag + Diskussion</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Wählen Sie eine These. 4 Min. Vorbereitung, 5–6 Min. Vortrag, 3 Min. Diskussion.</div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">These A</div><div class="scq">📊 Daten als neues Öl</div>„Daten sind das Öl des 21. Jahrhunderts." Stimmen Sie dieser Analogie zu – oder überbewertet sie die Vergleichbarkeit? Was unterscheidet Datenmacht von Energiemacht?</div>
+      <div class="spcard"><div class="scn">These B</div><div class="scq">⚖ Strafrecht und Gerechtigkeit</div>Kann ein staatliches Strafjustizsystem je gerecht sein, wenn es auf einem Fundament historischer und sozialer Ungleichheit aufgebaut ist?</div>
+      <div class="spcard"><div class="scn">These C</div><div class="scq">🌐 Nationalstaat und Globalisierung</div>Ist der Nationalstaat ein überwundenes Modell – oder angesichts globaler Krisen wichtiger denn je? Was brauchen wir: mehr oder weniger nationale Souveränität?</div>
+      <div class="spcard"><div class="scn">These D</div><div class="scq">🎓 Wissenschaft und Öffentlichkeit</div>Haben Wissenschaftlerinnen eine moralische Pflicht, verständlich zu kommunizieren? Oder verlieren Erkenntnisse durch Vereinfachung ihre Gültigkeit?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Gemeinsame Abwägung – komplexes Dilemma</span><span class="ppts">15 Punkte</span></div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:14px 18px;margin-bottom:12px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;margin-bottom:8px">📋 Dilemma</div>
+      <div style="font-size:13.5px;line-height:2">
+        Ein Pharmaunternehmen hat ein hochwirksames Medikament gegen eine seltene, bisher unheilbare Krankheit entwickelt, die weltweit ca. 80.000 Menschen betrifft. Der Preis: <strong>300.000 Euro pro Patient und Jahr</strong>. Das Unternehmen rechtfertigt dies mit Forschungskosten von 2 Milliarden Euro.<br><br>
+        Diskutieren Sie mit Ihrem Partner / Ihrer Partnerin:<br>
+        <ul style="padding-left:18px;line-height:2.4;margin-top:5px">
+          <li>Ist der Preis ethisch vertretbar? Warum / warum nicht?</li>
+          <li>Wer sollte zahlen – Individuum, Staat, Krankenkasse, Solidargemeinschaft?</li>
+          <li>Wie sollte das Gesundheitssystem grundsätzlich auf seltene Krankheiten reagieren?</li>
+          <li>Welche Lösung würden Sie dem Gesetzgeber empfehlen?</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen C1 – Beurteilungsbogen</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung, Argumentation, Differenzierung</td><td>8</td><td><input class="sin" type="number" min="0" max="8" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Diskurskompetenz (Einwände, Nuancen)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (Präzision, Register, Idiomatik)</td><td>5</td><td><input class="sin" type="number" min="0" max="5" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik (Komplexität, Vielfalt, Korrektheit)</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – 15-Minuten-Stadt R/F/N</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">R</strong></div>
+          <div class="chip">2 → <strong class="ok">F</strong> (Melbourne, Ottawa, Seoul folgten)</div>
+          <div class="chip">3 → <strong class="ok">R</strong></div>
+          <div class="chip">4 → <strong class="ok">F</strong> (schreibt keine Pflichten vor)</div>
+          <div class="chip">5 → <strong class="ok">R</strong></div>
+          <div class="chip">6 → <strong class="ok">N</strong> (keine konkreten Zahlen)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4>
+        <div class="chips">
+          <div class="chip">1 Richter → <strong class="ok">a</strong></div>
+          <div class="chip">2 Femi → <strong class="ok">b</strong></div>
+          <div class="chip">3 Hoffmann → <strong class="ok">c</strong></div>
+          <div class="chip">4 Hamid → <strong class="ok">d</strong></div>
+          <div class="chip">5 Ingrid → <strong class="ok">e</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Nicht passend: f (UNESCO, keine Menschenrechtsdebatte), g (Homeoffice/Stress, nicht Einsamkeit), h (Eis/Gletscher, kein Permafrost)</div>
+      </div>
+      <div class="akp"><h4>T3 – Quantified Self MC</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">b</strong></div><div class="chip">12 → <strong class="ok">b</strong></div>
+          <div class="chip">13 → <strong class="ok">b</strong></div><div class="chip">14 → <strong class="ok">b</strong></div>
+          <div class="chip">15 → <strong class="ok">b</strong></div><div class="chip">16 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Kurztexte</h4>
+        <div class="chips">
+          <div class="chip">17 → <strong class="ok">b</strong></div><div class="chip">18 → <strong class="ok">a</strong></div>
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T5 – Demokratie Lückentext</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">bis</strong> (von Popper bis Habermas)</div>
+          <div class="chip">22 → <strong class="ok">wo</strong> (dort, wo … zusammenkommen)</div>
+          <div class="chip">23 → <strong class="ok">häufig / oft</strong> (beides akzeptieren)</div>
+          <div class="chip">24 → <strong class="ok">zur</strong> (Bereitschaft zur Selbstkritik)</div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Radio R/F</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (stabil bei hohen Temperaturen, nicht Kälte)</div>
+          <div class="chip">2 → <strong class="ok">F</strong> (knappe Mehrheit, nicht einstimmig)</div>
+          <div class="chip">3 → <strong class="ok">F</strong> (kenianische Autorin, nicht europäische Geschichte)</div>
+          <div class="chip">4 → <strong class="ok">R</strong></div>
+          <div class="chip">5 → <strong class="ok">F</strong> (Kritiker werden erwähnt)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Philosophen-Gespräch R/F/N</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">R</strong></div>
+          <div class="chip">7 → <strong class="ok">R</strong></div>
+          <div class="chip">8 → <strong class="ok">N</strong> (nennt beide, bevorzugt keinen)</div>
+          <div class="chip">9 → <strong class="ok">R</strong></div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+          <div class="chip">11 → <strong class="ok">F</strong> (hält es eher für Gedankenübung, nicht realistische Prognose)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T3 – Gespräche</h4>
+        <div class="chips">
+          <div class="chip">12 → <strong class="ok">250</strong></div>
+          <div class="chip">13 → <strong class="ok">15. Juli</strong></div>
+          <div class="chip">14 → <strong class="ok">Gleis 9</strong></div>
+          <div class="chip">15 → <strong class="ok">6–8</strong></div>
+          <div class="chip">16 → <strong class="ok">12</strong></div>
+          <div class="chip">17 → <strong class="ok">5</strong></div>
+          <div class="chip">18 → <strong class="ok">3.</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Restorative Justice</h4>
+        <div class="chips">
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+          <div class="chip">21 → <strong class="ok">b</strong></div><div class="chip">22 → <strong class="ok">b</strong></div>
+          <div class="chip">23 → <strong class="ok">b</strong></div><div class="chip">24 → <strong class="ok">b</strong></div>
+          <div class="chip">25 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Quantified Self Essay (15 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte; ≥ 2 differenzierte Argumente je Seite mit Nuancen</td><td>0 – 6 Pkt.</td></tr>
+          <tr><td>Schlussposition: begründet, nuanciert, personal</td><td>0 – 4 Pkt.</td></tr>
+          <tr><td>Textstruktur, Kohäsion, Überleitungen</td><td>0 – 3 Pkt.</td></tr>
+          <tr><td>C1-Niveau: Lexik, Stilregister, Grammatikkomplexität</td><td>0 – 2 Pkt.</td></tr>
+        </table></div>
+      </div>
+      <div class="akp"><h4>T2 – KI-Meeting Brief (10 Pkt)</h4>
+        <div class="rubric"><table>
+          <tr><th>Kriterium</th><th>Punkte</th></tr>
+          <tr><td>Alle 4 Punkte, sachlich-diplomatisch, Art. 17 DSGVO angesprochen</td><td>0 – 5 Pkt.</td></tr>
+          <tr><td>Konkreter Alternativvorschlag (freiwillig / anonymisiert)</td><td>0 – 2 Pkt.</td></tr>
+          <tr><td>Formale Konventionen, Wortschatz, Grammatik</td><td>0 – 3 Pkt.</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe C1 Modellprüfung Nr. 2 · Generische Version · Viel Erfolg! 🍀
+</div>
+</div>
+
+<script>
+function pickRF3(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => { b.classList.remove('selR','selF','selN'); });
+  if (choice==='R') btn.classList.add('selR');
+  else if (choice==='F') btn.classList.add('selF');
+  else btn.classList.add('selN');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId), pill = document.getElementById(pillId);
+  if (!ta||!pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  pill.textContent = n+' / min. '+min;
+  pill.className = 'wcpill';
+  if (n>=min&&n<=max) pill.classList.add('ok');
+  else if (n>max) pill.classList.add('over');
+}
+(function(){
+  const TOTAL=210*60;
+  const MODS=[{id:'tp1',from:TOTAL,to:TOTAL-90*60},{id:'tp2',from:TOTAL-90*60,to:TOTAL-130*60},{id:'tp3',from:TOTAL-130*60,to:0},{id:'tp4',from:0,to:-1}];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

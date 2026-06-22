@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat B1 – Modellprüfung 5</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.7}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:100px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#e65100 0%,#f57c00 35%,#1a237e 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
+.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:18px 20px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
+.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
+.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
+.rn{width:30px;font-weight:700;color:#666}.ra{width:90px;text-align:center}
+.rf-wrap{display:flex;gap:6px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
+.qn{color:var(--blue);margin-right:4px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.sn{font-weight:700;min-width:20px}.st{flex:1}
+.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:60px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:20px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:140px;outline:none}
+.warea{width:100%;min-height:160px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
+.warea:focus{border-color:var(--purple)}
+.wcpill{display:inline-block;background:#e0e0e0;color:#555;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:6px}
+.wcpill.ok{background:#c8e6c9;color:var(--green)}.wcpill.over{background:#ffcdd2;color:var(--red)}
+.personbox{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 12px;background:#f4f8ff;font-size:12.5px;min-width:150px}
+.pname{font-weight:800;color:var(--blue);margin-bottom:3px}
+.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.85;margin-bottom:9px}
+.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:4px}
+.wbox{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:10px}
+.wbox b{color:var(--green)}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.lc{background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;padding:9px 14px;font-size:13px;line-height:1.85;margin-bottom:10px}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
+.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
+.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
+.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
+.akb{padding:18px 20px}.akm{margin-bottom:18px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
+.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">2:45:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 65'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 60'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 5</div>
+    <h1>Goethe-Zertifikat B1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>165 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">B1<span>Test 5</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs:</label><input class="ci" type="text"></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 65 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 60 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 65 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Artikel über Stadtleben – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+    <div class="sbox">
+      <div class="smeta">Aus einem Stadtmagazin</div>
+      <strong>Leben in der Stadt: Fluch oder Segen?</strong><br><br>
+      Die Urbanisierung schreitet weltweit voran: Bereits mehr als die Hälfte der Weltbevölkerung lebt in Städten, und bis 2050 soll dieser Anteil auf 68 Prozent steigen. In Deutschland sind es sogar über 77 Prozent. Doch was macht das Stadtleben wirklich aus?<br><br>
+      Auf der einen Seite bieten Städte zahlreiche Vorteile: kurze Wege zu Schulen, Krankenhäusern und Arbeitsplätzen, ein reichhaltiges Kulturangebot und soziale Vielfalt. Besonders junge Menschen schätzen die Möglichkeit, alles fußläufig zu erreichen.<br><br>
+      Auf der anderen Seite kämpfen Städte mit wachsenden Problemen: hohe Mieten, Lärm, Luftverschmutzung und soziale Ungleichheit. Laut einer Umfrage des Instituts für Stadtforschung fühlen sich 42 Prozent der Stadtbewohner durch Verkehrslärm stark belastet. Trotzdem würden laut derselben Umfrage nur 18 Prozent der Stadtbewohner gerne aufs Land ziehen.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Bis 2050 werden voraussichtlich 68 % der Weltbevölkerung in Städten leben.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>In Deutschland lebt weniger als die Hälfte der Bevölkerung in Städten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>42 Prozent der Stadtbewohner fühlen sich durch Verkehrslärm stark belastet.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Die Mehrheit der Stadtbewohner möchte lieber auf dem Land leben.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Besonders junge Menschen schätzen kurze Wege in der Stadt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Wer sucht was?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Welcher Text (A–H) passt zu welcher Person? Nicht alle Texte passen.</div>
+    <div class="personbox">
+      <div class="pcard"><div class="pname">6. Tobias</div>möchte in einer anderen Stadt arbeiten und sucht eine Unterkunft</div>
+      <div class="pcard"><div class="pname">7. Frau Park</div>sucht Informationen über klimafreundliche Mobilität</div>
+      <div class="pcard"><div class="pname">8. Leon</div>ist Schüler und sucht ein Praktikum in einem Umweltbereich</div>
+      <div class="pcard"><div class="pname">9. Bettina</div>möchte sich über das Thema Klimawandel weiterbilden</div>
+      <div class="pcard"><div class="pname">10. Herr Özdemir</div>sucht einen günstigen Umzugsservice für die Stadt</div>
+    </div>
+    <div class="textblock"><div class="textlbl">Text A</div>WG-Zimmer in Köln: 16 m², 380 € warm, 5 Min. zur U-Bahn. Ideal für Berufstätige. Kontakt: wg-koeln22@web.de</div>
+    <div class="textblock"><div class="textlbl">Text B</div>Umzug leicht gemacht – TransportFix. Günstige Stadtumzüge ab 99 €. Verpackungsmaterial inklusive. Tel. 030-1234.</div>
+    <div class="textblock"><div class="textlbl">Text C</div>Klimaschule Online: Kostenloser Kurs „Grundlagen des Klimawandels" – 6 Module, je 30 Min. klimaschule.de</div>
+    <div class="textblock"><div class="textlbl">Text D</div>Praktikum Naturschutzstation: Wir bieten Schülerinnen und Schülern Einblick in Artenschutz und Umweltpädagogik. naturstation-sued.de</div>
+    <div class="textblock"><div class="textlbl">Text E</div>E-Bike-Leasing für Pendler: Ab 39 € monatlich. Inklusive Wartung und Versicherung. green-ride.de</div>
+    <div class="textblock"><div class="textlbl">Text F</div>Stadtführung Berlin: Historische Mitte, 2 Stunden, tägl. 10 Uhr. 14 € pro Person.</div>
+    <div class="textblock"><div class="textlbl">Text G</div>Buch: „Klimawandel – Ursachen und Lösungen" von Prof. Dr. Baum. Auch als E-Book erhältlich. 19,99 €.</div>
+    <div class="textblock"><div class="textlbl">Text H</div>Stellenangebot: Techniker gesucht für Solaranlage-Installation. Reisebereitschaft erforderlich. Vollzeit.</div>
+    <div class="sits" style="margin-top:8px">
+      <div class="sit"><span class="sn">6.</span><span class="st">Tobias</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">7.</span><span class="st">Frau Park</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">8.</span><span class="st">Leon</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">9.</span><span class="st">Bettina</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">10.</span><span class="st">Herr Özdemir</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Zeitungsartikel – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Artikel. Was ist richtig: a, b oder c?</div>
+    <div class="sbox">
+      <div class="smeta">Aus einer überregionalen Tageszeitung</div>
+      <strong>Klimawandel: Was können Einzelpersonen wirklich tun?</strong><br><br>
+      Die globale Erderwärmung ist eine der größten Herausforderungen unserer Zeit. Doch welchen Beitrag kann jede Einzelperson leisten? Laut dem Umweltbundesamt verursacht ein durchschnittlicher Deutscher pro Jahr etwa elf Tonnen CO₂. Davon entfällt der größte Anteil auf den Bereich Wohnen und Heizen (etwa 30 Prozent), gefolgt von Mobilität (28 Prozent) und Ernährung (15 Prozent).<br><br>
+      Experten sind sich einig: Der wirksamste Beitrag des Einzelnen ist der Verzicht auf Flugreisen. Eine einzige Flugreise kann die Jahresbilanz um mehrere Tonnen CO₂ erhöhen. An zweiter Stelle steht eine pflanzenbasierte Ernährung – weniger Fleisch bedeutet weniger Methanemissionen in der Landwirtschaft.<br><br>
+      Kritiker hingegen betonen, dass strukturelle Veränderungen wichtiger sind als individuelles Verhalten. Ohne Investitionen in erneuerbare Energien und öffentlichen Verkehr könnten individuelle Maßnahmen die Klimakrise nicht lösen.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">11.</span> Wie viele Tonnen CO₂ verursacht ein Deutscher durchschnittlich pro Jahr?</div>
+      <div class="mco" data-grp="q11">
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> ca. 5 Tonnen</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> ca. 11 Tonnen</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> ca. 20 Tonnen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">12.</span> Welcher Bereich verursacht den größten CO₂-Anteil?</div>
+      <div class="mco" data-grp="q12">
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> Ernährung</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> Mobilität</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> Wohnen und Heizen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">13.</span> Was ist laut Experten der wirksamste individuelle Beitrag?</div>
+      <div class="mco" data-grp="q13">
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> Auf Fleisch verzichten</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> Auf Flugreisen verzichten</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> Öffentliche Verkehrsmittel nutzen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">14.</span> Was kritisieren Experten an individualem Verhalten?</div>
+      <div class="mco" data-grp="q14">
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> Es ist zu teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> Es reicht ohne strukturelle Veränderungen nicht aus</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Es ist zu kompliziert</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">15.</span> Was führt weniger Fleischkonsum laut dem Text zur Folge?</div>
+      <div class="mco" data-grp="q15">
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Weniger Wasserverbrauch</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Weniger Methanemissionen</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Mehr Biodiversität</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Lückentext – Wörter einsetzen</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Ergänzen Sie den Text mit passenden Wörtern aus dem Kasten.</div>
+    <div class="wbox">Wählen Sie aus: &nbsp;<b>Fähigkeiten · Bewerbung · Praktikum · Erfahrungen · Stelle · vorbereiten · Lebenslauf · einstellen</b></div>
+    <div style="font-size:13.5px;line-height:2.2;margin-bottom:10px">
+      Der Einstieg ins Berufsleben beginnt oft mit einem <select class="ssel" style="min-width:100px"><option>—</option><option>Praktikum</option><option>Lebenslauf</option><option>Bewerbung</option><option>Stelle</option><option>Erfahrungen</option><option>Fähigkeiten</option><option>vorbereiten</option><option>einstellen</option></select> (16).
+      Dort kann man erste berufliche <select class="ssel" style="min-width:100px"><option>—</option><option>Praktikum</option><option>Lebenslauf</option><option>Bewerbung</option><option>Stelle</option><option>Erfahrungen</option><option>Fähigkeiten</option><option>vorbereiten</option><option>einstellen</option></select> (17) sammeln.
+      Wenn man sich für eine <select class="ssel" style="min-width:100px"><option>—</option><option>Praktikum</option><option>Lebenslauf</option><option>Bewerbung</option><option>Stelle</option><option>Erfahrungen</option><option>Fähigkeiten</option><option>vorbereiten</option><option>einstellen</option></select> (18) bewirbt, braucht man eine schriftliche <select class="ssel" style="min-width:100px"><option>—</option><option>Praktikum</option><option>Lebenslauf</option><option>Bewerbung</option><option>Stelle</option><option>Erfahrungen</option><option>Fähigkeiten</option><option>vorbereiten</option><option>einstellen</option></select> (19) mit einem <select class="ssel" style="min-width:100px"><option>—</option><option>Praktikum</option><option>Lebenslauf</option><option>Bewerbung</option><option>Stelle</option><option>Erfahrungen</option><option>Fähigkeiten</option><option>vorbereiten</option><option>einstellen</option></select> (20).
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurztexte – richtige Aussage wählen</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Was bedeuten diese Texte? Wählen Sie a, b oder c.</div>
+    <div class="lc"><strong>Text 1:</strong> „Ab sofort gilt in unserer Stadt an Werktagen zwischen 7 und 19 Uhr eine Umweltzone. Fahrzeuge ohne grüne Plakette dürfen die Innenstadt nicht befahren."</div>
+    <div class="mci"><div class="mcs"><span class="qn">21.</span> Was bedeutet die Umweltzone?</div>
+      <div class="mco" data-grp="q21">
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">a</span> Alle Fahrzeuge sind tagsüber verboten</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">b</span> Nur Fahrzeuge mit grüner Plakette dürfen werktags in die Innenstadt</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">c</span> Fahrräder sind in der Innenstadt verboten</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 2:</strong> „Das Stadtfest muss aufgrund schlechter Wetterverhältnisse auf den nächsten Samstag verlegt werden. Alle bereits gekauften Tickets behalten ihre Gültigkeit."</div>
+    <div class="mci"><div class="mcs"><span class="qn">22.</span> Was passiert mit den Tickets?</div>
+      <div class="mco" data-grp="q22">
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">a</span> Sie werden erstattet</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">b</span> Sie sind weiterhin gültig</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">c</span> Man muss neue kaufen</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 3:</strong> „Bitte beachten Sie: Die Müllabfuhr in Ihrer Straße findet diese Woche ausnahmsweise am Mittwoch statt, nicht wie üblich am Dienstag."</div>
+    <div class="mci"><div class="mcs"><span class="qn">23.</span> Wann kommt die Müllabfuhr diese Woche?</div>
+      <div class="mco" data-grp="q23">
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">a</span> Dienstag wie immer</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">b</span> Mittwoch ausnahmsweise</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">c</span> Donnerstag</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 4:</strong> „Liebe Reisende, wir suchen Personen, die bereit sind, an einer bezahlten Befragung zur Nutzung öffentlicher Verkehrsmittel teilzunehmen. Dauer: ca. 20 Minuten."</div>
+    <div class="mci"><div class="mcs"><span class="qn">24.</span> Worum geht es in diesem Text?</div>
+      <div class="mco" data-grp="q24">
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">a</span> Einladung zu einer kostenlosen Bahnfahrt</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">b</span> Suche nach Teilnehmern für eine bezahlte Umfrage</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">c</span> Stellenangebot bei der Bahn</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 5:</strong> „Reisewarnung: Das Auswärtige Amt empfiehlt, nicht notwendige Reisen in das genannte Gebiet zu vermeiden. Informieren Sie sich vor Abreise über aktuelle Bedingungen."</div>
+    <div class="mci"><div class="mcs"><span class="qn">25.</span> Was empfiehlt das Auswärtige Amt?</div>
+      <div class="mco" data-grp="q25">
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">a</span> Alle Reisen sofort buchen</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">b</span> Unnötige Reisen in das Gebiet vermeiden</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">c</span> Einreiseverbot beachten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 40 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Radiobeitrag – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie den Radiobeitrag (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Radiobeitrag: Fahrradstadt der Zukunft</div>
+      „In immer mehr deutschen Städten werden Autos aus der Innenstadt verbannt. Vorreiterin ist <strong>Münster</strong>, wo bereits über <strong>38 Prozent</strong> aller Wege mit dem Fahrrad zurückgelegt werden. Die Stadtverwaltung plant bis 2030 insgesamt <strong>200 Kilometer</strong> neuer Fahrradwege zu bauen. Ein weiteres Ziel: kostenlose Leihräder an <strong>50 Stationen</strong> in der ganzen Stadt. Kritiker bemängeln, dass Radwege oft zu schmal sind und mit parkenden Autos blockiert werden. Oberbürgermeisterin Dr. Richter betont: ‚Wer die Klimaziele ernst nimmt, muss Fahrradfahren attraktiver machen als Autofahren.'"
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">26.</span> Wie viel Prozent der Wege werden in Münster mit dem Fahrrad zurückgelegt?</div>
+      <div class="mco" data-grp="q26">
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> 28 %</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> 38 %</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> 48 %</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">27.</span> Wie viele Kilometer neue Radwege sind geplant?</div>
+      <div class="mco" data-grp="q27">
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> 100 km</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> 150 km</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> 200 km</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">28.</span> Wie viele Leihrad-Stationen sind geplant?</div>
+      <div class="mco" data-grp="q28">
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> 25 Stationen</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> 50 Stationen</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> 100 Stationen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">29.</span> Was kritisieren Kritiker?</div>
+      <div class="mco" data-grp="q29">
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Die Leihräder sind zu teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> Radwege sind zu schmal und werden blockiert</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> Es gibt zu viele Fahrräder</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">30.</span> Was sagt die Oberbürgermeisterin?</div>
+      <div class="mco" data-grp="q30">
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Autos müssen sofort verboten werden</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> Fahrradfahren muss attraktiver als Autofahren werden</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Alle Bürger sollen mehr Steuern zahlen</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Interview – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie das Interview (2×). Richtig (R) oder Falsch (F)?</div>
+    <div class="dial"><div class="dlabel">Interview: Marco, 29, ist aus der Stadt aufs Land gezogen</div>
+      <strong>Reporterin:</strong> Marco, warum bist du aufs Land gezogen?<br>
+      <strong>Marco:</strong> Ich wollte mehr <strong>Ruhe und Natur</strong>. In Berlin war es mir zu laut und zu stressig.<br>
+      <strong>Reporterin:</strong> Vermisst du etwas?<br>
+      <strong>Marco:</strong> Ja, die <strong>Restaurants und das Nachtleben</strong>. Aber das ist mir nicht mehr so wichtig.<br>
+      <strong>Reporterin:</strong> Wie lange bist du schon auf dem Land?<br>
+      <strong>Marco:</strong> Seit <strong>zwei Jahren</strong>. Ich arbeite von zu Hause im <strong>Homeoffice</strong>.<br>
+      <strong>Reporterin:</strong> Würdest du zurückziehen?<br>
+      <strong>Marco:</strong> Nein, auf keinen Fall. Mein Stress ist deutlich <strong>gesunken</strong>. Ich schlafe besser und habe mehr Zeit für Hobbys.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">31.</td><td>Marco ist wegen Ruhe und Natur aufs Land gezogen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">32.</td><td>Marco vermisst besonders die Supermärkte der Stadt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">33.</td><td>Marco lebt seit zwei Jahren auf dem Land.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">34.</td><td>Marco pendelt täglich in die Stadt zur Arbeit.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">35.</td><td>Marco möchte nicht in die Stadt zurückziehen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Vortrag – Informationen notieren</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Sie hören einen Vortrag (2×). Ergänzen Sie die Informationen.</div>
+    <div class="dial"><div class="dlabel">Vortrag: Das Reiseziel Island</div>
+      „Island ist ein faszinierendes Reiseziel. Das Land hat nur etwa <strong>370.000 Einwohner</strong>, obwohl es fast so groß ist wie Deutschland. Die Hauptstadt heißt <strong>Reykjavik</strong>. Island ist bekannt für Gletscher, Vulkane und das <strong>Nordlicht</strong>, das man vor allem von <strong>September bis März</strong> sehen kann. Die durchschnittliche Sommertemperatur liegt bei etwa <strong>12 Grad Celsius</strong>. Island erzeugt fast seine gesamte Energie aus <strong>erneuerbaren Quellen</strong> – vor allem Geothermie und Wasserkraft. Für die Einreise aus der EU benötigt man <strong>keinen Reisepass</strong> – ein Personalausweis reicht."
+    </div>
+    <div class="filrow"><span class="filn">36.</span> Einwohnerzahl: ca. <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">37.</span> Hauptstadt: <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">38.</span> Nordlicht: von <input class="filin" type="text"> bis <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">39.</span> Durchschnittliche Sommertemperatur: ca. <input class="filin" type="text"> °C</div>
+    <div class="filrow"><span class="filn">40.</span> Einreise aus EU: <input class="filin" type="text"> reicht</div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Diskussion – Multiple Choice</span><span class="ppts">10 Pkt</span></div>
+    <div class="instr">Hören Sie die Diskussion (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Diskussion: Home Office – Vor- und Nachteile</div>
+      <strong>Moderatorin:</strong> Ist Homeoffice gut für die Gesellschaft?<br>
+      <strong>Herr Pfeiffer:</strong> Definitiv! Mitarbeiter sind produktiver, wenn sie zu Hause arbeiten. Es gibt weniger Stress durch Pendeln, und die CO₂-Bilanz verbessert sich.<br>
+      <strong>Frau Neumann:</strong> Das stimmt nicht immer. Viele Menschen fühlen sich im Homeoffice <strong>einsam und isoliert</strong>. Der soziale Austausch mit Kollegen fehlt.<br>
+      <strong>Herr Pfeiffer:</strong> Aber digitale Tools wie Videokonferenzen ersetzen das doch heute fast vollständig.<br>
+      <strong>Frau Neumann:</strong> Nein, das ist nicht dasselbe. Außerdem: Wer zuhause kleine Kinder hat, kann sich kaum konzentrieren. Nicht jeder hat die nötigen <strong>Räumlichkeiten</strong> für ein Homeoffice.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">41.</span> Was sagt Herr Pfeiffer über Homeoffice?</div>
+      <div class="mco" data-grp="q41">
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">a</span> Es macht Mitarbeiter weniger produktiv</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">b</span> Es verbessert die CO₂-Bilanz und reduziert Stress</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">c</span> Es ist nur für junge Menschen geeignet</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">42.</span> Was kritisiert Frau Neumann?</div>
+      <div class="mco" data-grp="q42">
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">a</span> Die Technik funktioniert nicht</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">b</span> Einsamkeit, fehlender sozialer Austausch und Platzmangel</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">c</span> Homeoffice ist zu teuer</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">43.</span> Was sagt Herr Pfeiffer über Videokonferenzen?</div>
+      <div class="mco" data-grp="q43">
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">a</span> Sie sind nutzlos</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">b</span> Sie ersetzen den sozialen Austausch fast vollständig</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">c</span> Sie sind zu teuer für kleine Firmen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">44.</span> Welches Problem erwähnt Frau Neumann für Eltern?</div>
+      <div class="mco" data-grp="q44">
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">a</span> Kindertagesstätten sind zu teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">b</span> Man kann sich mit Kindern zu Hause kaum konzentrieren</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">c</span> Kinder stören Videokonferenzen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">45.</span> Was meint Frau Neumann zu Videokonferenzen?</div>
+      <div class="mco" data-grp="q45">
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">a</span> Sie sind gut, aber teuer</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">b</span> Sie sind kein vollwertiger Ersatz für echten Kontakt</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">c</span> Sie sollten häufiger eingesetzt werden</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 60 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Formelle E-Mail schreiben</span><span class="ppts">12 Pkt</span></div>
+    <div class="instr">Schreiben Sie eine formelle E-Mail (mind. 80 Wörter) zu allen Punkten.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px;line-height:1.85">
+      <strong style="color:var(--purple)">Situation:</strong> Sie möchten für drei Monate in eine andere Stadt ziehen, um dort zu arbeiten. Schreiben Sie an das Stadtbüro und erkundigen Sie sich: <strong>① Über günstige Wohnmöglichkeiten ② Über öffentliche Verkehrsmittel ③ Ob es Sprachkurse für Neubürger gibt ④ Bitten Sie um eine Broschüre</strong>
+    </div>
+    <textarea class="warea" id="w1" oninput="countW('w1','wc1',80,120)" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
+    <div id="wc1" class="wcpill">0 / min. 80</div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Kommentar / Stellungnahme schreiben</span><span class="ppts">13 Pkt</span></div>
+    <div class="instr">Schreiben Sie eine Stellungnahme (mind. 80 Wörter). Nennen Sie Argumente und Ihre Meinung.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px">
+      <strong style="color:var(--purple)">Thema:</strong> „Sollten alle Menschen verpflichtet sein, mit öffentlichen Verkehrsmitteln zu fahren und auf ein eigenes Auto zu verzichten?"<br>
+      Schreiben Sie: <strong>① Ein Argument dafür ② Ein Argument dagegen ③ Ihre persönliche Meinung</strong>
+    </div>
+    <textarea class="warea" id="w2" oninput="countW('w2','wc2',80,120)" placeholder="Zu diesem Thema möchte ich sagen ..."></textarea>
+    <div id="wc2" class="wcpill">0 / min. 80</div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="instr">Die Lehrkraft führt das Gespräch. Dieser Teil wird benotet.</div>
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Monolog – Thema vorstellen</span><span class="ppts">8 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      Wählen Sie: <strong>A) Mein Wunsch-Wohnort – Stadt oder Land?</strong> oder <strong>B) Was ich persönlich für den Klimaschutz tue</strong>. Bereiten Sie sich 2 Minuten vor. Sprechen Sie 2–3 Minuten.
+    </div>
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Gemeinsam planen</span><span class="ppts">9 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      <strong>Aufgabe:</strong> Ihre Abteilung möchte einen „Grünen Tag" organisieren – einen Tag, an dem alle nachhaltig handeln. Planen Sie: <strong>Was können Kollegen tun? · Wie kommuniziert man das? · Welche Ziele setzt man?</strong>
+    </div>
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Auf Meinungen reagieren</span><span class="ppts">8 Pkt</span></div>
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Aussage A</div>„In 20 Jahren werden alle Autos elektrisch sein – Benzin wird verboten." Stimmen Sie zu? Warum?</div>
+      <div class="spcard"><div class="scn">Aussage B</div>„Wer in der Großstadt lebt, muss keinen Führerschein mehr machen." Was meinen Sie dazu?</div>
+    </div>
+    <table class="stbl" style="margin-top:12px">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
+        <tr><td>Kohärenz &amp; Flüssigkeit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Wortschatz</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Grammatik</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen</h3>
+      <div class="akp"><h4>T1 – Stadtleben</h4><div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (77%)</span></div><div class="chip">3→<span class="ok">R</span></div><div class="chip">4→<span class="ok">F (nur 18%)</span></div><div class="chip">5→<span class="ok">R</span></div></div></div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4><div class="chips"><div class="chip">6→<span class="ok">A</span></div><div class="chip">7→<span class="ok">E</span></div><div class="chip">8→<span class="ok">D</span></div><div class="chip">9→<span class="ok">C</span></div><div class="chip">10→<span class="ok">B</span></div></div></div>
+      <div class="akp"><h4>T3 – Klimawandel</h4><div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">c</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">b</span></div><div class="chip">15→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T4 – Lückentext Beruf</h4><div class="chips"><div class="chip">16→<span class="ok">Praktikum</span></div><div class="chip">17→<span class="ok">Erfahrungen</span></div><div class="chip">18→<span class="ok">Stelle</span></div><div class="chip">19→<span class="ok">Bewerbung</span></div><div class="chip">20→<span class="ok">Lebenslauf</span></div></div></div>
+      <div class="akp"><h4>T5 – Kurztexte</h4><div class="chips"><div class="chip">21→<span class="ok">b</span></div><div class="chip">22→<span class="ok">b</span></div><div class="chip">23→<span class="ok">b</span></div><div class="chip">24→<span class="ok">b</span></div><div class="chip">25→<span class="ok">b</span></div></div></div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören</h3>
+      <div class="akp"><h4>T1 – Fahrradstadt</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">c</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T2 – Marco</h4><div class="chips"><div class="chip">31→<span class="ok">R</span></div><div class="chip">32→<span class="ok">F (Restaurants/Nachtleben)</span></div><div class="chip">33→<span class="ok">R</span></div><div class="chip">34→<span class="ok">F (Homeoffice)</span></div><div class="chip">35→<span class="ok">R</span></div></div></div>
+      <div class="akp"><h4>T3 – Island</h4><div class="chips"><div class="chip">36→<span class="ok">370.000</span></div><div class="chip">37→<span class="ok">Reykjavik</span></div><div class="chip">38→<span class="ok">September/März</span></div><div class="chip">39→<span class="ok">12</span></div><div class="chip">40→<span class="ok">Personalausweis</span></div></div></div>
+      <div class="akp"><h4>T4 – Homeoffice-Diskussion</h4><div class="chips"><div class="chip">41→<span class="ok">b</span></div><div class="chip">42→<span class="ok">b</span></div><div class="chip">43→<span class="ok">b</span></div><div class="chip">44→<span class="ok">b</span></div><div class="chip">45→<span class="ok">b</span></div></div></div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe B1 Modellprüfung Nr. 5 · Viel Erfolg! 🍀</div>
+</div>
+
+<script>
+function pickRF(btn,choice){const w=btn.parentElement;w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');}
+function pickMC(btn,grp){const c=btn.closest('[data-grp="'+grp+'"]');if(!c)return;c.querySelectorAll('.mcb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function countW(taId,pillId,min,max){const ta=document.getElementById(taId),pill=document.getElementById(pillId);if(!ta||!pill)return;const n=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;pill.textContent=n+' / min. '+min;pill.className='wcpill';if(n>=min&&n<=max)pill.classList.add('ok');else if(n>max)pill.classList.add('over');}
+(function(){
+  const TOTAL=165*60;
+  const MODS=[
+    {id:'tp1',from:TOTAL,to:TOTAL-65*60},
+    {id:'tp2',from:TOTAL-65*60,to:TOTAL-105*60},
+    {id:'tp3',from:TOTAL-105*60,to:0},
+    {id:'tp4',from:0,to:-1}
+  ];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){const el=document.getElementById('timer-digits');if(!el)return;el.textContent=rem<=0?'Zeit um!':fmt(rem);el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});}
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

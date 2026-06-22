@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A1 – Lektion 1 | Asal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: #1c2b4a;
+    color: white;
+    padding: 24px 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+  .page-header .meta { font-size: 13px; opacity: 0.75; margin-top: 4px; }
+  .page-header .badge {
+    background: #e8a020;
+    color: #1c2b4a;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  /* ── TEACHER TIMELINE ── */
+  .timeline {
+    background: #1c2b4a;
+    color: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+  }
+  .tl-block {
+    flex: 1;
+    text-align: center;
+    padding: 8px 6px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    font-size: 12px;
+  }
+  .tl-block:last-child { border-right: none; }
+  .tl-block .tl-time { font-size: 11px; opacity: 0.6; }
+  .tl-block .tl-label { font-weight: 600; font-size: 12px; margin-top: 3px; }
+  .tl-block .tl-sub { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+  /* ── SECTION CARDS ── */
+  .section {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .section-header {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header .num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 17px; font-weight: 700; color: white; }
+  .section-header .timing {
+    margin-left: auto;
+    font-size: 12px;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .s1 .section-header { background: #2e6da4; }
+  .s1 .section-header .num { color: #2e6da4; }
+  .s2 .section-header { background: #2e8b57; }
+  .s2 .section-header .num { color: #2e8b57; }
+  .s3 .section-header { background: #7b3fa0; }
+  .s3 .section-header .num { color: #7b3fa0; }
+  .s4 .section-header { background: #c0552a; }
+  .s4 .section-header .num { color: #c0552a; }
+
+  .section-body { padding: 22px 24px; }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: #fffbe6;
+    border-left: 4px solid #e8a020;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #5a4200;
+  }
+  .intro-box strong { color: #c07800; }
+
+  /* ── GRAMMAR TABLES ── */
+  table.gram {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  table.gram th {
+    background: #eef3fa;
+    padding: 9px 14px;
+    text-align: left;
+    font-weight: 700;
+    color: #2e6da4;
+    border-bottom: 2px solid #ccdcf0;
+  }
+  table.gram td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  table.gram tr:last-child td { border-bottom: none; }
+  table.gram tr:nth-child(even) td { background: #f9fbff; }
+  .m { color: #2e6da4; font-weight: 700; }
+  .f { color: #b03060; font-weight: 700; }
+  .n { color: #2e8b57; font-weight: 700; }
+  .pl { color: #7b3fa0; font-weight: 700; }
+
+  /* ── EXAMPLE BOXES ── */
+  .ex-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .ex-box {
+    background: #f4f8ff;
+    border: 1px solid #ccdcf0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .ex-box .de { font-weight: 600; color: #1c2b4a; }
+  .ex-box .en { color: #888; font-size: 13px; margin-top: 2px; }
+
+  /* ── RULE BOX ── */
+  .rule-box {
+    background: #f0f9f4;
+    border: 1.5px solid #7bc4a0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .rule-box .rule-title {
+    font-weight: 700;
+    color: #2e8b57;
+    margin-bottom: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CONJUGATION TABLE ── */
+  table.conj {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+  table.conj th {
+    background: #f0e8fa;
+    padding: 8px 12px;
+    font-weight: 700;
+    color: #7b3fa0;
+    border-bottom: 2px solid #d0b8f0;
+    text-align: center;
+  }
+  table.conj td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  table.conj td:first-child { text-align: left; font-weight: 600; color: #444; }
+  table.conj tr:nth-child(even) td { background: #faf5ff; }
+
+  /* ── EXERCISES ── */
+  .exercise {
+    background: #fffaf0;
+    border: 1.5px solid #f0c060;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .exercise .ex-title {
+    font-weight: 700;
+    color: #8a5c00;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .exercise ol, .exercise ul { padding-left: 20px; }
+  .exercise li { margin-bottom: 8px; font-size: 14px; }
+  .exercise .blank {
+    display: inline-block;
+    border-bottom: 1.5px solid #aaa;
+    width: 80px;
+    margin: 0 4px;
+  }
+
+  /* ── READING TEXT ── */
+  .reading-text {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 15px;
+    line-height: 1.8;
+    margin: 14px 0;
+  }
+  .reading-text p { margin-bottom: 12px; }
+  .reading-text .highlight { background: #fff3cd; border-radius: 3px; padding: 0 2px; }
+
+  /* ── QUESTIONS ── */
+  .questions ol { padding-left: 20px; }
+  .questions li { margin-bottom: 12px; font-size: 14px; }
+  .questions .answer-line {
+    display: block;
+    border-bottom: 1px solid #bbb;
+    margin-top: 4px;
+    height: 22px;
+  }
+
+  /* ── ANSWER KEY ── */
+  .answer-key {
+    background: #f8f8f8;
+    border: 1px dashed #bbb;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #555;
+  }
+  .answer-key .ak-title {
+    font-weight: 700;
+    color: #888;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .answer-key span.ok { color: #2e8b57; font-weight: 600; }
+
+  /* ── DIVIDER ── */
+  .mini-divider {
+    border: none;
+    border-top: 1px dashed #ddd;
+    margin: 18px 0;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; font-size: 13px; }
+    .container { padding: 0; max-width: 100%; }
+    .section { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .page-header { background: #1c2b4a !important; -webkit-print-color-adjust: exact; }
+    .timeline { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <div class="meta">Schüler: Asal &nbsp;·&nbsp; Niveau: A1 &nbsp;·&nbsp; Unterrichtszeit: 50 Minuten</div>
+    <h1>Lektion 1 &nbsp;–&nbsp; Artikel · Kasus · Pronomen &amp; Präsens</h1>
+  </div>
+  <div class="badge">A1 · Einheit 1</div>
+</div>
+
+<div class="container">
+
+  <!-- TEACHER TIMELINE -->
+  <div class="timeline">
+    <div class="tl-block">
+      <div class="tl-time">0–5 min</div>
+      <div class="tl-label">Warm-up</div>
+      <div class="tl-sub">Vorstellen</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">5–17 min</div>
+      <div class="tl-label">① Artikel</div>
+      <div class="tl-sub">der / die / das</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">17–32 min</div>
+      <div class="tl-label">② Kasus</div>
+      <div class="tl-sub">Nom. + Akk.</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">32–45 min</div>
+      <div class="tl-label">③ Pronomen</div>
+      <div class="tl-sub">&amp; Präsens</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">44–50 min</div>
+      <div class="tl-label">④ Lesetext</div>
+      <div class="tl-sub">+ 4 Aufgaben</div>
+    </div>
+  </div>
+
+  <!-- WARM-UP NOTE -->
+  <div class="intro-box">
+    <strong>Warm-up (0–5 Min):</strong> Asal stellt sich kurz auf Deutsch vor: Name, Alter, Herkunft.
+    Lehrer antwortet natürlich und stellt dabei <em>Artikel</em> bewusst betont ein: <em>„Das ist Asal. Sie ist eine Studentin aus dem Iran."</em>
+    → Überleitung zu Thema 1.
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- SECTION 1: ARTIKEL            -->
+  <!-- ───────────────────────────── -->
+  <div class="section s1">
+    <div class="section-header">
+      <div class="num">1</div>
+      <h2>Der Artikel – der / die / das / ein / eine</h2>
+      <div class="timing">⏱ 12 Min</div>
+    </div>
+    <div class="section-body">
+
+      <div class="rule-box">
+        <div class="rule-title">📌 Kernregel</div>
+        Jedes deutsche Substantiv hat einen Artikel. Es gibt drei Genera: <strong class="m">Maskulinum (der)</strong>, <strong class="f">Femininum (die)</strong>, <strong class="n">Neutrum (das)</strong>.
+        Substantive werden immer <strong>groß</strong> geschrieben.
+      </div>
+
+      <table class="gram">
+        <tr>
+          <th>Genus</th>
+          <th>bestimmter Artikel</th>
+          <th>unbestimmter Artikel</th>
+          <th>Beispiel</th>
+        </tr>
+        <tr>
+          <td><span class="m">Maskulinum</span></td>
+          <td><span class="m">der</span></td>
+          <td><span class="m">ein</span></td>
+          <td><span class="m">der Mann / ein Mann</span></td>
+        </tr>
+        <tr>
+          <td><span class="f">Femininum</span></td>
+          <td><span class="f">die</span></td>
+          <td><span class="f">eine</span></td>
+          <td><span class="f">die Frau / eine Frau</span></td>
+        </tr>
+        <tr>
+          <td><span class="n">Neutrum</span></td>
+          <td><span class="n">das</span></td>
+          <td><span class="n">ein</span></td>
+          <td><span class="n">das Kind / ein Kind</span></td>
+        </tr>
+        <tr>
+          <td><span class="pl">Plural (alle)</span></td>
+          <td><span class="pl">die</span></td>
+          <td><span class="pl">—</span></td>
+          <td><span class="pl">die Männer / die Frauen</span></td>
+        </tr>
+      </table>
+
+      <div class="rule-box">
+        <div class="rule-title">💡 Nullartikel</div>
+        Bei Berufen, Nationalitäten und Sprachen ohne Adjektiv → <strong>kein Artikel</strong>:<br>
+        <em>Ich bin Lehrerin. &nbsp;·&nbsp; Er ist Iraner. &nbsp;·&nbsp; Sie spricht Deutsch.</em>
+      </div>
+
+      <div class="ex-grid">
+        <div class="ex-box">
+          <div class="de">Das ist <span class="m">der</span> Tisch.</div>
+          <div class="en">This is the table. (m)</div>
+        </div>
+        <div class="ex-box">
+          <div class="de">Ich habe <span class="f">eine</span> Tasche.</div>
+          <div class="en">I have a bag. (f)</div>
+        </div>
+        <div class="ex-box">
+          <div class="de">Das ist <span class="n">das</span> Buch.</div>
+          <div class="en">This is the book. (n)</div>
+        </div>
+        <div class="ex-box">
+          <div class="de">Das sind <span class="pl">die</span> Bücher.</div>
+          <div class="en">These are the books. (pl)</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-title">✏️ Übung 1 – Welcher Artikel? Ergänze <em>der / die / das / ein / eine</em>.</div>
+        <ol>
+          <li><span class="blank"></span> Kaffee ist heiß. &nbsp;(m)</li>
+          <li>Das ist <span class="blank"></span> Frau. Sie heißt Mina. &nbsp;(f)</li>
+          <li>Ich habe <span class="blank"></span> Buch. &nbsp;(n)</li>
+          <li><span class="blank"></span> Männer trinken Tee. &nbsp;(Pl.)</li>
+          <li>Er ist <span class="blank"></span> Lehrer. &nbsp;(Nullartikel)</li>
+        </ol>
+      </div>
+
+      <div class="answer-key">
+        <div class="ak-title">Lösungen – Übung 1</div>
+        1. <span class="ok">Der</span> &nbsp; 2. <span class="ok">eine</span> &nbsp; 3. <span class="ok">ein</span> &nbsp; 4. <span class="ok">Die</span> &nbsp; 5. <span class="ok">–</span> (kein Artikel)
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- SECTION 2: KASUS              -->
+  <!-- ───────────────────────────── -->
+  <div class="section s2">
+    <div class="section-header">
+      <div class="num">2</div>
+      <h2>Kasus – Nominativ &amp; Akkusativ (A1)</h2>
+      <div class="timing">⏱ 15 Min</div>
+    </div>
+    <div class="section-body">
+
+      <div class="intro-box">
+        <strong>Erklärung:</strong> Im Deutschen ändert sich der Artikel je nach Funktion im Satz.
+        Auf A1-Niveau lernen wir zwei Fälle: <strong>Nominativ</strong> (Subjekt – wer/was tut etwas?)
+        und <strong>Akkusativ</strong> (Objekt – wen/was?).
+      </div>
+
+      <div class="rule-box">
+        <div class="rule-title">📌 Die W-Fragen</div>
+        <strong>Nominativ</strong> → Wer? / Was? &nbsp;(das Subjekt – handelt)<br>
+        <strong>Akkusativ</strong> → Wen? / Was? &nbsp;(das Objekt – wird beeinflusst)
+      </div>
+
+      <table class="gram">
+        <tr>
+          <th>Genus</th>
+          <th>Nominativ</th>
+          <th>Akkusativ</th>
+          <th>Änderung?</th>
+        </tr>
+        <tr>
+          <td><span class="m">Maskulinum</span></td>
+          <td><span class="m">der / ein</span></td>
+          <td><span class="m">den / einen</span></td>
+          <td>⚠️ <strong>Ja! –n</strong></td>
+        </tr>
+        <tr>
+          <td><span class="f">Femininum</span></td>
+          <td><span class="f">die / eine</span></td>
+          <td><span class="f">die / eine</span></td>
+          <td>✅ Keine Änderung</td>
+        </tr>
+        <tr>
+          <td><span class="n">Neutrum</span></td>
+          <td><span class="n">das / ein</span></td>
+          <td><span class="n">das / ein</span></td>
+          <td>✅ Keine Änderung</td>
+        </tr>
+        <tr>
+          <td><span class="pl">Plural</span></td>
+          <td><span class="pl">die</span></td>
+          <td><span class="pl">die</span></td>
+          <td>✅ Keine Änderung</td>
+        </tr>
+      </table>
+
+      <div class="rule-box">
+        <div class="rule-title">🔑 Eselsbrücke</div>
+        Nur der <strong>maskuline Artikel</strong> ändert sich im Akkusativ:<br>
+        <em><span class="m">der</span> → <span class="m">den</span> &nbsp;/&nbsp; <span class="m">ein</span> → <span class="m">einen</span></em><br>
+        Femininum, Neutrum und Plural bleiben gleich!
+      </div>
+
+      <div class="ex-grid">
+        <div class="ex-box">
+          <div class="de"><span class="m">Der</span> Mann trinkt <span class="m">einen</span> Kaffee.</div>
+          <div class="en">The man drinks a coffee.</div>
+        </div>
+        <div class="ex-box">
+          <div class="de"><span class="f">Die</span> Frau liest <span class="f">eine</span> Zeitung.</div>
+          <div class="en">The woman reads a newspaper.</div>
+        </div>
+        <div class="ex-box">
+          <div class="de">Ich kaufe <span class="m">den</span> Tisch.</div>
+          <div class="en">I buy the table.</div>
+        </div>
+        <div class="ex-box">
+          <div class="de">Er hat <span class="n">ein</span> Auto.</div>
+          <div class="en">He has a car.</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-title">✏️ Übung 2a – Nominativ oder Akkusativ? Markiere die Funktion.</div>
+        <ol>
+          <li><em>Der Lehrer</em> erklärt <em>die Grammatik</em>. &nbsp; → Lehrer: <span class="blank" style="width:100px"></span> &nbsp; Grammatik: <span class="blank" style="width:100px"></span></li>
+          <li><em>Asal</em> kauft <em>einen Apfel</em>. &nbsp; → Asal: <span class="blank" style="width:100px"></span> &nbsp; Apfel: <span class="blank" style="width:100px"></span></li>
+          <li><em>Das Kind</em> hat <em>ein Buch</em>. &nbsp; → Kind: <span class="blank" style="width:100px"></span> &nbsp; Buch: <span class="blank" style="width:100px"></span></li>
+        </ol>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-title">✏️ Übung 2b – Ergänze den richtigen Artikel (Nom. oder Akk.).</div>
+        <ol>
+          <li>Ich sehe <span class="blank"></span> Mann. &nbsp;(m, Akk.)</li>
+          <li><span class="blank"></span> Frau heißt Mina. &nbsp;(f, Nom.)</li>
+          <li>Hast du <span class="blank"></span> Stift? &nbsp;(m, Akk.)</li>
+          <li><span class="blank"></span> Buch ist interessant. &nbsp;(n, Nom.)</li>
+          <li>Wir trinken <span class="blank"></span> Tee. &nbsp;(m, Akk.)</li>
+        </ol>
+      </div>
+
+      <div class="answer-key">
+        <div class="ak-title">Lösungen – Übung 2a &amp; 2b</div>
+        2a: &nbsp;1. <span class="ok">Nom. / Akk.</span> &nbsp; 2. <span class="ok">Nom. / Akk.</span> &nbsp; 3. <span class="ok">Nom. / Akk.</span><br>
+        2b: &nbsp;1. <span class="ok">einen</span> &nbsp; 2. <span class="ok">Die</span> &nbsp; 3. <span class="ok">einen</span> &nbsp; 4. <span class="ok">Das</span> &nbsp; 5. <span class="ok">den</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- SECTION 3: PRONOMEN + PRÄSENS -->
+  <!-- ───────────────────────────── -->
+  <div class="section s3">
+    <div class="section-header">
+      <div class="num">3</div>
+      <h2>Personalpronomen &amp; Präsens</h2>
+      <div class="timing">⏱ 13 Min</div>
+    </div>
+    <div class="section-body">
+
+      <div class="intro-box">
+        <strong>Verbindung:</strong> Pronomen ersetzen Substantive. Mit dem richtigen Pronomen konjugieren wir das Verb im Präsens.
+      </div>
+
+      <h3 style="font-size:15px; color:#7b3fa0; margin-bottom:10px;">3a – Personalpronomen</h3>
+      <table class="gram">
+        <tr>
+          <th>Person</th>
+          <th>Pronomen</th>
+          <th>Beispiel</th>
+        </tr>
+        <tr><td>1. Sg.</td><td><strong>ich</strong></td><td>Ich heiße Asal.</td></tr>
+        <tr><td>2. Sg. (inf.)</td><td><strong>du</strong></td><td>Du lernst Deutsch.</td></tr>
+        <tr><td>3. Sg. m.</td><td><strong>er</strong></td><td>Er kommt aus Iran.</td></tr>
+        <tr><td>3. Sg. f.</td><td><strong>sie</strong></td><td>Sie trinkt Wasser.</td></tr>
+        <tr><td>3. Sg. n.</td><td><strong>es</strong></td><td>Es ist ein Kind.</td></tr>
+        <tr><td>1. Pl.</td><td><strong>wir</strong></td><td>Wir lernen zusammen.</td></tr>
+        <tr><td>2. Pl.</td><td><strong>ihr</strong></td><td>Ihr seid Studenten.</td></tr>
+        <tr><td>3. Pl.</td><td><strong>sie</strong></td><td>Sie kommen morgen.</td></tr>
+        <tr><td>2. Sg./Pl. (formell)</td><td><strong>Sie</strong></td><td>Wie heißen Sie?</td></tr>
+      </table>
+
+      <div class="rule-box">
+        <div class="rule-title">💡 Achtung: sie vs. Sie</div>
+        <strong>sie</strong> (klein) = she / they &nbsp;|&nbsp; <strong>Sie</strong> (groß) = formal you &nbsp;→ immer am Satzanfang oder groß!
+      </div>
+
+      <hr class="mini-divider">
+
+      <h3 style="font-size:15px; color:#7b3fa0; margin: 16px 0 10px;">3b – Präsens: Konjugation</h3>
+
+      <div class="rule-box">
+        <div class="rule-title">📌 Endungen regelmäßiger Verben (Stamm + Endung)</div>
+        Stamm = Infinitiv minus <strong>-en</strong> &nbsp;→ z.B. <em>lernen</em> → Stamm: <em>lern-</em>
+      </div>
+
+      <table class="conj">
+        <tr>
+          <th>Pronomen</th>
+          <th>lernen</th>
+          <th>kommen</th>
+          <th>heißen</th>
+          <th>arbeiten*</th>
+        </tr>
+        <tr><td>ich</td><td>lern<strong>e</strong></td><td>komm<strong>e</strong></td><td>heiß<strong>e</strong></td><td>arbeit<strong>e</strong></td></tr>
+        <tr><td>du</td><td>lern<strong>st</strong></td><td>komm<strong>st</strong></td><td>heiß<strong>t</strong></td><td>arbeit<strong>est</strong></td></tr>
+        <tr><td>er/sie/es</td><td>lern<strong>t</strong></td><td>komm<strong>t</strong></td><td>heiß<strong>t</strong></td><td>arbeit<strong>et</strong></td></tr>
+        <tr><td>wir</td><td>lern<strong>en</strong></td><td>komm<strong>en</strong></td><td>heiß<strong>en</strong></td><td>arbeit<strong>en</strong></td></tr>
+        <tr><td>ihr</td><td>lern<strong>t</strong></td><td>komm<strong>t</strong></td><td>heiß<strong>t</strong></td><td>arbeit<strong>et</strong></td></tr>
+        <tr><td>sie/Sie</td><td>lern<strong>en</strong></td><td>komm<strong>en</strong></td><td>heiß<strong>en</strong></td><td>arbeit<strong>en</strong></td></tr>
+      </table>
+      <p style="font-size:12px; color:#888; margin-top: -6px;">* Stämme auf <em>-t/-d</em> bekommen ein Extra-<strong>e</strong> (arbeite<strong>st</strong>, arbeite<strong>t</strong>).</p>
+
+      <h3 style="font-size:14px; color:#7b3fa0; margin: 18px 0 8px;">Unregelmäßig – sein &amp; haben</h3>
+      <table class="conj">
+        <tr>
+          <th>Pronomen</th>
+          <th>sein (to be)</th>
+          <th>haben (to have)</th>
+        </tr>
+        <tr><td>ich</td><td>bin</td><td>habe</td></tr>
+        <tr><td>du</td><td>bist</td><td>hast</td></tr>
+        <tr><td>er/sie/es</td><td>ist</td><td>hat</td></tr>
+        <tr><td>wir</td><td>sind</td><td>haben</td></tr>
+        <tr><td>ihr</td><td>seid</td><td>habt</td></tr>
+        <tr><td>sie/Sie</td><td>sind</td><td>haben</td></tr>
+      </table>
+
+      <div class="exercise">
+        <div class="ex-title">✏️ Übung 3 – Konjugiere das Verb in Klammern.</div>
+        <ol>
+          <li>Ich <span class="blank"></span> aus dem Iran. &nbsp;(kommen)</li>
+          <li>Du <span class="blank"></span> sehr gut Deutsch. &nbsp;(lernen)</li>
+          <li>Asal <span class="blank"></span> 27 Jahre alt. &nbsp;(sein)</li>
+          <li>Wir <span class="blank"></span> einen Kaffee. &nbsp;(trinken)</li>
+          <li>Er <span class="blank"></span> einen Bruder. &nbsp;(haben)</li>
+          <li>Ihr <span class="blank"></span> in Berlin. &nbsp;(wohnen)</li>
+          <li>Sie (Pl.) <span class="blank"></span> Studenten. &nbsp;(sein)</li>
+        </ol>
+      </div>
+
+      <div class="answer-key">
+        <div class="ak-title">Lösungen – Übung 3</div>
+        1. <span class="ok">komme</span> &nbsp; 2. <span class="ok">lernst</span> &nbsp; 3. <span class="ok">ist</span> &nbsp; 4. <span class="ok">trinken</span> &nbsp; 5. <span class="ok">hat</span> &nbsp; 6. <span class="ok">wohnt</span> &nbsp; 7. <span class="ok">sind</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────────────────────── -->
+  <!-- SECTION 4: LESETEXT           -->
+  <!-- ───────────────────────────── -->
+  <div class="section s4">
+    <div class="section-header">
+      <div class="num">4</div>
+      <h2>Lesetext &amp; Aufgaben – „Asal in Deutschland"</h2>
+      <div class="timing">⏱ 6 Min</div>
+    </div>
+    <div class="section-body">
+
+      <div class="intro-box">
+        <strong>Aufgabe:</strong> Lies den Text langsam. Achte auf die unterstrichenen Wörter – das sind Artikel, Pronomen und Verbformen, die wir heute gelernt haben.
+      </div>
+
+      <p style="font-size:13px; color:#888; margin-bottom:10px;">📚 Alle fett markierten Nomen, Verben und Adjektive stammen aus der A1-Vokabelliste.</p>
+
+      <div class="reading-text">
+        <p>
+          Ich heiße <strong>Asal</strong>. Ich <strong>komme</strong> aus dem <strong>Iran</strong>, aus <strong>Teheran</strong>.
+          Jetzt <strong>wohne</strong> ich in Deutschland – in <strong>München</strong>.
+          <span class="highlight">Die</span> <strong>Stadt</strong> ist <strong>groß</strong> und <strong>schön</strong>.
+          <span class="highlight">Die</span> Menschen hier sind sehr <strong>freundlich</strong>.
+        </p>
+        <p>
+          Ich <strong>lerne</strong> Deutsch. <span class="highlight">Der</span> <strong>Unterricht</strong> ist interessant.
+          Ich habe <span class="highlight">einen</span> <strong>Lehrer</strong>. <span class="highlight">Er</span> heißt Stefan.
+          <span class="highlight">Er</span> <strong>spricht</strong> langsam und ich <strong>verstehe</strong> alles gut.
+          Ich habe <span class="highlight">ein</span> <strong>Buch</strong>, <span class="highlight">einen</span> <strong>Stift</strong>
+          und <span class="highlight">ein</span> <strong>Heft</strong>.
+        </p>
+        <p>
+          Meine <strong>Wohnung</strong> ist <strong>klein</strong>, aber <strong>schön</strong>.
+          Ich habe <span class="highlight">ein</span> <strong>Bett</strong>, <span class="highlight">einen</span> <strong>Tisch</strong>,
+          <span class="highlight">einen</span> <strong>Stuhl</strong> und <span class="highlight">eine</span> <strong>Lampe</strong>.
+          <span class="highlight">Die</span> <strong>Küche</strong> ist <strong>neu</strong>.
+        </p>
+        <p>
+          Jeden Morgen <strong>esse</strong> ich <span class="highlight">ein</span> <strong>Brot</strong> mit <strong>Butter</strong>
+          und <strong>trinke</strong> <span class="highlight">einen</span> <strong>Kaffee</strong>.
+          <span class="highlight">Der</span> Kaffee ist <strong>heiß</strong> und <strong>gut</strong>.
+          Manchmal <strong>esse</strong> ich auch <span class="highlight">einen</span> <strong>Apfel</strong> –
+          <span class="highlight">das</span> <strong>Obst</strong> hier ist <strong>frisch</strong>.
+        </p>
+        <p>
+          Ich habe <span class="highlight">eine</span> <strong>Freundin</strong>. <span class="highlight">Sie</span> heißt Mina
+          und kommt auch aus dem Iran. <span class="highlight">Wir</span> <strong>lernen</strong> zusammen Deutsch
+          und <strong>trinken</strong> <strong>Tee</strong>.
+          <span class="highlight">Wir</span> <strong>sprechen</strong> über <span class="highlight">die</span> <strong>Familie</strong>
+          und das <strong>Leben</strong> in Deutschland.
+        </p>
+        <p>
+          Ich <strong>fahre</strong> jeden Tag mit <span class="highlight">dem</span> <strong>Bus</strong> zur Schule.
+          <span class="highlight">Der</span> <strong>Bahnhof</strong> ist <strong>groß</strong> und ich <strong>finde</strong>
+          <span class="highlight">den</span> Weg schnell.
+          Ich bin <strong>glücklich</strong> hier. Ich <strong>lerne</strong> jeden <strong>Tag</strong> etwas Neues!
+        </p>
+      </div>
+
+      <hr class="mini-divider">
+
+      <h3 style="font-size:15px; color:#c0552a; margin-bottom:14px;">A – Leseverstehen: Richtig (R) oder Falsch (F)?</h3>
+
+      <div class="questions">
+        <ol>
+          <li>Asal kommt aus der Türkei. &nbsp; <span class="blank" style="width:50px"></span></li>
+          <li>Asal wohnt in München. &nbsp; <span class="blank" style="width:50px"></span></li>
+          <li>Asals Wohnung ist groß. &nbsp; <span class="blank" style="width:50px"></span></li>
+          <li>Asal trinkt morgens einen Kaffee. &nbsp; <span class="blank" style="width:50px"></span></li>
+          <li>Mina kommt aus Deutschland. &nbsp; <span class="blank" style="width:50px"></span></li>
+          <li>Asal fährt mit dem Bus zur Schule. &nbsp; <span class="blank" style="width:50px"></span></li>
+        </ol>
+      </div>
+
+      <hr class="mini-divider">
+
+      <h3 style="font-size:15px; color:#c0552a; margin-bottom:14px;">B – W-Fragen: Antworte in ganzen Sätzen.</h3>
+
+      <div class="questions">
+        <ol>
+          <li>Woher kommt Asal? <span class="answer-line"></span></li>
+          <li>Wie ist Asals Wohnung? (Nenne 2 Adjektive.) <span class="answer-line"></span></li>
+          <li>Was hat Asal in ihrer Wohnung? (Nenne 4 Dinge mit Artikel.) <span class="answer-line"></span></li>
+          <li>Was isst und trinkt Asal am Morgen? <span class="answer-line"></span></li>
+          <li>Was machen Asal und Mina zusammen? <span class="answer-line"></span></li>
+          <li>Wie fährt Asal zur Schule? <span class="answer-line"></span></li>
+        </ol>
+      </div>
+
+      <hr class="mini-divider">
+
+      <h3 style="font-size:15px; color:#c0552a; margin-bottom:14px;">C – Grammatik im Text: Fülle die Tabelle aus.</h3>
+
+      <p style="font-size:14px; margin-bottom:12px;">Finde im Text je 3 Beispiele für Nominativ und Akkusativ. Schreibe Artikel + Nomen.</p>
+
+      <table class="gram">
+        <tr>
+          <th style="width:50%">Nominativ (Wer / Was?)</th>
+          <th style="width:50%">Akkusativ (Wen / Was?)</th>
+        </tr>
+        <tr><td style="height:34px"></td><td></td></tr>
+        <tr><td style="height:34px"></td><td></td></tr>
+        <tr><td style="height:34px"></td><td></td></tr>
+      </table>
+
+      <hr class="mini-divider">
+
+      <h3 style="font-size:15px; color:#c0552a; margin-bottom:14px;">D – Vokabular: Was ist das? Verbinde Deutsch – Englisch.</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:14px; margin-bottom:14px;">
+        <div style="background:#fff8f0; border:1px solid #f0d0a0; border-radius:8px; padding:10px 14px;">
+          <strong>Deutsch</strong><br>
+          1. der Stuhl<br>2. das Brot<br>3. der Lehrer<br>4. die Küche<br>5. das Heft<br>6. die Freundin<br>7. der Bahnhof<br>8. die Lampe
+        </div>
+        <div style="background:#fff8f0; border:1px solid #f0d0a0; border-radius:8px; padding:10px 14px;">
+          <strong>Englisch (gemischt)</strong><br>
+          a) friend (f) &nbsp;&nbsp; b) lamp<br>
+          c) exercise book &nbsp;&nbsp; d) chair<br>
+          e) kitchen &nbsp;&nbsp; f) bread<br>
+          g) teacher &nbsp;&nbsp; h) train station
+        </div>
+      </div>
+
+      <div class="answer-key">
+        <div class="ak-title">Lösungen – Lesetext</div>
+        <strong>A (R/F):</strong> &nbsp;
+        1. <span class="ok">F</span> (Iran) &nbsp;
+        2. <span class="ok">R</span> &nbsp;
+        3. <span class="ok">F</span> (klein) &nbsp;
+        4. <span class="ok">R</span> &nbsp;
+        5. <span class="ok">F</span> (auch aus dem Iran) &nbsp;
+        6. <span class="ok">R</span><br><br>
+        <strong>B (Musterlösungen):</strong><br>
+        1. Asal kommt aus dem Iran / aus Teheran.<br>
+        2. Die Wohnung ist klein und schön.<br>
+        3. Sie hat ein Bett, einen Tisch, einen Stuhl und eine Lampe.<br>
+        4. Sie isst ein Brot mit Butter und trinkt einen Kaffee / einen Apfel.<br>
+        5. Sie lernen zusammen Deutsch und trinken Tee.<br>
+        6. Sie fährt mit dem Bus.<br><br>
+        <strong>C (Beispiele):</strong><br>
+        Nom.: <span class="ok">Die Stadt · Der Unterricht · Die Küche · Der Bahnhof …</span><br>
+        Akk.: <span class="ok">einen Lehrer · einen Tisch · einen Stift · einen Kaffee · einen Apfel …</span><br><br>
+        <strong>D (Vokabular):</strong> &nbsp;
+        1-d &nbsp; 2-f &nbsp; 3-g &nbsp; 4-e &nbsp; 5-c &nbsp; 6-a &nbsp; 7-h &nbsp; 8-b
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div style="text-align:center; font-size:12px; color:#aaa; margin-top: 10px;">
+    Deutsch A1 · Lektion 1 · Für Asal · Erstellt: Juni 2026
+  </div>
+
+</div>
+</body>
+</html>

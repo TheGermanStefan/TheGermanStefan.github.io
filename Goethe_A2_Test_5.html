@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat A2 – Modellprüfung 5</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.7}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:90px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#4a148c 0%,#6a1b9a 35%,#1b5e20 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
+.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:18px 20px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
+.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
+.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
+.rn{width:30px;font-weight:700;color:#666}.ra{width:90px;text-align:center}
+.rf-wrap{display:flex;gap:6px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
+.qn{color:var(--blue);margin-right:4px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.sn{font-weight:700;min-width:18px}.st{flex:1}
+.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:50px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:20px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:120px;outline:none}
+.warea{width:100%;min-height:130px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
+.warea:focus{border-color:var(--purple)}
+.formbox{background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:12px}
+.formrow{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.flabel{font-weight:700;color:var(--purple);min-width:140px}
+.finput{border:none;border-bottom:1.5px solid #9c27b0;background:transparent;font-size:13px;padding:2px 6px;min-width:200px;outline:none}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px;margin-bottom:12px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.scq{font-weight:700;font-size:13px;color:var(--orange)}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
+.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
+.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:11px}
+.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
+.akb{padding:18px 20px}.akm{margin-bottom:18px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
+.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.personbox{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
+.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 13px;background:#f4f8ff;font-size:13px;min-width:160px}
+.pname{font-weight:800;color:var(--blue);font-size:13px;margin-bottom:4px}
+.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.85;margin-bottom:10px}
+.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:5px}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">1:40:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 30'</span>
+    <span class="tpill" id="tp2">Hören 30'</span>
+    <span class="tpill" id="tp3">Schreiben 30'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 5</div>
+    <h1>Goethe-Zertifikat A2 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>100 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">A2<span>Test 5</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 30 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 30 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Text lesen – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+    <div class="sbox">
+      <div class="smeta">Forum-Beitrag aus einem Einkaufs-Blog</div>
+      <strong>Mein Wochenmarkt – besser als der Supermarkt!</strong><br><br>
+      Ich kaufe seit zwei Jahren lieber auf dem <strong>Wochenmarkt</strong> als im Supermarkt. Bei uns in <strong>Freiburg</strong> gibt es jeden Samstag einen großen Markt auf dem Marktplatz. Dort kaufe ich frisches <strong>Gemüse, Obst, Brot und Käse</strong>. Die Qualität ist viel besser und die Produkte kommen oft direkt vom Bauernhof.<br><br>
+      Ja, manchmal ist es etwas <strong>teurer</strong> als im Supermarkt, aber ich finde es trotzdem besser. Die Verkäufer kennen mich und geben manchmal etwas mehr. Der einzige Nachteil: Der Markt ist nur <strong>samstags von 7 bis 13 Uhr</strong> geöffnet.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Die Autorin kauft seit zwei Jahren auf dem Wochenmarkt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Der Markt findet jeden Freitag statt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Die Produkte auf dem Markt sind immer billiger als im Supermarkt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Der Markt öffnet um 7 Uhr morgens.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Die Verkäufer kennen die Autorin persönlich.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Personen – Textzuordnung</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Welcher Text (A–E) passt zu welcher Person (6–10)?</div>
+    <div class="personbox">
+      <div class="pcard"><div class="pname">6. Günter</div>sucht eine günstige Winterjacke</div>
+      <div class="pcard"><div class="pname">7. Lena</div>möchte ihr Fahrrad reparieren lassen</div>
+      <div class="pcard"><div class="pname">8. Marco</div>sucht ein Restaurant für Vegetarier</div>
+      <div class="pcard"><div class="pname">9. Anja</div>möchte ein Musikkonzert besuchen</div>
+      <div class="pcard"><div class="pname">10. Reza</div>sucht einen Deutschkurs am Wochenende</div>
+    </div>
+    <div class="textblock"><div class="textlbl">Text A</div>Grünküche – das Restaurant für bewusste Ernährung! 100 % pflanzliche Küche, täglich frisch. Reservierungen: 030-7712.</div>
+    <div class="textblock"><div class="textlbl">Text B</div>Fahrrad-Service Weber: Reparaturen schnell und günstig. Mo–Sa 9–18 Uhr. Wir holen Ihr Rad auch ab!</div>
+    <div class="textblock"><div class="textlbl">Text C</div>Jazzfestival Köln – Freitag und Samstag, 20 Uhr, Stadtpark. Karten ab 15 € an allen Vorverkaufsstellen.</div>
+    <div class="textblock"><div class="textlbl">Text D</div>Winterjacken Sale! Bis zu 50 % Rabatt auf alle Modelle. Nur bis Sonntag. SportHaus Klinger, Hauptstraße 5.</div>
+    <div class="textblock"><div class="textlbl">Text E</div>Deutsch lernen am Wochenende – Sa und So, 10–14 Uhr. Alle Niveaus. VHS Neukölln, Anmeldung: vhs-nk.de</div>
+
+    <div class="sits" style="margin-top:8px">
+      <div class="sit"><span class="sn">6.</span><span class="st">Günter</span><select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">7.</span><span class="st">Lena</span><select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">8.</span><span class="st">Marco</span><select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">9.</span><span class="st">Anja</span><select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+      <div class="sit"><span class="sn">10.</span><span class="st">Reza</span><select class="ssel"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Anzeigen lesen – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie die Anzeigen und beantworten Sie die Fragen.</div>
+
+    <div class="textblock"><div class="textlbl">Anzeige 1 – Stellenausschreibung</div>Bäckerei Richter sucht <strong>Verkäuferin/Verkäufer (Teilzeit)</strong>. Arbeitszeit: <strong>Mo–Sa, 6:00–11:00 Uhr</strong>. Lohn: <strong>12 € / Stunde</strong>. Gute Deutschkenntnisse erforderlich. Bewerbung: baeckerei-richter@gmail.com</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Wie ist die Arbeitszeit bei der Bäckerei?</div>
+      <div class="mco" data-grp="q11">
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> Nachmittags</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> Morgens, 6–11 Uhr</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> Ganztags</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Wie viel verdient man pro Stunde?</div>
+      <div class="mco" data-grp="q12">
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> 10 €</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> 11 €</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> 12 €</button>
+      </div>
+    </div>
+
+    <div class="textblock"><div class="textlbl">Anzeige 2 – Stadtführung</div>Entdecken Sie <strong>Dresden bei Nacht</strong>! Geführte Abendtour durch die Altstadt. Dauer: ca. <strong>2 Stunden</strong>. Start: täglich um <strong>20:00 Uhr</strong> am Zwinger. Preis: <strong>14 € pro Person</strong>, Kinder bis 12 Jahre kostenlos.</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Wie lange dauert die Stadtführung?</div>
+      <div class="mco" data-grp="q13">
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> 1 Stunde</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> 2 Stunden</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> 3 Stunden</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Was kostet die Tour für ein Kind von 10 Jahren?</div>
+      <div class="mco" data-grp="q14">
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> 14 €</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> 7 €</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Kostenlos</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Wo beginnt die Tour?</div>
+      <div class="mco" data-grp="q15">
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Am Bahnhof</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Am Rathaus</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Am Zwinger</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Chat-Nachrichten – Richtig oder Falsch?</span><span class="ppts">10 Pkt</span></div>
+    <div class="instr">Lesen Sie die Chat-Nachrichten. Richtig (R) oder Falsch (F)?</div>
+
+    <div class="sbox">
+      <div class="smeta">WhatsApp-Chat: Freunde planen ein Wochenende</div>
+      <strong>Kai:</strong> Hey, habt ihr Lust, am Wochenende zusammen etwas zu machen? Vielleicht Fahrrad fahren?<br>
+      <strong>Sara:</strong> Super Idee! Ich bin dabei. Wann genau? Samstag oder Sonntag?<br>
+      <strong>Kai:</strong> Ich dachte an <strong>Sonntag, 10 Uhr</strong>. Wir können am Stadtpark starten.<br>
+      <strong>Sara:</strong> Perfekt! Soll ich <strong>Sandwiches</strong> mitbringen?<br>
+      <strong>Kai:</strong> Ja, bitte! Ich bringe <strong>Getränke</strong> mit. Cola und Wasser.<br>
+      <strong>Tom:</strong> Hi! Ich komme auch gerne mit. Kann ich meine Schwester <strong>Lisa</strong> mitbringen? Sie ist <strong>14 Jahre alt</strong> und fährt sehr gern Rad.<br>
+      <strong>Kai:</strong> Natürlich! Je mehr, desto besser. Also: Sonntag, 10 Uhr, Stadtpark. Bitte denkt an <strong>Sonnencreme</strong> – es soll warm werden!
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">16.</td><td>Sie planen eine Fahrradtour.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">17.</td><td>Die Tour findet am Samstag statt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">18.</td><td>Sie treffen sich um 10 Uhr.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">19.</td><td>Sara bringt Getränke mit.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">20.</td><td>Kai bringt Cola und Wasser.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">21.</td><td>Toms Schwester heißt Lisa.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">22.</td><td>Lisa ist 16 Jahre alt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">23.</td><td>Der Treffpunkt ist der Stadtpark.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">24.</td><td>Sie sollen Sonnencreme mitnehmen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">25.</td><td>Sara möchte nicht mitkommen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 30 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzmeldungen – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Sie hören 5 kurze Ansagen. Wählen Sie die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Ansage 1</div>„Morgen früh starker Frost und glattes Eis – Autofahrer sollten besonders vorsichtig fahren. Temperaturen nachts bis <strong>minus 8 Grad</strong>."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">26.</span> Was sind die Temperaturen nachts?</div>
+      <div class="mco" data-grp="q26">
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> −3 Grad</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> −8 Grad</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> +2 Grad</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Ansage 2</div>„Im Kaufhaus Zentrum: Kasse 3 und 4 sind heute <strong>geschlossen</strong>. Bitte zahlen Sie an Kasse 1, 2 oder 5."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">27.</span> Welche Kassen sind geöffnet?</div>
+      <div class="mco" data-grp="q27">
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> Kasse 3 und 4</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> Kasse 1, 2 und 5</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> Alle Kassen</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Ansage 3</div>„Das Stadtfest beginnt am <strong>Freitag, den 21. Juni</strong> um 16 Uhr auf dem Marktplatz. Der Eintritt ist frei."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">28.</span> Wann beginnt das Stadtfest?</div>
+      <div class="mco" data-grp="q28">
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> Sa, 21. Juni, 18 Uhr</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> Fr, 21. Juni, 16 Uhr</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> Fr, 14. Juni, 16 Uhr</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Ansage 4</div>„Bitte beachten Sie: Der Aufzug im Gebäude B ist zurzeit <strong>außer Betrieb</strong>. Bitte benutzen Sie die Treppe."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">29.</span> Was sollen die Leute tun?</div>
+      <div class="mco" data-grp="q29">
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Den Aufzug in Gebäude A nehmen</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> Die Treppe benutzen</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> Warten, bis der Aufzug repariert ist</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Ansage 5</div>„Liebe Studierende: Die Mensa ist heute wegen einer <strong>Betriebsfeier</strong> ab 14 Uhr geschlossen. Kalt-Getränke gibt es im Foyer."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">30.</span> Warum schließt die Mensa früh?</div>
+      <div class="mco" data-grp="q30">
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Wegen Reinigung</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> Wegen Betriebsfeier</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Wegen Krankheit des Personals</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Gespräch – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie das Gespräch. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+    <div class="dial"><div class="dlabel">Gespräch: Frau König macht Einkäufe</div>
+      <strong>Frau König:</strong> Entschuldigung, wo finde ich Brot?<br>
+      <strong>Mitarbeiter:</strong> Brot finden Sie in <strong>Reihe 4</strong>, gleich neben den Backwaren.<br>
+      <strong>Frau König:</strong> Danke. Haben Sie auch Bio-Äpfel?<br>
+      <strong>Mitarbeiter:</strong> Ja, im Obst- und Gemüsebereich, <strong>links am Eingang</strong>.<br>
+      <strong>Frau König:</strong> Und wo ist die Kasse?<br>
+      <strong>Mitarbeiter:</strong> Die Kassen sind <strong>hinten rechts</strong>. Sie können auch an der Selbstzahl-Kasse zahlen – das geht schneller.<br>
+      <strong>Frau König:</strong> Prima. Haben Sie auch eine <strong>Apotheke</strong> im Haus?<br>
+      <strong>Mitarbeiter:</strong> Nein, leider nicht. Aber es gibt eine direkt <strong>gegenüber</strong>.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">31.</td><td>Das Brot ist in Reihe 4.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">32.</td><td>Die Bio-Äpfel sind rechts am Eingang.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">33.</td><td>Es gibt eine Selbstzahl-Kasse.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">34.</td><td>Im Markt gibt es eine Apotheke.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">35.</td><td>Die Apotheke ist gegenüber vom Markt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Interviews – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Sie hören drei Meinungen zum Thema „Freizeit". Wählen Sie die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Interview 1 – Kevin, 24</div>„In meiner Freizeit mache ich am liebsten <strong>Sport</strong>. Ich laufe jeden Morgen eine Stunde. Das gibt mir Energie für den Tag."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">36.</span> Was macht Kevin in seiner Freizeit?</div>
+      <div class="mco" data-grp="q36">
+        <button class="mcb" onclick="pickMC(this,'q36')"><span class="ll">a</span> Musik hören</button>
+        <button class="mcb" onclick="pickMC(this,'q36')"><span class="ll">b</span> Sport machen</button>
+        <button class="mcb" onclick="pickMC(this,'q36')"><span class="ll">c</span> Fernsehen</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Interview 2 – Frau Sato, 42, Lehrerin</div>„Ich entspanne mich am besten beim <strong>Gärtnern</strong>. Ich habe einen kleinen Garten und pflanze Tomaten und Kräuter. Das macht mich glücklich."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">37.</span> Wie entspannt sich Frau Sato?</div>
+      <div class="mco" data-grp="q37">
+        <button class="mcb" onclick="pickMC(this,'q37')"><span class="ll">a</span> Beim Kochen</button>
+        <button class="mcb" onclick="pickMC(this,'q37')"><span class="ll">b</span> Beim Lesen</button>
+        <button class="mcb" onclick="pickMC(this,'q37')"><span class="ll">c</span> Beim Gärtnern</button>
+      </div>
+    </div>
+
+    <div class="dial"><div class="dlabel">Interview 3 – Ben, 17, Schüler</div>„Meine Hobbys sind <strong>Computerspiele</strong> und Musik. Ich spiele Gitarre in einer Band. Am Wochenende proben wir immer zusammen."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">38.</span> Was macht Ben am Wochenende?</div>
+      <div class="mco" data-grp="q38">
+        <button class="mcb" onclick="pickMC(this,'q38')"><span class="ll">a</span> Er geht joggen</button>
+        <button class="mcb" onclick="pickMC(this,'q38')"><span class="ll">b</span> Er probt mit seiner Band</button>
+        <button class="mcb" onclick="pickMC(this,'q38')"><span class="ll">c</span> Er lernt Spanisch</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Ansage – Informationen ergänzen</span><span class="ppts">10 Pkt</span></div>
+    <div class="instr">Hören Sie die Ansage (2× vorlesen) und ergänzen Sie.</div>
+    <div class="dial"><div class="dlabel">Ansage: Wintermarkt in Leipzig</div>
+      „Herzlich willkommen zum <strong>Leipziger Wintermarkt</strong>! Der Markt ist geöffnet vom <strong>28. November bis 23. Dezember</strong>, täglich von <strong>11 bis 21 Uhr</strong>. Freitags und samstags bis <strong>22 Uhr</strong>. Auf dem Markt finden Sie über <strong>200 Händler</strong> mit Geschenken, Weihnachtsschmuck und Spezialitäten aus aller Welt. Jeden Abend ab 17 Uhr gibt es <strong>Musik und Gesang</strong>. Für Kinder gibt es eine <strong>Eisbahn</strong> – der Eislauf kostet <strong>5 Euro</strong> inklusive Schlittschuh-Ausleihe. Der Markt ist in der <strong>Innenstadt</strong>, direkt am Augustusplatz. Parken Sie bitte in der Tiefgarage Petersstraße."</div>
+
+    <div class="filrow"><span class="filn">39.</span> Marktname: <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">40.</span> Dauer: <input class="filin" type="text" placeholder=""> bis <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">41.</span> Öffnungszeit (täglich): <input class="filin" type="text" placeholder=""> bis <input class="filin" type="text" placeholder=""> Uhr</div>
+    <div class="filrow"><span class="filn">42.</span> Öffnungszeit Fr/Sa: bis <input class="filin" type="text" placeholder=""> Uhr</div>
+    <div class="filrow"><span class="filn">43.</span> Anzahl Händler: <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">44.</span> Musik ab: <input class="filin" type="text" placeholder=""> Uhr</div>
+    <div class="filrow"><span class="filn">45.</span> Kinderangebot: <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">46.</span> Kosten Eisbahn: <input class="filin" type="text" placeholder=""> €</div>
+    <div class="filrow"><span class="filn">47.</span> Ort: <input class="filin" type="text" placeholder=""></div>
+    <div class="filrow"><span class="filn">48.</span> Parken: <input class="filin" type="text" placeholder=""></div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 30 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Formular ausfüllen</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Füllen Sie das Anmeldeformular für den Wintermarkt-Newsletter aus.</div>
+    <div class="formbox">
+      <div style="font-weight:800;color:var(--purple);margin-bottom:11px;font-size:14px">Wintermarkt Leipzig – Newsletter-Anmeldung</div>
+      <div class="formrow"><span class="flabel">Vorname:</span><input class="finput" type="text"></div>
+      <div class="formrow"><span class="flabel">Nachname:</span><input class="finput" type="text"></div>
+      <div class="formrow"><span class="flabel">Straße &amp; Hausnummer:</span><input class="finput" type="text"></div>
+      <div class="formrow"><span class="flabel">Postleitzahl / Stadt:</span><input class="finput" type="text"></div>
+      <div class="formrow"><span class="flabel">E-Mail:</span><input class="finput" type="text"></div>
+      <div class="formrow"><span class="flabel">Lieblings-Thema:</span><input class="finput" type="text" placeholder="z.B. Essen, Musik, Schmuck …"></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Nachricht schreiben (30–40 Wörter)</span><span class="ppts">20 Pkt</span></div>
+    <div class="instr">Schreiben Sie eine WhatsApp-Nachricht an Ihren Freund / Ihre Freundin. Schreiben Sie zu diesen Punkten:<br><strong>1. Einladen &nbsp; 2. Was gibt es dort? &nbsp; 3. Wann und wo treffen?</strong></div>
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:12px;font-size:13px;line-height:1.8">
+      <strong style="color:var(--purple)">Situation:</strong> Sie möchten mit einem Freund / einer Freundin zum Wintermarkt in Leipzig gehen. Laden Sie ihn/sie ein, beschreiben Sie kurz, was es auf dem Markt gibt, und schlagen Sie eine Uhrzeit zum Treffen vor.
+    </div>
+    <textarea class="warea" id="write1" placeholder="Hey! Hast du Lust, ..."></textarea>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="instr">Die Lehrkraft führt das Gespräch. Dieser Teil wird benotet.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Vorstellen</span><span class="ppts">7 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      Erzählen Sie: <strong>Name · Herkunft · Wohnort · Beruf oder Studium · Familie · Freizeit · Lieblingsessen</strong>
+    </div>
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Über Themen sprechen</span><span class="ppts">9 Pkt</span></div>
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Thema A</div><div class="scq">🌦 Wetter & Jahreszeiten</div>Welche Jahreszeit mögen Sie? Was machen Sie im Winter / Sommer? Wie ist das Wetter in Ihrer Heimat?</div>
+      <div class="spcard"><div class="scn">Thema B</div><div class="scq">🛒 Einkaufen</div>Wo kaufen Sie am liebsten ein – im Supermarkt, auf dem Markt oder online? Warum?</div>
+    </div>
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Gemeinsam planen</span><span class="ppts">9 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      <strong>Aufgabe:</strong> Sie und ein Freund / eine Freundin möchten am Wochenende zum Weihnachtsmarkt gehen. Planen Sie zusammen: Wann? Wie fahren Sie hin? Was möchten Sie kaufen oder essen?
+    </div>
+
+    <table class="stbl" style="margin-top:12px">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung &amp; Inhalt</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
+        <tr><td>Aussprache &amp; Flüssigkeit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Wortschatz</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Grammatik</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen</h3>
+      <div class="akp"><h4>T1 – Wochenmarkt</h4>
+        <div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (Sa)</span></div><div class="chip">3→<span class="ok">F (manchmal teurer)</span></div><div class="chip">4→<span class="ok">R</span></div><div class="chip">5→<span class="ok">R</span></div></div>
+      </div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4>
+        <div class="chips"><div class="chip">6→<span class="ok">D</span></div><div class="chip">7→<span class="ok">B</span></div><div class="chip">8→<span class="ok">A</span></div><div class="chip">9→<span class="ok">C</span></div><div class="chip">10→<span class="ok">E</span></div></div>
+      </div>
+      <div class="akp"><h4>T3 – Anzeigen</h4>
+        <div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">c</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">c</span></div><div class="chip">15→<span class="ok">c</span></div></div>
+      </div>
+      <div class="akp"><h4>T4 – Chat Fahrradtour</h4>
+        <div class="chips"><div class="chip">16→<span class="ok">R</span></div><div class="chip">17→<span class="ok">F (So)</span></div><div class="chip">18→<span class="ok">R</span></div><div class="chip">19→<span class="ok">F (Sara bringt Sandwiches)</span></div><div class="chip">20→<span class="ok">R</span></div><div class="chip">21→<span class="ok">R</span></div><div class="chip">22→<span class="ok">F (14 Jahre)</span></div><div class="chip">23→<span class="ok">R</span></div><div class="chip">24→<span class="ok">R</span></div><div class="chip">25→<span class="ok">F</span></div></div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören</h3>
+      <div class="akp"><h4>T1</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">b</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T2 – Einkauf</h4>
+        <div class="chips"><div class="chip">31→<span class="ok">R</span></div><div class="chip">32→<span class="ok">F (links)</span></div><div class="chip">33→<span class="ok">R</span></div><div class="chip">34→<span class="ok">F</span></div><div class="chip">35→<span class="ok">R</span></div></div>
+      </div>
+      <div class="akp"><h4>T3</h4><div class="chips"><div class="chip">36→<span class="ok">b</span></div><div class="chip">37→<span class="ok">c</span></div><div class="chip">38→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T4 – Wintermarkt</h4>
+        <div class="chips"><div class="chip">39→<span class="ok">Leipziger Wintermarkt</span></div><div class="chip">40→<span class="ok">28.11./23.12.</span></div><div class="chip">41→<span class="ok">11/21</span></div><div class="chip">42→<span class="ok">22</span></div><div class="chip">43→<span class="ok">200</span></div><div class="chip">44→<span class="ok">17</span></div><div class="chip">45→<span class="ok">Eisbahn</span></div><div class="chip">46→<span class="ok">5</span></div><div class="chip">47→<span class="ok">Innenstadt/Augustusplatz</span></div><div class="chip">48→<span class="ok">TG Petersstraße</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe A2 Modellprüfung Nr. 5 · Viel Erfolg! 🍀</div>
+</div>
+
+<script>
+function pickRF(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => b.classList.remove('selR','selF'));
+  btn.classList.add(choice === 'R' ? 'selR' : 'selF');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+(function(){
+  const TOTAL = 100 * 60;
+  const MODS = [
+    { id: 'tp1', from: TOTAL,         to: TOTAL - 30*60 },
+    { id: 'tp2', from: TOTAL - 30*60, to: TOTAL - 60*60 },
+    { id: 'tp3', from: TOTAL - 60*60, to: TOTAL - 90*60 },
+    { id: 'tp4', from: TOTAL - 90*60, to: 0 }
+  ];
+  let rem = TOTAL, running = true, iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

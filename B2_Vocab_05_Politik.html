@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS B2 Vocab Politik</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#c62828;--green:#2e7d32;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#7f0000);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:6px}
+.wc{background:#ffebee;border:2px solid #ef9a9a;border-radius:12px;padding:14px 16px}
+.wc-art{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px}
+.wc-de{font-size:17px;font-weight:900;color:var(--navy);margin:3px 0}
+.wc-en{font-size:13px;color:var(--txt2)}
+.wc-ex{font-size:12px;color:var(--txt2);margin-top:6px;border-top:1px solid #ef9a9a;padding-top:6px;font-style:italic}
+.qblock{background:#ffebee;border:2px solid #ef9a9a;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #ef9a9a;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#ffebee}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:#b71c1c;border-color:#b71c1c;color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#fff3e0;color:#bf360c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#ffebee;border-radius:10px;border:1.5px solid #ef9a9a}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:150px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:#b71c1c;color:#b71c1c}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#ffebee}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ef9a9a;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:#b71c1c;color:#b71c1c}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#7f0000,#c62828);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#7f0000}
+</style></head><body><div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">B2</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="crumb_vocab">Vocab</span>
+    <span class="tb-badge">B2</span><span class="tb-mod">Set 5</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div id="lang-bar" style="display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;"></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">🏛️</div>
+  <div><div class="ph-title">Wortschatz: Politik</div><div class="ph-sub">12 B2-Wörter zu Politik und Demokratie</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl" data-t="score_label">correct</div></div></div>
+<div class="wrap">
+<div class="card"><div class="sec-title">📚 Wortschatz-Karten</div>
+<div class="word-grid"><div class="wc"><div class="wc-art">die</div><div class="wc-de">Demokratie</div><div class="wc-en">democracy</div><div class="wc-ex">Die Demokratie lebt von der Beteiligung der Bürger.</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Meinungsfreiheit</div><div class="wc-en">freedom of speech</div><div class="wc-ex">Meinungsfreiheit ist ein Grundrecht.</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Opposition</div><div class="wc-en">opposition</div><div class="wc-ex">Die Opposition kritisiert die Regierungspolitik.</div></div><div class="wc"><div class="wc-art">der</div><div class="wc-de">Kompromiss</div><div class="wc-en">compromise</div><div class="wc-ex">Ohne Kompromiss gibt es keine Einigung.</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Transparenz</div><div class="wc-en">transparency</div><div class="wc-ex">Transparenz ist in der Demokratie unerlässlich.</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Lobbyarbeit</div><div class="wc-en">lobbying</div><div class="wc-ex">Lobbyarbeit beeinflusst politische Entscheidungen.</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Rechenschaftspflicht</div><div class="wc-en">accountability</div><div class="wc-ex">Politiker haben eine Rechenschaftspflicht gegenüber Bürgern.</div></div><div class="wc"><div class="wc-art">vettern</div><div class="wc-de">—</div><div class="wc-en">to veto</div><div class="wc-ex">Der Präsident kann Gesetze vettern. (ein Veto einlegen)</div></div><div class="wc"><div class="wc-art">die</div><div class="wc-de">Gewaltenteilung</div><div class="wc-en">separation of powers</div><div class="wc-ex">Gewaltenteilung ist ein Kernprinzip des Rechtsstaats.</div></div><div class="wc"><div class="wc-art">der</div><div class="wc-de">Rechtsstaat</div><div class="wc-en">constitutional state</div><div class="wc-ex">Deutschland ist ein demokratischer Rechtsstaat.</div></div><div class="wc"><div class="wc-art">das</div><div class="wc-de">Wahlrecht</div><div class="wc-en">right to vote / electoral law</div><div class="wc-ex">Das Wahlrecht gilt ab 18 Jahren.</div></div><div class="wc"><div class="wc-art">populistisch</div><div class="wc-de">—</div><div class="wc-en">populist</div><div class="wc-ex">Populistische Aussagen vereinfachen komplexe Probleme.</div></div></div></div>
+<div class="card"><div class="sec-title" data-t="mc_title">🎯 Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">"Gewaltenteilung" refers to:</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">Military force</button><button class="qopt" onclick="mc(this,1,true)">Separation of powers</button><button class="qopt" onclick="mc(this,1,false)">Violence in politics</button><button class="qopt" onclick="mc(this,1,false)">Government authority</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">"populistisch" describes:</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">Complex, nuanced arguments</button><button class="qopt" onclick="mc(this,2,true)">Simple, emotionally appealing but often misleading political messages</button><button class="qopt" onclick="mc(this,2,false)">Academic political theory</button><button class="qopt" onclick="mc(this,2,false)">Conservative fiscal policy</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">"Rechenschaftspflicht" means:</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">Right to privacy</button><button class="qopt" onclick="mc(this,3,true)">Accountability</button><button class="qopt" onclick="mc(this,3,false)">Tax obligation</button><button class="qopt" onclick="mc(this,3,false)">Voting duty</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">"Kompromiss" means:</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">Conflict</button><button class="qopt" onclick="mc(this,4,true)">Compromise</button><button class="qopt" onclick="mc(this,4,false)">Competition</button><button class="qopt" onclick="mc(this,4,false)">Confrontation</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Rechtsstaat" is:</div><div class="qopts"><button class="qopt" onclick="mc(this,5,true)">A state governed by the rule of law / constitutional state</button><button class="qopt" onclick="mc(this,5,false)">A state with only right-wing parties</button><button class="qopt" onclick="mc(this,5,false)">A state without courts</button><button class="qopt" onclick="mc(this,5,false)">A term for the German states</button></div><div class="qfb" id="qfb5"></div></div><div class="qblock"><div class="qnum">Q6</div><div class="qtext">"Lobbyarbeit" refers to:</div><div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Volunteer work</button><button class="qopt" onclick="mc(this,6,true)">Interest group influence on political decisions</button><button class="qopt" onclick="mc(this,6,false)">Diplomatic negotiations</button><button class="qopt" onclick="mc(this,6,false)">Public demonstrations</button></div><div class="qfb" id="qfb6"></div></div><div class="qblock"><div class="qnum">Q7</div><div class="qtext">"Meinungsfreiheit" means:</div><div class="qopts"><button class="qopt" onclick="mc(this,7,false)">Freedom of movement</button><button class="qopt" onclick="mc(this,7,true)">Freedom of speech / opinion</button><button class="qopt" onclick="mc(this,7,false)">Freedom of the press</button><button class="qopt" onclick="mc(this,7,false)">Freedom of religion</button></div><div class="qfb" id="qfb7"></div></div><div class="qblock"><div class="qnum">Q8</div><div class="qtext">Which is a key principle of democracy mentioned in the words?</div><div class="qopts"><button class="qopt" onclick="mc(this,8,false)">Monarchy</button><button class="qopt" onclick="mc(this,8,true)">Gewaltenteilung — separation of powers</button><button class="qopt" onclick="mc(this,8,false)">Lobbyarbeit</button><button class="qopt" onclick="mc(this,8,false)">Populismus</button></div><div class="qfb" id="qfb8"></div></div><div class="qblock"><div class="qnum">Q9</div><div class="qtext">"Transparenz" in politics means:</div><div class="qopts"><button class="qopt" onclick="mc(this,9,false)">Privacy of government decisions</button><button class="qopt" onclick="mc(this,9,true)">Openness and accountability of processes</button><button class="qopt" onclick="mc(this,9,false)">Secret diplomacy</button><button class="qopt" onclick="mc(this,9,false)">A transparency film used in parliament</button></div><div class="qfb" id="qfb9"></div></div><div class="qblock"><div class="qnum">Q10</div><div class="qtext">Das ___ gilt in Deutschland ab 18 Jahren. (voting right)</div><div class="qopts"><button class="qopt" onclick="mc(this,10,false)">Kompromiss</button><button class="qopt" onclick="mc(this,10,true)">Wahlrecht</button><button class="qopt" onclick="mc(this,10,false)">Rechtsstaat</button><button class="qopt" onclick="mc(this,10,false)">Veto</button></div><div class="qfb" id="qfb10"></div></div>
+</div>
+<div class="card"><div class="sec-title" data-t="fill_title">✏️ Fill in the blanks</div>
+<div class="fill-row"><input class="fi" id="f1" placeholder="?"> ist ein Kernprinzip des Rechtsstaats. (Gewaltenteilung)</div>
+<div class="fill-row">Die Opposition kritisiert mangelnde <input class="fi" id="f2" placeholder="?"> der Regierung. (Transparenz)</div>
+<div class="fill-row">Ohne <input class="fi" id="f3" placeholder="?"> ist eine Einigung schwierig. (Kompromiss)</div>
+<div class="fill-row"><input class="fi" id="f4" placeholder="?"> Aussagen vereinfachen komplexe Realitäten. (Populistische)</div>
+<div class="fill-row">Politikern kommt eine <input class="fi" id="f5" placeholder="?"> gegenüber den Bürgern zu. (Rechenschaftspflicht)</div>
+<button class="chk-btn" onclick="checkFill(['Gewaltenteilung','Transparenz','Kompromiss','Populistische','Rechenschaftspflicht'],['f1','f2','f3','f4','f5'],'fr1')" data-t="check_btn">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')" data-t="reset_btn">Reset</button>
+<div id="fr1" class="rb"></div></div><div class="cta"><a class="cta-btn btn-back" href="B2_Vocab_04_Kultur.html" data-t="back_hub">&#8592; Vocab 4</a><a class="cta-btn btn-next" href="B2_Sprechen_01_Argumentation.html">B2 Sprechen 1 &#8594;</a></div></div><script>
+const LANG={en:{fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',check_btn:'Check',reset_btn:'Reset',mc_title:'🎯 Multiple Choice',fill_title:'✏️ Fill in the blanks',rf_title:'✅ Richtig oder Falsch?',home:'Home',back_hub:'← B2 Hub',score_label:'correct',crumb_grammar:'Grammar',crumb_reading:'Reading',crumb_vocab:'Vocabulary',crumb_speaking:'Speaking'},fr:{fb_correct:'Correct !',fb_wrong:'Pas tout à fait.',res_perfect:'Parfait !',res_great:'Très bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct',check_btn:'Vérifier',reset_btn:'Réinitialiser',mc_title:'🎯 Choix multiple',fill_title:'✏️ Complétez les blancs',rf_title:'✅ Vrai ou Faux ?',home:'Accueil',back_hub:'← Hub B2',score_label:'correct',crumb_grammar:'Grammaire',crumb_reading:'Lecture',crumb_vocab:'Vocabulaire',crumb_speaking:'Expression'},es:{fb_correct:'¡Correcto!',fb_wrong:'No del todo.',res_perfect:'¡Perfecto!',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',check_btn:'Verificar',reset_btn:'Reiniciar',mc_title:'🎯 Opción múltiple',fill_title:'✏️ Rellena los huecos',rf_title:'✅ ¿Verdadero o Falso?',home:'Inicio',back_hub:'← Hub B2',score_label:'correctas',crumb_grammar:'Gramática',crumb_reading:'Lectura',crumb_vocab:'Vocabulario',crumb_speaking:'Conversación'},it:{fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',check_btn:'Verifica',reset_btn:'Reimposta',mc_title:'🎯 Scelta multipla',fill_title:'✏️ Completa i testi',rf_title:'✅ Vero o Falso?',home:'Home',back_hub:'← Hub B2',score_label:'corrette',crumb_grammar:'Grammatica',crumb_reading:'Lettura',crumb_vocab:'Vocabolario',crumb_speaking:'Parlato'},pt:{fb_correct:'Correto!',fb_wrong:'Não foi.',res_perfect:'Perfeito!',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',check_btn:'Verificar',reset_btn:'Reiniciar',mc_title:'🎯 Múltipla escolha',fill_title:'✏️ Preencha os espaços',rf_title:'✅ Verdadeiro ou Falso?',home:'Início',back_hub:'← Hub B2',score_label:'corretas',crumb_grammar:'Gramática',crumb_reading:'Leitura',crumb_vocab:'Vocabulário',crumb_speaking:'Conversação'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||LANG.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{applyLang()});
+</script>
+</body>
+</html>

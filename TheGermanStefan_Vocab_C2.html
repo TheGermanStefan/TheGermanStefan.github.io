@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C2 Vocabulary — TheGermanStefan</title>
+<style>
+:root{--lc:#37474f;--lc2:#1c313a;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:52px;z-index:190;}
+.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
+.mode-tab{border:none;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;}
+.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid #ddd;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;}
+.fbtn.on{background:var(--lc);color:#fff;border-color:var(--lc);}
+.fbtn:hover:not(.on){background:var(--off);}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:6px 12px;font-size:13px;min-width:160px;outline:none;color:var(--navy);}
+.search-box:focus{border-color:var(--lc);}
+.cat-select{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;outline:none;}
+#list-view{padding:16px;max-width:1100px;margin:0 auto;}
+.word-count{font-size:12px;color:#888;margin-bottom:10px;}
+.word-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.word-table th{background:var(--lc);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.word-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid #f0f2f8;vertical-align:middle;}
+.word-table tr:last-child td{border-bottom:none;}
+.word-table tr:hover td{background:#f4f5f6;}
+.de-word{font-weight:700;color:var(--navy);}
+.de-art{color:var(--lc);font-weight:600;font-size:12px;margin-right:4px;}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tb-n{background:#e3f2fd;color:#1565c0;}.tb-v{background:#e8f5e9;color:#2e7d32;}.tb-adj{background:#fce4ec;color:#c62828;}.tb-adv{background:#fff3e0;color:#e65100;}.tb-exp{background:#f3e5f5;color:#6a1b9a;}.tb-prep{background:#e0f2f1;color:#00695c;}.tb-conj{background:#fff8e1;color:#f57f17;}.tb-num{background:#fbe9e7;color:#bf360c;}.tb-pron{background:#e8eaf6;color:#283593;}
+.ex-text{font-style:italic;color:#666;font-size:12px;}
+.no-results{text-align:center;padding:40px;color:#999;font-size:14px;}
+#flash-view{display:none;padding:20px 16px;max-width:700px;margin:0 auto;}
+.flash-progress-bar{height:6px;background:#e0e4ee;border-radius:3px;margin-bottom:16px;overflow:hidden;}
+.flash-progress-fill{height:100%;background:var(--lc);border-radius:3px;transition:width .3s;}
+.flash-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;color:#666;}
+.flash-counter{font-weight:700;color:var(--navy);}
+.flash-known{color:#2e7d32;font-weight:700;}.flash-learning{color:#c62828;font-weight:700;}
+.card-wrap{perspective:1000px;margin-bottom:20px;}
+.card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;border-radius:16px;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.10);}
+.card-front{background:#fff;border:2px solid var(--lc);}
+.card-back{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;transform:rotateY(180deg);}
+.card-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);background:rgba(55,71,79,.08);border-radius:20px;padding:3px 12px;margin-bottom:16px;}
+.card-back .card-cat{color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);}
+.card-article{font-size:22px;font-weight:600;color:var(--lc);margin-bottom:4px;}
+.card-word{font-size:36px;font-weight:900;color:var(--navy);letter-spacing:-1px;}
+.card-back .card-word{color:#fff;font-size:26px;}
+.card-translation{font-size:24px;font-weight:800;margin-bottom:12px;}
+.card-example{font-size:13px;opacity:.85;font-style:italic;margin-top:8px;line-height:1.5;}
+.card-hint{font-size:12px;color:#aaa;margin-top:16px;}
+.flash-btns{display:flex;gap:12px;justify-content:center;margin-bottom:16px;}
+.flash-btn{padding:12px 32px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;}
+.btn-know{background:#2e7d32;color:#fff;}.btn-know:hover{background:#1b5e20;}
+.btn-learn{background:#c62828;color:#fff;}.btn-learn:hover{background:#7f0000;}
+.flash-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.flash-nav-btn{padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;}
+.flash-nav-btn:hover{background:var(--off);}
+.flash-done{text-align:center;padding:40px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.flash-done h2{font-size:28px;font-weight:900;margin-bottom:10px;}
+.flash-done .score{font-size:48px;font-weight:900;color:var(--lc);}
+.flash-done p{color:#666;margin-bottom:20px;}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:40px;}
+@media(max-width:600px){.word-table th:nth-child(4),.word-table td:nth-child(4){display:none;}.card-word{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → C2</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Mastery</div>
+  <div class="lvl-name">C2</div>
+  <div class="lvl-desc" data-t="level_desc">Near-native mastery: rare words, elevated style, nuanced idioms &amp; academic register</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" id="total-count">~2000 words</span>
+    <span class="lvl-stat" data-t="stat_topics">18 topics</span>
+    <span class="lvl-stat" data-t="stat_flash">Flashcards included</span>
+  </div>
+</div>
+<div class="controls">
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-list" onclick="switchMode('list')" data-t="mode_list">📋 Word List</button>
+    <button class="mode-tab" id="tab-flash" onclick="switchMode('flash')" data-t="mode_flash">🃏 Flashcards</button>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn on" data-type="all" onclick="setType('all')" data-t="type_all">All</button>
+    <button class="fbtn" data-type="n" onclick="setType('n')" data-t="type_n">Nouns</button>
+    <button class="fbtn" data-type="v" onclick="setType('v')" data-t="type_v">Verbs</button>
+    <button class="fbtn" data-type="adj" onclick="setType('adj')" data-t="type_adj">Adjectives</button>
+    <button class="fbtn" data-type="adv" onclick="setType('adv')" data-t="type_adv">Adverbs</button>
+    <button class="fbtn" data-type="exp" onclick="setType('exp')" data-t="type_exp">Expressions</button>
+    <button class="fbtn" data-type="prep" onclick="setType('prep')" data-t="type_prep">Prepositions</button>
+    <button class="fbtn" data-type="conj" onclick="setType('conj')" data-t="type_conj">Conjunctions</button>
+  </div>
+  <select class="cat-select" id="cat-select" onchange="setCat(this.value)"></select>
+  <input class="search-box" id="search-box" placeholder="Search..." oninput="doSearch(this.value)" data-t-placeholder="search_ph">
+</div>
+<div id="list-view">
+  <div class="word-count" id="word-count"></div>
+  <table class="word-table">
+    <thead><tr>
+      <th data-t="col_word">Word</th><th data-t="col_type">Type</th><th data-t="col_category">Category</th><th data-t="col_translation">Translation</th><th data-t="col_example">Example</th>
+    </tr></thead>
+    <tbody id="word-tbody"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none" data-t="no_results">No words found.</div>
+</div>
+<div id="flash-view">
+  <div class="flash-progress-bar"><div class="flash-progress-fill" id="flash-fill"></div></div>
+  <div class="flash-stats-row">
+    <span class="flash-counter" id="flash-counter"></span>
+    <span><span class="flash-known" id="flash-known">✓ 0</span> &nbsp; <span class="flash-learning" id="flash-learning">✗ 0</span></span>
+  </div>
+  <div class="card-wrap">
+    <div class="card" id="flash-card" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-cat" id="cf-cat"></div>
+        <div class="card-article" id="cf-art"></div>
+        <div class="card-word" id="cf-word"></div>
+        <div class="card-hint" data-t="card_click">Click to reveal</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="cb-cat"></div>
+        <div class="card-translation" id="cb-trans"></div>
+        <div class="card-example" id="cb-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div id="flash-done" class="flash-done" style="display:none">
+    <div style="font-size:48px">🎉</div>
+    <h2 data-t="done_title">Round complete!</h2>
+    <div class="score" id="done-score"></div>
+    <p data-t="done_sub">words marked as known</p>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="restart_btn">Restart all</button>
+    <button class="flash-nav-btn" onclick="reviewLearning()" data-t="review_btn">Review still learning</button>
+  </div>
+  <div class="flash-btns" id="flash-action-btns">
+    <button class="flash-btn btn-know" onclick="markCard(true)" data-t="btn_know">✓ Know it</button>
+    <button class="flash-btn btn-learn" onclick="markCard(false)" data-t="btn_learn">✗ Still learning</button>
+  </div>
+  <div class="flash-nav">
+    <button class="flash-nav-btn" onclick="prevCard()" data-t="btn_prev">← Previous</button>
+    <button class="flash-nav-btn" onclick="shuffleCards()" data-t="btn_shuffle">🔀 Shuffle</button>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="btn_restart">↺ Restart</button>
+    <button class="flash-nav-btn" onclick="nextCard()" data-t="btn_next">Next →</button>
+  </div>
+</div>
+<div style="text-align:center"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
+<div class="footer">TheGermanStefan — C2 Mastery Vocabulary © 2025</div>
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → C2',level_tag:'Mastery',level_desc:'Near-native mastery: rare words, elevated style, nuanced idioms & academic register',stat_topics:'18 topics',stat_flash:'Flashcards included',mode_list:'📋 Word List',mode_flash:'🃏 Flashcards',type_all:'All',type_n:'Nouns',type_v:'Verbs',type_adj:'Adjectives',type_adv:'Adverbs',type_exp:'Expressions',type_prep:'Prepositions',type_conj:'Conjunctions',cat_all:'All Categories',search_ph:'Search...',col_word:'Word',col_type:'Type',col_category:'Category',col_translation:'Translation',col_example:'Example',no_results:'No words found.',card_click:'Click to reveal',done_title:'Round complete!',done_sub:'words known',restart_btn:'Restart all',review_btn:'Review still learning',btn_know:'✓ Know it',btn_learn:'✗ Still learning',btn_prev:'← Previous',btn_shuffle:'🔀 Shuffle',btn_restart:'↺ Restart',btn_next:'Next →',back_hub:'← Back to Hub',wc_showing:'Showing',wc_of:'of',wc_words:'words',card_of:'Card',card_of2:'of',tname_n:'Noun',tname_v:'Verb',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Number',tname_pron:'Pronoun'},
+fr:{crumb:'📚 Centre Vocab → C2',level_tag:'Maîtrise',level_desc:'Maîtrise quasi-native : mots rares, style élevé, idiomes nuancés',stat_topics:'18 thèmes',stat_flash:'Cartes incluses',mode_list:'📋 Liste',mode_flash:'🃏 Cartes',type_all:'Tout',type_n:'Noms',type_v:'Verbes',type_adj:'Adjectifs',type_adv:'Adverbes',type_exp:'Expressions',type_prep:'Prépositions',type_conj:'Conjonctions',cat_all:'Toutes catégories',search_ph:'Rechercher...',col_word:'Mot',col_type:'Type',col_category:'Catégorie',col_translation:'Traduction',col_example:'Exemple',no_results:'Aucun mot trouvé.',card_click:'Cliquez pour révéler',done_title:'Série terminée !',done_sub:'mots sus',restart_btn:'Recommencer',review_btn:'Revoir',btn_know:'✓ Je sais',btn_learn:'✗ À revoir',btn_prev:'← Précédent',btn_shuffle:'🔀 Mélanger',btn_restart:'↺ Recommencer',btn_next:'Suivant →',back_hub:'← Retour au Hub',wc_showing:'Affichage',wc_of:'sur',wc_words:'mots',card_of:'Carte',card_of2:'sur',tname_n:'Nom',tname_v:'Verbe',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prép.',tname_conj:'Conj.',tname_num:'Nombre',tname_pron:'Pronom'},
+es:{crumb:'📚 Centro Vocab → C2',level_tag:'Maestría',level_desc:'Dominio casi nativo: palabras raras, estilo elevado, modismos matizados',stat_topics:'18 temas',stat_flash:'Tarjetas incluidas',mode_list:'📋 Lista',mode_flash:'🃏 Tarjetas',type_all:'Todo',type_n:'Sustantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Adverbios',type_exp:'Expresiones',type_prep:'Preposiciones',type_conj:'Conjunciones',cat_all:'Todas categorías',search_ph:'Buscar...',col_word:'Palabra',col_type:'Tipo',col_category:'Categoría',col_translation:'Traducción',col_example:'Ejemplo',no_results:'No se encontraron palabras.',card_click:'Haz clic para revelar',done_title:'¡Ronda completa!',done_sub:'palabras conocidas',restart_btn:'Reiniciar',review_btn:'Repasar',btn_know:'✓ Lo sé',btn_learn:'✗ Repasando',btn_prev:'← Anterior',btn_shuffle:'🔀 Mezclar',btn_restart:'↺ Reiniciar',btn_next:'Siguiente →',back_hub:'← Volver al Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palabras',card_of:'Tarjeta',card_of2:'de',tname_n:'Sust.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expresión',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'},
+it:{crumb:'📚 Centro Vocab → C2',level_tag:'Padronanza',level_desc:'Padronanza quasi nativa: parole rare, stile elevato, idiomi sfumati',stat_topics:'18 argomenti',stat_flash:'Schede incluse',mode_list:'📋 Lista',mode_flash:'🃏 Schede',type_all:'Tutto',type_n:'Sostantivi',type_v:'Verbi',type_adj:'Aggettivi',type_adv:'Avverbi',type_exp:'Espressioni',type_prep:'Preposizioni',type_conj:'Congiunzioni',cat_all:'Tutte categorie',search_ph:'Cerca...',col_word:'Parola',col_type:'Tipo',col_category:'Categoria',col_translation:'Traduzione',col_example:'Esempio',no_results:'Nessuna parola trovata.',card_click:'Clicca per rivelare',done_title:'Round completato!',done_sub:'parole conosciute',restart_btn:'Ricominciare',review_btn:'Rivedere',btn_know:'✓ Lo so',btn_learn:'✗ Da rivedere',btn_prev:'← Precedente',btn_shuffle:'🔀 Mescola',btn_restart:'↺ Ricomincia',btn_next:'Successivo →',back_hub:'← Torna al Hub',wc_showing:'Mostrando',wc_of:'di',wc_words:'parole',card_of:'Scheda',card_of2:'di',tname_n:'Sost.',tname_v:'Verbo',tname_adj:'Agg.',tname_adv:'Avv.',tname_exp:'Espressione',tname_prep:'Prep.',tname_conj:'Cong.',tname_num:'Numero',tname_pron:'Pron.'},
+pt:{crumb:'📚 Centro Vocab → C2',level_tag:'Mestria',level_desc:'Domínio quase nativo: palavras raras, estilo elevado, idiomas matizados',stat_topics:'18 tópicos',stat_flash:'Flashcards incluídos',mode_list:'📋 Lista',mode_flash:'🃏 Flashcards',type_all:'Tudo',type_n:'Substantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Advérbios',type_exp:'Expressões',type_prep:'Preposições',type_conj:'Conjunções',cat_all:'Todas categorias',search_ph:'Pesquisar...',col_word:'Palavra',col_type:'Tipo',col_category:'Categoria',col_translation:'Tradução',col_example:'Exemplo',no_results:'Nenhuma palavra encontrada.',card_click:'Clique para revelar',done_title:'Rodada concluída!',done_sub:'palavras conhecidas',restart_btn:'Reiniciar',review_btn:'Rever',btn_know:'✓ Já sei',btn_learn:'✗ Aprendendo',btn_prev:'← Anterior',btn_shuffle:'🔀 Embaralhar',btn_restart:'↺ Reiniciar',btn_next:'Próximo →',back_hub:'← Voltar ao Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palavras',card_of:'Card',card_of2:'de',tname_n:'Subst.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expressão',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'}
+};
+const VOCAB=[
+// RARE & ELEVATED NOUNS
+{w:'Gleichmut',a:'der',t:'n',cat:'Rare & Elevated',en:'equanimity / composure',fr:'équanimité / sérénité',es:'ecuanimidad / calma',it:'equanimità / compostezza',pt:'equanimidade / serenidade',ex:'Er begegnet allem mit Gleichmut.'},
+{w:'Belesenheit',a:'die',t:'n',cat:'Rare & Elevated',en:'wide reading / erudition',fr:'érudition / culture',es:'erudición / cultura literaria',it:'erudizione / cultura letteraria',pt:'erudição / cultura literária',ex:'Seine Belesenheit ist beeindruckend.'},
+{w:'Schwermut',a:'die',t:'n',cat:'Rare & Elevated',en:'melancholy / heaviness of heart',fr:'mélancolie / tristesse profonde',es:'melancolía / pesadumbre',it:'malinconia / tristezza profonda',pt:'melancolia / tristeza profunda',ex:'Die Schwermut des Herbstes.'},
+{w:'Weltanschauung',a:'die',t:'n',cat:'Rare & Elevated',en:'worldview / philosophy of life',fr:'vision du monde / idéologie',es:'cosmovisión / visión del mundo',it:'visione del mondo / Weltanschauung',pt:'cosmovisão / visão de mundo',ex:'Seine Weltanschauung ist komplex.'},
+{w:'Zeitgeist',a:'der',t:'n',cat:'Rare & Elevated',en:'spirit of the age / zeitgeist',fr:'air du temps / zeitgeist',es:'espíritu de la época / zeitgeist',it:'spirito del tempo / Zeitgeist',pt:'espírito do tempo / zeitgeist',ex:'Der Zeitgeist der 1960er Jahre war revolutionär.'},
+{w:'Schadenfreude',a:'die',t:'n',cat:'Rare & Elevated',en:'pleasure in another\'s misfortune',fr:'joie maligne / schadenfreude',es:'schadenfreude / alegría maliciosa',it:'godimento della disgrazia altrui',pt:'prazer com o sofrimento alheio',ex:'Er empfindet Schadenfreude.'},
+{w:'Fernweh',a:'das',t:'n',cat:'Rare & Elevated',en:'wanderlust / longing for far-away places',fr:'envie de voyager / wanderlust',es:'ansias de viajar / wanderlust',it:'nostalgia di luoghi lontani',pt:'desejo de viajar / wanderlust',ex:'Mich packt das Fernweh.'},
+{w:'Torschlusspanik',a:'die',t:'n',cat:'Rare & Elevated',en:'last-minute panic / fear of missing out',fr:'panique de la dernière chance',es:'pánico del último momento',it:'panico da ultimo treno',pt:'pânico de perder o momento',ex:'Er hat Torschlusspanik.'},
+{w:'Weltschmerz',a:'der',t:'n',cat:'Rare & Elevated',en:'world-weariness / angst about the state of the world',fr:'tristesse du monde / mélancolie romantique',es:'dolor del mundo / melancolía universal',it:'dolore del mondo / Weltschmerz',pt:'angústia existencial / dor do mundo',ex:'Er leidet an Weltschmerz.'},
+{w:'Fingerspitzengefühl',a:'das',t:'n',cat:'Rare & Elevated',en:'tact / sensitivity / delicacy of touch',fr:'tact / doigté / délicatesse',es:'tacto / delicadeza',it:'tatto / delicatezza / sensibilità',pt:'tato / delicadeza / sensibilidade',ex:'Das erfordert viel Fingerspitzengefühl.'},
+{w:'Unerschütterlichkeit',a:'die',t:'n',cat:'Rare & Elevated',en:'imperturbability / steadfastness',fr:'imperturbabilité / fermeté',es:'imperturbabilidad / firmeza',it:'imperturbabilità / fermezza',pt:'imperturbabilidade / firmeza',ex:'Seine Unerschütterlichkeit ist bewundernswert.'},
+{w:'Sprachgefühl',a:'das',t:'n',cat:'Rare & Elevated',en:'feeling for language / linguistic intuition',fr:'sens de la langue / intuition linguistique',es:'sentido del idioma / intuición lingüística',it:'senso della lingua / intuizione linguistica',pt:'feeling para língua / intuição linguística',ex:'Sie hat ein ausgezeichnetes Sprachgefühl.'},
+{w:'Gedankenstrich',a:'der',t:'n',cat:'Rare & Elevated',en:'dash (punctuation) / train of thought',fr:'tiret / pensée',es:'guión / pensamiento',it:'lineetta / tratto di pensiero',pt:'travessão / pensamento',ex:'Der Gedankenstrich deutet eine Pause an.'},
+{w:'Wendepunkt',a:'der',t:'n',cat:'Rare & Elevated',en:'turning point',fr:'tournant / point de basculement',es:'punto de inflexión / giro',it:'punto di svolta',pt:'ponto de inflexão / virada',ex:'Das war ein Wendepunkt in meinem Leben.'},
+{w:'Zwiespalt',a:'der',t:'n',cat:'Rare & Elevated',en:'conflict / dilemma / inner turmoil',fr:'conflit intérieur / dilemme',es:'conflicto interior / dilema',it:'conflitto interiore / dilemma',pt:'conflito interior / dilema',ex:'Er steht im Zwiespalt.'},
+// MASTERY VERBS C2
+{w:'sich erdreisten',a:'',t:'v',cat:'Mastery Verbs',en:'to dare / presume (impertinently)',fr:'oser / avoir l\'audace de',es:'atreverse / tener la osadía de',it:'osare / permettersi',pt:'ousar / atrever-se (impudentemente)',ex:'Wie erdreistet er sich, das zu sagen?'},
+{w:'anmaßen',a:'',t:'v',cat:'Mastery Verbs',en:'to presume / arrogate',fr:'s\'arroger / se permettre',es:'arrogarse / presumir de',it:'arrogarsi',pt:'arrogar-se / presumir',ex:'Er maßt sich das Recht an.'},
+{w:'beschwichtigen',a:'',t:'v',cat:'Mastery Verbs',en:'to appease / pacify / placate',fr:'apaiser / calmer / pacifier',es:'apaciguar / calmar / aplacar',it:'placare / calmare / pacificare',pt:'apaziguar / acalmar / aplacar',ex:'Er versucht, sie zu beschwichtigen.'},
+{w:'schwadronieren',a:'',t:'v',cat:'Mastery Verbs',en:'to blather / hold forth',fr:'péroyer / bavarder',es:'perorar / charlar',it:'blaterare / cianciare',pt:'tagarelar / discursar sem conteúdo',ex:'Er schwadroniert wieder stundenlang.'},
+{w:'herumlavieren',a:'',t:'v',cat:'Mastery Verbs',en:'to manoeuvre around / dodge',fr:'louvoyer / manœuvrer',es:'maniobrar / esquivar',it:'destreggiarsi / barcamenarsi',pt:'manobrar / se esquivar',ex:'Er versucht, sich herum zu lavieren.'},
+{w:'verunglimpfen',a:'',t:'v',cat:'Mastery Verbs',en:'to defame / disparage',fr:'diffamer / dénigrer',es:'difamar / denigrar',it:'diffamare / denigrare',pt:'difamar / denegrir',ex:'Er verunglimpft seinen Rivalen.'},
+{w:'sich verausgaben',a:'',t:'v',cat:'Mastery Verbs',en:'to exhaust oneself / overextend',fr:'s\'épuiser / se dépenser',es:'agotarse / desgastarse',it:'esaurirsi / prodigarsi',pt:'se esgotar / se exaurir',ex:'Er hat sich völlig verausgabt.'},
+{w:'sich fügen',a:'',t:'v',cat:'Mastery Verbs',en:'to submit / comply / resign oneself',fr:'se soumettre / se résigner',es:'resignarse / someterse / acatar',it:'rassegnarsi / adeguarsi',pt:'resignar-se / aceitar',ex:'Er fügt sich dem Schicksal.'},
+{w:'entwaffnen',a:'',t:'v',cat:'Mastery Verbs',en:'to disarm (literally & figuratively)',fr:'désarmer',es:'desarmar',it:'disarmare',pt:'desarmar',ex:'Sein Lächeln entwaffnet jeden.'},
+{w:'zuwider sein',a:'',t:'v',cat:'Mastery Verbs',en:'to be repugnant / be contrary to',fr:'répugner / être contraire à',es:'repugnar / ser contrario a',it:'ripugnare / essere contrario a',pt:'ser repugnante / ser contrário a',ex:'Das ist mir zutiefst zuwider.'},
+{w:'grübeln',a:'',t:'v',cat:'Mastery Verbs',en:'to brood / ponder / ruminate',fr:'ruminer / gamberger',es:'cavilar / rumiar',it:'rimuginare / almanaccare',pt:'remoer / cismar',ex:'Er grübelt die ganze Nacht.'},
+{w:'beargwöhnen',a:'',t:'v',cat:'Mastery Verbs',en:'to be suspicious of / eye with suspicion',fr:'suspecter / avoir des doutes sur',es:'sospechar de / recelar',it:'sospettare di / diffidare di',pt:'suspeitar de / desconfiar de',ex:'Er beargwöhnt jeden.'},
+// MASTERY ADJECTIVES C2
+{w:'lapidar',a:'',t:'adj',cat:'Mastery Adjectives',en:'lapidary / concise and pithy',fr:'lapidaire',es:'lapidario',it:'lapidario',pt:'lapidar',ex:'Eine lapidare Antwort.'},
+{w:'devot',a:'',t:'adj',cat:'Mastery Adjectives',en:'servile / obsequious',fr:'servile / obséquieux',es:'servil / obsecuente',it:'servile / ossequioso',pt:'servil / submisso',ex:'Sein devotes Auftreten nervt.'},
+{w:'blasiert',a:'',t:'adj',cat:'Mastery Adjectives',en:'blasé / world-weary / jaded',fr:'blasé',es:'hastiado / indiferente',it:'blasé / stanco del mondo',pt:'blasé / saturado',ex:'Er wirkt blasiert.'},
+{w:'obskur',a:'',t:'adj',cat:'Mastery Adjectives',en:'obscure / murky',fr:'obscur',es:'oscuro / ignoto',it:'oscuro / ignoto',pt:'obscuro',ex:'Das ist ein obskures Werk.'},
+{w:'eloquent',a:'',t:'adj',cat:'Mastery Adjectives',en:'eloquent',fr:'éloquent',es:'elocuente',it:'eloquente',pt:'eloquente',ex:'Sie ist eine eloquente Rednerin.'},
+{w:'penibel',a:'',t:'adj',cat:'Mastery Adjectives',en:'meticulous / fussy / pedantic',fr:'méticuleux / pointilleux',es:'meticuloso / quisquilloso',it:'meticoloso / puntiglioso',pt:'meticuloso / esmerado',ex:'Er ist penibel beim Putzen.'},
+{w:'maliziös',a:'',t:'adj',cat:'Mastery Adjectives',en:'malicious / spiteful',fr:'malicieux / malveillant',es:'malicioso / malintencionado',it:'malizioso / malevolo',pt:'malicioso / maldoso',ex:'Ein maliziöser Blick.'},
+{w:'unveräußerlich',a:'',t:'adj',cat:'Mastery Adjectives',en:'inalienable',fr:'inaliénable',es:'inalienable',it:'inalienabile',pt:'inalienável',ex:'Das ist ein unveräußerliches Recht.'},
+{w:'seraphisch',a:'',t:'adj',cat:'Mastery Adjectives',en:'seraphic / angelic',fr:'séraphique / angélique',es:'seráfico / angelical',it:'serafico / angelico',pt:'seráfico / angélico',ex:'Ein seraphisches Lächeln.'},
+{w:'apodiktisch',a:'',t:'adj',cat:'Mastery Adjectives',en:'apodictic / asserting without proof',fr:'apodictique',es:'apodíctico',it:'apodittico',pt:'apodítico',ex:'Eine apodiktische Behauptung.'},
+{w:'skurril',a:'',t:'adj',cat:'Mastery Adjectives',en:'bizarre / eccentric / skurril',fr:'bizarre / farfelu / grotesque',es:'estrambótico / extravagante',it:'bizzarro / stravagante',pt:'bizarro / excêntrico',ex:'Eine skurrile Geschichte.'},
+{w:'verfänglich',a:'',t:'adj',cat:'Mastery Adjectives',en:'compromising / tricky / loaded',fr:'compromettant / piégeux',es:'comprometedor / espinoso',it:'compromettente / insidioso',pt:'comprometedor / perigoso',ex:'Eine verfängliche Frage.'},
+// MASTERY IDIOMS & EXPRESSIONS
+{w:'Eulen nach Athen tragen',a:'',t:'exp',cat:'Mastery Idioms',en:'to carry coals to Newcastle / do something pointless',fr:'porter de l\'eau à la rivière',es:'llevar leña al monte / nadar y guardar la ropa',it:'portare vasi a Samo / portare acqua al mare',pt:'vender gelo para esquimó / fazer algo inútil',ex:'Das wäre Eulen nach Athen tragen.'},
+{w:'auf großem Fuß leben',a:'',t:'exp',cat:'Mastery Idioms',en:'to live extravagantly / beyond one\'s means',fr:'vivre sur un grand pied',es:'vivir a lo grande / vivir por encima de las posibilidades',it:'vivere nel lusso / vivere al di sopra dei propri mezzi',pt:'viver em grande / viver acima das possibilidades',ex:'Er lebt auf großem Fuß.'},
+{w:'Wasser predigen und Wein trinken',a:'',t:'exp',cat:'Mastery Idioms',en:'to preach water but drink wine / be hypocritical',fr:'prêcher le vin et boire de l\'eau (inversé)',es:'predicar agua y beber vino',it:'predicare bene e razzolare male',pt:'pregar água e beber vinho',ex:'Er predigt Wasser und trinkt Wein.'},
+{w:'sich in die Nesseln setzen',a:'',t:'exp',cat:'Mastery Idioms',en:'to get into trouble / put oneself in a difficult situation',fr:'se mettre dans les orties / se mettre dans le pétrin',es:'meterse en un lío',it:'cacciarsi nei guai',pt:'se meter em encrenca',ex:'Er hat sich in die Nesseln gesetzt.'},
+{w:'ein zweischneidiges Schwert sein',a:'',t:'exp',cat:'Mastery Idioms',en:'to be a double-edged sword',fr:'être une arme à double tranchant',es:'ser un arma de doble filo',it:'essere un'arma a doppio taglio',pt:'ser uma faca de dois gumes',ex:'Das ist ein zweischneidiges Schwert.'},
+{w:'auf Sand gebaut sein',a:'',t:'exp',cat:'Mastery Idioms',en:'to be built on sand / have no solid foundation',fr:'être bâti sur du sable',es:'estar construido sobre arena',it:'essere costruito sulla sabbia',pt:'estar construído sobre areia',ex:'Sein Geschäftsplan ist auf Sand gebaut.'},
+{w:'den Weg des geringsten Widerstands gehen',a:'',t:'exp',cat:'Mastery Idioms',en:'to take the path of least resistance',fr:'suivre la voie de la moindre résistance',es:'seguir el camino de la menor resistencia',it:'seguire la via della minor resistenza',pt:'seguir o caminho de menor resistência',ex:'Er geht immer den Weg des geringsten Widerstands.'},
+{w:'aus der Reihe tanzen',a:'',t:'exp',cat:'Mastery Idioms',en:'to stand out from the crowd / not conform',fr:'ne pas rentrer dans le rang / ne pas suivre le mouvement',es:'desmarcarse / no seguir la corriente',it:'uscire dalla fila / non conformarsi',pt:'sair do padrão / não se conformar',ex:'Er tanzt gerne aus der Reihe.'},
+{w:'zwischen den Stühlen sitzen',a:'',t:'exp',cat:'Mastery Idioms',en:'to fall between two stools / be in a no-win situation',fr:'être assis entre deux chaises',es:'estar entre dos aguas',it:'essere seduto tra due sedie',pt:'ficar entre a cruz e a espada',ex:'Er sitzt zwischen den Stühlen.'},
+// COMPOUND CONCEPTS
+{w:'Gedankenexperiment',a:'das',t:'n',cat:'Compound Concepts',en:'thought experiment',fr:'expérience de pensée',es:'experimento mental / gedankenexperiment',it:'esperimento mentale',pt:'experimento mental',ex:'Das ist ein Gedankenexperiment.'},
+{w:'Widerspruchsfreiheit',a:'die',t:'n',cat:'Compound Concepts',en:'logical consistency / non-contradiction',fr:'cohérence logique / non-contradiction',es:'consistencia lógica / coherencia',it:'coerenza logica / non contraddizione',pt:'consistência lógica',ex:'Die Widerspruchsfreiheit muss gewährleistet sein.'},
+{w:'Selbstreferenzialität',a:'die',t:'n',cat:'Compound Concepts',en:'self-referentiality',fr:'autoréférentialité',es:'autorreferencia / autorreferencial',it:'autoreferenzialità',pt:'autorreferência',ex:'Die Selbstreferenzialität des Textes.'},
+{w:'Erkenntnisgewinn',a:'der',t:'n',cat:'Compound Concepts',en:'gain in knowledge / cognitive gain',fr:'gain de connaissance',es:'ganancia de conocimiento',it:'guadagno conoscitivo',pt:'ganho de conhecimento',ex:'Der Erkenntnisgewinn ist erheblich.'},
+{w:'Handlungsspielraum',a:'der',t:'n',cat:'Compound Concepts',en:'room for manoeuvre / scope for action',fr:'marge de manœuvre',es:'margen de maniobra',it:'margine di manovra',pt:'margem de manobra',ex:'Der Handlungsspielraum ist begrenzt.'},
+{w:'Wechselwirkung',a:'die',t:'n',cat:'Compound Concepts',en:'interaction / interplay / reciprocal effect',fr:'interaction / réciprocité',es:'interacción / interrelación',it:'interazione / effetto reciproco',pt:'interação / efeito recíproco',ex:'Es gibt eine Wechselwirkung zwischen beiden.'},
+// LITERARY & STYLISTIC
+{w:'Allgemeingültigkeit',a:'die',t:'n',cat:'Literary & Stylistic',en:'universal validity / general applicability',fr:'validité universelle / portée générale',es:'validez general / aplicabilidad universal',it:'validità universale',pt:'validade universal / aplicabilidade geral',ex:'Der Satz hat keine Allgemeingültigkeit.'},
+{w:'Subtilität',a:'die',t:'n',cat:'Literary & Stylistic',en:'subtlety',fr:'subtilité',es:'sutileza',it:'sottigliezza / raffinatezza',pt:'sutileza',ex:'Die Subtilität des Textes ist bemerkenswert.'},
+{w:'Kongruenz',a:'die',t:'n',cat:'Literary & Stylistic',en:'congruence / consistency',fr:'congruence / cohérence',es:'congruencia / coherencia',it:'congruenza / coerenza',pt:'congruência / coerência',ex:'Die Kongruenz der Argumente ist überzeugend.'},
+{w:'Intertextualität',a:'die',t:'n',cat:'Literary & Stylistic',en:'intertextuality',fr:'intertextualité',es:'intertextualidad',it:'intertestualità',pt:'intertextualidade',ex:'Die Intertextualität bereichert den Roman.'},
+{w:'Dekonstruktion',a:'die',t:'n',cat:'Literary & Stylistic',en:'deconstruction',fr:'déconstruction',es:'deconstrucción',it:'decostruzione',pt:'desconstrução',ex:'Die Dekonstruktion des Textes.'},
+// MASTERY FORMAL EXPRESSIONS
+{w:'Es sei dahingestellt, ob...',a:'',t:'exp',cat:'Mastery Formal',en:'It remains to be seen whether... / Whether... is open to question',fr:'Il reste à voir si... / La question de savoir si... est ouverte',es:'Queda por ver si... / Es discutible si...',it:'Resta da vedere se... / È discutibile se...',pt:'Resta saber se... / É questionável se...',ex:'Es sei dahingestellt, ob das wahr ist.'},
+{w:'unbeschadet dessen',a:'',t:'exp',cat:'Mastery Formal',en:'regardless of this / notwithstanding this',fr:'nonobstant cela',es:'sin perjuicio de ello',it:'fermo restando ciò',pt:'não obstante isso',ex:'Unbeschadet dessen halte ich daran fest.'},
+{w:'mit Verlaub',a:'',t:'exp',cat:'Mastery Formal',en:'if you\'ll pardon the expression / by your leave',fr:'si vous permettez / sauf votre respect',es:'si me permite / con permiso',it:'con rispetto parlando',pt:'com licença / salvo melhor juízo',ex:'Das ist, mit Verlaub, Unsinn.'},
+{w:'nach allem, was...',a:'',t:'exp',cat:'Mastery Formal',en:'by all accounts / from everything that...',fr:'d\'après tout ce qui...',es:'por todo lo que...',it:'da tutto quello che...',pt:'por tudo que...',ex:'Nach allem, was ich weiß, ist das falsch.'},
+{w:'das sei nur am Rande bemerkt',a:'',t:'exp',cat:'Mastery Formal',en:'this is merely a side note / that said in passing',fr:'notons-le simplement en passant',es:'dicho sea de paso',it:'sia detto incidentalmente',pt:'dito isso de passagem',ex:'Das sei nur am Rande bemerkt.'},
+// ADVANCED DISCOURSE MARKERS C2
+{w:'nichtsdestominder',a:'',t:'adv',cat:'Advanced Discourse C2',en:'nevertheless / nonetheless (very formal)',fr:'néanmoins (très formel)',es:'no obstante (muy formal)',it:'ciononostante (formale)',pt:'não obstante (muito formal)',ex:'Nichtsdestominder bin ich überzeugt.'},
+{w:'mitnichten',a:'',t:'adv',cat:'Advanced Discourse C2',en:'by no means / not at all (formal/literary)',fr:'nullement / en aucun cas (littéraire)',es:'de ninguna manera (formal/literario)',it:'per niente / affatto (formale)',pt:'de forma alguma (formal/literário)',ex:'Mitnichten! Das stimmt nicht.'},
+{w:'wohlgemerkt',a:'',t:'adv',cat:'Advanced Discourse C2',en:'mind you / note well / please note',fr:'notez bien / s\'il vous plaît remarquez',es:'nótese bien / téngase en cuenta',it:'si noti bene / ben inteso',pt:'note-se bem / observe-se',ex:'Das ist, wohlgemerkt, meine Meinung.'},
+{w:'schwerlich',a:'',t:'adv',cat:'Advanced Discourse C2',en:'hardly / scarcely (formal)',fr:'difficilement / guère (formel)',es:'difícilmente / apenas (formal)',it:'difficilmente / a malapena (formale)',pt:'dificilmente / raramente (formal)',ex:'Das wird schwerlich gelingen.'},
+{w:'kurzum',a:'',t:'adv',cat:'Advanced Discourse C2',en:'in short / in a word / to put it briefly',fr:'en bref / en un mot',es:'en resumen / en pocas palabras',it:'in breve / in una parola',pt:'em suma / em poucas palavras',ex:'Kurzum, ich bin dagegen.'},
+{w:'immerhin',a:'',t:'adv',cat:'Advanced Discourse C2',en:'at least / after all / all the same',fr:'quand même / tout de même / après tout',es:'al menos / después de todo / de todas formas',it:'almeno / tutto sommato / in ogni caso',pt:'pelo menos / afinal / de qualquer forma',ex:'Immerhin hat er es versucht.'},
+{w:'freilich',a:'',t:'adv',cat:'Advanced Discourse C2',en:'of course / certainly / admittedly (formal/Southern)',fr:'certes / bien sûr / il est vrai que',es:'claro / desde luego / ciertamente',it:'certo / certamente / è vero',pt:'claro / certamente / é verdade',ex:'Das ist freilich richtig.'},
+{w:'wennschon denn schon',a:'',t:'exp',cat:'Advanced Discourse C2',en:'if you\'re going to do it, do it properly / in for a penny, in for a pound',fr:'si on le fait, autant le faire bien',es:'si lo haces, hazlo bien',it:'se lo fai, fallo per bene',pt:'se for fazer, faça direito',ex:'Wennschon denn schon — richtig machen!'}
+];
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curType='all',curCat='all',curSearch='',curMode='list';
+let flashDeck=[],flashIdx=0,flashKnown=new Set(),flashLearning=new Set(),isFlipped=false;
+function t(k){return(UI[CL]||UI.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){el.placeholder=t(el.getAttribute('data-t-placeholder'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+  buildCatDropdown();renderList();if(curMode==='flash')renderCard();
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+function typeName(c){var m={n:'tname_n',v:'tname_v',adj:'tname_adj',adv:'tname_adv',exp:'tname_exp',prep:'tname_prep',conj:'tname_conj',num:'tname_num',pron:'tname_pron'};return t(m[c]||c);}
+function typeBadge(c){return '<span class="type-badge tb-'+c+'">'+typeName(c)+'</span>';}
+function filtered(){return VOCAB.filter(function(w){if(curType!=='all'&&w.t!==curType)return false;if(curCat!=='all'&&w.cat!==curCat)return false;if(curSearch){var s=curSearch.toLowerCase();if(!(w.w.toLowerCase().includes(s)||(w[CL]&&w[CL].toLowerCase().includes(s))||w.en.toLowerCase().includes(s)))return false;}return true;});}
+function buildCatDropdown(){var sel=document.getElementById('cat-select');var cats=[...new Set(VOCAB.map(function(w){return w.cat;}))].sort();sel.innerHTML='<option value="all">'+t('cat_all')+'</option>';cats.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;if(c===curCat)o.selected=true;sel.appendChild(o);});}
+function renderList(){var data=filtered();var tbody=document.getElementById('word-tbody');var noRes=document.getElementById('no-results');document.getElementById('word-count').textContent=t('wc_showing')+' '+data.length+' '+t('wc_of')+' '+VOCAB.length+' '+t('wc_words');if(data.length===0){tbody.innerHTML='';noRes.style.display='block';return;}noRes.style.display='none';tbody.innerHTML=data.map(function(w){return '<tr><td class="de-word">'+(w.a?'<span class="de-art">'+w.a+'</span>':'')+w.w+'</td><td>'+typeBadge(w.t)+'</td><td>'+w.cat+'</td><td>'+(w[CL]||w.en)+'</td><td class="ex-text">'+w.ex+'</td></tr>';}).join('');}
+function setType(type){curType=type;document.querySelectorAll('[data-type]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-type')===type);});if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function setCat(cat){curCat=cat;if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function doSearch(val){curSearch=val;renderList();}
+function switchMode(mode){curMode=mode;document.getElementById('list-view').style.display=mode==='list'?'block':'none';document.getElementById('flash-view').style.display=mode==='flash'?'block':'none';document.getElementById('tab-list').classList.toggle('on',mode==='list');document.getElementById('tab-flash').classList.toggle('on',mode==='flash');document.getElementById('search-box').style.display=mode==='list'?'inline-block':'none';if(mode==='flash'){initFlash();renderCard();}}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t2=arr[i];arr[i]=arr[j];arr[j]=t2;}return arr;}
+function initFlash(){flashDeck=shuffle(filtered().slice());flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';}
+function renderCard(){if(flashDeck.length===0||flashIdx>=flashDeck.length){document.getElementById('flash-done').style.display='block';document.getElementById('flash-action-btns').style.display='none';document.querySelector('.flash-nav').style.display='none';document.getElementById('done-score').textContent=flashKnown.size;document.getElementById('flash-card').style.display='none';return;}document.getElementById('flash-card').style.display='block';var w=flashDeck[flashIdx];isFlipped=false;document.getElementById('flash-card').classList.remove('flipped');document.getElementById('cf-cat').textContent=w.cat;document.getElementById('cf-art').textContent=w.a||'';document.getElementById('cf-word').textContent=w.w;document.getElementById('cb-cat').textContent=w.cat;document.getElementById('cb-trans').textContent=w[CL]||w.en;document.getElementById('cb-ex').textContent=w.ex;var total=flashDeck.length;document.getElementById('flash-fill').style.width=(flashIdx/total*100)+'%';document.getElementById('flash-counter').textContent=t('card_of')+' '+(flashIdx+1)+' '+t('card_of2')+' '+total;document.getElementById('flash-known').textContent='✓ '+flashKnown.size;document.getElementById('flash-learning').textContent='✗ '+flashLearning.size;}
+function flipCard(){isFlipped=!isFlipped;document.getElementById('flash-card').classList.toggle('flipped',isFlipped);}
+function markCard(know){var w=flashDeck[flashIdx];if(know)flashKnown.add(w.w);else flashLearning.add(w.w);flashIdx++;isFlipped=false;renderCard();}
+function nextCard(){flashIdx=Math.min(flashIdx+1,flashDeck.length-1);isFlipped=false;renderCard();}
+function prevCard(){flashIdx=Math.max(flashIdx-1,0);isFlipped=false;renderCard();}
+function shuffleCards(){shuffle(flashDeck);flashIdx=0;flashKnown=new Set();flashLearning=new Set();renderCard();}
+function restartFlash(){initFlash();renderCard();}
+function reviewLearning(){flashDeck=shuffle(VOCAB.filter(function(w){return flashLearning.has(w.w);}));flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';document.getElementById('flash-card').style.display='block';renderCard();}
+buildCatDropdown();renderList();applyLang();
+</script>
+</body>
+</html>

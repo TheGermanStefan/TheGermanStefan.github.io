@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A2 Vocabulary — TheGermanStefan</title>
+<style>
+:root{--lc:#6a1b9a;--lc2:#4a148c;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:52px;z-index:190;}
+.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
+.mode-tab{border:none;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;}
+.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid #ddd;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;}
+.fbtn.on{background:var(--lc);color:#fff;border-color:var(--lc);}
+.fbtn:hover:not(.on){background:var(--off);}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:6px 12px;font-size:13px;min-width:160px;outline:none;color:var(--navy);}
+.search-box:focus{border-color:var(--lc);}
+.cat-select{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;outline:none;}
+#list-view{padding:16px;max-width:1100px;margin:0 auto;}
+.word-count{font-size:12px;color:#888;margin-bottom:10px;}
+.word-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.word-table th{background:var(--lc);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.word-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid #f0f2f8;vertical-align:middle;}
+.word-table tr:last-child td{border-bottom:none;}
+.word-table tr:hover td{background:#faf8ff;}
+.de-word{font-weight:700;color:var(--navy);}
+.de-art{color:var(--lc);font-weight:600;font-size:12px;margin-right:4px;}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tb-n{background:#e3f2fd;color:#1565c0;}.tb-v{background:#e8f5e9;color:#2e7d32;}.tb-adj{background:#fce4ec;color:#c62828;}.tb-adv{background:#fff3e0;color:#e65100;}.tb-exp{background:#f3e5f5;color:#6a1b9a;}.tb-prep{background:#e0f2f1;color:#00695c;}.tb-conj{background:#fff8e1;color:#f57f17;}.tb-num{background:#fbe9e7;color:#bf360c;}.tb-pron{background:#e8eaf6;color:#283593;}
+.ex-text{font-style:italic;color:#666;font-size:12px;}
+.no-results{text-align:center;padding:40px;color:#999;font-size:14px;}
+#flash-view{display:none;padding:20px 16px;max-width:700px;margin:0 auto;}
+.flash-progress-bar{height:6px;background:#e0e4ee;border-radius:3px;margin-bottom:16px;overflow:hidden;}
+.flash-progress-fill{height:100%;background:var(--lc);border-radius:3px;transition:width .3s;}
+.flash-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;color:#666;}
+.flash-counter{font-weight:700;color:var(--navy);}
+.flash-known{color:#2e7d32;font-weight:700;}.flash-learning{color:#c62828;font-weight:700;}
+.card-wrap{perspective:1000px;margin-bottom:20px;}
+.card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;border-radius:16px;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.10);}
+.card-front{background:#fff;border:2px solid var(--lc);}
+.card-back{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;transform:rotateY(180deg);}
+.card-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);background:rgba(106,27,154,.08);border-radius:20px;padding:3px 12px;margin-bottom:16px;}
+.card-back .card-cat{color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);}
+.card-article{font-size:22px;font-weight:600;color:var(--lc);margin-bottom:4px;}
+.card-word{font-size:38px;font-weight:900;color:var(--navy);letter-spacing:-1px;}
+.card-back .card-word{color:#fff;font-size:32px;}
+.card-translation{font-size:30px;font-weight:800;margin-bottom:12px;}
+.card-example{font-size:14px;opacity:.85;font-style:italic;margin-top:8px;line-height:1.5;}
+.card-hint{font-size:12px;color:#aaa;margin-top:16px;}
+.flash-btns{display:flex;gap:12px;justify-content:center;margin-bottom:16px;}
+.flash-btn{padding:12px 32px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;}
+.btn-know{background:#2e7d32;color:#fff;}.btn-know:hover{background:#1b5e20;}
+.btn-learn{background:#c62828;color:#fff;}.btn-learn:hover{background:#7f0000;}
+.flash-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.flash-nav-btn{padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;}
+.flash-nav-btn:hover{background:var(--off);}
+.flash-done{text-align:center;padding:40px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.flash-done h2{font-size:28px;font-weight:900;margin-bottom:10px;}
+.flash-done .score{font-size:48px;font-weight:900;color:var(--lc);}
+.flash-done p{color:#666;margin-bottom:20px;}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:40px;}
+@media(max-width:600px){.word-table th:nth-child(4),.word-table td:nth-child(4){display:none;}.card-word{font-size:28px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → A2</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Elementary</div>
+  <div class="lvl-name">A2</div>
+  <div class="lvl-desc" data-t="level_desc">Work, travel, shopping, health, education &amp; wider everyday topics</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" id="total-count">~1000 words</span>
+    <span class="lvl-stat" data-t="stat_topics">16 topics</span>
+    <span class="lvl-stat" data-t="stat_flash">Flashcards included</span>
+  </div>
+</div>
+<div class="controls">
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-list" onclick="switchMode('list')" data-t="mode_list">📋 Word List</button>
+    <button class="mode-tab" id="tab-flash" onclick="switchMode('flash')" data-t="mode_flash">🃏 Flashcards</button>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn on" data-type="all" onclick="setType('all')" data-t="type_all">All</button>
+    <button class="fbtn" data-type="n" onclick="setType('n')" data-t="type_n">Nouns</button>
+    <button class="fbtn" data-type="v" onclick="setType('v')" data-t="type_v">Verbs</button>
+    <button class="fbtn" data-type="adj" onclick="setType('adj')" data-t="type_adj">Adjectives</button>
+    <button class="fbtn" data-type="adv" onclick="setType('adv')" data-t="type_adv">Adverbs</button>
+    <button class="fbtn" data-type="exp" onclick="setType('exp')" data-t="type_exp">Expressions</button>
+    <button class="fbtn" data-type="prep" onclick="setType('prep')" data-t="type_prep">Prepositions</button>
+    <button class="fbtn" data-type="conj" onclick="setType('conj')" data-t="type_conj">Conjunctions</button>
+  </div>
+  <select class="cat-select" id="cat-select" onchange="setCat(this.value)"><option value="all">All Categories</option></select>
+  <input class="search-box" id="search-box" placeholder="Search..." oninput="doSearch(this.value)" data-t-placeholder="search_ph">
+</div>
+<div id="list-view">
+  <div class="word-count" id="word-count"></div>
+  <table class="word-table">
+    <thead><tr>
+      <th data-t="col_word">Word</th><th data-t="col_type">Type</th><th data-t="col_category">Category</th><th data-t="col_translation">Translation</th><th data-t="col_example">Example</th>
+    </tr></thead>
+    <tbody id="word-tbody"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none" data-t="no_results">No words found.</div>
+</div>
+<div id="flash-view">
+  <div class="flash-progress-bar"><div class="flash-progress-fill" id="flash-fill"></div></div>
+  <div class="flash-stats-row">
+    <span class="flash-counter" id="flash-counter"></span>
+    <span><span class="flash-known" id="flash-known">✓ 0</span> &nbsp; <span class="flash-learning" id="flash-learning">✗ 0</span></span>
+  </div>
+  <div class="card-wrap">
+    <div class="card" id="flash-card" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-cat" id="cf-cat"></div>
+        <div class="card-article" id="cf-art"></div>
+        <div class="card-word" id="cf-word"></div>
+        <div class="card-hint" data-t="card_click">Click to reveal translation</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="cb-cat"></div>
+        <div class="card-translation" id="cb-trans"></div>
+        <div class="card-example" id="cb-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div id="flash-done" class="flash-done" style="display:none">
+    <div style="font-size:48px">🎉</div>
+    <h2 data-t="done_title">Round complete!</h2>
+    <div class="score" id="done-score"></div>
+    <p data-t="done_sub">words marked as known this round</p>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="restart_btn">Restart all</button>
+    <button class="flash-nav-btn" onclick="reviewLearning()" data-t="review_btn">Review still learning</button>
+  </div>
+  <div class="flash-btns" id="flash-action-btns">
+    <button class="flash-btn btn-know" onclick="markCard(true)" data-t="btn_know">✓ Know it</button>
+    <button class="flash-btn btn-learn" onclick="markCard(false)" data-t="btn_learn">✗ Still learning</button>
+  </div>
+  <div class="flash-nav">
+    <button class="flash-nav-btn" onclick="prevCard()" data-t="btn_prev">← Previous</button>
+    <button class="flash-nav-btn" onclick="shuffleCards()" data-t="btn_shuffle">🔀 Shuffle</button>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="btn_restart">↺ Restart</button>
+    <button class="flash-nav-btn" onclick="nextCard()" data-t="btn_next">Next →</button>
+  </div>
+</div>
+<div style="text-align:center"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
+<div class="footer">TheGermanStefan — A2 Vocabulary © 2025</div>
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → A2',level_tag:'Elementary',level_desc:'Work, travel, shopping, health, education & wider everyday topics',stat_topics:'16 topics',stat_flash:'Flashcards included',mode_list:'📋 Word List',mode_flash:'🃏 Flashcards',type_all:'All',type_n:'Nouns',type_v:'Verbs',type_adj:'Adjectives',type_adv:'Adverbs',type_exp:'Expressions',type_prep:'Prepositions',type_conj:'Conjunctions',cat_all:'All Categories',search_ph:'Search...',col_word:'Word',col_type:'Type',col_category:'Category',col_translation:'Translation',col_example:'Example',no_results:'No words found.',card_click:'Click to reveal translation',done_title:'Round complete!',done_sub:'words marked as known this round',restart_btn:'Restart all',review_btn:'Review still learning',btn_know:'✓ Know it',btn_learn:'✗ Still learning',btn_prev:'← Previous',btn_shuffle:'🔀 Shuffle',btn_restart:'↺ Restart',btn_next:'Next →',back_hub:'← Back to Vocabulary Hub',wc_showing:'Showing',wc_of:'of',wc_words:'words',card_of:'Card',card_of2:'of',tname_n:'Noun',tname_v:'Verb',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Number',tname_pron:'Pronoun'},
+fr:{crumb:'📚 Centre Vocab → A2',level_tag:'Élémentaire',level_desc:'Travail, voyage, achats, santé, éducation et thèmes quotidiens',stat_topics:'16 thèmes',stat_flash:'Cartes incluses',mode_list:'📋 Liste de mots',mode_flash:'🃏 Cartes',type_all:'Tout',type_n:'Noms',type_v:'Verbes',type_adj:'Adjectifs',type_adv:'Adverbes',type_exp:'Expressions',type_prep:'Prépositions',type_conj:'Conjonctions',cat_all:'Toutes catégories',search_ph:'Rechercher...',col_word:'Mot',col_type:'Type',col_category:'Catégorie',col_translation:'Traduction',col_example:'Exemple',no_results:'Aucun mot trouvé.',card_click:'Cliquez pour révéler',done_title:'Série terminée !',done_sub:'mots marqués comme sus',restart_btn:'Recommencer',review_btn:'Revoir à apprendre',btn_know:'✓ Je sais',btn_learn:'✗ À revoir',btn_prev:'← Précédent',btn_shuffle:'🔀 Mélanger',btn_restart:'↺ Recommencer',btn_next:'Suivant →',back_hub:'← Retour au Hub',wc_showing:'Affichage',wc_of:'sur',wc_words:'mots',card_of:'Carte',card_of2:'sur',tname_n:'Nom',tname_v:'Verbe',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prép.',tname_conj:'Conj.',tname_num:'Nombre',tname_pron:'Pronom'},
+es:{crumb:'📚 Centro Vocab → A2',level_tag:'Elemental',level_desc:'Trabajo, viajes, compras, salud, educación y temas cotidianos',stat_topics:'16 temas',stat_flash:'Tarjetas incluidas',mode_list:'📋 Lista',mode_flash:'🃏 Tarjetas',type_all:'Todo',type_n:'Sustantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Adverbios',type_exp:'Expresiones',type_prep:'Preposiciones',type_conj:'Conjunciones',cat_all:'Todas las categorías',search_ph:'Buscar...',col_word:'Palabra',col_type:'Tipo',col_category:'Categoría',col_translation:'Traducción',col_example:'Ejemplo',no_results:'No se encontraron palabras.',card_click:'Haz clic para revelar',done_title:'¡Ronda completa!',done_sub:'palabras conocidas esta ronda',restart_btn:'Reiniciar todo',review_btn:'Repasar pendientes',btn_know:'✓ Lo sé',btn_learn:'✗ Repasando',btn_prev:'← Anterior',btn_shuffle:'🔀 Mezclar',btn_restart:'↺ Reiniciar',btn_next:'Siguiente →',back_hub:'← Volver al Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palabras',card_of:'Tarjeta',card_of2:'de',tname_n:'Sust.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expresión',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'},
+it:{crumb:'📚 Centro Vocab → A2',level_tag:'Elementare',level_desc:'Lavoro, viaggi, acquisti, salute, istruzione e argomenti quotidiani',stat_topics:'16 argomenti',stat_flash:'Schede incluse',mode_list:'📋 Lista parole',mode_flash:'🃏 Schede',type_all:'Tutto',type_n:'Sostantivi',type_v:'Verbi',type_adj:'Aggettivi',type_adv:'Avverbi',type_exp:'Espressioni',type_prep:'Preposizioni',type_conj:'Congiunzioni',cat_all:'Tutte le categorie',search_ph:'Cerca...',col_word:'Parola',col_type:'Tipo',col_category:'Categoria',col_translation:'Traduzione',col_example:'Esempio',no_results:'Nessuna parola trovata.',card_click:'Clicca per rivelare',done_title:'Round completato!',done_sub:'parole conosciute questo round',restart_btn:'Ricominciare',review_btn:'Rivedere da imparare',btn_know:'✓ Lo so',btn_learn:'✗ Da rivedere',btn_prev:'← Precedente',btn_shuffle:'🔀 Mescola',btn_restart:'↺ Ricomincia',btn_next:'Successivo →',back_hub:'← Torna all\'Hub',wc_showing:'Mostrando',wc_of:'di',wc_words:'parole',card_of:'Scheda',card_of2:'di',tname_n:'Sost.',tname_v:'Verbo',tname_adj:'Agg.',tname_adv:'Avv.',tname_exp:'Espressione',tname_prep:'Prep.',tname_conj:'Cong.',tname_num:'Numero',tname_pron:'Pron.'},
+pt:{crumb:'📚 Centro Vocab → A2',level_tag:'Elementar',level_desc:'Trabalho, viagens, compras, saúde, educação e tópicos cotidianos',stat_topics:'16 tópicos',stat_flash:'Flashcards incluídos',mode_list:'📋 Lista',mode_flash:'🃏 Flashcards',type_all:'Tudo',type_n:'Substantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Advérbios',type_exp:'Expressões',type_prep:'Preposições',type_conj:'Conjunções',cat_all:'Todas as categorias',search_ph:'Pesquisar...',col_word:'Palavra',col_type:'Tipo',col_category:'Categoria',col_translation:'Tradução',col_example:'Exemplo',no_results:'Nenhuma palavra encontrada.',card_click:'Clique para revelar',done_title:'Rodada concluída!',done_sub:'palavras conhecidas nesta rodada',restart_btn:'Reiniciar tudo',review_btn:'Rever ainda aprendendo',btn_know:'✓ Já sei',btn_learn:'✗ Ainda aprendendo',btn_prev:'← Anterior',btn_shuffle:'🔀 Embaralhar',btn_restart:'↺ Reiniciar',btn_next:'Próximo →',back_hub:'← Voltar ao Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palavras',card_of:'Card',card_of2:'de',tname_n:'Subst.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expressão',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'}
+};
+const VOCAB=[
+// WORK & OFFICE
+{w:'Beruf',a:'der',t:'n',cat:'Work & Office',en:'profession / job',fr:'profession / métier',es:'profesión / trabajo',it:'professione / lavoro',pt:'profissão / trabalho',ex:'Was ist Ihr Beruf?'},
+{w:'Stelle',a:'die',t:'n',cat:'Work & Office',en:'position / job opening',fr:'poste / emploi',es:'puesto / trabajo',it:'posto / lavoro',pt:'vaga / cargo',ex:'Ich suche eine neue Stelle.'},
+{w:'Kollege',a:'der',t:'n',cat:'Work & Office',en:'colleague (m)',fr:'collègue (m)',es:'colega (m)',it:'collega (m)',pt:'colega (m)',ex:'Mein Kollege ist sehr hilfsbereit.'},
+{w:'Kollegin',a:'die',t:'n',cat:'Work & Office',en:'colleague (f)',fr:'collègue (f)',es:'colega (f)',it:'collega (f)',pt:'colega (f)',ex:'Meine Kollegin kommt aus Österreich.'},
+{w:'Chef',a:'der',t:'n',cat:'Work & Office',en:'boss / head (m)',fr:'patron / chef (m)',es:'jefe',it:'capo / direttore',pt:'chefe / patrão',ex:'Mein Chef ist streng aber fair.'},
+{w:'Chefin',a:'die',t:'n',cat:'Work & Office',en:'boss / head (f)',fr:'patronne / chef (f)',es:'jefa',it:'capo / direttrice',pt:'chefe / patroa',ex:'Die Chefin hat das Meeting angesetzt.'},
+{w:'Gehalt',a:'das',t:'n',cat:'Work & Office',en:'salary / wage',fr:'salaire',es:'salario / sueldo',it:'stipendio',pt:'salário',ex:'Das Gehalt ist zu niedrig.'},
+{w:'Bewerbung',a:'die',t:'n',cat:'Work & Office',en:'job application',fr:'candidature',es:'solicitud de trabajo',it:'candidatura / domanda di lavoro',pt:'candidatura / candidato',ex:'Ich schreibe eine Bewerbung.'},
+{w:'Lebenslauf',a:'der',t:'n',cat:'Work & Office',en:'CV / résumé',fr:'curriculum vitae / CV',es:'currículum vitae / CV',it:'curriculum vitae / CV',pt:'currículo',ex:'Ich schreibe meinen Lebenslauf.'},
+{w:'Besprechung',a:'die',t:'n',cat:'Work & Office',en:'meeting / discussion',fr:'réunion',es:'reunión / junta',it:'riunione',pt:'reunião',ex:'Die Besprechung dauert eine Stunde.'},
+{w:'E-Mail',a:'die',t:'n',cat:'Work & Office',en:'email',fr:'e-mail / courriel',es:'correo electrónico / email',it:'e-mail',pt:'e-mail / correio eletrônico',ex:'Ich schreibe eine E-Mail.'},
+{w:'Drucker',a:'der',t:'n',cat:'Work & Office',en:'printer',fr:'imprimante',es:'impresora',it:'stampante',pt:'impressora',ex:'Der Drucker ist kaputt.'},
+{w:'bewerben',a:'',t:'v',cat:'Work & Office',en:'to apply (for a job)',fr:'postuler / se porter candidat',es:'solicitar / postularse',it:'candidarsi / fare domanda',pt:'candidatar-se / se candidatar',ex:'Ich bewerbe mich um die Stelle.'},
+{w:'kündigen',a:'',t:'v',cat:'Work & Office',en:'to quit / give notice',fr:'démissionner / donner sa démission',es:'renunciar / dimitir',it:'dare le dimissioni / licenziarsi',pt:'demitir-se / pedir demissão',ex:'Er hat gekündigt.'},
+{w:'einstellen',a:'',t:'v',cat:'Work & Office',en:'to hire / employ',fr:'embaucher / engager',es:'contratar / emplear',it:'assumere',pt:'contratar / empregar',ex:'Die Firma stellt neue Mitarbeiter ein.'},
+{w:'besprechung',a:'',t:'v',cat:'Work & Office',en:'to discuss',fr:'discuter / débattre',es:'discutir / debatir',it:'discutere',pt:'discutir / debater',ex:'Wir besprechen das Problem.'},
+// EDUCATION
+{w:'Unterricht',a:'der',t:'n',cat:'Education',en:'lesson / class / instruction',fr:'cours / leçon',es:'clase / lección',it:'lezione / istruzione',pt:'aula / ensino',ex:'Der Unterricht beginnt um 8 Uhr.'},
+{w:'Hausaufgabe',a:'die',t:'n',cat:'Education',en:'homework',fr:'devoir (à la maison)',es:'tarea / deberes',it:'compito (a casa)',pt:'lição de casa / tarefa',ex:'Ich mache meine Hausaufgaben.'},
+{w:'Prüfung',a:'die',t:'n',cat:'Education',en:'exam / test',fr:'examen',es:'examen',it:'esame',pt:'exame / prova',ex:'Die Prüfung ist morgen.'},
+{w:'Note',a:'die',t:'n',cat:'Education',en:'grade / mark',fr:'note',es:'nota / calificación',it:'voto / nota',pt:'nota',ex:'Ich habe eine gute Note bekommen.'},
+{w:'Zeugnis',a:'das',t:'n',cat:'Education',en:'school report / certificate',fr:'bulletin / certificat',es:'boletín / certificado',it:'pagella / diploma',pt:'boletim / certificado',ex:'Mein Zeugnis ist sehr gut.'},
+{w:'Fach',a:'das',t:'n',cat:'Education',en:'subject (school)',fr:'matière (scolaire)',es:'asignatura / materia',it:'materia (scolastica)',pt:'disciplina / matéria',ex:'Mein Lieblingsfach ist Deutsch.'},
+{w:'Klasse',a:'die',t:'n',cat:'Education',en:'class / year / classroom',fr:'classe',es:'clase / aula',it:'classe',pt:'turma / classe',ex:'Ich bin in der 10. Klasse.'},
+{w:'Gymnasium',a:'das',t:'n',cat:'Education',en:'grammar school / high school',fr:'lycée / gymnasium',es:'instituto / bachillerato',it:'liceo / ginnasio',pt:'ginásio / escola secundária',ex:'Er geht aufs Gymnasium.'},
+{w:'Ausbildung',a:'die',t:'n',cat:'Education',en:'vocational training / education',fr:'formation professionnelle',es:'formación profesional',it:'formazione professionale',pt:'formação profissional / treinamento',ex:'Er macht eine Ausbildung als Koch.'},
+{w:'Studium',a:'das',t:'n',cat:'Education',en:'studies / degree course',fr:'études (supérieures)',es:'estudios / carrera universitaria',it:'studi universitari',pt:'estudos / curso universitário',ex:'Das Studium dauert vier Jahre.'},
+{w:'Bibliothek',a:'die',t:'n',cat:'Education',en:'library',fr:'bibliothèque',es:'biblioteca',it:'biblioteca',pt:'biblioteca',ex:'Ich lerne in der Bibliothek.'},
+{w:'bestehen',a:'',t:'v',cat:'Education',en:'to pass (an exam)',fr:'réussir (un examen)',es:'aprobar (un examen)',it:'superare / passare (un esame)',pt:'passar / ser aprovado (em exame)',ex:'Ich habe die Prüfung bestanden!'},
+{w:'durchfallen',a:'',t:'v',cat:'Education',en:'to fail (an exam)',fr:'échouer / rater (un examen)',es:'suspender / reprobar',it:'bocciare / non superare',pt:'reprovar / ser reprovado',ex:'Leider bin ich durchgefallen.'},
+{w:'erklären',a:'',t:'v',cat:'Education',en:'to explain',fr:'expliquer',es:'explicar',it:'spiegare',pt:'explicar',ex:'Kannst du das erklären?'},
+{w:'wiederholen',a:'',t:'v',cat:'Education',en:'to repeat / revise',fr:'répéter / réviser',es:'repetir / repasar',it:'ripetere / ripassare',pt:'repetir / revisar',ex:'Ich wiederhole den Stoff.'},
+// TRAVEL & TOURISM
+{w:'Urlaub',a:'der',t:'n',cat:'Travel & Tourism',en:'holiday / vacation',fr:'vacances',es:'vacaciones',it:'vacanza / ferie',pt:'férias',ex:'Ich fahre in den Urlaub.'},
+{w:'Reise',a:'die',t:'n',cat:'Travel & Tourism',en:'journey / trip',fr:'voyage',es:'viaje',it:'viaggio',pt:'viagem',ex:'Die Reise dauert zwei Wochen.'},
+{w:'Gepäck',a:'das',t:'n',cat:'Travel & Tourism',en:'luggage / baggage',fr:'bagages',es:'equipaje',it:'bagagli',pt:'bagagem',ex:'Mein Gepäck ist zu schwer.'},
+{w:'Reisepass',a:'der',t:'n',cat:'Travel & Tourism',en:'passport',fr:'passeport',es:'pasaporte',it:'passaporto',pt:'passaporte',ex:'Vergiss nicht deinen Reisepass!'},
+{w:'Visum',a:'das',t:'n',cat:'Travel & Tourism',en:'visa',fr:'visa',es:'visado / visa',it:'visto',pt:'visto',ex:'Ich brauche ein Visum.'},
+{w:'Buchung',a:'die',t:'n',cat:'Travel & Tourism',en:'booking / reservation',fr:'réservation',es:'reserva',it:'prenotazione',pt:'reserva',ex:'Ich mache eine Buchung online.'},
+{w:'Unterkunft',a:'die',t:'n',cat:'Travel & Tourism',en:'accommodation',fr:'hébergement / logement',es:'alojamiento',it:'alloggio / sistemazione',pt:'acomodação / hospedagem',ex:'Die Unterkunft ist sehr schön.'},
+{w:'Sehenswürdigkeit',a:'die',t:'n',cat:'Travel & Tourism',en:'tourist attraction / sight',fr:'site touristique / attraction',es:'atracción turística / lugar de interés',it:'attrazione turistica / monumento',pt:'ponto turístico / atração',ex:'Berlin hat viele Sehenswürdigkeiten.'},
+{w:'Reiseführer',a:'der',t:'n',cat:'Travel & Tourism',en:'travel guide (book)',fr:'guide de voyage',es:'guía de viaje',it:'guida turistica',pt:'guia de viagem',ex:'Ich kaufe einen Reiseführer.'},
+{w:'Grenze',a:'die',t:'n',cat:'Travel & Tourism',en:'border',fr:'frontière',es:'frontera',it:'confine / frontiera',pt:'fronteira',ex:'Wir passieren die Grenze.'},
+{w:'Zoll',a:'der',t:'n',cat:'Travel & Tourism',en:'customs / duty',fr:'douane / taxe',es:'aduana / arancel',it:'dogana / dazio',pt:'alfândega / imposto',ex:'Ich gehe durch den Zoll.'},
+{w:'reisen',a:'',t:'v',cat:'Travel & Tourism',en:'to travel',fr:'voyager',es:'viajar',it:'viaggiare',pt:'viajar',ex:'Ich reise gerne.'},
+{w:'buchen',a:'',t:'v',cat:'Travel & Tourism',en:'to book / reserve',fr:'réserver',es:'reservar',it:'prenotare',pt:'reservar',ex:'Ich buche ein Hotel online.'},
+{w:'packen',a:'',t:'v',cat:'Travel & Tourism',en:'to pack',fr:'faire ses valises / emballer',es:'hacer las maletas / empacar',it:'fare le valigie / imballare',pt:'fazer as malas / empacotar',ex:'Ich packe meinen Koffer.'},
+// COMMUNICATION & TECHNOLOGY
+{w:'Handy',a:'das',t:'n',cat:'Technology',en:'mobile phone',fr:'téléphone portable / portable',es:'móvil / celular',it:'cellulare / telefonino',pt:'celular / telemóvel',ex:'Mein Handy hat keinen Akku.'},
+{w:'Smartphone',a:'das',t:'n',cat:'Technology',en:'smartphone',fr:'smartphone',es:'smartphone / teléfono inteligente',it:'smartphone',pt:'smartphone',ex:'Ich kaufe ein neues Smartphone.'},
+{w:'Internet',a:'das',t:'n',cat:'Technology',en:'internet',fr:'internet',es:'internet',it:'internet',pt:'internet',ex:'Ich surfe im Internet.'},
+{w:'Webseite',a:'die',t:'n',cat:'Technology',en:'website',fr:'site web',es:'sitio web',it:'sito web',pt:'site / página web',ex:'Die Webseite ist sehr gut.'},
+{w:'Passwort',a:'das',t:'n',cat:'Technology',en:'password',fr:'mot de passe',es:'contraseña',it:'password',pt:'senha / palavra-passe',ex:'Vergiss dein Passwort nicht!'},
+{w:'App',a:'die',t:'n',cat:'Technology',en:'app',fr:'application / appli',es:'aplicación / app',it:'app / applicazione',pt:'aplicativo / app',ex:'Es gibt eine gute App dafür.'},
+{w:'Akku',a:'der',t:'n',cat:'Technology',en:'battery (rechargeable)',fr:'batterie',es:'batería',it:'batteria',pt:'bateria',ex:'Der Akku ist leer.'},
+{w:'Kamera',a:'die',t:'n',cat:'Technology',en:'camera',fr:'appareil photo',es:'cámara',it:'macchina fotografica / fotocamera',pt:'câmera / máquina fotográfica',ex:'Ich mache ein Foto mit der Kamera.'},
+{w:'Foto',a:'das',t:'n',cat:'Technology',en:'photo / picture',fr:'photo',es:'foto / fotografía',it:'foto / fotografia',pt:'foto / fotografia',ex:'Das Foto ist sehr schön.'},
+{w:'herunterladen',a:'',t:'v',cat:'Technology',en:'to download',fr:'télécharger',es:'descargar',it:'scaricare',pt:'baixar / descarregar',ex:'Ich lade die App herunter.'},
+{w:'hochladen',a:'',t:'v',cat:'Technology',en:'to upload',fr:'téléverser / uploader',es:'subir / cargar',it:'caricare / uppare',pt:'enviar / fazer upload',ex:'Ich lade das Foto hoch.'},
+{w:'surfen',a:'',t:'v',cat:'Technology',en:'to surf (internet)',fr:'surfer (internet)',es:'navegar (internet)',it:'navigare (internet)',pt:'navegar (internet)',ex:'Ich surfe stundenlang im Internet.'},
+// HEALTH & MEDICINE
+{w:'Rezept',a:'das',t:'n',cat:'Health & Medicine',en:'prescription / recipe',fr:'ordonnance / recette',es:'receta',it:'ricetta',pt:'receita',ex:'Der Arzt gibt mir ein Rezept.'},
+{w:'Apotheke',a:'die',t:'n',cat:'Health & Medicine',en:'pharmacy',fr:'pharmacie',es:'farmacia',it:'farmacia',pt:'farmácia',ex:'Ich gehe in die Apotheke.'},
+{w:'Medikament',a:'das',t:'n',cat:'Health & Medicine',en:'medicine / medication',fr:'médicament',es:'medicamento / medicina',it:'farmaco / medicina',pt:'medicamento / remédio',ex:'Das Medikament hilft sofort.'},
+{w:'Krankenversicherung',a:'die',t:'n',cat:'Health & Medicine',en:'health insurance',fr:'assurance maladie / mutuelle',es:'seguro médico / seguro de salud',it:'assicurazione sanitaria',pt:'plano de saúde / seguro de saúde',ex:'Ich habe eine Krankenversicherung.'},
+{w:'Untersuchung',a:'die',t:'n',cat:'Health & Medicine',en:'examination / check-up',fr:'examen / bilan médical',es:'exploración / revisión médica',it:'visita / esame medico',pt:'exame / consulta',ex:'Ich mache eine Untersuchung beim Arzt.'},
+{w:'Allergie',a:'die',t:'n',cat:'Health & Medicine',en:'allergy',fr:'allergie',es:'alergia',it:'allergia',pt:'alergia',ex:'Ich habe eine Allergie gegen Nüsse.'},
+{w:'Operation',a:'die',t:'n',cat:'Health & Medicine',en:'operation / surgery',fr:'opération / chirurgie',es:'operación / cirugía',it:'operazione / intervento',pt:'operação / cirurgia',ex:'Die Operation war erfolgreich.'},
+{w:'Blut',a:'das',t:'n',cat:'Health & Medicine',en:'blood',fr:'sang',es:'sangre',it:'sangue',pt:'sangue',ex:'Der Arzt nimmt Blut ab.'},
+{w:'Impfung',a:'die',t:'n',cat:'Health & Medicine',en:'vaccination',fr:'vaccination',es:'vacunación / vacuna',it:'vaccinazione',pt:'vacinação',ex:'Die Impfung schützt vor Krankheiten.'},
+{w:'untersuchen',a:'',t:'v',cat:'Health & Medicine',en:'to examine / check',fr:'examiner',es:'examinar / reconocer',it:'esaminare / visitare',pt:'examinar / consultar',ex:'Der Arzt untersucht den Patienten.'},
+// FOOD: RESTAURANTS & COOKING
+{w:'Speisekarte',a:'die',t:'n',cat:'Restaurants & Cooking',en:'menu',fr:'menu / carte',es:'carta / menú',it:'menù / carta',pt:'cardápio / menu',ex:'Kann ich die Speisekarte haben?'},
+{w:'Kellner',a:'der',t:'n',cat:'Restaurants & Cooking',en:'waiter',fr:'serveur',es:'camarero',it:'cameriere',pt:'garçom',ex:'Der Kellner kommt gleich.'},
+{w:'Trinkgeld',a:'das',t:'n',cat:'Restaurants & Cooking',en:'tip / gratuity',fr:'pourboire',es:'propina',it:'mancia',pt:'gorjeta',ex:'Ich gebe dem Kellner Trinkgeld.'},
+{w:'Vorspeise',a:'die',t:'n',cat:'Restaurants & Cooking',en:'starter / appetizer',fr:'entrée / hors-d\'œuvre',es:'entrante / aperitivo',it:'antipasto',pt:'entrada / aperitivo',ex:'Als Vorspeise nehme ich Salat.'},
+{w:'Hauptgericht',a:'das',t:'n',cat:'Restaurants & Cooking',en:'main course / main dish',fr:'plat principal',es:'plato principal',it:'piatto principale',pt:'prato principal',ex:'Das Hauptgericht ist Schnitzel.'},
+{w:'Nachspeise',a:'die',t:'n',cat:'Restaurants & Cooking',en:'dessert',fr:'dessert',es:'postre',it:'dolce / dessert',pt:'sobremesa',ex:'Als Nachspeise möchte ich Eis.'},
+{w:'Zutaten',a:'die',t:'n',cat:'Restaurants & Cooking',en:'ingredients',fr:'ingrédients',es:'ingredientes',it:'ingredienti',pt:'ingredientes',ex:'Die Zutaten sind frisch.'},
+{w:'Rezept',a:'das',t:'n',cat:'Restaurants & Cooking',en:'recipe',fr:'recette',es:'receta (de cocina)',it:'ricetta (di cucina)',pt:'receita (culinária)',ex:'Ich koche nach einem neuen Rezept.'},
+{w:'backen',a:'',t:'v',cat:'Restaurants & Cooking',en:'to bake',fr:'cuire au four / faire de la pâtisserie',es:'hornear / hacer pasteles',it:'cuocere al forno',pt:'assar / fazer bolos',ex:'Ich backe einen Kuchen.'},
+{w:'braten',a:'',t:'v',cat:'Restaurants & Cooking',en:'to fry / roast',fr:'faire frire / rôtir',es:'freír / asar',it:'friggere / arrostire',pt:'fritar / assar',ex:'Ich brate Kartoffeln.'},
+{w:'schneiden',a:'',t:'v',cat:'Restaurants & Cooking',en:'to cut / slice',fr:'couper',es:'cortar',it:'tagliare',pt:'cortar',ex:'Ich schneide das Gemüse.'},
+{w:'mischen',a:'',t:'v',cat:'Restaurants & Cooking',en:'to mix',fr:'mélanger',es:'mezclar',it:'mescolare',pt:'misturar',ex:'Ich mische die Zutaten.'},
+// HOUSING & NEIGHBOURHOOD
+{w:'Miete',a:'die',t:'n',cat:'Housing',en:'rent',fr:'loyer',es:'alquiler',it:'affitto',pt:'aluguel',ex:'Die Miete ist sehr hoch.'},
+{w:'Vermieter',a:'der',t:'n',cat:'Housing',en:'landlord',fr:'propriétaire / bailleur',es:'arrendador / propietario',it:'proprietario / locatore',pt:'locador / proprietário',ex:'Der Vermieter repariert das Dach.'},
+{w:'Mieter',a:'der',t:'n',cat:'Housing',en:'tenant',fr:'locataire',es:'inquilino / arrendatario',it:'inquilino / affittuario',pt:'inquilino / locatário',ex:'Der Mieter zahlt die Miete pünktlich.'},
+{w:'Nachbar',a:'der',t:'n',cat:'Housing',en:'neighbour (m)',fr:'voisin',es:'vecino',it:'vicino',pt:'vizinho',ex:'Mein Nachbar ist sehr nett.'},
+{w:'Nachbarin',a:'die',t:'n',cat:'Housing',en:'neighbour (f)',fr:'voisine',es:'vecina',it:'vicina',pt:'vizinha',ex:'Meine Nachbarin hat einen Hund.'},
+{w:'Aufzug',a:'der',t:'n',cat:'Housing',en:'lift / elevator',fr:'ascenseur',es:'ascensor / elevador',it:'ascensore',pt:'elevador / lift',ex:'Der Aufzug ist kaputt.'},
+{w:'Keller',a:'der',t:'n',cat:'Housing',en:'cellar / basement',fr:'cave / sous-sol',es:'sótano / bodega',it:'cantina / seminterrato',pt:'porão / cave',ex:'Im Keller ist es dunkel.'},
+{w:'Dach',a:'das',t:'n',cat:'Housing',en:'roof',fr:'toit',es:'tejado / techo',it:'tetto',pt:'telhado',ex:'Das Dach ist kaputt.'},
+{w:'umziehen',a:'',t:'v',cat:'Housing',en:'to move (house)',fr:'déménager',es:'mudarse',it:'traslocare / trasferirsi',pt:'mudar-se / se mudar',ex:'Wir ziehen nächsten Monat um.'},
+// ADJECTIVES A2
+{w:'fleißig',a:'',t:'adj',cat:'Character & Personality',en:'diligent / hardworking',fr:'assidu / travailleur',es:'diligente / trabajador',it:'diligente / lavoratore',pt:'diligente / trabalhador',ex:'Er ist sehr fleißig.'},
+{w:'faul',a:'',t:'adj',cat:'Character & Personality',en:'lazy',fr:'paresseux',es:'perezoso',it:'pigro',pt:'preguiçoso',ex:'Sie ist manchmal faul.'},
+{w:'freundlich',a:'',t:'adj',cat:'Character & Personality',en:'friendly / kind',fr:'aimable / sympathique',es:'amable / simpático',it:'amichevole / gentile',pt:'amigável / simpático',ex:'Der Verkäufer ist sehr freundlich.'},
+{w:'höflich',a:'',t:'adj',cat:'Character & Personality',en:'polite / courteous',fr:'poli / courtois',es:'educado / cortés',it:'educato / cortese',pt:'educado / cortês',ex:'Das Kind ist sehr höflich.'},
+{w:'unhöflich',a:'',t:'adj',cat:'Character & Personality',en:'rude / impolite',fr:'impoli / grossier',es:'maleducado / grosero',it:'maleducato / scortese',pt:'mal-educado / grosseiro',ex:'So ein unhöflicher Mensch!'},
+{w:'geduldig',a:'',t:'adj',cat:'Character & Personality',en:'patient',fr:'patient',es:'paciente',it:'paziente',pt:'paciente',ex:'Sei geduldig!'},
+{w:'ungeduldig',a:'',t:'adj',cat:'Character & Personality',en:'impatient',fr:'impatient',es:'impaciente',it:'impaziente',pt:'impaciente',ex:'Er ist sehr ungeduldig.'},
+{w:'mutig',a:'',t:'adj',cat:'Character & Personality',en:'brave / courageous',fr:'courageux / brave',es:'valiente / corajoso',it:'coraggioso',pt:'corajoso / valente',ex:'Das Kind ist sehr mutig.'},
+{w:'ehrlich',a:'',t:'adj',cat:'Character & Personality',en:'honest',fr:'honnête',es:'honesto',it:'onesto',pt:'honesto',ex:'Sei immer ehrlich!'},
+{w:'klug',a:'',t:'adj',cat:'Character & Personality',en:'clever / intelligent',fr:'intelligent / malin',es:'inteligente / listo',it:'intelligente / astuto',pt:'inteligente / esperto',ex:'Sie ist sehr klug.'},
+{w:'lustig',a:'',t:'adj',cat:'Character & Personality',en:'funny / amusing',fr:'drôle / amusant',es:'gracioso / divertido',it:'divertente / buffo',pt:'engraçado / divertido',ex:'Er ist sehr lustig.'},
+{w:'nett',a:'',t:'adj',cat:'Character & Personality',en:'nice / kind',fr:'gentil / sympa',es:'agradable / majo',it:'gentile / carino',pt:'simpático / amável',ex:'Sie ist wirklich nett.'},
+{w:'ruhig',a:'',t:'adj',cat:'Character & Personality',en:'calm / quiet',fr:'calme / tranquille',es:'tranquilo / calmado',it:'tranquillo / calmo',pt:'calmo / tranquilo',ex:'Er ist immer ruhig.'},
+{w:'laut',a:'',t:'adj',cat:'Character & Personality',en:'loud / noisy',fr:'bruyant',es:'ruidoso / alto',it:'rumoroso',pt:'barulhento / alto',ex:'Die Kinder sind sehr laut.'},
+{w:'schüchtern',a:'',t:'adj',cat:'Character & Personality',en:'shy / timid',fr:'timide',es:'tímido',it:'timido',pt:'tímido',ex:'Er ist sehr schüchtern.'},
+// DIRECTIONS & LOCATION
+{w:'geradeaus',a:'',t:'adv',cat:'Directions',en:'straight ahead',fr:'tout droit',es:'todo recto / derecho',it:'dritto / diritto',pt:'em frente / reto',ex:'Gehen Sie geradeaus.'},
+{w:'links',a:'',t:'adv',cat:'Directions',en:'left',fr:'à gauche',es:'a la izquierda',it:'a sinistra',pt:'à esquerda',ex:'Biegen Sie links ab.'},
+{w:'rechts',a:'',t:'adv',cat:'Directions',en:'right',fr:'à droite',es:'a la derecha',it:'a destra',pt:'à direita',ex:'Biegen Sie rechts ab.'},
+{w:'Ecke',a:'die',t:'n',cat:'Directions',en:'corner',fr:'coin',es:'esquina',it:'angolo',pt:'esquina',ex:'An der Ecke biegen Sie links ab.'},
+{w:'Kreuzung',a:'die',t:'n',cat:'Directions',en:'crossroads / intersection',fr:'carrefour / intersection',es:'cruce / intersección',it:'incrocio',pt:'cruzamento / esquina',ex:'An der Kreuzung gehen Sie rechts.'},
+{w:'Ampel',a:'die',t:'n',cat:'Directions',en:'traffic light',fr:'feu de signalisation / feu rouge',es:'semáforo',it:'semaforo',pt:'semáforo / sinal de trânsito',ex:'Bei der roten Ampel warten.'},
+{w:'Brücke',a:'die',t:'n',cat:'Directions',en:'bridge',fr:'pont',es:'puente',it:'ponte',pt:'ponte',ex:'Gehen Sie über die Brücke.'},
+{w:'gegenüber',a:'',t:'prep',cat:'Directions',en:'opposite / across from',fr:'en face de',es:'enfrente de / frente a',it:'di fronte a',pt:'em frente a / defronte',ex:'Das Hotel ist gegenüber dem Bahnhof.'},
+{w:'entlang',a:'',t:'prep',cat:'Directions',en:'along',fr:'le long de',es:'a lo largo de',it:'lungo',pt:'ao longo de',ex:'Gehen Sie die Straße entlang.'},
+{w:'bis',a:'',t:'prep',cat:'Directions',en:'until / as far as / up to',fr:'jusqu\'à',es:'hasta',it:'fino a',pt:'até',ex:'Fahren Sie bis zur Kirche.'},
+// CONJUNCTIONS A2
+{w:'obwohl',a:'',t:'conj',cat:'Conjunctions',en:'although / even though',fr:'bien que / quoique',es:'aunque / a pesar de que',it:'sebbene / benché',pt:'embora / apesar de que',ex:'Ich gehe spazieren, obwohl es regnet.'},
+{w:'trotzdem',a:'',t:'adv',cat:'Conjunctions',en:'nevertheless / still',fr:'quand même / pourtant',es:'de todas formas / sin embargo',it:'tuttavia / lo stesso',pt:'mesmo assim / no entanto',ex:'Es regnet, trotzdem gehe ich raus.'},
+{w:'deshalb',a:'',t:'adv',cat:'Conjunctions',en:'therefore / that\'s why',fr:'c\'est pourquoi / donc',es:'por eso / por eso',it:'perciò / quindi',pt:'por isso / portanto',ex:'Ich bin müde, deshalb gehe ich ins Bett.'},
+{w:'sowohl...als auch',a:'',t:'conj',cat:'Conjunctions',en:'both... and',fr:'aussi bien... que',es:'tanto... como',it:'sia... che',pt:'tanto... quanto',ex:'Sie spricht sowohl Deutsch als auch Englisch.'},
+{w:'entweder...oder',a:'',t:'conj',cat:'Conjunctions',en:'either... or',fr:'soit... soit',es:'o... o / bien... bien',it:'o... o',pt:'ou... ou',ex:'Entweder Kaffee oder Tee?'},
+{w:'weder...noch',a:'',t:'conj',cat:'Conjunctions',en:'neither... nor',fr:'ni... ni',es:'ni... ni',it:'né... né',pt:'nem... nem',ex:'Ich möchte weder Kaffee noch Tee.'},
+{w:'bevor',a:'',t:'conj',cat:'Conjunctions',en:'before',fr:'avant que',es:'antes de que',it:'prima che / prima di',pt:'antes de / antes que',ex:'Bevor ich schlafe, lese ich.'},
+{w:'nachdem',a:'',t:'conj',cat:'Conjunctions',en:'after',fr:'après que',es:'después de que',it:'dopo che',pt:'depois de / depois que',ex:'Nachdem ich gegessen habe, gehe ich spazieren.'},
+{w:'während',a:'',t:'conj',cat:'Conjunctions',en:'while / during',fr:'pendant que / tandis que',es:'mientras (que)',it:'mentre',pt:'enquanto / durante',ex:'Während ich esse, höre ich Musik.'},
+{w:'damit',a:'',t:'conj',cat:'Conjunctions',en:'so that / in order that',fr:'pour que / afin que',es:'para que',it:'affinché / perché',pt:'para que',ex:'Ich lerne, damit ich die Prüfung bestehe.'},
+// SPORTS & HOBBIES
+{w:'Sport',a:'der',t:'n',cat:'Sports & Hobbies',en:'sport',fr:'sport',es:'deporte',it:'sport',pt:'esporte',ex:'Ich treibe gerne Sport.'},
+{w:'Fußball',a:'der',t:'n',cat:'Sports & Hobbies',en:'football / soccer',fr:'football',es:'fútbol',it:'calcio',pt:'futebol',ex:'Ich spiele Fußball.'},
+{w:'Tennis',a:'das',t:'n',cat:'Sports & Hobbies',en:'tennis',fr:'tennis',es:'tenis',it:'tennis',pt:'tênis',ex:'Ich spiele Tennis am Wochenende.'},
+{w:'Schwimmen',a:'das',t:'n',cat:'Sports & Hobbies',en:'swimming',fr:'natation',es:'natación',it:'nuoto',pt:'natação',ex:'Schwimmen ist gesund.'},
+{w:'Joggen',a:'das',t:'n',cat:'Sports & Hobbies',en:'jogging',fr:'jogging',es:'footing / jogging',it:'jogging / corsa',pt:'corrida / jogging',ex:'Joggen macht fit.'},
+{w:'Yoga',a:'das',t:'n',cat:'Sports & Hobbies',en:'yoga',fr:'yoga',es:'yoga',it:'yoga',pt:'yoga',ex:'Ich mache Yoga.'},
+{w:'Musik',a:'die',t:'n',cat:'Sports & Hobbies',en:'music',fr:'musique',es:'música',it:'musica',pt:'música',ex:'Musik macht glücklich.'},
+{w:'Gitarre',a:'die',t:'n',cat:'Sports & Hobbies',en:'guitar',fr:'guitare',es:'guitarra',it:'chitarra',pt:'violão / guitarra',ex:'Ich spiele Gitarre.'},
+{w:'Klavier',a:'das',t:'n',cat:'Sports & Hobbies',en:'piano',fr:'piano',es:'piano',it:'pianoforte',pt:'piano',ex:'Ich lerne Klavier spielen.'},
+{w:'Malen',a:'das',t:'n',cat:'Sports & Hobbies',en:'painting',fr:'peinture / dessin',es:'pintura',it:'pittura / disegno',pt:'pintura',ex:'Malen ist mein Hobby.'},
+{w:'Kochen',a:'das',t:'n',cat:'Sports & Hobbies',en:'cooking',fr:'cuisine / cuisine',es:'cocina / cocinar',it:'cucina / cucinare',pt:'culinária / cozinhar',ex:'Kochen macht Spaß.'},
+{w:'Wandern',a:'das',t:'n',cat:'Sports & Hobbies',en:'hiking',fr:'randonnée',es:'senderismo',it:'escursionismo',pt:'caminhada / trilha',ex:'Ich gehe gerne wandern.'},
+{w:'Lesen',a:'das',t:'n',cat:'Sports & Hobbies',en:'reading',fr:'lecture',es:'lectura',it:'lettura',pt:'leitura',ex:'Lesen ist mein liebstes Hobby.'},
+{w:'schwimmen',a:'',t:'v',cat:'Sports & Hobbies',en:'to swim',fr:'nager',es:'nadar',it:'nuotare',pt:'nadar',ex:'Ich schwimme jeden Sommer.'},
+{w:'trainieren',a:'',t:'v',cat:'Sports & Hobbies',en:'to train / work out',fr:'s\'entraîner',es:'entrenar / entrenarse',it:'allenarsi',pt:'treinar',ex:'Ich trainiere dreimal pro Woche.'},
+// BANKING & FINANCE
+{w:'Konto',a:'das',t:'n',cat:'Banking & Finance',en:'account (bank)',fr:'compte (bancaire)',es:'cuenta (bancaria)',it:'conto (bancario)',pt:'conta (bancária)',ex:'Ich habe ein Konto bei der Bank.'},
+{w:'Bank',a:'die',t:'n',cat:'Banking & Finance',en:'bank',fr:'banque',es:'banco',it:'banca',pt:'banco',ex:'Ich gehe zur Bank.'},
+{w:'Kredit',a:'der',t:'n',cat:'Banking & Finance',en:'credit / loan',fr:'crédit / prêt',es:'crédito / préstamo',it:'credito / prestito',pt:'crédito / empréstimo',ex:'Ich nehme einen Kredit auf.'},
+{w:'überweisen',a:'',t:'v',cat:'Banking & Finance',en:'to transfer (money)',fr:'virer (de l\'argent)',es:'transferir (dinero)',it:'trasferire (denaro) / fare un bonifico',pt:'transferir (dinheiro)',ex:'Ich überweise das Geld.'},
+{w:'abheben',a:'',t:'v',cat:'Banking & Finance',en:'to withdraw (money)',fr:'retirer (de l\'argent)',es:'retirar (dinero) / sacar',it:'prelevare (denaro)',pt:'sacar (dinheiro) / levantar',ex:'Ich hebe Geld ab.'},
+{w:'einzahlen',a:'',t:'v',cat:'Banking & Finance',en:'to deposit (money)',fr:'verser / déposer (de l\'argent)',es:'depositar / ingresar (dinero)',it:'versare / depositare (denaro)',pt:'depositar (dinheiro)',ex:'Ich zahle Geld ein.'},
+// USEFUL A2 EXPRESSIONS
+{w:'Es kommt darauf an.',a:'',t:'exp',cat:'Expressions',en:'It depends.',fr:'Ça dépend.',es:'Depende.',it:'Dipende.',pt:'Depende.',ex:'Es kommt darauf an, wie viel Zeit ich habe.'},
+{w:'Das ist mir egal.',a:'',t:'exp',cat:'Expressions',en:'I don\'t mind. / It\'s all the same to me.',fr:'Ça m\'est égal.',es:'Me da igual. / No me importa.',it:'Non mi importa. / Per me è lo stesso.',pt:'Tanto faz. / Não me importo.',ex:'Das ist mir egal, was wir essen.'},
+{w:'Ich bin damit einverstanden.',a:'',t:'exp',cat:'Expressions',en:'I agree with that.',fr:'Je suis d\'accord avec ça.',es:'Estoy de acuerdo con eso.',it:'Sono d\'accordo con questo.',pt:'Concordo com isso.',ex:'Ja, ich bin damit einverstanden.'},
+{w:'Wie lange dauert das?',a:'',t:'exp',cat:'Expressions',en:'How long does that take?',fr:'Combien de temps ça prend ?',es:'¿Cuánto tiempo tarda eso?',it:'Quanto tempo ci vuole?',pt:'Quanto tempo leva isso?',ex:'Wie lange dauert die Fahrt?'},
+{w:'Ich freue mich auf...',a:'',t:'exp',cat:'Expressions',en:'I am looking forward to...',fr:'J\'ai hâte de... / Je me réjouis de...',es:'Estoy deseando... / Tengo ganas de...',it:'Non vedo l\'ora di...',pt:'Estou ansioso(a) por...',ex:'Ich freue mich auf den Urlaub.'},
+{w:'Das macht nichts.',a:'',t:'exp',cat:'Expressions',en:'Never mind. / That\'s OK.',fr:'Ça ne fait rien. / Ce n\'est pas grave.',es:'No importa. / No pasa nada.',it:'Non importa. / Non fa niente.',pt:'Não tem importância. / Não faz mal.',ex:'Du hast Fehler gemacht? Das macht nichts.'},
+{w:'Leider nicht.',a:'',t:'exp',cat:'Expressions',en:'Unfortunately not.',fr:'Malheureusement non.',es:'Por desgracia no.',it:'Purtroppo no.',pt:'Infelizmente não.',ex:'Kann ich kommen? — Leider nicht.'},
+{w:'Auf jeden Fall.',a:'',t:'exp',cat:'Expressions',en:'Definitely. / In any case.',fr:'En tout cas. / Absolument.',es:'En todo caso. / Definitivamente.',it:'In ogni caso. / Assolutamente.',pt:'Com certeza. / Em qualquer caso.',ex:'Kommst du? — Auf jeden Fall!'},
+{w:'Was für ein...!',a:'',t:'exp',cat:'Expressions',en:'What a...!',fr:'Quel(le)...!',es:'¡Qué...!',it:'Che...!',pt:'Que...!',ex:'Was für ein schöner Tag!'},
+{w:'Ich bin dran.',a:'',t:'exp',cat:'Expressions',en:'It\'s my turn.',fr:'C\'est à moi.',es:'Me toca a mí.',it:'Tocca a me.',pt:'É a minha vez.',ex:'Wer ist dran? — Ich bin dran.'},
+// ADDITIONAL VERBS A2
+{w:'empfehlen',a:'',t:'v',cat:'Verbs',en:'to recommend',fr:'recommander',es:'recomendar',it:'raccomandare / consigliare',pt:'recomendar',ex:'Kannst du ein Restaurant empfehlen?'},
+{w:'vergleichen',a:'',t:'v',cat:'Verbs',en:'to compare',fr:'comparer',es:'comparar',it:'confrontare / paragonare',pt:'comparar',ex:'Ich vergleiche die Preise.'},
+{w:'entscheiden',a:'',t:'v',cat:'Verbs',en:'to decide',fr:'décider',es:'decidir',it:'decidere',pt:'decidir',ex:'Ich muss mich entscheiden.'},
+{w:'planen',a:'',t:'v',cat:'Verbs',en:'to plan',fr:'planifier / prévoir',es:'planear / planificar',it:'pianificare / progettare',pt:'planejar / planear',ex:'Wir planen den Urlaub.'},
+{w:'vorbereiten',a:'',t:'v',cat:'Verbs',en:'to prepare',fr:'préparer',es:'preparar',it:'preparare',pt:'preparar',ex:'Ich bereite mich auf die Prüfung vor.'},
+{w:'verbessern',a:'',t:'v',cat:'Verbs',en:'to improve',fr:'améliorer',es:'mejorar',it:'migliorare',pt:'melhorar',ex:'Ich möchte mein Deutsch verbessern.'},
+{w:'erinnern',a:'',t:'v',cat:'Verbs',en:'to remember / remind',fr:'se souvenir / rappeler',es:'recordar / acordarse',it:'ricordare / ricordarsi',pt:'lembrar / se lembrar',ex:'Erinnerst du dich an ihn?'},
+{w:'vergessen',a:'',t:'v',cat:'Verbs',en:'to forget',fr:'oublier',es:'olvidar',it:'dimenticare',pt:'esquecer',ex:'Ich habe meinen Schlüssel vergessen.'},
+{w:'besuchen',a:'',t:'v',cat:'Verbs',en:'to visit',fr:'visiter / rendre visite à',es:'visitar',it:'visitare / far visita',pt:'visitar',ex:'Wir besuchen die Großeltern.'},
+{w:'erlauben',a:'',t:'v',cat:'Verbs',en:'to allow / permit',fr:'permettre / autoriser',es:'permitir / dejar',it:'permettere / consentire',pt:'permitir / deixar',ex:'Der Lehrer erlaubt es.'},
+{w:'verbieten',a:'',t:'v',cat:'Verbs',en:'to forbid / ban',fr:'interdire',es:'prohibir',it:'vietare / proibire',pt:'proibir',ex:'Das Rauchen ist hier verboten.'},
+{w:'bezahlen',a:'',t:'v',cat:'Verbs',en:'to pay (for)',fr:'payer (pour)',es:'pagar',it:'pagare',pt:'pagar',ex:'Ich bezahle die Rechnung.'}
+];
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curType='all',curCat='all',curSearch='',curMode='list';
+let flashDeck=[],flashIdx=0,flashKnown=new Set(),flashLearning=new Set(),isFlipped=false;
+function t(k){return(UI[CL]||UI.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){el.placeholder=t(el.getAttribute('data-t-placeholder'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+  buildCatDropdown();renderList();if(curMode==='flash')renderCard();
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+function typeName(c){var m={n:'tname_n',v:'tname_v',adj:'tname_adj',adv:'tname_adv',exp:'tname_exp',prep:'tname_prep',conj:'tname_conj',num:'tname_num',pron:'tname_pron'};return t(m[c]||c);}
+function typeBadge(c){return '<span class="type-badge tb-'+c+'">'+typeName(c)+'</span>';}
+function filtered(){return VOCAB.filter(function(w){if(curType!=='all'&&w.t!==curType)return false;if(curCat!=='all'&&w.cat!==curCat)return false;if(curSearch){var s=curSearch.toLowerCase();if(!(w.w.toLowerCase().includes(s)||(w[CL]&&w[CL].toLowerCase().includes(s))||w.en.toLowerCase().includes(s)))return false;}return true;});}
+function buildCatDropdown(){var sel=document.getElementById('cat-select');var cats=[...new Set(VOCAB.map(function(w){return w.cat;}))].sort();sel.innerHTML='<option value="all">'+t('cat_all')+'</option>';cats.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;if(c===curCat)o.selected=true;sel.appendChild(o);});}
+function renderList(){var data=filtered();var tbody=document.getElementById('word-tbody');var noRes=document.getElementById('no-results');document.getElementById('word-count').textContent=t('wc_showing')+' '+data.length+' '+t('wc_of')+' '+VOCAB.length+' '+t('wc_words');if(data.length===0){tbody.innerHTML='';noRes.style.display='block';return;}noRes.style.display='none';tbody.innerHTML=data.map(function(w){return '<tr><td class="de-word">'+(w.a?'<span class="de-art">'+w.a+'</span>':'')+w.w+'</td><td>'+typeBadge(w.t)+'</td><td>'+w.cat+'</td><td>'+(w[CL]||w.en)+'</td><td class="ex-text">'+w.ex+'</td></tr>';}).join('');}
+function setType(type){curType=type;document.querySelectorAll('[data-type]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-type')===type);});if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function setCat(cat){curCat=cat;if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function doSearch(val){curSearch=val;renderList();}
+function switchMode(mode){curMode=mode;document.getElementById('list-view').style.display=mode==='list'?'block':'none';document.getElementById('flash-view').style.display=mode==='flash'?'block':'none';document.getElementById('tab-list').classList.toggle('on',mode==='list');document.getElementById('tab-flash').classList.toggle('on',mode==='flash');document.getElementById('search-box').style.display=mode==='list'?'inline-block':'none';if(mode==='flash'){initFlash();renderCard();}}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t2=arr[i];arr[i]=arr[j];arr[j]=t2;}return arr;}
+function initFlash(){flashDeck=shuffle(filtered().slice());flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';}
+function renderCard(){if(flashDeck.length===0||flashIdx>=flashDeck.length){document.getElementById('flash-done').style.display='block';document.getElementById('flash-action-btns').style.display='none';document.querySelector('.flash-nav').style.display='none';document.getElementById('done-score').textContent=flashKnown.size;document.getElementById('flash-card').style.display='none';return;}document.getElementById('flash-card').style.display='block';var w=flashDeck[flashIdx];isFlipped=false;document.getElementById('flash-card').classList.remove('flipped');document.getElementById('cf-cat').textContent=w.cat;document.getElementById('cf-art').textContent=w.a||'';document.getElementById('cf-word').textContent=w.w;document.getElementById('cb-cat').textContent=w.cat;document.getElementById('cb-trans').textContent=w[CL]||w.en;document.getElementById('cb-ex').textContent=w.ex;var total=flashDeck.length;document.getElementById('flash-fill').style.width=(flashIdx/total*100)+'%';document.getElementById('flash-counter').textContent=t('card_of')+' '+(flashIdx+1)+' '+t('card_of2')+' '+total;document.getElementById('flash-known').textContent='✓ '+flashKnown.size;document.getElementById('flash-learning').textContent='✗ '+flashLearning.size;}
+function flipCard(){isFlipped=!isFlipped;document.getElementById('flash-card').classList.toggle('flipped',isFlipped);}
+function markCard(know){var w=flashDeck[flashIdx];if(know)flashKnown.add(w.w);else flashLearning.add(w.w);flashIdx++;isFlipped=false;renderCard();}
+function nextCard(){flashIdx=Math.min(flashIdx+1,flashDeck.length-1);isFlipped=false;renderCard();}
+function prevCard(){flashIdx=Math.max(flashIdx-1,0);isFlipped=false;renderCard();}
+function shuffleCards(){shuffle(flashDeck);flashIdx=0;flashKnown=new Set();flashLearning=new Set();renderCard();}
+function restartFlash(){initFlash();renderCard();}
+function reviewLearning(){flashDeck=shuffle(VOCAB.filter(function(w){return flashLearning.has(w.w);}));flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';document.getElementById('flash-card').style.display='block';renderCard();}
+buildCatDropdown();renderList();applyLang();
+</script>
+</body>
+</html>

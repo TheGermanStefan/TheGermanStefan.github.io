@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat B2 – Modellprüfung 5</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:100px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+.cover{background:linear-gradient(135deg,#b71c1c 0%,#c62828 35%,#006064 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy)}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
+.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:18px 20px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
+.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
+.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
+.rn{width:30px;font-weight:700;color:#666}.ra{width:90px;text-align:center}
+.rf-wrap{display:flex;gap:6px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
+.qn{color:var(--blue);margin-right:4px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
+.sn{font-weight:700;min-width:20px}.st{flex:1}
+.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:60px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:20px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:140px;outline:none}
+.warea{width:100%;min-height:200px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
+.warea:focus{border-color:var(--purple)}
+.wcpill{display:inline-block;background:#e0e0e0;color:#555;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:6px}
+.wcpill.ok{background:#c8e6c9;color:var(--green)}.wcpill.over{background:#ffcdd2;color:var(--red)}
+.personbox{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 12px;background:#f4f8ff;font-size:12.5px;min-width:150px}
+.pname{font-weight:800;color:var(--blue);margin-bottom:3px}
+.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.85;margin-bottom:9px}
+.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:4px}
+.wbox{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:10px}
+.wbox b{color:var(--green)}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.lc{background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;padding:9px 14px;font-size:13px;line-height:1.85;margin-bottom:10px}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
+.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
+.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
+.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#b71c1c;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
+.akb{padding:18px 20px}.akm{margin-bottom:18px}
+.akm h3{font-size:14px;font-weight:700;color:#b71c1c;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
+.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">3:05:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 75'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 70'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 5</div>
+    <h1>Goethe-Zertifikat B2 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>185 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">B2<span>Test 5</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs:</label><input class="ci" type="text"></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 75 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 70 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 75 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Langer Artikel – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Text sorgfältig. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+    <div class="sbox">
+      <div class="smeta">Aus einem Wirtschaftsmagazin</div>
+      <strong>Globalisierung unter Druck: Rückkehr zum Nationalismus oder neue Weltordnung?</strong><br><br>
+      Seit Jahrzehnten galt Globalisierung als unaufhaltsame Kraft – ein Prozess, der Handelsbarrieren abbaut, Märkte vernetzt und Wohlstand steigert. Doch seit dem Brexit, der Coronapandemie und dem Aufstieg nationalistischer Bewegungen in vielen Ländern ist die Erzählung vom offenen Welthandel ins Wanken geraten. Zunehmend sprechen Ökonomen von „De-Globalisierung" oder zumindest von einer „Regionalisierung" der Lieferketten.<br><br>
+      Die Coronakrise hat deutlich gemacht, wie anfällig globale Lieferketten sind. Als Fabriken in Asien stillstanden, fehlten in europäischen Krankenhäusern Schutzmasken und Medikamente. Seitdem investieren viele Regierungen in strategische Reserven und lokale Produktionskapazitäten – ein Trend, der sich mit dem Krieg in der Ukraine weiter beschleunigt hat. Der Begriff „Friendshoring" beschreibt, wie Unternehmen ihre Lieferketten zunehmend auf politisch verlässliche Partner konzentrieren.<br><br>
+      Gleichzeitig verzeichnet der globale Dienstleistungshandel, insbesondere im digitalen Bereich, weiterhin starkes Wachstum. Software, Beratungsleistungen und kreative Inhalte kennen keine Grenzen. Das deutet darauf hin, dass die Globalisierung sich eher wandelt als zurückzieht. Experten sprechen von einer „selektiven Globalisierung": Physische Warenströme werden regionaler, während digitale Ströme weiter zunehmen.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Die Coronapandemie hat die Schwächen globaler Lieferketten offenbart.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>„Friendshoring" bedeutet, dass Unternehmen möglichst viele Lieferanten aus verschiedenen Ländern wählen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Digitale Dienstleistungen wachsen weiterhin global.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Der Artikel behauptet, dass die Globalisierung vollständig zum Stillstand gekommen ist.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Der Krieg in der Ukraine hat den Trend zu lokalen Produktionskapazitäten beschleunigt.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Wer sucht was?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Welcher Text (A–H) passt zu welcher Person? Nicht alle Texte werden verwendet.</div>
+    <div class="personbox">
+      <div class="pcard"><div class="pname">6. Frau Özdemir</div>Lehrerin; sucht Fortbildung zu KI-gestütztem Unterricht</div>
+      <div class="pcard"><div class="pname">7. Jan</div>Student; sucht Informationen zu Auslandssemester-Stipendien</div>
+      <div class="pcard"><div class="pname">8. Herr Schulze</div>Unternehmer; sucht Förderprogramm für internationale Expansion</div>
+      <div class="pcard"><div class="pname">9. Mila</div>Schülerin; sucht Nachhilfe online</div>
+      <div class="pcard"><div class="pname">10. Thomas</div>Personalchef; sucht Bewerber für eine KI-Stelle</div>
+    </div>
+    <div class="textblock"><div class="textlbl">Text A</div>DAAD: Erasmus+ Stipendien für das Sommersemester. Bewerbungsschluss: 15. November. Gefördert werden Aufenthalte in über 30 europäischen Ländern. daad.de/erasmus</div>
+    <div class="textblock"><div class="textlbl">Text B</div>Fortbildung „KI im Klassenzimmer" – Praxisseminar für Lehrkräfte: Einsatz von ChatGPT, Differenzierung, Lerndiagnose. Samstag 9–16 Uhr. 85 €. pd-fortbildung.de</div>
+    <div class="textblock"><div class="textlbl">Text C</div>BAFA-Förderprogramm: Exportinitiative für KMU. Bis zu 15.000 € Förderung für Markteintritt in Nicht-EU-Länder. Antragsstellung unter bafa.de</div>
+    <div class="textblock"><div class="textlbl">Text D</div>Online-Nachhilfe mit zugelassenen Lehrkräften. Alle Fächer, Klassen 1–13. Kostenlose Probestunde. schuelerhilfe-online.de</div>
+    <div class="textblock"><div class="textlbl">Text E</div>Stellenausschreibung: Machine Learning Engineer (m/w/d). Pytorch, Transformer-Architektur, NLP. München. Remote möglich. career@aiventure.de</div>
+    <div class="textblock"><div class="textlbl">Text F</div>Podcast: „Die Bildungsrevolution" – Episode 12: Wie Schulen mit digitalen Mitteln inklusiver werden. Hören auf Apple Podcasts.</div>
+    <div class="textblock"><div class="textlbl">Text G</div>Handbuch Internationales Handelsrecht – 3. Auflage. Springer Verlag. Für Rechtsanwälte und Unternehmen. 89 €.</div>
+    <div class="textblock"><div class="textlbl">Text H</div>Volkshochschule Leipzig: Deutschkurs Intensiv A1–B2. Mo–Fr 9–13 Uhr. Nächster Start: 3. Februar. 280 €.</div>
+    <div class="sits" style="margin-top:8px">
+      <div class="sit"><span class="sn">6.</span><span class="st">Frau Özdemir</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">7.</span><span class="st">Jan</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">8.</span><span class="st">Herr Schulze</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">9.</span><span class="st">Mila</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+      <div class="sit"><span class="sn">10.</span><span class="st">Thomas</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Zeitungsartikel – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Lesen Sie den Artikel. Was ist richtig: a, b oder c?</div>
+    <div class="sbox">
+      <div class="smeta">Aus dem Bildungsressort einer Wochenzeitung</div>
+      <strong>Bildungsreform unter Zugzwang – Was die PISA-Ergebnisse wirklich bedeuten</strong><br><br>
+      Deutschland hat im internationalen PISA-Vergleich 2023 erstmals seit Jahren deutlich schlechter abgeschnitten. Besonders die Lesekompetenz und das mathematische Grundverständnis haben nachgelassen. Experten führen dies auf mehrere Faktoren zurück: die Coronapandemie mit ihren Schulschließungen, den wachsenden Anteil bildungsferner Familien und chronischen Lehrermangel. Bundesbildungsministerin Dr. Berger sprach von einem „Weckruf für das gesamte System".<br><br>
+      Als Reaktion fordert eine Koalition aus Bildungsverbänden, Gewerkschaften und Unternehmerverbänden eine umfassende Reform: Ausbau der Ganztagsschulen, individuelle Förderung leistungsschwacher Schüler und Modernisierung der Lehrerausbildung. Der Digitalisierung im Unterricht kommt dabei eine Schlüsselrolle zu. Bis 2026 sollen alle Schulen in Deutschland mit schnellem Internet und digitalen Endgeräten ausgestattet sein – so der Plan des „DigitalPakt Schule 2.0".<br><br>
+      Kritiker hingegen mahnen, dass digitale Hilfsmittel allein keine Qualität erzeugen können. „Entscheidend ist die pädagogische Kompetenz der Lehrkräfte", sagt Bildungsforscher Prof. Möller. Eine Studie seiner Universität hat ergeben, dass gut ausgebildete Lehrkräfte den Lernerfolg stärker beeinflussen als technische Ausstattung.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">11.</span> Was hat bei PISA 2023 besonders nachgelassen?</div>
+      <div class="mco" data-grp="q11">
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> Naturwissenschaften</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> Lesekompetenz und Mathematik</button>
+        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> Fremdsprachen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">12.</span> Was sagte Ministerin Dr. Berger?</div>
+      <div class="mco" data-grp="q12">
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> Die Ergebnisse seien nicht überraschend</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> Die Ergebnisse seien ein Weckruf für das System</button>
+        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> Deutschland liege im Mittelfeld</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">13.</span> Was sieht der „DigitalPakt Schule 2.0" bis 2026 vor?</div>
+      <div class="mco" data-grp="q13">
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> Abschaffung von Schulbüchern</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> Internet und digitale Endgeräte für alle Schulen</button>
+        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> Verpflichtende KI-Kurse ab Klasse 1</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">14.</span> Was sagen Kritiker zur Digitalisierung?</div>
+      <div class="mco" data-grp="q14">
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> Technik allein reicht nicht; Lehrkompetenz ist entscheidend</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> Digitale Mittel sind überflüssig</button>
+        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Schulen brauchen mehr Geld</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">15.</span> Was hat Prof. Möllers Studie ergeben?</div>
+      <div class="mco" data-grp="q15">
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Technische Ausstattung ist wichtiger als Lehrer</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Gut ausgebildete Lehrkräfte beeinflussen Lernerfolg stärker als Technik</button>
+        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Ganztagsschulen verbessern die PISA-Ergebnisse automatisch</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Lückentext – Wörter aus dem Kasten</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Setzen Sie die passenden Wörter ein. Nicht alle Wörter passen.</div>
+    <div class="wbox"><b>ersetzen · unterstützen · analysieren · Potenzial · Fehler · Aufgaben · schaffen · spiegelt · entscheiden · Systeme</b></div>
+    <div style="font-size:13.5px;line-height:2.2;margin-bottom:10px">
+      Künstliche Intelligenz kann Menschen bei vielen
+      <select class="ssel" style="min-width:110px"><option>—</option><option>ersetzen</option><option>unterstützen</option><option>analysieren</option><option>Potenzial</option><option>Fehler</option><option>Aufgaben</option><option>schaffen</option><option>spiegelt</option><option>entscheiden</option><option>Systeme</option></select> (16) entlasten.
+      KI-<select class="ssel" style="min-width:110px"><option>—</option><option>ersetzen</option><option>unterstützen</option><option>analysieren</option><option>Potenzial</option><option>Fehler</option><option>Aufgaben</option><option>schaffen</option><option>spiegelt</option><option>entscheiden</option><option>Systeme</option></select> (17) können riesige Datenmengen in Sekunden
+      <select class="ssel" style="min-width:110px"><option>—</option><option>ersetzen</option><option>unterstützen</option><option>analysieren</option><option>Potenzial</option><option>Fehler</option><option>Aufgaben</option><option>schaffen</option><option>spiegelt</option><option>entscheiden</option><option>Systeme</option></select> (18).
+      Dennoch bleibt das Problem der Verzerrung: KI
+      <select class="ssel" style="min-width:110px"><option>—</option><option>ersetzen</option><option>unterstützen</option><option>analysieren</option><option>Potenzial</option><option>Fehler</option><option>Aufgaben</option><option>schaffen</option><option>spiegelt</option><option>entscheiden</option><option>Systeme</option></select> (19) die Ungleichheiten wider, mit denen sie trainiert wurde.
+      Trotz allem hat KI enormes
+      <select class="ssel" style="min-width:110px"><option>—</option><option>ersetzen</option><option>unterstützen</option><option>analysieren</option><option>Potenzial</option><option>Fehler</option><option>Aufgaben</option><option>schaffen</option><option>spiegelt</option><option>entscheiden</option><option>Systeme</option></select> (20) für Medizin, Bildung und Klimaschutz.
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurztexte – richtige Aussage identifizieren</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Was meinen die folgenden Texte? Wählen Sie a, b oder c.</div>
+    <div class="lc"><strong>Text 1:</strong> „Ankündigung des Bundesarbeitsministeriums: Minijobgrenze wird ab 1. Oktober auf 560 Euro monatlich angehoben."</div>
+    <div class="mci"><div class="mcs"><span class="qn">21.</span> Was wird angekündigt?</div>
+      <div class="mco" data-grp="q21">
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">a</span> Die Minijobgrenze wird gesenkt</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">b</span> Die Minijobgrenze steigt auf 560 €</button>
+        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">c</span> Minijobs werden abgeschafft</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 2:</strong> „Studie: Schulen, die täglich 20 Minuten Bewegungspausen einführen, verzeichnen bessere Konzentration und weniger Verhaltensauffälligkeiten."</div>
+    <div class="mci"><div class="mcs"><span class="qn">22.</span> Was behauptet die Studie?</div>
+      <div class="mco" data-grp="q22">
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">a</span> Sport ersetzt Unterricht</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">b</span> Bewegungspausen verbessern Konzentration und Verhalten</button>
+        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">c</span> 20 Minuten Sport pro Tag sind zu wenig</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 3:</strong> „KI-Ethikrat warnt: Ohne klare gesetzliche Rahmenbedingungen droht unkontrollierter Einsatz von Gesichtserkennung im öffentlichen Raum."</div>
+    <div class="mci"><div class="mcs"><span class="qn">23.</span> Wovor warnt der Ethikrat?</div>
+      <div class="mco" data-grp="q23">
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">a</span> Vor zu teurer KI-Technologie</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">b</span> Vor unkontrollierter Gesichtserkennung ohne Gesetze</button>
+        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">c</span> Vor dem Einsatz von KI in Schulen</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 4:</strong> „Achtung: Dieser Parkplatz ist Mo–Fr von 8:00 bis 18:00 Uhr Anwohnern vorbehalten. Zuwiderhandlungen werden kostenpflichtig abgeschleppt."</div>
+    <div class="mci"><div class="mcs"><span class="qn">24.</span> Was bedeutet das Schild?</div>
+      <div class="mco" data-grp="q24">
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">a</span> Nur Anwohner dürfen werktags tagsüber hier parken</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">b</span> Der Parkplatz ist für alle kostenlos</button>
+        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">c</span> Am Wochenende ist Parken verboten</button>
+      </div>
+    </div>
+    <div class="lc"><strong>Text 5:</strong> „Weltbank-Bericht: Bis 2030 könnten bis zu 85 Millionen Arbeitsplätze durch Automatisierung wegfallen, gleichzeitig entstehen 97 Millionen neue Stellen."</div>
+    <div class="mci"><div class="mcs"><span class="qn">25.</span> Was ergibt sich laut Weltbank-Bericht netto?</div>
+      <div class="mco" data-grp="q25">
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">a</span> Netto mehr Arbeitsplätze entstehen als verloren gehen</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">b</span> Es werden mehr Stellen verloren als geschaffen</button>
+        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">c</span> Die Zahl der Arbeitsplätze bleibt gleich</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Vortrag – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie den Vortrag (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Vortrag: KI im Bildungssystem</div>
+      „KI im Unterricht ist kein Zukunftsthema mehr – sie ist bereits da. Laut einer Umfrage des Digitalverbands Bitkom nutzen <strong>63 Prozent</strong> der Jugendlichen zwischen 14 und 18 Jahren mindestens einmal pro Woche KI-Tools für schulische Aufgaben. Die häufigste Anwendung: das Erstellen von Textentwürfen und die Vorbereitung auf Prüfungen. Schulen reagieren unterschiedlich: Einige verbieten den Einsatz komplett, andere integrieren ihn aktiv in den Lehrplan. Bildungswissenschaftler empfehlen einen <strong>differenzierten Umgang</strong>: Schüler sollen lernen, KI als Werkzeug zu nutzen und ihre Grenzen zu verstehen. Besonders wichtig sei es, <strong>kritisches Denken und Quellenkritik</strong> zu stärken – Kompetenzen, die kein Algorithmus ersetzen kann. Die nächste Herausforderung: Wie bewertet man Lernleistung fair, wenn KI-Unterstützung nicht ausgeschlossen werden kann?"
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">26.</span> Wie viel Prozent der Jugendlichen nutzen laut Umfrage KI für Schule?</div>
+      <div class="mco" data-grp="q26">
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> 43 %</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> 63 %</button>
+        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> 83 %</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">27.</span> Was ist die häufigste Nutzung von KI in der Schule?</div>
+      <div class="mco" data-grp="q27">
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> Spielen und soziale Netzwerke</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> Textentwürfe und Prüfungsvorbereitung</button>
+        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> Übersetzungen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">28.</span> Was empfehlen Bildungswissenschaftler?</div>
+      <div class="mco" data-grp="q28">
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> KI vollständig verbieten</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> Differenzierten Umgang und KI als Werkzeug verstehen</button>
+        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> Mehr Tablets kaufen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">29.</span> Welche Kompetenzen sollen gestärkt werden?</div>
+      <div class="mco" data-grp="q29">
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Mathematik und Programmieren</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> Kritisches Denken und Quellenkritik</button>
+        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> Fremdsprachen und Kreativität</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">30.</span> Was ist die genannte nächste Herausforderung?</div>
+      <div class="mco" data-grp="q30">
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Wie man KI abschalten kann</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> Faire Leistungsbewertung trotz möglicher KI-Nutzung</button>
+        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Wie man Lehrkräfte durch KI ersetzt</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Interview – Richtig oder Falsch?</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie das Interview (2×). Richtig (R) oder Falsch (F)?</div>
+    <div class="dial"><div class="dlabel">Interview: Globalisierungsexpertin Dr. Neumann</div>
+      <strong>Moderator:</strong> Ist die Globalisierung am Ende?<br>
+      <strong>Dr. Neumann:</strong> Nein, aber sie verändert sich. Die Ära des <strong>billigen Massenkonsums</strong> aus Fernost neigt sich dem Ende. Wir sehen eine Rückverlagerung bestimmter Produktionen nach Europa.<br>
+      <strong>Moderator:</strong> Was bedeutet das für Verbraucher?<br>
+      <strong>Dr. Neumann:</strong> Preise für manche Waren werden <strong>steigen</strong>. Das ist schmerzhaft, aber notwendig für mehr Resilienz.<br>
+      <strong>Moderator:</strong> Profitieren Entwicklungsländer noch von der Globalisierung?<br>
+      <strong>Dr. Neumann:</strong> Ja, der digitale Dienstleistungshandel bietet <strong>neue Chancen</strong> für Länder wie Indien oder Kenia – unabhängig von Schiffsrouten und Fabriken.<br>
+      <strong>Moderator:</strong> Ist Protektionismus die Lösung?<br>
+      <strong>Dr. Neumann:</strong> Nur in bestimmten strategischen Bereichen. Totaler Protektionismus wäre <strong>wirtschaftlich schädlich</strong> für alle.
+    </div>
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">31.</td><td>Dr. Neumann glaubt, die Globalisierung ist vollständig am Ende.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">32.</td><td>Sie erwartet steigende Preise für manche Waren.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">33.</td><td>Digitale Dienste bieten Entwicklungsländern neue Chancen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">34.</td><td>Dr. Neumann befürwortet totalen Protektionismus.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+        <tr><td class="rn">35.</td><td>Die Ära billigen Massenkonsums aus Fernost sei laut Dr. Neumann nicht aufzuhalten.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF(this,'R')">R</button><button class="rfb" onclick="pickRF(this,'F')">F</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Radiobeitrag – Informationen ergänzen</span><span class="ppts">5 Pkt</span></div>
+    <div class="instr">Hören Sie den Beitrag (2×) und notieren Sie.</div>
+    <div class="dial"><div class="dlabel">Radiobeitrag: KI-Startup-Förderung Deutschland</div>
+      „Das Bundesministerium für Wirtschaft hat ein neues Förderprogramm für KI-Startups aufgelegt. Insgesamt stehen <strong>800 Millionen Euro</strong> bis zum Jahr <strong>2027</strong> bereit. Gefördert werden Unternehmen, die seit weniger als <strong>fünf Jahren</strong> bestehen. Die maximale Förderung pro Unternehmen beträgt <strong>2 Millionen Euro</strong>. Bereits jetzt haben sich über <strong>1.400 Startups</strong> beworben. Das Programm hat einen besonderen Fokus auf Anwendungen in den Bereichen Gesundheit, Klimaschutz und <strong>Bildung</strong>. Antragsstellungen sind jeweils zum <strong>31. März</strong> und zum <strong>30. September</strong> möglich."
+    </div>
+    <div class="filrow"><span class="filn">36.</span> Gesamtfördervolumen: <input class="filin" type="text"> Euro bis 2027</div>
+    <div class="filrow"><span class="filn">37.</span> Maximales Unternehmensalter: unter <input class="filin" type="text"> Jahren</div>
+    <div class="filrow"><span class="filn">38.</span> Max. Förderung pro Unternehmen: <input class="filin" type="text"> Euro</div>
+    <div class="filrow"><span class="filn">39.</span> Anzahl Bewerber bisher: über <input class="filin" type="text"></div>
+    <div class="filrow"><span class="filn">40.</span> Antragsfristen: 31. März und <input class="filin" type="text"></div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Diskussion – Multiple Choice</span><span class="ppts">10 Pkt</span></div>
+    <div class="instr">Hören Sie die Diskussion (2×). Was ist richtig?</div>
+    <div class="dial"><div class="dlabel">Talkrunde: Sollte KI in Prüfungen verboten werden?</div>
+      <strong>Moderatorin:</strong> Sollen KI-Tools wie ChatGPT in Schulprüfungen verboten bleiben?<br>
+      <strong>Lehrerin Frau Vogt:</strong> Ja. Prüfungen testen persönliche Kompetenz. Wenn Schüler KI nutzen, wissen wir nicht mehr, was sie wirklich können. Das ist <strong>grundsätzlich unehrlich</strong>.<br>
+      <strong>Schüler Erik:</strong> Ich sehe das anders. Im Berufsleben werden wir KI täglich nutzen. Warum sollen Prüfungen eine künstliche Welt simulieren, die es nicht gibt?<br>
+      <strong>Frau Vogt:</strong> Weil man erst die Grundlagen verstehen muss, bevor man Werkzeuge nutzt. KI-Nutzung ohne Verständnis führt zu <strong>Oberflächlichkeit</strong>.<br>
+      <strong>Erik:</strong> Stimmt in Teilen. Aber man sollte KI-Nutzung <strong>transparent erlauben und einüben</strong>, statt zu verbieten. Schüler lernen dann, KI-Ergebnisse zu bewerten und zu korrigieren.<br>
+      <strong>Frau Vogt:</strong> Das ist ein interessanter Ansatz – aber er verlangt viel mehr von Lehrkräften und <strong>verändert das gesamte Prüfungssystem</strong> grundlegend.
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">41.</span> Warum will Frau Vogt KI in Prüfungen verbieten?</div>
+      <div class="mco" data-grp="q41">
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">a</span> Sie hält KI für unzuverlässig</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">b</span> Prüfungen testen persönliche Kompetenz – KI macht das unklar</button>
+        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">c</span> Schüler würden zu abhängig von Technik</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">42.</span> Was argumentiert Erik für KI-Erlaubnis?</div>
+      <div class="mco" data-grp="q42">
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">a</span> KI macht Prüfungen leichter</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">b</span> Im Berufsleben wird KI täglich genutzt – Schule soll das widerspiegeln</button>
+        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">c</span> Lehrkräfte könnten sich Zeit sparen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">43.</span> Wozu führt KI-Nutzung ohne Verständnis laut Frau Vogt?</div>
+      <div class="mco" data-grp="q43">
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">a</span> Zu mehr Kreativität</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">b</span> Zu Oberflächlichkeit</button>
+        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">c</span> Zu besseren Ergebnissen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">44.</span> Was schlägt Erik vor?</div>
+      <div class="mco" data-grp="q44">
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">a</span> KI ganz verbieten</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">b</span> KI transparent erlauben und einüben</button>
+        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">c</span> Prüfungen komplett abschaffen</button>
+      </div>
+    </div>
+    <div class="mci"><div class="mcs"><span class="qn">45.</span> Was räumt Frau Vogt am Ende ein?</div>
+      <div class="mco" data-grp="q45">
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">a</span> Eriks Vorschlag sei praktisch nicht umsetzbar</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">b</span> Eriks Ansatz sei interessant, aber verändere das Prüfungssystem grundlegend</button>
+        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">c</span> KI solle sofort erlaubt werden</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 70 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Formeller Brief / E-Mail (mind. 150 Wörter)</span><span class="ppts">13 Pkt</span></div>
+    <div class="instr">Schreiben Sie eine formal strukturierte E-Mail oder einen Brief (mind. 150 Wörter). Bearbeiten Sie alle vier Punkte.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px;line-height:1.85">
+      <strong style="color:var(--purple)">Situation:</strong> Sie haben in einer Zeitung einen Artikel gelesen, in dem eine Schule KI-Tools im Unterricht vollständig verboten hat. Sie sind anderer Meinung. Schreiben Sie an die Schulleitung:<br>
+      <strong>① Erklären Sie Ihr Anliegen ② Nennen Sie zwei Argumente für einen kontrollierten Einsatz von KI ③ Schlagen Sie eine konkrete Maßnahme vor ④ Bitten Sie um ein Gespräch</strong>
+    </div>
+    <textarea class="warea" id="w1" oninput="countW('w1','wc1',150,220)" placeholder="Sehr geehrte Schulleitung, ..."></textarea>
+    <div id="wc1" class="wcpill">0 / min. 150</div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Essay / Erörterung (mind. 100 Wörter)</span><span class="ppts">12 Pkt</span></div>
+    <div class="instr">Schreiben Sie einen argumentativen Text (mind. 100 Wörter). Stellen Sie beide Seiten dar und nehmen Sie klar Stellung.</div>
+    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px">
+      <strong style="color:var(--purple)">These:</strong> „Globalisierung schadet Entwicklungsländern mehr, als sie nützt."<br>
+      Schreiben Sie: <strong>① Argumente dafür ② Argumente dagegen ③ Ihre Position mit Begründung</strong>
+    </div>
+    <textarea class="warea" id="w2" oninput="countW('w2','wc2',100,180)" placeholder="Die Globalisierung ist ein vielschichtiges Thema ..."></textarea>
+    <div id="wc2" class="wcpill">0 / min. 100</div>
+  </div>
+</div>
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="instr">Die Lehrkraft leitet die Prüfung. Dieser Teil wird nach Kriterien benotet.</div>
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzpräsentation (4–5 Min.)</span><span class="ppts">8 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
+      Wählen Sie ein Thema: <strong>A) Wie verändert KI unsere Arbeitswelt?</strong> oder <strong>B) Ist Globalisierung gerecht?</strong><br>
+      Bereiten Sie 2 Minuten vor. Sprechen Sie 3–4 Minuten. Gliedern Sie Ihren Vortrag klar.
+    </div>
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Diskussion mit dem Prüfer</span><span class="ppts">9 Pkt</span></div>
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Frage A</div>„Sollte es ein globales Mindesteinkommen geben, das durch internationale Besteuerung von Tech-Konzernen finanziert wird?" Diskutieren Sie Chancen und Risiken.</div>
+      <div class="spcard"><div class="scn">Frage B</div>„Würden Sie einem Roboter vertrauen, der medizinische Diagnosen stellt? Unter welchen Bedingungen?" Begründen Sie Ihre Haltung.</div>
+    </div>
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Hypothetisches Szenario</span><span class="ppts">8 Pkt</span></div>
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;font-size:13px">
+      <strong>Szenario:</strong> Ihre Gemeinde bekommt die Chance, als erstes „KI-unterstütztes Dorf" in Deutschland zu gelten. Das Pilotprojekt beinhaltet KI in der Verwaltung, im Schulwesen und in der Gesundheitsversorgung. Würden Sie zustimmen? Welche Bedingungen würden Sie stellen?
+    </div>
+    <table class="stbl" style="margin-top:12px">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung &amp; Argumentation</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
+        <tr><td>Kohärenz &amp; Diskursfähigkeit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Wortschatz &amp; Idiomatik</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr><td>Grammatische Korrektheit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen</h3>
+      <div class="akp"><h4>T1 – Globalisierung</h4><div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (nur pol. verlässliche Partner)</span></div><div class="chip">3→<span class="ok">R</span></div><div class="chip">4→<span class="ok">F</span></div><div class="chip">5→<span class="ok">R</span></div></div></div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4><div class="chips"><div class="chip">6→<span class="ok">B</span></div><div class="chip">7→<span class="ok">A</span></div><div class="chip">8→<span class="ok">C</span></div><div class="chip">9→<span class="ok">D</span></div><div class="chip">10→<span class="ok">E</span></div></div></div>
+      <div class="akp"><h4>T3 – Bildungsreform</h4><div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">b</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">a</span></div><div class="chip">15→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T4 – Lückentext KI</h4><div class="chips"><div class="chip">16→<span class="ok">Aufgaben</span></div><div class="chip">17→<span class="ok">Systeme</span></div><div class="chip">18→<span class="ok">analysieren</span></div><div class="chip">19→<span class="ok">spiegelt</span></div><div class="chip">20→<span class="ok">Potenzial</span></div></div></div>
+      <div class="akp"><h4>T5 – Kurztexte</h4><div class="chips"><div class="chip">21→<span class="ok">b</span></div><div class="chip">22→<span class="ok">b</span></div><div class="chip">23→<span class="ok">b</span></div><div class="chip">24→<span class="ok">a</span></div><div class="chip">25→<span class="ok">a</span></div></div></div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören</h3>
+      <div class="akp"><h4>T1 – KI im Bildungssystem</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">b</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
+      <div class="akp"><h4>T2 – Dr. Neumann</h4><div class="chips"><div class="chip">31→<span class="ok">F</span></div><div class="chip">32→<span class="ok">R</span></div><div class="chip">33→<span class="ok">R</span></div><div class="chip">34→<span class="ok">F</span></div><div class="chip">35→<span class="ok">F</span></div></div></div>
+      <div class="akp"><h4>T3 – KI-Startup-Förderung</h4><div class="chips"><div class="chip">36→<span class="ok">800 Millionen</span></div><div class="chip">37→<span class="ok">fünf</span></div><div class="chip">38→<span class="ok">2 Millionen</span></div><div class="chip">39→<span class="ok">1.400</span></div><div class="chip">40→<span class="ok">30. September</span></div></div></div>
+      <div class="akp"><h4>T4 – KI-Prüfungsdiskussion</h4><div class="chips"><div class="chip">41→<span class="ok">b</span></div><div class="chip">42→<span class="ok">b</span></div><div class="chip">43→<span class="ok">b</span></div><div class="chip">44→<span class="ok">b</span></div><div class="chip">45→<span class="ok">b</span></div></div></div>
+    </div>
+  </div>
+</div>
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe B2 Modellprüfung Nr. 5 · Viel Erfolg! 🍀</div>
+</div>
+
+<script>
+function pickRF(btn,choice){const w=btn.parentElement;w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');}
+function pickMC(btn,grp){const c=btn.closest('[data-grp="'+grp+'"]');if(!c)return;c.querySelectorAll('.mcb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function countW(taId,pillId,min,max){const ta=document.getElementById(taId),pill=document.getElementById(pillId);if(!ta||!pill)return;const n=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;pill.textContent=n+' / min. '+min;pill.className='wcpill';if(n>=min&&n<=max)pill.classList.add('ok');else if(n>max)pill.classList.add('over');}
+(function(){
+  const TOTAL=185*60;
+  const MODS=[
+    {id:'tp1',from:TOTAL,to:TOTAL-75*60},
+    {id:'tp2',from:TOTAL-75*60,to:TOTAL-115*60},
+    {id:'tp3',from:TOTAL-115*60,to:0},
+    {id:'tp4',from:0,to:-1}
+  ];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){const el=document.getElementById('timer-digits');if(!el)return;el.textContent=rem<=0?'Zeit um!':fmt(rem);el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});}
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

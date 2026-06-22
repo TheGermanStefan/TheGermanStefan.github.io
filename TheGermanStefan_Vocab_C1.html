@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C1 Vocabulary — TheGermanStefan</title>
+<style>
+:root{--lc:#00695c;--lc2:#004d40;--navy:#0d1b2a;--gold:#f4c430;--amber:#f4a830;--off:#f5f6fa;--white:#fff;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
+.topbar{background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
+.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
+.tb-langs{display:flex;gap:3px;flex-shrink:0;}
+.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
+#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
+.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
+.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
+.lvl-name{font-size:42px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
+.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
+.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:52px;z-index:190;}
+.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
+.mode-tab{border:none;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;}
+.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fbtn{border:1px solid #ddd;background:#fff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;color:#555;transition:all .15s;}
+.fbtn.on{background:var(--lc);color:#fff;border-color:var(--lc);}
+.fbtn:hover:not(.on){background:var(--off);}
+.search-box{border:1px solid #ddd;border-radius:8px;padding:6px 12px;font-size:13px;min-width:160px;outline:none;color:var(--navy);}
+.search-box:focus{border-color:var(--lc);}
+.cat-select{border:1px solid #ddd;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--navy);background:#fff;cursor:pointer;outline:none;}
+#list-view{padding:16px;max-width:1100px;margin:0 auto;}
+.word-count{font-size:12px;color:#888;margin-bottom:10px;}
+.word-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.word-table th{background:var(--lc);color:#fff;padding:10px 14px;font-size:12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.word-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid #f0f2f8;vertical-align:middle;}
+.word-table tr:last-child td{border-bottom:none;}
+.word-table tr:hover td{background:#f1f8f7;}
+.de-word{font-weight:700;color:var(--navy);}
+.de-art{color:var(--lc);font-weight:600;font-size:12px;margin-right:4px;}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tb-n{background:#e3f2fd;color:#1565c0;}.tb-v{background:#e8f5e9;color:#2e7d32;}.tb-adj{background:#fce4ec;color:#c62828;}.tb-adv{background:#fff3e0;color:#e65100;}.tb-exp{background:#f3e5f5;color:#6a1b9a;}.tb-prep{background:#e0f2f1;color:#00695c;}.tb-conj{background:#fff8e1;color:#f57f17;}.tb-num{background:#fbe9e7;color:#bf360c;}.tb-pron{background:#e8eaf6;color:#283593;}
+.ex-text{font-style:italic;color:#666;font-size:12px;}
+.no-results{text-align:center;padding:40px;color:#999;font-size:14px;}
+#flash-view{display:none;padding:20px 16px;max-width:700px;margin:0 auto;}
+.flash-progress-bar{height:6px;background:#e0e4ee;border-radius:3px;margin-bottom:16px;overflow:hidden;}
+.flash-progress-fill{height:100%;background:var(--lc);border-radius:3px;transition:width .3s;}
+.flash-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;color:#666;}
+.flash-counter{font-weight:700;color:var(--navy);}
+.flash-known{color:#2e7d32;font-weight:700;}.flash-learning{color:#c62828;font-weight:700;}
+.card-wrap{perspective:1000px;margin-bottom:20px;}
+.card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;border-radius:16px;}
+.card.flipped{transform:rotateY(180deg);}
+.card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.10);}
+.card-front{background:#fff;border:2px solid var(--lc);}
+.card-back{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;transform:rotateY(180deg);}
+.card-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);background:rgba(0,105,92,.08);border-radius:20px;padding:3px 12px;margin-bottom:16px;}
+.card-back .card-cat{color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);}
+.card-article{font-size:22px;font-weight:600;color:var(--lc);margin-bottom:4px;}
+.card-word{font-size:38px;font-weight:900;color:var(--navy);letter-spacing:-1px;}
+.card-back .card-word{color:#fff;font-size:28px;}
+.card-translation{font-size:26px;font-weight:800;margin-bottom:12px;}
+.card-example{font-size:13px;opacity:.85;font-style:italic;margin-top:8px;line-height:1.5;}
+.card-hint{font-size:12px;color:#aaa;margin-top:16px;}
+.flash-btns{display:flex;gap:12px;justify-content:center;margin-bottom:16px;}
+.flash-btn{padding:12px 32px;border-radius:10px;border:none;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s;}
+.btn-know{background:#2e7d32;color:#fff;}.btn-know:hover{background:#1b5e20;}
+.btn-learn{background:#c62828;color:#fff;}.btn-learn:hover{background:#7f0000;}
+.flash-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.flash-nav-btn{padding:8px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#555;}
+.flash-nav-btn:hover{background:var(--off);}
+.flash-done{text-align:center;padding:40px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.flash-done h2{font-size:28px;font-weight:900;margin-bottom:10px;}
+.flash-done .score{font-size:48px;font-weight:900;color:var(--lc);}
+.flash-done p{color:#666;margin-bottom:20px;}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
+.back-hub:hover{background:#1a3a5c;}
+.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:40px;}
+@media(max-width:600px){.word-table th:nth-child(4),.word-table td:nth-child(4){display:none;}.card-word{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TheGermanStefan</span>
+    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → C1</span>
+  </div>
+  <div class="tb-langs">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div id="lang-bar"></div>
+<div class="lvl-header">
+  <div class="lvl-tag" data-t="level_tag">Advanced</div>
+  <div class="lvl-name">C1</div>
+  <div class="lvl-desc" data-t="level_desc">Advanced vocabulary, sophisticated expression, idioms &amp; register</div>
+  <div class="lvl-stats">
+    <span class="lvl-stat" id="total-count">~2000 words</span>
+    <span class="lvl-stat" data-t="stat_topics">20 topics</span>
+    <span class="lvl-stat" data-t="stat_flash">Flashcards included</span>
+  </div>
+</div>
+<div class="controls">
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-list" onclick="switchMode('list')" data-t="mode_list">📋 Word List</button>
+    <button class="mode-tab" id="tab-flash" onclick="switchMode('flash')" data-t="mode_flash">🃏 Flashcards</button>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn on" data-type="all" onclick="setType('all')" data-t="type_all">All</button>
+    <button class="fbtn" data-type="n" onclick="setType('n')" data-t="type_n">Nouns</button>
+    <button class="fbtn" data-type="v" onclick="setType('v')" data-t="type_v">Verbs</button>
+    <button class="fbtn" data-type="adj" onclick="setType('adj')" data-t="type_adj">Adjectives</button>
+    <button class="fbtn" data-type="adv" onclick="setType('adv')" data-t="type_adv">Adverbs</button>
+    <button class="fbtn" data-type="exp" onclick="setType('exp')" data-t="type_exp">Expressions</button>
+    <button class="fbtn" data-type="prep" onclick="setType('prep')" data-t="type_prep">Prepositions</button>
+    <button class="fbtn" data-type="conj" onclick="setType('conj')" data-t="type_conj">Conjunctions</button>
+  </div>
+  <select class="cat-select" id="cat-select" onchange="setCat(this.value)"></select>
+  <input class="search-box" id="search-box" placeholder="Search..." oninput="doSearch(this.value)" data-t-placeholder="search_ph">
+</div>
+<div id="list-view">
+  <div class="word-count" id="word-count"></div>
+  <table class="word-table">
+    <thead><tr>
+      <th data-t="col_word">Word</th><th data-t="col_type">Type</th><th data-t="col_category">Category</th><th data-t="col_translation">Translation</th><th data-t="col_example">Example</th>
+    </tr></thead>
+    <tbody id="word-tbody"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none" data-t="no_results">No words found.</div>
+</div>
+<div id="flash-view">
+  <div class="flash-progress-bar"><div class="flash-progress-fill" id="flash-fill"></div></div>
+  <div class="flash-stats-row">
+    <span class="flash-counter" id="flash-counter"></span>
+    <span><span class="flash-known" id="flash-known">✓ 0</span> &nbsp; <span class="flash-learning" id="flash-learning">✗ 0</span></span>
+  </div>
+  <div class="card-wrap">
+    <div class="card" id="flash-card" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-cat" id="cf-cat"></div>
+        <div class="card-article" id="cf-art"></div>
+        <div class="card-word" id="cf-word"></div>
+        <div class="card-hint" data-t="card_click">Click to reveal translation</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="cb-cat"></div>
+        <div class="card-translation" id="cb-trans"></div>
+        <div class="card-example" id="cb-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div id="flash-done" class="flash-done" style="display:none">
+    <div style="font-size:48px">🎉</div>
+    <h2 data-t="done_title">Round complete!</h2>
+    <div class="score" id="done-score"></div>
+    <p data-t="done_sub">words marked as known this round</p>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="restart_btn">Restart all</button>
+    <button class="flash-nav-btn" onclick="reviewLearning()" data-t="review_btn">Review still learning</button>
+  </div>
+  <div class="flash-btns" id="flash-action-btns">
+    <button class="flash-btn btn-know" onclick="markCard(true)" data-t="btn_know">✓ Know it</button>
+    <button class="flash-btn btn-learn" onclick="markCard(false)" data-t="btn_learn">✗ Still learning</button>
+  </div>
+  <div class="flash-nav">
+    <button class="flash-nav-btn" onclick="prevCard()" data-t="btn_prev">← Previous</button>
+    <button class="flash-nav-btn" onclick="shuffleCards()" data-t="btn_shuffle">🔀 Shuffle</button>
+    <button class="flash-nav-btn" onclick="restartFlash()" data-t="btn_restart">↺ Restart</button>
+    <button class="flash-nav-btn" onclick="nextCard()" data-t="btn_next">Next →</button>
+  </div>
+</div>
+<div style="text-align:center"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
+<div class="footer">TheGermanStefan — C1 Vocabulary © 2025</div>
+<script>
+const UI={
+en:{crumb:'📚 Vocab Centre → C1',level_tag:'Advanced',level_desc:'Advanced vocabulary, sophisticated expression, idioms & register',stat_topics:'20 topics',stat_flash:'Flashcards included',mode_list:'📋 Word List',mode_flash:'🃏 Flashcards',type_all:'All',type_n:'Nouns',type_v:'Verbs',type_adj:'Adjectives',type_adv:'Adverbs',type_exp:'Expressions',type_prep:'Prepositions',type_conj:'Conjunctions',cat_all:'All Categories',search_ph:'Search...',col_word:'Word',col_type:'Type',col_category:'Category',col_translation:'Translation',col_example:'Example',no_results:'No words found.',card_click:'Click to reveal translation',done_title:'Round complete!',done_sub:'words marked as known',restart_btn:'Restart all',review_btn:'Review still learning',btn_know:'✓ Know it',btn_learn:'✗ Still learning',btn_prev:'← Previous',btn_shuffle:'🔀 Shuffle',btn_restart:'↺ Restart',btn_next:'Next →',back_hub:'← Back to Hub',wc_showing:'Showing',wc_of:'of',wc_words:'words',card_of:'Card',card_of2:'of',tname_n:'Noun',tname_v:'Verb',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Number',tname_pron:'Pronoun'},
+fr:{crumb:'📚 Centre Vocab → C1',level_tag:'Avancé',level_desc:'Vocabulaire avancé, expression sophistiquée, idiomes et registre',stat_topics:'20 thèmes',stat_flash:'Cartes incluses',mode_list:'📋 Liste',mode_flash:'🃏 Cartes',type_all:'Tout',type_n:'Noms',type_v:'Verbes',type_adj:'Adjectifs',type_adv:'Adverbes',type_exp:'Expressions',type_prep:'Prépositions',type_conj:'Conjonctions',cat_all:'Toutes catégories',search_ph:'Rechercher...',col_word:'Mot',col_type:'Type',col_category:'Catégorie',col_translation:'Traduction',col_example:'Exemple',no_results:'Aucun mot trouvé.',card_click:'Cliquez pour révéler',done_title:'Série terminée !',done_sub:'mots sus',restart_btn:'Recommencer',review_btn:'Revoir',btn_know:'✓ Je sais',btn_learn:'✗ À revoir',btn_prev:'← Précédent',btn_shuffle:'🔀 Mélanger',btn_restart:'↺ Recommencer',btn_next:'Suivant →',back_hub:'← Retour au Hub',wc_showing:'Affichage',wc_of:'sur',wc_words:'mots',card_of:'Carte',card_of2:'sur',tname_n:'Nom',tname_v:'Verbe',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expression',tname_prep:'Prép.',tname_conj:'Conj.',tname_num:'Nombre',tname_pron:'Pronom'},
+es:{crumb:'📚 Centro Vocab → C1',level_tag:'Avanzado',level_desc:'Vocabulario avanzado, expresión sofisticada, modismos y registro',stat_topics:'20 temas',stat_flash:'Tarjetas incluidas',mode_list:'📋 Lista',mode_flash:'🃏 Tarjetas',type_all:'Todo',type_n:'Sustantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Adverbios',type_exp:'Expresiones',type_prep:'Preposiciones',type_conj:'Conjunciones',cat_all:'Todas categorías',search_ph:'Buscar...',col_word:'Palabra',col_type:'Tipo',col_category:'Categoría',col_translation:'Traducción',col_example:'Ejemplo',no_results:'No se encontraron palabras.',card_click:'Haz clic para revelar',done_title:'¡Ronda completa!',done_sub:'palabras conocidas',restart_btn:'Reiniciar',review_btn:'Repasar',btn_know:'✓ Lo sé',btn_learn:'✗ Repasando',btn_prev:'← Anterior',btn_shuffle:'🔀 Mezclar',btn_restart:'↺ Reiniciar',btn_next:'Siguiente →',back_hub:'← Volver al Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palabras',card_of:'Tarjeta',card_of2:'de',tname_n:'Sust.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expresión',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'},
+it:{crumb:'📚 Centro Vocab → C1',level_tag:'Avanzato',level_desc:'Vocabolario avanzato, espressione sofisticata, idiomi e registro',stat_topics:'20 argomenti',stat_flash:'Schede incluse',mode_list:'📋 Lista',mode_flash:'🃏 Schede',type_all:'Tutto',type_n:'Sostantivi',type_v:'Verbi',type_adj:'Aggettivi',type_adv:'Avverbi',type_exp:'Espressioni',type_prep:'Preposizioni',type_conj:'Congiunzioni',cat_all:'Tutte categorie',search_ph:'Cerca...',col_word:'Parola',col_type:'Tipo',col_category:'Categoria',col_translation:'Traduzione',col_example:'Esempio',no_results:'Nessuna parola trovata.',card_click:'Clicca per rivelare',done_title:'Round completato!',done_sub:'parole conosciute',restart_btn:'Ricominciare',review_btn:'Rivedere',btn_know:'✓ Lo so',btn_learn:'✗ Da rivedere',btn_prev:'← Precedente',btn_shuffle:'🔀 Mescola',btn_restart:'↺ Ricomincia',btn_next:'Successivo →',back_hub:'← Torna al Hub',wc_showing:'Mostrando',wc_of:'di',wc_words:'parole',card_of:'Scheda',card_of2:'di',tname_n:'Sost.',tname_v:'Verbo',tname_adj:'Agg.',tname_adv:'Avv.',tname_exp:'Espressione',tname_prep:'Prep.',tname_conj:'Cong.',tname_num:'Numero',tname_pron:'Pron.'},
+pt:{crumb:'📚 Centro Vocab → C1',level_tag:'Avançado',level_desc:'Vocabulário avançado, expressão sofisticada, idiomas e registro',stat_topics:'20 tópicos',stat_flash:'Flashcards incluídos',mode_list:'📋 Lista',mode_flash:'🃏 Flashcards',type_all:'Tudo',type_n:'Substantivos',type_v:'Verbos',type_adj:'Adjetivos',type_adv:'Advérbios',type_exp:'Expressões',type_prep:'Preposições',type_conj:'Conjunções',cat_all:'Todas categorias',search_ph:'Pesquisar...',col_word:'Palavra',col_type:'Tipo',col_category:'Categoria',col_translation:'Tradução',col_example:'Exemplo',no_results:'Nenhuma palavra encontrada.',card_click:'Clique para revelar',done_title:'Rodada concluída!',done_sub:'palavras conhecidas',restart_btn:'Reiniciar',review_btn:'Rever',btn_know:'✓ Já sei',btn_learn:'✗ Aprendendo',btn_prev:'← Anterior',btn_shuffle:'🔀 Embaralhar',btn_restart:'↺ Reiniciar',btn_next:'Próximo →',back_hub:'← Voltar ao Hub',wc_showing:'Mostrando',wc_of:'de',wc_words:'palavras',card_of:'Card',card_of2:'de',tname_n:'Subst.',tname_v:'Verbo',tname_adj:'Adj.',tname_adv:'Adv.',tname_exp:'Expressão',tname_prep:'Prep.',tname_conj:'Conj.',tname_num:'Número',tname_pron:'Pron.'}
+};
+const VOCAB=[
+// ABSTRACT & PHILOSOPHICAL
+{w:'Dialektik',a:'die',t:'n',cat:'Philosophy & Abstract',en:'dialectics',fr:'dialectique',es:'dialéctica',it:'dialettica',pt:'dialética',ex:'Die Dialektik von These und Antithese.'},
+{w:'Epistemologie',a:'die',t:'n',cat:'Philosophy & Abstract',en:'epistemology',fr:'épistémologie',es:'epistemología',it:'epistemologia',pt:'epistemologia',ex:'Epistemologie fragt nach der Natur des Wissens.'},
+{w:'Ontologie',a:'die',t:'n',cat:'Philosophy & Abstract',en:'ontology',fr:'ontologie',es:'ontología',it:'ontologia',pt:'ontologia',ex:'Die Ontologie untersucht das Sein.'},
+{w:'Paradoxon',a:'das',t:'n',cat:'Philosophy & Abstract',en:'paradox',fr:'paradoxe',es:'paradoja',it:'paradosso',pt:'paradoxo',ex:'Das ist ein scheinbares Paradoxon.'},
+{w:'Axiom',a:'das',t:'n',cat:'Philosophy & Abstract',en:'axiom',fr:'axiome',es:'axioma',it:'assioma',pt:'axioma',ex:'Das ist ein grundlegendes Axiom.'},
+{w:'Determinismus',a:'der',t:'n',cat:'Philosophy & Abstract',en:'determinism',fr:'déterminisme',es:'determinismo',it:'determinismo',pt:'determinismo',ex:'Determinismus vs. freier Wille.'},
+{w:'Relativismus',a:'der',t:'n',cat:'Philosophy & Abstract',en:'relativism',fr:'relativisme',es:'relativismo',it:'relativismo',pt:'relativismo',ex:'Moralischer Relativismus ist umstritten.'},
+{w:'Dualismus',a:'der',t:'n',cat:'Philosophy & Abstract',en:'dualism',fr:'dualisme',es:'dualismo',it:'dualismo',pt:'dualismo',ex:'Körper-Geist-Dualismus.'},
+{w:'Pluralismus',a:'der',t:'n',cat:'Philosophy & Abstract',en:'pluralism',fr:'pluralisme',es:'pluralismo',it:'pluralismo',pt:'pluralismo',ex:'Demokratie lebt von Pluralismus.'},
+{w:'Utopie',a:'die',t:'n',cat:'Philosophy & Abstract',en:'utopia',fr:'utopie',es:'utopía',it:'utopia',pt:'utopia',ex:'Das ist eine schöne Utopie.'},
+{w:'Dogma',a:'das',t:'n',cat:'Philosophy & Abstract',en:'dogma',fr:'dogme',es:'dogma',it:'dogma',pt:'dogma',ex:'Dieses Dogma darf nicht infrage gestellt werden.'},
+{w:'Ambiguität',a:'die',t:'n',cat:'Philosophy & Abstract',en:'ambiguity',fr:'ambiguïté',es:'ambigüedad',it:'ambiguità',pt:'ambiguidade',ex:'Die Ambiguität des Textes ist beabsichtigt.'},
+// ADVANCED SOCIETY & POLITICS
+{w:'Zivilgesellschaft',a:'die',t:'n',cat:'Advanced Society',en:'civil society',fr:'société civile',es:'sociedad civil',it:'società civile',pt:'sociedade civil',ex:'Die Zivilgesellschaft spielt eine wichtige Rolle.'},
+{w:'Legitimität',a:'die',t:'n',cat:'Advanced Society',en:'legitimacy',fr:'légitimité',es:'legitimidad',it:'legittimità',pt:'legitimidade',ex:'Die Legitimität der Regierung wird hinterfragt.'},
+{w:'Hegemonie',a:'die',t:'n',cat:'Advanced Society',en:'hegemony',fr:'hégémonie',es:'hegemonía',it:'egemonia',pt:'hegemonia',ex:'Die kulturelle Hegemonie des Westens.'},
+{w:'Populismus',a:'der',t:'n',cat:'Advanced Society',en:'populism',fr:'populisme',es:'populismo',it:'populismo',pt:'populismo',ex:'Populismus ist in vielen Ländern auf dem Vormarsch.'},
+{w:'Nationalismus',a:'der',t:'n',cat:'Advanced Society',en:'nationalism',fr:'nationalisme',es:'nacionalismo',it:'nazionalismo',pt:'nacionalismo',ex:'Nationalismus kann gefährlich sein.'},
+{w:'Emanzipation',a:'die',t:'n',cat:'Advanced Society',en:'emancipation',fr:'émancipation',es:'emancipación',it:'emancipazione',pt:'emancipação',ex:'Die Emanzipation der Frau war ein langer Kampf.'},
+{w:'Patriarchat',a:'das',t:'n',cat:'Advanced Society',en:'patriarchy',fr:'patriarcat',es:'patriarcado',it:'patriarcato',pt:'patriarcado',ex:'Das Patriarchat muss überwunden werden.'},
+{w:'Intersektionalität',a:'die',t:'n',cat:'Advanced Society',en:'intersectionality',fr:'intersectionnalité',es:'interseccionalidad',it:'intersezionalità',pt:'interseccionalidade',ex:'Intersektionalität verbindet verschiedene Diskriminierungsformen.'},
+{w:'Stigmatisierung',a:'die',t:'n',cat:'Advanced Society',en:'stigmatisation',fr:'stigmatisation',es:'estigmatización',it:'stigmatizzazione',pt:'estigmatização',ex:'Stigmatisierung schadet Betroffenen.'},
+{w:'Marginalisierung',a:'die',t:'n',cat:'Advanced Society',en:'marginalisation',fr:'marginalisation',es:'marginación',it:'marginalizzazione',pt:'marginalização',ex:'Marginalisierung bestimmter Gruppen ist ein Problem.'},
+// ADVANCED LANGUAGE & RHETORIC
+{w:'Rhetorik',a:'die',t:'n',cat:'Language & Rhetoric',en:'rhetoric',fr:'rhétorique',es:'retórica',it:'retorica',pt:'retórica',ex:'Seine Rhetorik ist überzeugend.'},
+{w:'Ironie',a:'die',t:'n',cat:'Language & Rhetoric',en:'irony',fr:'ironie',es:'ironía',it:'ironia',pt:'ironia',ex:'Er benutzt Ironie, um Kritik zu üben.'},
+{w:'Sarkasmus',a:'der',t:'n',cat:'Language & Rhetoric',en:'sarcasm',fr:'sarcasme',es:'sarcasmo',it:'sarcasmo',pt:'sarcasmo',ex:'Sein Sarkasmus ist manchmal verletzend.'},
+{w:'Euphemismus',a:'der',t:'n',cat:'Language & Rhetoric',en:'euphemism',fr:'euphémisme',es:'eufemismo',it:'eufemismo',pt:'eufemismo',ex:'Das ist ein Euphemismus für Entlassung.'},
+{w:'Analogie',a:'die',t:'n',cat:'Language & Rhetoric',en:'analogy',fr:'analogie',es:'analogía',it:'analogia',pt:'analogia',ex:'Er zieht eine Analogie.'},
+{w:'Konnotation',a:'die',t:'n',cat:'Language & Rhetoric',en:'connotation',fr:'connotation',es:'connotación',it:'connotazione',pt:'conotação',ex:'Das Wort hat negative Konnotationen.'},
+{w:'Denotation',a:'die',t:'n',cat:'Language & Rhetoric',en:'denotation',fr:'dénotation',es:'denotación',it:'denotazione',pt:'denotação',ex:'Denotation ist die wörtliche Bedeutung.'},
+{w:'Semantik',a:'die',t:'n',cat:'Language & Rhetoric',en:'semantics',fr:'sémantique',es:'semántica',it:'semantica',pt:'semântica',ex:'Die Semantik ist die Bedeutungslehre.'},
+{w:'Pragmatik',a:'die',t:'n',cat:'Language & Rhetoric',en:'pragmatics',fr:'pragmatique',es:'pragmática',it:'pragmatica',pt:'pragmática',ex:'Pragmatik untersucht Sprache im Kontext.'},
+// ADVANCED VERBS C1
+{w:'in Frage stellen',a:'',t:'v',cat:'Advanced Verbs',en:'to call into question / challenge',fr:'remettre en question',es:'cuestionar / poner en duda',it:'mettere in discussione',pt:'questionar / colocar em dúvida',ex:'Diese Annahme muss in Frage gestellt werden.'},
+{w:'abwägen',a:'',t:'v',cat:'Advanced Verbs',en:'to weigh up / consider carefully',fr:'peser / balancer',es:'sopesar / ponderar',it:'soppesare / ponderare',pt:'ponderar / pesar',ex:'Ich muss die Vor- und Nachteile abwägen.'},
+{w:'differenzieren',a:'',t:'v',cat:'Advanced Verbs',en:'to differentiate / distinguish',fr:'différencier / distinguer',es:'diferenciar / distinguir',it:'differenziare / distinguere',pt:'diferenciar / distinguir',ex:'Man muss hier differenzieren.'},
+{w:'konkretisieren',a:'',t:'v',cat:'Advanced Verbs',en:'to make concrete / specify',fr:'concrétiser / préciser',es:'concretar / especificar',it:'concretizzare / precisare',pt:'concretizar / especificar',ex:'Kannst du das konkretisieren?'},
+{w:'relativieren',a:'',t:'v',cat:'Advanced Verbs',en:'to put into perspective / relativise',fr:'relativiser / nuancer',es:'relativizar / matizar',it:'relativizzare',pt:'relativizar',ex:'Das müssen wir relativieren.'},
+{w:'sich manifestieren',a:'',t:'v',cat:'Advanced Verbs',en:'to manifest / become apparent',fr:'se manifester',es:'manifestarse',it:'manifestarsi',pt:'manifestar-se',ex:'Die Krise manifestiert sich in der Armut.'},
+{w:'implizieren',a:'',t:'v',cat:'Advanced Verbs',en:'to imply',fr:'impliquer',es:'implicar',it:'implicare',pt:'implicar',ex:'Das impliziert eine Einschränkung der Freiheit.'},
+{w:'legitimieren',a:'',t:'v',cat:'Advanced Verbs',en:'to legitimise',fr:'légitimer',es:'legitimar',it:'legittimare',pt:'legitimar',ex:'Wie kann man das legitimieren?'},
+{w:'perpetuieren',a:'',t:'v',cat:'Advanced Verbs',en:'to perpetuate',fr:'perpétuer',es:'perpetuar',it:'perpetuare',pt:'perpetuar',ex:'Das perpetuiert soziale Ungleichheit.'},
+{w:'reflektieren über',a:'',t:'v',cat:'Advanced Verbs',en:'to reflect on',fr:'réfléchir sur',es:'reflexionar sobre',it:'riflettere su',pt:'refletir sobre',ex:'Ich reflektiere über meinen Fehler.'},
+{w:'subsumieren',a:'',t:'v',cat:'Advanced Verbs',en:'to subsume / include under',fr:'subsumer / inclure sous',es:'subsumir / incluir bajo',it:'sussumere',pt:'subsumir',ex:'Das lässt sich unter diesem Begriff subsumieren.'},
+// ADVANCED ADJECTIVES C1
+{w:'ambivalent',a:'',t:'adj',cat:'Advanced Adjectives',en:'ambivalent',fr:'ambivalent',es:'ambivalente',it:'ambivalente',pt:'ambivalente',ex:'Ich stehe dem Thema ambivalent gegenüber.'},
+{w:'prägnant',a:'',t:'adj',cat:'Advanced Adjectives',en:'concise / pithy / striking',fr:'concis / percutant',es:'conciso / contundente',it:'conciso / incisivo',pt:'conciso / contundente',ex:'Eine prägnante Aussage ist gut.'},
+{w:'treffend',a:'',t:'adj',cat:'Advanced Adjectives',en:'apt / fitting / accurate',fr:'juste / pertinent',es:'acertado / atinado',it:'preciso / azzeccato',pt:'preciso / acertado',ex:'Das ist eine treffende Beschreibung.'},
+{w:'widersprüchlich',a:'',t:'adj',cat:'Advanced Adjectives',en:'contradictory / inconsistent',fr:'contradictoire / incohérent',es:'contradictorio / inconsistente',it:'contraddittorio',pt:'contraditório / inconsistente',ex:'Die Aussagen sind widersprüchlich.'},
+{w:'plausibel',a:'',t:'adj',cat:'Advanced Adjectives',en:'plausible',fr:'plausible',es:'plausible',it:'plausibile',pt:'plausível',ex:'Das klingt plausibel.'},
+{w:'weitreichend',a:'',t:'adj',cat:'Advanced Adjectives',en:'far-reaching / extensive',fr:'de grande portée',es:'de gran alcance',it:'di ampia portata',pt:'de grande alcance',ex:'Die Entscheidung hat weitreichende Folgen.'},
+{w:'unausweichlich',a:'',t:'adj',cat:'Advanced Adjectives',en:'inevitable / unavoidable',fr:'inévitable',es:'inevitable',it:'inevitabile',pt:'inevitável',ex:'Das war unausweichlich.'},
+{w:'maßgeblich',a:'',t:'adj',cat:'Advanced Adjectives',en:'decisive / authoritative / definitive',fr:'décisif / déterminant',es:'decisivo / determinante',it:'decisivo / determinante',pt:'decisivo / determinante',ex:'Das war der maßgebliche Faktor.'},
+{w:'kontrovers',a:'',t:'adj',cat:'Advanced Adjectives',en:'controversial',fr:'controversé',es:'controvertido',it:'controverso',pt:'controverso',ex:'Das ist ein kontroverses Thema.'},
+{w:'exemplarisch',a:'',t:'adj',cat:'Advanced Adjectives',en:'exemplary / as an example',fr:'exemplaire',es:'ejemplar',it:'esemplare',pt:'exemplar',ex:'Das zeige ich exemplarisch.'},
+{w:'signifikant',a:'',t:'adj',cat:'Advanced Adjectives',en:'significant',fr:'significatif',es:'significativo',it:'significativo',pt:'significativo',ex:'Der Unterschied ist signifikant.'},
+{w:'rudimentär',a:'',t:'adj',cat:'Advanced Adjectives',en:'rudimentary / basic',fr:'rudimentaire',es:'rudimentario',it:'rudimentale',pt:'rudimentar',ex:'Meine Kenntnisse sind noch rudimentär.'},
+{w:'nachhaltig',a:'',t:'adj',cat:'Advanced Adjectives',en:'sustainable / lasting',fr:'durable',es:'sostenible / duradero',it:'sostenibile / duraturo',pt:'sustentável / duradouro',ex:'Das hat nachhaltige Wirkung.'},
+{w:'fragil',a:'',t:'adj',cat:'Advanced Adjectives',en:'fragile',fr:'fragile',es:'frágil',it:'fragile',pt:'frágil',ex:'Die Situation ist noch fragil.'},
+// ADVANCED ADVERBS C1
+{w:'gewissermaßen',a:'',t:'adv',cat:'Advanced Adverbs',en:'in a way / to a certain extent',fr:'en quelque sorte / dans une certaine mesure',es:'en cierto modo / hasta cierto punto',it:'in un certo senso / in qualche misura',pt:'de certo modo / em certa medida',ex:'Das ist gewissermaßen richtig.'},
+{w:'keineswegs',a:'',t:'adv',cat:'Advanced Adverbs',en:'by no means / not at all',fr:'nullement / en aucun cas',es:'de ningún modo / en absoluto',it:'per niente / in nessun modo',pt:'de modo algum / de jeito nenhum',ex:'Das ist keineswegs selbstverständlich.'},
+{w:'schlechterdings',a:'',t:'adv',cat:'Advanced Adverbs',en:'simply / absolutely / downright',fr:'absolument / tout simplement',es:'sencillamente / absolutamente',it:'assolutamente / semplicemente',pt:'simplesmente / absolutamente',ex:'Das ist schlechterdings unmöglich.'},
+{w:'gleichermaßen',a:'',t:'adv',cat:'Advanced Adverbs',en:'equally / likewise / in equal measure',fr:'également / pareillement',es:'igualmente / de igual manera',it:'ugualmente / allo stesso modo',pt:'igualmente / da mesma forma',ex:'Das gilt gleichermaßen für alle.'},
+{w:'ungeachtet',a:'',t:'prep',cat:'Advanced Adverbs',en:'regardless of / notwithstanding',fr:'sans égard pour / malgré',es:'independientemente de / sin tener en cuenta',it:'indipendentemente da / nonostante',pt:'independentemente de / a despeito de',ex:'Ungeachtet der Kritik setzt er fort.'},
+// C1 IDIOMATIC EXPRESSIONS
+{w:'den Nagel auf den Kopf treffen',a:'',t:'exp',cat:'C1 Idioms',en:'to hit the nail on the head',fr:'mettre le doigt dessus / toucher juste',es:'dar en el clavo',it:'colpire nel segno',pt:'acertar em cheio / dar uma de mestre',ex:'Du hast den Nagel auf den Kopf getroffen.'},
+{w:'auf des Messers Schneide stehen',a:'',t:'exp',cat:'C1 Idioms',en:'to be on a knife edge',fr:'être sur le fil du rasoir',es:'estar al filo de la navaja',it:'essere sul filo del rasoio',pt:'estar na corda bamba',ex:'Die Entscheidung steht auf des Messers Schneide.'},
+{w:'jemandem auf den Zahn fühlen',a:'',t:'exp',cat:'C1 Idioms',en:'to put someone through their paces / probe someone',fr:'sonder quelqu\'un / tâter le terrain',es:'sondear a alguien / tantear',it:'sondare qualcuno',pt:'sondar alguém / testar alguém',ex:'Der Prüfer fühlte ihm auf den Zahn.'},
+{w:'das Ruder in die Hand nehmen',a:'',t:'exp',cat:'C1 Idioms',en:'to take the helm / take charge',fr:'prendre les rênes',es:'tomar las riendas',it:'prendere le redini',pt:'tomar as rédeas',ex:'Es ist Zeit, das Ruder in die Hand zu nehmen.'},
+{w:'über seinen Schatten springen',a:'',t:'exp',cat:'C1 Idioms',en:'to overcome one\'s own inhibitions / go beyond oneself',fr:'se surpasser / faire un effort sur soi-même',es:'superarse / vencer sus propias limitaciones',it:'superare se stessi',pt:'superar a si mesmo / sair da zona de conforto',ex:'Er musste über seinen Schatten springen.'},
+{w:'ins kalte Wasser springen',a:'',t:'exp',cat:'C1 Idioms',en:'to dive in at the deep end',fr:'plonger dans le bain / être jeté dans l\'eau froide',es:'lanzarse a la piscina / tirarse al vacío',it:'buttarsi allo sbaraglio',pt:'mergulhar de cabeça',ex:'Ich bin einfach ins kalte Wasser gesprungen.'},
+{w:'am Ende des Tages',a:'',t:'exp',cat:'C1 Idioms',en:'at the end of the day',fr:'au bout du compte / en fin de compte',es:'al final del día / en definitiva',it:'alla fine dei conti / in definitiva',pt:'no final das contas',ex:'Am Ende des Tages zählt das Ergebnis.'},
+{w:'jemanden hinters Licht führen',a:'',t:'exp',cat:'C1 Idioms',en:'to pull the wool over someone\'s eyes / deceive',fr:'induire quelqu\'un en erreur / tromper',es:'engañar a alguien',it:'ingannare qualcuno',pt:'enganar alguém',ex:'Er hat mich hinters Licht geführt.'},
+{w:'nicht auf den Mund gefallen sein',a:'',t:'exp',cat:'C1 Idioms',en:'to be quick-witted / have a ready tongue',fr:'ne pas avoir la langue dans sa poche',es:'no tener pelos en la lengua',it:'non avere peli sulla lingua',pt:'não ter papas na língua',ex:'Sie ist nicht auf den Mund gefallen.'},
+{w:'mit offenen Karten spielen',a:'',t:'exp',cat:'C1 Idioms',en:'to play with open cards / be transparent',fr:'jouer cartes sur table',es:'jugar con las cartas sobre la mesa',it:'giocare a carte scoperte',pt:'jogar com as cartas na mesa',ex:'Spielen wir mit offenen Karten!'},
+// ECONOMICS & FINANCE C1
+{w:'Konjunktur',a:'die',t:'n',cat:'Economics C1',en:'economic cycle / business cycle / economic situation',fr:'conjoncture / cycle économique',es:'coyuntura / ciclo económico',it:'congiuntura / ciclo economico',pt:'conjuntura / ciclo econômico',ex:'Die Konjunktur schwächelt.'},
+{w:'Rezession',a:'die',t:'n',cat:'Economics C1',en:'recession',fr:'récession',es:'recesión',it:'recessione',pt:'recessão',ex:'Das Land steckt in der Rezession.'},
+{w:'Deflation',a:'die',t:'n',cat:'Economics C1',en:'deflation',fr:'déflation',es:'deflación',it:'deflazione',pt:'deflação',ex:'Deflation ist ebenso gefährlich wie Inflation.'},
+{w:'Liquidität',a:'die',t:'n',cat:'Economics C1',en:'liquidity',fr:'liquidité',es:'liquidez',it:'liquidità',pt:'liquidez',ex:'Das Unternehmen hat Liquiditätsprobleme.'},
+{w:'Spekulation',a:'die',t:'n',cat:'Economics C1',en:'speculation',fr:'spéculation',es:'especulación',it:'speculazione',pt:'especulação',ex:'Spekulation kann zu Krisen führen.'},
+{w:'Subsidie',a:'die',t:'n',cat:'Economics C1',en:'subsidy',fr:'subvention',es:'subsidio / subvención',it:'sussidio / sovvenzione',pt:'subsídio',ex:'Der Staat zahlt Subsidien an Bauern.'},
+{w:'Haushalt',a:'der',t:'n',cat:'Economics C1',en:'budget / household',fr:'budget / ménage',es:'presupuesto / hogar',it:'bilancio / famiglia',pt:'orçamento / domicílio',ex:'Der Staatshaushalt ist ausgeglichen.'},
+// NEUROSCIENCE & COGNITION
+{w:'kognitive Verzerrung',a:'die',t:'n',cat:'Cognition & Psychology',en:'cognitive bias',fr:'biais cognitif',es:'sesgo cognitivo',it:'distorsione cognitiva',pt:'viés cognitivo',ex:'Kognitive Verzerrungen beeinflussen unsere Urteile.'},
+{w:'Metakognition',a:'die',t:'n',cat:'Cognition & Psychology',en:'metacognition',fr:'métacognition',es:'metacognición',it:'metacognizione',pt:'metacognição',ex:'Metakognition ist Denken über das Denken.'},
+{w:'Neuroplastizität',a:'die',t:'n',cat:'Cognition & Psychology',en:'neuroplasticity',fr:'neuroplasticité',es:'neuroplasticidad',it:'neuroplasticità',pt:'neuroplasticidade',ex:'Neuroplastizität ermöglicht lebenslanges Lernen.'},
+{w:'Konditionierung',a:'die',t:'n',cat:'Cognition & Psychology',en:'conditioning',fr:'conditionnement',es:'condicionamiento',it:'condizionamento',pt:'condicionamento',ex:'Konditionierung beeinflusst Verhalten.'},
+{w:'kognitive Dissonanz',a:'die',t:'n',cat:'Cognition & Psychology',en:'cognitive dissonance',fr:'dissonance cognitive',es:'disonancia cognitiva',it:'dissonanza cognitiva',pt:'dissonância cognitiva',ex:'Kognitive Dissonanz entsteht bei widersprüchlichen Überzeugungen.'},
+// FORMAL REGISTER WORDS
+{w:'inständig',a:'',t:'adv',cat:'Formal Register',en:'urgently / earnestly',fr:'instamment / ardemment',es:'encarecidamente / fervientemente',it:'insistentemente / ardentemente',pt:'ardentemente / encarecidamente',ex:'Ich bitte Sie inständig.'},
+{w:'wohingegen',a:'',t:'conj',cat:'Formal Register',en:'whereas / while on the other hand',fr:'tandis que / alors que',es:'mientras que / en tanto que',it:'mentre / laddove',pt:'enquanto / ao passo que',ex:'Er schweigt, wohingegen sie spricht.'},
+{w:'demzufolge',a:'',t:'adv',cat:'Formal Register',en:'accordingly / consequently',fr:'par conséquent / en conséquence',es:'en consecuencia / por consiguiente',it:'di conseguenza',pt:'consequentemente / por conseguinte',ex:'Demzufolge müssen wir die Strategie ändern.'},
+{w:'einhergehend mit',a:'',t:'prep',cat:'Formal Register',en:'accompanying / in conjunction with',fr:'accompagné de / conjointement à',es:'acompañado de / junto con',it:'congiuntamente a / accompagnato da',pt:'acompanhado de / em conjunto com',ex:'Die Reform geht einher mit höheren Kosten.'},
+{w:'mutmaßlich',a:'',t:'adv',cat:'Formal Register',en:'allegedly / supposedly / presumed',fr:'présumément / soi-disant',es:'presuntamente / supuestamente',it:'presumibilmente / asseritamente',pt:'presumivelmente / supostamente',ex:'Der mutmaßliche Täter wurde verhaftet.'},
+{w:'unabdingbar',a:'',t:'adj',cat:'Formal Register',en:'indispensable / imperative',fr:'indispensable / impératif',es:'indispensable / imprescindible',it:'indispensabile / imprescindibile',pt:'indispensável / imprescindível',ex:'Das ist unabdingbar.'},
+{w:'vonnöten',a:'',t:'adj',cat:'Formal Register',en:'necessary / needed (formal)',fr:'nécessaire (formel)',es:'necesario (formal)',it:'necessario (formale)',pt:'necessário (formal)',ex:'Das ist vonnöten.'},
+{w:'eingedenk',a:'',t:'prep',cat:'Formal Register',en:'mindful of / bearing in mind',fr:'en ayant à l\'esprit',es:'teniendo en cuenta / consciente de',it:'tenendo presente / consapevole di',pt:'ciente de / tendo em mente',ex:'Eingedenk dieser Tatsache handeln wir.'},
+// LITERATURE & CRITICISM
+{w:'Erzählperspektive',a:'die',t:'n',cat:'Literature',en:'narrative perspective / point of view',fr:'perspective narrative / point de vue',es:'perspectiva narrativa / punto de vista',it:'prospettiva narrativa',pt:'perspectiva narrativa / ponto de vista',ex:'Die Erzählperspektive beeinflusst die Geschichte.'},
+{w:'Protagonist',a:'der',t:'n',cat:'Literature',en:'protagonist',fr:'protagoniste',es:'protagonista',it:'protagonista',pt:'protagonista',ex:'Der Protagonist ist ein Antiheld.'},
+{w:'Antagonist',a:'der',t:'n',cat:'Literature',en:'antagonist',fr:'antagoniste',es:'antagonista',it:'antagonista',pt:'antagonista',ex:'Der Antagonist ist komplex gezeichnet.'},
+{w:'Leitmotiv',a:'das',t:'n',cat:'Literature',en:'leitmotif',fr:'leitmotiv',es:'leitmotiv',it:'leit motiv / tema ricorrente',pt:'leitmotif',ex:'Das Leitmotiv zieht sich durch den Roman.'},
+{w:'Alliteration',a:'die',t:'n',cat:'Literature',en:'alliteration',fr:'allitération',es:'aliteración',it:'allitterazione',pt:'aliteração',ex:'„Wir wollen wachsen" ist eine Alliteration.'},
+// ADVANCED CONJUNCTIONS C1
+{w:'wenngleich',a:'',t:'conj',cat:'Advanced Conjunctions',en:'although / even though',fr:'bien que / quoique',es:'aunque / aun cuando',it:'sebbene / benché',pt:'embora / ainda que',ex:'Wenngleich er müde war, arbeitete er weiter.'},
+{w:'unbeschadet',a:'',t:'prep',cat:'Advanced Conjunctions',en:'notwithstanding / without prejudice to',fr:'nonobstant / sans préjudice de',es:'sin perjuicio de / no obstante',it:'fermo restando / senza pregiudizio di',pt:'sem prejuízo de / não obstante',ex:'Unbeschadet seiner Meinung, stimme ich zu.'},
+{w:'insoweit als',a:'',t:'conj',cat:'Advanced Conjunctions',en:'insofar as / to the extent that',fr:'dans la mesure où',es:'en la medida en que',it:'nella misura in cui',pt:'na medida em que',ex:'Das gilt, insoweit als es belegt ist.'}
+];
+let CL=localStorage.getItem('tgs_lang')||'en';
+let curType='all',curCat='all',curSearch='',curMode='list';
+let flashDeck=[],flashIdx=0,flashKnown=new Set(),flashLearning=new Set(),isFlipped=false;
+function t(k){return(UI[CL]||UI.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){el.placeholder=t(el.getAttribute('data-t-placeholder'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+  buildCatDropdown();renderList();if(curMode==='flash')renderCard();
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+function typeName(c){var m={n:'tname_n',v:'tname_v',adj:'tname_adj',adv:'tname_adv',exp:'tname_exp',prep:'tname_prep',conj:'tname_conj',num:'tname_num',pron:'tname_pron'};return t(m[c]||c);}
+function typeBadge(c){return '<span class="type-badge tb-'+c+'">'+typeName(c)+'</span>';}
+function filtered(){return VOCAB.filter(function(w){if(curType!=='all'&&w.t!==curType)return false;if(curCat!=='all'&&w.cat!==curCat)return false;if(curSearch){var s=curSearch.toLowerCase();if(!(w.w.toLowerCase().includes(s)||(w[CL]&&w[CL].toLowerCase().includes(s))||w.en.toLowerCase().includes(s)))return false;}return true;});}
+function buildCatDropdown(){var sel=document.getElementById('cat-select');var cats=[...new Set(VOCAB.map(function(w){return w.cat;}))].sort();sel.innerHTML='<option value="all">'+t('cat_all')+'</option>';cats.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;if(c===curCat)o.selected=true;sel.appendChild(o);});}
+function renderList(){var data=filtered();var tbody=document.getElementById('word-tbody');var noRes=document.getElementById('no-results');document.getElementById('word-count').textContent=t('wc_showing')+' '+data.length+' '+t('wc_of')+' '+VOCAB.length+' '+t('wc_words');if(data.length===0){tbody.innerHTML='';noRes.style.display='block';return;}noRes.style.display='none';tbody.innerHTML=data.map(function(w){return '<tr><td class="de-word">'+(w.a?'<span class="de-art">'+w.a+'</span>':'')+w.w+'</td><td>'+typeBadge(w.t)+'</td><td>'+w.cat+'</td><td>'+(w[CL]||w.en)+'</td><td class="ex-text">'+w.ex+'</td></tr>';}).join('');}
+function setType(type){curType=type;document.querySelectorAll('[data-type]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-type')===type);});if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function setCat(cat){curCat=cat;if(curMode==='list')renderList();else{initFlash();renderCard();}}
+function doSearch(val){curSearch=val;renderList();}
+function switchMode(mode){curMode=mode;document.getElementById('list-view').style.display=mode==='list'?'block':'none';document.getElementById('flash-view').style.display=mode==='flash'?'block':'none';document.getElementById('tab-list').classList.toggle('on',mode==='list');document.getElementById('tab-flash').classList.toggle('on',mode==='flash');document.getElementById('search-box').style.display=mode==='list'?'inline-block':'none';if(mode==='flash'){initFlash();renderCard();}}
+function shuffle(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t2=arr[i];arr[i]=arr[j];arr[j]=t2;}return arr;}
+function initFlash(){flashDeck=shuffle(filtered().slice());flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';}
+function renderCard(){if(flashDeck.length===0||flashIdx>=flashDeck.length){document.getElementById('flash-done').style.display='block';document.getElementById('flash-action-btns').style.display='none';document.querySelector('.flash-nav').style.display='none';document.getElementById('done-score').textContent=flashKnown.size;document.getElementById('flash-card').style.display='none';return;}document.getElementById('flash-card').style.display='block';var w=flashDeck[flashIdx];isFlipped=false;document.getElementById('flash-card').classList.remove('flipped');document.getElementById('cf-cat').textContent=w.cat;document.getElementById('cf-art').textContent=w.a||'';document.getElementById('cf-word').textContent=w.w;document.getElementById('cb-cat').textContent=w.cat;document.getElementById('cb-trans').textContent=w[CL]||w.en;document.getElementById('cb-ex').textContent=w.ex;var total=flashDeck.length;document.getElementById('flash-fill').style.width=(flashIdx/total*100)+'%';document.getElementById('flash-counter').textContent=t('card_of')+' '+(flashIdx+1)+' '+t('card_of2')+' '+total;document.getElementById('flash-known').textContent='✓ '+flashKnown.size;document.getElementById('flash-learning').textContent='✗ '+flashLearning.size;}
+function flipCard(){isFlipped=!isFlipped;document.getElementById('flash-card').classList.toggle('flipped',isFlipped);}
+function markCard(know){var w=flashDeck[flashIdx];if(know)flashKnown.add(w.w);else flashLearning.add(w.w);flashIdx++;isFlipped=false;renderCard();}
+function nextCard(){flashIdx=Math.min(flashIdx+1,flashDeck.length-1);isFlipped=false;renderCard();}
+function prevCard(){flashIdx=Math.max(flashIdx-1,0);isFlipped=false;renderCard();}
+function shuffleCards(){shuffle(flashDeck);flashIdx=0;flashKnown=new Set();flashLearning=new Set();renderCard();}
+function restartFlash(){initFlash();renderCard();}
+function reviewLearning(){flashDeck=shuffle(VOCAB.filter(function(w){return flashLearning.has(w.w);}));flashIdx=0;flashKnown=new Set();flashLearning=new Set();document.getElementById('flash-done').style.display='none';document.getElementById('flash-action-btns').style.display='flex';document.querySelector('.flash-nav').style.display='flex';document.getElementById('flash-card').style.display='block';renderCard();}
+buildCatDropdown();renderList();applyLang();
+</script>
+</body>
+</html>

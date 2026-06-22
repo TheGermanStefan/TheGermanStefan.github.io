@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat B1 – Modellprüfung 2</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--teal:#00695c;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.7}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:110px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+@media print{#timer-bar{display:none}}
+.cover{background:linear-gradient(135deg,#1a237e 0%,#283593 50%,#00695c 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid var(--teal);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.ci:focus{border-bottom-color:var(--teal)}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:20px 0}
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:13px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:2;margin-bottom:12px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:8px;font-style:italic}
+.sbox h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#ff9800;border-color:#ff9800;color:#fff}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sit:last-child{margin-bottom:0}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.mci{margin-bottom:16px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.gmci{margin-bottom:14px;padding:9px 12px;background:#fafcff;border:1px solid #dde;border-radius:8px}
+.gmcs{font-size:13.5px;color:#222;margin-bottom:7px}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:130px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+.warea{width:100%;min-height:200px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;color:#111;background:#fdf8ff;line-height:1.8}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff;min-height:170px}
+.warea2:focus{border-color:#3949ab}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.9;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+.sc{font-weight:700;color:#00695c}
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px;line-height:1.75}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.wrong{color:var(--red);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric h4{font-weight:700;color:#795548;font-size:12px;margin-bottom:5px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">2:45:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 65'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 60'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 2</div>
+    <h1>Goethe-Zertifikat B1 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>165 Minuten</strong> (schriftlich) + <strong>15 Min.</strong> (Sprechen) &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">B1<span>Test 2</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 65 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 60 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Reading comprehension – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 65 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Magazinartikel – Richtig, Falsch oder Nicht im Text?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Artikel. Sind die Aussagen (1–5) <strong>richtig (R)</strong>, <strong>falsch (F)</strong> oder <strong>nicht im Text (N)</strong>?</div>
+
+    <div class="sbox">
+      <div class="smeta">„Gesundheit &amp; Wohlbefinden" – Magazin für modernes Leben, April 2026</div>
+      <h3>Schlaf: Das unterschätzte Wundermittel</h3>
+      <p>Schlafen gilt in unserer Leistungsgesellschaft oft als Zeitverschwendung. „Ich schlafe, wenn ich tot bin" – dieser Satz steht exemplarisch für eine weit verbreitete Einstellung. Dabei weiß die Wissenschaft heute: Ausreichend Schlaf ist eine der wichtigsten Grundlagen für körperliche und geistige Gesundheit.</p><br>
+      <p>Erwachsene brauchen im Durchschnitt <strong>sieben bis neun Stunden</strong> Schlaf pro Nacht. Doch laut einer aktuellen Studie der Deutschen Gesellschaft für Schlafforschung schlafen rund <strong>35 Prozent</strong> der Bevölkerung regelmäßig zu wenig. Die Folgen sind gravierend: Schlafmangel erhöht das Risiko für Herzerkrankungen, Diabetes und Depressionen. Außerdem leidet die Konzentrationsfähigkeit – ein ausgeschlafener Mensch trifft bessere Entscheidungen.</p><br>
+      <p>Was stört den Schlaf? Vor allem Bildschirmlicht von Smartphones und Tablets. Das blaue Licht hemmt die Produktion von <strong>Melatonin</strong> – dem Schlafhormon. Experten empfehlen, mindestens eine Stunde vor dem Schlafengehen keine Bildschirme mehr zu benutzen.</p><br>
+      <p>Auch die Schlafumgebung spielt eine Rolle: Ein kühles, dunkles und leises Zimmer fördert den Schlaf erheblich. Eine Temperatur von <strong>16 bis 18 Grad Celsius</strong> gilt als ideal. Wer regelmäßig schlechter schläft, sollte außerdem auf Koffein nach 15 Uhr und Alkohol am Abend verzichten – beide Substanzen stören die Schlafqualität, auch wenn man schneller einschläft.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Laut der Studie schläft etwa ein Drittel der Bevölkerung zu wenig.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>Schlafmangel kann zu Herzerkrankungen und Diabetes führen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Der Artikel empfiehlt, vier Stunden vor dem Schlafen keine Bildschirme zu benutzen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Die ideale Schlafzimmertemperatur liegt zwischen 16 und 18 Grad.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Der Artikel nennt Preise für Schlafmittel oder Supplements.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Personen und Wohnungsanzeigen – Was passt?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Fünf Personen suchen eine Wohnung oder ein Zimmer. Welche Anzeige (a–h) passt am besten?</div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Erik</div>Erik, Student, sucht ein möbliertes WG-Zimmer in der Nähe der Uni. Maximum: 500 € warm. Keine Haustiere.</div>
+      <div class="person"><div class="pname">Person 2 – Amina</div>Amina sucht eine 2-Zimmer-Wohnung für sich und ihre Tochter (5 Jahre). Sie braucht einen Garten oder Spielplatz in der Nähe. Budget bis 900 €.</div>
+      <div class="person"><div class="pname">Person 3 – Klaus</div>Klaus, 65, sucht eine barrierefreie Erdgeschoss-Wohnung. Fahrstuhl nicht nötig, aber kein Treppensteigen. 1 Zimmer reicht.</div>
+      <div class="person"><div class="pname">Person 4 – Yolanda</div>Yolanda arbeitet viel und sucht eine möblierte Einzimmerwohnung zur kurzfristigen Miete (6 Monate). Zentrale Lage wichtig.</div>
+      <div class="person"><div class="pname">Person 5 – Familie Özturk</div>Die Familie (2 Erwachsene, 2 Kinder) sucht mindestens 4 Zimmer mit Garten. Budget bis 1.600 €.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><strong>WG-Zimmer, möbliert</strong><br>15 m², ruhige 4er-WG · 480 € warm<br>Uninähe · keine Haustiere<br>wg-zimmer@campus.de</div>
+      <div class="notice"><div class="nlabel">b</div><strong>2-Zimmer, EG mit Garten</strong><br>58 m² · 850 € warm · familienfreundlich<br>Spielplatz 200 m · ab sofort frei<br>kontakt@immo-haus.de</div>
+      <div class="notice"><div class="nlabel">c</div><strong>EG-Wohnung, barrierefrei</strong><br>1 Zimmer, 38 m² · 650 € warm<br>Dusche ebenerdig · ruhige Lage<br>Tel. 089 – 34 56 78</div>
+      <div class="notice"><div class="nlabel">d</div><strong>Einzimmer-Apartment, möbliert</strong><br>City-Lage · 6 Mon. Mindestmietdauer<br>ab 1. August · 1.100 €/Monat<br>city-apartments.de</div>
+      <div class="notice"><div class="nlabel">e</div><strong>Familienhaus zur Miete</strong><br>5 Zimmer, 130 m², großer Garten<br>1.550 € warm · ab Oktober<br>haus@meyer-immo.de</div>
+      <div class="notice"><div class="nlabel">f</div><strong>3-Zimmer, 2. OG</strong><br>80 m², kein Aufzug<br>Balkon · 1.100 € kalt<br>immo24.de/angebot-f</div>
+      <div class="notice"><div class="nlabel">g</div><strong>WG-Zimmer, unmöbliert</strong><br>18 m² · 400 € kalt<br>Haustiere erlaubt · Wohnküche geteilt</div>
+      <div class="notice"><div class="nlabel">h</div><strong>Luxus-Penthouse, möbliert</strong><br>Zentrale Lage · ab 3.200 €/Monat<br>Kurzzeit ab 3 Monate möglich</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welche Anzeige (a–h) passt zu welcher Person?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Erik (WG-Zimmer, möbliert, Uni, max. 500 €, keine Haustiere)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Amina (2-Zimmer, Kind, Garten/Spielplatz, max. 900 €)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Klaus (barrierefrei, EG, 1 Zimmer)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Yolanda (möbliert, 1 Zimmer, 6 Mon., zentral)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Familie Özturk (min. 4 Zimmer, Garten, max. 1.600 €)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Reportage – Multiple Choice (a, b oder c)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text und wählen Sie für jede Frage (11–15) die richtige Antwort.</div>
+
+    <div class="sbox">
+      <div class="smeta">„Zukunft.Jetzt" – Technologiemagazin, Ausgabe Juni 2026</div>
+      <h3>Künstliche Intelligenz im Klassenzimmer: Chance oder Bedrohung?</h3>
+      <p>Als der Schüler Max letztes Jahr einen Aufsatz über die Französische Revolution schreiben musste, nutzte er zum ersten Mal eine KI, um sich Ideen zu holen. „Ich habe sie nur zum Brainstormen benutzt", betonte er. „Den Text habe ich selbst geschrieben." Aber nicht alle Schülerinnen und Schüler machen das so.</p><br>
+      <p>Tatsächlich hat der Einsatz von Künstlicher Intelligenz – vor allem von Textgeneratoren wie ChatGPT – die Schulen in eine schwierige Lage gebracht. Während einige Lehrerinnen und Lehrer KI als <strong>Hilfsmittel</strong> begrüßen, sehen andere darin eine ernsthafte Bedrohung für die Lernmotivation und die Originalität der Schüler.</p><br>
+      <p>In Deutschland gibt es bisher keine einheitliche Regelung für den Einsatz von KI in Schulen. Einige Bundesländer arbeiten bereits an <strong>Leitlinien</strong>, aber die meisten Schulen sind auf sich allein gestellt. Laut einer Umfrage des Deutschen Lehrerverbandes geben <strong>62 Prozent</strong> der Lehrkräfte an, dass ihre Schule noch keine klare Richtlinie zu diesem Thema hat.</p><br>
+      <p>Bildungsforscherinnen und -forscher sind sich einig: KI wird aus dem Schulalltag nicht mehr wegzudenken sein. Die entscheidende Frage ist, wie man sie sinnvoll einsetzt. Schüler sollten lernen, KI-Texte zu hinterfragen und eigene Urteilskraft zu entwickeln. „Das ist eine Fähigkeit, die sie für das ganze Leben brauchen werden", sagt Professorin Dr. Anna Kröger von der TU Berlin.</p>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Wie hat Max die KI genutzt?</div>
+      <div class="mco" data-grp="l11">
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">a</span> Er hat seinen Aufsatz komplett von der KI schreiben lassen</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">b</span> Er hat die KI nur für das Brainstorming genutzt</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">c</span> Er hat die KI verwendet, um Grammatik zu korrigieren</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Wie reagieren Lehrkräfte auf den Einsatz von KI?</div>
+      <div class="mco" data-grp="l12">
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">a</span> Alle Lehrkräfte lehnen KI ab</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">b</span> Es gibt sowohl Befürworter als auch Kritiker</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">c</span> Die meisten Lehrkräfte begrüßen KI als Hilfsmittel</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Was sagt die Umfrage des Deutschen Lehrerverbandes?</div>
+      <div class="mco" data-grp="l13">
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">a</span> 62 % der Schulen nutzen KI aktiv im Unterricht</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">b</span> 62 % der Lehrkräfte sagen, ihre Schule hat keine klare KI-Richtlinie</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">c</span> 62 % der Schüler haben KI mindestens einmal genutzt</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Was empfehlen Bildungsforscherinnen und -forscher?</div>
+      <div class="mco" data-grp="l14">
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">a</span> KI vollständig aus Schulen zu verbannen</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">b</span> Schüler sollen lernen, KI-Texte kritisch zu hinterfragen</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">c</span> Nur Lehrkräfte sollten KI nutzen dürfen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Welche Situation besteht laut Artikel in Deutschland?</div>
+      <div class="mco" data-grp="l15">
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">a</span> Es gibt eine bundeseinheitliche KI-Regelung für alle Schulen</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">b</span> Es gibt noch keine einheitliche Regelung; die meisten Schulen agieren allein</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">c</span> KI ist in deutschen Schulen vollständig verboten</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Kurze Texte – Multiple Choice (a, b oder c)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie die fünf kurzen Texte. Wählen Sie für jede Frage (16–20) die richtige Antwort.</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – Vereinsnachricht</div>„Liebe Mitglieder, wir möchten euch informieren, dass unsere Jahreshauptversammlung am Donnerstag, den 10. Juli um 19 Uhr im Vereinsheim stattfindet. Auf der Tagesordnung stehen: Jahresbericht, Neuwahl des Vorstands sowie Planung des Sommerfests. Bitte meldet euch bis zum 5. Juli an."</div>
+      <div class="stcard"><div class="stclabel">Text B – Produktbewertung</div>„Ich habe diesen Rucksack seit drei Monaten täglich in Gebrauch und bin absolut begeistert. Er ist wasserdicht, hat viele praktische Fächer und sieht trotzdem schick aus. Einziger Nachteil: Die Schulterriemen könnten etwas breiter sein. Trotzdem: 4 von 5 Sternen!" – Käufer: outdoorfreund_77</div>
+      <div class="stcard"><div class="stclabel">Text C – Aushang im Büro</div>„Achtung: Aufgrund einer Datenpanne sind die Server von Montag bis Mittwoch eingeschränkt verfügbar. Bitte speichern Sie alle Dokumente lokal und senden Sie dringende E-Mails über Ihr Handy. IT-Team bittet um Ihr Verständnis. Bei Fragen: it-support@firma.de"</div>
+      <div class="stcard"><div class="stclabel">Text D – Kurzmitteilung einer Freundin</div>„Hey! Ich war heute beim Arzt. Es ist nichts Ernstes – nur eine leichte Erkältung. Ich bleibe zwei Tage zu Hause. Kannst du mir bitte die Notizen vom Deutschkurs heute Abend schicken? Das wäre super! Danke ☺ – Paula"</div>
+    </div>
+    <div class="stcard" style="margin-bottom:12px"><div class="stclabel">Text E – Zeitungsnotiz</div>Die Stadt Frankfurt plant, ab nächstem Jahr alle städtischen Gebäude mit Solarmodulen auszustatten. Insgesamt sollen 240 Dächer mit Photovoltaikanlagen ausgestattet werden. Dadurch erhofft sich die Stadt, jährlich rund 4.000 Tonnen CO₂ zu sparen. Die Investitionskosten belaufen sich auf etwa 85 Millionen Euro.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Was steht auf der Tagesordnung der Jahreshauptversammlung?</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Jahresbericht, Neuwahl des Vorstands, Sommerfest-Planung</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> Finanzplanung und Mitgliederbeiträge</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> Nur die Planung des Sommerfests</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was kritisiert der Käufer am Rucksack?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Er ist nicht wasserdicht</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Die Schulterriemen könnten breiter sein</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> Er hat zu wenige Fächer</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was sollen die Mitarbeiter während der Datenpanne tun?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> Alle E-Mails per Fax schicken</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> Dokumente lokal speichern und dringende E-Mails über das Handy senden</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> Den Serverraum meiden</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was bittet Paula ihre Freundin?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Ihr Medikamente zu bringen</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Ihr die Notizen vom Deutschkurs zu schicken</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Den Arzt zu anrufen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was erhofft sich Frankfurt durch Solarmodule?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Jährlich 85 Millionen Euro zu sparen</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> 4.000 Tonnen CO₂ pro Jahr zu reduzieren</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Alle Energiekosten zu eliminieren</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Lückentext – Wählen Sie das richtige Wort (a, b oder c)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Wählen Sie für jede Lücke (21–25) die richtige Antwort.</div>
+
+    <div class="sbox">
+      <p>Volkshochschulen – kurz VHS – sind öffentliche Bildungseinrichtungen, die in nahezu <span style="font-weight:700;color:var(--blue)">(21)</span> deutschen Stadt existieren. Sie bieten ein breites Spektrum an Kursen an – von Sprachen über Sport <span style="font-weight:700;color:var(--blue)">(22)</span> Kochen und EDV. Besonders beliebt sind Deutschkurse für Zugewanderte, <span style="font-weight:700;color:var(--blue)">(23)</span> die VHS eine wichtige Rolle bei der Integration spielt. Die Kursgebühren sind im Vergleich zu privaten Sprachschulen deutlich <span style="font-weight:700;color:var(--blue)">(24)</span>. Wer sich anmelden möchte, kann dies entweder persönlich oder <span style="font-weight:700;color:var(--blue)">(25)</span> tun.</p>
+    </div>
+
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">21.</span> in nahezu __ deutschen Stadt</div>
+      <div class="mco" data-grp="l21">
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">a</span> jeder</button>
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">b</span> alle</button>
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">c</span> jeden</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">22.</span> von Sprachen über Sport __ Kochen</div>
+      <div class="mco" data-grp="l22">
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">a</span> zu</button>
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">b</span> bis</button>
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">c</span> nach</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">23.</span> __ die VHS eine wichtige Rolle spielt</div>
+      <div class="mco" data-grp="l23">
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">a</span> weil</button>
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">b</span> wobei</button>
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">c</span> damit</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">24.</span> deutlich __ (günstiger)</div>
+      <div class="mco" data-grp="l24">
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">a</span> günstiger</button>
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">b</span> günstigsten</button>
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">c</span> günstigst</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">25.</span> persönlich oder __ tun (online)</div>
+      <div class="mco" data-grp="l25">
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">a</span> online</button>
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">b</span> digital</button>
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">c</span> per Internet</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Listening comprehension – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis:</strong> Jeden Text <strong>zweimal</strong> vorlesen. Natürliches Tempo.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Radiobeiträge – Was ist richtig?</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sie hören sechs Radiobeiträge. Wählen Sie die richtige Antwort (a, b oder c).</div>
+
+    <div class="dial"><div class="dlabel">Beitrag 1</div>„Aktuelle Verbrauchermeldung: Die Stiftung Warentest hat zwölf Sonnenmilch-Produkte geprüft. Nur vier erhielten das Prädikat ‚gut'. Drei Produkte enthielten chemische Stoffe, die auf Hautreizungen hindeuten. Verbraucher sollten auf das EU-Bio-Siegel achten und Produkte mit Oxybenzon meiden."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">1.</span> Was empfiehlt der Bericht?</div>
+      <div class="mco" data-grp="h1">
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">a</span> Nur die vier erstplazierten Produkte zu kaufen</button>
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">b</span> Auf das EU-Bio-Siegel zu achten und Oxybenzon zu meiden</button>
+        <button class="mcb" onclick="pickMC(this,'h1')"><span class="ll">c</span> Keine Sonnenmilch zu verwenden</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="dial"><div class="dlabel">Beitrag 2</div>„Kulturmeldung aus Wien: Das Kunsthistorische Museum zeigt ab Juli eine Sonderausstellung über Leonardo da Vinci. Gezeigt werden 80 Originalzeichnungen aus der Royal Collection in London. Eintritt: 18 Euro für Erwachsene, Kinder bis 14 Jahre frei. Die Ausstellung läuft bis Ende Oktober."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">2.</span> Was ist über die Ausstellung richtig?</div>
+      <div class="mco" data-grp="h2">
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">a</span> Sie ist bis Ende September</button>
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">b</span> Kinder bis 14 haben freien Eintritt</button>
+        <button class="mcb" onclick="pickMC(this,'h2')"><span class="ll">c</span> Sie zeigt 180 Zeichnungen</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="dial"><div class="dlabel">Beitrag 3</div>„Wirtschaftsnachrichten: Der Deutsche Aktienindex DAX hat heute Morgen einen Rekordwert von über 22.000 Punkten erreicht. Analysten führen dies auf positive Quartalsergebnisse im Tech-Sektor und sinkende Inflationsraten zurück. Experten warnen jedoch vor zu großer Euphorie."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">3.</span> Warum ist der DAX gestiegen?</div>
+      <div class="mco" data-grp="h3">
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">a</span> Wegen einer neuen Regierungspolitik</button>
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">b</span> Wegen guter Tech-Ergebnisse und sinkender Inflation</button>
+        <button class="mcb" onclick="pickMC(this,'h3')"><span class="ll">c</span> Wegen eines starken Euro</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="dial"><div class="dlabel">Beitrag 4</div>„Umweltnachrichten: In den Bayerischen Alpen wurden dieses Jahr erstmals wieder Luchse gesichtet – und zwar gleich fünf Tiere. Das ist ein Erfolg für das Wiederansiedlungsprogramm, das vor zehn Jahren gestartet wurde. Naturschützer hoffen auf eine stabile Population bis 2030."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">4.</span> Was ist eine Neuigkeit bezüglich der Luchse?</div>
+      <div class="mco" data-grp="h4">
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">a</span> Sie wurden zum ersten Mal seit Jahren in den Alpen gesehen</button>
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">b</span> Das Programm wurde nach 30 Jahren beendet</button>
+        <button class="mcb" onclick="pickMC(this,'h4')"><span class="ll">c</span> 50 Luchse wurden in Bayern gesichtet</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="dial"><div class="dlabel">Beitrag 5</div>„Sportmeldung: Die Tennisspielerin Jana Kovač hat beim Turnier in Wimbledon das Halbfinale erreicht. Es ist ihr bestes Ergebnis bei einem Grand-Slam-Turnier. Die 24-Jährige aus Kroatien trifft morgen auf die Weltranglistenerste aus den USA."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">5.</span> Was ist für Jana Kovač besonders?</div>
+      <div class="mco" data-grp="h5">
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">a</span> Es ist ihr erstes Grand-Slam-Turnier</button>
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">b</span> Das Halbfinale ist ihr bestes Ergebnis bei einem Grand Slam</button>
+        <button class="mcb" onclick="pickMC(this,'h5')"><span class="ll">c</span> Sie hat das Finale bereits gewonnen</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="dial"><div class="dlabel">Beitrag 6</div>„Tipp des Tages von unserem Ernährungsexperten Dr. Vogt: Wer morgens keine Zeit zum Frühstücken hat, sollte trotzdem nicht hungrig aus dem Haus gehen. Ein Stück Obst, ein Joghurt oder eine Handvoll Nüsse reichen, um den Blutzucker stabil zu halten und Konzentration zu fördern."</div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">6.</span> Was empfiehlt Dr. Vogt?</div>
+      <div class="mco" data-grp="h6">
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">a</span> Immer ein vollständiges Frühstück zubereiten</button>
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">b</span> Nicht hungrig aus dem Haus gehen, auch kleine Snacks helfen</button>
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">c</span> Mittags mehr zu essen, wenn man morgens nichts gegessen hat</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Podcastinterview – Richtig, Falsch oder Nicht im Text?</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sie hören ein Podcast-Interview. Sind die Aussagen (7–12) richtig (R), falsch (F) oder nicht im Text (N)?</div>
+
+    <div class="dial"><div class="dlabel">Podcast „Lebensgeschichten" – Gast: Florian Wendt, Restaurantbesitzer (Lehrer liest vor)</div>
+      <span class="sa">Moderatorin:</span> Florian, du hast mit 28 Jahren dein erstes Restaurant eröffnet. Wo?<br>
+      <span class="sb">Florian:</span> In <strong>Leipzig</strong>. Ich komme ursprünglich aus Chemnitz, aber Leipzig hatte eine tolle Gastroszene.<br>
+      <span class="sa">Moderatorin:</span> Hattest du eine Kochausbildung?<br>
+      <span class="sb">Florian:</span> Nein! Ich habe <strong>Betriebswirtschaft</strong> studiert und war dann Unternehmensberater. Ich habe immer gerne gekocht – für Freunde und Familie – aber nie professionell.<br>
+      <span class="sa">Moderatorin:</span> Und das erste Jahr?<br>
+      <span class="sb">Florian:</span> Das war brutal. Wir haben in den ersten <strong>sechs Monaten</strong> Verluste gemacht. Ich hatte gedacht, das Lokal würde sofort laufen. War naiv.<br>
+      <span class="sa">Moderatorin:</span> Was hat euch gerettet?<br>
+      <span class="sb">Florian:</span> Eine Rezension in der <strong>Lokalpresse</strong>. Über Nacht war das Restaurant ausgebucht. Seitdem läuft es wunderbar – wir haben sogar einen zweiten Standort in <strong>Dresden</strong> eröffnet.<br>
+      <span class="sa">Moderatorin:</span> Würdest du das jedem empfehlen?<br>
+      <span class="sb">Florian:</span> Nur wenn man wirklich Leidenschaft hat und finanziell gut aufgestellt ist. Ohne Rücklagen ist es sehr riskant.</div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">7.</td><td>Florian hat sein erstes Restaurant in Leipzig eröffnet.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">8.</td><td>Florian hat eine Kochausbildung absolviert.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">9.</td><td>In den ersten sechs Monaten machte das Restaurant Verluste.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">10.</td><td>Eine positive Zeitungsrezension hat das Restaurant bekannt gemacht.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">11.</td><td>Das Restaurant beschäftigt über 30 Mitarbeiter.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">12.</td><td>Es gibt inzwischen einen zweiten Standort in Dresden.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Kurze Gespräche – Informationen notieren</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören sieben kurze Gespräche. Notieren Sie die fehlende Information.</div>
+
+    <div class="dial"><div class="dlabel">Gespräche 13–19 (Lehrer liest je 2× vor)</div>
+      <strong>G13:</strong> „Entschuldigung, wo ist die nächste Apotheke?" – „Die nächste ist in der Bahnhofstraße, etwa <strong>300 Meter</strong> von hier. Gleich neben dem Supermarkt."<br><br>
+      <strong>G14:</strong> „Ich möchte mein Abo kündigen." – „Wann läuft Ihr Vertrag ab?" – „Im <strong>August</strong>." – „Dann müssen Sie bis Ende Juni kündigen."<br><br>
+      <strong>G15:</strong> „Haben Sie ein Zimmer frei für nächste Woche?" – „Ja, ab Montag. Wie lange möchten Sie bleiben?" – „<strong>Vier Nächte</strong>." – „Kein Problem."<br><br>
+      <strong>G16:</strong> „Ich suche ein Buch über Gartenarchitektur." – „Haben Sie einen Autorennamen?" – „Nein, aber der Titel heißt ‚<strong>Grüne Welten</strong>'." – „Ich schaue im System nach."<br><br>
+      <strong>G17:</strong> „Meine Waschmaschine ist kaputt. Können Sie kommen?" – „Ja, wir haben am <strong>Dienstagnachmittag</strong> einen freien Slot. Zwischen 14 und 17 Uhr."<br><br>
+      <strong>G18:</strong> „Wie viel kostet die Mitgliedschaft im Fitnessstudio?" – „Unser Basispaket kostet <strong>29,90 Euro</strong> im Monat." – „Und gibt es eine Probezeit?"<br><br>
+      <strong>G19:</strong> „Kann ich noch ins heutige Konzert?" – „Ja, es gibt noch Restkarten. Aber nur noch <strong>Stehplätze</strong>. Die kosten 15 Euro."</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">13.</span> Die Apotheke ist etwa <input class="filin" type="text" placeholder=""> Meter entfernt.</div>
+      <div class="filrow"><span class="filn">14.</span> Das Abo läuft im <input class="filin" type="text" placeholder=""> ab.</div>
+      <div class="filrow"><span class="filn">15.</span> Der Gast möchte <input class="filin" type="text" placeholder=""> Nächte bleiben.</div>
+      <div class="filrow"><span class="filn">16.</span> Der Buchtitel lautet: „<input class="filin" type="text" placeholder="">"</div>
+      <div class="filrow"><span class="filn">17.</span> Der Techniker kommt am <input class="filin" type="text" placeholder=""></div>
+      <div class="filrow"><span class="filn">18.</span> Das Basispaket kostet <input class="filin" type="text" placeholder=""> Euro/Monat.</div>
+      <div class="filrow"><span class="filn">19.</span> Es gibt noch <input class="filin" type="text" placeholder=""> für 15 Euro.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Gespräch / Diskussion – Multiple Choice</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sie hören ein Gespräch. Wählen Sie für jede Frage (20–25) die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Gespräch – Zwei Freunde planen einen Urlaub (Lehrer liest vor)</div>
+      <span class="sa">Lena:</span> Also, wo soll es dieses Jahr hingehen? Ich würde gerne ans Meer.<br>
+      <span class="sb">Ben:</span> Das Meer wäre schön, aber ich habe gelesen, dass Kroatien im Juli total überfüllt ist. Was hältst du von Portugal? Lissabon hat einen tollen Strand und die Stadt ist auch schön.<br>
+      <span class="sa">Lena:</span> Lissabon klingt gut! Wie lange sollen wir bleiben?<br>
+      <span class="sb">Ben:</span> Ich könnte <strong>zwei Wochen</strong> machen – vom 10. bis 24. Juli.<br>
+      <span class="sa">Lena:</span> Perfekt! Und Budget? Ich hätte so <strong>1.500 Euro</strong> eingeplant – alles inklusive.<br>
+      <span class="sb">Ben:</span> Das sollte reichen. Flüge nach Lissabon sind günstiger als nach Kroatien. Sollen wir in einem Hostel oder einem kleinen Hotel übernachten?<br>
+      <span class="sa">Lena:</span> Lieber ein <strong>kleines Hotel</strong> – ich bin zu alt für Schlafsäle! Aber nichts zu Luxuriöses.<br>
+      <span class="sb">Ben:</span> Abgemacht. Ich fange schon mal an zu recherchieren.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Warum lehnt Ben Kroatien ab?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Er war schon mehrmals dort</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> Kroatien ist im Juli zu voll</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Kroatien ist zu teuer</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Wann planen sie zu reisen?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> 10. bis 24. Juni</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> 10. bis 24. Juli</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Zwei Wochen im August</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Was ist Lenas Budget?</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> 1.000 Euro</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> 1.500 Euro</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> 2.000 Euro</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Was bevorzugt Lena bei der Unterkunft?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Ein Hostel</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Ein kleines Hotel</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Ein Luxushotel</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Womit ist Ben einverstanden?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Er akzeptiert Lissabon und das Hotel</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> Er möchte ein Luxushotel buchen</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Er will doch lieber nach Kroatien</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">25.</span> Wer kümmert sich zuerst um die Recherche?</div>
+      <div class="mco" data-grp="h25">
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">a</span> Lena</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">b</span> Ben</button>
+        <button class="mcb" onclick="pickMC(this,'h25')"><span class="ll">c</span> Beide gleichzeitig</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Written production – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 60 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Formelle E-Mail schreiben (min. 100 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Lesen Sie die Situation. Schreiben Sie eine formelle E-Mail (mindestens <strong>100 Wörter</strong>). Bearbeiten Sie alle vier Punkte.</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 17px;margin-bottom:13px;font-size:13.5px;line-height:1.8">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:7px">📋 Situation:</div>
+      Sie haben an einem Online-Kurs einer Bildungsplattform teilgenommen und sind sehr unzufrieden. Schreiben Sie eine Beschwerde-E-Mail an die Plattform.<br><br>
+      <strong>Punkte:</strong>
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Nennen Sie den Kurs und den Zeitraum Ihrer Teilnahme</li>
+        <li>Beschreiben Sie <strong>mindestens zwei Probleme</strong> (technisch, inhaltlich, Lehrkraft ...)</li>
+        <li>Erklären Sie, welche Folgen diese Probleme für Sie hatten</li>
+        <li>Formulieren Sie eine konkrete Forderung (z.B. Rückerstattung, Ersatz ...)</li>
+      </ol>
+    </div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',100,150)" placeholder="Sehr geehrte Damen und Herren,&#10;&#10;mein Name ist … und ich habe am Kurs … teilgenommen …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 100</span></div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Forumsbeitrag (min. 80 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen Forumsbeitrag (mindestens <strong>80 Wörter</strong>). Nehmen Sie klar Stellung und begründen Sie Ihre Meinung.</div>
+
+    <div style="background:#e8eaf6;border:1.5px solid #9fa8da;border-radius:8px;padding:13px 17px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#3949ab;margin-bottom:5px">🌐 Forum: „Arbeit im Ausland – eine gute Entscheidung?"</div>
+      <div style="font-size:12.5px;color:#333"><em>„Haben Sie Erfahrungen mit dem Arbeiten oder Leben im Ausland? Würden Sie das empfehlen? Was sind die größten Vor- und Nachteile? Würden Sie Ihr Heimatland dauerhaft verlassen?"</em></div>
+    </div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',80,130)" placeholder="Ich habe … Jahre in … gelebt und gearbeitet. Meine Erfahrung war …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 80</span></div>
+
+  </div>
+</div>
+
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis B1:</strong> Kandidat soll Argumente strukturiert vortragen und auf Fragen reagieren.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzvortrag – Thema wählen und präsentieren</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Wählen Sie ein Thema und halten Sie einen Kurzvortrag (2–3 Minuten). Strukturieren Sie: Einleitung → Hauptpunkte → persönliche Meinung.</div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Thema A</div><div class="scq">🥗 Ernährung &amp; Gesundheit</div>Wie wichtig ist gesunde Ernährung? Was essen Sie selbst? Haben Sie schon Ernährungsgewohnheiten geändert?</div>
+      <div class="spcard"><div class="scn">Thema B</div><div class="scq">🏠 Wohnen in der Stadt</div>Wohnen Sie lieber in der Stadt oder außerhalb? Was sind die Vor-/Nachteile? Was ist für Sie bei einer Wohnung wichtig?</div>
+      <div class="spcard"><div class="scn">Thema C</div><div class="scq">💼 Beruf und Karriere</div>Was sind Ihre beruflichen Ziele? Wie wichtig ist Ihnen Arbeit im Leben? Karriere oder Work-Life-Balance?</div>
+      <div class="spcard"><div class="scn">Thema D</div><div class="scq">🌍 Sprachen lernen</div>Warum lernen Sie Deutsch? Welche Methoden helfen Ihnen am meisten? Was finden Sie schwer?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Gemeinsam eine Aufgabe lösen</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Diskutieren Sie mit Ihrem Gesprächspartner / Ihrer Gesprächspartnerin und einigen Sie sich auf eine Lösung.</div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:13px 17px;margin-bottom:12px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📋 Aufgabe</div>
+      <div style="font-size:13.5px;line-height:1.9">
+        Ihre Sprachschule möchte eine Abschlussfeier für die Kursteilnehmer organisieren. Das Budget beträgt <strong>300 Euro</strong>.<br><br>
+        Diskutieren Sie diese Optionen:
+        <ul style="margin-top:8px;padding-left:18px;line-height:2.4">
+          <li>🍽 Gemeinsames Abendessen in einem Restaurant (ca. 30 € p.P.)</li>
+          <li>🎳 Bowling + Pizza (ca. 20 € p.P.)</li>
+          <li>🎨 Kreativ-Workshop + Fingerfood (ca. 25 € p.P.)</li>
+          <li>🏞 Picknick im Park (ca. 10 € p.P.)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12.5px">
+      <strong>Überlegen Sie:</strong> Wie viele Personen? Welche Option passt zum Budget? Was macht den meisten Spaß? Gibt es praktische Probleme (Wetter, Allergien, ...)? Einigen Sie sich!
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen – Beurteilungsbogen</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabe erfüllt / Kommunikationserfolg</td><td>8</td><td><input class="sin" type="number" min="0" max="8" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Ausdrucksfähigkeit &amp; Flüssigkeit</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (B1-Niveau)</td><td>5</td><td><input class="sin" type="number" min="0" max="5" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik &amp; Strukturvielfalt</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ANSWER KEY -->
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Schlaf R/F/N</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">R</strong> (35% ≈ ein Drittel)</div>
+          <div class="chip">2 → <strong class="ok">R</strong></div>
+          <div class="chip">3 → <strong class="ok">F</strong> (1 Stunde, nicht 4)</div>
+          <div class="chip">4 → <strong class="ok">R</strong></div>
+          <div class="chip">5 → <strong class="ok">N</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Wohnungsanzeigen</h4>
+        <div class="chips">
+          <div class="chip">1 Erik → <strong class="ok">a</strong></div>
+          <div class="chip">2 Amina → <strong class="ok">b</strong></div>
+          <div class="chip">3 Klaus → <strong class="ok">c</strong></div>
+          <div class="chip">4 Yolanda → <strong class="ok">d</strong></div>
+          <div class="chip">5 Familie Özturk → <strong class="ok">e</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Nicht passend: f (kein Aufzug, 3-Zimmer), g (unmöbliert, Haustiere), h (zu teuer)</div>
+      </div>
+      <div class="akp"><h4>T3 – KI Artikel MC</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">b</strong></div><div class="chip">12 → <strong class="ok">b</strong></div>
+          <div class="chip">13 → <strong class="ok">b</strong></div><div class="chip">14 → <strong class="ok">b</strong></div>
+          <div class="chip">15 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Kurztexte MC</h4>
+        <div class="chips">
+          <div class="chip">16 → <strong class="ok">a</strong></div><div class="chip">17 → <strong class="ok">b</strong></div>
+          <div class="chip">18 → <strong class="ok">b</strong></div><div class="chip">19 → <strong class="ok">b</strong></div>
+          <div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T5 – VHS Lückentext</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">a</strong> (jeder)</div>
+          <div class="chip">22 → <strong class="ok">a</strong> (zu / bis hin zu – a passt besser)</div>
+          <div class="chip">23 → <strong class="ok">a</strong> (weil)</div>
+          <div class="chip">24 → <strong class="ok">a</strong> (günstiger)</div>
+          <div class="chip">25 → <strong class="ok">a</strong> (online)</div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Radio MC</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">b</strong></div><div class="chip">2 → <strong class="ok">b</strong></div>
+          <div class="chip">3 → <strong class="ok">b</strong></div><div class="chip">4 → <strong class="ok">a</strong></div>
+          <div class="chip">5 → <strong class="ok">b</strong></div><div class="chip">6 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Florian Wendt R/F/N</h4>
+        <div class="chips">
+          <div class="chip">7 → <strong class="ok">R</strong></div>
+          <div class="chip">8 → <strong class="ok">F</strong> (Betriebswirtschaft studiert)</div>
+          <div class="chip">9 → <strong class="ok">R</strong></div>
+          <div class="chip">10 → <strong class="ok">R</strong></div>
+          <div class="chip">11 → <strong class="ok">N</strong></div>
+          <div class="chip">12 → <strong class="ok">R</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T3 – Kurze Gespräche</h4>
+        <div class="chips">
+          <div class="chip">13 → <strong class="ok">300</strong></div>
+          <div class="chip">14 → <strong class="ok">August</strong></div>
+          <div class="chip">15 → <strong class="ok">Vier</strong></div>
+          <div class="chip">16 → <strong class="ok">Grüne Welten</strong></div>
+          <div class="chip">17 → <strong class="ok">Dienstagnachmittag</strong></div>
+          <div class="chip">18 → <strong class="ok">29,90</strong></div>
+          <div class="chip">19 → <strong class="ok">Stehplätze</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Urlaub MC</h4>
+        <div class="chips">
+          <div class="chip">20 → <strong class="ok">b</strong></div><div class="chip">21 → <strong class="ok">b</strong></div>
+          <div class="chip">22 → <strong class="ok">b</strong></div><div class="chip">23 → <strong class="ok">b</strong></div>
+          <div class="chip">24 → <strong class="ok">a</strong></div><div class="chip">25 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Beschwerde E-Mail Lernplattform (15 Pkt)</h4>
+        <div class="rubric">
+          <table>
+            <tr><th>Kriterium</th><th>Punkte</th></tr>
+            <tr><td>4 Inhaltspunkte vollständig bearbeitet</td><td>0 – 10 Pkt.</td></tr>
+            <tr><td>Formeller Sprachstil (Anrede, Schlussformel)</td><td>0 – 2 Pkt.</td></tr>
+            <tr><td>Grammatik, Orthografie</td><td>0 – 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Arbeit im Ausland (10 Pkt)</h4>
+        <div class="rubric">
+          <table>
+            <tr><th>Kriterium</th><th>Punkte</th></tr>
+            <tr><td>Persönliche Meinung + mind. 2 Argumente</td><td>0 – 4 Pkt.</td></tr>
+            <tr><td>Wortschatz &amp; Ausdrucksreichtum</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Grammatik &amp; Textstruktur</td><td>0 – 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe B1 Modellprüfung Nr. 2 · Generische Version · Viel Erfolg! 🍀
+</div>
+</div>
+
+<script>
+function pickRF3(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => { b.classList.remove('selR','selF','selN'); b.style.cssText=''; });
+  if (choice==='R') btn.classList.add('selR');
+  else if (choice==='F') btn.classList.add('selF');
+  else btn.classList.add('selN');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId), pill = document.getElementById(pillId);
+  if (!ta||!pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  pill.textContent = n+' / min. '+min;
+  pill.className = 'wcpill';
+  if (n>=min&&n<=max) pill.classList.add('ok');
+  else if (n>max) pill.classList.add('over');
+}
+(function(){
+  const TOTAL=165*60;
+  const MODS=[{id:'tp1',from:TOTAL,to:TOTAL-65*60},{id:'tp2',from:TOTAL-65*60,to:TOTAL-105*60},{id:'tp3',from:TOTAL-105*60,to:0},{id:'tp4',from:0,to:-1}];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>

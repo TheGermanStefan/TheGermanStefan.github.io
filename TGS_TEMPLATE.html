@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║   TheGermanStefan – MASTER CONTENT TEMPLATE                         ║
+  ║   Version 1.0  ·  Languages: EN / FR / ES / IT / PT                 ║
+  ║                                                                      ║
+  ║   HOW TO USE THIS TEMPLATE:                                          ║
+  ║   1. Copy this file and rename it (e.g. A1_Grammar_Pronomen.html)   ║
+  ║   2. Update the 4 CONFIG lines below                                 ║
+  ║   3. Replace the CONTENT ZONE with your exercises                   ║
+  ║   4. All language switching, styling & navigation work automatically ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+
+<!-- ══ CONFIG (change these 4 lines per file) ══ -->
+<title>TheGermanStefan · A1 · Grammatik · Personalpronomen</title>
+<meta name="tgs:level"    content="A1">           <!-- A0 / A1 / A2 / B1 / B2 / C1 / C2 -->
+<meta name="tgs:module"   content="grammar">      <!-- grammar / reading / vocab / speaking / writing / exam -->
+<meta name="tgs:topic"    content="Personalpronomen"> <!-- short topic name -->
+<!-- ══ END CONFIG ══ -->
+
+<style>
+/* ── RESET & ROOT ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--teal:#00695c;
+  --purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;
+  --pink:#e91e63;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;
+  --level-color:#1464b4; /* override per level */
+  --txt:#1a1a1a;--txt2:#555;--txt3:#888;
+}
+/* Level color overrides */
+.level-A0{--level-color:#00897b}
+.level-A1{--level-color:#1464b4}
+.level-A2{--level-color:#2e7d32}
+.level-B1{--level-color:#6a1b9a}
+.level-B2{--level-color:#e65100}
+.level-C1{--level-color:#c62828}
+.level-C2{--level-color:#283593}
+
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75;min-height:100vh}
+
+/* ── TOP BAR ──────────────────────────────────────────────── */
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none;white-space:nowrap}
+.tgs-logo span{color:var(--amber)}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;opacity:.6}
+.breadcrumb a{color:#fff;text-decoration:none}.breadcrumb a:hover{opacity:1;text-decoration:underline}
+.bc-sep{opacity:.4}
+.level-badge{font-size:11px;font-weight:900;padding:3px 10px;border-radius:20px;background:var(--level-color);color:#fff;white-space:nowrap}
+.module-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff;white-space:nowrap}
+
+/* Language switcher */
+.lang-switcher{display:flex;gap:4px;align-items:center}
+.lang-btn{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;letter-spacing:.3px}
+.lang-btn:hover{border-color:rgba(255,255,255,.6);color:#fff}
+.lang-btn.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+
+/* ── PAGE HEADER ──────────────────────────────────────────── */
+.page-hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--level-color) 100%);color:#fff;padding:28px 24px 22px}
+.page-hdr-inner{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:44px;flex-shrink:0}
+.ph-title{font-size:24px;font-weight:900;margin-bottom:4px}
+.ph-sub{font-size:13px;opacity:.8}
+.ph-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score-wrap{text-align:right;flex-shrink:0}
+.ph-score{font-size:32px;font-weight:900;color:var(--amber);line-height:1}
+.ph-score-lbl{font-size:11px;opacity:.6;margin-top:3px}
+
+/* ── PROGRESS BAR ─────────────────────────────────────────── */
+.progress-strip{background:#e8eef8;height:5px}
+.progress-fill{height:100%;background:var(--amber);transition:width .5s ease;width:0%}
+
+/* ── MAIN LAYOUT ──────────────────────────────────────────── */
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+
+/* ── CARDS ────────────────────────────────────────────────── */
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.card-body{padding:20px 22px}
+.sec-title{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+
+/* ── INSTRUCTIONS BOX ─────────────────────────────────────── */
+.instr-box{padding:10px 15px;border-left:4px solid var(--level-color);border-radius:0 8px 8px 0;background:color-mix(in srgb,var(--level-color) 8%,#fff);font-size:13px;font-style:italic;color:var(--txt2);margin-bottom:16px}
+
+/* ── MULTIPLE CHOICE ──────────────────────────────────────── */
+.qblock{margin-bottom:18px;padding:16px 18px;background:#f8faff;border-radius:10px;border:1.5px solid var(--border)}
+.qblock.answered{border-color:#c8e6c9}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--level-color);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:8px 16px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;color:var(--txt)}
+.qopt:hover:not(.disabled){border-color:var(--level-color);background:color-mix(in srgb,var(--level-color) 8%,#fff)}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default}
+.qfb{margin-top:9px;font-size:13px;padding:7px 12px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+
+/* ── R/F BUTTONS ──────────────────────────────────────────── */
+table.rftable{width:100%;border-collapse:collapse;font-size:14px}
+table.rftable th{background:color-mix(in srgb,var(--level-color) 12%,#fff);padding:8px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--level-color);border-bottom:2px solid var(--border)}
+table.rftable td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+table.rftable tr:nth-child(even) td{background:#fafcff}
+.rf-col{text-align:center;width:90px}
+.rf-wrap{display:flex;gap:5px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #ccc;background:#fff;font-weight:900;font-size:12px;color:#777;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.rfb:hover{transform:scale(1.1);border-color:var(--level-color)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ── FILL-IN ──────────────────────────────────────────────── */
+.fill-sentence{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;font-size:15px;padding:11px 14px;background:#f8faff;border-radius:9px;border:1.5px solid var(--border);margin-bottom:10px}
+.fill-input{border:none;border-bottom:2.5px solid var(--level-color);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 5px;min-width:110px;outline:none;font-family:inherit;transition:.2s}
+.fill-input.ok{border-color:var(--green);color:var(--green)}
+.fill-input.bad{border-color:var(--red);color:var(--red)}
+
+/* ── FLASHCARD ────────────────────────────────────────────── */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.fc{perspective:700px;height:100px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;padding:10px;text-align:center}
+.fc-front{border:2px solid var(--border);background:#f8faff}
+.fc-back{border:2px solid var(--green);background:#e8f5e9;transform:rotateY(180deg)}
+.fc-de{font-size:16px;font-weight:900;color:var(--navy)}
+.fc-art{font-size:12px;font-weight:700;color:var(--level-color);margin-top:2px}
+.fc-en{font-size:13px;color:var(--green);font-weight:700}
+.fc-sub{font-size:11px;color:var(--txt3);margin-top:2px}
+.fc-hint{font-size:11px;color:var(--txt3);font-style:italic;text-align:center;margin-bottom:8px}
+
+/* ── READING TEXT ─────────────────────────────────────────── */
+.reading-box{background:#fffef8;border:1.5px solid #ffe082;border-radius:10px;padding:18px 20px;font-size:14px;line-height:1.9;margin-bottom:14px}
+.reading-box .rbmeta{font-size:11px;color:var(--txt3);font-style:italic;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.reading-box h3{font-size:16px;font-weight:900;color:var(--navy);margin-bottom:10px}
+
+/* ── WORD BOX ─────────────────────────────────────────────── */
+.word-box{background:#f0f7ff;border:1.5px solid #b0cef8;border-radius:9px;padding:10px 14px;margin-bottom:14px;font-size:13px}
+.word-box b{color:var(--blue)}
+
+/* ── CHECK BUTTON ─────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-primary{background:var(--level-color);color:#fff}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-secondary{background:#e0e6f0;color:var(--navy)}
+.btn-secondary:hover{background:#d0d8ec}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* ── RESULT BANNER ────────────────────────────────────────── */
+.result-banner{border-radius:12px;padding:18px 22px;margin-top:18px;display:none}
+.result-banner.show{display:block}
+.result-banner.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.result-banner.great{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid var(--blue)}
+.result-banner.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.result-banner.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid var(--pink)}
+.rb-top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.rb-emoji{font-size:36px}
+.rb-title{font-size:18px;font-weight:900;color:var(--navy)}
+.rb-sub{font-size:13px;color:var(--txt2);margin-top:3px}
+.rb-score-row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.rb-score{font-size:28px;font-weight:900;color:var(--navy)}
+.rb-bar-wrap{flex:1;height:10px;background:rgba(0,0,0,.08);border-radius:10px;overflow:hidden;min-width:100px}
+.rb-bar{height:100%;background:var(--level-color);border-radius:10px;transition:width .8s ease}
+
+/* ── CTA BLOCK ────────────────────────────────────────────── */
+.cta-block{background:linear-gradient(135deg,var(--navy) 0%,var(--level-color) 100%);color:#fff;border-radius:14px;padding:24px 24px;margin-top:28px;text-align:center}
+.cta-block h3{font-size:18px;font-weight:900;margin-bottom:8px}
+.cta-block p{font-size:13px;opacity:.85;margin-bottom:16px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:15px;padding:12px 30px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;text-decoration:none;transition:.15s}
+.cta-btn:hover{background:#ffd600}
+
+/* ── NAVIGATION BUTTONS ───────────────────────────────────── */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:30px;flex-wrap:wrap;gap:10px}
+.nav-btn{padding:10px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;display:flex;align-items:center;gap:6px}
+.nav-prev{background:#e0e6f0;color:var(--navy)}.nav-prev:hover{background:#d0d8ec}
+.nav-next{background:var(--level-color);color:#fff}.nav-next:hover{filter:brightness(1.1)}
+
+/* ── SCORE TRACKER (top right of header) ─────────────────── */
+#live-score{display:none}
+
+/* ── UTILITY ──────────────────────────────────────────────── */
+.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}
+.bold{font-weight:800}.muted{color:var(--txt3);font-size:13px}
+.pill{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:800}
+.pill-blue{background:#e3f2fd;color:var(--blue)}
+.pill-green{background:#e8f5e9;color:var(--green)}
+.pill-red{background:#ffebee;color:var(--red)}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media(max-width:600px){
+  .ph-title{font-size:19px}
+  .topbar-left{gap:8px}
+  .lang-btn{padding:3px 6px;font-size:11px}
+  .qopts{flex-direction:column}
+  .qopt{width:100%}
+  .fc-grid{grid-template-columns:1fr 1fr}
+  table.rftable{font-size:12px}
+}
+@media print{body{background:#fff}.topbar,.nav-btns,.cta-block{display:none}}
+</style>
+</head>
+<body class="level-A1">
+<!--
+  NOTE TO CLAUDE:
+  Set the correct level class on <body>:
+  level-A0 / level-A1 / level-A2 / level-B1 / level-B2 / level-C1 / level-C2
+-->
+
+<!-- ══ TOP BAR ══════════════════════════════════════════════ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <div class="breadcrumb">
+      <a href="index.html" data-t="home">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="A1_hub.html">A1</a>
+      <span class="bc-sep">›</span>
+      <span data-t="grammar">Grammar</span>
+    </div>
+    <span class="level-badge">A1</span>
+    <span class="module-badge" data-t="grammar">Grammar</span>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lang-btn" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+
+<!-- ══ PAGE HEADER ══════════════════════════════════════════ -->
+<div class="page-hdr">
+  <div class="page-hdr-inner">
+    <div>
+      <div class="ph-icon">🔤</div>
+      <!-- CHANGE: title and subtitle per file -->
+      <div class="ph-title">Personalpronomen</div>
+      <div class="ph-sub" data-t="ph_sub">Personal Pronouns — ich, du, er, sie, es, wir, ihr, sie, Sie</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A1</span>
+        <span class="ph-tag" data-t="grammar">Grammar</span>
+        <span class="ph-tag">⏱ 15 <span data-t="minutes">min</span></span>
+        <span class="ph-tag">20 <span data-t="questions">questions</span></span>
+      </div>
+    </div>
+    <div class="ph-score-wrap">
+      <div class="ph-score" id="live-score-display">0</div>
+      <div class="ph-score-lbl" data-t="correct_answers">correct</div>
+    </div>
+  </div>
+</div>
+<div class="progress-strip"><div class="progress-fill" id="pg-fill"></div></div>
+
+<!-- ══ MAIN CONTENT ════════════════════════════════════════ -->
+<div class="wrap">
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║   CONTENT ZONE — Replace everything below with real content ║
+  ║   This demo shows all available component types             ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<!-- ── COMPONENT: INSTRUCTIONS BOX ── -->
+<div class="card">
+  <div class="card-body">
+    <div class="sec-title">📋 <span data-t="instructions">Instructions</span></div>
+    <!-- CHANGE: Use the right instruction key for this exercise type -->
+    <div class="instr-box" data-t="instr_mc">Choose the correct answer.</div>
+
+    <!-- ── COMPONENT: MULTIPLE CHOICE QUESTIONS ── -->
+    <!-- Repeat .qblock for each question -->
+    <div class="qblock" id="q1">
+      <div class="qnum"><span data-t="question">Question</span> 1</div>
+      <div class="qtext">„___ heiße Stefan. Ich komme aus Deutschland."</div>
+      <div class="qopts">
+        <button class="qopt" onclick="mc(this,1,false)">Du</button>
+        <button class="qopt" onclick="mc(this,1,true)">Ich</button>
+        <button class="qopt" onclick="mc(this,1,false)">Er</button>
+        <button class="qopt" onclick="mc(this,1,false)">Wir</button>
+      </div>
+      <div class="qfb" id="qfb1"></div>
+    </div>
+
+    <div class="qblock" id="q2">
+      <div class="qnum"><span data-t="question">Question</span> 2</div>
+      <div class="qtext">„Bist ___ auch Schüler?" — „Ja, ich bin Schüler."</div>
+      <div class="qopts">
+        <button class="qopt" onclick="mc(this,2,false)">er</button>
+        <button class="qopt" onclick="mc(this,2,false)">sie</button>
+        <button class="qopt" onclick="mc(this,2,true)">du</button>
+        <button class="qopt" onclick="mc(this,2,false)">ihr</button>
+      </div>
+      <div class="qfb" id="qfb2"></div>
+    </div>
+
+    <div class="qblock" id="q3">
+      <div class="qnum"><span data-t="question">Question</span> 3</div>
+      <div class="qtext">„Das ist meine Schwester. ___ wohnt in Berlin."</div>
+      <div class="qopts">
+        <button class="qopt" onclick="mc(this,3,false)">Er</button>
+        <button class="qopt" onclick="mc(this,3,true)">Sie</button>
+        <button class="qopt" onclick="mc(this,3,false)">Es</button>
+        <button class="qopt" onclick="mc(this,3,false)">Wir</button>
+      </div>
+      <div class="qfb" id="qfb3"></div>
+    </div>
+
+    <!-- Score result after checking -->
+    <div class="result-banner" id="mc-result"></div>
+  </div>
+</div>
+
+<!-- ── COMPONENT: FILL-IN-THE-BLANK ── -->
+<div class="card">
+  <div class="card-body">
+    <div class="sec-title">✏️ <span data-t="fill_title">Fill in the blanks</span></div>
+    <div class="instr-box" data-t="instr_fill">Fill in the missing word.</div>
+
+    <!-- Repeat .fill-sentence for each sentence -->
+    <div class="fill-sentence">
+      <span>Anna und Thomas?</span>
+      <input class="fill-input" id="fi1" type="text" placeholder="..." autocomplete="off" spellcheck="false">
+      <span>kommen aus München.</span>
+    </div>
+    <div class="fill-sentence">
+      <span>Das ist mein Hund.</span>
+      <input class="fill-input" id="fi2" type="text" placeholder="..." autocomplete="off" spellcheck="false">
+      <span>heißt Bello.</span>
+    </div>
+    <div class="fill-sentence">
+      <span>Heute lerne</span>
+      <input class="fill-input" id="fi3" type="text" placeholder="..." autocomplete="off" spellcheck="false">
+      <span>Deutsch.</span>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkFill(['Sie','Er','ich'],['fi1','fi2','fi3'],'fill-result')">
+        <span>✓</span> <span data-t="check">Check Answers</span>
+      </button>
+      <button class="btn btn-secondary" onclick="resetFill(['fi1','fi2','fi3'],'fill-result')" data-t="try_again">Try Again</button>
+    </div>
+    <div class="result-banner" id="fill-result"></div>
+  </div>
+</div>
+
+<!-- ── COMPONENT: RICHTIG / FALSCH ── -->
+<div class="card">
+  <div class="card-body">
+    <div class="sec-title">✅ Richtig oder Falsch?</div>
+    <div class="instr-box" data-t="instr_rf">Are the statements correct (R) or incorrect (F)?</div>
+
+    <table class="rftable">
+      <thead><tr><th>#</th><th data-t="statement">Statement</th><th class="rf-col">R / F</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1.</td>
+          <td>„Sie" can refer to both a woman (she) and formal address (you).</td>
+          <td class="rf-col"><div class="rf-wrap"><button class="rfb" onclick="rf(this,'R')" id="rf1R">R</button><button class="rfb" onclick="rf(this,'F')" id="rf1F">F</button></div></td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>„Ihr" means "he" in German.</td>
+          <td class="rf-col"><div class="rf-wrap"><button class="rfb" onclick="rf(this,'R')" id="rf2R">R</button><button class="rfb" onclick="rf(this,'F')" id="rf2F">F</button></div></td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td>„Wir" is used when speaking about a group that includes the speaker.</td>
+          <td class="rf-col"><div class="rf-wrap"><button class="rfb" onclick="rf(this,'R')" id="rf3R">R</button><button class="rfb" onclick="rf(this,'F')" id="rf3F">F</button></div></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- answers array: 'R'/'F' in order of rows -->
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkRF(['R','F','R'],[['rf1R','rf1F'],['rf2R','rf2F'],['rf3R','rf3F']],'rf-result')">
+        <span>✓</span> <span data-t="check">Check Answers</span>
+      </button>
+    </div>
+    <div class="result-banner" id="rf-result"></div>
+  </div>
+</div>
+
+<!-- ── COMPONENT: VOCABULARY FLASHCARDS ── -->
+<div class="card">
+  <div class="card-body">
+    <div class="sec-title">🃏 <span data-t="vocabulary">Vocabulary</span></div>
+    <div class="instr-box" data-t="instr_vocab">Click a card to reveal the translation.</div>
+    <div class="fc-hint" data-t="fc_hint">Click to flip · Click again to flip back</div>
+    <div class="fc-grid">
+      <!-- Repeat .fc for each vocabulary item -->
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">ich</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">I</div><div class="fc-sub">1st person singular</div></div>
+        </div>
+      </div>
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">du</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">you (informal)</div><div class="fc-sub">2nd person singular</div></div>
+        </div>
+      </div>
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">er / sie / es</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">he / she / it</div><div class="fc-sub">3rd person singular</div></div>
+        </div>
+      </div>
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">wir</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">we</div><div class="fc-sub">1st person plural</div></div>
+        </div>
+      </div>
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">ihr</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">you all (informal)</div><div class="fc-sub">2nd person plural</div></div>
+        </div>
+      </div>
+      <div class="fc" onclick="this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <div class="fc-front"><div class="fc-de">Sie</div><div class="fc-sub">Pronomen</div></div>
+          <div class="fc-back"><div class="fc-en">you (formal)</div><div class="fc-sub">always capitalised</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPONENT: READING TEXT + QUESTIONS ── -->
+<div class="card">
+  <div class="card-body">
+    <div class="sec-title">📖 <span data-t="reading">Reading</span></div>
+    <div class="instr-box" data-t="instr_reading">Read the text and answer the questions.</div>
+    <div class="reading-box">
+      <div class="rbmeta" data-t="read_source">Short text · A1 level</div>
+      <h3>Hallo, ich bin Mia!</h3>
+      Hallo! Ich heiße Mia. Ich bin 24 Jahre alt. Ich komme aus Österreich, aber ich wohne jetzt in Berlin. Ich bin Lehrerin. Ich lerne jeden Tag Englisch, und ich spreche auch ein bisschen Spanisch. Mein Bruder heißt Felix. Er studiert in Wien. Wir telefonieren jeden Sonntag.
+    </div>
+    <!-- MC questions about the text -->
+    <div class="qblock" id="rt1">
+      <div class="qnum"><span data-t="question">Question</span> 1</div>
+      <div class="qtext">Where does Mia come from?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="mc(this,'rt1',false)">Germany</button>
+        <button class="qopt" onclick="mc(this,'rt1',true)">Austria</button>
+        <button class="qopt" onclick="mc(this,'rt1',false)">Switzerland</button>
+      </div>
+      <div class="qfb" id="qfbrt1"></div>
+    </div>
+    <div class="qblock" id="rt2">
+      <div class="qnum"><span data-t="question">Question</span> 2</div>
+      <div class="qtext">What does Mia do for work?</div>
+      <div class="qopts">
+        <button class="qopt" onclick="mc(this,'rt2',false)">She is a student</button>
+        <button class="qopt" onclick="mc(this,'rt2',true)">She is a teacher</button>
+        <button class="qopt" onclick="mc(this,'rt2',false)">She is a doctor</button>
+      </div>
+      <div class="qfb" id="qfbrt2"></div>
+    </div>
+  </div>
+</div>
+
+<!--
+  ╚══════════════════════════════════════════════════════════════╝
+  ║   END OF CONTENT ZONE                                        ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<!-- ── CTA BLOCK (always at the bottom) ── -->
+<div class="cta-block">
+  <h3 data-t="cta_title">Ready for more German?</h3>
+  <p data-t="cta_text">Join the TheGermanStefan community — free access to all A1 content, grammar exercises, reading texts, and the weekly Stammtisch.</p>
+  <button class="cta-btn" data-t="cta_btn">Join Free →</button>
+</div>
+
+<!-- ── NAVIGATION ── -->
+<div class="nav-btns">
+  <button class="nav-btn nav-prev" onclick="history.back()">← <span data-t="back">Back</span></button>
+  <!-- CHANGE: update href to the next exercise file -->
+  <button class="nav-btn nav-next" onclick="alert('Next exercise!')"><span data-t="next">Next</span> →</button>
+</div>
+
+</div><!-- /wrap -->
+
+
+<!-- ══ LANGUAGE SYSTEM ══════════════════════════════════════ -->
+<script>
+/* ────────────────────────────────────────────────────────────
+   LANG — All UI strings in 5 languages.
+   German content (exercise text, answers) is NOT translated —
+   only the interface labels, instructions, and feedback.
+   ──────────────────────────────────────────────────────────── */
+const LANG = {
+
+  en: {
+    // Navigation & layout
+    home:'Home', back:'Back', next:'Next', previous:'Previous',
+    // Module names
+    grammar:'Grammar', reading:'Reading', listening:'Listening',
+    writing:'Writing', speaking:'Speaking', vocabulary:'Vocabulary', exam:'Mock Exam',
+    // Page header
+    ph_sub:'Personal Pronouns — ich, du, er, sie, es, wir, ihr, sie, Sie',
+    minutes:'min', questions:'questions',
+    // Instructions
+    instructions:'Instructions',
+    instr_mc:'Choose the correct answer.',
+    instr_fill:'Fill in the missing word.',
+    instr_rf:'Are the statements correct (R) or incorrect (F)?',
+    instr_vocab:'Click a card to reveal the translation.',
+    instr_reading:'Read the text and answer the questions.',
+    instr_match:'Match each item with the correct option.',
+    // Table headers
+    statement:'Statement',
+    // Fill-in
+    fill_title:'Fill in the blanks',
+    // Flashcards
+    fc_hint:'Click to flip · Click again to flip back',
+    // Reading
+    read_source:'Short text · A1 level',
+    // Buttons
+    check:'Check Answers', try_again:'Try Again',
+    show_answer:'Show Answer', continue:'Continue',
+    // Feedback
+    fb_correct:'✓ Correct! Well done!',
+    fb_wrong:'✗ Not quite — see the correct answer highlighted.',
+    // Result messages
+    res_perfect:'🏆 Perfect! You\'re ready to move on!',
+    res_great:'🎉 Great job! Almost perfect!',
+    res_good:'👍 Good effort! Keep practising!',
+    res_practice:'💪 Keep practising — you\'ll get there!',
+    res_score:'Score',
+    res_of:'of',
+    res_correct:'correct',
+    // Progress
+    progress:'Progress', completed:'completed',
+    correct_answers:'correct',
+    // CTA
+    cta_title:'Ready for more German?',
+    cta_text:'Join the TheGermanStefan community — free access to all A1 content, grammar exercises, reading texts, and the weekly Stammtisch.',
+    cta_btn:'Join Free →',
+  },
+
+  fr: {
+    home:'Accueil', back:'Retour', next:'Suivant', previous:'Précédent',
+    grammar:'Grammaire', reading:'Lecture', listening:'Écoute',
+    writing:'Écriture', speaking:'Expression orale', vocabulary:'Vocabulaire', exam:'Examen blanc',
+    ph_sub:'Pronoms personnels — ich, du, er, sie, es, wir, ihr, sie, Sie',
+    minutes:'min', questions:'questions',
+    instructions:'Instructions',
+    instr_mc:'Choisissez la bonne réponse.',
+    instr_fill:'Complétez avec le mot manquant.',
+    instr_rf:'Les affirmations sont-elles correctes (R) ou incorrectes (F) ?',
+    instr_vocab:'Cliquez sur la carte pour voir la traduction.',
+    instr_reading:'Lisez le texte et répondez aux questions.',
+    instr_match:'Associez chaque élément à l\'option correcte.',
+    statement:'Affirmation',
+    fill_title:'Complétez les phrases',
+    fc_hint:'Cliquez pour retourner · Recliquez pour remettre',
+    read_source:'Texte court · Niveau A1',
+    check:'Vérifier les réponses', try_again:'Réessayer',
+    show_answer:'Voir la réponse', continue:'Continuer',
+    fb_correct:'✓ Correct ! Bravo !',
+    fb_wrong:'✗ Pas tout à fait — la bonne réponse est surlignée.',
+    res_perfect:'🏆 Parfait ! Vous pouvez passer à la suite !',
+    res_great:'🎉 Excellent travail ! Presque parfait !',
+    res_good:'👍 Bon effort ! Continuez à pratiquer !',
+    res_practice:'💪 Continuez à pratiquer — vous y arriverez !',
+    res_score:'Score', res_of:'sur', res_correct:'correctes',
+    progress:'Progression', completed:'terminé',
+    correct_answers:'correct',
+    cta_title:'Prêt pour plus d\'allemand ?',
+    cta_text:'Rejoignez la communauté TheGermanStefan — accès gratuit à tout le contenu A1, exercices de grammaire, textes de lecture et le Stammtisch hebdomadaire.',
+    cta_btn:'Rejoindre gratuitement →',
+    question:'Question',
+  },
+
+  es: {
+    home:'Inicio', back:'Volver', next:'Siguiente', previous:'Anterior',
+    grammar:'Gramática', reading:'Lectura', listening:'Comprensión auditiva',
+    writing:'Escritura', speaking:'Expresión oral', vocabulary:'Vocabulario', exam:'Examen de prueba',
+    ph_sub:'Pronombres personales — ich, du, er, sie, es, wir, ihr, sie, Sie',
+    minutes:'min', questions:'preguntas',
+    instructions:'Instrucciones',
+    instr_mc:'Elige la respuesta correcta.',
+    instr_fill:'Completa el espacio en blanco.',
+    instr_rf:'¿Las afirmaciones son correctas (R) o incorrectas (F)?',
+    instr_vocab:'Haz clic en la tarjeta para ver la traducción.',
+    instr_reading:'Lee el texto y responde las preguntas.',
+    instr_match:'Une cada elemento con la opción correcta.',
+    statement:'Afirmación',
+    fill_title:'Completa los espacios',
+    fc_hint:'Haz clic para girar · Haz clic de nuevo para volver',
+    read_source:'Texto corto · Nivel A1',
+    check:'Comprobar respuestas', try_again:'Intentar de nuevo',
+    show_answer:'Ver respuesta', continue:'Continuar',
+    fb_correct:'✓ ¡Correcto! ¡Muy bien!',
+    fb_wrong:'✗ No exactamente — la respuesta correcta está marcada.',
+    res_perfect:'🏆 ¡Perfecto! ¡Estás listo para continuar!',
+    res_great:'🎉 ¡Excelente trabajo! ¡Casi perfecto!',
+    res_good:'👍 ¡Buen esfuerzo! ¡Sigue practicando!',
+    res_practice:'💪 ¡Sigue practicando — lo conseguirás!',
+    res_score:'Puntuación', res_of:'de', res_correct:'correctas',
+    progress:'Progreso', completed:'completado',
+    correct_answers:'correctas',
+    cta_title:'¿Listo para más alemán?',
+    cta_text:'Únete a la comunidad TheGermanStefan — acceso gratuito a todo el contenido A1, ejercicios de gramática, textos de lectura y el Stammtisch semanal.',
+    cta_btn:'Únete gratis →',
+    question:'Pregunta',
+  },
+
+  it: {
+    home:'Home', back:'Indietro', next:'Avanti', previous:'Precedente',
+    grammar:'Grammatica', reading:'Lettura', listening:'Ascolto',
+    writing:'Scrittura', speaking:'Espressione orale', vocabulary:'Vocabolario', exam:'Esame di prova',
+    ph_sub:'Pronomi personali — ich, du, er, sie, es, wir, ihr, sie, Sie',
+    minutes:'min', questions:'domande',
+    instructions:'Istruzioni',
+    instr_mc:'Scegli la risposta corretta.',
+    instr_fill:'Completa lo spazio con la parola mancante.',
+    instr_rf:'Le affermazioni sono corrette (R) o errate (F)?',
+    instr_vocab:'Clicca sulla carta per vedere la traduzione.',
+    instr_reading:'Leggi il testo e rispondi alle domande.',
+    instr_match:'Abbina ogni elemento all\'opzione corretta.',
+    statement:'Affermazione',
+    fill_title:'Completa gli spazi',
+    fc_hint:'Clicca per girare · Clicca di nuovo per tornare',
+    read_source:'Testo breve · Livello A1',
+    check:'Controlla le risposte', try_again:'Riprova',
+    show_answer:'Mostra risposta', continue:'Continua',
+    fb_correct:'✓ Corretto! Ottimo lavoro!',
+    fb_wrong:'✗ Non esatto — la risposta corretta è evidenziata.',
+    res_perfect:'🏆 Perfetto! Sei pronto per andare avanti!',
+    res_great:'🎉 Ottimo lavoro! Quasi perfetto!',
+    res_good:'👍 Buon tentativo! Continua a esercitarti!',
+    res_practice:'💪 Continua a esercitarti — ce la farai!',
+    res_score:'Punteggio', res_of:'su', res_correct:'corrette',
+    progress:'Progresso', completed:'completato',
+    correct_answers:'corrette',
+    cta_title:'Pronto per più tedesco?',
+    cta_text:'Unisciti alla comunità TheGermanStefan — accesso gratuito a tutti i contenuti A1, esercizi di grammatica, testi di lettura e lo Stammtisch settimanale.',
+    cta_btn:'Unisciti gratis →',
+    question:'Domanda',
+  },
+
+  pt: {
+    home:'Início', back:'Voltar', next:'Próximo', previous:'Anterior',
+    grammar:'Gramática', reading:'Leitura', listening:'Compreensão auditiva',
+    writing:'Escrita', speaking:'Expressão oral', vocabulary:'Vocabulário', exam:'Exame simulado',
+    ph_sub:'Pronomes pessoais — ich, du, er, sie, es, wir, ihr, sie, Sie',
+    minutes:'min', questions:'perguntas',
+    instructions:'Instruções',
+    instr_mc:'Escolha a resposta correta.',
+    instr_fill:'Complete o espaço em branco.',
+    instr_rf:'As afirmações são corretas (R) ou incorretas (F)?',
+    instr_vocab:'Clique no cartão para ver a tradução.',
+    instr_reading:'Leia o texto e responda às perguntas.',
+    instr_match:'Combine cada item com a opção correta.',
+    statement:'Afirmação',
+    fill_title:'Complete os espaços',
+    fc_hint:'Clique para virar · Clique novamente para voltar',
+    read_source:'Texto curto · Nível A1',
+    check:'Verificar respostas', try_again:'Tentar novamente',
+    show_answer:'Ver resposta', continue:'Continuar',
+    fb_correct:'✓ Correto! Muito bem!',
+    fb_wrong:'✗ Não exatamente — a resposta correta está destacada.',
+    res_perfect:'🏆 Perfeito! Está pronto para avançar!',
+    res_great:'🎉 Excelente trabalho! Quase perfeito!',
+    res_good:'👍 Bom esforço! Continue praticando!',
+    res_practice:'💪 Continue praticando — você consegue!',
+    res_score:'Pontuação', res_of:'de', res_correct:'corretas',
+    progress:'Progresso', completed:'concluído',
+    correct_answers:'corretas',
+    cta_title:'Pronto para mais alemão?',
+    cta_text:'Junte-se à comunidade TheGermanStefan — acesso gratuito a todo o conteúdo A1, exercícios de gramática, textos de leitura e o Stammtisch semanal.',
+    cta_btn:'Junte-se grátis →',
+    question:'Pergunta',
+  }
+
+};
+
+/* ─── LANGUAGE ENGINE ──────────────────────────────────────── */
+let currentLang = localStorage.getItem('tgs_lang') || 'en';
+
+function t(key){ return (LANG[currentLang]||{})[key] || (LANG.en||{})[key] || key; }
+
+function setLang(code){
+  currentLang = code;
+  localStorage.setItem('tgs_lang', code);
+  applyLang();
+}
+
+function applyLang(){
+  // Update all elements with data-t attribute
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const key=el.getAttribute('data-t');
+    el.textContent=t(key);
+  });
+  // Update placeholder attributes
+  document.querySelectorAll('[data-tp]').forEach(el=>{
+    el.placeholder=t(el.getAttribute('data-tp'));
+  });
+  // Highlight active button
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('on', btn.getAttribute('data-lang')===currentLang);
+  });
+}
+
+/* ─── EXERCISE FUNCTIONS ───────────────────────────────────── */
+
+// MULTIPLE CHOICE
+let mcScores={};
+function mc(btn, qid, correct){
+  const wrap=btn.closest('.qopts');
+  if(wrap.querySelector('.correct')) return; // already answered
+  wrap.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){
+    btn.classList.add('correct');
+    if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}
+    mcScores[qid]=1;
+  } else {
+    btn.classList.add('wrong');
+    // highlight correct
+    wrap.querySelectorAll('.qopt').forEach(b=>{
+      if(b.onclick && b.onclick.toString().includes('true')) b.classList.add('correct');
+    });
+    if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}
+    mcScores[qid]=0;
+  }
+  updateProgress();
+}
+
+// FILL-IN-THE-BLANK
+function checkFill(answers, ids, resultId){
+  let correct=0;
+  ids.forEach((id,i)=>{
+    const inp=document.getElementById(id);
+    if(!inp) return;
+    inp.classList.remove('ok','bad');
+    const val=inp.value.trim();
+    const ans=answers[i];
+    if(val.toLowerCase()===ans.toLowerCase()||val===ans){
+      inp.classList.add('ok'); correct++;
+    } else {
+      inp.classList.add('bad');
+      inp.value=''; inp.placeholder='→ '+ans;
+    }
+  });
+  showResult(resultId, correct, ids.length);
+}
+
+function resetFill(ids, resultId){
+  ids.forEach(id=>{
+    const inp=document.getElementById(id);
+    if(!inp) return;
+    inp.value=''; inp.placeholder='...';
+    inp.classList.remove('ok','bad');
+  });
+  const rb=document.getElementById(resultId);
+  if(rb){rb.className='result-banner';}
+}
+
+// RICHTIG / FALSCH
+function rf(btn, choice){
+  const wrap=btn.closest('.rf-wrap');
+  wrap.querySelectorAll('.rfb').forEach(b=>{b.classList.remove('selR','selF');});
+  btn.classList.add(choice==='R'?'selR':'selF');
+}
+
+function checkRF(answers, idPairs, resultId){
+  let correct=0;
+  answers.forEach((ans,i)=>{
+    const rBtn=document.getElementById(idPairs[i][0]);
+    const fBtn=document.getElementById(idPairs[i][1]);
+    const selR=rBtn&&rBtn.classList.contains('selR');
+    const selF=fBtn&&fBtn.classList.contains('selF');
+    if((ans==='R'&&selR)||(ans==='F'&&selF)) correct++;
+  });
+  showResult(resultId, correct, answers.length);
+}
+
+// RESULT BANNER
+function showResult(id, correct, total){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const pct=correct/total;
+  let cls='practice', msg=t('res_practice');
+  if(pct===1){cls='perfect';msg=t('res_perfect');}
+  else if(pct>=0.8){cls='great';msg=t('res_great');}
+  else if(pct>=0.5){cls='good';msg=t('res_good');}
+  el.className='result-banner show '+cls;
+  const barW=Math.round(pct*100);
+  el.innerHTML=`<div class="rb-top"><div class="rb-emoji">${pct===1?'🏆':pct>=.8?'🎉':pct>=.5?'👍':'💪'}</div><div><div class="rb-title">${msg}</div><div class="rb-sub">${t('res_score')}: ${correct} ${t('res_of')} ${total} ${t('res_correct')}</div></div></div><div class="rb-score-row"><div class="rb-score">${correct}/${total}</div><div class="rb-bar-wrap"><div class="rb-bar" style="width:${barW}%"></div></div></div>`;
+}
+
+// PROGRESS BAR
+let totalQ=0, answeredQ=0;
+function updateProgress(){
+  answeredQ=Object.keys(mcScores).length;
+  if(totalQ>0) document.getElementById('pg-fill').style.width=(answeredQ/totalQ*100)+'%';
+  document.getElementById('live-score-display').textContent=Object.values(mcScores).reduce((a,b)=>a+b,0);
+}
+
+/* ─── INIT ──────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  applyLang();
+  // Count MC questions for progress bar
+  totalQ=document.querySelectorAll('.qblock').length;
+});
+</script>
+</body>
+</html>

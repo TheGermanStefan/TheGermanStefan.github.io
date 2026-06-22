@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe-Zertifikat B2 – Modellprüfung 1</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--indigo:#283593;--bg:#f0f2f5;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
+#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:110px;text-align:center;font-variant-numeric:tabular-nums}
+#timer-digits.warn{color:var(--amber)}
+#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.4}}
+.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
+.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
+.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
+#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
+#tbtn:hover{background:rgba(255,255,255,.15)}
+@media print{#timer-bar{display:none}}
+.cover{background:linear-gradient(135deg,#1a237e 0%,#283593 40%,#4a148c 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cover h1{font-size:23px;font-weight:900}
+.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
+.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
+.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
+.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
+.cand-row{background:#fff;border-bottom:3px solid #5c6bc0;padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.cf{display:flex;align-items:center;gap:8px;font-size:13px}
+.cf label{font-weight:700;color:var(--navy);white-space:nowrap}
+.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
+.tl{background:var(--navy);display:flex}
+.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
+.tls:last-child{border:none}
+.tls .m{font-size:13px;font-weight:800}
+.tls .i{font-size:11px;opacity:.55;margin-top:2px}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 80px}
+.mod{background:#fff;border-radius:12px;margin-bottom:30px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.mh{display:flex;align-items:center;gap:14px;padding:13px 20px;color:#fff}
+.mh .circ{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.mh .mt{font-size:17px;font-weight:800}
+.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
+.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}
+.mh .mp strong{display:block;font-size:18px;font-weight:900}
+.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
+.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
+.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
+.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
+.mb{padding:20px 22px}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
+.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+.lesen .ptag{background:#e3f2fd;color:#1464b4}
+.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
+.schreib .ptag{background:#f3e5f5;color:#6a1b9a}
+.sprech .ptag{background:#fbe9e7;color:#bf360c}
+.pdesc{font-size:13px;color:#444;flex:1}
+.ppts{font-size:12px;font-weight:700;color:#999;white-space:nowrap}
+.divider{border:none;border-top:1.5px dashed #dde;margin:22px 0}
+.instr{padding:9px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:13px}
+.lesen .instr{background:#f0f7ff;border-color:var(--blue)}
+.hoeren .instr{background:#f0faf0;border-color:var(--green)}
+.schreib .instr{background:#f9f0ff;border-color:var(--purple)}
+.sprech .instr{background:#fff4f0;border-color:var(--orange)}
+.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:18px 22px;font-size:13.5px;line-height:2;margin-bottom:14px}
+.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:8px;font-style:italic}
+.sbox h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.sbox p{margin-bottom:12px}
+.sbox p:last-child{margin-bottom:0}
+table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+table.rf th{background:#e3f2fd;padding:7px 11px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
+table.rf td{padding:7px 11px;border-bottom:1px solid #eee;vertical-align:middle}
+table.rf tr:nth-child(even) td{background:#f8fbff}
+table.rf .rn{width:34px;font-weight:700;color:#666}
+table.rf .ra{width:120px;text-align:center}
+.rf-wrap{display:flex;gap:7px;justify-content:center}
+.rfb{width:32px;height:32px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:12px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.rfb:hover{transform:scale(1.1)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rfb.selN{background:#ff9800;border-color:#ff9800;color:#fff}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.person{background:#e3f2fd;border:1.5px solid #b0cef8;border-radius:8px;padding:9px 12px;font-size:13px}
+.pname{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.notices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.notice{border:1.5px solid #ccc;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.7}
+.nlabel{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:3px}
+.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
+.sits h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:9px}
+.sit{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.sit:last-child{margin-bottom:0}
+.sn{font-weight:700;min-width:20px}
+.st{flex:1}
+.ssel{padding:5px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:55px}
+.ssel:focus{outline:none;border-color:var(--blue)}
+.mci{margin-bottom:16px}
+.mcs{font-size:13.5px;font-weight:600;color:#222;margin-bottom:7px}
+.qn{color:var(--blue);margin-right:5px;font-weight:800}
+.mco{display:flex;flex-wrap:wrap;gap:7px}
+.mcb{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;color:#1a1a1a;cursor:pointer;transition:all .15s;font-family:inherit}
+.mcb:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-1px)}
+.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
+.mcb .ll{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}
+.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
+.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
+.gmci{margin-bottom:14px;padding:9px 12px;background:#fafcff;border:1px solid #dde;border-radius:8px}
+.gmcs{font-size:13.5px;color:#222;margin-bottom:7px}
+.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;font-size:13px;flex-wrap:wrap}
+.filn{font-weight:700;color:var(--green);min-width:22px}
+.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 6px;min-width:140px;outline:none}
+.filin:focus{background:#f0faf0;border-radius:3px 3px 0 0}
+.warea{width:100%;min-height:240px;border:1.5px solid #ce93d8;border-radius:8px;padding:13px 15px;font-size:14px;font-family:inherit;resize:vertical;outline:none;color:#111;background:#fdf8ff;line-height:1.85}
+.warea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(106,27,154,.1)}
+.warea2{border-color:#9fa8da;background:#f5f7ff;min-height:200px}
+.warea2:focus{border-color:#3949ab}
+.wcbar{display:flex;justify-content:flex-end;margin-top:5px;font-size:12px;color:#888}
+.wcpill{padding:2px 10px;border-radius:20px;font-weight:700;background:#eee;color:#666;transition:all .2s}
+.wcpill.ok{background:#e8f5e9;color:var(--green)}
+.wcpill.over{background:#ffebee;color:var(--red)}
+.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:11px 15px;font-size:13px;line-height:2;margin-bottom:11px}
+.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sa{font-weight:700;color:#1b5e20}
+.sb{font-weight:700;color:#388e3c}
+.sc{font-weight:700;color:#00695c}
+.tnote{background:#e8eaf6;border-left:3px solid #3949ab;border-radius:0 6px 6px 0;padding:8px 13px;font-size:12px;color:#333;margin:9px 0}
+.tnote strong{color:#3949ab}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
+.spcard{border:2px solid #ffb74d;border-radius:10px;padding:11px 13px;background:#fff8f0;font-size:13px}
+.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.scq{font-weight:700;font-size:13px;color:var(--orange);margin-bottom:4px}
+.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:9px 0}
+.stbl th{background:var(--navy);color:#fff;padding:8px 13px;text-align:left}
+.stbl td{padding:7px 11px;border-bottom:1px solid #ddd;vertical-align:middle}
+.stbl tr:nth-child(even) td{background:#f9f9f9}
+.stbl tr.tot td{font-weight:700;background:#e8eaf6}
+.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:60px;font-size:14px;font-weight:700;text-align:center;padding:2px 4px;outline:none;color:#111}
+.tnin{width:100%;border:none;border-bottom:1px solid #ccc;outline:none;font-size:12px;padding:2px}
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.stcard{border:1.5px solid #ddd;border-radius:8px;padding:10px 13px;font-size:13px;line-height:1.75}
+.stclabel{font-weight:800;color:var(--blue);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.ak{background:#fff;border-radius:12px;margin-top:40px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.akh{background:#37474f;color:#fff;padding:13px 20px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.akb{padding:20px 22px}
+.akm{margin-bottom:20px}
+.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:9px}
+.akp{margin-bottom:9px}
+.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#f5f5f5;border-radius:6px;padding:3px 11px;font-size:13px}
+.ok{color:var(--green);font-weight:700}
+.wrong{color:var(--red);font-weight:700}
+.rubric{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:11px 15px;margin-top:7px;font-size:13px}
+.rubric table{width:100%;border-collapse:collapse;font-size:12px;margin-top:5px}
+.rubric table th{background:#f5f5f5;padding:5px 7px;font-weight:700;text-align:left}
+.rubric table td{padding:5px 7px;border-top:1px solid #eee}
+.result-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:30px}
+.result-card h2{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:12px}
+@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<div id="timer-bar">
+  <div class="tlabel">Verbleibende Zeit</div>
+  <div id="timer-digits">3:05:00</div>
+  <div class="tmod-bar">
+    <span class="tpill on" id="tp1">Lesen 75'</span>
+    <span class="tpill" id="tp2">Hören 40'</span>
+    <span class="tpill" id="tp3">Schreiben 70'</span>
+    <span class="tpill" id="tp4">Sprechen ~15'</span>
+  </div>
+  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+</div>
+
+<div class="cover">
+  <div>
+    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 1</div>
+    <h1>Goethe-Zertifikat B2 – Deutsch als Fremdsprache</h1>
+    <div class="meta">
+      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
+      Prüfungsdauer: ca. <strong>185 Minuten</strong> (schriftlich) + <strong>15 Min.</strong> (Sprechen) &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
+    </div>
+  </div>
+  <div class="badge">B2<span>Test 1</span></div>
+</div>
+
+<div class="cand-row">
+  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
+  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
+  <div class="cf"><label>Kurs / Gruppe:</label><input class="ci" type="text" placeholder=""></div>
+</div>
+
+<div class="tl">
+  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 75 Min</div></div>
+  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
+  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 70 Min</div></div>
+  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
+  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- LESEN -->
+<div class="mod lesen">
+  <div class="mh">
+    <div class="circ">1</div>
+    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 75 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Zeitungsartikel – Richtig, Falsch oder Nicht im Text?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Sind die Aussagen (1–5) <strong>richtig (R)</strong>, <strong>falsch (F)</strong> oder <strong>nicht im Text (N)</strong>?</div>
+
+    <div class="sbox">
+      <div class="smeta">„Wirtschaft &amp; Gesellschaft" – Frankfurter Wirtschaftsblatt, April 2026</div>
+      <h3>Vier-Tage-Woche: Revolution oder Risiko?</h3>
+      <p>Die Diskussion um die Vier-Tage-Woche hat in Deutschland und Europa an Fahrt aufgenommen. Nachdem Island zwischen 2015 und 2019 in einem großangelegten staatlichen Experiment die Arbeitszeit bei vollem Lohnausgleich reduziert hat, folgten Pilotprojekte in Großbritannien, Deutschland und Belgien. Die Ergebnisse: überwiegend positiv. Produktivität blieb stabil oder stieg sogar, Krankheitstage sanken, und die Zufriedenheit der Beschäftigten stieg deutlich.</p>
+      <p>In Deutschland haben bisher rund <strong>40 Unternehmen</strong> an Pilotprojekten teilgenommen, darunter Tech-Firmen, Mittelständler und vereinzelt auch Pflegeeinrichtungen. Die Ergebnisse waren nicht einheitlich: Während Bürojobs gut zu komprimieren sind, stoßen produzierende Betriebe und Branchen mit langen Öffnungszeiten auf strukturelle Grenzen.</p>
+      <p>Kritiker warnen, dass eine verkürzte Arbeitswoche ohne Lohnkürzung die Arbeitskosten massiv erhöhe und die internationale Wettbewerbsfähigkeit schwäche. Besonders der Mittelstand sehe sich durch bürokratische Hürden und fehlende Fachkräfte bereits am Limit. Auf der anderen Seite argumentieren Gewerkschaften, dass mehr Freizeit den Konsum anrege und Gesundheitskosten langfristig senke.</p>
+      <p>Die Bundesregierung hat bisher keine gesetzliche Regelung in Aussicht gestellt. Arbeitsministerin Franziska Braun erklärte, man werde die laufenden Pilotprojekte <strong>bis Ende 2027</strong> wissenschaftlich begleiten und dann über gesetzliche Schritte beraten.</p>
+    </div>
+
+    <table class="rf">
+      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
+      <tbody>
+        <tr><td class="rn">1.</td><td>Island hat die Vier-Tage-Woche mit Lohnkürzung getestet.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">2.</td><td>In Deutschland nahmen rund 40 Unternehmen an Pilotprojekten teil.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">3.</td><td>Bürobeschäftigte können die Arbeitszeit leichter komprimieren als produzierende Betriebe.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">4.</td><td>Die Bundesregierung plant, das Modell ab 2025 gesetzlich einzuführen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+        <tr><td class="rn">5.</td><td>Laut Artikel sind die Ergebnisse der deutschen Pilotprojekte einheitlich positiv ausgefallen.</td>
+          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Thematische Stellungnahmen</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Fünf Personen suchen einen Artikel, Bericht oder eine Sendung zu einem bestimmten Thema. Welcher Text (a–h) passt?</div>
+
+    <div class="people">
+      <div class="person"><div class="pname">Person 1 – Dr. Petra Voigt</div>Petra ist Neuropsychologin und sucht eine Sendung oder einen Artikel, der die Auswirkungen von Schlafmangel auf kognitive Leistung wissenschaftlich erklärt.</div>
+      <div class="person"><div class="pname">Person 2 – Ben Adeyemi</div>Ben ist Unternehmer und sucht Berichte über Start-up-Finanzierung – insbesondere über staatliche Förderprogramme und Risikokapital in Deutschland.</div>
+      <div class="person"><div class="pname">Person 3 – Lara Meissner</div>Lara engagiert sich für Umweltschutz und sucht tiefgehende Berichte über Meeresplastik und internationale Lösungsansätze.</div>
+      <div class="person"><div class="pname">Person 4 – Tomás Ruiz</div>Tomás ist Lehrer und sucht pädagogische Konzepte für inklusive Schulbildung – also Unterricht für Kinder mit und ohne Behinderung gemeinsam.</div>
+      <div class="person"><div class="pname">Person 5 – Ingrid Sommer</div>Ingrid ist pensionierte Richterin und interessiert sich für Berichte über digitale Kriminalität und den rechtlichen Umgang damit.</div>
+    </div>
+
+    <div class="notices">
+      <div class="notice"><div class="nlabel">a</div><strong>„Wellen aus Plastik"</strong> – Investigativbericht<br>Wie rund 11 Millionen Tonnen Plastikmüll jährlich ins Meer gelangen, welche Tiefseezonen bereits verseucht sind und welche UN-Abkommen in Verhandlung stehen.</div>
+      <div class="notice"><div class="nlabel">b</div><strong>„Schlaf ist keine Schwäche"</strong> – Wissenschaftssendung<br>Prof. Dr. Hollmann erklärt, wie 6-Stunden-Schlaf das Arbeitsgedächtnis schädigt und Reaktionszeiten auf Betrunkenen-Niveau drückt. Hirnscans live.</div>
+      <div class="notice"><div class="nlabel">c</div><strong>„Fördertöpfe für Gründer"</strong> – Wirtschaftsmagazin<br>Bundesministerium, KfW, High-Tech Gründerfonds: Welche Förderprogramme es gibt, was sie zahlen und welche Fehler Gründer bei der Beantragung machen.</div>
+      <div class="notice"><div class="nlabel">d</div><strong>„Schule für alle"</strong> – Bildungsreportage<br>Wie Gesamtschulen in NRW gemeinsamen Unterricht für Kinder mit und ohne sonderpädagogischen Förderbedarf erfolgreich gestalten.</div>
+      <div class="notice"><div class="nlabel">e</div><strong>„Cyberkriminalität im Recht"</strong> – Fachdiskussion<br>Richter, Staatsanwälte und Juristen diskutieren: Wie das deutsche Strafrecht mit Ransomware, Identitätsdiebstahl und Dark-Web-Handel umgeht.</div>
+      <div class="notice"><div class="nlabel">f</div><strong>„Klimaküche"</strong> – Kochshow<br>Köchin Anna erklärt, wie man mit lokalen, saisonalen Zutaten gleichzeitig gut isst und den CO₂-Fußabdruck reduziert.</div>
+      <div class="notice"><div class="nlabel">g</div><strong>„Hacker bei der Arbeit"</strong> – Krimi-Doku<br>Ein Filmteam begleitet einen Ethical Hacker durch seinen Arbeitsalltag. Keine rechtliche Analyse, pure Technik.</div>
+      <div class="notice"><div class="nlabel">h</div><strong>„Montessori weltweit"</strong> – Bildungsmagazin<br>Geschichte und Prinzipien der Montessori-Pädagogik in internationalen Schulen. Fokus auf Selbstständigkeit, nicht auf Inklusion.</div>
+    </div>
+
+    <div class="sits">
+      <h4>Welcher Text (a–h) passt?</h4>
+      <div class="sit"><span class="sn">1.</span><span class="st">Dr. Petra Voigt (Schlaf + kognitive Leistung, wissenschaftlich)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">2.</span><span class="st">Ben Adeyemi (Start-up-Finanzierung, Förderprogramme)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">3.</span><span class="st">Lara Meissner (Meeresplastik, internationale Lösungen)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">4.</span><span class="st">Tomás Ruiz (inklusive Schulbildung, gemeinsam unterrichten)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+      <div class="sit"><span class="sn">5.</span><span class="st">Ingrid Sommer (digitale Kriminalität, rechtlicher Umgang)</span>
+        <select class="ssel"><option value="">—</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option><option>g</option><option>h</option></select></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Langer Lesestext – Multiple Choice (6 Fragen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Lesen Sie den Text. Wählen Sie für jede Frage (11–16) die richtige Antwort.</div>
+
+    <div class="sbox">
+      <div class="smeta">„Gesellschaft &amp; Psychologie" – Wissenschaftsmagazin, Februar 2026</div>
+      <h3>Die Einsamkeitsepidемie: Warum Millionen Menschen trotz Vernetzung allein sind</h3>
+      <p>Es klingt paradox: In einer Welt, in der Menschen rund um die Uhr miteinander verbunden sind – per Smartphone, sozialen Netzwerken und Videocalls –, klagen gleichzeitig Millionen über tiefe Einsamkeit. Laut einer Studie der Bertelsmann Stiftung aus dem Jahr 2025 fühlen sich <strong>fast 25 % der deutschen Bevölkerung</strong> regelmäßig einsam, darunter überproportional viele junge Erwachsene zwischen 18 und 30 Jahren.</p>
+      <p>Einsamkeit ist dabei nicht dasselbe wie Alleinsein. Man kann alleine leben und sich völlig wohl fühlen; man kann in einer Partnerschaft leben oder von Freunden umgeben sein und sich dennoch tief isoliert fühlen. Entscheidend ist die subjektive Wahrnehmung: Fühlt sich eine Person in ihren sozialen Beziehungen gehört, gesehen und wertgeschätzt?</p>
+      <p>Forscher der Universität Mannheim identifizieren mehrere Hauptursachen: erstens die <strong>Auflösung traditioneller Gemeinschaftsstrukturen</strong> (Familie, Kirche, Verein), zweitens die zunehmende räumliche Mobilität – wer öfter umzieht, verliert soziale Wurzeln –, und drittens den paradoxen Effekt sozialer Medien: Obwohl sie Kontakt ermöglichen, erzeugen sie häufig Vergleichsdruck und das Gefühl, nicht mithalten zu können.</p>
+      <p>Die gesundheitlichen Folgen sind gravierend. Chronische Einsamkeit erhöht das Risiko für Herz-Kreislauf-Erkrankungen um bis zu <strong>29 %</strong>, das Demenzrisiko um bis zu <strong>50 %</strong> und hat auf die Lebenserwartung einen ähnlichen negativen Effekt wie das Rauchen von 15 Zigaretten täglich. Der britische Nationalgesundheitsdienst (NHS) hat bereits 2018 ein „Ministerium für Einsamkeit" eingerichtet – ein Signal, das viele europäische Länder zum Nachdenken brachte.</p>
+      <p>Lösungsansätze gibt es viele: lokale Gemeinschaftsprojekte, sogenannte „Third Places" (Orte jenseits von Zuhause und Arbeit), Mentoring-Programme und Nachbarschaftsinitiativen. Experten betonen jedoch, dass digitale Lösungen allein – Apps, virtuelle Begegnungsräume – die reale Verbindung nicht ersetzen können.</p>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">11.</span> Was zeigt die Bertelsmann-Studie 2025?</div>
+      <div class="mco" data-grp="l11">
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">a</span> Fast jede zweite Person in Deutschland ist einsam</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">b</span> Rund 25 % fühlen sich regelmäßig einsam, viele davon jung</button>
+        <button class="mcb" onclick="pickMC(this,'l11')"><span class="ll">c</span> Nur Ältere über 60 leiden an Einsamkeit</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">12.</span> Wie unterscheidet der Artikel Einsamkeit und Alleinsein?</div>
+      <div class="mco" data-grp="l12">
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">a</span> Alleinsein ist immer schlimmer als Einsamkeit</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">b</span> Entscheidend ist die subjektive Wahrnehmung von Zugehörigkeit</button>
+        <button class="mcb" onclick="pickMC(this,'l12')"><span class="ll">c</span> Einsamkeit entsteht nur bei Menschen ohne Partner</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">13.</span> Welche DREI Hauptursachen nennt die Mannheimer Studie?</div>
+      <div class="mco" data-grp="l13">
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">a</span> Armut, Arbeitslosigkeit und Bildungsmangel</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">b</span> Auflösung von Gemeinschaften, Mobilität und paradoxer Effekt sozialer Medien</button>
+        <button class="mcb" onclick="pickMC(this,'l13')"><span class="ll">c</span> Digitale Übernutzung, Scheidungsrate und Stress</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">14.</span> Um wie viel Prozent erhöht Einsamkeit das Demenzrisiko laut Text?</div>
+      <div class="mco" data-grp="l14">
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">a</span> 29 %</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">b</span> 15 %</button>
+        <button class="mcb" onclick="pickMC(this,'l14')"><span class="ll">c</span> 50 %</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">15.</span> Was hat Großbritannien 2018 eingerichtet?</div>
+      <div class="mco" data-grp="l15">
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">a</span> Ein Ministerium für Einsamkeit</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">b</span> Ein nationales Netzwerk sozialer Apps</button>
+        <button class="mcb" onclick="pickMC(this,'l15')"><span class="ll">c</span> Ein Programm gegen Altersarmut</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">16.</span> Was betonen Experten laut dem letzten Absatz?</div>
+      <div class="mco" data-grp="l16">
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">a</span> Apps und virtuelle Räume können echte Verbindung nicht ersetzen</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">b</span> Digitale Lösungen sind die Zukunft der Einsamkeitsbekämpfung</button>
+        <button class="mcb" onclick="pickMC(this,'l16')"><span class="ll">c</span> Mentoring-Programme funktionieren nur bei Jugendlichen</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Kurze Texte – Multiple Choice</span><span class="ppts">4 Punkte</span></div>
+    <div class="instr">Lesen Sie die vier kurzen Texte. Wählen Sie für jede Frage (17–20) die richtige Antwort.</div>
+
+    <div class="stcards">
+      <div class="stcard"><div class="stclabel">Text A – Pressemitteilung</div>„Die Deutsche Telekom gibt bekannt, dass sie ab dem 3. Quartal 2026 in allen deutschen Städten über 100.000 Einwohnern ihr 6G-Testnetz aktivieren wird. Haushalte können sich ab sofort für das Beta-Programm anmelden; die Teilnahme ist kostenpflichtig und auf 10.000 Haushalte begrenzt."</div>
+      <div class="stcard"><div class="stclabel">Text B – Leserbrief</div>„Ich bin entsetzt über die geplante Bebauung des alten Stadtparks in unserer Gemeinde. Jahrzehntelang war er ein Erholungsort für alle – Kinder, Rentner, Hundebesitzer. Jetzt soll dort ein weiteres Bürogebäude entstehen. Was nützen uns Gewinne für Investoren, wenn wir keine Grünflächen mehr haben?" – M. Schulze</div>
+      <div class="stcard"><div class="stclabel">Text C – Unternehmensankündigung</div>„EcoMobility GmbH gibt bekannt: Ab Juli bieten wir unseren Mitarbeiterinnen und Mitarbeitern ein subventioniertes E-Bike-Leasing an. Der Eigenanteil beträgt monatlich nur 29 Euro. Interessierte melden sich bis zum 15. Mai bei der Personalabteilung. Der Betriebsrat hat dem Programm einstimmig zugestimmt."</div>
+      <div class="stcard"><div class="stclabel">Text D – Wissenschaftliche Kurzmeldung</div>„Forscherinnen der TU Berlin haben eine neue Methode entwickelt, um CO₂ direkt aus der Luft zu filtern und in feste Karbonate umzuwandeln. Der Prozess verbraucht deutlich weniger Energie als bisherige Verfahren. Bis zur Marktreife rechnen die Wissenschaftlerinnen noch mit fünf bis sieben Jahren."</div>
+    </div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">17.</span> Was ist richtig über das 6G-Testnetz der Telekom?</div>
+      <div class="mco" data-grp="l17">
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">a</span> Es ist kostenlos und unbegrenzt verfügbar</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">b</span> Es ist kostenpflichtig und auf 10.000 Haushalte begrenzt</button>
+        <button class="mcb" onclick="pickMC(this,'l17')"><span class="ll">c</span> Es startet ab dem 1. Quartal in Kleinstädten</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was kritisiert Herr Schulze in seinem Leserbrief?</div>
+      <div class="mco" data-grp="l18">
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">a</span> Den Bau von Wohnhäusern statt eines Parks</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">b</span> Die Umwidmung eines Stadtparks zu einem Bürogebäude</button>
+        <button class="mcb" onclick="pickMC(this,'l18')"><span class="ll">c</span> Den schlechten Zustand des Stadtparks</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Was stimmt über das E-Bike-Leasing bei EcoMobility?</div>
+      <div class="mco" data-grp="l19">
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">a</span> Der Betriebsrat hat das Programm abgelehnt</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">b</span> Mitarbeiter zahlen monatlich 29 Euro Eigenanteil</button>
+        <button class="mcb" onclick="pickMC(this,'l19')"><span class="ll">c</span> Die Anmeldung ist erst ab Juli möglich</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was ist der Vorteil der neuen CO₂-Filtermethode?</div>
+      <div class="mco" data-grp="l20">
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">a</span> Sie ist schon auf dem Markt und günstig</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">b</span> Sie verbraucht weniger Energie als bisherige Methoden</button>
+        <button class="mcb" onclick="pickMC(this,'l20')"><span class="ll">c</span> Sie wurde von der EU finanziert</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Lückentext – Wählen Sie das richtige Wort (B2-Niveau)</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Für jede Lücke (21–25) gibt es drei Möglichkeiten. Wählen Sie die grammatisch und inhaltlich korrekte.</div>
+
+    <div class="sbox">
+      <p>Die Digitalisierung des Gesundheitswesens schreitet voran, <span style="font-weight:700;color:var(--blue)">(21)</span> nicht ohne Widerstand. In vielen deutschen Kliniken werden noch immer Patientendaten auf Papier dokumentiert – ein Zustand, den Gesundheitsexperten als unhaltbar bezeichnen. Die elektronische Patientenakte (ePA), die seit 2021 <span style="font-weight:700;color:var(--blue)">(22)</span> werden sollte, stößt bei Datenschützern auf Bedenken: Sie fürchten, dass sensible Gesundheitsdaten <span style="font-weight:700;color:var(--blue)">(23)</span> werden könnten. Die Bundesregierung <span style="font-weight:700;color:var(--blue)">(24)</span> hingegen, dass der Datenschutz gewährleistet sei. Fachleute empfehlen, die digitale Infrastruktur schrittweise <span style="font-weight:700;color:var(--blue)">(25)</span>, um das Vertrauen der Bevölkerung nicht zu gefährden.</p>
+    </div>
+
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">21.</span> schreitet voran, __ nicht ohne Widerstand</div>
+      <div class="mco" data-grp="l21">
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">a</span> aber</button>
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">b</span> daher</button>
+        <button class="mcb" onclick="pickMC(this,'l21')"><span class="ll">c</span> wobei</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">22.</span> seit 2021 __ werden sollte</div>
+      <div class="mco" data-grp="l22">
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">a</span> eingeführt</button>
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">b</span> einführen</button>
+        <button class="mcb" onclick="pickMC(this,'l22')"><span class="ll">c</span> einführend</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">23.</span> Daten __ werden könnten</div>
+      <div class="mco" data-grp="l23">
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">a</span> missbraucht</button>
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">b</span> missbrauchen</button>
+        <button class="mcb" onclick="pickMC(this,'l23')"><span class="ll">c</span> missbräuchlich</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">24.</span> Die Bundesregierung __ hingegen</div>
+      <div class="mco" data-grp="l24">
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">a</span> versichert</button>
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">b</span> versichern</button>
+        <button class="mcb" onclick="pickMC(this,'l24')"><span class="ll">c</span> versicherte sich</button>
+      </div>
+    </div>
+    <div class="gmci">
+      <div class="gmcs"><span class="qn">25.</span> Infrastruktur schrittweise __ (= in Betrieb nehmen)</div>
+      <div class="mco" data-grp="l25">
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">a</span> auszubauen</button>
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">b</span> abzubauen</button>
+        <button class="mcb" onclick="pickMC(this,'l25')"><span class="ll">c</span> anzubauen</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- HÖREN -->
+<div class="mod hoeren">
+  <div class="mh">
+    <div class="circ">2</div>
+    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~40 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis B2:</strong> Flüssiges Sprechtempo, komplexere Satzstrukturen. Jeden Text <strong>zweimal</strong> vorlesen.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Radiobeiträge – Richtig oder Falsch?</span><span class="ppts">5 Punkte</span></div>
+    <div class="instr">Sie hören fünf Meldungen. Sind die Aussagen richtig (R) oder falsch (F)?</div>
+
+    <div class="dial"><div class="dlabel">Beitrag 1</div>„Meldung: Die Europäische Zentralbank hat heute angekündigt, den Leitzins auf <strong>2,5 %</strong> zu senken – den niedrigsten Stand seit zwei Jahren. Ziel ist es, die Kreditvergabe zu beleben und das schwache Wirtschaftswachstum anzukurbeln."</div>
+    <table class="rf"><tbody>
+      <tr><td style="width:34px;font-weight:700">1.</td><td>Die EZB hebt den Leitzins auf 2,5 % an.</td>
+        <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr>
+    </tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 2</div>„Kulturmeldung: Das Berliner Ensemble lädt ab Oktober zu einem neuen Format ein: ‚Theater für Schichtarbeiter' – Aufführungen beginnen um <strong>5:30 Uhr morgens</strong>. Tickets kosten 10 Euro, Frühstück inklusive."</div>
+    <table class="rf"><tbody>
+      <tr><td style="width:34px;font-weight:700">2.</td><td>Das Frühstück im Berliner Ensemble ist extra zu bezahlen.</td>
+        <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr>
+    </tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 3</div>„Sportmeldung: Der Deutsche Fußball-Bund hat bestätigt: Die DFB-Frauen treffen in der EM-Qualifikation am 15. November auf die Niederlande. Das Spiel findet in <strong>Dortmund</strong> statt, Anpfiff ist um 19 Uhr."</div>
+    <table class="rf"><tbody>
+      <tr><td style="width:34px;font-weight:700">3.</td><td>Das Qualifikationsspiel findet in Hamburg statt.</td>
+        <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr>
+    </tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 4</div>„Technologiemeldung: Das KI-Forschungszentrum DFKI Saarbrücken hat eine Software entwickelt, die beim Lesen von Röntgenbildern Lungenkrebs im Frühstadium mit einer Genauigkeit von <strong>96 %</strong> erkennt. Klinische Studien sollen 2027 beginnen."</div>
+    <table class="rf"><tbody>
+      <tr><td style="width:34px;font-weight:700">4.</td><td>Die KI-Software erkennt Lungenkrebs im Frühstadium mit 96 % Genauigkeit.</td>
+        <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr>
+    </tbody></table>
+
+    <div class="dial"><div class="dlabel">Beitrag 5</div>„Wettermeldung: Für das Wochenende erwartet der Deutsche Wetterdienst in Bayern Temperaturen bis <strong>34 Grad</strong> und erhöhte Unwettergefahr am Sonntagabend. In Norddeutschland bleibt es freundlich und trocken."</div>
+    <table class="rf"><tbody>
+      <tr><td style="width:34px;font-weight:700">5.</td><td>In Norddeutschland sind am Wochenende Gewitter zu erwarten.</td>
+        <td style="width:90px;text-align:center"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button></div></td></tr>
+    </tbody></table>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Podiumsdiskussion – Multiple Choice (6 Fragen)</span><span class="ppts">6 Punkte</span></div>
+    <div class="instr">Sie hören eine Podiumsdiskussion. Wählen Sie für jede Frage die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Podiumsdiskussion: „Sollte das Wahlalter auf 16 gesenkt werden?" (Lehrer liest vor)</div>
+      <span class="sa">Moderatorin (Dr. Klein):</span> Herzlich willkommen zur Debatte über das Wahlalter. Herr Nowak, beginnen Sie.<br>
+      <span class="sb">Prof. Nowak (Politikwissenschaftler):</span> Ich bin klar dafür. In Österreich, Schottland und einigen deutschen Bundesländern – Bayern, Baden-Württemberg bei Kommunalwahlen – dürfen 16-Jährige bereits wählen, mit guten Erfahrungen. Junge Menschen sind politisch interessiert und informiert.<br>
+      <span class="sc">Frau Dieterle (CDU-Politikerin):</span> Ich sehe das kritisch. Das Gehirn ist mit 16 noch nicht vollständig entwickelt – das gilt besonders für den präfrontalen Kortex, der für langfristiges Denken verantwortlich ist. Wir reden über Entscheidungen mit jahrzehntelanger Wirkung.<br>
+      <span class="sb">Prof. Nowak:</span> Das Argument kenne ich, halte es aber für schwach. Wir erlauben 16-Jährigen zu arbeiten, Steuern zu zahlen, und heiraten darf man auch mit Ausnahmegenehmigung. Warum soll die Demokratie Ausnahme sein?<br>
+      <span class="sc">Frau Dieterle:</span> Weil Verantwortung und Kompetenz nicht dasselbe sind. Außerdem fürchte ich, dass Parteien populistische Kurzfristversprechen machen werden, um junge Wähler zu gewinnen.<br>
+      <span class="sa">Dr. Klein:</span> Was ist Ihre Einschätzung, Herr Nowak?<br>
+      <span class="sb">Prof. Nowak:</span> Das ist ein legitimes Risiko, das aber genauso für alle Altersgruppen gilt. Wichtiger ist politische Bildung – in der Schule, strukturiert und verpflichtend.<br>
+      <span class="sc">Frau Dieterle:</span> Dem stimme ich zu – politische Bildung ist unverzichtbar, egal ob man das Wahlalter senkt oder nicht.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">6.</span> In welchen Ländern/Regionen dürfen 16-Jährige bereits wählen?</div>
+      <div class="mco" data-grp="h6">
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">a</span> In ganz Deutschland und Frankreich</button>
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">b</span> In Österreich, Schottland und manchen deutschen Bundesländern</button>
+        <button class="mcb" onclick="pickMC(this,'h6')"><span class="ll">c</span> Nur in Bayern bei Bundestagswahlen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">7.</span> Welches Argument bringt Frau Dieterle gegen die Absenkung?</div>
+      <div class="mco" data-grp="h7">
+        <button class="mcb" onclick="pickMC(this,'h7')"><span class="ll">a</span> Jugendliche interessieren sich nicht für Politik</button>
+        <button class="mcb" onclick="pickMC(this,'h7')"><span class="ll">b</span> Das Gehirn ist mit 16 noch nicht vollständig entwickelt</button>
+        <button class="mcb" onclick="pickMC(this,'h7')"><span class="ll">c</span> Wahlrecht ist zu kompliziert für Jugendliche</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">8.</span> Welches Gegenargument bringt Prof. Nowak?</div>
+      <div class="mco" data-grp="h8">
+        <button class="mcb" onclick="pickMC(this,'h8')"><span class="ll">a</span> 16-Jährige dürfen arbeiten und Steuern zahlen</button>
+        <button class="mcb" onclick="pickMC(this,'h8')"><span class="ll">b</span> Jugendliche sind reifer als Erwachsene</button>
+        <button class="mcb" onclick="pickMC(this,'h8')"><span class="ll">c</span> Die Wahlbeteiligung sinkt ohne Jugendbeteiligung</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">9.</span> Wovor warnt Frau Dieterle in Bezug auf Parteien?</div>
+      <div class="mco" data-grp="h9">
+        <button class="mcb" onclick="pickMC(this,'h9')"><span class="ll">a</span> Parteien werden junge Wähler ignorieren</button>
+        <button class="mcb" onclick="pickMC(this,'h9')"><span class="ll">b</span> Parteien könnten populistische Kurzfristversprechen machen</button>
+        <button class="mcb" onclick="pickMC(this,'h9')"><span class="ll">c</span> Parteien könnten das Schulsystem unterwandern</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">10.</span> Was fordern BEIDE Diskutanten am Ende?</div>
+      <div class="mco" data-grp="h10">
+        <button class="mcb" onclick="pickMC(this,'h10')"><span class="ll">a</span> Das Wahlalter sofort zu senken</button>
+        <button class="mcb" onclick="pickMC(this,'h10')"><span class="ll">b</span> Mehr politische Bildung in der Schule</button>
+        <button class="mcb" onclick="pickMC(this,'h10')"><span class="ll">c</span> Mehr Forschung über das jugendliche Gehirn</button>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Kurze Gespräche – Fehlende Informationen notieren</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören sieben kurze Gespräche. Notieren Sie die fehlende Information.</div>
+
+    <div class="dial"><div class="dlabel">Gespräche 11–17 (jeweils 2× vorlesen)</div>
+      <strong>G11:</strong> „Wie viel kostet die Jahres-Mitgliedschaft?" – „<strong>149 Euro</strong>, inklusive einer kostenlosen Trainerstunde."<br><br>
+      <strong>G12:</strong> „Ich möchte einen Termin zur Besprechung meiner Bewerbungsunterlagen." – „Morgen um <strong>10:30 Uhr</strong> hätte ich noch etwas frei."<br><br>
+      <strong>G13:</strong> „Wann beginnt die Konferenz genau?" – „Die Eröffnung ist am Dienstag um <strong>9 Uhr</strong>. Das Plenum beginnt um 10."<br><br>
+      <strong>G14:</strong> „Haben Sie noch Zimmer frei?" – „Ja, ein Doppelzimmer für zwei Nächte, das wären dann <strong>210 Euro</strong> insgesamt."<br><br>
+      <strong>G15:</strong> „Ich hätte gern das Paket bis Mittwoch." – „Das schaffen wir. Expressversand kostet <strong>8,50 Euro</strong> extra."<br><br>
+      <strong>G16:</strong> „Die Klausur ist am 12. Juli – wann ist die Nachschreibklausur?" – „Am <strong>9. August</strong>, gleicher Raum, gleiche Uhrzeit."<br><br>
+      <strong>G17:</strong> „Wir suchen jemanden für den Nachtdienst, <strong>3 Mal pro Woche</strong>." – „Das klingt interessant – welche Qualifikation brauche ich?"</div>
+
+    <div style="margin-top:11px">
+      <div class="filrow"><span class="filn">11.</span> Jahres-Mitgliedschaft kostet <input class="filin" type="text" placeholder=""> Euro.</div>
+      <div class="filrow"><span class="filn">12.</span> Bewerbungsgespräch morgen um <input class="filin" type="text" placeholder=""> Uhr.</div>
+      <div class="filrow"><span class="filn">13.</span> Konferenzeröffnung am Dienstag um <input class="filin" type="text" placeholder=""> Uhr.</div>
+      <div class="filrow"><span class="filn">14.</span> Doppelzimmer kostet insgesamt <input class="filin" type="text" placeholder=""> Euro.</div>
+      <div class="filrow"><span class="filn">15.</span> Expressversand kostet <input class="filin" type="text" placeholder=""> Euro extra.</div>
+      <div class="filrow"><span class="filn">16.</span> Nachschreibklausur ist am <input class="filin" type="text" placeholder=""> August.</div>
+      <div class="filrow"><span class="filn">17.</span> Nachtdienst: <input class="filin" type="text" placeholder=""> Mal pro Woche.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Interview – Multiple Choice (7 Fragen)</span><span class="ppts">7 Punkte</span></div>
+    <div class="instr">Sie hören ein Interview. Wählen Sie für jede Frage (18–24) die richtige Antwort.</div>
+
+    <div class="dial"><div class="dlabel">Interview mit Klimaaktivistin Dr. Jana Brandt (Lehrer liest vor)</div>
+      <span class="sa">Journalistin:</span> Frau Dr. Brandt, Sie waren früher Unternehmensberaterin. Wie wurden Sie zur Klimaaktivistin?<br>
+      <span class="sb">Jana:</span> Ich habe zehn Jahre für Konzerne gearbeitet und gutes Geld verdient. Dann kam der Sommer 2021 – die Flutkatastrophe in der Eifel. Meine Eltern haben alles verloren. Da konnte ich nicht mehr weglooking.<br>
+      <span class="sa">Journalistin:</span> Was haben Sie aufgegeben?<br>
+      <span class="sb">Jana:</span> Ein Gehalt von über <strong>120.000 Euro</strong> jährlich. Heute arbeite ich für eine NGO, verdiene ein Fünftel davon. Ich bereue es nicht.<br>
+      <span class="sa">Journalistin:</span> Was tun Sie konkret?<br>
+      <span class="sb">Jana:</span> Wir beraten mittelständische Unternehmen kostenlos in Sachen Klimaneutralität. Nicht Aktivismus auf der Straße – sondern <strong>systemische Veränderung von innen</strong>.<br>
+      <span class="sa">Journalistin:</span> Stoßen Sie auf Widerstand?<br>
+      <span class="sb">Jana:</span> Massiv. Viele Geschäftsführer denken: „Klimaschutz kostet Geld." Ich zeige ihnen Studien, die belegen, dass grüne Unternehmen langfristig profitabler sind.<br>
+      <span class="sa">Journalistin:</span> Was wünschen Sie sich von der Politik?<br>
+      <span class="sb">Jana:</span> CO₂-Preise, die wirklich wehtun. Subventionen für fossile Energien abschaffen. Und Klimabildung als Pflichtfach – von der Grundschule an.</div>
+
+    <div class="mci">
+      <div class="mcs"><span class="qn">18.</span> Was hat Jana zum Umdenken bewegt?</div>
+      <div class="mco" data-grp="h18">
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">a</span> Ein Bericht im Fernsehen über den Klimawandel</button>
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">b</span> Die Flutkatastrophe 2021, bei der ihre Eltern alles verloren</button>
+        <button class="mcb" onclick="pickMC(this,'h18')"><span class="ll">c</span> Ihr Studium der Umweltwissenschaften</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">19.</span> Wie viel verdiente Jana früher ungefähr?</div>
+      <div class="mco" data-grp="h19">
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">a</span> 60.000 Euro jährlich</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">b</span> Über 120.000 Euro jährlich</button>
+        <button class="mcb" onclick="pickMC(this,'h19')"><span class="ll">c</span> 80.000 Euro jährlich</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">20.</span> Was ist Janas Ansatz bei ihrer NGO-Arbeit?</div>
+      <div class="mco" data-grp="h20">
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">a</span> Straßenproteste organisieren</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">b</span> Systemische Veränderung von innen durch Unternehmensberatung</button>
+        <button class="mcb" onclick="pickMC(this,'h20')"><span class="ll">c</span> Klimagesetze beim Europaparlament einreichen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">21.</span> Welches Argument nutzt Jana, um Unternehmer zu überzeugen?</div>
+      <div class="mco" data-grp="h21">
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">a</span> Moralische Pflicht zum Klimaschutz</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">b</span> Grüne Unternehmen sind langfristig profitabler</button>
+        <button class="mcb" onclick="pickMC(this,'h21')"><span class="ll">c</span> Staatliche Bußgelder drohen</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">22.</span> Was fordert Jana von der Politik? (Drei Punkte)</div>
+      <div class="mco" data-grp="h22">
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">a</span> Höhere CO₂-Preise, Abschaffung fossiler Subventionen, Klimabildung als Pflichtfach</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">b</span> Verbot fossiler Energien, kürzere Arbeitszeiten, mehr Forschungsgelder</button>
+        <button class="mcb" onclick="pickMC(this,'h22')"><span class="ll">c</span> Steuererleichterungen, Solarpflicht und Kaufprämien für E-Autos</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">23.</span> Wie viel verdient Jana heute im Vergleich zu früher?</div>
+      <div class="mco" data-grp="h23">
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">a</span> Die Hälfte</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">b</span> Ein Fünftel</button>
+        <button class="mcb" onclick="pickMC(this,'h23')"><span class="ll">c</span> Ein Drittel</button>
+      </div>
+    </div>
+    <div class="mci">
+      <div class="mcs"><span class="qn">24.</span> Bereut Jana ihren Karrierewechsel?</div>
+      <div class="mco" data-grp="h24">
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">a</span> Ja, manchmal vermisst sie das Gehalt</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">b</span> Nein, sie bereut es nicht</button>
+        <button class="mcb" onclick="pickMC(this,'h24')"><span class="ll">c</span> Sie ist noch unentschieden</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- SCHREIBEN -->
+<div class="mod schreib">
+  <div class="mh">
+    <div class="circ">3</div>
+    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · 70 Min.</div>
+  </div>
+  <div class="mb">
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Argumentierender Aufsatz (min. 150 Wörter)</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen argumentierenden Aufsatz (mindestens <strong>150 Wörter</strong>). Bearbeiten Sie alle vier Punkte.</div>
+
+    <div style="background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:8px;padding:14px 18px;margin-bottom:13px;font-size:13.5px;line-height:1.85">
+      <div style="font-weight:700;color:var(--purple);margin-bottom:7px">📋 Aufgabe – Stellungnahme zum Thema:</div>
+      <em style="font-size:14px">„Die Vier-Tage-Woche sollte in Deutschland gesetzlich eingeführt werden."</em><br><br>
+      <strong>Punkte:</strong>
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Fassen Sie kurz zusammen, warum dieses Thema diskutiert wird</li>
+        <li>Nennen Sie <strong>mindestens zwei Argumente</strong> dafür</li>
+        <li>Nennen Sie <strong>mindestens zwei Argumente</strong> dagegen</li>
+        <li>Formulieren Sie Ihre eigene begründete Meinung</li>
+      </ol>
+    </div>
+    <textarea class="warea" id="write1" oninput="countW('write1','wc1',150,220)" placeholder="Die Diskussion um die Vier-Tage-Woche hat in den vergangenen Jahren …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc1">0 / min. 150</span></div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Formeller Brief (min. 100 Wörter)</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Schreiben Sie einen formellen Brief (mindestens <strong>100 Wörter</strong>). Bearbeiten Sie alle Punkte.</div>
+
+    <div style="background:#e8eaf6;border:1.5px solid #9fa8da;border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:13.5px">
+      <div style="font-weight:700;color:#3949ab;margin-bottom:5px">📋 Situation:</div>
+      Sie haben einen Abendkurs an einer Volkshochschule belegt. Der Kurs wurde kurzfristig abgesagt, ohne dass Sie informiert wurden. Schreiben Sie einen formellen Brief an die VHS.<br><br>
+      <strong>Punkte:</strong>
+      <ol style="margin-top:7px;padding-left:18px;line-height:2.4">
+        <li>Beschreiben Sie den Vorfall (Kurs, Datum, fehlende Information)</li>
+        <li>Drücken Sie Ihre Unzufriedenheit höflich, aber klar aus</li>
+        <li>Fordern Sie eine schriftliche Erklärung und Rückerstattung des Kursgebühr</li>
+        <li>Schlagen Sie eine Lösung vor (z.B. Ersatzkurs oder Gutschein)</li>
+      </ol>
+    </div>
+    <textarea class="warea warea2" id="write2" oninput="countW('write2','wc2',100,160)" placeholder="Sehr geehrte Damen und Herren,&#10;&#10;ich schreibe Ihnen bezüglich des Kurses …"></textarea>
+    <div class="wcbar">Wörter: <span class="wcpill" id="wc2">0 / min. 100</span></div>
+
+  </div>
+</div>
+
+
+<!-- SPRECHEN -->
+<div class="mod sprech">
+  <div class="mh">
+    <div class="circ">4</div>
+    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 2 Teile</div></div>
+    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
+  </div>
+  <div class="mb">
+    <div class="tnote"><strong>👩‍🏫 Lehrerhinweis B2:</strong> Kandidat soll komplexere Satzstrukturen, Konjunktiv II und Modifikation demonstrieren. Rückfragen stellen.</div>
+
+    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Präsentation – Thema vorbereiten und halten</span><span class="ppts">10 Punkte</span></div>
+    <div class="instr">Wählen Sie ein Thema. Vorbereitung: 3 Minuten. Vortrag: 4–5 Minuten. Anschließend: Diskussion (2–3 Min.).</div>
+
+    <div class="spgrid">
+      <div class="spcard"><div class="scn">Thema A</div><div class="scq">🤖 Künstliche Intelligenz am Arbeitsplatz</div>Welche Berufe sind gefährdet? Welche profitieren? Wie sollte Gesellschaft und Politik reagieren?</div>
+      <div class="spcard"><div class="scn">Thema B</div><div class="scq">🏙️ Stadt der Zukunft</div>Wie sollten Städte in 30 Jahren aussehen? Welche Rolle spielen Nachhaltigkeit, Digitalisierung und soziale Gerechtigkeit?</div>
+      <div class="spcard"><div class="scn">Thema C</div><div class="scq">📰 Medien und Demokratie</div>Welche Rolle spielen Medien in der Demokratie? Wie gefährlich sind Fake News und Filterblasen? Was kann jeder Einzelne tun?</div>
+      <div class="spcard"><div class="scn">Thema D</div><div class="scq">🌍 Globale Migration</div>Was sind die Ursachen von Flucht und Migration? Wie sollte Europa damit umgehen? Welche Chancen und Herausforderungen entstehen?</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Argumentieren und verhandeln</span><span class="ppts">15 Punkte</span></div>
+    <div class="instr">Diskutieren Sie mit Ihrem Gesprächspartner die folgenden Szenarien und kommen Sie zu einer gemeinsamen Lösung.</div>
+
+    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:14px 18px;margin-bottom:12px">
+      <div style="font-weight:700;color:var(--orange);font-size:12px;text-transform:uppercase;margin-bottom:8px">📋 Aufgabe</div>
+      <div style="font-size:13.5px;line-height:2">
+        Ihr Unternehmen möchte die Mitarbeiter motivieren und hat <strong>5.000 Euro Budget</strong> für eine Mitarbeiterveranstaltung. Sie und Ihr Kollege sollen entscheiden, was sinnvoller ist:<br><br>
+        <ul style="padding-left:18px;line-height:2.4">
+          <li>🎉 <strong>Sommerfest</strong> mit Catering, Musik, draußen (ca. 4.500 €)</li>
+          <li>🧠 <strong>Teambuilding-Seminar</strong> mit Coach, 2 Tage (ca. 5.000 €)</li>
+          <li>🏆 <strong>Sportturnier + Grillen</strong> im Park (ca. 2.000 €)</li>
+          <li>🎫 <strong>Theaterabend</strong> + gemeinsames Abendessen für alle (ca. 3.500 €)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12.5px">
+      <strong>Diskussionspunkte:</strong> Was motiviert am meisten? Welche Mitarbeiter werden einbezogen? Was liegt im Budget? Gibt es Alternativen zur Auswahl?
+    </div>
+
+    <hr class="divider">
+    <div class="ph"><span class="ptag">Bewertung</span><span class="pdesc">Sprechen – Beurteilungsbogen B2</span><span class="ppts">25 Punkte</span></div>
+    <table class="stbl">
+      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th><th>Notizen</th></tr></thead>
+      <tbody>
+        <tr><td>Aufgabenerfüllung &amp; Argumentation</td><td>8</td><td><input class="sin" type="number" min="0" max="8" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Ausdrucksvermögen &amp; Flüssigkeit</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Wortschatz (B2-Niveau)</td><td>5</td><td><input class="sin" type="number" min="0" max="5" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr><td>Grammatik &amp; Strukturkomplexität</td><td>6</td><td><input class="sin" type="number" min="0" max="6" placeholder="—"></td><td><input class="tnin" type="text" placeholder=""></td></tr>
+        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="result-card">
+  <h2>📊 Gesamtergebnis</h2>
+  <table class="stbl">
+    <thead><tr><th>Modul</th><th>Maximum</th><th>Punkte</th><th>Bestanden (≥ 15)?</th></tr></thead>
+    <tbody>
+      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25" placeholder="—"></td><td style="font-size:12px;color:#888">ab 15 Pkt. ✓</td></tr>
+      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100" placeholder="—"></td><td style="font-weight:700;color:var(--green)">ab 60 Pkt. = Bestanden ✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ak">
+  <div class="akh">🔑 &nbsp;Lösungsschlüssel – Nur für Lehrkräfte</div>
+  <div class="akb">
+    <div class="akm">
+      <h3>📖 Lesen (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Vier-Tage-Woche R/F/N</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (vollem Lohnausgleich, keine Kürzung)</div>
+          <div class="chip">2 → <strong class="ok">R</strong></div>
+          <div class="chip">3 → <strong class="ok">R</strong></div>
+          <div class="chip">4 → <strong class="ok">F</strong> (bis Ende 2027 begleiten, dann beraten)</div>
+          <div class="chip">5 → <strong class="ok">F</strong> (nicht einheitlich)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Textzuordnung</h4>
+        <div class="chips">
+          <div class="chip">1 Petra → <strong class="ok">b</strong></div>
+          <div class="chip">2 Ben → <strong class="ok">c</strong></div>
+          <div class="chip">3 Lara → <strong class="ok">a</strong></div>
+          <div class="chip">4 Tomás → <strong class="ok">d</strong></div>
+          <div class="chip">5 Ingrid → <strong class="ok">e</strong></div>
+        </div>
+        <div style="font-size:12px;color:#888;margin-top:4px">Nicht passend: f (Kochshow), g (Tech-Doku, keine Rechtslage), h (Montessori, nicht inklusiv)</div>
+      </div>
+      <div class="akp"><h4>T3 – Einsamkeit MC</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">b</strong></div><div class="chip">12 → <strong class="ok">b</strong></div>
+          <div class="chip">13 → <strong class="ok">b</strong></div><div class="chip">14 → <strong class="ok">c</strong></div>
+          <div class="chip">15 → <strong class="ok">a</strong></div><div class="chip">16 → <strong class="ok">a</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Kurztexte</h4>
+        <div class="chips">
+          <div class="chip">17 → <strong class="ok">b</strong></div><div class="chip">18 → <strong class="ok">b</strong></div>
+          <div class="chip">19 → <strong class="ok">b</strong></div><div class="chip">20 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T5 – Digitalisierung Gesundheit</h4>
+        <div class="chips">
+          <div class="chip">21 → <strong class="ok">a</strong> (aber)</div>
+          <div class="chip">22 → <strong class="ok">a</strong> (eingeführt – Passiv)</div>
+          <div class="chip">23 → <strong class="ok">a</strong> (missbraucht)</div>
+          <div class="chip">24 → <strong class="ok">a</strong> (versichert)</div>
+          <div class="chip">25 → <strong class="ok">a</strong> (auszubauen)</div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>🎧 Hören (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Radio R/F</h4>
+        <div class="chips">
+          <div class="chip">1 → <strong class="ok">F</strong> (gesenkt, nicht angehoben)</div>
+          <div class="chip">2 → <strong class="ok">F</strong> (Frühstück inklusive)</div>
+          <div class="chip">3 → <strong class="ok">F</strong> (Dortmund, nicht Hamburg)</div>
+          <div class="chip">4 → <strong class="ok">R</strong></div>
+          <div class="chip">5 → <strong class="ok">F</strong> (Norddeutschland freundlich und trocken)</div>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Wahlalter-Diskussion</h4>
+        <div class="chips">
+          <div class="chip">6 → <strong class="ok">b</strong></div><div class="chip">7 → <strong class="ok">b</strong></div>
+          <div class="chip">8 → <strong class="ok">a</strong></div><div class="chip">9 → <strong class="ok">b</strong></div>
+          <div class="chip">10 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T3 – Kurze Gespräche</h4>
+        <div class="chips">
+          <div class="chip">11 → <strong class="ok">149</strong></div>
+          <div class="chip">12 → <strong class="ok">10:30</strong></div>
+          <div class="chip">13 → <strong class="ok">9</strong></div>
+          <div class="chip">14 → <strong class="ok">210</strong></div>
+          <div class="chip">15 → <strong class="ok">8,50</strong></div>
+          <div class="chip">16 → <strong class="ok">9.</strong></div>
+          <div class="chip">17 → <strong class="ok">3</strong></div>
+        </div>
+      </div>
+      <div class="akp"><h4>T4 – Interview Jana Brandt</h4>
+        <div class="chips">
+          <div class="chip">18 → <strong class="ok">b</strong></div><div class="chip">19 → <strong class="ok">b</strong></div>
+          <div class="chip">20 → <strong class="ok">b</strong></div><div class="chip">21 → <strong class="ok">b</strong></div>
+          <div class="chip">22 → <strong class="ok">a</strong></div><div class="chip">23 → <strong class="ok">b</strong></div>
+          <div class="chip">24 → <strong class="ok">b</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="akm">
+      <h3>✏️ Schreiben (25 Punkte)</h3>
+      <div class="akp"><h4>T1 – Argumentativer Aufsatz (15 Pkt)</h4>
+        <div class="rubric">
+          <table>
+            <tr><th>Kriterium</th><th>Punkte</th></tr>
+            <tr><td>Alle 4 Punkte bearbeitet (je 2–3 für Argumente)</td><td>0 – 8 Pkt.</td></tr>
+            <tr><td>Ausgewogene Argumentation, eigene Position</td><td>0 – 4 Pkt.</td></tr>
+            <tr><td>Kohärenz, Textzusammenhang, Konnektoren</td><td>0 – 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="akp"><h4>T2 – Formeller Brief VHS (10 Pkt)</h4>
+        <div class="rubric">
+          <table>
+            <tr><th>Kriterium</th><th>Punkte</th></tr>
+            <tr><td>Formeller Ton, Anrede, Grußformel</td><td>0 – 3 Pkt.</td></tr>
+            <tr><td>Alle 4 Punkte behandelt</td><td>0 – 4 Pkt.</td></tr>
+            <tr><td>Grammatik &amp; Wortschatz B2</td><td>0 – 3 Pkt.</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:#bbb;margin-top:20px;padding-bottom:24px">
+  Goethe B2 Modellprüfung Nr. 1 · Generische Version · Viel Erfolg! 🍀
+</div>
+</div>
+
+<script>
+function pickRF3(btn, choice) {
+  const wrap = btn.parentElement;
+  wrap.querySelectorAll('.rfb').forEach(b => { b.classList.remove('selR','selF','selN'); });
+  if (choice==='R') btn.classList.add('selR');
+  else if (choice==='F') btn.classList.add('selF');
+  else btn.classList.add('selN');
+}
+function pickMC(btn, grp) {
+  const c = btn.closest('[data-grp="'+grp+'"]');
+  if (!c) return;
+  c.querySelectorAll('.mcb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function countW(taId, pillId, min, max) {
+  const ta = document.getElementById(taId), pill = document.getElementById(pillId);
+  if (!ta||!pill) return;
+  const n = ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  pill.textContent = n+' / min. '+min;
+  pill.className = 'wcpill';
+  if (n>=min&&n<=max) pill.classList.add('ok');
+  else if (n>max) pill.classList.add('over');
+}
+(function(){
+  const TOTAL=185*60;
+  const MODS=[{id:'tp1',from:TOTAL,to:TOTAL-75*60},{id:'tp2',from:TOTAL-75*60,to:TOTAL-115*60},{id:'tp3',from:TOTAL-115*60,to:0},{id:'tp4',from:0,to:-1}];
+  let rem=TOTAL,running=true,iv;
+  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+  function draw(){
+    const el=document.getElementById('timer-digits');if(!el)return;
+    el.textContent=rem<=0?'Zeit um!':fmt(rem);
+    el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';
+    MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});
+  }
+  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
+  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
+  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
+})();
+</script>
+</body>
+</html>
