@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS A2 05 Komparativ und Superlativ</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.ref-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-weight:800}
+.ref-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.ref-table tr:nth-child(even) td{background:#f8f0ff}
+.ref-table td:first-child{font-weight:800;color:var(--lc)}
+.tip-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:8px;padding:12px 16px;font-size:13px;margin-top:12px}
+.ex-box{background:#f8f0ff;border-radius:10px;padding:14px 18px;font-size:13px;line-height:2.1;margin-top:10px}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:120px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#f8f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #d4b0e8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.reading-text{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.9;margin-bottom:16px}
+.reading-text strong{color:var(--lc)}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.cmp-box{background:#f8f0ff;border-radius:10px;padding:16px;border:2px solid #ce93d8}
+.cmp-label{font-size:11px;font-weight:900;color:var(--lc);text-transform:uppercase;margin-bottom:8px}
+.cmp-ex{font-size:13px;line-height:1.8}
+</style></head><body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span>
+    <span class="tb-badge">A2</span>
+    <span class="tb-mod">Grammar 05</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+<div class="page-hdr">
+  <div class="ph-icon">K</div>
+  <div><div class="ph-title">Komparativ und Superlativ</div><div class="ph-sub">Comparative and superlative forms of adjectives</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div>
+</div>
+<div class="wrap">
+<div class="card"><div class="sec-title">Adjective Comparison</div>
+  <table class="ref-table">
+    <tr><th>Form</th><th>Pattern</th><th>Example</th></tr>
+    <tr><td>Positive</td><td>base adjective</td><td>schnell</td></tr>
+    <tr><td>Komparativ</td><td>adj + -er (+ als)</td><td>schneller als</td></tr>
+    <tr><td>Superlativ</td><td>am + adj + -sten / der/die/das + adj + -ste</td><td>am schnellsten / der schnellste</td></tr>
+  </table>
+  <div class="tip-box">Irregular forms to memorise: gut - besser - am besten | viel - mehr - am meisten | gern - lieber - am liebsten | hoch - hoeher - am hoechsten | nah - naeher - am naechsten<br>
+  Short adjectives with a/o/u often add umlaut: alt-aelter, jung-juenger, gross-groesser, kalt-kaelter, lang-laenger, kurz-kuerzer, warm-waermer</div>
+  <div class="cmp-grid">
+    <div class="cmp-box"><div class="cmp-label">Komparativ</div>
+      <div class="cmp-ex">Der Zug ist schneller als das Auto.<br>Sie ist groesser als ihr Bruder.<br>Heute ist es kaelter als gestern.</div>
+    </div>
+    <div class="cmp-box"><div class="cmp-label">Superlativ</div>
+      <div class="cmp-ex">Der Zug ist am schnellsten.<br>Sie ist die groesste in der Klasse.<br>Das ist das beste Restaurant.</div>
+    </div>
+  </div>
+</div>
+<div class="card"><div class="sec-title">Multiple Choice - 10 Questions</div><div class="qblock">
+  <div class="qnum">Question 1</div>
+  <div class="qtext">Berlin ist gross. Hamburg ist _____ als Berlin.</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,1,false)">grosser</button><button class="qopt" onclick="mc(this,1,true)">groesser</button><button class="qopt" onclick="mc(this,1,false)">am groessten</button><button class="qopt" onclick="mc(this,1,false)">grosst</button></div>
+  <div class="qfb" id="qfb1"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 2</div>
+  <div class="qtext">Dieses Buch ist gut. Aber jenes Buch ist _____. (comparative)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,2,false)">am besten</button><button class="qopt" onclick="mc(this,2,true)">besser</button><button class="qopt" onclick="mc(this,2,false)">gut</button><button class="qopt" onclick="mc(this,2,false)">beste</button></div>
+  <div class="qfb" id="qfb2"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 3</div>
+  <div class="qtext">What is the superlative of "viel"?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,3,false)">vieler</button><button class="qopt" onclick="mc(this,3,false)">am vielsten</button><button class="qopt" onclick="mc(this,3,true)">am meisten</button><button class="qopt" onclick="mc(this,3,false)">mehren</button></div>
+  <div class="qfb" id="qfb3"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 4</div>
+  <div class="qtext">Er laeuft schnell. Sie laeuft _____ von allen.</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,4,false)">schneller</button><button class="qopt" onclick="mc(this,4,false)">schnellsten</button><button class="qopt" onclick="mc(this,4,true)">am schnellsten</button><button class="qopt" onclick="mc(this,4,false)">am schnell</button></div>
+  <div class="qfb" id="qfb4"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 5</div>
+  <div class="qtext">Das ist das _____ Hotel in der Stadt. (gut, superlative attr.)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,5,false)">bestste</button><button class="qopt" onclick="mc(this,5,false)">guteste</button><button class="qopt" onclick="mc(this,5,true)">beste</button><button class="qopt" onclick="mc(this,5,false)">am besten</button></div>
+  <div class="qfb" id="qfb5"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 6</div>
+  <div class="qtext">Sommer ist waermer als Winter. Which word is comparative?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Sommer</button><button class="qopt" onclick="mc(this,6,true)">waermer</button><button class="qopt" onclick="mc(this,6,false)">als</button><button class="qopt" onclick="mc(this,6,false)">Winter</button></div>
+  <div class="qfb" id="qfb6"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 7</div>
+  <div class="qtext">What is the comparative of "gern"?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,7,false)">gerner</button><button class="qopt" onclick="mc(this,7,true)">lieber</button><button class="qopt" onclick="mc(this,7,false)">am liebsten</button><button class="qopt" onclick="mc(this,7,false)">mehr</button></div>
+  <div class="qfb" id="qfb7"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 8</div>
+  <div class="qtext">Der Mount Everest ist der _____ Berg der Welt. (hoch)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,8,false)">hoehste</button><button class="qopt" onclick="mc(this,8,false)">am hoechsten</button><button class="qopt" onclick="mc(this,8,true)">hoechste</button><button class="qopt" onclick="mc(this,8,false)">hoehere</button></div>
+  <div class="qfb" id="qfb8"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 9</div>
+  <div class="qtext">Mein Bruder ist aelter _____ ich.</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,9,false)">wie</button><button class="qopt" onclick="mc(this,9,true)">als</button><button class="qopt" onclick="mc(this,9,false)">von</button><button class="qopt" onclick="mc(this,9,false)">zu</button></div>
+  <div class="qfb" id="qfb9"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 10</div>
+  <div class="qtext">What is the superlative of "nah"?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,10,false)">am naehsten</button><button class="qopt" onclick="mc(this,10,true)">am naechsten</button><button class="qopt" onclick="mc(this,10,false)">nahsten</button><button class="qopt" onclick="mc(this,10,false)">naehersten</button></div>
+  <div class="qfb" id="qfb10"></div>
+</div></div>
+<div class="card"><div class="sec-title">Fill in the blanks</div><div class="fill-row">1. Meine Stadt ist gross, aber Berlin ist <input class="fi" id="f1" placeholder="?"> (gross + comparative).</div>
+<div class="fill-row">2. Ich esse gern Pizza, aber Pasta esse ich <input class="fi" id="f2" placeholder="?"> (gut, superlative = am ...)</div>
+<div class="fill-row">3. Der Winter ist kalt, aber der Januar ist <input class="fi" id="f3" placeholder="?"> als der November.</div>
+<div class="fill-row">4. Ich hoere gern Musik, aber ich lese <input class="fi" id="f4" placeholder="?"> (gern, comparative).</div>
+<div class="fill-row">5. Der Nil ist <input class="fi" id="f5" placeholder="?"> Fluss der Welt. (lang, superlative = am ...)</div>
+<button class="chk-btn" onclick="checkFill(['groesser', 'am besten', 'kaelter', 'lieber', 'am laengsten'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">Richtig oder Falsch?</div>
+<table class="rf-table"><tr><th>Statement</th><th>R</th><th>F</th></tr><tr><td>The comparative is formed by adding -er to the adjective.</td><td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr><tr><td>"als" is used with the superlative.</td><td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr><tr><td>"gut" has an irregular comparative: "besser".</td><td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr><tr><td>The superlative predicate uses "am + adjective + -sten".</td><td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr><tr><td>Short adjectives never take an umlaut in comparative.</td><td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr></table>
+<button class="chk-btn" onclick="checkRF(['R', 'F', 'R', 'R', 'F'],[0,1,2,3,4],'rfr1')" style="margin-top:12px">Check</button>
+<div id="rfr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">Reading</div><div class="reading-text">
+    Meine Freundin Anna und ich sprechen oft ueber Staedte. Ich wohne in Hamburg, aber Anna wohnt in Muenchen. Sie sagt, Muenchen ist <strong>schoener als</strong> Hamburg. Ich finde Hamburg <strong>interessanter</strong>. Unser Freund Thomas wohnt in Frankfurt. Er denkt, Frankfurt ist <strong>am modernsten</strong>. Wir sind uns einig: Berlin ist die <strong>groesste</strong> Stadt in Deutschland und vielleicht die <strong>spannendste</strong>. Aber fuer uns ist die eigene Stadt immer die <strong>beste</strong>!
+  </div><div class="qblock">
+  <div class="qnum">Question 11</div>
+  <div class="qtext">Who thinks their city is the most modern?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,11,false)">Anna</button><button class="qopt" onclick="mc(this,11,false)">The narrator</button><button class="qopt" onclick="mc(this,11,true)">Thomas</button><button class="qopt" onclick="mc(this,11,false)">Nobody</button></div>
+  <div class="qfb" id="qfb11"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 12</div>
+  <div class="qtext">Which German city is called the biggest?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,12,false)">Hamburg</button><button class="qopt" onclick="mc(this,12,false)">Muenchen</button><button class="qopt" onclick="mc(this,12,false)">Frankfurt</button><button class="qopt" onclick="mc(this,12,true)">Berlin</button></div>
+  <div class="qfb" id="qfb12"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 13</div>
+  <div class="qtext">What grammatical form is "schoener" in the text?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,13,false)">Positive</button><button class="qopt" onclick="mc(this,13,false)">Superlative</button><button class="qopt" onclick="mc(this,13,true)">Comparative</button><button class="qopt" onclick="mc(this,13,false)">Attributive</button></div>
+  <div class="qfb" id="qfb13"></div>
+</div></div>
+<div class="cta">
+  <a class="cta-btn btn-back" href="A2_Grammar_04_Wechselpraepositionen.html">Wechselpraepos.</a>
+  <a class="cta-btn btn-next" href="A2_Grammar_06_Praeteritum.html">Praeteritum</a>
+</div>
+</div><script>
+const LANG={en:{home:'Home',a2_label:'A2',fb_correct:'Correct! Well done!',fb_wrong:'Not quite - see correct answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a2_label:'A2',fb_correct:'Correct !',fb_wrong:'Pas tout a fait.',res_perfect:'Parfait !',res_great:'Tres bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a2_label:'A2',fb_correct:'Correcto!',fb_wrong:'No del todo.',res_perfect:'Perfecto!',res_great:'Muy bien!',res_good:'Buen esfuerzo!',res_practice:'Sigue!',res_score:'Puntuacion',res_of:'de',res_correct:'correctas'},it:{home:'Home',a2_label:'A2',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Inicio',a2_label:'A2',fb_correct:'Correto!',fb_wrong:'Nao foi.',res_perfect:'Perfeito!',res_great:'Otimo!',res_good:'Bom esforco!',res_practice:'Continue!',res_score:'Pontuacao',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='[:]';if(p===1){cls='perfect';msg=t('res_perfect');em='[T]';}else if(p>=0.8){cls='great';msg=t('res_great');em='[!]';}else if(p>=0.5){cls='good';msg=t('res_good');em='[+]';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

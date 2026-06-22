@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGS A2 · 01 Perfekt</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}
+.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
+/* Reference table */
+.ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.ref-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-weight:800}
+.ref-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.ref-table tr:nth-child(even) td{background:#f8f0ff}
+.ref-table td:first-child{font-weight:800;color:var(--lc)}
+.hl-haben{color:#1464b4;font-weight:800}
+.hl-sein{color:#2e7d32;font-weight:800}
+.tip-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:8px;padding:12px 16px;font-size:13px;margin-top:12px}
+/* MC */
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+/* Fill-in */
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+/* R/F */
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#f8f0ff}
+.rfw{display:flex;gap:6px}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #d4b0e8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+/* Result banner */
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}
+.rbti{font-size:15px;font-weight:800}
+.rbs{font-size:13px;opacity:.85;margin-top:2px}
+/* Buttons */
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+/* Reading */
+.reading-text{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.9;margin-bottom:16px}
+.reading-text strong{color:var(--lc)}
+/* CTA */
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">🇩🇪 TGS</span>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb" data-t="home">Home</span>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span>
+    <span class="tb-badge">A2</span>
+    <span class="tb-mod" data-t="grammar_label">Grammar 01</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="page-hdr">
+  <div class="ph-icon">⏰</div>
+  <div>
+    <div class="ph-title">Das Perfekt</div>
+    <div class="ph-sub" data-t="topic_sub">Present perfect · haben/sein + Partizip II · talking about the past</div>
+  </div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl" data-t="score_label">correct</div></div>
+</div>
+
+<div class="wrap">
+
+<!-- REFERENCE -->
+<div class="card">
+  <div class="sec-title">📋 <span data-t="ref_title">How the Perfekt works</span></div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:12px" data-t="ref_intro">The Perfekt is the most common past tense in spoken German. It uses <strong>haben</strong> or <strong>sein</strong> + the <strong>Partizip II</strong> (past participle).</p>
+  <table class="ref-table">
+    <tr><th data-t="th_type">Type</th><th data-t="th_auxiliary">Auxiliary</th><th data-t="th_formation">Partizip II formation</th><th data-t="th_example">Example</th></tr>
+    <tr><td data-t="td_regular">Regular</td><td><span class="hl-haben">haben</span></td><td>ge- + stem + -t</td><td>spielen → <strong>ge</strong>spiel<strong>t</strong></td></tr>
+    <tr><td data-t="td_irregular">Irregular</td><td><span class="hl-haben">haben</span></td><td>ge- + stem (changed) + -en</td><td>schreiben → <strong>ge</strong>schrieb<strong>en</strong></td></tr>
+    <tr><td data-t="td_movement">Movement / change</td><td><span class="hl-sein">sein</span></td><td>ge- + stem + -t/-en</td><td>fahren → <strong>ge</strong>fahr<strong>en</strong></td></tr>
+    <tr><td data-t="td_inseparable">Inseparable prefix</td><td><span class="hl-haben">haben</span></td><td>no ge- prefix</td><td>bestellen → bestell<strong>t</strong></td></tr>
+  </table>
+  <div class="tip-box">
+    💡 <span data-t="tip1"><strong>Sein verbs</strong> = movement (fahren, gehen, kommen, fliegen) or change of state (werden, aufwachen, einschlafen). Everything else uses <strong>haben</strong>.</span>
+  </div>
+  <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+    <div style="background:#e3f2fd;border-radius:8px;padding:10px 14px"><strong style="color:#1464b4;display:block;margin-bottom:6px">haben + Partizip II</strong>Ich <strong>habe</strong> Fußball gespiel<strong>t</strong>.<br>Er <strong>hat</strong> ein Buch gelesen.<br>Wir <strong>haben</strong> Pizza gegessen.<br>Sie <strong>haben</strong> Musik gehört.</div>
+    <div style="background:#e8f5e9;border-radius:8px;padding:10px 14px"><strong style="color:#2e7d32;display:block;margin-bottom:6px">sein + Partizip II</strong>Ich <strong>bin</strong> nach Berlin gefahren.<br>Er <strong>ist</strong> um 8 Uhr gegangen.<br>Wir <strong>sind</strong> früh aufgestanden.<br>Sie <strong>ist</strong> eingeschlafen.</div>
+  </div>
+</div>
+
+<!-- MC QUESTIONS -->
+<div class="card">
+  <div class="sec-title">🎯 <span data-t="mc_title">Multiple Choice — 10 Questions</span></div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 1</div>
+    <div class="qtext">Ich _____ gestern Fußball gespielt.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,false)">bin</button>
+      <button class="qopt" onclick="mc(this,1,true)">habe</button>
+      <button class="qopt" onclick="mc(this,1,false)">hatte</button>
+      <button class="qopt" onclick="mc(this,1,false)">war</button>
+    </div>
+    <div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 2</div>
+    <div class="qtext">Er _____ gestern nach München gefahren.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,false)">hat</button>
+      <button class="qopt" onclick="mc(this,2,true)">ist</button>
+      <button class="qopt" onclick="mc(this,2,false)">war</button>
+      <button class="qopt" onclick="mc(this,2,false)">hatte</button>
+    </div>
+    <div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 3</div>
+    <div class="qtext">Was ist the Partizip II of "kaufen"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,false)">gekaufen</button>
+      <button class="qopt" onclick="mc(this,3,true)">gekauft</button>
+      <button class="qopt" onclick="mc(this,3,false)">gekauff</button>
+      <button class="qopt" onclick="mc(this,3,false)">kauft</button>
+    </div>
+    <div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 4</div>
+    <div class="qtext">Was ist the Partizip II of "schreiben"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,false)">geschreibt</button>
+      <button class="qopt" onclick="mc(this,4,false)">schrieben</button>
+      <button class="qopt" onclick="mc(this,4,true)">geschrieben</button>
+      <button class="qopt" onclick="mc(this,4,false)">geschreibt</button>
+    </div>
+    <div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 5</div>
+    <div class="qtext">Wir _____ lange geschlafen.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,true)">haben</button>
+      <button class="qopt" onclick="mc(this,5,false)">sind</button>
+      <button class="qopt" onclick="mc(this,5,false)">hatten</button>
+      <button class="qopt" onclick="mc(this,5,false)">waren</button>
+    </div>
+    <div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 6</div>
+    <div class="qtext">Das Partizip II of "bestellen" (to order) is:</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,false)">gebestellt</button>
+      <button class="qopt" onclick="mc(this,6,true)">bestellt</button>
+      <button class="qopt" onclick="mc(this,6,false)">begestellt</button>
+      <button class="qopt" onclick="mc(this,6,false)">bestellgt</button>
+    </div>
+    <div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 7</div>
+    <div class="qtext">Sie (she) _____ früh eingeschlafen.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,false)">hat</button>
+      <button class="qopt" onclick="mc(this,7,true)">ist</button>
+      <button class="qopt" onclick="mc(this,7,false)">hatte</button>
+      <button class="qopt" onclick="mc(this,7,false)">war</button>
+    </div>
+    <div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 8</div>
+    <div class="qtext">Ich _____ das Buch gelesen.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,true)">habe</button>
+      <button class="qopt" onclick="mc(this,8,false)">bin</button>
+      <button class="qopt" onclick="mc(this,8,false)">hatte</button>
+      <button class="qopt" onclick="mc(this,8,false)">war</button>
+    </div>
+    <div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 9</div>
+    <div class="qtext">Was ist the Partizip II of "essen"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,false)">geesst</button>
+      <button class="qopt" onclick="mc(this,9,false)">geessen</button>
+      <button class="qopt" onclick="mc(this,9,true)">gegessen</button>
+      <button class="qopt" onclick="mc(this,9,false)">gessen</button>
+    </div>
+    <div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 10</div>
+    <div class="qtext">Er _____ nach Hause gekommen.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">hat</button>
+      <button class="qopt" onclick="mc(this,10,true)">ist</button>
+      <button class="qopt" onclick="mc(this,10,false)">hatte</button>
+      <button class="qopt" onclick="mc(this,10,false)">war</button>
+    </div>
+    <div class="qfb" id="qfb10"></div>
+  </div>
+</div>
+
+<!-- FILL-IN -->
+<div class="card">
+  <div class="sec-title">✏️ <span data-t="fill_title">Fill in the blanks — Partizip II</span></div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:12px" data-t="fill_intro">Write the correct Partizip II form of the verb in brackets.</p>
+
+  <div class="fill-row">1. Ich habe das Lied <input class="fi" id="f1" placeholder="(hören)"> — I heard the song.</div>
+  <div class="fill-row">2. Wir sind gestern nach Wien <input class="fi" id="f2" placeholder="(fahren)"> — We drove to Vienna.</div>
+  <div class="fill-row">3. Sie hat einen Brief <input class="fi" id="f3" placeholder="(schreiben)"> — She wrote a letter.</div>
+  <div class="fill-row">4. Er ist um 7 Uhr <input class="fi" id="f4" placeholder="(aufstehen)"> — He got up at 7.</div>
+  <div class="fill-row">5. Habt ihr Kaffee <input class="fi" id="f5" placeholder="(trinken)">? — Did you drink coffee?</div>
+
+  <button class="chk-btn" onclick="checkFill(['gehört','gefahren','geschrieben','aufgestanden','getrunken'],['f1','f2','f3','f4','f5'],'fr1')" data-t="check_btn">Check ✓</button>
+  <button class="rst-btn" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')" data-t="reset_btn">Reset</button>
+  <div id="fr1" class="rb"></div>
+</div>
+
+<!-- RICHTIG / FALSCH -->
+<div class="card">
+  <div class="sec-title">✅ <span data-t="rf_title">Richtig oder Falsch?</span></div>
+  <table class="rf-table">
+    <tr><th data-t="th_statement">Statement</th><th>R</th><th>F</th></tr>
+    <tr>
+      <td>"kommen" uses <strong>sein</strong> in the Perfekt.</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+      <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+    </tr>
+    <tr>
+      <td>The Partizip II of "kaufen" is "gekauten".</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+      <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+    </tr>
+    <tr>
+      <td>Verbs with inseparable prefixes (be-, ver-, er-) do NOT add "ge-".</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+      <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+    </tr>
+    <tr>
+      <td>"schlafen" (to sleep) uses <strong>sein</strong> in the Perfekt.</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+      <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+    </tr>
+    <tr>
+      <td>The Partizip II of "essen" is "gegessen".</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+      <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+    </tr>
+  </table>
+  <button class="chk-btn" onclick="checkRF(['R','F','R','F','R'],[0,1,2,3,4],'rfr1')" style="margin-top:12px" data-t="check_btn">Check ✓</button>
+  <div id="rfr1" class="rb"></div>
+</div>
+
+<!-- READING -->
+<div class="card">
+  <div class="sec-title">📖 <span data-t="reading_title">Reading — Das Wochenende</span></div>
+  <div class="reading-text">
+    Letztes Wochenende war sehr schön! Am Samstag <strong>bin</strong> ich früh <strong>aufgestanden</strong> und <strong>habe</strong> gefrühstückt. Dann <strong>bin</strong> ich mit dem Zug nach Hamburg <strong>gefahren</strong>. Dort <strong>habe</strong> ich meine Freundin Lisa <strong>getroffen</strong>. Wir <strong>haben</strong> im Stadtpark <strong>spaziert</strong> und später <strong>haben</strong> wir in einem kleinen Restaurant <strong>gegessen</strong>. Das Essen war wirklich lecker! Am Abend <strong>haben</strong> wir einen Film <strong>gesehen</strong>. Ich <strong>bin</strong> um Mitternacht nach Hause <strong>gefahren</strong>. Am Sonntag <strong>habe</strong> ich den ganzen Tag <strong>geschlafen</strong>. Es war ein perfektes Wochenende!
+  </div>
+  <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px" data-t="comp_intro">Answer the comprehension questions:</p>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 1</div>
+    <div class="qtext">Where did the author travel on Saturday?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">Berlin</button>
+      <button class="qopt" onclick="mc(this,11,true)">Hamburg</button>
+      <button class="qopt" onclick="mc(this,11,false)">München</button>
+      <button class="qopt" onclick="mc(this,11,false)">Wien</button>
+    </div>
+    <div class="qfb" id="qfb11"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 2</div>
+    <div class="qtext">What did the author and Lisa do in the park?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">Played football</button>
+      <button class="qopt" onclick="mc(this,12,false)">Ate lunch</button>
+      <button class="qopt" onclick="mc(this,12,true)">Walked / strolled</button>
+      <button class="qopt" onclick="mc(this,12,false)">Watched a film</button>
+    </div>
+    <div class="qfb" id="qfb12"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 3</div>
+    <div class="qtext">What did the author do on Sunday?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,false)">Travelled again</button>
+      <button class="qopt" onclick="mc(this,13,false)">Cooked dinner</button>
+      <button class="qopt" onclick="mc(this,13,false)">Visited family</button>
+      <button class="qopt" onclick="mc(this,13,true)">Slept all day</button>
+    </div>
+    <div class="qfb" id="qfb13"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="cta">
+  <a class="cta-btn btn-back" href="TheGermanStefan_A2_Hub.html" data-t="back_hub">← A2 Hub</a>
+  <a class="cta-btn btn-next" href="A2_Grammar_02_Modalverben.html" data-t="next_file">Modalverben →</a>
+</div>
+
+</div>
+
+<script>
+const LANG={
+en:{home:'Home',a2_label:'A2',grammar_label:'Grammar 01',topic_sub:'Present perfect · haben/sein + Partizip II · talking about the past',ref_title:'How the Perfekt works',ref_intro:'The Perfekt is the most common past tense in spoken German. It uses <strong>haben</strong> or <strong>sein</strong> + the <strong>Partizip II</strong> (past participle).',th_type:'Type',th_auxiliary:'Auxiliary',th_formation:'Partizip II formation',th_example:'Example',td_regular:'Regular verbs',td_irregular:'Irregular verbs',td_movement:'Movement / change of state',td_inseparable:'Inseparable prefix verbs',tip1:'<strong>Sein verbs</strong> = movement (fahren, gehen, kommen, fliegen) or change of state (werden, aufwachen, einschlafen). Everything else uses <strong>haben</strong>.',mc_title:'Multiple Choice — 10 Questions',q_label:'Question',fill_title:'Fill in the blanks — Partizip II',fill_intro:'Write the correct Partizip II form of the verb in brackets.',rf_title:'Richtig oder Falsch?',th_statement:'Statement',reading_title:'Reading — Das Wochenende',comp_intro:'Answer the comprehension questions:',check_btn:'Check ✓',reset_btn:'Reset',back_hub:'← A2 Hub',next_file:'Modalverben →',score_label:'correct',fb_correct:'✓ Correct! Well done!',fb_wrong:'✗ Not quite — see the correct answer highlighted.',res_perfect:'Perfect score! 🏆',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},
+fr:{home:'Accueil',a2_label:'A2',grammar_label:'Grammaire 01',topic_sub:'Passé composé · haben/sein + Partizip II · parler du passé',ref_title:'Comment fonctionne le Perfekt',ref_intro:'Le Perfekt est le temps passé le plus courant dans l\'allemand parlé. Il utilise <strong>haben</strong> ou <strong>sein</strong> + le <strong>Partizip II</strong>.',th_type:'Type',th_auxiliary:'Auxiliaire',th_formation:'Formation du Partizip II',th_example:'Exemple',td_regular:'Verbes réguliers',td_irregular:'Verbes irréguliers',td_movement:'Mouvement / changement d\'état',td_inseparable:'Préfixe inséparable',tip1:'<strong>Verbes avec sein</strong> = mouvement (fahren, gehen, kommen) ou changement d\'état (werden, aufwachen). Tout le reste prend <strong>haben</strong>.',mc_title:'Choix multiples — 10 questions',q_label:'Question',fill_title:'Complétez les blancs — Partizip II',fill_intro:'Écrivez la forme correcte du Partizip II.',rf_title:'Vrai ou Faux ?',th_statement:'Affirmation',reading_title:'Lecture — Das Wochenende',comp_intro:'Répondez aux questions de compréhension :',check_btn:'Vérifier ✓',reset_btn:'Réinitialiser',back_hub:'← Hub A2',next_file:'Modalverben →',score_label:'correct',fb_correct:'✓ Correct ! Bravo !',fb_wrong:'✗ Pas tout à fait — la bonne réponse est surlignée.',res_perfect:'Score parfait ! 🏆',res_great:'Très bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},
+es:{home:'Inicio',a2_label:'A2',grammar_label:'Gramática 01',topic_sub:'Pretérito perfecto · haben/sein + Partizip II · hablar del pasado',ref_title:'Cómo funciona el Perfekt',ref_intro:'El Perfekt es el tiempo pasado más común en alemán hablado. Usa <strong>haben</strong> o <strong>sein</strong> + el <strong>Partizip II</strong>.',th_type:'Tipo',th_auxiliary:'Auxiliar',th_formation:'Formación del Partizip II',th_example:'Ejemplo',td_regular:'Verbos regulares',td_irregular:'Verbos irregulares',td_movement:'Movimiento / cambio de estado',td_inseparable:'Prefijo inseparable',tip1:'<strong>Verbos con sein</strong> = movimiento (fahren, gehen, kommen) o cambio de estado (werden, aufwachen). Todo lo demás usa <strong>haben</strong>.',mc_title:'Opción múltiple — 10 preguntas',q_label:'Pregunta',fill_title:'Rellena los espacios — Partizip II',fill_intro:'Escribe la forma correcta del Partizip II.',rf_title:'¿Verdadero o Falso?',th_statement:'Afirmación',reading_title:'Lectura — Das Wochenende',comp_intro:'Responde las preguntas de comprensión:',check_btn:'Comprobar ✓',reset_btn:'Reiniciar',back_hub:'← Hub A2',next_file:'Modalverben →',score_label:'correctas',fb_correct:'✓ ¡Correcto! ¡Muy bien!',fb_wrong:'✗ No del todo — la respuesta correcta está resaltada.',res_perfect:'¡Puntuación perfecta! 🏆',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},
+it:{home:'Home',a2_label:'A2',grammar_label:'Grammatica 01',topic_sub:'Passato prossimo · haben/sein + Partizip II · parlare del passato',ref_title:'Come funziona il Perfekt',ref_intro:'Il Perfekt è il tempo passato più comune nel tedesco parlato. Usa <strong>haben</strong> o <strong>sein</strong> + il <strong>Partizip II</strong>.',th_type:'Tipo',th_auxiliary:'Ausiliare',th_formation:'Formazione del Partizip II',th_example:'Esempio',td_regular:'Verbi regolari',td_irregular:'Verbi irregolari',td_movement:'Movimento / cambiamento di stato',td_inseparable:'Prefisso inseparabile',tip1:'<strong>Verbi con sein</strong> = movimento (fahren, gehen, kommen) o cambiamento di stato (werden, aufwachen). Tutto il resto usa <strong>haben</strong>.',mc_title:'Scelta multipla — 10 domande',q_label:'Domanda',fill_title:'Completa gli spazi — Partizip II',fill_intro:'Scrivi la forma corretta del Partizip II.',rf_title:'Vero o Falso?',th_statement:'Affermazione',reading_title:'Lettura — Das Wochenende',comp_intro:'Rispondi alle domande di comprensione:',check_btn:'Controlla ✓',reset_btn:'Reimposta',back_hub:'← Hub A2',next_file:'Modalverben →',score_label:'corrette',fb_correct:'✓ Corretto! Bravo!',fb_wrong:'✗ Non proprio — la risposta corretta è evidenziata.',res_perfect:'Punteggio perfetto! 🏆',res_great:'Ottimo lavoro!',res_good:'Buon tentativo!',res_practice:'Continua a praticare!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},
+pt:{home:'Início',a2_label:'A2',grammar_label:'Gramática 01',topic_sub:'Pretérito perfeito · haben/sein + Partizip II · falar sobre o passado',ref_title:'Como funciona o Perfekt',ref_intro:'O Perfekt é o tempo passado mais comum no alemão falado. Usa <strong>haben</strong> ou <strong>sein</strong> + o <strong>Partizip II</strong>.',th_type:'Tipo',th_auxiliary:'Auxiliar',th_formation:'Formação do Partizip II',th_example:'Exemplo',td_regular:'Verbos regulares',td_irregular:'Verbos irregulares',td_movement:'Movimento / mudança de estado',td_inseparable:'Prefixo inseparável',tip1:'<strong>Verbos com sein</strong> = movimento (fahren, gehen, kommen) ou mudança de estado (werden, aufwachen). Todo o resto usa <strong>haben</strong>.',mc_title:'Múltipla escolha — 10 perguntas',q_label:'Questão',fill_title:'Preencha os espaços — Partizip II',fill_intro:'Escreva a forma correta do Partizip II.',rf_title:'Verdadeiro ou Falso?',th_statement:'Afirmação',reading_title:'Leitura — Das Wochenende',comp_intro:'Responda às perguntas de compreensão:',check_btn:'Verificar ✓',reset_btn:'Redefinir',back_hub:'← Hub A2',next_file:'Modalverben →',score_label:'corretas',fb_correct:'✓ Correto! Muito bem!',fb_wrong:'✗ Não foi desta vez — a resposta correta está destacada.',res_perfect:'Pontuação perfeita! 🏆',res_great:'Ótimo trabalho!',res_good:'Bom esforço!',res_practice:'Continue praticando!',res_score:'Pontuação',res_of:'de',res_correct:'corretas'}
+};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('.rfw')||btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');const row=btn.closest('tr');rfSels[row.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A1 · Grammatik · Adjektive</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75;min-height:100vh}
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.6}.bc a{color:#fff;text-decoration:none}
+.lbadge{font-size:11px;font-weight:900;padding:3px 10px;border-radius:20px;background:var(--lc);color:#fff}
+.mbadge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff}
+.ls{display:flex;gap:4px}
+.lb{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{border-color:rgba(255,255,255,.6);color:#fff}.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.page-hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;padding:26px 24px 20px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:42px}.ph-title{font-size:23px;font-weight:900;margin-bottom:4px}.ph-sub{font-size:13px;opacity:.8}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score-wrap{text-align:right;flex-shrink:0}
+.ph-score{font-size:30px;font-weight:900;color:var(--amber);line-height:1}
+.ph-score-lbl{font-size:11px;opacity:.6;margin-top:3px}
+.pgstrip{background:#e8eef8;height:5px}.pgfill{height:100%;background:var(--amber);transition:width .5s ease;width:0%}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.ib{padding:10px 15px;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;background:#e8f0fe;font-size:13px;font-style:italic;color:var(--txt2);margin-bottom:16px}
+.tip{background:#e8f0fe;border:1.5px solid #b0cef8;border-radius:9px;padding:11px 15px;font-size:13px;margin-bottom:14px}
+.tip strong{color:var(--lc)}
+.adj-compare{background:#f8faff;border:2px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:14px}
+.adj-compare h4{font-size:13px;font-weight:900;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.adj-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:14px}
+.adj-tag{background:#e8f0fe;border-radius:6px;padding:4px 10px;font-weight:700;font-size:13px;color:var(--lc);white-space:nowrap}
+.adj-ex{color:var(--navy);font-style:italic}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.fc{perspective:700px;height:90px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s}
+.fc.fl .fc-inner{transform:rotateY(180deg)}
+.fc-f,.fc-b{position:absolute;inset:0;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;padding:10px;text-align:center}
+.fc-f{border:2px solid var(--border);background:#f8faff}
+.fc-b{border:2px solid var(--green);background:#e8f5e9;transform:rotateY(180deg)}
+.fc-de{font-size:16px;font-weight:900;color:var(--navy)}
+.fc-sub{font-size:11px;color:var(--txt3);margin-top:3px}
+.fc-en{font-size:13px;color:var(--green);font-weight:700}
+.qblock{margin-bottom:16px;padding:15px 17px;background:#f8faff;border-radius:10px;border:1.5px solid var(--border)}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#e8f0fe}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fs{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;font-size:15px;padding:11px 14px;background:#f8faff;border-radius:9px;border:1.5px solid var(--border);margin-bottom:10px}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 5px;min-width:100px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}.fi.bad{border-color:var(--red);color:var(--red)}
+table.rft{width:100%;border-collapse:collapse;font-size:14px}
+table.rft th{background:#e8f0fe;padding:8px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);border-bottom:2px solid var(--border)}
+table.rft td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+table.rft tr:nth-child(even) td{background:#fafcff}
+.rfc{text-align:center;width:90px}
+.rfw{display:flex;gap:5px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #ccc;background:#fff;font-weight:900;font-size:12px;color:#777;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.rfb:hover{transform:scale(1.1);border-color:var(--lc)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rbox{background:#fffef8;border:1.5px solid #ffe082;border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.9;margin-bottom:12px}
+.rbmeta{font-size:11px;color:var(--txt3);font-style:italic;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#d0d8ec}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.rb{border-radius:12px;padding:16px 20px;margin-top:16px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid #1976d2}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rbe{font-size:34px}.rbti{font-size:17px;font-weight:900;color:var(--navy)}.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+.cta{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;border-radius:14px;padding:22px;margin-top:26px;text-align:center}
+.cta h3{font-size:17px;font-weight:900;margin-bottom:7px}
+.cta p{font-size:13px;opacity:.85;margin-bottom:14px}
+.cta-btn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:11px 28px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:10px}
+.nbtn{padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nprev{background:#e0e6f0;color:var(--navy)}.nnext{background:var(--lc);color:#fff}
+@media(max-width:600px){.qopts{flex-direction:column}.qopt{width:100%}.fc-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="A1_hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
+    <span class="lbadge">A1</span><span class="mbadge" data-t="grammar">Grammar</span>
+  </div>
+  <div class="ls">
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">🎨</div>
+      <div class="ph-title">Adjektive</div>
+      <div class="ph-sub" data-t="ph_sub">Describing people and things — adjectives in German</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A1</span><span class="ph-tag" data-t="grammar">Grammar</span>
+        <span class="ph-tag">09 / 10</span>
+        <span class="ph-tag">⏱ 15 <span data-t="minutes">min</span></span>
+        <span class="ph-tag">20 <span data-t="questions">questions</span></span>
+      </div>
+    </div>
+    <div class="ph-score-wrap">
+      <div class="ph-score" id="lsd">0</div>
+      <div class="ph-score-lbl" data-t="correct_answers">correct</div>
+    </div>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="wrap">
+<div class="card"><div class="cb">
+  <div class="tip">💡 <strong data-t="tip_label">Quick Tip:</strong> <span data-t="tip1">At A1, focus on <strong>predicative adjectives</strong> — adjectives used after „sein": <em>Das Auto ist <strong>schön</strong>.</em> These have NO ending! Attributive adjectives (before a noun) add endings — that comes at A2.</span></div>
+  <div class="adj-compare">
+    <h4>Predicative (after sein) — NO ending!</h4>
+    <div class="adj-row"><div class="adj-tag">schön</div><div class="adj-ex">Das Buch ist schön. / Die Musik ist schön. / Das Wetter ist schön.</div></div>
+    <div class="adj-row"><div class="adj-tag">groß</div><div class="adj-ex">Der Hund ist groß. / Die Wohnung ist groß.</div></div>
+    <div class="adj-row"><div class="adj-tag">interessant</div><div class="adj-ex">Der Kurs ist interessant.</div></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">🃏 <span data-t="vocabulary">Vocabulary</span></div>
+  <div class="ib" data-t="instr_vocab">Click to flip and see the English meaning.</div>
+  <div class="fc-grid">
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">groß</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">big / tall</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">klein</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">small / short</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">schön</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">beautiful / nice</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">alt</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">old</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">jung</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">young</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">teuer</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">expensive</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">billig</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">cheap</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">nett</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">nice / kind</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">müde</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">tired</div></div></div></div>
+    <div class="fc" onclick="this.classList.toggle('fl')"><div class="fc-inner"><div class="fc-f"><div class="fc-de">lecker</div><div class="fc-sub">Adjektiv</div></div><div class="fc-b"><div class="fc-en">delicious / yummy</div></div></div></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📋 <span data-t="instructions">Instructions</span></div>
+  <div class="ib" data-t="instr_mc">Choose the correct adjective.</div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 1</div>
+    <div class="qtext">Das Gegenteil (opposite) von „groß" ist ___.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,false)">schön</button>
+      <button class="qopt" onclick="mc(this,1,true)">klein</button>
+      <button class="qopt" onclick="mc(this,1,false)">alt</button>
+      <button class="qopt" onclick="mc(this,1,false)">teuer</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 2</div>
+    <div class="qtext">Das Essen ist sehr ___. (= very delicious)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,false)">teuer</button>
+      <button class="qopt" onclick="mc(this,2,false)">nett</button>
+      <button class="qopt" onclick="mc(this,2,true)">lecker</button>
+      <button class="qopt" onclick="mc(this,2,false)">müde</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 3</div>
+    <div class="qtext">Das Gegenteil von „alt" ist ___.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,false)">groß</button>
+      <button class="qopt" onclick="mc(this,3,false)">schön</button>
+      <button class="qopt" onclick="mc(this,3,true)">jung</button>
+      <button class="qopt" onclick="mc(this,3,false)">billig</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 4</div>
+    <div class="qtext">„Die Lehrerin ist sehr ___." — She is very kind/nice.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,true)">nett</button>
+      <button class="qopt" onclick="mc(this,4,false)">lecker</button>
+      <button class="qopt" onclick="mc(this,4,false)">müde</button>
+      <button class="qopt" onclick="mc(this,4,false)">alt</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 5</div>
+    <div class="qtext">Das Gegenteil von „teuer" ist ___.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,false)">klein</button>
+      <button class="qopt" onclick="mc(this,5,true)">billig</button>
+      <button class="qopt" onclick="mc(this,5,false)">nett</button>
+      <button class="qopt" onclick="mc(this,5,false)">schön</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 6</div>
+    <div class="qtext">Ich bin sehr ___. (= very tired after the long day)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,false)">jung</button>
+      <button class="qopt" onclick="mc(this,6,false)">groß</button>
+      <button class="qopt" onclick="mc(this,6,true)">müde</button>
+      <button class="qopt" onclick="mc(this,6,false)">billig</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 7</div>
+    <div class="qtext">„Das Hotel ist sehr ___." — The hotel is very beautiful.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,true)">schön</button>
+      <button class="qopt" onclick="mc(this,7,false)">teuer</button>
+      <button class="qopt" onclick="mc(this,7,false)">klein</button>
+      <button class="qopt" onclick="mc(this,7,false)">alt</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 8</div>
+    <div class="qtext">Which sentence uses a predicative adjective CORRECTLY?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,false)">Das ist ein groß Haus.</button>
+      <button class="qopt" onclick="mc(this,8,true)">Das Haus ist groß.</button>
+      <button class="qopt" onclick="mc(this,8,false)">Das Haus ist großes.</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 9</div>
+    <div class="qtext">„Der Kurs ist sehr ___." — The course is very interesting.</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,false)">langweilig</button>
+      <button class="qopt" onclick="mc(this,9,true)">interessant</button>
+      <button class="qopt" onclick="mc(this,9,false)">lecker</button>
+      <button class="qopt" onclick="mc(this,9,false)">müde</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 10</div>
+    <div class="qtext">Which is the opposite pair?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">groß — nett</button>
+      <button class="qopt" onclick="mc(this,10,true)">teuer — billig</button>
+      <button class="qopt" onclick="mc(this,10,false)">jung — lecker</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✏️ <span data-t="fill_title">Fill in the blanks</span></div>
+  <div class="ib" data-t="instr_fill">Fill in the correct adjective from the box: groß · nett · müde · lecker · billig</div>
+  <div class="fs"><span>Ich bin nach der Arbeit sehr</span><input class="fi" id="fi1" type="text" placeholder="?" autocomplete="off"><span>.</span></div>
+  <div class="fs"><span>Das Restaurant ist gut und nicht zu teuer — es ist sogar</span><input class="fi" id="fi2" type="text" placeholder="?" autocomplete="off"><span>!</span></div>
+  <div class="fs"><span>Berlin ist eine sehr</span><input class="fi" id="fi3" type="text" placeholder="?" autocomplete="off"><span>Stadt.</span></div>
+  <div class="fs"><span>Das Essen hier ist wirklich</span><input class="fi" id="fi4" type="text" placeholder="?" autocomplete="off"><span>!</span></div>
+  <div class="fs"><span>Meine Nachbarn sind sehr</span><input class="fi" id="fi5" type="text" placeholder="?" autocomplete="off"><span>.</span></div>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['müde','billig','große','lecker','nett'],['fi1','fi2','fi3','fi4','fi5'],'fill-res')"><span>✓</span><span data-t="check">Check</span></button>
+    <button class="btn btn-s" onclick="resetFill(['fi1','fi2','fi3','fi4','fi5'],'fill-res')" data-t="try_again">Try Again</button>
+  </div>
+  <div class="rb" id="fill-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📖 <span data-t="reading">Reading</span></div>
+  <div class="ib" data-t="instr_reading">Read and answer the questions.</div>
+  <div class="rbox">
+    <div class="rbmeta" data-t="read_source">Short text · A1</div>
+    <strong>Meine neue Wohnung</strong><br><br>
+    Ich habe eine neue Wohnung! Sie ist klein, aber sehr schön. Das Wohnzimmer ist hell und gemütlich. Die Küche ist modern und praktisch. Das Bad ist leider etwas alt, aber sauber. Die Miete ist nicht billig, aber auch nicht zu teuer. Meine neuen Nachbarn sind alle sehr nett. Ich bin sehr glücklich hier!
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 11</div>
+    <div class="qtext">How does the speaker describe their apartment overall?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">Groß und teuer</button>
+      <button class="qopt" onclick="mc(this,11,true)">Klein aber schön</button>
+      <button class="qopt" onclick="mc(this,11,false)">Alt und billig</button>
+    </div><div class="qfb" id="qfb11"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 12</div>
+    <div class="qtext">What adjective is used to describe the bathroom?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">modern</button>
+      <button class="qopt" onclick="mc(this,12,true)">alt (but sauber)</button>
+      <button class="qopt" onclick="mc(this,12,false)">schön</button>
+    </div><div class="qfb" id="qfb12"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 13</div>
+    <div class="qtext">How are the neighbors described?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,false)">müde und alt</button>
+      <button class="qopt" onclick="mc(this,13,true)">sehr nett</button>
+      <button class="qopt" onclick="mc(this,13,false)">groß und jung</button>
+    </div><div class="qfb" id="qfb13"></div>
+  </div>
+</div></div>
+
+<div class="cta">
+  <h3 data-t="cta_title">Ready for more German?</h3>
+  <p data-t="cta_text">Join TheGermanStefan community — free A1 content and weekly Stammtisch.</p>
+  <button class="cta-btn" data-t="cta_btn">Join Free →</button>
+</div>
+<div class="nav-btns">
+  <button class="nbtn nprev" onclick="location.href='A1_Grammar_08_Trennbare_Verben.html'">← <span data-t="back">Back</span></button>
+  <button class="nbtn nnext" onclick="location.href='A1_Grammar_10_Akkusativ.html'"><span data-t="next">Next</span>: Akkusativ →</button>
+</div>
+</div>
+
+<script>
+const LANG={en:{home:'Home',back:'Back',next:'Next',grammar:'Grammar',reading:'Reading',vocabulary:'Vocabulary',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choose the correct adjective.',instr_fill:'Fill in the correct adjective.',instr_vocab:'Click to flip and see the English meaning.',instr_rf:'Are the statements correct (R) or incorrect (F)?',instr_reading:'Read and answer the questions.',statement:'Statement',fill_title:'Fill in the blanks',check:'Check',try_again:'Try Again',fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite.',res_perfect:'🏆 Perfect!',res_great:'🎉 Great job!',res_good:'👍 Good effort!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',correct_answers:'correct',cta_title:'Ready for more German?',cta_text:'Join TheGermanStefan community.',cta_btn:'Join Free →',question:'Question',tip_label:'Quick Tip:',tip1:'At A1, focus on predicative adjectives — adjectives used after sein: Das Auto ist schön. These have NO ending! Attributive adjectives (before a noun) add endings — that comes at A2.',read_source:'Short text · A1',ph_sub:'Describing people and things — adjectives in German'},
+fr:{home:'Accueil',back:'Retour',next:'Suivant',grammar:'Grammaire',reading:'Lecture',vocabulary:'Vocabulaire',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choisissez l\'adjectif correct.',instr_fill:'Complétez avec l\'adjectif correct.',instr_vocab:'Cliquez pour retourner la carte.',instr_rf:'Les affirmations sont-elles correctes (R) ou incorrectes (F)?',instr_reading:'Lisez et répondez.',statement:'Affirmation',fill_title:'Complétez',check:'Vérifier',try_again:'Réessayer',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon effort !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correctes',correct_answers:'correctes',cta_title:'Prêt pour plus d\'allemand ?',cta_text:'Rejoignez la communauté TheGermanStefan.',cta_btn:'Rejoindre →',question:'Question',tip_label:'Conseil :',tip1:'En A1, concentrez-vous sur les adjectifs prédicatifs — utilisés après sein : Das Auto ist schön. Ils n\'ont PAS de terminaison !',read_source:'Texte court · A1',ph_sub:'Décrire des personnes et des choses en allemand'},
+es:{home:'Inicio',back:'Volver',next:'Siguiente',grammar:'Gramática',reading:'Lectura',vocabulary:'Vocabulario',minutes:'min',questions:'preguntas',instructions:'Instrucciones',instr_mc:'Elige el adjetivo correcto.',instr_fill:'Completa con el adjetivo correcto.',instr_vocab:'Haz clic para girar la tarjeta.',instr_rf:'¿Las afirmaciones son correctas (R) o incorrectas (F)?',instr_reading:'Lee y responde las preguntas.',statement:'Afirmación',fill_title:'Completa los espacios',check:'Comprobar',try_again:'Intentar de nuevo',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No exactamente.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Buen esfuerzo!',res_practice:'💪 ¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',correct_answers:'correctas',cta_title:'¿Listo para más alemán?',cta_text:'Únete a la comunidad TheGermanStefan.',cta_btn:'Únete gratis →',question:'Pregunta',tip_label:'Consejo:',tip1:'En A1, céntrate en los adjetivos predicativos — usados después de sein: Das Auto ist schön. ¡NO tienen terminación!',read_source:'Texto corto · A1',ph_sub:'Describir personas y cosas en alemán'},
+it:{home:'Home',back:'Indietro',next:'Avanti',grammar:'Grammatica',reading:'Lettura',vocabulary:'Vocabolario',minutes:'min',questions:'domande',instructions:'Istruzioni',instr_mc:'Scegli l\'aggettivo corretto.',instr_fill:'Completa con l\'aggettivo corretto.',instr_vocab:'Clicca per girare la carta.',instr_rf:'Le affermazioni sono corrette (R) o errate (F)?',instr_reading:'Leggi e rispondi alle domande.',statement:'Affermazione',fill_title:'Completa gli spazi',check:'Controlla',try_again:'Riprova',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non esatto.',res_perfect:'🏆 Perfetto!',res_great:'🎉 Molto bene!',res_good:'👍 Buon tentativo!',res_practice:'💪 Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',correct_answers:'corrette',cta_title:'Pronto per più tedesco?',cta_text:'Unisciti alla comunità TheGermanStefan.',cta_btn:'Unisciti gratis →',question:'Domanda',tip_label:'Consiglio:',tip1:'All\'A1, concentrati sugli aggettivi predicativi — usati dopo sein: Das Auto ist schön. NON hanno desinenze!',read_source:'Testo breve · A1',ph_sub:'Descrivere persone e cose in tedesco'},
+pt:{home:'Início',back:'Voltar',next:'Próximo',grammar:'Gramática',reading:'Leitura',vocabulary:'Vocabulário',minutes:'min',questions:'perguntas',instructions:'Instruções',instr_mc:'Escolha o adjetivo correto.',instr_fill:'Complete com o adjetivo correto.',instr_vocab:'Clique para virar o cartão.',instr_rf:'As afirmações são corretas (R) ou incorretas (F)?',instr_reading:'Leia e responda às perguntas.',statement:'Afirmação',fill_title:'Complete os espaços',check:'Verificar',try_again:'Tentar novamente',fb_correct:'✓ Correto!',fb_wrong:'✗ Não exatamente.',res_perfect:'🏆 Perfeito!',res_great:'🎉 Muito bem!',res_good:'👍 Bom esforço!',res_practice:'💪 Continue praticando!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',correct_answers:'corretas',cta_title:'Pronto para mais alemão?',cta_text:'Junte-se à comunidade TheGermanStefan.',cta_btn:'Junte-se grátis →',question:'Pergunta',tip_label:'Dica:',tip1:'No A1, foque nos adjetivos predicativos — usados após sein: Das Auto ist schön. Não têm terminação!',read_source:'Texto curto · A1',ph_sub:'Descrever pessoas e coisas em alemão'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()||inp.value.trim().toLowerCase()===ans[i].replace('ß','ss').toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=0.8){cls='great';msg=t('res_great');}else if(p>=0.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>applyLang());
+</script>
+</body>
+</html>

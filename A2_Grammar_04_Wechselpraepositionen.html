@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGS A2 &middot; 04 Wechselpräpositionen</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}
+.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.ref-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-weight:800}
+.ref-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.ref-table tr:nth-child(even) td{background:#f8f0ff}
+.ref-table td:first-child{font-weight:800;color:var(--lc)}
+.tip-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:8px;padding:12px 16px;font-size:13px;margin-top:12px}
+.ex-box{background:#f8f0ff;border-radius:10px;padding:14px 18px;font-size:13px;line-height:2.1;margin-top:10px}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:120px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#f8f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #d4b0e8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.reading-text{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.9;margin-bottom:16px}
+.reading-text strong{color:var(--lc)}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+.prep-card{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:14px 18px;margin-bottom:12px}
+.prep-name{font-size:18px;font-weight:900;color:var(--lc);margin-bottom:6px}
+.prep-rule{font-size:13px;color:var(--txt2);margin-bottom:6px}
+.prep-ex{font-size:13px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&#8250;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&#8250;</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span>
+    <span class="tb-badge">A2</span>
+    <span class="tb-mod">Grammar 04</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+<div class="page-hdr">
+  <div class="ph-icon">&#8644;</div>
+  <div><div class="ph-title">Wechselpräpositionen</div><div class="ph-sub">Two-way prepositions: accusative vs. dative</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div>
+</div>
+<div class="wrap">
+<div class="card">
+  <div class="sec-title">&#128203; Two-way Prepositions</div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:12px">These 9 prepositions take <strong>accusative</strong> for movement/direction and <strong>dative</strong> for location/rest.</p>
+  <table class="ref-table">
+    <tr><th>Preposition</th><th>Accusative (Wohin? → motion)</th><th>Dative (Wo? = location)</th></tr>
+    <tr><td>an</td><td>Ich hänge das Bild <strong>an die</strong> Wand.</td><td>Das Bild hängt <strong>an der</strong> Wand.</td></tr>
+    <tr><td>auf</td><td>Ich lege das Buch <strong>auf den</strong> Tisch.</td><td>Das Buch liegt <strong>auf dem</strong> Tisch.</td></tr>
+    <tr><td>hinter</td><td>Er geht <strong>hinter das</strong> Haus.</td><td>Er steht <strong>hinter dem</strong> Haus.</td></tr>
+    <tr><td>in</td><td>Wir gehen <strong>in den</strong> Park.</td><td>Wir sind <strong>in dem</strong> Park.</td></tr>
+    <tr><td>neben</td><td>Sie stellt die Lampe <strong>neben den</strong> Tisch.</td><td>Die Lampe steht <strong>neben dem</strong> Tisch.</td></tr>
+    <tr><td>über</td><td>Die Katze springt <strong>über den</strong> Zaun.</td><td>Das Flugzeug fliegt <strong>über dem</strong> See.</td></tr>
+    <tr><td>unter</td><td>Er legt die Schuhe <strong>unter das</strong> Bett.</td><td>Die Schuhe liegen <strong>unter dem</strong> Bett.</td></tr>
+    <tr><td>vor</td><td>Stell das Auto <strong>vor die</strong> Garage.</td><td>Das Auto steht <strong>vor der</strong> Garage.</td></tr>
+    <tr><td>zwischen</td><td>Sie legt die Serviette <strong>zwischen die</strong> Teller.</td><td>Die Serviette liegt <strong>zwischen den</strong> Tellern.</td></tr>
+  </table>
+  <div class="tip-box">&#128161; <strong>Key verbs:</strong> Motion (accusative): legen, stellen, hängen, setzen, stecken &nbsp;|&nbsp; Location (dative): liegen, stehen, hängen, sitzen, stecken<br>
+  <em>Wohin? = accusative &nbsp;·&nbsp; Wo? = dative</em></div>
+</div>
+<div class="card">
+  <div class="sec-title">&#127919; Multiple Choice &mdash; 10 Questions</div>
+  <div class="qblock">
+  <div class="qnum">Question 1</div>
+  <div class="qtext">Ich lege das Buch _____ Tisch. (der Tisch — motion)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,1,true)">auf den</button><button class="qopt" onclick="mc(this,1,false)">auf dem</button><button class="qopt" onclick="mc(this,1,false)">in den</button><button class="qopt" onclick="mc(this,1,false)">in dem</button></div>
+  <div class="qfb" id="qfb1"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 2</div>
+  <div class="qtext">Das Buch liegt _____ Tisch. (der Tisch — location)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,2,false)">auf den</button><button class="qopt" onclick="mc(this,2,true)">auf dem</button><button class="qopt" onclick="mc(this,2,false)">an die</button><button class="qopt" onclick="mc(this,2,false)">an der</button></div>
+  <div class="qfb" id="qfb2"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 3</div>
+  <div class="qtext">Wir gehen _____ Kino. (das Kino — motion)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,3,false)">in dem</button><button class="qopt" onclick="mc(this,3,true)">in das</button><button class="qopt" onclick="mc(this,3,false)">in den</button><button class="qopt" onclick="mc(this,3,false)">auf das</button></div>
+  <div class="qfb" id="qfb3"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 4</div>
+  <div class="qtext">Sie sitzt _____ Sofa. (das Sofa — location)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,4,false)">auf das</button><button class="qopt" onclick="mc(this,4,true)">auf dem</button><button class="qopt" onclick="mc(this,4,false)">auf den</button><button class="qopt" onclick="mc(this,4,false)">in das</button></div>
+  <div class="qfb" id="qfb4"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 5</div>
+  <div class="qtext">"Wohin?" triggers which case with Wechselpräpositionen?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Dative</button><button class="qopt" onclick="mc(this,5,true)">Accusative</button><button class="qopt" onclick="mc(this,5,false)">Genitive</button><button class="qopt" onclick="mc(this,5,false)">Nominative</button></div>
+  <div class="qfb" id="qfb5"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 6</div>
+  <div class="qtext">Er hängt das Bild _____ Wand. (die Wand — motion)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,6,false)">an der</button><button class="qopt" onclick="mc(this,6,true)">an die</button><button class="qopt" onclick="mc(this,6,false)">auf die</button><button class="qopt" onclick="mc(this,6,false)">vor der</button></div>
+  <div class="qfb" id="qfb6"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 7</div>
+  <div class="qtext">Das Auto steht _____ Garage. (die Garage — location)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,7,false)">vor die</button><button class="qopt" onclick="mc(this,7,true)">vor der</button><button class="qopt" onclick="mc(this,7,false)">hinter die</button><button class="qopt" onclick="mc(this,7,false)">neben den</button></div>
+  <div class="qfb" id="qfb7"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 8</div>
+  <div class="qtext">Die Katze schläft _____ Bett. (das Bett — location)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,8,false)">unter das</button><button class="qopt" onclick="mc(this,8,true)">unter dem</button><button class="qopt" onclick="mc(this,8,false)">über das</button><button class="qopt" onclick="mc(this,8,false)">neben den</button></div>
+  <div class="qfb" id="qfb8"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 9</div>
+  <div class="qtext">Sie stellt die Blumen _____ Tisch. (der Tisch — motion)</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,9,false)">auf dem</button><button class="qopt" onclick="mc(this,9,false)">neben dem</button><button class="qopt" onclick="mc(this,9,true)">neben den</button><button class="qopt" onclick="mc(this,9,false)">auf den</button></div>
+  <div class="qfb" id="qfb9"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Question 10</div>
+  <div class="qtext">Which verb pair describes location, not motion?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,10,false)">legen / stellen</button><button class="qopt" onclick="mc(this,10,true)">liegen / stehen</button><button class="qopt" onclick="mc(this,10,false)">hängen / setzen</button><button class="qopt" onclick="mc(this,10,false)">stecken / legen</button></div>
+  <div class="qfb" id="qfb10"></div>
+</div>
+</div>
+<div class="card">
+  <div class="sec-title">&#9999;&#65039; Fill in the blanks</div>
+  <div class="fill-row">1. Wir gehen <input class="fi" id="f1" placeholder="?"> Park. (der Park, motion)</div>
+<div class="fill-row">2. Das Laptop liegt <input class="fi" id="f2" placeholder="?"> Schreibtisch. (der Schreibtisch, location)</div>
+<div class="fill-row">3. Ich hänge den Kalender <input class="fi" id="f3" placeholder="?"> Wand. (die Wand, motion)</div>
+<div class="fill-row">4. Die Tasche liegt <input class="fi" id="f4" placeholder="?"> Bett. (das Bett, location)</div>
+<div class="fill-row">5. Das Taxi wartet <input class="fi" id="f5" placeholder="?"> Schule. (die Schule, location)</div>
+  <button class="chk-btn" onclick="checkFill(['in den', 'auf dem', 'an die', 'unter dem', 'vor der'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check &#10003;</button>
+  <button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+  <div id="fr1" class="rb"></div>
+</div>
+<div class="card">
+  <div class="sec-title">&#10003; Richtig oder Falsch?</div>
+  <table class="rf-table">
+    <tr><th>Statement</th><th>R</th><th>F</th></tr>
+    <tr>
+  <td>"in" always takes the accusative.</td>
+  <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+  <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+</tr>
+<tr>
+  <td>"Wo?" (location) triggers the dative with two-way prepositions.</td>
+  <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+  <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+</tr>
+<tr>
+  <td>"legen" describes motion and takes the accusative.</td>
+  <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+  <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+</tr>
+<tr>
+  <td>"stehen" describes location and takes the dative.</td>
+  <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+  <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+</tr>
+<tr>
+  <td>"auf" can only mean "on top of", never "onto".</td>
+  <td><button class="rfb" onclick="rf(this,'R')">R</button></td>
+  <td><button class="rfb" onclick="rf(this,'F')">F</button></td>
+</tr>
+  </table>
+  <button class="chk-btn" onclick="checkRF(['F', 'R', 'R', 'R', 'F'],[0,1,2,3,4],'rfr1')" style="margin-top:12px">Check &#10003;</button>
+  <div id="rfr1" class="rb"></div>
+</div>
+<div class="card">
+  <div class="sec-title">&#128214; Reading</div>
+  <div class="reading-text">
+    Heute räume ich mein Zimmer auf. Zuerst lege ich alle Bücher <strong>auf den</strong> Schreibtisch. Dann stelle ich die Lampe <strong>neben den</strong> Schreibtisch. Meine Jacke hänge ich <strong>hinter die</strong> Tür. Ich stelle meine Schuhe <strong>unter das</strong> Bett. Dann schaue ich: Alles liegt ordentlich <strong>auf dem</strong> Schreibtisch. Die Lampe steht <strong>neben dem</strong> Schreibtisch. Die Jacke hängt <strong>hinter der</strong> Tür. Die Schuhe liegen <strong>unter dem</strong> Bett. Perfekt!
+  </div>
+  <div class="qblock">
+  <div class="qnum">Question 11</div>
+  <div class="qtext">Where does the speaker put the books?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,11,false)">Under the bed</button><button class="qopt" onclick="mc(this,11,true)">On the desk</button><button class="qopt" onclick="mc(this,11,false)">Behind the door</button><button class="qopt" onclick="mc(this,11,false)">Next to the lamp</button></div>
+  <div class="qfb" id="qfb11"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 12</div>
+  <div class="qtext">Where does the jacket end up hanging?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,12,false)">On the chair</button><button class="qopt" onclick="mc(this,12,false)">Next to the desk</button><button class="qopt" onclick="mc(this,12,true)">Behind the door</button><button class="qopt" onclick="mc(this,12,false)">Above the bed</button></div>
+  <div class="qfb" id="qfb12"></div>
+</div><div class="qblock">
+  <div class="qnum">Question 13</div>
+  <div class="qtext">The sentence "Die Schuhe liegen unter dem Bett" uses dative because...</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,13,false)">unter always takes dative</button><button class="qopt" onclick="mc(this,13,true)">it describes location (Wo?)</button><button class="qopt" onclick="mc(this,13,false)">Schuhe is plural</button><button class="qopt" onclick="mc(this,13,false)">liegen is a modal verb</button></div>
+  <div class="qfb" id="qfb13"></div>
+</div>
+</div>
+<div class="cta">
+  <a class="cta-btn btn-back" href="A2_Grammar_03_Dativ.html">&#8592; Dativ</a>
+  <a class="cta-btn btn-next" href="A2_Grammar_05_Komparativ.html">Komparativ &amp; Superlativ &#8594;</a>
+</div>
+</div>
+<script>
+const LANG={en:{home:'Home',a2_label:'A2',fb_correct:'✓ Correct! Well done!',fb_wrong:'✗ Not quite — see correct answer.',res_perfect:'Perfect! 🏆',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a2_label:'A2',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'Parfait ! 🏆',res_great:'Très bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a2_label:'A2',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'¡Perfecto! 🏆',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},it:{home:'Home',a2_label:'A2',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non proprio.',res_perfect:'Perfetto! 🏆',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Início',a2_label:'A2',fb_correct:'✓ Correto!',fb_wrong:'✗ Não foi.',res_perfect:'Perfeito! 🏆',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script>
+</body>
+</html>

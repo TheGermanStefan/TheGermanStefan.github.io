@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Goethe A1 Prüfung – Asal</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a1a;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(160deg, #003f88 0%, #0066cc 100%);
+  color: white;
+  padding: 40px 50px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cover-left h1 { font-size: 28px; font-weight: 800; letter-spacing: 0.5px; }
+.cover-left h2 { font-size: 15px; font-weight: 400; opacity: 0.85; margin-top: 4px; }
+.cover-badge {
+  background: #e8a020;
+  color: #1a1a00;
+  font-weight: 800;
+  font-size: 22px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-align: center;
+  line-height: 1.2;
+}
+.cover-badge span { display: block; font-size: 11px; font-weight: 600; opacity: 0.8; margin-top: 2px; }
+
+/* ── CANDIDATE INFO BOX ── */
+.candidate-box {
+  background: white;
+  border-bottom: 3px solid #0066cc;
+  padding: 14px 50px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.candidate-box .field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+}
+.candidate-box .field label { font-weight: 600; color: #003f88; white-space: nowrap; }
+.field-line {
+  border-bottom: 1.5px solid #aaa;
+  width: 140px;
+  height: 20px;
+}
+
+/* ── OVERVIEW TABLE ── */
+.overview {
+  background: #003f88;
+  color: white;
+  padding: 14px 50px;
+  display: flex;
+  gap: 0;
+}
+.ov-block {
+  flex: 1;
+  text-align: center;
+  padding: 6px 10px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+.ov-block:last-child { border: none; }
+.ov-block .ov-label { font-size: 11px; opacity: 0.75; }
+.ov-block .ov-value { font-size: 17px; font-weight: 700; margin-top: 2px; }
+.ov-block .ov-pts { font-size: 11px; opacity: 0.7; }
+
+/* ── CONTAINER ── */
+.container { max-width: 860px; margin: 0 auto; padding: 28px 20px 70px; }
+
+/* ── MODULE CARD ── */
+.module {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  page-break-inside: avoid;
+}
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+}
+.module-header .mod-num {
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+.module-header .mod-title { font-size: 18px; font-weight: 800; color: white; }
+.module-header .mod-subtitle { font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 1px; }
+.module-header .mod-meta { margin-left: auto; text-align: right; color: rgba(255,255,255,0.9); font-size: 12px; }
+.module-header .mod-pts { font-size: 18px; font-weight: 800; color: white; }
+
+.m-lesen   .module-header { background: #1565c0; }
+.m-hoeren  .module-header { background: #2e7d32; }
+.m-schreib .module-header { background: #6a1b9a; }
+.m-sprech  .module-header { background: #bf360c; }
+
+.module-body { padding: 22px 24px; }
+
+/* ── PART HEADERS ── */
+.part-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e8f8;
+}
+.part-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.m-lesen   .part-tag { background: #e3f2fd; color: #1565c0; }
+.m-hoeren  .part-tag { background: #e8f5e9; color: #2e7d32; }
+.m-schreib .part-tag { background: #f3e5f5; color: #6a1b9a; }
+.m-sprech  .part-tag { background: #fbe9e7; color: #bf360c; }
+.part-desc { font-size: 13px; color: #444; flex: 1; }
+.part-pts  { font-size: 12px; font-weight: 700; color: #888; white-space: nowrap; }
+
+/* ── INSTRUCTION BOX ── */
+.instr {
+  background: #f0f4ff;
+  border-left: 3px solid #1565c0;
+  border-radius: 0 6px 6px 0;
+  padding: 9px 14px;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+.m-hoeren  .instr { background: #f0f9f0; border-color: #2e7d32; }
+.m-schreib .instr { background: #f9f0ff; border-color: #6a1b9a; }
+.m-sprech  .instr { background: #fff4f0; border-color: #bf360c; }
+
+/* ── NOTICES (LESEN T1) ── */
+.notices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.notice-card {
+  border: 1.5px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.notice-card .notice-label {
+  font-weight: 800;
+  font-size: 12px;
+  color: #1565c0;
+  margin-bottom: 4px;
+}
+.notice-card .notice-text { line-height: 1.4; }
+.notice-card .notice-source { font-size: 11px; color: #999; margin-top: 4px; }
+
+/* ── SITUATIONS LIST ── */
+.situations {
+  background: #f8f9fc;
+  border: 1px solid #dde3f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.situations .sit-title { font-weight: 700; font-size: 13px; color: #1565c0; margin-bottom: 8px; }
+.situation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.situation-item .sit-num { font-weight: 700; min-width: 20px; }
+.situation-item .sit-text { flex: 1; }
+.answer-box {
+  border: 1.5px solid #999;
+  border-radius: 4px;
+  width: 36px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ── R/F TABLE ── */
+table.rf {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 10px 0;
+}
+table.rf th {
+  background: #e3f2fd;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: #1565c0;
+  border-bottom: 2px solid #b0cef8;
+}
+table.rf td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+table.rf tr:nth-child(even) td { background: #f8fbff; }
+.rf-boxes { display: flex; gap: 12px; }
+.rf-box {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600;
+}
+.rf-box input[type=checkbox] {
+  width: 16px; height: 16px;
+}
+.rf-circle {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #aaa;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #555;
+}
+
+/* ── GAP FILL ── */
+.gap-text {
+  background: #f9faff;
+  border: 1px solid #dde;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 2;
+  margin: 10px 0;
+}
+.gap {
+  display: inline-block;
+  border-bottom: 2px solid #1565c0;
+  min-width: 90px;
+  text-align: center;
+  margin: 0 4px;
+  font-weight: 700;
+  color: transparent;
+  user-select: none;
+}
+.word-bank {
+  background: #e3f2fd;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.word-bank strong { color: #1565c0; }
+.word-bank .words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.word-bank .word-chip {
+  background: white;
+  border: 1.5px solid #1565c0;
+  border-radius: 20px;
+  padding: 2px 12px;
+  font-size: 13px;
+  color: #1565c0;
+  font-weight: 600;
+}
+
+/* ── MC OPTIONS ── */
+.mc-item { margin-bottom: 14px; }
+.mc-stem { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.mc-stem .item-num { color: #2e7d32; }
+.mc-options { display: flex; gap: 14px; flex-wrap: wrap; }
+.mc-option {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px;
+  background: #f0f9f0;
+  border: 1.5px solid #c8e6c9;
+  border-radius: 20px;
+  padding: 4px 14px;
+}
+.mc-option .opt-letter {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #2e7d32;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: #2e7d32;
+  flex-shrink: 0;
+}
+
+/* ── DIALOGUE SCRIPT ── */
+.dialogue-script {
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.dialogue-script .d-label {
+  font-weight: 800;
+  color: #2e7d32;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.spk-a { font-weight: 700; color: #1b5e20; }
+.spk-b { font-weight: 700; color: #2e7d32; }
+
+/* ── FILL BLANKS ── */
+.fill-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.fill-num { font-weight: 700; min-width: 20px; color: #2e7d32; }
+.fill-line {
+  border-bottom: 1.5px solid #aaa;
+  flex: 1;
+  max-width: 180px;
+  height: 20px;
+}
+
+/* ── FORM ── */
+table.reg-form {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 10px 0;
+}
+table.reg-form td {
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+table.reg-form td:first-child {
+  background: #f3e5f5;
+  font-weight: 700;
+  color: #6a1b9a;
+  width: 35%;
+  white-space: nowrap;
+}
+table.reg-form .form-line {
+  border-bottom: 1.5px solid #999;
+  min-width: 200px;
+  height: 20px;
+  display: block;
+}
+
+/* ── WRITING AREA ── */
+.writing-prompt {
+  background: #f4eaf8;
+  border: 1.5px solid #ce93d8;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.writing-prompt .wp-label { font-weight: 700; color: #6a1b9a; margin-bottom: 6px; }
+.writing-lines { margin-top: 8px; }
+.writing-line {
+  border-bottom: 1px solid #bbb;
+  height: 28px;
+  margin-bottom: 2px;
+}
+.word-count-note { font-size: 12px; color: #888; margin-top: 6px; text-align: right; }
+
+/* ── SPEAKING CARDS ── */
+.speaking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 10px 0;
+}
+.speak-card {
+  border: 2px solid #ffb74d;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  background: #fff8f0;
+}
+.speak-card .sc-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #bf360c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.speak-card .sc-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #bf360c; }
+.speak-card ul { padding-left: 16px; }
+.speak-card li { margin-bottom: 4px; }
+
+/* ── DIVIDER ── */
+hr.part-div {
+  border: none;
+  border-top: 1.5px dashed #dde;
+  margin: 20px 0;
+}
+
+/* ── SCORES BOX ── */
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.score-table th {
+  background: #003f88;
+  color: white;
+  padding: 9px 14px;
+  text-align: left;
+}
+.score-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid #ddd;
+}
+.score-table .score-line {
+  border-bottom: 1.5px solid #999;
+  width: 80px;
+  display: inline-block;
+}
+
+/* ── ANSWER KEY ── */
+.answer-key-section {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  margin-top: 40px;
+}
+.ak-header {
+  background: #37474f;
+  color: white;
+  padding: 14px 22px;
+  font-size: 17px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ak-body { padding: 22px 24px; }
+.ak-module {
+  margin-bottom: 20px;
+}
+.ak-module h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #37474f;
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid #e0e0e0;
+}
+.ak-part { margin-bottom: 12px; }
+.ak-part h4 { font-size: 12px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.ak-answers { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+.ak-item {
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+.ak-item strong { color: #003f88; }
+.ok { color: #2e7d32; font-weight: 700; }
+.rubric {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.rubric h4 { font-weight: 700; color: #795548; margin-bottom: 6px; font-size: 12px; }
+
+/* ── TEACHER NOTE ── */
+.teacher-note {
+  background: #e8eaf6;
+  border-left: 3px solid #3949ab;
+  border-radius: 0 6px 6px 0;
+  padding: 9px 14px;
+  font-size: 12px;
+  color: #333;
+  margin: 10px 0;
+}
+.teacher-note strong { color: #3949ab; }
+
+/* ── PRINT ── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { padding: 0; max-width: 100%; }
+  .module { box-shadow: none; border: 1px solid #ddd; margin-bottom: 20px; }
+  .cover { background: #003f88 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .overview { background: #003f88 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .module-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .answer-key-section { page-break-before: always; }
+  .answer-key-section * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+  /* ── INTERACTIVE FIXES ── */
+  .answer-select {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1.5px solid #999;
+    background: white;
+    font-weight: 700;
+    font-size: 14px;
+    color: #1c2b4a;
+    cursor: pointer;
+    min-width: 52px;
+  }
+  .answer-select:focus { outline: none; border-color: #1565c0; }
+
+  .rf-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 2px solid #aaa;
+    background: white;
+    font-weight: 800;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    transition: all .15s;
+    margin: 0 4px;
+  }
+  .rf-btn:hover { border-color: #1565c0; color: #1565c0; transform: scale(1.08); }
+  .rf-btn.selected-R { background: #2e7d32; border-color: #2e7d32; color: white; }
+  .rf-btn.selected-F { background: #c62828; border-color: #c62828; color: white; }
+
+  .mc-option { cursor: pointer; transition: all .15s !important; }
+  .mc-option:hover { border-color: #1565c0 !important; background: #dbeafe !important; transform: translateY(-1px); }
+  .mc-option.mc-selected { border-color: #1565c0 !important; background: #1565c0 !important; color: white !important; }
+  .mc-option.mc-selected .opt-letter { background: white !important; color: #1565c0 !important; border-color: white !important; }
+
+  .fill-input {
+    border: none;
+    border-bottom: 2px solid #2e7d32;
+    background: transparent;
+    min-width: 130px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    padding: 2px 6px;
+    outline: none;
+    margin: 0 6px;
+  }
+  .fill-input:focus { border-bottom-color: #1565c0; background: #f0f7ff; border-radius: 4px 4px 0 0; }
+
+  .form-input {
+    border: none;
+    border-bottom: 1.5px solid #999;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    padding: 4px 4px;
+    outline: none;
+    color: #1a1a1a;
+    display: block;
+  }
+  .form-input:focus { border-bottom-color: #6a1b9a; background: #faf5ff; }
+
+  .writing-textarea {
+    width: 100%;
+    min-height: 180px;
+    border: 1.5px solid #ce93d8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    color: #1a1a1a;
+    background: #fdf8ff;
+    line-height: 1.7;
+  }
+  .writing-textarea:focus { border-color: #6a1b9a; box-shadow: 0 0 0 3px rgba(106,27,154,0.1); }
+  .word-count-live {
+    font-size: 12px; color: #888; text-align: right; margin-top: 5px;
+  }
+  .word-count-live.ok { color: #2e7d32; font-weight: 700; }
+  .word-count-live.over { color: #c62828; font-weight: 700; }
+
+  .score-input {
+    border: none;
+    border-bottom: 1.5px solid #999;
+    background: transparent;
+    width: 70px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a1a;
+  }
+  .score-input:focus { border-bottom-color: #003f88; background: #e8f0fe; border-radius: 4px 4px 0 0; }
+
+</style>
+</head>
+<body>
+<!-- ══════════════════════════════════════════════ COVER ══ -->
+<div class="cover">
+<div class="cover-left">
+<h1>Goethe-Zertifikat A1 – Modellprüfung</h1>
+<h2>Vorbereitung auf das offizielle A1-Zertifikat  ·  Alle vier Module</h2>
+<div style="margin-top:18px; font-size:13px; opacity:0.8; line-height:1.8;">
+      Gesamtpunktzahl: <strong>60 Punkte</strong>  ·  Bestanden: <strong>ab 36 Punkten (60 %)</strong><br/>
+      Bearbeitungszeit: ca. <strong>80 Minuten</strong> (ohne Sprechen)
+    </div>
+</div>
+<div>
+<div class="cover-badge">A1<span>Deutsch</span></div>
+</div>
+</div>
+<!-- CANDIDATE INFO -->
+<div class="candidate-box">
+<div class="field">
+<label>Name:</label>
+<div class="field-line"></div>
+</div>
+<div class="field">
+<label>Datum:</label>
+<div class="field-line"></div>
+</div>
+<div class="field">
+<label>Lehrer/in:</label>
+<div class="field-line"></div>
+</div>
+</div>
+<!-- OVERVIEW -->
+<div class="overview">
+<div class="ov-block">
+<div class="ov-label">Modul 1</div>
+<div class="ov-value">Lesen</div>
+<div class="ov-pts">15 Pkt. · 25 Min.</div>
+</div>
+<div class="ov-block">
+<div class="ov-label">Modul 2</div>
+<div class="ov-value">Hören</div>
+<div class="ov-pts">15 Pkt. · 20 Min.</div>
+</div>
+<div class="ov-block">
+<div class="ov-label">Modul 3</div>
+<div class="ov-value">Schreiben</div>
+<div class="ov-pts">15 Pkt. · 20 Min.</div>
+</div>
+<div class="ov-block">
+<div class="ov-label">Modul 4</div>
+<div class="ov-value">Sprechen</div>
+<div class="ov-pts">15 Pkt. · ~15 Min.</div>
+</div>
+<div class="ov-block">
+<div class="ov-label">Gesamt</div>
+<div class="ov-value">60 Pkt.</div>
+<div class="ov-pts">Bestanden: ≥ 36</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════ CONTAINER ══ -->
+<div class="container">
+<!-- ████████████████████████████████████████ MODUL 1: LESEN ████ -->
+<div class="module m-lesen">
+<div class="module-header">
+<div class="mod-num">1</div>
+<div>
+<div class="mod-title">Lesen</div>
+<div class="mod-subtitle">Reading comprehension</div>
+</div>
+<div class="mod-meta">
+<div class="mod-pts">15 Punkte</div>
+<div>25 Minuten</div>
+</div>
+</div>
+<div class="module-body">
+<!-- LESEN TEIL 1 -->
+<div class="part-header">
+<span class="part-tag">Teil 1</span>
+<span class="part-desc">Aushänge und Hinweisschilder – Welches Schild passt?</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Lesen Sie die Situationen (1–5) und die Schilder (a–h). Welches Schild passt zu welcher Situation?
+      Schreiben Sie den richtigen Buchstaben in das Kästchen.
+      <br/><em>Achtung: Es gibt mehr Schilder als Situationen. Drei Buchstaben bleiben übrig.</em>
+</div>
+<div class="notices-grid">
+<div class="notice-card">
+<div class="notice-label">a</div>
+<div class="notice-text"><strong>HEUTE GESCHLOSSEN.</strong><br/>Wir öffnen morgen um 9 Uhr.</div>
+<div class="notice-source">Schaufenster</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">b</div>
+<div class="notice-text"><strong>Deutschkurs für Anfänger</strong><br/>Montag &amp; Mittwoch, 18:00 Uhr<br/>Zimmer 12 – Anmeldung im Büro</div>
+<div class="notice-source">Schwarzes Brett</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">c</div>
+<div class="notice-text"><strong>Zu verkaufen:</strong><br/>Tisch + 4 Stühle, guter Zustand<br/>Tel: 0176-123 456</div>
+<div class="notice-source">Anzeige</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">d</div>
+<div class="notice-text"><strong>⚠ Kein Essen und Trinken</strong><br/>im Bus. Danke!</div>
+<div class="notice-source">Busschild</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">e</div>
+<div class="notice-text"><strong>Parkplatz nur für Kunden.</strong><br/>Andere Fahrzeuge werden entfernt.</div>
+<div class="notice-source">Parkplatz</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">f</div>
+<div class="notice-text"><strong>Sprachschule Berlin sucht:</strong><br/>Lehrer/in für Deutsch &amp; Englisch<br/>Vollzeit oder Teilzeit</div>
+<div class="notice-source">Stellenanzeige</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">g</div>
+<div class="notice-text"><strong>⚠ Vorsicht! Nasser Boden.</strong><br/>Bitte langsam gehen.</div>
+<div class="notice-source">Bodenschild</div>
+</div>
+<div class="notice-card">
+<div class="notice-label">h</div>
+<div class="notice-text"><strong>Café Morgen</strong><br/>Frühstück täglich 07:00 – 12:00 Uhr<br/>Kaffee · Tee · Brot · Butter &amp; mehr</div>
+<div class="notice-source">Café-Fenster</div>
+</div>
+</div>
+<div class="situations">
+<div class="sit-title">Situationen</div>
+<div class="situation-item">
+<span class="sit-num">1.</span>
+<span class="sit-text">Sie möchten morgens außerhalb Ihrer Wohnung frühstücken.</span>
+<select class="answer-select">
+<option value="">—</option>
+<option value="a">a</option>
+<option value="b">b</option>
+<option value="c">c</option>
+<option value="d">d</option>
+<option value="e">e</option>
+<option value="f">f</option>
+<option value="g">g</option>
+<option value="h">h</option>
+</select>
+</div>
+<div class="situation-item">
+<span class="sit-num">2.</span>
+<span class="sit-text">Sie möchten abends Deutsch lernen. Sie suchen einen Kurs.</span>
+<select class="answer-select">
+<option value="">—</option>
+<option value="a">a</option>
+<option value="b">b</option>
+<option value="c">c</option>
+<option value="d">d</option>
+<option value="e">e</option>
+<option value="f">f</option>
+<option value="g">g</option>
+<option value="h">h</option>
+</select>
+</div>
+<div class="situation-item">
+<span class="sit-num">3.</span>
+<span class="sit-text">Sie brauchen einen Tisch für Ihre neue Wohnung. Sie haben nicht viel Geld.</span>
+<select class="answer-select">
+<option value="">—</option>
+<option value="a">a</option>
+<option value="b">b</option>
+<option value="c">c</option>
+<option value="d">d</option>
+<option value="e">e</option>
+<option value="f">f</option>
+<option value="g">g</option>
+<option value="h">h</option>
+</select>
+</div>
+<div class="situation-item">
+<span class="sit-num">4.</span>
+<span class="sit-text">Sie sind im Bus. Sie möchten etwas essen. Was sagt der Hinweis?</span>
+<select class="answer-select">
+<option value="">—</option>
+<option value="a">a</option>
+<option value="b">b</option>
+<option value="c">c</option>
+<option value="d">d</option>
+<option value="e">e</option>
+<option value="f">f</option>
+<option value="g">g</option>
+<option value="h">h</option>
+</select>
+</div>
+<div class="situation-item">
+<span class="sit-num">5.</span>
+<span class="sit-text">Sie sind Lehrerin und suchen eine neue Arbeit an einer Sprachschule.</span>
+<select class="answer-select">
+<option value="">—</option>
+<option value="a">a</option>
+<option value="b">b</option>
+<option value="c">c</option>
+<option value="d">d</option>
+<option value="e">e</option>
+<option value="f">f</option>
+<option value="g">g</option>
+<option value="h">h</option>
+</select>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- LESEN TEIL 2 -->
+<div class="part-header">
+<span class="part-tag">Teil 2</span>
+<span class="part-desc">Eine E-Mail lesen – Richtig oder Falsch?</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Lesen Sie die E-Mail und die Sätze 6–10. Ist der Satz richtig (R) oder falsch (F)?
+      Kreuzen Sie an.
+    </div>
+<div style="background:#f8fbff; border:1.5px solid #b0cef8; border-radius:8px; padding:16px 20px; font-size:13.5px; line-height:1.8; margin-bottom:14px;">
+<div style="color:#888; font-size:12px; margin-bottom:8px;">
+<strong>Von:</strong> mina.tehran@email.de  ·  <strong>An:</strong> asal.münchen@email.de<br/>
+<strong>Betreff:</strong> Hallo aus Berlin!
+      </div>
+<p>Hallo Asal,</p><br/>
+<p>wie geht es dir? Ich bin jetzt in <strong>Berlin</strong>. Die Stadt ist sehr groß und interessant. Ich wohne in einer kleinen Wohnung in der Kantstraße. Die Wohnung hat eine Küche, ein Schlafzimmer und ein Wohnzimmer. Das Badezimmer ist sehr klein, aber die Küche ist neu und modern.</p><br/>
+<p>Ich <strong>arbeite</strong> jetzt in einem Restaurant. Ich bin <strong>Kellnerin</strong>. Die Arbeit ist manchmal schwer, aber die Menschen dort sind freundlich und nett. Ich beginne jeden Tag um <strong>11 Uhr</strong> und arbeite bis 20 Uhr.</p><br/>
+<p>Am Wochenende lerne ich Deutsch. Ich habe einen Kurs am <strong>Samstag</strong>. Mein Lehrer heißt Herr Müller. Er spricht langsam und erklärt alles gut. Ich verstehe schon viel!</p><br/>
+<p>Schreib mir bald! Wie geht es dir in München?</p><br/>
+<p>Liebe Grüße,<br/>Mina</p>
+</div>
+<table class="rf">
+<thead>
+<tr>
+<th style="width:40px;">#</th>
+<th>Aussage</th>
+<th style="width:100px; text-align:center;">R    F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6.</td>
+<td>Mina wohnt jetzt in München.</td>
+<td style="text-align:center;">
+<div class="rf-boxes">
+<button class="rf-btn" id="rf1R" onclick="selectRF('1','R')">R</button>
+<button class="rf-btn" id="rf1F" onclick="selectRF('1','F')">F</button>
+</div>
+</td>
+</tr>
+<tr>
+<td>7.</td>
+<td>Minas Wohnung hat ein Schlafzimmer.</td>
+<td style="text-align:center;">
+<div class="rf-boxes">
+<button class="rf-btn" id="rf2R" onclick="selectRF('2','R')">R</button>
+<button class="rf-btn" id="rf2F" onclick="selectRF('2','F')">F</button>
+</div>
+</td>
+</tr>
+<tr>
+<td>8.</td>
+<td>Mina ist Köchin im Restaurant.</td>
+<td style="text-align:center;">
+<div class="rf-boxes">
+<button class="rf-btn" id="rf3R" onclick="selectRF('3','R')">R</button>
+<button class="rf-btn" id="rf3F" onclick="selectRF('3','F')">F</button>
+</div>
+</td>
+</tr>
+<tr>
+<td>9.</td>
+<td>Mina beginnt die Arbeit um 11 Uhr.</td>
+<td style="text-align:center;">
+<div class="rf-boxes">
+<button class="rf-btn" id="rf4R" onclick="selectRF('4','R')">R</button>
+<button class="rf-btn" id="rf4F" onclick="selectRF('4','F')">F</button>
+</div>
+</td>
+</tr>
+<tr>
+<td>10.</td>
+<td>Minas Deutschkurs ist am Sonntag.</td>
+<td style="text-align:center;">
+<div class="rf-boxes">
+<button class="rf-btn" id="rf5R" onclick="selectRF('5','R')">R</button>
+<button class="rf-btn" id="rf5F" onclick="selectRF('5','F')">F</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="part-div"/>
+<!-- LESEN TEIL 3 -->
+<div class="part-header">
+<span class="part-tag">Teil 3</span>
+<span class="part-desc">Lückentext – Wörter einsetzen</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Lesen Sie den Text. Welches Wort (a, b oder c) passt? Kreuzen Sie an.
+    </div>
+<div class="gap-text">
+      Mein Name <strong>(11) ___</strong> Asal Ahmadi. Ich komme <strong>(12) ___</strong> dem Iran, aus Teheran.
+      Jetzt <strong>(13) ___</strong> ich in München, in der Beethovenstraße 22.
+      Ich bin 27 Jahre <strong>(14) ___</strong> und ich <strong>(15) ___</strong> Deutsch.
+    </div>
+<div style="margin-top: 12px;">
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num" style="color:#1565c0;">(11)</span> Mein Name ___</div>
+<div class="mc-options" data-group="1">
+<div class="mc-option" id="mc1_1" onclick="selectMC('1','mc1_1')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9;"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">a</div> heiße</div><div class="mc-option" id="mc1_2" onclick="selectMC('1','mc1_2')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">b</div> bin</div>
+<div class="mc-option" id="mc1_3" onclick="selectMC('1','mc1_3')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">c</div> ist</div>
+</div>
+</div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num" style="color:#1565c0;">(12)</span> Ich komme ___ dem Iran</div>
+<div class="mc-options" data-group="2">
+<div class="mc-option" id="mc2_1" onclick="selectMC('2','mc2_1')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9;"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">a</div> in</div><div class="mc-option" id="mc2_2" onclick="selectMC('2','mc2_2')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">b</div> aus</div>
+<div class="mc-option" id="mc2_3" onclick="selectMC('2','mc2_3')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">c</div> von</div>
+</div>
+</div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num" style="color:#1565c0;">(13)</span> Jetzt ___ ich in München</div>
+<div class="mc-options" data-group="3">
+<div class="mc-option" id="mc3_1" onclick="selectMC('3','mc3_1')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9;"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">a</div> bin</div><div class="mc-option" id="mc3_2" onclick="selectMC('3','mc3_2')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">b</div> wohne</div>
+<div class="mc-option" id="mc3_3" onclick="selectMC('3','mc3_3')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">c</div> komme</div>
+</div>
+</div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num" style="color:#1565c0;">(14)</span> Ich bin 27 Jahre ___</div>
+<div class="mc-options" data-group="4">
+<div class="mc-option" id="mc4_1" onclick="selectMC('4','mc4_1')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9;"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">a</div> groß</div><div class="mc-option" id="mc4_2" onclick="selectMC('4','mc4_2')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">b</div> alt</div>
+<div class="mc-option" id="mc4_3" onclick="selectMC('4','mc4_3')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">c</div> jung</div>
+</div>
+</div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num" style="color:#1565c0;">(15)</span> Ich ___ Deutsch</div>
+<div class="mc-options" data-group="5">
+<div class="mc-option" id="mc5_1" onclick="selectMC('5','mc5_1')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9;"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">a</div> wohne</div><div class="mc-option" id="mc5_2" onclick="selectMC('5','mc5_2')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">b</div> spreche</div>
+<div class="mc-option" id="mc5_3" onclick="selectMC('5','mc5_3')" style="cursor:pointer;background:#e3f2fd; border-color:#90caf9"><div class="opt-letter" style="color:#1565c0; border-color:#1565c0;">c</div> lerne</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ████████████████████████████████████████ MODUL 2: HÖREN ████ -->
+<div class="module m-hoeren">
+<div class="module-header">
+<div class="mod-num">2</div>
+<div>
+<div class="mod-title">Hören</div>
+<div class="mod-subtitle">Listening comprehension – Lehrer/in liest laut vor (2× pro Aufgabe)</div>
+</div>
+<div class="mod-meta">
+<div class="mod-pts">15 Punkte</div>
+<div>~20 Minuten</div>
+</div>
+</div>
+<div class="module-body">
+<div class="teacher-note"><strong>👩‍🏫 Lehrerhinweis:</strong> Lesen Sie jeden Dialog / jede Ansage <strong>zweimal</strong> vor. Sprechen Sie natürlich und nicht zu schnell. Kurze Pause zwischen den zwei Lesungen.</div>
+<!-- HÖREN TEIL 1 -->
+<div class="part-header">
+<span class="part-tag">Teil 1</span>
+<span class="part-desc">Kurze Gespräche – Multiple Choice</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Sie hören fünf kurze Gespräche. Zu jedem Gespräch gibt es eine Frage und drei Antworten (a, b, c). Kreuzen Sie die richtige Antwort an.
+    </div>
+<!-- Dialog 1 -->
+<div class="dialogue-script">
+<div class="d-label">Dialog 1 – Im Café (Lehrer liest vor)</div>
+<span class="spk-a">A:</span> Guten Morgen! Was möchten Sie?<br/>
+<span class="spk-b">B:</span> Einen Kaffee, bitte.<br/>
+<span class="spk-a">A:</span> Groß oder klein?<br/>
+<span class="spk-b">B:</span> Klein, bitte. Und was kostet das?<br/>
+<span class="spk-a">A:</span> Zwei Euro fünfzig.
+    </div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num">1.</span> Was kostet der Kaffee?</div>
+<div class="mc-options" data-group="6">
+<div class="mc-option" id="mc6_1" onclick="selectMC('6','mc6_1')" style="cursor:pointer;"><div class="opt-letter">a</div> Ein Euro</div><div class="mc-option" id="mc6_2" onclick="selectMC('6','mc6_2')" style="cursor:pointer"><div class="opt-letter">b</div> Zwei Euro fünfzig</div>
+<div class="mc-option" id="mc6_3" onclick="selectMC('6','mc6_3')" style="cursor:pointer"><div class="opt-letter">c</div> Drei Euro</div>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- Dialog 2 -->
+<div class="dialogue-script">
+<div class="d-label">Dialog 2 – Auf der Straße (Lehrer liest vor)</div>
+<span class="spk-a">A:</span> Entschuldigung, wie komme ich zum Bahnhof?<br/>
+<span class="spk-b">B:</span> Nehmen Sie den Bus Nummer 7. Der Bus fährt direkt zum Bahnhof.<br/>
+<span class="spk-a">A:</span> Vielen Dank!<br/>
+<span class="spk-b">B:</span> Bitte sehr!
+    </div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num">2.</span> Wie kommt die Person zum Bahnhof?</div>
+<div class="mc-options" data-group="7">
+<div class="mc-option" id="mc7_1" onclick="selectMC('7','mc7_1')" style="cursor:pointer;"><div class="opt-letter">a</div> Mit dem Auto</div><div class="mc-option" id="mc7_2" onclick="selectMC('7','mc7_2')" style="cursor:pointer"><div class="opt-letter">b</div> Mit dem Fahrrad</div>
+<div class="mc-option" id="mc7_3" onclick="selectMC('7','mc7_3')" style="cursor:pointer"><div class="opt-letter">c</div> Mit dem Bus</div>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- Dialog 3 -->
+<div class="dialogue-script">
+<div class="d-label">Dialog 3 – Kennenlernen (Lehrer liest vor)</div>
+<span class="spk-a">A:</span> Hallo! Ich bin neu hier. Ich heiße Tom.<br/>
+<span class="spk-b">B:</span> Hallo Tom! Ich heiße Asal. Ich komme aus dem Iran. Und du?<br/>
+<span class="spk-a">A:</span> Ich komme aus der Türkei. Ich lerne auch Deutsch.<br/>
+<span class="spk-b">B:</span> Super! Lernst du hier in der Schule?<br/>
+<span class="spk-a">A:</span> Ja, ich bin im Kurs A1.
+    </div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num">3.</span> Woher kommt Tom?</div>
+<div class="mc-options" data-group="8">
+<div class="mc-option" id="mc8_1" onclick="selectMC('8','mc8_1')" style="cursor:pointer;"><div class="opt-letter">a</div> Aus dem Iran</div><div class="mc-option" id="mc8_2" onclick="selectMC('8','mc8_2')" style="cursor:pointer"><div class="opt-letter">b</div> Aus Deutschland</div>
+<div class="mc-option" id="mc8_3" onclick="selectMC('8','mc8_3')" style="cursor:pointer"><div class="opt-letter">c</div> Aus der Türkei</div>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- Dialog 4 -->
+<div class="dialogue-script">
+<div class="d-label">Dialog 4 – Am Telefon (Lehrer liest vor)</div>
+<span class="spk-a">A:</span> Sprachschule Berlin, guten Tag!<br/>
+<span class="spk-b">B:</span> Guten Tag! Wann ist der Deutschkurs?<br/>
+<span class="spk-a">A:</span> Der Kurs ist montags und mittwochs, von 18 bis 20 Uhr.<br/>
+<span class="spk-b">B:</span> Und wo findet der Kurs statt?<br/>
+<span class="spk-a">A:</span> In der Schillerstraße 5, Zimmer 3.
+    </div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num">4.</span> Wann ist der Deutschkurs?</div>
+<div class="mc-options" data-group="9">
+<div class="mc-option" id="mc9_1" onclick="selectMC('9','mc9_1')" style="cursor:pointer;"><div class="opt-letter">a</div> Montag und Dienstag</div><div class="mc-option" id="mc9_2" onclick="selectMC('9','mc9_2')" style="cursor:pointer"><div class="opt-letter">b</div> Montag und Mittwoch</div>
+<div class="mc-option" id="mc9_3" onclick="selectMC('9','mc9_3')" style="cursor:pointer"><div class="opt-letter">c</div> Mittwoch und Freitag</div>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- Dialog 5 -->
+<div class="dialogue-script">
+<div class="d-label">Dialog 5 – Im Supermarkt (Lehrer liest vor)</div>
+<span class="spk-a">A:</span> Guten Tag! Haben Sie heute frisches Brot?<br/>
+<span class="spk-b">B:</span> Ja, natürlich. Möchten Sie auch Butter?<br/>
+<span class="spk-a">A:</span> Nein danke. Aber einen Apfel, bitte.<br/>
+<span class="spk-b">B:</span> Gerne. Das macht zusammen drei Euro fünfzig.
+    </div>
+<div class="mc-item">
+<div class="mc-stem"><span class="item-num">5.</span> Was kauft die Person?</div>
+<div class="mc-options" data-group="10">
+<div class="mc-option" id="mc10_1" onclick="selectMC('10','mc10_1')" style="cursor:pointer;"><div class="opt-letter">a</div> Brot und Butter</div><div class="mc-option" id="mc10_2" onclick="selectMC('10','mc10_2')" style="cursor:pointer"><div class="opt-letter">b</div> Brot und Apfel</div>
+<div class="mc-option" id="mc10_3" onclick="selectMC('10','mc10_3')" style="cursor:pointer"><div class="opt-letter">c</div> Apfel und Butter</div>
+</div>
+</div>
+<hr class="part-div"/>
+<!-- HÖREN TEIL 2 -->
+<div class="part-header">
+<span class="part-tag">Teil 2</span>
+<span class="part-desc">Längeres Gespräch – Richtig oder Falsch?</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Sie hören ein Gespräch. Lesen Sie die Sätze 6–10. Ist der Satz richtig (R) oder falsch (F)? Kreuzen Sie an.
+    </div>
+<div class="dialogue-script">
+<div class="d-label">Gespräch – Im Park (Lehrer liest vor)</div>
+<span class="spk-a">Sabine:</span> Hallo! Ich bin Sabine. Wie heißt du?<br/>
+<span class="spk-b">Asal:</span> Ich heiße Asal. Ich komme aus dem Iran.<br/>
+<span class="spk-a">Sabine:</span> Oh, interessant! Wohnst du in München?<br/>
+<span class="spk-b">Asal:</span> Ja, in der Mozartstraße. Und du?<br/>
+<span class="spk-a">Sabine:</span> Ich wohne eigentlich in Berlin, aber ich bin jetzt eine Woche hier. Bist du Studentin?<br/>
+<span class="spk-b">Asal:</span> Ja, ich studiere Deutsch. Und ich arbeite auch – ich bin Kellnerin im Restaurant Luna.<br/>
+<span class="spk-a">Sabine:</span> Wie interessant! Ich bin Ärztin. Ich arbeite im Krankenhaus.<br/>
+<span class="spk-b">Asal:</span> Wann arbeitest du?<br/>
+<span class="spk-a">Sabine:</span> Montag bis Freitag, von 8 bis 16 Uhr. Am Wochenende bin ich frei.<br/>
+<span class="spk-b">Asal:</span> Das ist schön! Ich arbeite leider am Samstag und Sonntag.<br/>
+<span class="spk-a">Sabine:</span> Gefällt dir München?<br/>
+<span class="spk-b">Asal:</span> Ja, ich liebe München! Die Stadt ist schön und die Menschen sind freundlich.
+    </div>
+<table class="rf">
+<thead>
+<tr>
+<th style="width:40px;">#</th>
+<th>Aussage</th>
+<th style="width:100px; text-align:center;">R    F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6.</td>
+<td>Asal wohnt in der Mozartstraße in München.</td>
+<td style="text-align:center;"><div class="rf-boxes">
+<button class="rf-btn" id="rf6R" onclick="selectRF('6','R')">R</button>
+<button class="rf-btn" id="rf6F" onclick="selectRF('6','F')">F</button>
+</div></td>
+</tr>
+<tr>
+<td>7.</td>
+<td>Sabine wohnt in München.</td>
+<td style="text-align:center;"><div class="rf-boxes">
+<button class="rf-btn" id="rf7R" onclick="selectRF('7','R')">R</button>
+<button class="rf-btn" id="rf7F" onclick="selectRF('7','F')">F</button>
+</div></td>
+</tr>
+<tr>
+<td>8.</td>
+<td>Asal ist Ärztin.</td>
+<td style="text-align:center;"><div class="rf-boxes">
+<button class="rf-btn" id="rf8R" onclick="selectRF('8','R')">R</button>
+<button class="rf-btn" id="rf8F" onclick="selectRF('8','F')">F</button>
+</div></td>
+</tr>
+<tr>
+<td>9.</td>
+<td>Sabine arbeitet am Wochenende.</td>
+<td style="text-align:center;"><div class="rf-boxes">
+<button class="rf-btn" id="rf9R" onclick="selectRF('9','R')">R</button>
+<button class="rf-btn" id="rf9F" onclick="selectRF('9','F')">F</button>
+</div></td>
+</tr>
+<tr>
+<td>10.</td>
+<td>Asal findet München schön und die Menschen freundlich.</td>
+<td style="text-align:center;"><div class="rf-boxes">
+<button class="rf-btn" id="rf10R" onclick="selectRF('10','R')">R</button>
+<button class="rf-btn" id="rf10F" onclick="selectRF('10','F')">F</button>
+</div></td>
+</tr>
+</tbody>
+</table>
+<hr class="part-div"/>
+<!-- HÖREN TEIL 3 -->
+<div class="part-header">
+<span class="part-tag">Teil 3</span>
+<span class="part-desc">Kurze Ansagen – Informationen ergänzen</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Sie hören fünf kurze Ansagen. Schreiben Sie die fehlende Information in die Lücke.
+    </div>
+<div class="dialogue-script">
+<div class="d-label">Ansagen (Lehrer liest vor)</div>
+<strong>1.</strong> „Guten Morgen, liebe Fahrgäste. Der Zug nach München fährt heute von <strong>Gleis 7</strong>."<br/><br/>
+<strong>2.</strong> „Das Café Luna ist montags bis freitags von 8 bis 18 Uhr geöffnet. Samstag und Sonntag ist das Café <strong>geschlossen</strong>."<br/><br/>
+<strong>3.</strong> „Achtung! Der Deutschkurs für Anfänger beginnt am 15. Januar um <strong>9 Uhr</strong> in Zimmer 5."<br/><br/>
+<strong>4.</strong> „Im Supermarkt frisch heute: Äpfel – ein Kilo nur <strong>99 Cent</strong>!"<br/><br/>
+<strong>5.</strong> „Herzlich willkommen in der Sprachschule. Bitte warten Sie in <strong>Zimmer 3</strong>."
+    </div>
+<div style="margin-top: 10px;">
+<div class="fill-item"><span class="fill-num">11.</span> Der Zug fährt von Gleis <input class="fill-input" placeholder="..." type="text"/></div>
+<div class="fill-item"><span class="fill-num">12.</span> Am Wochenende ist das Café <input class="fill-input" placeholder="..." type="text"/></div>
+<div class="fill-item"><span class="fill-num">13.</span> Der Kurs beginnt um <input class="fill-input" placeholder="..." type="text"/> Uhr.</div>
+<div class="fill-item"><span class="fill-num">14.</span> Äpfel kosten heute <input class="fill-input" placeholder="..." type="text"/> Cent pro Kilo.</div>
+<div class="fill-item"><span class="fill-num">15.</span> Bitte warten Sie in Zimmer <input class="fill-input" placeholder="..." type="text"/></div>
+</div>
+</div>
+</div>
+<!-- ████████████████████████████████████████ MODUL 3: SCHREIBEN ████ -->
+<div class="module m-schreib">
+<div class="module-header">
+<div class="mod-num">3</div>
+<div>
+<div class="mod-title">Schreiben</div>
+<div class="mod-subtitle">Written production</div>
+</div>
+<div class="mod-meta">
+<div class="mod-pts">15 Punkte</div>
+<div>20 Minuten</div>
+</div>
+</div>
+<div class="module-body">
+<!-- SCHREIBEN TEIL 1 -->
+<div class="part-header">
+<span class="part-tag">Teil 1</span>
+<span class="part-desc">Formular ausfüllen</span>
+<span class="part-pts">5 Punkte</span>
+</div>
+<div class="instr">
+      Lesen Sie den Text und füllen Sie das Anmeldeformular aus.
+    </div>
+<div style="background:#f9f0ff; border:1.5px solid #ce93d8; border-radius:8px; padding:14px 18px; font-size:13.5px; line-height:1.8; margin-bottom:14px;">
+      Mein Name ist <strong>Asal Ahmadi</strong>. Ich komme aus dem <strong>Iran</strong>.
+      Ich wohne jetzt in München, <strong>Beethovenstraße 22</strong>.
+      Meine Telefonnummer ist <strong>0179-456 789</strong>.
+      Ich bin <strong>27 Jahre</strong> alt und bin Studentin.
+      Ich möchte an einem Deutschkurs teilnehmen.
+    </div>
+<div style="border: 2px solid #6a1b9a; border-radius:10px; overflow:hidden; margin-bottom: 8px;">
+<div style="background:#6a1b9a; color:white; padding:10px 16px; font-weight:700; font-size:14px;">
+        📋 Anmeldeformular – Sprachschule München
+      </div>
+<table class="reg-form">
+<tr><td>Vorname</td><td><input class="form-input" placeholder="" type="text"/></td></tr>
+<tr><td>Familienname</td><td><input class="form-input" placeholder="" type="text"/></td></tr>
+<tr><td>Herkunftsland</td><td><input class="form-input" placeholder="" type="text"/></td></tr>
+<tr><td>Adresse (Straße &amp; Nr.)</td><td><input class="form-input" placeholder="" type="text"/></td></tr>
+<tr><td>Telefon</td><td><input class="form-input" placeholder="" type="text"/></td></tr>
+</table>
+</div>
+<hr class="part-div"/>
+<!-- SCHREIBEN TEIL 2 -->
+<div class="part-header">
+<span class="part-tag">Teil 2</span>
+<span class="part-desc">Kurze Nachricht schreiben (30–40 Wörter)</span>
+<span class="part-pts">10 Punkte</span>
+</div>
+<div class="instr">
+      Ihre Freundin Julia schreibt Ihnen diese Nachricht. Schreiben Sie eine Antwort (30–40 Wörter).
+      Schreiben Sie zu den drei Punkten: <strong>Wo wohnen Sie?</strong> · <strong>Wann haben Sie Zeit?</strong> · <strong>Was schlagen Sie vor?</strong>
+</div>
+<div class="writing-prompt">
+<div class="wp-label">📩 Julias Nachricht:</div>
+      „Hallo! Ich bin neu in München. Hast du Zeit? Können wir uns treffen? Ich möchte gern einen Kaffee trinken und die Stadt kennenlernen! Wann bist du frei und wo treffen wir uns?<br/>Liebe Grüße, Julia"
+    </div>
+<div style="font-size: 13px; color: #555; margin-bottom: 8px;"><strong>Ihre Antwort:</strong></div>
+<textarea class="writing-textarea" oninput="countWords(this)" placeholder="Schreiben Sie hier Ihre Antwort (30–40 Wörter)..."></textarea>
+<div class="word-count-live" id="wordCountLive">Wörter: 0 / 30–40</div>
+<div class="word-count-note">Wörter: _______ / 30–40</div>
+</div>
+</div>
+<!-- ████████████████████████████████████████ MODUL 4: SPRECHEN ████ -->
+<div class="module m-sprech">
+<div class="module-header">
+<div class="mod-num">4</div>
+<div>
+<div class="mod-title">Sprechen</div>
+<div class="mod-subtitle">Oral production – Lehrer führt Prüfungsgespräch</div>
+</div>
+<div class="mod-meta">
+<div class="mod-pts">15 Punkte</div>
+<div>~15 Minuten</div>
+</div>
+</div>
+<div class="module-body">
+<div class="teacher-note">
+<strong>👩‍🏫 Lehrerhinweis:</strong> Alle 4 Teile nacheinander durchführen. Prüfungsgespräch natürlich und ruhig führen. Fehler nicht sofort korrigieren – zuerst kommunikativen Erfolg bewerten. Beurteilungsbogen separat führen.
+    </div>
+<!-- SPRECHEN TEIL 1 -->
+<div class="part-header">
+<span class="part-tag">Teil 1</span>
+<span class="part-desc">Sich vorstellen – 6 Informationen nennen</span>
+<span class="part-pts">3 Punkte</span>
+</div>
+<div class="instr">
+      Stellen Sie sich vor. Nennen Sie Informationen zu den sechs Punkten auf den Karten.
+    </div>
+<div class="speaking-grid">
+<div class="speak-card">
+<div class="sc-label">Punkt 1</div>
+<div class="sc-title">👤 Name</div>
+        Wie heißen Sie?
+      </div>
+<div class="speak-card">
+<div class="sc-label">Punkt 2</div>
+<div class="sc-title">🌍 Herkunft</div>
+        Woher kommen Sie?
+      </div>
+<div class="speak-card">
+<div class="sc-label">Punkt 3</div>
+<div class="sc-title">🏠 Wohnort</div>
+        Wo wohnen Sie?
+      </div>
+<div class="speak-card">
+<div class="sc-label">Punkt 4</div>
+<div class="sc-title">🎂 Alter</div>
+        Wie alt sind Sie?
+      </div>
+<div class="speak-card">
+<div class="sc-label">Punkt 5</div>
+<div class="sc-title">🗣 Sprachen</div>
+        Welche Sprachen sprechen Sie?
+      </div>
+<div class="speak-card">
+<div class="sc-label">Punkt 6</div>
+<div class="sc-title">📚 Beruf / Hobby</div>
+        Was sind Sie von Beruf? Was machen Sie gern?
+      </div>
+</div>
+<hr class="part-div"/>
+<!-- SPRECHEN TEIL 2 -->
+<div class="part-header">
+<span class="part-tag">Teil 2</span>
+<span class="part-desc">Fragen und Antworten – Alltagsgespräch</span>
+<span class="part-pts">4 Punkte</span>
+</div>
+<div class="instr">
+      Der Prüfer stellt Fragen. Antworten Sie in ganzen Sätzen. Dann stellen Sie auch selbst eine Frage.
+    </div>
+<div style="background: #fff4f0; border: 1.5px solid #ffb74d; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px;">
+<div style="font-weight:700; color:#bf360c; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px;">🎙 Fragen des Prüfers (Lehrer stellt diese Fragen)</div>
+<ol style="padding-left: 18px; font-size: 13.5px; line-height: 2.2;">
+<li>Wie heißen Sie?</li>
+<li>Woher kommen Sie?</li>
+<li>Wo wohnen Sie in Deutschland?</li>
+<li>Was trinken Sie gern – Kaffee oder Tee?</li>
+<li>Sprechen Sie Englisch?</li>
+<li>Was machen Sie am Wochenende?</li>
+</ol>
+</div>
+<div style="background: #f8f8f8; border: 1.5px dashed #bbb; border-radius: 8px; padding: 12px 16px; font-size:13px;">
+<strong>Dann stellen Sie selbst eine Frage an den Prüfer.</strong> Z.B.: „Wohnen Sie auch in München?" / „Sprechen Sie Farsi?" / „Was essen Sie gern?"
+    </div>
+<hr class="part-div"/>
+<!-- SPRECHEN TEIL 3 -->
+<div class="part-header">
+<span class="part-tag">Teil 3</span>
+<span class="part-desc">Bitten und reagieren</span>
+<span class="part-pts">4 Punkte</span>
+</div>
+<div class="instr">
+      Ziehen Sie eine Karte. Formulieren Sie eine Bitte oder reagieren Sie auf eine Bitte.
+    </div>
+<div class="speaking-grid">
+<div class="speak-card" style="border-color:#f44336;">
+<div class="sc-label" style="color:#c62828;">Karte A – Sie bitten</div>
+<div class="sc-title" style="color:#c62828;">🪟 Das Fenster</div>
+        Bitten Sie Ihren Nachbarn, das Fenster zu öffnen.
+      </div>
+<div class="speak-card" style="border-color:#f44336;">
+<div class="sc-label" style="color:#c62828;">Karte B – Sie bitten</div>
+<div class="sc-title" style="color:#c62828;">📖 Das Buch</div>
+        Bitten Sie den Lehrer, das Wort zu erklären.
+      </div>
+<div class="speak-card" style="border-color:#f44336;">
+<div class="sc-label" style="color:#c62828;">Karte C – Sie reagieren</div>
+<div class="sc-title" style="color:#c62828;">🚪 Die Tür</div>
+        Jemand sagt: „Können Sie bitte die Tür schließen?" → Sie antworten.
+      </div>
+<div class="speak-card" style="border-color:#f44336;">
+<div class="sc-label" style="color:#c62828;">Karte D – Sie reagieren</div>
+<div class="sc-title" style="color:#c62828;">🛎 Hilfe</div>
+        Jemand sagt: „Entschuldigung, können Sie mir bitte helfen?" → Sie antworten.
+      </div>
+</div>
+<hr class="part-div"/>
+<!-- SPRECHEN TEIL 4 -->
+<div class="part-header">
+<span class="part-tag">Teil 4</span>
+<span class="part-desc">Bild beschreiben</span>
+<span class="part-pts">4 Punkte</span>
+</div>
+<div class="instr">
+      Schauen Sie das Bild an (Lehrer zeigt ein Bild). Beschreiben Sie, was Sie sehen. Benutzen Sie diese Hilfsfragen:
+    </div>
+<div style="background:#fff4f0; border:1.5px solid #ffb74d; border-radius:8px; padding:12px 18px; font-size:13px;">
+<ul style="padding-left:18px; line-height:2.2;">
+<li>Was sehen Sie auf dem Bild?</li>
+<li>Welche Farben sehen Sie?</li>
+<li>Wo sind die Personen / Dinge?</li>
+<li>Was machen die Personen?</li>
+</ul>
+<div style="margin-top:8px; font-size:12px; color:#888;">Empfehlung: Bild einer Küche, eines Cafés, eines Klassenzimmers oder einer Wohnung zeigen – alle relevant für A1-Vokabular.</div>
+</div>
+<hr class="part-div"/>
+<!-- SCORING -->
+<div class="part-header">
+<span class="part-tag">Bewertung</span>
+<span class="part-desc">Sprechen – Beurteilungsbogen</span>
+<span class="part-pts">15 Punkte</span>
+</div>
+<table class="score-table">
+<thead>
+<tr>
+<th>Kriterium</th>
+<th>Max.</th>
+<th>Punkte</th>
+<th>Anmerkungen</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Kommunikativer Erfolg – Aufgabe erfüllt?</td><td>4</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td></td></tr>
+<tr><td>Verständlichkeit / Aussprache</td><td>4</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td></td></tr>
+<tr><td>Wortschatz (A1-Niveau)</td><td>4</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td></td></tr>
+<tr><td>Grammatik (Grundstrukturen)</td><td>3</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td></td></tr>
+<tr style="font-weight:700; background:#f5f5f5;"><td>Gesamt Sprechen</td><td>15</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- ████████████████████████████████████████ ANSWER KEY ████ -->
+<div class="answer-key-section">
+<div class="ak-header">
+    🔑   Lösungsschlüssel  –  Nur für Lehrer/innen
+  </div>
+<div class="ak-body">
+<!-- LESEN -->
+<div class="ak-module">
+<h3>📖 Modul 1 – Lesen (15 Punkte)</h3>
+<div class="ak-part">
+<h4>Teil 1 – Schilder (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">1 → <strong class="ok">h</strong> (Café Morgen, Frühstück)</div>
+<div class="ak-item">2 → <strong class="ok">b</strong> (Deutschkurs Mo+Mi)</div>
+<div class="ak-item">3 → <strong class="ok">c</strong> (Tisch zu verkaufen)</div>
+<div class="ak-item">4 → <strong class="ok">d</strong> (Kein Essen im Bus)</div>
+<div class="ak-item">5 → <strong class="ok">f</strong> (Stelle: Lehrer/in)</div>
+</div>
+<div style="font-size:12px; color:#888; margin-top:6px;">Übrig: a, e, g (3 Distraktoren)</div>
+</div>
+<div class="ak-part">
+<h4>Teil 2 – E-Mail R/F (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">6 → <strong style="color:#c62828;">F</strong> (Berlin, nicht München)</div>
+<div class="ak-item">7 → <strong class="ok">R</strong></div>
+<div class="ak-item">8 → <strong style="color:#c62828;">F</strong> (Kellnerin, nicht Köchin)</div>
+<div class="ak-item">9 → <strong class="ok">R</strong></div>
+<div class="ak-item">10 → <strong style="color:#c62828;">F</strong> (Samstag, nicht Sonntag)</div>
+</div>
+</div>
+<div class="ak-part">
+<h4>Teil 3 – Multiple Choice (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">11 → <strong class="ok">c) ist</strong></div>
+<div class="ak-item">12 → <strong class="ok">b) aus</strong></div>
+<div class="ak-item">13 → <strong class="ok">b) wohne</strong></div>
+<div class="ak-item">14 → <strong class="ok">b) alt</strong></div>
+<div class="ak-item">15 → <strong class="ok">c) lerne</strong></div>
+</div>
+</div>
+</div>
+<!-- HÖREN -->
+<div class="ak-module">
+<h3>🎧 Modul 2 – Hören (15 Punkte)</h3>
+<div class="ak-part">
+<h4>Teil 1 – Multiple Choice (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">1 → <strong class="ok">b) Zwei Euro fünfzig</strong></div>
+<div class="ak-item">2 → <strong class="ok">c) Mit dem Bus</strong></div>
+<div class="ak-item">3 → <strong class="ok">c) Aus der Türkei</strong></div>
+<div class="ak-item">4 → <strong class="ok">b) Montag und Mittwoch</strong></div>
+<div class="ak-item">5 → <strong class="ok">b) Brot und Apfel</strong></div>
+</div>
+</div>
+<div class="ak-part">
+<h4>Teil 2 – Gespräch R/F (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">6 → <strong class="ok">R</strong></div>
+<div class="ak-item">7 → <strong style="color:#c62828;">F</strong> (wohnt in Berlin)</div>
+<div class="ak-item">8 → <strong style="color:#c62828;">F</strong> (Kellnerin, nicht Ärztin)</div>
+<div class="ak-item">9 → <strong style="color:#c62828;">F</strong> (Sabine ist am WE frei)</div>
+<div class="ak-item">10 → <strong class="ok">R</strong></div>
+</div>
+</div>
+<div class="ak-part">
+<h4>Teil 3 – Informationen ergänzen (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">11 → <strong class="ok">7</strong></div>
+<div class="ak-item">12 → <strong class="ok">geschlossen</strong></div>
+<div class="ak-item">13 → <strong class="ok">9</strong></div>
+<div class="ak-item">14 → <strong class="ok">99</strong></div>
+<div class="ak-item">15 → <strong class="ok">3</strong></div>
+</div>
+</div>
+</div>
+<!-- SCHREIBEN -->
+<div class="ak-module">
+<h3>✏️ Modul 3 – Schreiben (15 Punkte)</h3>
+<div class="ak-part">
+<h4>Teil 1 – Formular (5 Pkt., je 1 Pkt.)</h4>
+<div class="ak-answers">
+<div class="ak-item">Vorname → <strong class="ok">Asal</strong></div>
+<div class="ak-item">Familienname → <strong class="ok">Ahmadi</strong></div>
+<div class="ak-item">Herkunftsland → <strong class="ok">Iran</strong></div>
+<div class="ak-item">Adresse → <strong class="ok">Beethovenstraße 22</strong></div>
+<div class="ak-item">Telefon → <strong class="ok">0179-456 789</strong></div>
+</div>
+</div>
+<div class="ak-part">
+<h4>Teil 2 – Kurze Nachricht (10 Pkt.)</h4>
+<div class="rubric">
+<h4>Bewertungsraster (holistische Bewertung):</h4>
+<table style="width:100%; font-size:12px; border-collapse:collapse; margin-top:6px;">
+<tr style="background:#f5f5f5;">
+<td style="padding:5px 8px; font-weight:700; width:25%;">Kriterium</td>
+<td style="padding:5px 8px; font-weight:700; width:25%;">0 Pkt.</td>
+<td style="padding:5px 8px; font-weight:700; width:25%;">1 Pkt.</td>
+<td style="padding:5px 8px; font-weight:700; width:25%;">2 Pkt.</td>
+</tr>
+<tr style="border-top:1px solid #ddd;">
+<td style="padding:5px 8px;">Aufgabe erfüllt</td>
+<td style="padding:5px 8px;">Kein Bezug zur Aufgabe</td>
+<td style="padding:5px 8px;">1–2 Punkte genannt</td>
+<td style="padding:5px 8px;">Alle 3 Punkte genannt</td>
+</tr>
+<tr style="border-top:1px solid #ddd; background:#fafafa;">
+<td style="padding:5px 8px;">Verständlichkeit</td>
+<td style="padding:5px 8px;">Kaum verständlich</td>
+<td style="padding:5px 8px;">Teilweise verständlich</td>
+<td style="padding:5px 8px;">Gut verständlich</td>
+</tr>
+<tr style="border-top:1px solid #ddd;">
+<td style="padding:5px 8px;">Wortschatz</td>
+<td style="padding:5px 8px;">Sehr begrenzt</td>
+<td style="padding:5px 8px;">Grundvokabular</td>
+<td style="padding:5px 8px;">A1-Wortschatz korrekt</td>
+</tr>
+<tr style="border-top:1px solid #ddd; background:#fafafa;">
+<td style="padding:5px 8px;">Grammatik</td>
+<td style="padding:5px 8px;">Viele Fehler</td>
+<td style="padding:5px 8px;">Einige Fehler</td>
+<td style="padding:5px 8px;">Grundstr. korrekt</td>
+</tr>
+<tr style="border-top:1px solid #ddd;">
+<td style="padding:5px 8px;">Wortanzahl</td>
+<td style="padding:5px 8px;">&lt; 20 Wörter</td>
+<td style="padding:5px 8px;">20–29 Wörter</td>
+<td style="padding:5px 8px;">30–40 Wörter ✓</td>
+</tr>
+</table>
+<div style="margin-top:8px; font-size:12px; color:#555;"><strong>Musterlösung:</strong> „Hallo Julia! Ich wohne in München, in der Mozartstraße. Am Samstag bin ich frei. Möchtest du Kaffee trinken? Ich kenne ein schönes Café. Es heißt Café Luna! Bis bald, Asal."</div>
+</div>
+</div>
+</div>
+<!-- GESAMTERGEBNIS -->
+<div class="ak-module">
+<h3>📊 Gesamtergebnis</h3>
+<table class="score-table">
+<thead>
+<tr><th>Modul</th><th>Maximum</th><th>Erreicht</th><th>Bestanden (60%)?</th></tr>
+</thead>
+<tbody>
+<tr><td>Lesen</td><td>15</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td>ab 9 Pkt.</td></tr>
+<tr><td>Hören</td><td>15</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td>ab 9 Pkt.</td></tr>
+<tr><td>Schreiben</td><td>15</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td>ab 9 Pkt.</td></tr>
+<tr><td>Sprechen</td><td>15</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td>ab 9 Pkt.</td></tr>
+<tr style="font-weight:700; background:#e8eaf6;">
+<td>Gesamt</td><td>60</td><td><input class="score-input" max="15" min="0" placeholder="—" type="number"/></td><td>ab 36 Pkt. = Bestanden ✅</td>
+</tr>
+</tbody>
+</table>
+<div style="font-size:12px; color:#888; margin-top:6px;">
+        Jedes Modul muss einzeln bestanden werden. Ein Modul gilt als bestanden ab 60% (= 9/15 Punkte).
+      </div>
+</div>
+</div>
+</div>
+<!-- FOOTER -->
+<div style="text-align:center; font-size:12px; color:#aaa; margin-top:20px; padding-bottom:20px;">
+  Modellprüfung Goethe-Zertifikat A1  ·  Erstellt für Asal  ·  Juni 2026  ·  Nicht offizielle Goethe-Institut-Prüfung
+</div>
+</div><!-- /container -->
+<script>
+  // R/F toggle
+  function selectRF(uid, choice) {
+    const btnR = document.getElementById('rf' + uid + 'R');
+    const btnF = document.getElementById('rf' + uid + 'F');
+    if (!btnR || !btnF) return;
+    btnR.classList.remove('selected-R','selected-F');
+    btnF.classList.remove('selected-R','selected-F');
+    if (choice === 'R') btnR.classList.add('selected-R');
+    else btnF.classList.add('selected-F');
+  }
+
+  // MC single-select per group
+  function selectMC(groupId, clickedId) {
+    const group = document.querySelector('[data-group="' + groupId + '"]');
+    if (!group) return;
+    group.querySelectorAll('.mc-option').forEach(opt => opt.classList.remove('mc-selected'));
+    const clicked = document.getElementById(clickedId);
+    if (clicked) clicked.classList.add('mc-selected');
+  }
+
+  // Word counter
+  function countWords(el) {
+    const words = el.value.trim().split(/\s+/).filter(w => w.length > 0);
+    const count = words.length;
+    const display = document.getElementById('wordCountLive');
+    display.textContent = 'Wörter: ' + count + ' / 30–40';
+    display.className = 'word-count-live';
+    if (count >= 30 && count <= 40) display.classList.add('ok');
+    else if (count > 40) display.classList.add('over');
+  }
+</script>
+</body>
+</html>

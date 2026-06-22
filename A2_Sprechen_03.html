@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS A2 Sprechen Vergangenheit erzählen</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.scenario{background:linear-gradient(135deg,#f3e5f5,#ede7f6);border:2px solid #ce93d8;border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.scenario-icon{font-size:28px;margin-bottom:6px}
+.scenario-title{font-size:15px;font-weight:900;color:var(--lc);margin-bottom:6px}
+.scenario-desc{font-size:13px;color:var(--txt)}
+.prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.prompt-card{background:#f8f0ff;border-radius:10px;padding:14px 16px;border-left:4px solid var(--lc)}
+.prompt-label{font-size:11px;font-weight:900;color:var(--lc);text-transform:uppercase;margin-bottom:6px}
+.prompt-text{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.prompt-model{font-size:13px;color:var(--txt2);font-style:italic}
+.phrase-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.phrase{background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:var(--navy)}
+.dialogue{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:2;margin-bottom:14px}
+.dialogue .A{color:var(--lc);font-weight:800}
+.dialogue .B{color:var(--navy);font-weight:800}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+@media(max-width:600px){.prompt-grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="sprechen">Sprechen</span>
+    <span class="tb-badge">A2</span><span class="tb-mod">Sprechen 03</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">📖</div>
+  <div><div class="ph-title">Vergangenheit erzählen</div><div class="ph-sub">Talking about past events using Perfekt and Präteritum</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap">
+<div class="card">
+  <div class="sec-title">&#127908; Speaking Scenario</div>
+  <div class="scenario"><div class="scenario-icon">⏮️</div>
+    <div class="scenario-title">Was hast du gestern gemacht?</div>
+    <div class="scenario-desc">Describe what you did yesterday or last weekend using Perfekt.</div></div>
+  <div class="sec-title" style="margin-top:14px">&#128218; Speaking Prompts — practise out loud!</div>
+  <div class="prompt-grid"><div class="prompt-card"><div class="prompt-label">Prompt 1</div><div class="prompt-text">Was hast du gestern Abend gemacht?</div><div class="prompt-model">Ich habe einen Film geschaut und dann früh geschlafen.</div></div><div class="prompt-card"><div class="prompt-label">Prompt 2</div><div class="prompt-text">Wo bist du am Wochenende gewesen?</div><div class="prompt-model">Ich bin in die Stadt gefahren und habe Freunde getroffen.</div></div><div class="prompt-card"><div class="prompt-label">Prompt 3</div><div class="prompt-text">Wie war das Wetter?</div><div class="prompt-model">Das Wetter war schön. Es war warm und sonnig.</div></div><div class="prompt-card"><div class="prompt-label">Prompt 4</div><div class="prompt-text">Was hat dir am besten gefallen?</div><div class="prompt-model">Am besten hat mir das Abendessen mit meinen Freunden gefallen.</div></div></div>
+</div>
+<div class="card">
+  <div class="sec-title">&#128172; Key Phrases</div>
+  <div class="phrase-list"><span class="phrase">Ich habe ... gemacht.</span><span class="phrase">Ich bin ... gegangen / gefahren.</span><span class="phrase">Zuerst ... dann ... danach ...</span><span class="phrase">Es war (sehr) + Adjektiv</span><span class="phrase">Das hat mir gut / nicht gefallen.</span><span class="phrase">Ich hatte viel / wenig Spaß.</span><span class="phrase">Das Wetter war ...</span><span class="phrase">Am besten hat mir ... gefallen.</span></div>
+</div>
+<div class="card">
+  <div class="sec-title">&#128101; Model Dialogue</div>
+  <div class="dialogue"><span class="A">A:</span> Wie war dein Wochenende?<br>
+    <span class="B">B:</span> Es war super! Am Samstag bin ich mit dem Fahrrad an den See gefahren.<br>
+    <span class="A">A:</span> Oh schön! Und was hast du dort gemacht?<br>
+    <span class="B">B:</span> Ich habe geschwommen und ein Buch gelesen. Das Wetter war perfekt.<br>
+    <span class="A">A:</span> Und am Sonntag?<br>
+    <span class="B">B:</span> Da habe ich zu Hause gekocht und Freunde eingeladen. Wir haben bis Mitternacht gegessen und geredet. Es war ein toller Abend!</div>
+</div>
+<div class="card"><div class="sec-title">&#127919; Multiple Choice — Test your knowledge</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">"Ich bin in die Stadt gefahren." Why "bin" not "habe"?</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">It is irregular</button><button class="qopt" onclick="mc(this,1,true)">fahren uses sein as auxiliary</button><button class="qopt" onclick="mc(this,1,false)">gefahren is not a participle</button><button class="qopt" onclick="mc(this,1,false)">The sentence is wrong</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">What is the Perfekt of "essen"?</div><div class="qopts"><button class="qopt" onclick="mc(this,2,true)">hat gegessen</button><button class="qopt" onclick="mc(this,2,false)">hat geessen</button><button class="qopt" onclick="mc(this,2,false)">ist gegessen</button><button class="qopt" onclick="mc(this,2,false)">hat essen</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">Which word connects events in sequence?</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">weil</button><button class="qopt" onclick="mc(this,3,false)">aber</button><button class="qopt" onclick="mc(this,3,true)">zuerst... dann...</button><button class="qopt" onclick="mc(this,3,false)">ob</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">"Das hat mir gut gefallen." What does this mean?</div><div class="qopts"><button class="qopt" onclick="mc(this,4,true)">I liked that.</button><button class="qopt" onclick="mc(this,4,false)">I did not like that.</button><button class="qopt" onclick="mc(this,4,false)">I fell down.</button><button class="qopt" onclick="mc(this,4,false)">I want that.</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Ich hatte viel Spaß." Which tense is "hatte"?</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Perfekt</button><button class="qopt" onclick="mc(this,5,true)">Präteritum</button><button class="qopt" onclick="mc(this,5,false)">Futur I</button><button class="qopt" onclick="mc(this,5,false)">Konjunktiv II</button></div><div class="qfb" id="qfb5"></div></div></div>
+<div class="card"><div class="sec-title">&#9999;&#65039; Complete the sentences</div><div class="fill-row">Ich <input class="fi" id="f1" placeholder="?"> gestern viel Spaß gehabt. (haben, ich - Perfekt)</div>
+<div class="fill-row">Ich <input class="fi" id="f2" placeholder="?"> ins Kino gegangen. (sein, ich - Perfekt)</div>
+<div class="fill-row">Das Wetter <input class="fi" id="f3" placeholder="?"> sehr schön. (sein, Präteritum)</div>
+<div class="fill-row">Was hast du <input class="fi" id="f4" placeholder="?">? (machen, Partizip II)</div>
+<div class="fill-row">Das hat mir gut <input class="fi" id="f5" placeholder="?">. (gefallen, Partizip II)</div>
+<button class="chk-btn" onclick="checkFill(['habe', 'bin', 'war', 'gemacht', 'gefallen'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="cta"><a class="cta-btn btn-back" href="A2_Sprechen_02.html">&#8592; Pläne machen</a><a class="cta-btn btn-next" href="A2_Sprechen_04.html">Wegbeschreibung &#8594;</a></div></div><script>
+const LANG={en:{home:'Home',a2_label:'A2',sprechen:'Sprechen',fb_correct:'Correct!',fb_wrong:'Not quite - see the correct answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a2_label:'A2',sprechen:'Expression orale',fb_correct:'Correct!',fb_wrong:'Pas tout a fait.',res_perfect:'Parfait!',res_great:'Tres bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a2_label:'A2',sprechen:'Expresion oral',fb_correct:'Correcto!',fb_wrong:'No del todo.',res_perfect:'Perfecto!',res_great:'Muy bien!',res_good:'Buen esfuerzo!',res_practice:'Sigue!',res_score:'Puntuacion',res_of:'de',res_correct:'correctas'},it:{home:'Home',a2_label:'A2',sprechen:'Espressione orale',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Inicio',a2_label:'A2',sprechen:'Expressao oral',fb_correct:'Correto!',fb_wrong:'Nao foi.',res_perfect:'Perfeito!',res_great:'Otimo!',res_good:'Bom esforco!',res_practice:'Continue!',res_score:'Pontuacao',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

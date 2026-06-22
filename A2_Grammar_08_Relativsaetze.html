@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS A2 08 Relativsaetze</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.ref-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-weight:800}
+.ref-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.ref-table tr:nth-child(even) td{background:#f8f0ff}
+.ref-table td:first-child{font-weight:800;color:var(--lc)}
+.tip-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:8px;padding:12px 16px;font-size:13px;margin-top:12px}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:110px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#f8f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #d4b0e8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.reading-text{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.9;margin-bottom:16px}
+.reading-text strong{color:var(--lc)}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+</style></head><body>
+<div class="topbar"><div class="tb-left">
+    <span class="tb-logo">TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span>
+    <span class="tb-badge">A2</span><span class="tb-mod">Grammar 08</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">R</div>
+  <div><div class="ph-title">Relativsaetze</div><div class="ph-sub">Relative clauses: der/die/das as relative pronouns</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap"><div class="card"><div class="sec-title">Relative Clauses</div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:10px">A Relativsatz describes a noun. The relative pronoun agrees with the <strong>gender of the noun it refers to</strong>, but its <strong>case is determined by its role in the relative clause</strong>.</p>
+  <table class="ref-table">
+    <tr><th>Case</th><th>Maskulinum</th><th>Femininum</th><th>Neutrum</th><th>Plural</th></tr>
+    <tr><td>Nominativ</td><td>der</td><td>die</td><td>das</td><td>die</td></tr>
+    <tr><td>Akkusativ</td><td>den</td><td>die</td><td>das</td><td>die</td></tr>
+    <tr><td>Dativ</td><td>dem</td><td>der</td><td>dem</td><td>denen</td></tr>
+  </table>
+  <div class="tip-box">The verb goes to the END of the relative clause (same rule as Nebensaetze).<br>
+  Das ist der Mann, <strong>der</strong> hier wohnt. (nom. masc.) | Das ist die Frau, <strong>die</strong> ich kenne. (acc. fem.) | Das ist das Kind, <strong>dem</strong> ich helfe. (dat. neut.)</div>
+</div>
+<div class="card"><div class="sec-title">Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">Das ist der Mann, _____ hier wohnt. (nominative, masc.)</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">die</button><button class="qopt" onclick="mc(this,1,true)">der</button><button class="qopt" onclick="mc(this,1,false)">dem</button><button class="qopt" onclick="mc(this,1,false)">das</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">Ich kenne die Frau, _____ du kennst. (accusative, fem.)</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">der</button><button class="qopt" onclick="mc(this,2,false)">das</button><button class="qopt" onclick="mc(this,2,true)">die</button><button class="qopt" onclick="mc(this,2,false)">dem</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">Das ist das Buch, _____ mir gehoert. (nominative, neut.)</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">der</button><button class="qopt" onclick="mc(this,3,false)">die</button><button class="qopt" onclick="mc(this,3,true)">das</button><button class="qopt" onclick="mc(this,3,false)">dem</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">Der Mann, _____ ich helfe, heisst Karl. (dative, masc.)</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">der</button><button class="qopt" onclick="mc(this,4,false)">die</button><button class="qopt" onclick="mc(this,4,false)">das</button><button class="qopt" onclick="mc(this,4,true)">dem</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">Die Schuhe, _____ ich kaufen moechte, sind teuer. (accusative, plural)</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">denen</button><button class="qopt" onclick="mc(this,5,false)">der</button><button class="qopt" onclick="mc(this,5,true)">die</button><button class="qopt" onclick="mc(this,5,false)">dem</button></div><div class="qfb" id="qfb5"></div></div><div class="qblock"><div class="qnum">Q6</div><div class="qtext">Where does the verb go in a relative clause?</div><div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Second position</button><button class="qopt" onclick="mc(this,6,false)">Directly after the relative pronoun</button><button class="qopt" onclick="mc(this,6,true)">At the end</button><button class="qopt" onclick="mc(this,6,false)">Before the relative pronoun</button></div><div class="qfb" id="qfb6"></div></div><div class="qblock"><div class="qnum">Q7</div><div class="qtext">Das Kind, _____ ich ein Buch gegeben habe, lacht. (dative, neut.)</div><div class="qopts"><button class="qopt" onclick="mc(this,7,false)">das</button><button class="qopt" onclick="mc(this,7,true)">dem</button><button class="qopt" onclick="mc(this,7,false)">die</button><button class="qopt" onclick="mc(this,7,false)">der</button></div><div class="qfb" id="qfb7"></div></div><div class="qblock"><div class="qnum">Q8</div><div class="qtext">Der relative pronoun gender is determined by...</div><div class="qopts"><button class="qopt" onclick="mc(this,8,false)">the case in the relative clause</button><button class="qopt" onclick="mc(this,8,true)">the gender of the noun it refers to</button><button class="qopt" onclick="mc(this,8,false)">the verb in the main clause</button><button class="qopt" onclick="mc(this,8,false)">the ending of the noun</button></div><div class="qfb" id="qfb8"></div></div><div class="qblock"><div class="qnum">Q9</div><div class="qtext">Die Lehrerin, _____ wir alle moegen, heisst Frau Braun. (accusative, fem.)</div><div class="qopts"><button class="qopt" onclick="mc(this,9,false)">der</button><button class="qopt" onclick="mc(this,9,true)">die</button><button class="qopt" onclick="mc(this,9,false)">das</button><button class="qopt" onclick="mc(this,9,false)">dem</button></div><div class="qfb" id="qfb9"></div></div><div class="qblock"><div class="qnum">Q10</div><div class="qtext">Plural dative relative pronoun is...</div><div class="qopts"><button class="qopt" onclick="mc(this,10,false)">die</button><button class="qopt" onclick="mc(this,10,false)">den</button><button class="qopt" onclick="mc(this,10,true)">denen</button><button class="qopt" onclick="mc(this,10,false)">der</button></div><div class="qfb" id="qfb10"></div></div></div>
+<div class="card"><div class="sec-title">Fill in the Blanks</div><div class="fill-row">1. Das ist der Freund, <input class="fi" id="f1" placeholder="der/die/das/dem"> mir geholfen hat. (nom. masc.)</div>
+<div class="fill-row">2. Die Frau, <input class="fi" id="f2" placeholder="der/die/das/dem"> ich schreibe, ist meine Tante. (dat. fem.)</div>
+<div class="fill-row">3. Er ist der Mann, <input class="fi" id="f3" placeholder="der/die/das/dem"> ich vertraue. (dat. masc.)</div>
+<div class="fill-row">4. Das ist das Buch, <input class="fi" id="f4" placeholder="der/die/das/dem"> ich lesen moechte. (acc. neut.)</div>
+<button class="chk-btn" onclick="checkFill(['der', 'die', 'dem', 'das'],['f1', 'f2', 'f3', 'f4'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">Richtig oder Falsch?</div>
+<table class="rf-table"><tr><th>Statement</th><th>R</th><th>F</th></tr><tr><td>The relative pronoun must agree with the gender of the noun it describes.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>The case of the relative pronoun depends on its role in the main clause.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>The verb goes to the end of the relative clause.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Dative plural relative pronoun is "denen".</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Feminine accusative relative pronoun is "der".</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr></table>
+<button class="chk-btn" onclick="checkRF(['R', 'F', 'R', 'R', 'F'],[0,1,2,3,4],'rfr1')" style="margin-top:12px">Check</button>
+<div id="rfr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">Reading</div><div class="reading-text">
+    Ich habe einen Freund, <strong>der</strong> sehr gut Gitarre spielen kann. Er hat eine Gitarre, <strong>die</strong> sein Vater ihm geschenkt hat. Das Lied, <strong>das</strong> er immer spielt, heisst "Lili Marleen". Die Menschen, <strong>die</strong> ihn hoeren, werden immer gluecklich. Er hat auch eine Schwester, <strong>der</strong> er das Gitarrenspielen beibringt. Sie ist eine Schuelerein, <strong>die</strong> sehr schnell lernt.
+  </div><div class="qblock"><div class="qnum">Q11</div><div class="qtext">Who gave the friend the guitar?</div><div class="qopts"><button class="qopt" onclick="mc(this,11,false)">His mother</button><button class="qopt" onclick="mc(this,11,true)">His father</button><button class="qopt" onclick="mc(this,11,false)">His sister</button><button class="qopt" onclick="mc(this,11,false)">A teacher</button></div><div class="qfb" id="qfb11"></div></div><div class="qblock"><div class="qnum">Q12</div><div class="qtext">What is the name of the song he always plays?</div><div class="qopts"><button class="qopt" onclick="mc(this,12,false)">Stille Nacht</button><button class="qopt" onclick="mc(this,12,true)">Lili Marleen</button><button class="qopt" onclick="mc(this,12,false)">Edelweiss</button><button class="qopt" onclick="mc(this,12,false)">Haensel und Gretel</button></div><div class="qfb" id="qfb12"></div></div><div class="qblock"><div class="qnum">Q13</div><div class="qtext">"Die Menschen, die ihn hoeren" - why is the relative pronoun "die"?</div><div class="qopts"><button class="qopt" onclick="mc(this,13,false)">Because Menschen is feminine</button><button class="qopt" onclick="mc(this,13,true)">Because Menschen is nominative plural</button><button class="qopt" onclick="mc(this,13,false)">Because it is accusative</button><button class="qopt" onclick="mc(this,13,false)">Because it is dative</button></div><div class="qfb" id="qfb13"></div></div></div>
+<div class="cta"><a class="cta-btn btn-back" href="A2_Grammar_07_Nebensaetze.html">Nebensaetze</a><a class="cta-btn btn-next" href="A2_Grammar_09_Futur1.html">Futur I</a></div></div><script>
+const LANG={en:{home:'Home',a2_label:'A2',fb_correct:'Correct!',fb_wrong:'Not quite - see the correct answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a2_label:'A2',fb_correct:'Correct!',fb_wrong:'Pas tout a fait.',res_perfect:'Parfait!',res_great:'Tres bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a2_label:'A2',fb_correct:'Correcto!',fb_wrong:'No del todo.',res_perfect:'Perfecto!',res_great:'Muy bien!',res_good:'Buen esfuerzo!',res_practice:'Sigue!',res_score:'Puntuacion',res_of:'de',res_correct:'correctas'},it:{home:'Home',a2_label:'A2',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Inicio',a2_label:'A2',fb_correct:'Correto!',fb_wrong:'Nao foi.',res_perfect:'Perfeito!',res_great:'Otimo!',res_good:'Bom esforco!',res_practice:'Continue!',res_score:'Pontuacao',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='[::]';if(p===1){cls='perfect';msg=t('res_perfect');em='[TT]';}else if(p>=0.8){cls='great';msg=t('res_great');em='[!!]';}else if(p>=0.5){cls='good';msg=t('res_good');em='[++]';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

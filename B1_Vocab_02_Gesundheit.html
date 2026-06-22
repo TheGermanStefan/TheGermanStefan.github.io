@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS B1 Vocab Gesundheit & Medizin</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#e65100;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#bf360c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.intro-box{background:#fff3e0;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;margin-bottom:16px;font-size:14px}
+.intro-box strong{color:var(--lc)}
+.rule-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:14px}
+.rule-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rule-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.rule-table tr:nth-child(even) td{background:#fff3e0}
+.rule-table .de{font-weight:800;color:var(--navy)}
+.rule-table .en{color:var(--txt2);font-size:12px}
+.example-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.example-list li{background:#fff3e0;border-left:4px solid var(--lc);border-radius:8px;padding:10px 14px;font-size:14px}
+.example-list .de{font-weight:800;color:var(--navy)}
+.example-list .en{color:var(--txt2);font-size:12px;margin-top:2px}
+.qblock{background:#fff3e0;border:2px solid #ffcc80;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #ffcc80;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#fff3e0}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#fff3e0;border-radius:10px;border:1.5px solid #ffcc80}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#fff3e0}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ffcc80;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#bf360c,#e65100);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#bf360c}
+.tag{display:inline-block;background:#fff3e0;border:1.5px solid #ffcc80;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700;color:var(--lc);margin:3px}
+.highlight{color:var(--lc);font-weight:800}
+</style><style>
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:16px}
+.word-card{background:#fff3e0;border:2px solid #ffcc80;border-radius:12px;padding:14px 16px}
+.word-art{font-size:11px;font-weight:900;color:var(--lc);margin-bottom:2px}
+.word-de{font-size:17px;font-weight:900;color:var(--navy);margin-bottom:3px}
+.word-en{font-size:13px;color:var(--txt2)}
+.word-ex{font-size:12px;color:var(--txt);background:#fff;border-radius:6px;padding:5px 8px;margin-top:6px;border-left:3px solid var(--lc)}
+</style></head><body>
+<div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">B1</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">Vocab</span>
+    <span class="tb-badge">B1</span><span class="tb-mod">Set 2</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">🏥</div>
+  <div><div class="ph-title">Gesundheit & Medizin</div><div class="ph-sub">12 B1 health and medical vocabulary words</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap">
+<div class="card"><div class="sec-title">&#128218; Word Cards</div><div class="word-grid"><div class="word-card"><div class="word-art">die</div><div class="word-de">Vorsorgeuntersuchung</div><div class="word-en">medical check-up</div><div class="word-ex">Ich gehe jedes Jahr zur Vorsorgeuntersuchung.</div></div><div class="word-card"><div class="word-art">das</div><div class="word-de">Rezept</div><div class="word-en">prescription</div><div class="word-ex">Der Arzt hat mir ein Rezept gegeben.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Überweisung</div><div class="word-en">referral</div><div class="word-ex">Ich brauche eine Überweisung zum Spezialisten.</div></div><div class="word-card"><div class="word-art">der</div><div class="word-de">Blutdruck</div><div class="word-en">blood pressure</div><div class="word-ex">Mein Blutdruck ist zu hoch.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Allergie</div><div class="word-en">allergy</div><div class="word-ex">Sie hat eine Allergie gegen Nüsse.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Nebenwirkung</div><div class="word-en">side effect</div><div class="word-ex">Das Medikament hat starke Nebenwirkungen.</div></div><div class="word-card"><div class="word-art">chronisch</div><div class="word-de">chronic (adj.)</div><div class="word-en">—</div><div class="word-ex">Er leidet an einer chronischen Krankheit.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Krankenversicherung</div><div class="word-en">health insurance</div><div class="word-ex">Alle haben in Deutschland Krankenversicherung.</div></div><div class="word-card"><div class="word-art">der</div><div class="word-de">Facharzt</div><div class="word-en">specialist (doctor)</div><div class="word-ex">Ich muss zum Facharzt gehen.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Impfung</div><div class="word-en">vaccination</div><div class="word-ex">Die Impfung schützt vor Krankheiten.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Diagnose</div><div class="word-en">diagnosis</div><div class="word-ex">Die Diagnose war überraschend.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Rehabilitation</div><div class="word-en">rehabilitation</div><div class="word-ex">Nach der OP kam eine Rehabilitation.</div></div></div></div>
+<div class="card"><div class="sec-title">&#127919; Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">What is "die Vorsorgeuntersuchung"?</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">Emergency treatment</button><button class="qopt" onclick="mc(this,1,true)">Medical check-up</button><button class="qopt" onclick="mc(this,1,false)">Surgery</button><button class="qopt" onclick="mc(this,1,false)">Vaccination</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">"Die Nebenwirkung" means…</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">Main effect</button><button class="qopt" onclick="mc(this,2,true)">Side effect</button><button class="qopt" onclick="mc(this,2,false)">After-effect</button><button class="qopt" onclick="mc(this,2,false)">No effect</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">What is "der Facharzt"?</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">GP/general practitioner</button><button class="qopt" onclick="mc(this,3,true)">Specialist doctor</button><button class="qopt" onclick="mc(this,3,false)">Surgeon</button><button class="qopt" onclick="mc(this,3,false)">Dentist</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">What does "die Impfung" protect against?</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">High blood pressure</button><button class="qopt" onclick="mc(this,4,true)">Diseases</button><button class="qopt" onclick="mc(this,4,false)">Allergies</button><button class="qopt" onclick="mc(this,4,false)">Side effects</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Chronisch" describes an illness that is…</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Acute and sudden</button><button class="qopt" onclick="mc(this,5,true)">Long-lasting/ongoing</button><button class="qopt" onclick="mc(this,5,false)">Contagious</button><button class="qopt" onclick="mc(this,5,false)">Mild</button></div><div class="qfb" id="qfb5"></div></div><div class="qblock"><div class="qnum">Q6</div><div class="qtext">What is "die Überweisung"?</div><div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Prescription</button><button class="qopt" onclick="mc(this,6,true)">Referral to a specialist</button><button class="qopt" onclick="mc(this,6,false)">Blood test</button><button class="qopt" onclick="mc(this,6,false)">Vaccination record</button></div><div class="qfb" id="qfb6"></div></div><div class="qblock"><div class="qnum">Q7</div><div class="qtext">"Die Diagnose" means…</div><div class="qopts"><button class="qopt" onclick="mc(this,7,false)">Treatment</button><button class="qopt" onclick="mc(this,7,true)">Diagnosis</button><button class="qopt" onclick="mc(this,7,false)">Prescription</button><button class="qopt" onclick="mc(this,7,false)">Operation</button></div><div class="qfb" id="qfb7"></div></div><div class="qblock"><div class="qnum">Q8</div><div class="qtext">What is "die Krankenversicherung"?</div><div class="qopts"><button class="qopt" onclick="mc(this,8,false)">Life insurance</button><button class="qopt" onclick="mc(this,8,true)">Health insurance</button><button class="qopt" onclick="mc(this,8,false)">Accident insurance</button><button class="qopt" onclick="mc(this,8,false)">Pension plan</button></div><div class="qfb" id="qfb8"></div></div><div class="qblock"><div class="qnum">Q9</div><div class="qtext">"Der Blutdruck" refers to…</div><div class="qopts"><button class="qopt" onclick="mc(this,9,false)">Blood type</button><button class="qopt" onclick="mc(this,9,true)">Blood pressure</button><button class="qopt" onclick="mc(this,9,false)">Blood test</button><button class="qopt" onclick="mc(this,9,false)">Blood count</button></div><div class="qfb" id="qfb9"></div></div><div class="qblock"><div class="qnum">Q10</div><div class="qtext">What follows an operation in recovery?</div><div class="qopts"><button class="qopt" onclick="mc(this,10,false)">Diagnosis</button><button class="qopt" onclick="mc(this,10,false)">Referral</button><button class="qopt" onclick="mc(this,10,true)">Rehabilitation</button><button class="qopt" onclick="mc(this,10,false)">Check-up</button></div><div class="qfb" id="qfb10"></div></div></div>
+<div class="card"><div class="sec-title">&#9999;&#65039; Fill in the blanks</div><div class="fill-row">Ich gehe zur <input class="fi" id="f1" placeholder="?"> beim Arzt. (check-up)</div>
+<div class="fill-row">Der Arzt hat mir ein <input class="fi" id="f2" placeholder="?"> ausgestellt. (prescription)</div>
+<div class="fill-row">Dieses Medikament hat starke <input class="fi" id="f3" placeholder="?">. (side effects, pl.)</div>
+<div class="fill-row">Ich brauche einen Termin beim <input class="fi" id="f4" placeholder="?">. (specialist)</div>
+<div class="fill-row">Die <input class="fi" id="f5" placeholder="?"> gegen Grippe ist empfohlen. (vaccination)</div>
+<button class="chk-btn" onclick="checkFill(['Vorsorgeuntersuchung', 'Rezept', 'Nebenwirkungen', 'Facharzt', 'Impfung'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">&#10003; Richtig oder Falsch?</div>
+<table class="rf-table"><tr><th>Statement</th><th>R</th><th>F</th></tr><tr><td>Eine Vorsorgeuntersuchung ist eine Routinekontrolle.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Ein Facharzt ist dasselbe wie ein Hausarzt.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Nebenwirkungen sind unerwünschte Wirkungen eines Medikaments.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Die Impfung kann Krankheiten verhindern.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Eine Diagnose kommt nach der Behandlung.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr></table>
+<button class="chk-btn" onclick="checkRF(['R', 'F', 'R', 'R', 'F'],[0,1,2,3,4],'rfr1')" style="margin-top:12px">Check</button>
+<div id="rfr1" class="rb"></div></div>
+<div class="cta"><a class="cta-btn btn-back" href="B1_Vocab_01_Umwelt.html">&#8592; Umwelt</a><a class="cta-btn btn-next" href="B1_Vocab_03_Karriere.html">Karriere &#8594;</a></div></div><script>
+const LANG={en:{home:'Home',b1:'B1',grammar:'Grammar',fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',b1:'B1',grammar:'Grammaire',fb_correct:'Correct!',fb_wrong:'Pas tout à fait.',res_perfect:'Parfait!',res_great:'Très bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',b1:'B1',grammar:'Gramática',fb_correct:'¡Correcto!',fb_wrong:'No del todo.',res_perfect:'¡Perfecto!',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},it:{home:'Home',b1:'B1',grammar:'Grammatica',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Início',b1:'B1',grammar:'Gramática',fb_correct:'Correto!',fb_wrong:'Não foi.',res_perfect:'Perfeito!',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS A2 Sprechen Wünsche & Träume</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.scenario{background:linear-gradient(135deg,#f3e5f5,#ede7f6);border:2px solid #ce93d8;border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.scenario-icon{font-size:28px;margin-bottom:6px}
+.scenario-title{font-size:15px;font-weight:900;color:var(--lc);margin-bottom:6px}
+.scenario-desc{font-size:13px;color:var(--txt)}
+.prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.prompt-card{background:#f8f0ff;border-radius:10px;padding:14px 16px;border-left:4px solid var(--lc)}
+.prompt-label{font-size:11px;font-weight:900;color:var(--lc);text-transform:uppercase;margin-bottom:6px}
+.prompt-text{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.prompt-model{font-size:13px;color:var(--txt2);font-style:italic}
+.phrase-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.phrase{background:#f3e5f5;border:1.5px solid #ce93d8;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:var(--navy)}
+.dialogue{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:2;margin-bottom:14px}
+.dialogue .A{color:var(--lc);font-weight:800}
+.dialogue .B{color:var(--navy);font-weight:800}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+@media(max-width:600px){.prompt-grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="a2_label">A2</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="sprechen">Sprechen</span>
+    <span class="tb-badge">A2</span><span class="tb-mod">Sprechen 10</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">✨</div>
+  <div><div class="ph-title">Wünsche & Träume</div><div class="ph-sub">Expressing wishes and dreams using Konjunktiv II</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap"><div style="background:linear-gradient(135deg,#6a1b9a,#4a148c);color:#fff;border-radius:16px;padding:28px 30px;text-align:center;margin-bottom:22px;box-shadow:0 4px 20px rgba(106,27,154,.35)">
+  <div style="font-size:52px;margin-bottom:10px">&#127941;</div>
+  <div style="font-size:22px;font-weight:900;margin-bottom:6px">A2 Complete!</div>
+  <div style="font-size:14px;opacity:.85;margin-bottom:16px">All A2 Sprechen Cards finished. Wunderbar!</div>
+  <a style="display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:10px 26px;border-radius:10px;text-decoration:none;margin:4px" href="TheGermanStefan_A2_Hub.html">Back to A2 Hub</a>
+</div>
+<div class="card">
+  <div class="sec-title">&#127908; Speaking Scenario</div>
+  <div class="scenario"><div class="scenario-icon">🌟</div>
+    <div class="scenario-title">Was wären deine Träume?</div>
+    <div class="scenario-desc">Use Konjunktiv II to talk about wishes, dreams and hypothetical situations.</div></div>
+  <div class="sec-title" style="margin-top:14px">&#128218; Speaking Prompts</div>
+  <div class="prompt-grid"><div class="prompt-card"><div class="prompt-label">Prompt 1</div><div class="prompt-text">Was würdest du tun, wenn du viel Geld hättest?</div><div class="prompt-model">Ich würde um die Welt reisen und ein Haus am Meer kaufen.</div></div><div class="prompt-card"><div class="prompt-label">Prompt 2</div><div class="prompt-text">Was wäre dein Traumjob?</div><div class="prompt-model">Mein Traumjob wäre Schriftsteller oder Fotograf.</div></div><div class="prompt-card"><div class="prompt-label">Prompt 3</div><div class="prompt-text">Wenn du eine Superkraft hättest?</div><div class="prompt-model">Ich hätte gern die Fähigkeit zu fliegen!</div></div><div class="prompt-card"><div class="prompt-label">Prompt 4</div><div class="prompt-text">Was würdest du an der Welt ändern?</div><div class="prompt-model">Ich würde mehr für den Klimaschutz tun.</div></div></div>
+</div>
+<div class="card"><div class="sec-title">&#128172; Key Phrases</div><div class="phrase-list"><span class="phrase">Ich würde gern ...</span><span class="phrase">Wenn ich ... hätte / wäre, würde ich ...</span><span class="phrase">Das wäre schön!</span><span class="phrase">Ich hätte gern ...</span><span class="phrase">Mein Traum wäre ...</span><span class="phrase">Ich wünsche mir, dass ...</span><span class="phrase">An deiner Stelle würde ich ...</span><span class="phrase">Das würde ich nie tun!</span></div></div>
+<div class="card"><div class="sec-title">&#128101; Model Dialogue</div>
+<div class="dialogue"><span class="A">A:</span> Was würdest du tun, wenn du für ein Jahr nicht arbeiten müsstest?<br>
+    <span class="B">B:</span> Oh, das wäre fantastisch! Zuerst würde ich sechs Monate in Japan verbringen.<br>
+    <span class="A">A:</span> Warum Japan?<br>
+    <span class="B">B:</span> Ich finde die Kultur so faszinierend. Ich würde Japanisch lernen und viel reisen.<br>
+    <span class="A">A:</span> Und wenn du unbegrenzt Geld hättest?<br>
+    <span class="B">B:</span> Dann würde ich eine Schule in einem Entwicklungsland bauen. Bildung ist das Wichtigste.<br>
+    <span class="A">A:</span> Was wäre dein Traum?<br>
+    <span class="B">B:</span> Ich hätte gern mehr Zeit mit meiner Familie. Das wäre das Schönste!</div></div>
+<div class="card"><div class="sec-title">&#127919; Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">"Wenn ich Zeit hätte, würde ich mehr lesen." — "hätte" is...</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">Perfekt of haben</button><button class="qopt" onclick="mc(this,1,false)">Präteritum of haben</button><button class="qopt" onclick="mc(this,1,true)">Konjunktiv II of haben</button><button class="qopt" onclick="mc(this,1,false)">Futur I of haben</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">"Das wäre schön!" means...</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">That was nice.</button><button class="qopt" onclick="mc(this,2,true)">That would be nice.</button><button class="qopt" onclick="mc(this,2,false)">That is nice.</button><button class="qopt" onclick="mc(this,2,false)">That will be nice.</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">Complete: Ich _____ gern mehr Freizeit. (Konjunktiv II of haben)</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">hatte</button><button class="qopt" onclick="mc(this,3,false)">habe</button><button class="qopt" onclick="mc(this,3,true)">hätte</button><button class="qopt" onclick="mc(this,3,false)">werde haben</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">"An deiner Stelle würde ich..." means...</div><div class="qopts"><button class="qopt" onclick="mc(this,4,true)">If I were you, I would...</button><button class="qopt" onclick="mc(this,4,false)">Instead of you, I will...</button><button class="qopt" onclick="mc(this,4,false)">On your side...</button><button class="qopt" onclick="mc(this,4,false)">Next to you...</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Ich würde nie..." expresses...</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Something I did in the past</button><button class="qopt" onclick="mc(this,5,true)">Something I would never do</button><button class="qopt" onclick="mc(this,5,false)">A future certainty</button><button class="qopt" onclick="mc(this,5,false)">A polite request</button></div><div class="qfb" id="qfb5"></div></div></div>
+<div class="card"><div class="sec-title">&#9999;&#65039; Complete the sentences</div><div class="fill-row">Ich <input class="fi" id="f1" placeholder="?"> gern um die Welt reisen. (würde)</div>
+<div class="fill-row">Das <input class="fi" id="f2" placeholder="?"> ein Traum! (wäre - Konj. II)</div>
+<div class="fill-row">Wenn ich mehr Geld <input class="fi" id="f3" placeholder="?">... (hätte - Konj. II)</div>
+<div class="fill-row">Ich <input class="fi" id="f4" placeholder="?"> mir mehr Zeit. (sich wünschen, ich)</div>
+<div class="fill-row">Das klingt <input class="fi" id="f5" placeholder="?">! (wonderful)</div>
+<button class="chk-btn" onclick="checkFill(['würde', 'wäre', 'hätte', 'wünsche', 'wunderbar'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="cta"><a class="cta-btn btn-back" href="A2_Sprechen_09.html">&#8592; Vergleiche</a><a class="cta-btn btn-next" href="TheGermanStefan_A2_Hub.html">A2 Hub &#8594;</a></div></div><script>
+const LANG={en:{home:'Home',a2_label:'A2',sprechen:'Sprechen',fb_correct:'Correct!',fb_wrong:'Not quite - see the correct answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a2_label:'A2',sprechen:'Expression orale',fb_correct:'Correct!',fb_wrong:'Pas tout a fait.',res_perfect:'Parfait!',res_great:'Tres bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a2_label:'A2',sprechen:'Expresion oral',fb_correct:'Correcto!',fb_wrong:'No del todo.',res_perfect:'Perfecto!',res_great:'Muy bien!',res_good:'Buen esfuerzo!',res_practice:'Sigue!',res_score:'Puntuacion',res_of:'de',res_correct:'correctas'},it:{home:'Home',a2_label:'A2',sprechen:'Espressione orale',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Inicio',a2_label:'A2',sprechen:'Expressao oral',fb_correct:'Correto!',fb_wrong:'Nao foi.',res_perfect:'Perfeito!',res_great:'Otimo!',res_good:'Bom esforco!',res_practice:'Continue!',res_score:'Pontuacao',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html></script></body></html>

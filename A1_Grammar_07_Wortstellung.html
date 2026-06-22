@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A1 · Grammatik · Wortstellung</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75;min-height:100vh}
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.6}.bc a{color:#fff;text-decoration:none}
+.lbadge{font-size:11px;font-weight:900;padding:3px 10px;border-radius:20px;background:var(--lc);color:#fff}
+.mbadge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff}
+.ls{display:flex;gap:4px}
+.lb{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{border-color:rgba(255,255,255,.6);color:#fff}.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.page-hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;padding:26px 24px 20px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:42px}.ph-title{font-size:23px;font-weight:900;margin-bottom:4px}.ph-sub{font-size:13px;opacity:.8}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score-wrap{text-align:right;flex-shrink:0}
+.ph-score{font-size:30px;font-weight:900;color:var(--amber);line-height:1}
+.ph-score-lbl{font-size:11px;opacity:.6;margin-top:3px}
+.pgstrip{background:#e8eef8;height:5px}.pgfill{height:100%;background:var(--amber);transition:width .5s ease;width:0%}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.ib{padding:10px 15px;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;background:#e8f0fe;font-size:13px;font-style:italic;color:var(--txt2);margin-bottom:16px}
+.tip{background:#e8f0fe;border:1.5px solid #b0cef8;border-radius:9px;padding:11px 15px;font-size:13px;margin-bottom:14px}
+.tip strong{color:var(--lc)}
+.ws-diagram{background:#f8faff;border:2px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:16px}
+.ws-diagram h4{font-size:13px;font-weight:900;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.ws-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.ws-cell{background:#fff;border:2px solid var(--border);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;text-align:center;min-width:70px}
+.ws-cell.subj{border-color:#1565c0;background:#e3f2fd;color:#0d47a1}
+.ws-cell.verb{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20}
+.ws-cell.rest{border-color:#e65100;background:#fff3e0;color:#bf360c}
+.ws-cell.adv{border-color:#6a1b9a;background:#f3e5f5;color:#4a148c}
+.ws-arrow{font-size:18px;color:var(--lc)}
+.qblock{margin-bottom:16px;padding:15px 17px;background:#f8faff;border-radius:10px;border:1.5px solid var(--border)}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#e8f0fe}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fs{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;font-size:15px;padding:11px 14px;background:#f8faff;border-radius:9px;border:1.5px solid var(--border);margin-bottom:10px}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:14px;font-weight:700;color:var(--navy);padding:2px 5px;min-width:180px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}.fi.bad{border-color:var(--red);color:var(--red)}
+table.rft{width:100%;border-collapse:collapse;font-size:14px}
+table.rft th{background:#e8f0fe;padding:8px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);border-bottom:2px solid var(--border)}
+table.rft td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+table.rft tr:nth-child(even) td{background:#fafcff}
+.rfc{text-align:center;width:90px}
+.rfw{display:flex;gap:5px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #ccc;background:#fff;font-weight:900;font-size:12px;color:#777;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.rfb:hover{transform:scale(1.1);border-color:var(--lc)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rbox{background:#fffef8;border:1.5px solid #ffe082;border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.9;margin-bottom:12px}
+.rbmeta{font-size:11px;color:var(--txt3);font-style:italic;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#d0d8ec}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.rb{border-radius:12px;padding:16px 20px;margin-top:16px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid #1976d2}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rbe{font-size:34px}.rbti{font-size:17px;font-weight:900;color:var(--navy)}.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+.cta{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;border-radius:14px;padding:22px;margin-top:26px;text-align:center}
+.cta h3{font-size:17px;font-weight:900;margin-bottom:7px}
+.cta p{font-size:13px;opacity:.85;margin-bottom:14px}
+.cta-btn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:11px 28px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:10px}
+.nbtn{padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nprev{background:#e0e6f0;color:var(--navy)}.nnext{background:var(--lc);color:#fff}
+@media(max-width:600px){.qopts{flex-direction:column}.qopt{width:100%}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="A1_hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
+    <span class="lbadge">A1</span><span class="mbadge" data-t="grammar">Grammar</span>
+  </div>
+  <div class="ls">
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">🔀</div>
+      <div class="ph-title">Wortstellung</div>
+      <div class="ph-sub" data-t="ph_sub">Word order in German sentences — the verb is always 2nd!</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A1</span><span class="ph-tag" data-t="grammar">Grammar</span>
+        <span class="ph-tag">07 / 10</span>
+        <span class="ph-tag">⏱ 15 <span data-t="minutes">min</span></span>
+        <span class="ph-tag">20 <span data-t="questions">questions</span></span>
+      </div>
+    </div>
+    <div class="ph-score-wrap">
+      <div class="ph-score" id="lsd">0</div>
+      <div class="ph-score-lbl" data-t="correct_answers">correct</div>
+    </div>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="wrap">
+<div class="card"><div class="cb">
+  <div class="tip">💡 <strong data-t="tip_label">Quick Tip:</strong> <span data-t="tip1">The golden rule: <strong>the verb is ALWAYS in position 2</strong> in a German main clause. If you start with an adverb or time expression, the subject moves to position 3 — but the verb stays at position 2!</span></div>
+  <div class="ws-diagram">
+    <h4>The V2 (Verb-Second) Rule</h4>
+    <div class="ws-row">
+      <div class="ws-cell subj">Ich</div><div class="ws-cell verb">lerne</div><div class="ws-cell rest">jeden Tag Deutsch.</div>
+    </div>
+    <div class="ws-row">
+      <div class="ws-cell adv">Jeden Tag</div><div class="ws-cell verb">lerne</div><div class="ws-cell subj">ich</div><div class="ws-cell rest">Deutsch.</div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-top:8px">🔵 Subject &nbsp; 🟢 Verb (always position 2!) &nbsp; 🟠 Rest &nbsp; 🟣 Adverb/Time</div>
+  </div>
+  <div class="ws-diagram">
+    <h4>Questions</h4>
+    <div class="ws-row">
+      <div class="ws-cell verb">Lernst</div><div class="ws-cell subj">du</div><div class="ws-cell rest">Deutsch? (Yes/No question)</div>
+    </div>
+    <div class="ws-row">
+      <div class="ws-cell" style="border-color:#777;background:#f5f5f5">Wann</div><div class="ws-cell verb">lernst</div><div class="ws-cell subj">du</div><div class="ws-cell rest">Deutsch? (W-question)</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📋 <span data-t="instructions">Instructions</span></div>
+  <div class="ib" data-t="instr_mc">Choose the sentence with correct German word order.</div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 1</div>
+    <div class="qtext">Which sentence has CORRECT German word order?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,true)">Ich lerne jeden Tag Deutsch.</button>
+      <button class="qopt" onclick="mc(this,1,false)">Ich jeden Tag Deutsch lerne.</button>
+      <button class="qopt" onclick="mc(this,1,false)">Lerne ich jeden Deutsch Tag.</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 2</div>
+    <div class="qtext">„Heute ___" — what comes immediately after „Heute" in a V2 sentence?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,false)">ich arbeite.</button>
+      <button class="qopt" onclick="mc(this,2,true)">arbeite ich.</button>
+      <button class="qopt" onclick="mc(this,2,false)">ich arbeite nicht.</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 3</div>
+    <div class="qtext">Which is the correct Yes/No question?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,false)">Du kommst morgen?</button>
+      <button class="qopt" onclick="mc(this,3,true)">Kommst du morgen?</button>
+      <button class="qopt" onclick="mc(this,3,false)">Morgen du kommst?</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 4</div>
+    <div class="qtext">Reorder: „er / wohnt / in Berlin / seit zwei Jahren" — correct order?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,true)">Er wohnt seit zwei Jahren in Berlin.</button>
+      <button class="qopt" onclick="mc(this,4,false)">Er seit zwei Jahren wohnt in Berlin.</button>
+      <button class="qopt" onclick="mc(this,4,false)">Wohnt er in Berlin seit zwei Jahren.</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 5</div>
+    <div class="qtext">W-question: „___ kommt sie?" (Where does she come from?)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,false)">Sie woher kommt?</button>
+      <button class="qopt" onclick="mc(this,5,true)">Woher kommt sie?</button>
+      <button class="qopt" onclick="mc(this,5,false)">Woher sie kommt?</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 6</div>
+    <div class="qtext">„Am Abend ___ wir Deutsch." — What's the correct word for position 2?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,false)">wir lernen</button>
+      <button class="qopt" onclick="mc(this,6,true)">lernen wir</button>
+      <button class="qopt" onclick="mc(this,6,false)">lernen</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 7</div>
+    <div class="qtext">Which is a correct negative sentence (with „nicht")?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,false)">Ich nicht komme morgen.</button>
+      <button class="qopt" onclick="mc(this,7,true)">Ich komme morgen nicht.</button>
+      <button class="qopt" onclick="mc(this,7,false)">Komme nicht ich morgen.</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 8</div>
+    <div class="qtext">What is the position of the verb in a German main clause?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,false)">First position always</button>
+      <button class="qopt" onclick="mc(this,8,true)">Second position always</button>
+      <button class="qopt" onclick="mc(this,8,false)">Last position always</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 9</div>
+    <div class="qtext">„Manchmal ___ ich ins Kino." — What goes in position 2?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,true)">gehe</button>
+      <button class="qopt" onclick="mc(this,9,false)">ich gehe</button>
+      <button class="qopt" onclick="mc(this,9,false)">gehe ich ins</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 10</div>
+    <div class="qtext">Which sentence correctly starts with a time adverb?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">Morgen ich lerne Deutsch.</button>
+      <button class="qopt" onclick="mc(this,10,true)">Morgen lerne ich Deutsch.</button>
+      <button class="qopt" onclick="mc(this,10,false)">Morgen Deutsch lerne ich.</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✏️ <span data-t="fill_title">Put in the right order</span></div>
+  <div class="ib" data-t="instr_fill">Rearrange the words to make a correct sentence. Type the full sentence.</div>
+  <div class="fs" style="flex-direction:column;align-items:flex-start">
+    <span style="font-size:13px;color:var(--lc);font-weight:800">Words: heute / spiele / ich / Fußball</span>
+    <input class="fi" id="fi1" type="text" placeholder="Type the sentence..." autocomplete="off" style="min-width:100%;margin-top:8px">
+  </div>
+  <div class="fs" style="flex-direction:column;align-items:flex-start">
+    <span style="font-size:13px;color:var(--lc);font-weight:800">Words: du / wohnst / wo</span>
+    <input class="fi" id="fi2" type="text" placeholder="Type the sentence..." autocomplete="off" style="min-width:100%;margin-top:8px">
+  </div>
+  <div class="fs" style="flex-direction:column;align-items:flex-start">
+    <span style="font-size:13px;color:var(--lc);font-weight:800">Words: du / morgen / kommst</span>
+    <input class="fi" id="fi3" type="text" placeholder="Type the sentence..." autocomplete="off" style="min-width:100%;margin-top:8px">
+  </div>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['heute spiele ich fußball','wo wohnst du','kommst du morgen'],['fi1','fi2','fi3'],'fill-res')"><span>✓</span><span data-t="check">Check</span></button>
+    <button class="btn btn-s" onclick="resetFill(['fi1','fi2','fi3'],'fill-res')" data-t="try_again">Try Again</button>
+  </div>
+  <div class="rb" id="fill-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <div class="ib" data-t="instr_rf">Are the statements correct (R) or incorrect (F)?</div>
+  <table class="rft">
+    <thead><tr><th>#</th><th data-t="statement">Statement</th><th class="rfc">R / F</th></tr></thead>
+    <tbody>
+      <tr><td>1.</td><td>In German, the verb always goes in the second position in main clauses.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>2.</td><td>In a Yes/No question, the subject comes first and the verb second.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>3.</td><td>„Heute ich gehe ins Kino" is correct German word order.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>4.</td><td>In W-questions (Who? Where? When?), the verb is in the second position after the question word.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>5.</td><td>When a sentence starts with an adverb, the subject moves to position 3 (after the verb).</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['R','F','F','R','R'],[0,1,2,3,4],'rf-res')"><span>✓</span><span data-t="check">Check</span></button>
+  </div>
+  <div class="rb" id="rf-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📖 <span data-t="reading">Reading</span></div>
+  <div class="ib" data-t="instr_reading">Read and answer the questions.</div>
+  <div class="rbox">
+    <div class="rbmeta" data-t="read_source">Short text · A1</div>
+    <strong>Eine E-Mail</strong><br><br>
+    Hallo Jana! Morgen komme ich nach Berlin. Ich fahre mit dem Zug und komme um 15 Uhr an. Abends gehen wir ins Restaurant. Das Restaurant heißt „Zum Goldenen Bären". Kennst du es? Manchmal gehe ich dort essen. Es ist sehr lecker!
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 11</div>
+    <div class="qtext">„Morgen komme ich nach Berlin." Which word is in position 2?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">Morgen</button>
+      <button class="qopt" onclick="mc(this,11,true)">komme</button>
+      <button class="qopt" onclick="mc(this,11,false)">ich</button>
+    </div><div class="qfb" id="qfb11"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 12</div>
+    <div class="qtext">„Abends gehen wir ins Restaurant." Why is „wir" after „gehen"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">Because wir is the object</button>
+      <button class="qopt" onclick="mc(this,12,true)">Because "Abends" fills position 1, so the verb goes to position 2 and the subject (wir) moves to position 3</button>
+      <button class="qopt" onclick="mc(this,12,false)">It's a question form</button>
+    </div><div class="qfb" id="qfb12"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 13</div>
+    <div class="qtext">„Kennst du es?" — What type of sentence is this?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,false)">A W-question</button>
+      <button class="qopt" onclick="mc(this,13,true)">A Yes/No question (verb first)</button>
+      <button class="qopt" onclick="mc(this,13,false)">A statement</button>
+    </div><div class="qfb" id="qfb13"></div>
+  </div>
+</div></div>
+
+<div class="cta">
+  <h3 data-t="cta_title">Ready for more German?</h3>
+  <p data-t="cta_text">Join TheGermanStefan community — free A1 content and weekly Stammtisch.</p>
+  <button class="cta-btn" data-t="cta_btn">Join Free →</button>
+</div>
+<div class="nav-btns">
+  <button class="nbtn nprev" onclick="location.href='A1_Grammar_06_Zahlen.html'">← <span data-t="back">Back</span></button>
+  <button class="nbtn nnext" onclick="location.href='A1_Grammar_08_Trennbare_Verben.html'"><span data-t="next">Next</span>: Trennbare Verben →</button>
+</div>
+</div>
+
+<script>
+const LANG={en:{home:'Home',back:'Back',next:'Next',grammar:'Grammar',reading:'Reading',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choose the sentence with correct German word order.',instr_fill:'Rearrange the words to make a correct sentence.',instr_rf:'Are the statements correct (R) or incorrect (F)?',instr_reading:'Read and answer the questions.',statement:'Statement',fill_title:'Put in the right order',check:'Check',try_again:'Try Again',fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite.',res_perfect:'🏆 Perfect!',res_great:'🎉 Great job!',res_good:'👍 Good effort!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',correct_answers:'correct',cta_title:'Ready for more German?',cta_text:'Join TheGermanStefan community.',cta_btn:'Join Free →',question:'Question',tip_label:'Quick Tip:',tip1:'The golden rule: the verb is ALWAYS in position 2 in a German main clause. If you start with an adverb, the subject moves to position 3 — but the verb stays at position 2!',read_source:'Short text · A1',ph_sub:'Word order in German sentences — the verb is always 2nd!'},
+fr:{home:'Accueil',back:'Retour',next:'Suivant',grammar:'Grammaire',reading:'Lecture',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choisissez la phrase avec le bon ordre des mots.',instr_fill:'Remettez les mots dans le bon ordre.',instr_rf:'Les affirmations sont-elles correctes (R) ou incorrectes (F)?',instr_reading:'Lisez et répondez aux questions.',statement:'Affirmation',fill_title:'Remettez dans le bon ordre',check:'Vérifier',try_again:'Réessayer',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon effort !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correctes',correct_answers:'correctes',cta_title:'Prêt pour plus d\'allemand ?',cta_text:'Rejoignez la communauté TheGermanStefan.',cta_btn:'Rejoindre →',question:'Question',tip_label:'Conseil :',tip1:'La règle d\'or : le verbe est TOUJOURS en 2e position dans une proposition principale allemande. Si vous commencez par un adverbe, le sujet va en 3e position.',read_source:'Texte court · A1',ph_sub:'L\'ordre des mots en allemand — le verbe est toujours en 2e position !'},
+es:{home:'Inicio',back:'Volver',next:'Siguiente',grammar:'Gramática',reading:'Lectura',minutes:'min',questions:'preguntas',instructions:'Instrucciones',instr_mc:'Elige la oración con el orden de palabras correcto.',instr_fill:'Reordena las palabras para formar una oración correcta.',instr_rf:'¿Las afirmaciones son correctas (R) o incorrectas (F)?',instr_reading:'Lee y responde las preguntas.',statement:'Afirmación',fill_title:'Pon en el orden correcto',check:'Comprobar',try_again:'Intentar de nuevo',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No exactamente.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Buen esfuerzo!',res_practice:'💪 ¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',correct_answers:'correctas',cta_title:'¿Listo para más alemán?',cta_text:'Únete a la comunidad TheGermanStefan.',cta_btn:'Únete gratis →',question:'Pregunta',tip_label:'Consejo:',tip1:'La regla de oro: el verbo SIEMPRE va en la 2ª posición en una oración principal alemana. Si empiezas con un adverbio, el sujeto va a la 3ª posición.',read_source:'Texto corto · A1',ph_sub:'El orden de las palabras en alemán — ¡el verbo siempre es el 2°!'},
+it:{home:'Home',back:'Indietro',next:'Avanti',grammar:'Grammatica',reading:'Lettura',minutes:'min',questions:'domande',instructions:'Istruzioni',instr_mc:'Scegli la frase con il corretto ordine delle parole.',instr_fill:'Riordina le parole per formare una frase corretta.',instr_rf:'Le affermazioni sono corrette (R) o errate (F)?',instr_reading:'Leggi e rispondi alle domande.',statement:'Affermazione',fill_title:'Metti nell\'ordine giusto',check:'Controlla',try_again:'Riprova',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non esatto.',res_perfect:'🏆 Perfetto!',res_great:'🎉 Molto bene!',res_good:'👍 Buon tentativo!',res_practice:'💪 Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',correct_answers:'corrette',cta_title:'Pronto per più tedesco?',cta_text:'Unisciti alla comunità TheGermanStefan.',cta_btn:'Unisciti gratis →',question:'Domanda',tip_label:'Consiglio:',tip1:'La regola d\'oro: il verbo è SEMPRE in seconda posizione in una proposizione principale tedesca. Se inizi con un avverbio, il soggetto va in terza posizione.',read_source:'Testo breve · A1',ph_sub:'L\'ordine delle parole in tedesco — il verbo è sempre 2°!'},
+pt:{home:'Início',back:'Voltar',next:'Próximo',grammar:'Gramática',reading:'Leitura',minutes:'min',questions:'perguntas',instructions:'Instruções',instr_mc:'Escolha a frase com a ordem correta das palavras.',instr_fill:'Reorganize as palavras para formar uma frase correta.',instr_rf:'As afirmações são corretas (R) ou incorretas (F)?',instr_reading:'Leia e responda às perguntas.',statement:'Afirmação',fill_title:'Coloque na ordem certa',check:'Verificar',try_again:'Tentar novamente',fb_correct:'✓ Correto!',fb_wrong:'✗ Não exatamente.',res_perfect:'🏆 Perfeito!',res_great:'🎉 Muito bem!',res_good:'👍 Bom esforço!',res_practice:'💪 Continue praticando!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',correct_answers:'corretas',cta_title:'Pronto para mais alemão?',cta_text:'Junte-se à comunidade TheGermanStefan.',cta_btn:'Junte-se grátis →',question:'Pergunta',tip_label:'Dica:',tip1:'A regra de ouro: o verbo SEMPRE fica na 2ª posição em uma oração principal alemã. Se você começar com um advérbio, o sujeito vai para a 3ª posição.',read_source:'Texto curto · A1',ph_sub:'Ordem das palavras em alemão — o verbo é sempre o 2°!'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='Type the sentence...';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('.rfw');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');const row=btn.closest('tr');rfSels[row.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=0.8){cls='great';msg=t('res_great');}else if(p>=0.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>applyLang());
+</script>
+</body>
+</html>

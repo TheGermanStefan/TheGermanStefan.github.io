@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGS A2 · 02 Modalverben</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#4a148c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}
+.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
+.modal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:4px}
+.modal-card{border-radius:10px;padding:14px 16px;border-left:4px solid}
+.modal-card.k{background:#f3e5f5;border-color:var(--lc)}
+.modal-card.m{background:#e3f2fd;border-color:#1464b4}
+.modal-card.w{background:#e8f5e9;border-color:#2e7d32}
+.modal-card.s{background:#fff3e0;border-color:#e65100}
+.modal-card.d{background:#fce4ec;border-color:#c62828}
+.modal-card.mo{background:#f1f8e9;border-color:#558b2f}
+.mc-verb{font-size:16px;font-weight:900;color:var(--navy);margin-bottom:4px}
+.mc-meaning{font-size:13px;color:var(--txt2);margin-bottom:8px}
+.mc-conj{font-size:12px;line-height:1.9;color:#333}
+.mc-conj strong{color:var(--lc)}
+.tip-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:8px;padding:12px 16px;font-size:13px;margin-top:12px}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.ref-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-weight:800}
+.ref-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.ref-table tr:nth-child(even) td{background:#f8f0ff}
+.ref-table td:first-child{font-weight:800;color:var(--lc)}
+.qblock{background:#f8f0ff;border:2px solid #ce93d8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #d4b0e8;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f8f0ff;border-radius:10px;border:1.5px solid #d4b0e8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:110px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#f8f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #d4b0e8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}
+.rbti{font-size:15px;font-weight:800}
+.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.reading-text{background:#fdf6ff;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.9;margin-bottom:16px}
+.reading-text strong{color:var(--lc)}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#4a148c}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">🇩🇪 TGS</span>
+    <span class="tb-sep">›</span><span class="tb-crumb" data-t="home">Home</span>
+    <span class="tb-sep">›</span><span class="tb-crumb" data-t="a2_label">A2</span>
+    <span class="tb-badge">A2</span>
+    <span class="tb-mod" data-t="grammar_label">Grammar 02</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="page-hdr">
+  <div class="ph-icon">🔧</div>
+  <div>
+    <div class="ph-title">Modalverben</div>
+    <div class="ph-sub" data-t="topic_sub">können · müssen · wollen · sollen · dürfen · möchten</div>
+  </div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl" data-t="score_label">correct</div></div>
+</div>
+
+<div class="wrap">
+
+<div class="card">
+  <div class="sec-title">📋 <span data-t="ref_title">The 6 Modal Verbs</span></div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:14px" data-t="ref_intro">Modal verbs modify the main verb. The main verb goes to the <strong>end of the sentence</strong> as an infinitive. The modal verb is conjugated in position 2.</p>
+  <div class="modal-grid">
+    <div class="modal-card k">
+      <div class="mc-verb">können — can / to be able to</div>
+      <div class="mc-conj">ich <strong>kann</strong> · du <strong>kannst</strong> · er/sie <strong>kann</strong><br>wir <strong>können</strong> · ihr <strong>könnt</strong> · sie <strong>können</strong></div>
+    </div>
+    <div class="modal-card m">
+      <div class="mc-verb">müssen — must / to have to</div>
+      <div class="mc-conj">ich <strong>muss</strong> · du <strong>musst</strong> · er/sie <strong>muss</strong><br>wir <strong>müssen</strong> · ihr <strong>müsst</strong> · sie <strong>müssen</strong></div>
+    </div>
+    <div class="modal-card w">
+      <div class="mc-verb">wollen — to want to</div>
+      <div class="mc-conj">ich <strong>will</strong> · du <strong>willst</strong> · er/sie <strong>will</strong><br>wir <strong>wollen</strong> · ihr <strong>wollt</strong> · sie <strong>wollen</strong></div>
+    </div>
+    <div class="modal-card s">
+      <div class="mc-verb">sollen — should / to be supposed to</div>
+      <div class="mc-conj">ich <strong>soll</strong> · du <strong>sollst</strong> · er/sie <strong>soll</strong><br>wir <strong>sollen</strong> · ihr <strong>sollt</strong> · sie <strong>sollen</strong></div>
+    </div>
+    <div class="modal-card d">
+      <div class="mc-verb">dürfen — may / to be allowed to</div>
+      <div class="mc-conj">ich <strong>darf</strong> · du <strong>darfst</strong> · er/sie <strong>darf</strong><br>wir <strong>dürfen</strong> · ihr <strong>dürft</strong> · sie <strong>dürfen</strong></div>
+    </div>
+    <div class="modal-card mo">
+      <div class="mc-verb">möchten — would like to</div>
+      <div class="mc-conj">ich <strong>möchte</strong> · du <strong>möchtest</strong> · er/sie <strong>möchte</strong><br>wir <strong>möchten</strong> · ihr <strong>möchtet</strong> · sie <strong>möchten</strong></div>
+    </div>
+  </div>
+  <div class="tip-box">
+    💡 <span data-t="tip1">Word order: <strong>Modal verb (pos. 2) + … + infinitive (end)</strong><br>
+    Ich <strong>kann</strong> gut Deutsch <strong>sprechen</strong>. · Er <strong>muss</strong> heute arbeiten <strong>gehen</strong>. · Wir <strong>wollen</strong> Pizza <strong>essen</strong>.</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title">🎯 <span data-t="mc_title">Multiple Choice — 10 Questions</span></div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 1</div>
+    <div class="qtext">Ich _____ heute nicht schlafen. (I can't sleep today.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,false)">muss</button>
+      <button class="qopt" onclick="mc(this,1,true)">kann</button>
+      <button class="qopt" onclick="mc(this,1,false)">will</button>
+      <button class="qopt" onclick="mc(this,1,false)">darf</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 2</div>
+    <div class="qtext">Du _____ das nicht machen! (You must not do that!)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,false)">kannst</button>
+      <button class="qopt" onclick="mc(this,2,false)">musst</button>
+      <button class="qopt" onclick="mc(this,2,true)">darfst</button>
+      <button class="qopt" onclick="mc(this,2,false)">sollst</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 3</div>
+    <div class="qtext">Er _____ einen Arzt besuchen. (He should visit a doctor.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,false)">kann</button>
+      <button class="qopt" onclick="mc(this,3,true)">soll</button>
+      <button class="qopt" onclick="mc(this,3,false)">will</button>
+      <button class="qopt" onclick="mc(this,3,false)">darf</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 4</div>
+    <div class="qtext">Wir _____ ein Eis essen. (We would like to eat ice cream.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,true)">möchten</button>
+      <button class="qopt" onclick="mc(this,4,false)">müssen</button>
+      <button class="qopt" onclick="mc(this,4,false)">dürfen</button>
+      <button class="qopt" onclick="mc(this,4,false)">sollen</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 5</div>
+    <div class="qtext">Ihr _____ heute Abend kommen. (You all have to come tonight.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,false)">wollt</button>
+      <button class="qopt" onclick="mc(this,5,true)">müsst</button>
+      <button class="qopt" onclick="mc(this,5,false)">dürft</button>
+      <button class="qopt" onclick="mc(this,5,false)">könnt</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 6</div>
+    <div class="qtext">Sie (she) _____ Lehrerin werden. (She wants to become a teacher.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,false)">soll</button>
+      <button class="qopt" onclick="mc(this,6,false)">muss</button>
+      <button class="qopt" onclick="mc(this,6,true)">will</button>
+      <button class="qopt" onclick="mc(this,6,false)">darf</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 7</div>
+    <div class="qtext">In the sentence "Ich will Pizza essen," where does "essen" go?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,false)">Position 2</button>
+      <button class="qopt" onclick="mc(this,7,false)">Position 1</button>
+      <button class="qopt" onclick="mc(this,7,true)">End of sentence</button>
+      <button class="qopt" onclick="mc(this,7,false)">After "ich"</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 8</div>
+    <div class="qtext">Kinder _____ hier nicht rauchen. (Children may not smoke here.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,false)">müssen</button>
+      <button class="qopt" onclick="mc(this,8,false)">sollen</button>
+      <button class="qopt" onclick="mc(this,8,true)">dürfen</button>
+      <button class="qopt" onclick="mc(this,8,false)">wollen</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 9</div>
+    <div class="qtext">Which modal verb expresses ability?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,false)">müssen</button>
+      <button class="qopt" onclick="mc(this,9,true)">können</button>
+      <button class="qopt" onclick="mc(this,9,false)">sollen</button>
+      <button class="qopt" onclick="mc(this,9,false)">dürfen</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 10</div>
+    <div class="qtext">Ich _____ einen Kaffee, bitte. (I would like a coffee, please.)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">will</button>
+      <button class="qopt" onclick="mc(this,10,true)">möchte</button>
+      <button class="qopt" onclick="mc(this,10,false)">muss</button>
+      <button class="qopt" onclick="mc(this,10,false)">kann</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sec-title">✏️ <span data-t="fill_title">Fill in the correct modal verb</span></div>
+  <div class="fill-row">1. Ich <input class="fi" id="f1" placeholder="(can)"> gut kochen. — I can cook well.</div>
+  <div class="fill-row">2. Du <input class="fi" id="f2" placeholder="(must)"> das Formular ausfüllen. — You must fill in the form.</div>
+  <div class="fill-row">3. Er <input class="fi" id="f3" placeholder="(wants to)"> nach Spanien fahren. — He wants to go to Spain.</div>
+  <div class="fill-row">4. Wir <input class="fi" id="f4" placeholder="(may not)"> hier parken. — We may not park here.</div>
+  <div class="fill-row">5. Sie <input class="fi" id="f5" placeholder="(would like)"> einen Tee, bitte. — She would like a tea, please.</div>
+  <button class="chk-btn" onclick="checkFill(['kann','musst','will','dürfen nicht','möchte'],['f1','f2','f3','f4','f5'],'fr1')" data-t="check_btn">Check ✓</button>
+  <button class="rst-btn" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')" data-t="reset_btn">Reset</button>
+  <div id="fr1" class="rb"></div>
+</div>
+
+<div class="card">
+  <div class="sec-title">✅ <span data-t="rf_title">Richtig oder Falsch?</span></div>
+  <table class="rf-table">
+    <tr><th data-t="th_statement">Statement</th><th>R</th><th>F</th></tr>
+    <tr><td>In a modal verb sentence, the infinitive goes to the end.</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr>
+    <tr><td>"möchten" is the polite form of "mögen" meaning "would like".</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr>
+    <tr><td>"dürfen" expresses obligation (must/have to).</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr>
+    <tr><td>ich kann, du kannst, er kann — these forms are correct.</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr>
+    <tr><td>"wollen" means "should / to be supposed to".</td>
+      <td><button class="rfb" onclick="rf(this,'R')">R</button></td><td><button class="rfb" onclick="rf(this,'F')">F</button></td></tr>
+  </table>
+  <button class="chk-btn" onclick="checkRF(['R','R','F','R','F'],[0,1,2,3,4],'rfr1')" style="margin-top:12px" data-t="check_btn">Check ✓</button>
+  <div id="rfr1" class="rb"></div>
+</div>
+
+<div class="card">
+  <div class="sec-title">📖 <span data-t="reading_title">Reading — Lisas Pläne</span></div>
+  <div class="reading-text">
+    Lisa hat viele Pläne für diesen Sommer. Sie <strong>will</strong> unbedingt nach Italien fahren. „Ich <strong>möchte</strong> das Kolosseum in Rom sehen", sagt sie. Leider <strong>muss</strong> sie zuerst Geld sparen. Sie <strong>kann</strong> nicht jeden Monat viel ausgeben. Ihr Chef sagt: „Du <strong>sollst</strong> diese Woche Überstunden machen." Das ist nicht schön, aber Lisa <strong>darf</strong> dann drei Wochen Urlaub nehmen. Ihre Freunde <strong>wollen</strong> auch mitkommen. Sie <strong>können</strong> alle zusammen ein Appartement mieten. Lisa <strong>muss</strong> aber zuerst die Flüge buchen. Sie <strong>kann</strong> es kaum erwarten!
+  </div>
+  <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px" data-t="comp_intro">Answer the comprehension questions:</p>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 1</div>
+    <div class="qtext">Where does Lisa want to travel this summer?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">Spain</button>
+      <button class="qopt" onclick="mc(this,11,true)">Italy</button>
+      <button class="qopt" onclick="mc(this,11,false)">France</button>
+      <button class="qopt" onclick="mc(this,11,false)">Greece</button>
+    </div><div class="qfb" id="qfb11"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 2</div>
+    <div class="qtext">What does her boss tell her to do?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">Take a holiday</button>
+      <button class="qopt" onclick="mc(this,12,true)">Work overtime this week</button>
+      <button class="qopt" onclick="mc(this,12,false)">Book flights</button>
+      <button class="qopt" onclick="mc(this,12,false)">Save money</button>
+    </div><div class="qfb" id="qfb12"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum" data-t="q_label">Question 3</div>
+    <div class="qtext">What must Lisa do first before the trip?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,false)">Learn Italian</button>
+      <button class="qopt" onclick="mc(this,13,false)">Rent an apartment</button>
+      <button class="qopt" onclick="mc(this,13,true)">Book the flights</button>
+      <button class="qopt" onclick="mc(this,13,false)">Ask her friends</button>
+    </div><div class="qfb" id="qfb13"></div>
+  </div>
+</div>
+
+<div class="cta">
+  <a class="cta-btn btn-back" href="A2_Grammar_01_Perfekt.html" data-t="back_file">← Perfekt</a>
+  <a class="cta-btn btn-next" href="A2_Grammar_03_Dativ.html" data-t="next_file">Dativ →</a>
+</div>
+</div>
+
+<script>
+const LANG={
+en:{home:'Home',a2_label:'A2',grammar_label:'Grammar 02',topic_sub:'können · müssen · wollen · sollen · dürfen · möchten',ref_title:'The 6 Modal Verbs',ref_intro:'Modal verbs modify the main verb. The main verb goes to the <strong>end of the sentence</strong> as an infinitive.',tip1:'Word order: <strong>Modal verb (pos. 2) + … + infinitive (end)</strong><br>Ich <strong>kann</strong> gut Deutsch <strong>sprechen</strong>. · Er <strong>muss</strong> heute <strong>arbeiten</strong>.',mc_title:'Multiple Choice — 10 Questions',q_label:'Question',fill_title:'Fill in the correct modal verb',rf_title:'Richtig oder Falsch?',th_statement:'Statement',reading_title:'Reading — Lisas Pläne',comp_intro:'Answer the comprehension questions:',check_btn:'Check ✓',reset_btn:'Reset',back_file:'← Perfekt',next_file:'Dativ →',score_label:'correct',fb_correct:'✓ Correct! Well done!',fb_wrong:'✗ Not quite — see the correct answer.',res_perfect:'Perfect! 🏆',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},
+fr:{home:'Accueil',a2_label:'A2',grammar_label:'Grammaire 02',topic_sub:'können · müssen · wollen · sollen · dürfen · möchten',ref_title:'Les 6 verbes modaux',ref_intro:'Les verbes modaux modifient le verbe principal. Le verbe principal va à la <strong>fin de la phrase</strong> à l\'infinitif.',tip1:'Ordre des mots : <strong>Verbe modal (pos. 2) + … + infinitif (fin)</strong>',mc_title:'Choix multiples — 10 questions',q_label:'Question',fill_title:'Complétez avec le verbe modal correct',rf_title:'Vrai ou Faux ?',th_statement:'Affirmation',reading_title:'Lecture — Lisas Pläne',comp_intro:'Répondez aux questions :',check_btn:'Vérifier ✓',reset_btn:'Réinitialiser',back_file:'← Perfekt',next_file:'Dativ →',score_label:'correct',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'Parfait ! 🏆',res_great:'Très bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},
+es:{home:'Inicio',a2_label:'A2',grammar_label:'Gramática 02',topic_sub:'können · müssen · wollen · sollen · dürfen · möchten',ref_title:'Los 6 verbos modales',ref_intro:'Los verbos modales modifican el verbo principal. El verbo principal va al <strong>final de la oración</strong> en infinitivo.',tip1:'Orden: <strong>Verbo modal (pos. 2) + … + infinitivo (final)</strong>',mc_title:'Opción múltiple — 10 preguntas',q_label:'Pregunta',fill_title:'Completa con el verbo modal correcto',rf_title:'¿Verdadero o Falso?',th_statement:'Afirmación',reading_title:'Lectura — Lisas Pläne',comp_intro:'Responde las preguntas:',check_btn:'Comprobar ✓',reset_btn:'Reiniciar',back_file:'← Perfekt',next_file:'Dativ →',score_label:'correctas',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'¡Perfecto! 🏆',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},
+it:{home:'Home',a2_label:'A2',grammar_label:'Grammatica 02',topic_sub:'können · müssen · wollen · sollen · dürfen · möchten',ref_title:'I 6 verbi modali',ref_intro:'I verbi modali modificano il verbo principale. Il verbo principale va alla <strong>fine della frase</strong> all\'infinito.',tip1:'Ordine: <strong>Verbo modale (pos. 2) + … + infinito (fine)</strong>',mc_title:'Scelta multipla — 10 domande',q_label:'Domanda',fill_title:'Completa con il verbo modale corretto',rf_title:'Vero o Falso?',th_statement:'Affermazione',reading_title:'Lettura — Lisas Pläne',comp_intro:'Rispondi alle domande:',check_btn:'Controlla ✓',reset_btn:'Reimposta',back_file:'← Perfekt',next_file:'Dativ →',score_label:'corrette',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non proprio.',res_perfect:'Perfetto! 🏆',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},
+pt:{home:'Início',a2_label:'A2',grammar_label:'Gramática 02',topic_sub:'können · müssen · wollen · sollen · dürfen · möchten',ref_title:'Os 6 verbos modais',ref_intro:'Os verbos modais modificam o verbo principal. O verbo principal vai ao <strong>final da frase</strong> no infinitivo.',tip1:'Ordem: <strong>Verbo modal (pos. 2) + … + infinitivo (final)</strong>',mc_title:'Múltipla escolha — 10 perguntas',q_label:'Questão',fill_title:'Complete com o verbo modal correto',rf_title:'Verdadeiro ou Falso?',th_statement:'Afirmação',reading_title:'Leitura — Lisas Pläne',comp_intro:'Responda às perguntas:',check_btn:'Verificar ✓',reset_btn:'Redefinir',back_file:'← Perfekt',next_file:'Dativ →',score_label:'corretas',fb_correct:'✓ Correto!',fb_wrong:'✗ Não foi desta vez.',res_perfect:'Perfeito! 🏆',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas'}
+};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+</script>
+</body>
+</html>

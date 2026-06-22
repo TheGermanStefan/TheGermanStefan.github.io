@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS B1 Grammar Konnektoren</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#e65100;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#bf360c);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.intro-box{background:#fff3e0;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;margin-bottom:16px;font-size:14px}
+.intro-box strong{color:var(--lc)}
+.rule-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:14px}
+.rule-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rule-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.rule-table tr:nth-child(even) td{background:#fff3e0}
+.rule-table .de{font-weight:800;color:var(--navy)}
+.rule-table .en{color:var(--txt2);font-size:12px}
+.example-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.example-list li{background:#fff3e0;border-left:4px solid var(--lc);border-radius:8px;padding:10px 14px;font-size:14px}
+.example-list .de{font-weight:800;color:var(--navy)}
+.example-list .en{color:var(--txt2);font-size:12px;margin-top:2px}
+.qblock{background:#fff3e0;border:2px solid #ffcc80;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #ffcc80;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#fff3e0}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#fff3e0;border-radius:10px;border:1.5px solid #ffcc80}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#fff3e0}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ffcc80;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#bf360c,#e65100);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#bf360c}
+.tag{display:inline-block;background:#fff3e0;border:1.5px solid #ffcc80;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700;color:var(--lc);margin:3px}
+.highlight{color:var(--lc);font-weight:800}
+</style></head><body><div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">B1</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">Grammar</span>
+    <span class="tb-badge">B1</span><span class="tb-mod">Lesson 6</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">🔀</div>
+  <div><div class="ph-title">Zweiteilige Konnektoren</div><div class="ph-sub">Correlative conjunctions</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap">
+<div class="card"><div class="sec-title">📘 The Five Pairs</div>
+<table class="rule-table">
+<tr><th>Connector pair</th><th>Meaning</th><th>Example</th></tr>
+<tr><td class="de">entweder … oder</td><td>either … or</td><td class="de">Entweder kommst du, oder ich gehe allein.</td></tr>
+<tr><td class="de">weder … noch</td><td>neither … nor</td><td class="de">Er trinkt weder Kaffee noch Tee.</td></tr>
+<tr><td class="de">sowohl … als auch</td><td>both … and</td><td class="de">Sie spricht sowohl Englisch als auch Spanisch.</td></tr>
+<tr><td class="de">nicht nur … sondern auch</td><td>not only … but also</td><td class="de">Er ist nicht nur klug, sondern auch fleißig.</td></tr>
+<tr><td class="de">zwar … aber</td><td>admittedly … but</td><td class="de">Das ist zwar teuer, aber gut.</td></tr>
+</table>
+<div class="intro-box" style="margin-top:12px"><strong>Word order:</strong> <em>entweder</em> and <em>weder</em> in position 1 cause inversion. <em>sowohl, nicht nur, zwar</em> do NOT cause inversion.</div>
+</div>
+<div class="card"><div class="sec-title">💡 More Examples</div>
+<ul class="example-list">
+<li><div class="de">Entweder lernst du jetzt, oder du fällst durch.</div><div class="en">Either you study now, or you fail.</div></li>
+<li><div class="de">Ich mag weder Sport noch Musik.</div><div class="en">I like neither sport nor music.</div></li>
+<li><div class="de">Er hat sowohl einen Hund als auch eine Katze.</div><div class="en">He has both a dog and a cat.</div></li>
+<li><div class="de">Das Essen ist nicht nur lecker, sondern auch günstig.</div><div class="en">The food is not only delicious, but also cheap.</div></li>
+<li><div class="de">Das Buch ist zwar lang, aber sehr spannend.</div><div class="en">The book is admittedly long, but very exciting.</div></li>
+</ul></div>
+<div class="card"><div class="sec-title">🎯 Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">"___ … oder" means "either … or"</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">weder</button><button class="qopt" onclick="mc(this,1,true)">entweder</button><button class="qopt" onclick="mc(this,1,false)">sowohl</button><button class="qopt" onclick="mc(this,1,false)">zwar</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">"Er trinkt ___ Wein ___ Bier." (neither … nor)</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">entweder … oder</button><button class="qopt" onclick="mc(this,2,false)">nicht nur … sondern</button><button class="qopt" onclick="mc(this,2,true)">weder … noch</button><button class="qopt" onclick="mc(this,2,false)">sowohl … als auch</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">"Das Essen ist ___ lecker, ___ auch billig." (not only … but also)</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">zwar … aber</button><button class="qopt" onclick="mc(this,3,true)">nicht nur … sondern</button><button class="qopt" onclick="mc(this,3,false)">sowohl … als</button><button class="qopt" onclick="mc(this,3,false)">weder … noch</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">After "entweder" in position 1, what happens?</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">Normal word order</button><button class="qopt" onclick="mc(this,4,true)">Verb comes second (inversion)</button><button class="qopt" onclick="mc(this,4,false)">Verb moves to end</button><button class="qopt" onclick="mc(this,4,false)">Nothing changes</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Das ist zwar schwer, ___ machbar." (but)</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">oder</button><button class="qopt" onclick="mc(this,5,false)">sondern</button><button class="qopt" onclick="mc(this,5,true)">aber</button><button class="qopt" onclick="mc(this,5,false)">noch</button></div><div class="qfb" id="qfb5"></div></div>
+</div>
+<div class="card"><div class="sec-title">✏️ Fill in the blanks</div>
+<div class="fill-row"><input class="fi" id="f1" placeholder="?"> du rufst an, oder ich komme vorbei. (Entweder)</div>
+<div class="fill-row">Ich spreche weder Chinesisch <input class="fi" id="f2" placeholder="?"> Arabisch. (noch)</div>
+<div class="fill-row">Sie ist sowohl Ärztin <input class="fi" id="f3" placeholder="?"> auch Musikerin. (als)</div>
+<div class="fill-row">Er ist nicht nur intelligent, <input class="fi" id="f4" placeholder="?"> auch kreativ. (sondern)</div>
+<div class="fill-row">Das Auto ist zwar alt, <input class="fi" id="f5" placeholder="?"> zuverlässig. (aber)</div>
+<button class="chk-btn" onclick="checkFill(['Entweder','noch','als','sondern','aber'],['f1','f2','f3','f4','f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div><div class="cta"><a class="cta-btn btn-back" href="B1_Grammar_05_Temporale_Nebensaetze.html">&#8592; Temporale Nebensätze</a><a class="cta-btn btn-next" href="B1_Grammar_07_Partizip.html">Partizip I & II &#8594;</a></div></div><script>
+const LANG={en:{home:'Home',b1:'B1',grammar:'Grammar',fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',b1:'B1',grammar:'Grammaire',fb_correct:'Correct!',fb_wrong:'Pas tout à fait.',res_perfect:'Parfait!',res_great:'Très bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',b1:'B1',grammar:'Gramática',fb_correct:'¡Correcto!',fb_wrong:'No del todo.',res_perfect:'¡Perfecto!',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},it:{home:'Home',b1:'B1',grammar:'Grammatica',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Início',b1:'B1',grammar:'Gramática',fb_correct:'Correto!',fb_wrong:'Não foi.',res_perfect:'Perfeito!',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

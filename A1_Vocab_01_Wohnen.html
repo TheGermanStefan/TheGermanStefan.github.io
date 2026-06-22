@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS A1 Vocab Wohnen & Zuhause</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#0d47a1);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.word-card{background:#e3f2fd;border:2px solid #90caf9;border-radius:12px;padding:14px 16px}
+.word-art{font-size:11px;font-weight:900;color:var(--lc);margin-bottom:2px}
+.word-de{font-size:18px;font-weight:900;color:var(--navy);margin-bottom:3px}
+.word-en{font-size:13px;color:var(--txt2)}
+.word-ex{font-size:12px;color:var(--txt);background:#fff;border-radius:6px;padding:5px 8px;margin-top:6px;border-left:3px solid var(--lc)}
+.qblock{background:#e3f2fd;border:2px solid #90caf9;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #90caf9;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#e3f2fd}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#ffebee;color:#b71c1c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#e3f2fd;border-radius:10px;border:1.5px solid #90caf9}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:120px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#e3f2fd}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #90caf9;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#1464b4,#0d47a1);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#0d47a1}
+</style></head><body>
+<div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="a1_label">A1</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="vocab">Vocab</span>
+    <span class="tb-badge">A1</span><span class="tb-mod">Set 1</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">🏠</div>
+  <div><div class="ph-title">Wohnen & Zuhause</div><div class="ph-sub">12 essential home and living vocabulary words</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div></div>
+<div class="wrap">
+<div class="card"><div class="sec-title">&#128218; Word Cards</div><div class="word-grid"><div class="word-card"><div class="word-art">das</div><div class="word-de">Haus</div><div class="word-en">house</div><div class="word-ex">Das Haus ist groß.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Wohnung</div><div class="word-en">flat/apartment</div><div class="word-ex">Ich wohne in einer Wohnung.</div></div><div class="word-card"><div class="word-art">das</div><div class="word-de">Zimmer</div><div class="word-en">room</div><div class="word-ex">Das Zimmer ist hell.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Küche</div><div class="word-en">kitchen</div><div class="word-ex">Ich koche in der Küche.</div></div><div class="word-card"><div class="word-art">das</div><div class="word-de">Bett</div><div class="word-en">bed</div><div class="word-ex">Das Bett ist bequem.</div></div><div class="word-card"><div class="word-art">der</div><div class="word-de">Tisch</div><div class="word-en">table</div><div class="word-ex">Wir essen am Tisch.</div></div><div class="word-card"><div class="word-art">der</div><div class="word-de">Stuhl</div><div class="word-en">chair</div><div class="word-ex">Ich sitze auf dem Stuhl.</div></div><div class="word-card"><div class="word-art">das</div><div class="word-de">Fenster</div><div class="word-en">window</div><div class="word-ex">Das Fenster ist offen.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Tür</div><div class="word-en">door</div><div class="word-ex">Bitte schließ die Tür.</div></div><div class="word-card"><div class="word-art">der</div><div class="word-de">Schrank</div><div class="word-en">wardrobe/cupboard</div><div class="word-ex">Der Schrank ist voll.</div></div><div class="word-card"><div class="word-art">das</div><div class="word-de">Badezimmer</div><div class="word-en">bathroom</div><div class="word-ex">Das Badezimmer ist klein.</div></div><div class="word-card"><div class="word-art">die</div><div class="word-de">Treppe</div><div class="word-en">stairs</div><div class="word-ex">Die Treppe ist steil.</div></div></div></div>
+<div class="card"><div class="sec-title">&#127919; Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">What is "die Küche"?</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">Bedroom</button><button class="qopt" onclick="mc(this,1,true)">Kitchen</button><button class="qopt" onclick="mc(this,1,false)">Bathroom</button><button class="qopt" onclick="mc(this,1,false)">Living room</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">Which word means "window"?</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">die Tür</button><button class="qopt" onclick="mc(this,2,false)">der Tisch</button><button class="qopt" onclick="mc(this,2,true)">das Fenster</button><button class="qopt" onclick="mc(this,2,false)">der Stuhl</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">What is "das Bett"?</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">Chair</button><button class="qopt" onclick="mc(this,3,false)">Table</button><button class="qopt" onclick="mc(this,3,true)">Bed</button><button class="qopt" onclick="mc(this,3,false)">Wardrobe</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">Which article goes with "Haus"?</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">der</button><button class="qopt" onclick="mc(this,4,false)">die</button><button class="qopt" onclick="mc(this,4,true)">das</button><button class="qopt" onclick="mc(this,4,false)">ein</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">"Die Treppe" means…</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Door</button><button class="qopt" onclick="mc(this,5,true)">Stairs</button><button class="qopt" onclick="mc(this,5,false)">Kitchen</button><button class="qopt" onclick="mc(this,5,false)">Room</button></div><div class="qfb" id="qfb5"></div></div><div class="qblock"><div class="qnum">Q6</div><div class="qtext">Which room do you cook in?</div><div class="qopts"><button class="qopt" onclick="mc(this,6,false)">das Schlafzimmer</button><button class="qopt" onclick="mc(this,6,false)">das Wohnzimmer</button><button class="qopt" onclick="mc(this,6,true)">die Küche</button><button class="qopt" onclick="mc(this,6,false)">das Badezimmer</button></div><div class="qfb" id="qfb6"></div></div><div class="qblock"><div class="qnum">Q7</div><div class="qtext">What is "der Schrank"?</div><div class="qopts"><button class="qopt" onclick="mc(this,7,false)">Table</button><button class="qopt" onclick="mc(this,7,true)">Wardrobe/cupboard</button><button class="qopt" onclick="mc(this,7,false)">Window</button><button class="qopt" onclick="mc(this,7,false)">Bed</button></div><div class="qfb" id="qfb7"></div></div><div class="qblock"><div class="qnum">Q8</div><div class="qtext">"Die Tür" means…</div><div class="qopts"><button class="qopt" onclick="mc(this,8,false)">Stairs</button><button class="qopt" onclick="mc(this,8,false)">Room</button><button class="qopt" onclick="mc(this,8,false)">Window</button><button class="qopt" onclick="mc(this,8,true)">Door</button></div><div class="qfb" id="qfb8"></div></div><div class="qblock"><div class="qnum">Q9</div><div class="qtext">Which article goes with "Wohnung"?</div><div class="qopts"><button class="qopt" onclick="mc(this,9,false)">der</button><button class="qopt" onclick="mc(this,9,true)">die</button><button class="qopt" onclick="mc(this,9,false)">das</button><button class="qopt" onclick="mc(this,9,false)">kein</button></div><div class="qfb" id="qfb9"></div></div><div class="qblock"><div class="qnum">Q10</div><div class="qtext">What is "das Zimmer"?</div><div class="qopts"><button class="qopt" onclick="mc(this,10,false)">House</button><button class="qopt" onclick="mc(this,10,true)">Room</button><button class="qopt" onclick="mc(this,10,false)">Table</button><button class="qopt" onclick="mc(this,10,false)">Chair</button></div><div class="qfb" id="qfb10"></div></div></div>
+<div class="card"><div class="sec-title">&#9999;&#65039; Fill in the blanks</div><div class="fill-row">Ich koche in der <input class="fi" id="f1" placeholder="?">. (kitchen)</div>
+<div class="fill-row">Das <input class="fi" id="f2" placeholder="?"> ist offen. (window)</div>
+<div class="fill-row">Das <input class="fi" id="f3" placeholder="?"> hat eine Dusche. (bathroom)</div>
+<div class="fill-row">Ich schlafe im <input class="fi" id="f4" placeholder="?">. (bed)</div>
+<div class="fill-row">Die <input class="fi" id="f5" placeholder="?"> ist steil. (stairs)</div>
+<button class="chk-btn" onclick="checkFill(['Küche', 'Fenster', 'Badezimmer', 'Bett', 'Treppe'],['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1', 'f2', 'f3', 'f4', 'f5'],'fr1')">Reset</button>
+<div id="fr1" class="rb"></div></div>
+<div class="card"><div class="sec-title">&#10003; Richtig oder Falsch?</div>
+<table class="rf-table"><tr><th>Statement</th><th>R</th><th>F</th></tr><tr><td>Das Haus ist groß.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Der Tisch ist ein Möbelstück.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Die Küche ist ein Zimmer.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Das Fenster ist eine Tür.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr><tr><td>Man schläft im Bett.</td><td><button class='rfb' onclick="rf(this,'R')">R</button></td><td><button class='rfb' onclick="rf(this,'F')">F</button></td></tr></table>
+<button class="chk-btn" onclick="checkRF(['R', 'R', 'R', 'F', 'R'],[0,1,2,3,4],'rfr1')" style="margin-top:12px">Check</button>
+<div id="rfr1" class="rb"></div></div>
+<div class="cta"><a class="cta-btn btn-back" href="TheGermanStefan_A1_Hub.html">&#8592; A1 Hub</a><a class="cta-btn btn-next" href="A1_Vocab_02_Essen.html">Essen &#8594;</a></div></div><script>
+const LANG={en:{home:'Home',a1_label:'A1',reading:'Reading',vocab:'Vocab',sprechen:'Sprechen',fb_correct:'Correct!',fb_wrong:'Not quite - see correct answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},fr:{home:'Accueil',a1_label:'A1',reading:'Lecture',vocab:'Vocabulaire',sprechen:'Expression orale',fb_correct:'Correct!',fb_wrong:'Pas tout a fait.',res_perfect:'Parfait!',res_great:'Tres bien!',res_good:'Bon effort!',res_practice:'Continuez!',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{home:'Inicio',a1_label:'A1',reading:'Lectura',vocab:'Vocabulario',sprechen:'Expresion oral',fb_correct:'Correcto!',fb_wrong:'No del todo.',res_perfect:'Perfecto!',res_great:'Muy bien!',res_good:'Buen esfuerzo!',res_practice:'Sigue!',res_score:'Puntuacion',res_of:'de',res_correct:'correctas'},it:{home:'Home',a1_label:'A1',reading:'Lettura',vocab:'Vocabolario',sprechen:'Espressione orale',fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette'},pt:{home:'Inicio',a1_label:'A1',reading:'Leitura',vocab:'Vocabulario',sprechen:'Expressao oral',fb_correct:'Correto!',fb_wrong:'Nao foi.',res_perfect:'Perfeito!',res_great:'Otimo!',res_good:'Bom esforco!',res_practice:'Continue!',res_score:'Pontuacao',res_of:'de',res_correct:'corretas'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));applyLang()});
+<\/script></body></html>

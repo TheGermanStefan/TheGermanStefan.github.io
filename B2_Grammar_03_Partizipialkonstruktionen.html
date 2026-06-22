@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TGS B2 Grammar Partizipialkonstruktionen</title><style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#c62828;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--lc),#7f0000);color:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px}
+.ph-icon{font-size:42px;flex-shrink:0}.ph-title{font-size:21px;font-weight:900}
+.ph-sub{font-size:13px;opacity:.85;margin-top:2px}
+.ph-score{margin-left:auto;text-align:right;flex-shrink:0}
+.ph-pts{font-size:26px;font-weight:900;color:var(--amber)}
+.ph-ptsl{font-size:11px;opacity:.75}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
+.intro-box{background:#ffebee;border-left:4px solid var(--lc);border-radius:8px;padding:16px 20px;margin-bottom:16px;font-size:14px}
+.intro-box strong{color:var(--lc)}
+.rule-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:14px}
+.rule-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rule-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.rule-table tr:nth-child(even) td{background:#ffebee}
+.rule-table .de{font-weight:800;color:var(--navy)}
+.example-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.example-list li{background:#ffebee;border-left:4px solid var(--lc);border-radius:8px;padding:10px 14px;font-size:14px}
+.example-list .de{font-weight:800;color:var(--navy)}
+.example-list .en{color:var(--txt2);font-size:12px;margin-top:2px}
+.qblock{background:#ffebee;border:2px solid #ef9a9a;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:10px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:7px 16px;border-radius:8px;border:2px solid #ef9a9a;background:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;transition:.15s}
+.qopt:hover{border-color:var(--lc);background:#ffebee}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:#b71c1c;border-color:#b71c1c;color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
+.qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfb.bad{background:#fff3e0;color:#bf360c;display:block}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#ffebee;border-radius:10px;border:1.5px solid #ef9a9a}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:#b71c1c;color:#b71c1c}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid #eee}
+.rf-table tr:nth-child(even) td{background:#ffebee}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ef9a9a;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:#b71c1c;color:#b71c1c}
+.rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
+.rb.great{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff}
+.rb.good{background:linear-gradient(135deg,#e65100,#ef6c00);color:#fff}
+.rb.practice{background:linear-gradient(135deg,#7f0000,#c62828);color:#fff}
+.rbt{display:flex;align-items:center;gap:14px}
+.rbe{font-size:30px}.rbti{font-size:15px;font-weight:800}.rbs{font-size:13px;opacity:.85;margin-top:2px}
+.chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.rst-btn{padding:8px 18px;border-radius:8px;border:2px solid var(--lc);background:transparent;color:var(--lc);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px;margin-left:8px}
+.cta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:12px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-top:8px}
+.cta-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block}
+.btn-back{background:#eee;color:#555}.btn-back:hover{background:#ddd}
+.btn-next{background:var(--lc);color:#fff}.btn-next:hover{background:#7f0000}
+.tag{display:inline-block;background:#ffebee;border:1.5px solid #ef9a9a;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:700;color:var(--lc);margin:3px}
+</style></head><body><div class="topbar"><div class="tb-left">
+    <span class="tb-logo">&#127465;&#127466; TGS</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="home">Home</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb">B2</span><span class="tb-sep">&rsaquo;</span>
+    <span class="tb-crumb" data-t="crumb_grammar">Grammar</span>
+    <span class="tb-badge">B2</span><span class="tb-mod">Lesson 3</span>
+  </div><div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div></div><div id="lang-bar" style="display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;"></div><div class="pgstrip"><div class="pgfill" id="pgf"></div></div><div class="page-hdr"><div class="ph-icon">🔗</div>
+  <div><div class="ph-title">Partizipialkonstruktionen</div><div class="ph-sub">Extended participial phrases — formal written German</div></div>
+  <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl" data-t="score_label">correct</div></div></div>
+<div class="wrap">
+<div class="card"><div class="sec-title">📘 Extended Participial Phrases</div>
+<div class="intro-box">In <strong>formal and academic German</strong>, relative clauses are often replaced by participial phrases. This is a key B2+ feature of written style.</div>
+<table class="rule-table">
+<tr><th>Relative clause</th><th>Participial phrase</th></tr>
+<tr><td class="de">das Buch, das von ihm geschrieben wurde</td><td class="de">das von ihm geschriebene Buch</td></tr>
+<tr><td class="de">der Mann, der das Problem löst</td><td class="de">der das Problem lösende Mann</td></tr>
+<tr><td class="de">die Ergebnisse, die bereits veröffentlicht wurden</td><td class="de">die bereits veröffentlichten Ergebnisse</td></tr>
+</table>
+<div class="intro-box" style="margin-top:12px"><strong>Structure:</strong> All modifiers (adverbs, objects) come <em>before</em> the participle, which takes adjective endings before the noun.<br>
+P1 = active/ongoing · P2 = passive/completed</div>
+</div>
+<div class="card"><div class="sec-title">💡 Examples in Academic Texts</div>
+<ul class="example-list">
+<li><div class="de">Die auf dem Kongress vorgestellten Ergebnisse sind bahnbrechend.</div><div class="en">The results presented at the congress are groundbreaking.</div></li>
+<li><div class="de">Das vom Bundestag verabschiedete Gesetz tritt nächsten Monat in Kraft.</div><div class="en">The law passed by the Bundestag comes into force next month.</div></li>
+<li><div class="de">Die seit Jahren steigende Inflation beunruhigt die Bevölkerung.</div><div class="en">The inflation rising for years worries the population.</div></li>
+</ul></div>
+<div class="card"><div class="sec-title" data-t="mc_title">🎯 Multiple Choice</div><div class="qblock"><div class="qnum">Q1</div><div class="qtext">Transform: "das Buch, das geschrieben wurde" →</div><div class="qopts"><button class="qopt" onclick="mc(this,1,false)">das geschriebenes Buch</button><button class="qopt" onclick="mc(this,1,true)">das geschriebene Buch</button><button class="qopt" onclick="mc(this,1,false)">das geschrieben Buch</button><button class="qopt" onclick="mc(this,1,false)">das schreibende Buch</button></div><div class="qfb" id="qfb1"></div></div><div class="qblock"><div class="qnum">Q2</div><div class="qtext">P1 or P2? "die steigende Inflation" (active, ongoing)</div><div class="qopts"><button class="qopt" onclick="mc(this,2,false)">P2 — completed</button><button class="qopt" onclick="mc(this,2,true)">P1 — active/ongoing</button><button class="qopt" onclick="mc(this,2,false)">Neither</button><button class="qopt" onclick="mc(this,2,false)">Both</button></div><div class="qfb" id="qfb2"></div></div><div class="qblock"><div class="qnum">Q3</div><div class="qtext">Where do modifiers go in a participial phrase?</div><div class="qopts"><button class="qopt" onclick="mc(this,3,false)">After the participle</button><button class="qopt" onclick="mc(this,3,false)">Before the noun</button><button class="qopt" onclick="mc(this,3,true)">Before the participle</button><button class="qopt" onclick="mc(this,3,false)">After the noun</button></div><div class="qfb" id="qfb3"></div></div><div class="qblock"><div class="qnum">Q4</div><div class="qtext">"Die vom Chef unterschriebenen Dokumente" — the participle is:</div><div class="qopts"><button class="qopt" onclick="mc(this,4,false)">P1 (unterschreibend)</button><button class="qopt" onclick="mc(this,4,true)">P2 (unterschrieben)</button><button class="qopt" onclick="mc(this,4,false)">Infinitiv</button><button class="qopt" onclick="mc(this,4,false)">Adjektiv</button></div><div class="qfb" id="qfb4"></div></div><div class="qblock"><div class="qnum">Q5</div><div class="qtext">Which is the correct B2-style transformation of "Ergebnisse, die bereits analysiert wurden"?</div><div class="qopts"><button class="qopt" onclick="mc(this,5,false)">die analysierte Ergebnisse</button><button class="qopt" onclick="mc(this,5,true)">die bereits analysierten Ergebnisse</button><button class="qopt" onclick="mc(this,5,false)">die schon analysierenden Ergebnisse</button><button class="qopt" onclick="mc(this,5,false)">die bereits analysierende Ergebnisse</button></div><div class="qfb" id="qfb5"></div></div>
+</div>
+<div class="card"><div class="sec-title" data-t="fill_title">✏️ Fill in the blanks</div>
+<div class="fill-row">Das <input class="fi" id="f1" placeholder="?"> Problem wurde gelöst. (long-discussed — vieldiskutierte)</div>
+<div class="fill-row">Die im Labor <input class="fi" id="f2" placeholder="?"> Ergebnisse sind korrekt. (tested — getesteten)</div>
+<div class="fill-row">Der von allen <input class="fi" id="f3" placeholder="?"> Plan scheiterte. (expected — erwartete)</div>
+<div class="fill-row">Die seit Jahren <input class="fi" id="f4" placeholder="?"> Kosten belasten die Haushalte. (rising — steigenden)</div>
+<div class="fill-row">Das neu <input class="fi" id="f5" placeholder="?"> Gebäude wurde eröffnet. (built — gebaute)</div>
+<button class="chk-btn" onclick="checkFill(['vieldiskutierte','getesteten','erwartete','steigenden','gebaute'],['f1','f2','f3','f4','f5'],'fr1')" data-t="check_btn">Check</button>
+<button class="rst-btn" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')" data-t="reset_btn">Reset</button>
+<div id="fr1" class="rb"></div></div><div class="cta"><a class="cta-btn btn-back" href="B2_Grammar_02_Konjunktiv1.html" data-t="back_hub">&#8592; Konjunktiv I</a><a class="cta-btn btn-next" href="B2_Grammar_04_Konzessiv.html">Konzessiv &#8594;</a></div></div><script>
+const LANG={en:{fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.',res_perfect:'Perfect!',res_great:'Great job!',res_good:'Good effort!',res_practice:'Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',check_btn:'Check',reset_btn:'Reset',mc_title:'🎯 Multiple Choice',fill_title:'✏️ Fill in the blanks',rf_title:'✅ Richtig oder Falsch?',home:'Home',back_hub:'← B2 Hub',score_label:'correct',crumb_grammar:'Grammar',crumb_reading:'Reading',crumb_vocab:'Vocabulary',crumb_speaking:'Speaking'},fr:{fb_correct:'Correct !',fb_wrong:'Pas tout à fait.',res_perfect:'Parfait !',res_great:'Très bien !',res_good:'Bon effort !',res_practice:'Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct',check_btn:'Vérifier',reset_btn:'Réinitialiser',mc_title:'🎯 Choix multiple',fill_title:'✏️ Complétez les blancs',rf_title:'✅ Vrai ou Faux ?',home:'Accueil',back_hub:'← Hub B2',score_label:'correct',crumb_grammar:'Grammaire',crumb_reading:'Lecture',crumb_vocab:'Vocabulaire',crumb_speaking:'Expression'},es:{fb_correct:'¡Correcto!',fb_wrong:'No del todo.',res_perfect:'¡Perfecto!',res_great:'¡Muy bien!',res_good:'¡Buen esfuerzo!',res_practice:'¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',check_btn:'Verificar',reset_btn:'Reiniciar',mc_title:'🎯 Opción múltiple',fill_title:'✏️ Rellena los huecos',rf_title:'✅ ¿Verdadero o Falso?',home:'Inicio',back_hub:'← Hub B2',score_label:'correctas',crumb_grammar:'Gramática',crumb_reading:'Lectura',crumb_vocab:'Vocabulario',crumb_speaking:'Conversación'},it:{fb_correct:'Corretto!',fb_wrong:'Non proprio.',res_perfect:'Perfetto!',res_great:'Ottimo!',res_good:'Buon tentativo!',res_practice:'Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',check_btn:'Verifica',reset_btn:'Reimposta',mc_title:'🎯 Scelta multipla',fill_title:'✏️ Completa i testi',rf_title:'✅ Vero o Falso?',home:'Home',back_hub:'← Hub B2',score_label:'corrette',crumb_grammar:'Grammatica',crumb_reading:'Lettura',crumb_vocab:'Vocabolario',crumb_speaking:'Parlato'},pt:{fb_correct:'Correto!',fb_wrong:'Não foi.',res_perfect:'Perfeito!',res_great:'Ótimo!',res_good:'Bom esforço!',res_practice:'Continue!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',check_btn:'Verificar',reset_btn:'Reiniciar',mc_title:'🎯 Múltipla escolha',fill_title:'✏️ Preencha os espaços',rf_title:'✅ Verdadeiro ou Falso?',home:'Início',back_hub:'← Hub B2',score_label:'corretas',crumb_grammar:'Gramática',crumb_reading:'Leitura',crumb_vocab:'Vocabulário',crumb_speaking:'Conversação'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||LANG.en)[k]||k}
+function applyLang(){
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var bar=document.getElementById('lang-bar');
+  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
+  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
+  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
+}
+window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
+var setLang=window.setLang;
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[w.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{applyLang()});
+</script>
+</body>
+</html>

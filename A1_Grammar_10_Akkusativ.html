@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A1 · Grammatik · Akkusativ</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75;min-height:100vh}
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.6}.bc a{color:#fff;text-decoration:none}
+.lbadge{font-size:11px;font-weight:900;padding:3px 10px;border-radius:20px;background:var(--lc);color:#fff}
+.mbadge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff}
+.ls{display:flex;gap:4px}
+.lb{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{border-color:rgba(255,255,255,.6);color:#fff}.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.page-hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;padding:26px 24px 20px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:42px}.ph-title{font-size:23px;font-weight:900;margin-bottom:4px}.ph-sub{font-size:13px;opacity:.8}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score-wrap{text-align:right;flex-shrink:0}
+.ph-score{font-size:30px;font-weight:900;color:var(--amber);line-height:1}
+.ph-score-lbl{font-size:11px;opacity:.6;margin-top:3px}
+.pgstrip{background:#e8eef8;height:5px}.pgfill{height:100%;background:var(--amber);transition:width .5s ease;width:0%}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.ib{padding:10px 15px;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;background:#e8f0fe;font-size:13px;font-style:italic;color:var(--txt2);margin-bottom:16px}
+.tip{background:#e8f0fe;border:1.5px solid #b0cef8;border-radius:9px;padding:11px 15px;font-size:13px;margin-bottom:14px}
+.tip strong{color:var(--lc)}
+.case-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px}
+.case-table th{background:#e8f0fe;padding:8px 12px;text-align:left;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);border-bottom:2px solid var(--border)}
+.case-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0}
+.case-table tr:nth-child(even) td{background:#fafcff}
+.case-table .hi{color:var(--red);font-weight:900}
+.case-table .norm{color:var(--navy);font-weight:700}
+.qblock{margin-bottom:16px;padding:15px 17px;background:#f8faff;border-radius:10px;border:1.5px solid var(--border)}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#e8f0fe}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fs{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;font-size:15px;padding:11px 14px;background:#f8faff;border-radius:9px;border:1.5px solid var(--border);margin-bottom:10px}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 5px;min-width:90px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}.fi.bad{border-color:var(--red);color:var(--red)}
+table.rft{width:100%;border-collapse:collapse;font-size:14px}
+table.rft th{background:#e8f0fe;padding:8px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);border-bottom:2px solid var(--border)}
+table.rft td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+table.rft tr:nth-child(even) td{background:#fafcff}
+.rfc{text-align:center;width:90px}
+.rfw{display:flex;gap:5px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #ccc;background:#fff;font-weight:900;font-size:12px;color:#777;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.rfb:hover{transform:scale(1.1);border-color:var(--lc)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rbox{background:#fffef8;border:1.5px solid #ffe082;border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.9;margin-bottom:12px}
+.rbmeta{font-size:11px;color:var(--txt3);font-style:italic;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#d0d8ec}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.rb{border-radius:12px;padding:16px 20px;margin-top:16px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid #1976d2}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rbe{font-size:34px}.rbti{font-size:17px;font-weight:900;color:var(--navy)}.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+.complete-banner{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:14px;padding:22px;margin-top:24px;text-align:center}
+.complete-banner h3{font-size:19px;font-weight:900;margin-bottom:8px}
+.complete-banner p{font-size:14px;opacity:.9;margin-bottom:16px}
+.cbtn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:11px 28px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;margin:4px}
+.cta{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;border-radius:14px;padding:22px;margin-top:14px;text-align:center}
+.cta h3{font-size:17px;font-weight:900;margin-bottom:7px}
+.cta p{font-size:13px;opacity:.85;margin-bottom:14px}
+.cta-btn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:11px 28px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:10px}
+.nbtn{padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nprev{background:#e0e6f0;color:var(--navy)}.nhub{background:var(--green);color:#fff}
+@media(max-width:600px){.qopts{flex-direction:column}.qopt{width:100%}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="A1_hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
+    <span class="lbadge">A1</span><span class="mbadge" data-t="grammar">Grammar</span>
+  </div>
+  <div class="ls">
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">🎯</div>
+      <div class="ph-title">Akkusativ</div>
+      <div class="ph-sub" data-t="ph_sub">The accusative case — direct objects in German</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A1</span><span class="ph-tag" data-t="grammar">Grammar</span>
+        <span class="ph-tag">10 / 10 ✅</span>
+        <span class="ph-tag">⏱ 15 <span data-t="minutes">min</span></span>
+        <span class="ph-tag">20 <span data-t="questions">questions</span></span>
+      </div>
+    </div>
+    <div class="ph-score-wrap">
+      <div class="ph-score" id="lsd">0</div>
+      <div class="ph-score-lbl" data-t="correct_answers">correct</div>
+    </div>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="wrap">
+<div class="card"><div class="cb">
+  <div class="tip">💡 <strong data-t="tip_label">Quick Tip:</strong> <span data-t="tip1">The accusative is used for the <strong>direct object</strong> (what/who receives the action). The BIG change: <strong>der → den</strong> (masculine only!). Feminine and neuter stay the same. Ein → <strong>einen</strong> for masculine.</span></div>
+  <table class="case-table">
+    <thead><tr><th>Gender</th><th>Nominative (subject)</th><th>Accusative (direct object)</th></tr></thead>
+    <tbody>
+      <tr><td>🔵 Masculine</td><td class="norm">der / ein</td><td><span class="hi">den / einen</span> ← changes!</td></tr>
+      <tr><td>🔴 Feminine</td><td class="norm">die / eine</td><td class="norm">die / eine (no change)</td></tr>
+      <tr><td>🟢 Neuter</td><td class="norm">das / ein</td><td class="norm">das / ein (no change)</td></tr>
+      <tr><td>Plural</td><td class="norm">die / keine</td><td class="norm">die / keine (no change)</td></tr>
+    </tbody>
+  </table>
+  <div class="tip" style="margin-bottom:0">📝 <strong>Examples:</strong> <em>Ich sehe <strong>den</strong> Mann.</em> / <em>Ich kaufe <strong>einen</strong> Apfel.</em> / <em>Ich liebe <strong>die</strong> Musik.</em> / <em>Ich lese <strong>das</strong> Buch.</em></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📋 <span data-t="instructions">Instructions</span></div>
+  <div class="ib" data-t="instr_mc">Choose the correct accusative article.</div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 1</div>
+    <div class="qtext">Ich kaufe ___ Apfel. (der Apfel = masculine — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,false)">ein</button>
+      <button class="qopt" onclick="mc(this,1,true)">einen</button>
+      <button class="qopt" onclick="mc(this,1,false)">eine</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 2</div>
+    <div class="qtext">Er trinkt ___ Kaffee. (der Kaffee = masculine — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,true)">einen</button>
+      <button class="qopt" onclick="mc(this,2,false)">ein</button>
+      <button class="qopt" onclick="mc(this,2,false)">eine</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 3</div>
+    <div class="qtext">Sie liest ___ Buch. (das Buch = neuter — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,true)">ein</button>
+      <button class="qopt" onclick="mc(this,3,false)">einen</button>
+      <button class="qopt" onclick="mc(this,3,false)">eine</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 4</div>
+    <div class="qtext">Ich sehe ___ Mann. (der Mann = masculine, DEFINITE — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,false)">der</button>
+      <button class="qopt" onclick="mc(this,4,true)">den</button>
+      <button class="qopt" onclick="mc(this,4,false)">die</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 5</div>
+    <div class="qtext">Wir besuchen ___ Freundin. (die Freundin = feminine — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,false)">ein</button>
+      <button class="qopt" onclick="mc(this,5,false)">einen</button>
+      <button class="qopt" onclick="mc(this,5,true)">eine</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 6</div>
+    <div class="qtext">Er hat ___ Hund. (der Hund = masculine — accusative, indefinite)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,true)">einen</button>
+      <button class="qopt" onclick="mc(this,6,false)">ein</button>
+      <button class="qopt" onclick="mc(this,6,false)">eine</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 7</div>
+    <div class="qtext">Ich höre ___ Musik. (die Musik = feminine, definite — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,false)">der</button>
+      <button class="qopt" onclick="mc(this,7,true)">die</button>
+      <button class="qopt" onclick="mc(this,7,false)">das</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 8</div>
+    <div class="qtext">Which article changes in the accusative case?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,false)">die (feminine)</button>
+      <button class="qopt" onclick="mc(this,8,false)">das (neuter)</button>
+      <button class="qopt" onclick="mc(this,8,true)">der → den (masculine)</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 9</div>
+    <div class="qtext">Ich esse ___ Suppe. (die Suppe = feminine, indefinite)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,false)">ein</button>
+      <button class="qopt" onclick="mc(this,9,false)">einen</button>
+      <button class="qopt" onclick="mc(this,9,true)">eine</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 10</div>
+    <div class="qtext">Sie sieht ___ Film. (der Film = masculine, definite — accusative)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">der</button>
+      <button class="qopt" onclick="mc(this,10,true)">den</button>
+      <button class="qopt" onclick="mc(this,10,false)">die</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✏️ <span data-t="fill_title">Fill in the blanks</span></div>
+  <div class="ib" data-t="instr_fill">Fill in the correct accusative article (einen / eine / ein / den / die / das).</div>
+  <div class="fs"><span>Ich habe</span><input class="fi" id="fi1" type="text" placeholder="?" autocomplete="off"><span>Bruder. (der Bruder)</span></div>
+  <div class="fs"><span>Wir kaufen</span><input class="fi" id="fi2" type="text" placeholder="?" autocomplete="off"><span>Wohnung. (die Wohnung)</span></div>
+  <div class="fs"><span>Er liest</span><input class="fi" id="fi3" type="text" placeholder="?" autocomplete="off"><span>Buch. (das Buch — indefinite)</span></div>
+  <div class="fs"><span>Ich kenne</span><input class="fi" id="fi4" type="text" placeholder="?" autocomplete="off"><span>Mann. (der Mann — definite)</span></div>
+  <div class="fs"><span>Sie kauft</span><input class="fi" id="fi5" type="text" placeholder="?" autocomplete="off"><span>Ticket. (das Ticket — indefinite)</span></div>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['einen','eine','ein','den','ein'],['fi1','fi2','fi3','fi4','fi5'],'fill-res')"><span>✓</span><span data-t="check">Check</span></button>
+    <button class="btn btn-s" onclick="resetFill(['fi1','fi2','fi3','fi4','fi5'],'fill-res')" data-t="try_again">Try Again</button>
+  </div>
+  <div class="rb" id="fill-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <div class="ib" data-t="instr_rf">Are the statements correct (R) or incorrect (F)?</div>
+  <table class="rft">
+    <thead><tr><th>#</th><th data-t="statement">Statement</th><th class="rfc">R / F</th></tr></thead>
+    <tbody>
+      <tr><td>1.</td><td>Only the masculine article changes in the accusative (der → den / ein → einen).</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>2.</td><td>„Ich kaufe eine Buch" is correct German (das Buch → neuter).</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>3.</td><td>The accusative is used for the direct object — the person or thing that receives the action.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>4.</td><td>„Ich sehe den Mann" — „den" signals that Mann is the accusative (direct object).</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>5.</td><td>Verbs like kaufen, haben, sehen, essen, trinken, lesen take an accusative object.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['R','F','R','R','R'],[0,1,2,3,4],'rf-res')"><span>✓</span><span data-t="check">Check</span></button>
+  </div>
+  <div class="rb" id="rf-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📖 <span data-t="reading">Reading</span></div>
+  <div class="ib" data-t="instr_reading">Read and answer the questions.</div>
+  <div class="rbox">
+    <div class="rbmeta" data-t="read_source">Short text · A1</div>
+    <strong>Beim Frühstück</strong><br><br>
+    Am Morgen esse ich einen Apfel und ein Brötchen. Ich trinke einen Kaffee und ein Glas Wasser. Dann lese ich die Zeitung. Ich liebe den Morgen! Meine Frau isst ein Joghurt und trinkt einen Tee. Wir haben eine kleine, aber schöne Küche.
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 11</div>
+    <div class="qtext">„Ich esse einen Apfel." Why is it „einen" and not „ein"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">Because Apfel is feminine</button>
+      <button class="qopt" onclick="mc(this,11,true)">Because Apfel is masculine (der Apfel) and in the accusative case</button>
+      <button class="qopt" onclick="mc(this,11,false)">Because it follows „essen"</button>
+    </div><div class="qfb" id="qfb11"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 12</div>
+    <div class="qtext">„Ich liebe den Morgen!" — What case is „den Morgen"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">Nominative (subject)</button>
+      <button class="qopt" onclick="mc(this,12,true)">Accusative (direct object)</button>
+      <button class="qopt" onclick="mc(this,12,false)">Genitive (possession)</button>
+    </div><div class="qfb" id="qfb12"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 13</div>
+    <div class="qtext">„Meine Frau trinkt einen Tee." — What gender is Tee?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,true)">Masculine (der Tee → accusative: einen)</button>
+      <button class="qopt" onclick="mc(this,13,false)">Feminine (die Tee)</button>
+      <button class="qopt" onclick="mc(this,13,false)">Neuter (das Tee)</button>
+    </div><div class="qfb" id="qfb13"></div>
+  </div>
+</div></div>
+
+<div class="complete-banner">
+  <div style="font-size:36px;margin-bottom:8px">🎉🏆🎉</div>
+  <h3 data-t="complete_title">A1 Grammar Complete!</h3>
+  <p data-t="complete_text">You've finished all 10 A1 grammar exercises! Incredible work. Now move on to A1 Reading Texts or Vocabulary Sets to round out your A1 foundation.</p>
+  <button class="cbtn" onclick="location.href='A1_hub.html'" data-t="back_hub">Back to A1 Hub →</button>
+</div>
+
+<div class="cta">
+  <h3 data-t="cta_title">Ready for more German?</h3>
+  <p data-t="cta_text">Join TheGermanStefan community — free A1 content, weekly Stammtisch, and much more!</p>
+  <button class="cta-btn" data-t="cta_btn">Join Free →</button>
+</div>
+<div class="nav-btns">
+  <button class="nbtn nprev" onclick="location.href='A1_Grammar_09_Adjektive.html'">← <span data-t="back">Back</span></button>
+  <button class="nbtn nhub" onclick="location.href='A1_hub.html'">🏠 A1 Hub</button>
+</div>
+</div>
+
+<script>
+const LANG={en:{home:'Home',back:'Back',grammar:'Grammar',reading:'Reading',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choose the correct accusative article.',instr_fill:'Fill in the correct accusative article.',instr_rf:'Are the statements correct (R) or incorrect (F)?',instr_reading:'Read and answer the questions.',statement:'Statement',fill_title:'Fill in the blanks',check:'Check',try_again:'Try Again',fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite.',res_perfect:'🏆 Perfect!',res_great:'🎉 Great job!',res_good:'👍 Good effort!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',correct_answers:'correct',complete_title:'A1 Grammar Complete!',complete_text:'You\'ve finished all 10 A1 grammar exercises! Incredible work. Now move on to A1 Reading Texts or Vocabulary Sets to round out your A1 foundation.',back_hub:'Back to A1 Hub →',cta_title:'Ready for more German?',cta_text:'Join TheGermanStefan community — free A1 content, weekly Stammtisch, and much more!',cta_btn:'Join Free →',question:'Question',tip_label:'Quick Tip:',tip1:'The accusative is used for the direct object. The BIG change: der → den (masculine only!). Feminine and neuter stay the same. Ein → einen for masculine.',read_source:'Short text · A1',ph_sub:'The accusative case — direct objects in German'},
+fr:{home:'Accueil',back:'Retour',grammar:'Grammaire',reading:'Lecture',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choisissez le bon article à l\'accusatif.',instr_fill:'Complétez avec le bon article à l\'accusatif.',instr_rf:'Les affirmations sont-elles correctes (R) ou incorrectes (F)?',instr_reading:'Lisez et répondez.',statement:'Affirmation',fill_title:'Complétez',check:'Vérifier',try_again:'Réessayer',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon effort !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correctes',correct_answers:'correctes',complete_title:'Grammaire A1 terminée !',complete_text:'Vous avez terminé les 10 exercices de grammaire A1 ! Excellent travail.',back_hub:'Retour au Hub A1 →',cta_title:'Prêt pour plus d\'allemand ?',cta_text:'Rejoignez la communauté TheGermanStefan.',cta_btn:'Rejoindre →',question:'Question',tip_label:'Conseil :',tip1:'L\'accusatif est utilisé pour le complément d\'objet direct. LE GRAND CHANGEMENT : der → den (masculin uniquement !). Le féminin et le neutre restent identiques.',read_source:'Texte court · A1',ph_sub:'Le cas accusatif — les compléments d\'objet direct en allemand'},
+es:{home:'Inicio',back:'Volver',grammar:'Gramática',reading:'Lectura',minutes:'min',questions:'preguntas',instructions:'Instrucciones',instr_mc:'Elige el artículo acusativo correcto.',instr_fill:'Completa con el artículo acusativo correcto.',instr_rf:'¿Las afirmaciones son correctas (R) o incorrectas (F)?',instr_reading:'Lee y responde.',statement:'Afirmación',fill_title:'Completa',check:'Comprobar',try_again:'Intentar de nuevo',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No exactamente.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Buen esfuerzo!',res_practice:'💪 ¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',correct_answers:'correctas',complete_title:'¡Gramática A1 completa!',complete_text:'¡Has completado los 10 ejercicios de gramática A1! Trabajo increíble.',back_hub:'Volver al Hub A1 →',cta_title:'¿Listo para más alemán?',cta_text:'Únete a la comunidad TheGermanStefan.',cta_btn:'Únete gratis →',question:'Pregunta',tip_label:'Consejo:',tip1:'El acusativo se usa para el objeto directo. EL GRAN CAMBIO: der → den (¡solo masculino!). El femenino y el neutro no cambian.',read_source:'Texto corto · A1',ph_sub:'El caso acusativo — objetos directos en alemán'},
+it:{home:'Home',back:'Indietro',grammar:'Grammatica',reading:'Lettura',minutes:'min',questions:'domande',instructions:'Istruzioni',instr_mc:'Scegli il corretto articolo all\'accusativo.',instr_fill:'Completa con il corretto articolo all\'accusativo.',instr_rf:'Le affermazioni sono corrette (R) o errate (F)?',instr_reading:'Leggi e rispondi.',statement:'Affermazione',fill_title:'Completa',check:'Controlla',try_again:'Riprova',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non esatto.',res_perfect:'🏆 Perfetto!',res_great:'🎉 Molto bene!',res_good:'👍 Buon tentativo!',res_practice:'💪 Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',correct_answers:'corrette',complete_title:'Grammatica A1 completata!',complete_text:'Hai completato tutti i 10 esercizi di grammatica A1! Lavoro incredibile.',back_hub:'Torna all\'Hub A1 →',cta_title:'Pronto per più tedesco?',cta_text:'Unisciti alla comunità TheGermanStefan.',cta_btn:'Unisciti gratis →',question:'Domanda',tip_label:'Consiglio:',tip1:'L\'accusativo si usa per l\'oggetto diretto. IL GRANDE CAMBIAMENTO: der → den (solo maschile!). Femminile e neutro rimangono uguali.',read_source:'Testo breve · A1',ph_sub:'Il caso accusativo — oggetti diretti in tedesco'},
+pt:{home:'Início',back:'Voltar',grammar:'Gramática',reading:'Leitura',minutes:'min',questions:'perguntas',instructions:'Instruções',instr_mc:'Escolha o artigo acusativo correto.',instr_fill:'Complete com o artigo acusativo correto.',instr_rf:'As afirmações são corretas (R) ou incorretas (F)?',instr_reading:'Leia e responda.',statement:'Afirmação',fill_title:'Complete',check:'Verificar',try_again:'Tentar novamente',fb_correct:'✓ Correto!',fb_wrong:'✗ Não exatamente.',res_perfect:'🏆 Perfeito!',res_great:'🎉 Muito bem!',res_good:'👍 Bom esforço!',res_practice:'💪 Continue praticando!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',correct_answers:'corretas',complete_title:'Gramática A1 completa!',complete_text:'Você completou todos os 10 exercícios de gramática A1! Trabalho incrível.',back_hub:'Voltar ao Hub A1 →',cta_title:'Pronto para mais alemão?',cta_text:'Junte-se à comunidade TheGermanStefan.',cta_btn:'Junte-se grátis →',question:'Pergunta',tip_label:'Dica:',tip1:'O acusativo é usado para o objeto direto. A GRANDE MUDANÇA: der → den (apenas masculino!). Feminino e neutro ficam iguais.',read_source:'Texto curto · A1',ph_sub:'O caso acusativo — objetos diretos em alemão'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('.rfw');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');const row=btn.closest('tr');rfSels[row.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=0.8){cls='great';msg=t('res_great');}else if(p>=0.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>applyLang());
+</script>
+</body>
+</html>

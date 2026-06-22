@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A1 · Grammatik · Trennbare Verben</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75;min-height:100vh}
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.6}.bc a{color:#fff;text-decoration:none}
+.lbadge{font-size:11px;font-weight:900;padding:3px 10px;border-radius:20px;background:var(--lc);color:#fff}
+.mbadge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.12);color:#fff}
+.ls{display:flex;gap:4px}
+.lb{border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{border-color:rgba(255,255,255,.6);color:#fff}.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.page-hdr{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;padding:26px 24px 20px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:42px}.ph-title{font-size:23px;font-weight:900;margin-bottom:4px}.ph-sub{font-size:13px;opacity:.8}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score-wrap{text-align:right;flex-shrink:0}
+.ph-score{font-size:30px;font-weight:900;color:var(--amber);line-height:1}
+.ph-score-lbl{font-size:11px;opacity:.6;margin-top:3px}
+.pgstrip{background:#e8eef8;height:5px}.pgfill{height:100%;background:var(--amber);transition:width .5s ease;width:0%}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:var(--card);border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.ib{padding:10px 15px;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;background:#e8f0fe;font-size:13px;font-style:italic;color:var(--txt2);margin-bottom:16px}
+.tip{background:#e8f0fe;border:1.5px solid #b0cef8;border-radius:9px;padding:11px 15px;font-size:13px;margin-bottom:14px}
+.tip strong{color:var(--lc)}
+.verb-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:16px}
+.vc{background:#f8faff;border:2px solid var(--border);border-radius:10px;padding:12px 14px}
+.vc-inf{font-size:15px;font-weight:900;color:var(--navy)}
+.vc-pref{color:var(--lc)}.vc-stem{color:var(--txt2)}
+.vc-en{font-size:12px;color:var(--txt3);margin-top:3px;font-style:italic}
+.vc-ex{font-size:13px;color:var(--green);margin-top:5px;font-weight:700}
+.qblock{margin-bottom:16px;padding:15px 17px;background:#f8faff;border-radius:10px;border:1.5px solid var(--border)}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#e8f0fe}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fs{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;font-size:15px;padding:11px 14px;background:#f8faff;border-radius:9px;border:1.5px solid var(--border);margin-bottom:10px}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 5px;min-width:90px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}.fi.bad{border-color:var(--red);color:var(--red)}
+table.rft{width:100%;border-collapse:collapse;font-size:14px}
+table.rft th{background:#e8f0fe;padding:8px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);border-bottom:2px solid var(--border)}
+table.rft td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+table.rft tr:nth-child(even) td{background:#fafcff}
+.rfc{text-align:center;width:90px}
+.rfw{display:flex;gap:5px;justify-content:center}
+.rfb{width:30px;height:30px;border-radius:50%;border:2px solid #ccc;background:#fff;font-weight:900;font-size:12px;color:#777;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.rfb:hover{transform:scale(1.1);border-color:var(--lc)}
+.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
+.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
+.rbox{background:#fffef8;border:1.5px solid #ffe082;border-radius:10px;padding:16px 18px;font-size:14px;line-height:1.9;margin-bottom:12px}
+.rbmeta{font-size:11px;color:var(--txt3);font-style:italic;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#d0d8ec}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.rb{border-radius:12px;padding:16px 20px;margin-top:16px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:2px solid #1976d2}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.rbe{font-size:34px}.rbti{font-size:17px;font-weight:900;color:var(--navy)}.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+.cta{background:linear-gradient(135deg,var(--navy) 0%,var(--lc) 100%);color:#fff;border-radius:14px;padding:22px;margin-top:26px;text-align:center}
+.cta h3{font-size:17px;font-weight:900;margin-bottom:7px}
+.cta p{font-size:13px;opacity:.85;margin-bottom:14px}
+.cta-btn{display:inline-block;background:var(--amber);color:var(--navy);font-weight:900;font-size:14px;padding:11px 28px;border-radius:10px;border:none;cursor:pointer;font-family:inherit}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:10px}
+.nbtn{padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nprev{background:#e0e6f0;color:var(--navy)}.nnext{background:var(--lc);color:#fff}
+@media(max-width:600px){.qopts{flex-direction:column}.qopt{width:100%}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="A1_hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
+    <span class="lbadge">A1</span><span class="mbadge" data-t="grammar">Grammar</span>
+  </div>
+  <div class="ls">
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">✂️</div>
+      <div class="ph-title">Trennbare Verben</div>
+      <div class="ph-sub" data-t="ph_sub">Separable verbs — the prefix splits off to the end!</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A1</span><span class="ph-tag" data-t="grammar">Grammar</span>
+        <span class="ph-tag">08 / 10</span>
+        <span class="ph-tag">⏱ 15 <span data-t="minutes">min</span></span>
+        <span class="ph-tag">20 <span data-t="questions">questions</span></span>
+      </div>
+    </div>
+    <div class="ph-score-wrap">
+      <div class="ph-score" id="lsd">0</div>
+      <div class="ph-score-lbl" data-t="correct_answers">correct</div>
+    </div>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="wrap">
+<div class="card"><div class="cb">
+  <div class="tip">💡 <strong data-t="tip_label">Quick Tip:</strong> <span data-t="tip1">With separable verbs, the <strong>prefix moves to the END</strong> of the sentence. Example: <em>aufstehen</em> → <em>Ich stehe um 7 Uhr <strong>auf</strong>.</em> The conjugated stem stays in position 2!</span></div>
+  <div class="verb-cards">
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">auf</span><span class="vc-stem">stehen</span></div><div class="vc-en">to get up</div><div class="vc-ex">Ich stehe auf.</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">an</span><span class="vc-stem">rufen</span></div><div class="vc-en">to call (phone)</div><div class="vc-ex">Er ruft an.</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">ein</span><span class="vc-stem">kaufen</span></div><div class="vc-en">to go shopping</div><div class="vc-ex">Wir kaufen ein.</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">ab</span><span class="vc-stem">fahren</span></div><div class="vc-en">to depart</div><div class="vc-ex">Der Zug fährt ab.</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">mit</span><span class="vc-stem">kommen</span></div><div class="vc-en">to come along</div><div class="vc-ex">Kommst du mit?</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">fern</span><span class="vc-stem">sehen</span></div><div class="vc-en">to watch TV</div><div class="vc-ex">Sie sieht fern.</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">zu</span><span class="vc-stem">hören</span></div><div class="vc-en">to listen</div><div class="vc-ex">Hört zu!</div></div>
+    <div class="vc"><div class="vc-inf"><span class="vc-pref">um</span><span class="vc-stem">ziehen</span></div><div class="vc-en">to move house</div><div class="vc-ex">Ich ziehe um.</div></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📋 <span data-t="instructions">Instructions</span></div>
+  <div class="ib" data-t="instr_mc">Choose the correct form of the separable verb.</div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 1</div>
+    <div class="qtext">Ich ___ jeden Morgen um 7 Uhr ___. (aufstehen)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,1,true)">stehe … auf</button>
+      <button class="qopt" onclick="mc(this,1,false)">aufstehe</button>
+      <button class="qopt" onclick="mc(this,1,false)">stehe auf</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 2</div>
+    <div class="qtext">Er ___ seine Mutter ___. (anrufen)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,2,false)">anruft</button>
+      <button class="qopt" onclick="mc(this,2,true)">ruft … an</button>
+      <button class="qopt" onclick="mc(this,2,false)">ruft an</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 3</div>
+    <div class="qtext">Where does the prefix go in a separable verb sentence?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,3,false)">It stays attached to the verb in position 2.</button>
+      <button class="qopt" onclick="mc(this,3,true)">It moves to the very end of the sentence.</button>
+      <button class="qopt" onclick="mc(this,3,false)">It goes directly after the subject.</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 4</div>
+    <div class="qtext">Wir ___ heute Abend ___. (fernsehen)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,4,false)">fernsehen</button>
+      <button class="qopt" onclick="mc(this,4,true)">sehen … fern</button>
+      <button class="qopt" onclick="mc(this,4,false)">sehen fern</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 5</div>
+    <div class="qtext">___ du morgen ___? (mitkommen — question form)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,5,false)">Mitkommst du</button>
+      <button class="qopt" onclick="mc(this,5,true)">Kommst du … mit</button>
+      <button class="qopt" onclick="mc(this,5,false)">Kommt du … mit</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 6</div>
+    <div class="qtext">Der Zug ___ um 10 Uhr ___. (abfahren)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,6,true)">fährt … ab</button>
+      <button class="qopt" onclick="mc(this,6,false)">abfährt</button>
+      <button class="qopt" onclick="mc(this,6,false)">fährt ab</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 7</div>
+    <div class="qtext">Which sentence is CORRECT?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,7,false)">Ich einkaufe im Supermarkt.</button>
+      <button class="qopt" onclick="mc(this,7,true)">Ich kaufe im Supermarkt ein.</button>
+      <button class="qopt" onclick="mc(this,7,false)">Ich kaufe ein im Supermarkt.</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 8</div>
+    <div class="qtext">Anna ___ nächsten Monat nach Hamburg ___. (umziehen)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,8,false)">umzieht</button>
+      <button class="qopt" onclick="mc(this,8,true)">zieht … um</button>
+      <button class="qopt" onclick="mc(this,8,false)">zieht um</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 9</div>
+    <div class="qtext">„Bitte ___ ___!" (zuhören — imperative plural: ihr)</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,9,false)">zuhört!</button>
+      <button class="qopt" onclick="mc(this,9,true)">hört … zu</button>
+      <button class="qopt" onclick="mc(this,9,false)">hört zu!</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 10</div>
+    <div class="qtext">In the sentence „Ich rufe dich morgen an" — where is „an"?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,10,false)">At the beginning</button>
+      <button class="qopt" onclick="mc(this,10,false)">Right after the verb</button>
+      <button class="qopt" onclick="mc(this,10,true)">At the end of the sentence</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✏️ <span data-t="fill_title">Fill in the blanks</span></div>
+  <div class="ib" data-t="instr_fill">Fill in the prefix (it goes at the end!).</div>
+  <div class="fs"><span>Ich stehe um 6 Uhr</span><input class="fi" id="fi1" type="text" placeholder="?" autocomplete="off"><span>. (aufstehen)</span></div>
+  <div class="fs"><span>Er ruft sie morgen</span><input class="fi" id="fi2" type="text" placeholder="?" autocomplete="off"><span>. (anrufen)</span></div>
+  <div class="fs"><span>Wir kaufen heute</span><input class="fi" id="fi3" type="text" placeholder="?" autocomplete="off"><span>. (einkaufen)</span></div>
+  <div class="fs"><span>Der Bus fährt um 9 Uhr</span><input class="fi" id="fi4" type="text" placeholder="?" autocomplete="off"><span>. (abfahren)</span></div>
+  <div class="fs"><span>Sie sieht jeden Abend</span><input class="fi" id="fi5" type="text" placeholder="?" autocomplete="off"><span>. (fernsehen)</span></div>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['auf','an','ein','ab','fern'],['fi1','fi2','fi3','fi4','fi5'],'fill-res')"><span>✓</span><span data-t="check">Check</span></button>
+    <button class="btn btn-s" onclick="resetFill(['fi1','fi2','fi3','fi4','fi5'],'fill-res')" data-t="try_again">Try Again</button>
+  </div>
+  <div class="rb" id="fill-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <div class="ib" data-t="instr_rf">Are the statements correct (R) or incorrect (F)?</div>
+  <table class="rft">
+    <thead><tr><th>#</th><th data-t="statement">Statement</th><th class="rfc">R / F</th></tr></thead>
+    <tbody>
+      <tr><td>1.</td><td>In separable verbs, the prefix always moves to the end of the sentence in main clauses.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>2.</td><td>„Ich aufstehe um 7 Uhr" is correct German.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>3.</td><td>Common separable prefixes include: auf-, an-, ein-, ab-, mit-, fern-, zu-, um-.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>4.</td><td>„Anrufen" is a separable verb. In a sentence: „Ich rufe dich an."</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+      <tr><td>5.</td><td>In a question like „Rufst du mich an?", the prefix „an" still goes to the end.</td>
+        <td class="rfc"><div class="rfw"><button class="rfb" onclick="rf(this,'R')">R</button><button class="rfb" onclick="rf(this,'F')">F</button></div></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['R','F','R','R','R'],[0,1,2,3,4],'rf-res')"><span>✓</span><span data-t="check">Check</span></button>
+  </div>
+  <div class="rb" id="rf-res"></div>
+</div></div>
+
+<div class="card"><div class="cb">
+  <div class="st">📖 <span data-t="reading">Reading</span></div>
+  <div class="ib" data-t="instr_reading">Read and answer the questions.</div>
+  <div class="rbox">
+    <div class="rbmeta" data-t="read_source">Short text · A1</div>
+    <strong>Mein Tagesablauf</strong><br><br>
+    Ich stehe jeden Morgen um halb sieben auf. Dann rufe ich meine Freundin an — sie steht immer früh auf! Mittags kaufe ich im Supermarkt ein. Abends sehe ich manchmal fern oder ich rufe meine Familie an. Am Wochenende komme ich gern mit Freunden aus — wir gehen zusammen aus.
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 11</div>
+    <div class="qtext">„Ich stehe um halb sieben auf." What time does the speaker get up?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,11,false)">7:00</button>
+      <button class="qopt" onclick="mc(this,11,true)">6:30</button>
+      <button class="qopt" onclick="mc(this,11,false)">7:30</button>
+    </div><div class="qfb" id="qfb11"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 12</div>
+    <div class="qtext">Two separable verbs appear in the first two sentences. Which ones?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,12,false)">aufrufen and anstehen</button>
+      <button class="qopt" onclick="mc(this,12,true)">aufstehen and anrufen</button>
+      <button class="qopt" onclick="mc(this,12,false)">aufstehen and fernsehen</button>
+    </div><div class="qfb" id="qfb12"></div>
+  </div>
+  <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 13</div>
+    <div class="qtext">„Wir gehen zusammen aus." Which separable verb is used here?</div>
+    <div class="qopts">
+      <button class="qopt" onclick="mc(this,13,false)">zusammengehen</button>
+      <button class="qopt" onclick="mc(this,13,true)">ausgehen (to go out)</button>
+      <button class="qopt" onclick="mc(this,13,false)">angehen</button>
+    </div><div class="qfb" id="qfb13"></div>
+  </div>
+</div></div>
+
+<div class="cta">
+  <h3 data-t="cta_title">Ready for more German?</h3>
+  <p data-t="cta_text">Join TheGermanStefan community — free A1 content and weekly Stammtisch.</p>
+  <button class="cta-btn" data-t="cta_btn">Join Free →</button>
+</div>
+<div class="nav-btns">
+  <button class="nbtn nprev" onclick="location.href='A1_Grammar_07_Wortstellung.html'">← <span data-t="back">Back</span></button>
+  <button class="nbtn nnext" onclick="location.href='A1_Grammar_09_Adjektive.html'"><span data-t="next">Next</span>: Adjektive →</button>
+</div>
+</div>
+
+<script>
+const LANG={en:{home:'Home',back:'Back',next:'Next',grammar:'Grammar',reading:'Reading',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choose the correct form of the separable verb.',instr_fill:'Fill in the prefix (it goes at the end!).',instr_rf:'Are the statements correct (R) or incorrect (F)?',instr_reading:'Read and answer the questions.',statement:'Statement',fill_title:'Fill in the blanks',check:'Check',try_again:'Try Again',fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite.',res_perfect:'🏆 Perfect!',res_great:'🎉 Great job!',res_good:'👍 Good effort!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct',correct_answers:'correct',cta_title:'Ready for more German?',cta_text:'Join TheGermanStefan community.',cta_btn:'Join Free →',question:'Question',tip_label:'Quick Tip:',tip1:'With separable verbs, the prefix moves to the END of the sentence. Example: aufstehen → Ich stehe um 7 Uhr auf. The conjugated stem stays in position 2!',read_source:'Short text · A1',ph_sub:'Separable verbs — the prefix splits off to the end!'},
+fr:{home:'Accueil',back:'Retour',next:'Suivant',grammar:'Grammaire',reading:'Lecture',minutes:'min',questions:'questions',instructions:'Instructions',instr_mc:'Choisissez la bonne forme du verbe à particule.',instr_fill:'Complétez avec le préfixe (il va à la fin !).',instr_rf:'Les affirmations sont-elles correctes (R) ou incorrectes (F)?',instr_reading:'Lisez et répondez aux questions.',statement:'Affirmation',fill_title:'Complétez',check:'Vérifier',try_again:'Réessayer',fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon effort !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correctes',correct_answers:'correctes',cta_title:'Prêt pour plus d\'allemand ?',cta_text:'Rejoignez la communauté TheGermanStefan.',cta_btn:'Rejoindre →',question:'Question',tip_label:'Conseil :',tip1:'Avec les verbes à particule séparable, le préfixe va EN FIN de phrase. Exemple : aufstehen → Ich stehe um 7 Uhr auf.',read_source:'Texte court · A1',ph_sub:'Verbes séparables — le préfixe va à la fin !'},
+es:{home:'Inicio',back:'Volver',next:'Siguiente',grammar:'Gramática',reading:'Lectura',minutes:'min',questions:'preguntas',instructions:'Instrucciones',instr_mc:'Elige la forma correcta del verbo separable.',instr_fill:'Completa con el prefijo (¡va al final!).',instr_rf:'¿Las afirmaciones son correctas (R) o incorrectas (F)?',instr_reading:'Lee y responde las preguntas.',statement:'Afirmación',fill_title:'Completa los espacios',check:'Comprobar',try_again:'Intentar de nuevo',fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No exactamente.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Buen esfuerzo!',res_practice:'💪 ¡Sigue practicando!',res_score:'Puntuación',res_of:'de',res_correct:'correctas',correct_answers:'correctas',cta_title:'¿Listo para más alemán?',cta_text:'Únete a la comunidad TheGermanStefan.',cta_btn:'Únete gratis →',question:'Pregunta',tip_label:'Consejo:',tip1:'Con verbos separables, el prefijo va AL FINAL de la oración. Ejemplo: aufstehen → Ich stehe um 7 Uhr auf.',read_source:'Texto corto · A1',ph_sub:'Verbos separables — ¡el prefijo va al final!'},
+it:{home:'Home',back:'Indietro',next:'Avanti',grammar:'Grammatica',reading:'Lettura',minutes:'min',questions:'domande',instructions:'Istruzioni',instr_mc:'Scegli la forma corretta del verbo separabile.',instr_fill:'Completa con il prefisso (va alla fine!).',instr_rf:'Le affermazioni sono corrette (R) o errate (F)?',instr_reading:'Leggi e rispondi alle domande.',statement:'Affermazione',fill_title:'Completa gli spazi',check:'Controlla',try_again:'Riprova',fb_correct:'✓ Corretto!',fb_wrong:'✗ Non esatto.',res_perfect:'🏆 Perfetto!',res_great:'🎉 Molto bene!',res_good:'👍 Buon tentativo!',res_practice:'💪 Continua!',res_score:'Punteggio',res_of:'su',res_correct:'corrette',correct_answers:'corrette',cta_title:'Pronto per più tedesco?',cta_text:'Unisciti alla comunità TheGermanStefan.',cta_btn:'Unisciti gratis →',question:'Domanda',tip_label:'Consiglio:',tip1:'Con i verbi separabili, il prefisso va ALLA FINE della frase. Esempio: aufstehen → Ich stehe um 7 Uhr auf.',read_source:'Testo breve · A1',ph_sub:'Verbi separabili — il prefisso va alla fine!'},
+pt:{home:'Início',back:'Voltar',next:'Próximo',grammar:'Gramática',reading:'Leitura',minutes:'min',questions:'perguntas',instructions:'Instruções',instr_mc:'Escolha a forma correta do verbo separável.',instr_fill:'Complete com o prefixo (vai para o final!).',instr_rf:'As afirmações são corretas (R) ou incorretas (F)?',instr_reading:'Leia e responda às perguntas.',statement:'Afirmação',fill_title:'Complete os espaços',check:'Verificar',try_again:'Tentar novamente',fb_correct:'✓ Correto!',fb_wrong:'✗ Não exatamente.',res_perfect:'🏆 Perfeito!',res_great:'🎉 Muito bem!',res_good:'👍 Bom esforço!',res_practice:'💪 Continue praticando!',res_score:'Pontuação',res_of:'de',res_correct:'corretas',correct_answers:'corretas',cta_title:'Pronto para mais alemão?',cta_text:'Junte-se à comunidade TheGermanStefan.',cta_btn:'Junte-se grátis →',question:'Pergunta',tip_label:'Dica:',tip1:'Com verbos separáveis, o prefixo vai para o FINAL da frase. Exemplo: aufstehen → Ich stehe um 7 Uhr auf.',read_source:'Texto curto · A1',ph_sub:'Verbos separáveis — o prefixo vai para o final!'}};
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
+function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice){const w=btn.closest('.rfw');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');const row=btn.closest('tr');rfSels[row.rowIndex-1]=choice}
+function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===ans[i])ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=0.8){cls='great';msg=t('res_great');}else if(p>=0.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>applyLang());
+</script>
+</body>
+</html>
