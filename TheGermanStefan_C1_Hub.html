@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · C1 Advanced Hub</title>
+<style>
+:root{--lc:#b91c1c;--lc2:#7f1d1d;--lv:#ef4444;--bg:#f8f9fa;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);}
+/* NAV */
+.topnav{background:#0d1117;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topnav .brand{color:#fff;font-weight:700;font-size:1rem;text-decoration:none;display:flex;align-items:center;gap:8px;}
+.breadcrumb{color:#9ca3af;font-size:.8rem;}
+.breadcrumb a{color:#9ca3af;text-decoration:none;}
+.breadcrumb a:hover{color:#fff;}
+.lang-bar{display:flex;gap:6px;}
+.lb{background:none;border:1px solid #374151;color:#9ca3af;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:.75rem;font-weight:600;}
+.lb.on{background:var(--lc);border-color:var(--lc);color:#fff;}
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a0000 0%,#7f1d1d 50%,#991b1b 100%);color:#fff;padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.level-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.1em;padding:4px 14px;border-radius:20px;margin-bottom:16px;position:relative;}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:12px;position:relative;}
+.hero p{font-size:1rem;opacity:.85;max-width:560px;margin:0 auto 20px;position:relative;}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;padding:5px 14px;border-radius:20px;}
+/* PROGRESS */
+.prog-bar{background:rgba(0,0,0,.2);height:6px;border-radius:3px;margin:24px auto 0;max-width:400px;position:relative;}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#fca5a5,#ef4444);width:0%;transition:width .6s;}
+.prog-label{text-align:center;font-size:.75rem;opacity:.7;margin-top:6px;}
+/* TABS */
+.tabs{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;overflow-x:auto;}
+.tabs-inner{display:flex;max-width:1100px;margin:0 auto;padding:0 16px;}
+.tab{padding:14px 18px;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.tab:hover{color:var(--lc);}
+.tab.active{color:var(--lc);border-bottom-color:var(--lc);}
+.tab-dot{width:8px;height:8px;border-radius:50%;background:#e5e7eb;transition:background .2s;}
+.tab.active .tab-dot{background:var(--lc);}
+/* SECTIONS */
+.section{display:none;max-width:1100px;margin:0 auto;padding:32px 20px;}
+.section.active{display:block;}
+.sec-header{margin-bottom:28px;}
+.sec-header h2{font-size:1.5rem;font-weight:700;color:var(--txt);}
+.sec-header p{color:var(--muted);margin-top:4px;font-size:.9rem;}
+/* CARDS GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
+.card:hover{border-color:var(--lc);box-shadow:0 4px 20px rgba(185,28,28,.12);transform:translateY(-2px);}
+.card-icon{font-size:1.6rem;margin-bottom:10px;}
+.card-title{font-weight:700;font-size:.95rem;color:var(--txt);margin-bottom:4px;}
+.card-sub{font-size:.8rem;color:var(--muted);}
+.card-badge{display:inline-block;background:var(--lc);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:8px;}
+.card-done{border-color:#16a34a !important;background:#f0fdf4;}
+.card-done .card-badge{background:#16a34a;}
+/* WELCOME */
+.welcome-box{background:linear-gradient(135deg,#7f1d1d,#b91c1c);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;}
+.welcome-box h2{font-size:1.4rem;font-weight:700;margin-bottom:10px;}
+.welcome-box p{opacity:.9;line-height:1.7;margin-bottom:12px;}
+.welcome-box ul{padding-left:20px;opacity:.9;}
+.welcome-box ul li{margin-bottom:6px;}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px;}
+.ov-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;}
+.ov-card:hover{border-color:var(--lc);transform:translateY(-2px);}
+.ov-card .ov-icon{font-size:1.8rem;margin-bottom:8px;}
+.ov-card .ov-title{font-weight:700;font-size:.85rem;color:var(--txt);}
+.ov-card .ov-count{font-size:.75rem;color:var(--muted);margin-top:2px;}
+/* UPGRADE */
+.upgrade{background:linear-gradient(135deg,#1a0000,#7f1d1d);color:#fff;border-radius:16px;padding:32px;text-align:center;margin-top:32px;}
+.upgrade h3{font-size:1.2rem;font-weight:700;margin-bottom:8px;}
+.upgrade p{opacity:.85;margin-bottom:20px;}
+.btn-upgrade{display:inline-block;background:#fff;color:var(--lc);font-weight:700;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:.9rem;transition:opacity .2s;}
+.btn-upgrade:hover{opacity:.9;}
+/* FOOTER */
+footer{text-align:center;padding:24px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:40px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="brand" href="https://www.skool.com/thegermanstefan-9325/classroom">
+    🇩🇪 TGS › <span style="opacity:.5">C1</span> › <strong>Advanced Hub</strong>
+  </a>
+  <div class="lang-bar">
+    <button class="lb on" onclick="setLang('EN')">EN</button>
+    <button class="lb" onclick="setLang('FR')">FR</button>
+    <button class="lb" onclick="setLang('ES')">ES</button>
+    <button class="lb" onclick="setLang('IT')">IT</button>
+    <button class="lb" onclick="setLang('PT')">PT</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="level-badge">🏆 C1 · ADVANCED · MASTER TIER</div>
+  <h1 data-t="hero_title">🏆 C1 German — Advanced</h1>
+  <p data-t="hero_sub">Express yourself fluently on any topic. Master academic grammar, sophisticated vocabulary, and the speaking skills that define true C1 proficiency.</p>
+  <div class="hero-pills">
+    <div class="pill" data-t="pill1">📝 10 Grammar Lessons</div>
+    <div class="pill" data-t="pill2">📖 5 Reading Rooms</div>
+    <div class="pill" data-t="pill3">📚 5 Vocabulary Sets</div>
+    <div class="pill" data-t="pill4">🗣️ 10 Speaking Sets</div>
+    <div class="pill" data-t="pill5">🎯 5 Practice Tests</div>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+  <div class="prog-label" id="progLabel">0 of 35 completed · 0%</div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <div class="tab active" onclick="showTab('welcome')" data-t="tab_welcome">👋 Overview <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('grammar')" data-t="tab_grammar">📝 Grammar <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('reading')" data-t="tab_reading">📖 Reading <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('vocab')" data-t="tab_vocab">📚 Vocabulary <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('speaking')" data-t="tab_speaking">🗣️ Speaking <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('tests')" data-t="tab_tests">🎯 Tests <span class="tab-dot"></span></div>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="section active" id="sec-welcome">
+  <div class="welcome-box">
+    <h2 data-t="w_title">Welcome to C1 — Advanced German</h2>
+    <p data-t="w_p1">At C1 you can express yourself fluently and spontaneously on complex topics — in academic writing, formal discussions, and nuanced debate. This course equips you with the grammar precision, rich vocabulary, and speaking confidence that define C1 proficiency.</p>
+    <ul>
+      <li data-t="w_li1">Advanced grammar: Konjunktiv II, Passiv variants, Nominalstil, Modalpartikeln</li>
+      <li data-t="w_li2">Authentic reading texts: society, science, economics, culture, politics</li>
+      <li data-t="w_li3">Academic and formal vocabulary sets across 5 topic areas</li>
+      <li data-t="w_li4">Speaking card sets for argumentation, negotiation, presentation, and debate</li>
+      <li data-t="w_li5">5 full Goethe-Zertifikat C1 style practice tests</li>
+    </ul>
+  </div>
+  <div class="overview-grid">
+    <div class="ov-card" onclick="showTab('grammar')"><div class="ov-icon">📝</div><div class="ov-title" data-t="tab_grammar">Grammar</div><div class="ov-count">10 lessons</div></div>
+    <div class="ov-card" onclick="showTab('reading')"><div class="ov-icon">📖</div><div class="ov-title" data-t="tab_reading">Reading</div><div class="ov-count">5 texts</div></div>
+    <div class="ov-card" onclick="showTab('vocab')"><div class="ov-icon">📚</div><div class="ov-title" data-t="tab_vocab">Vocabulary</div><div class="ov-count">5 sets</div></div>
+    <div class="ov-card" onclick="showTab('speaking')"><div class="ov-icon">🗣️</div><div class="ov-title" data-t="tab_speaking">Speaking</div><div class="ov-count">10 sets</div></div>
+    <div class="ov-card" onclick="showTab('tests')"><div class="ov-icon">🎯</div><div class="ov-title" data-t="tab_tests">Tests</div><div class="ov-count">5 tests</div></div>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div class="section" id="sec-grammar">
+  <div class="sec-header">
+    <h2 data-t="grammar_h">📝 C1 Grammar Lessons</h2>
+    <p data-t="grammar_sub">10 advanced grammar topics — from Konjunktiv II to Nominalstil and academic connectors</p>
+  </div>
+  <div class="grid" id="grammarGrid"></div>
+</div>
+
+<!-- READING -->
+<div class="section" id="sec-reading">
+  <div class="sec-header">
+    <h2 data-t="reading_h">📖 C1 Reading Room</h2>
+    <p data-t="reading_sub">5 authentic C1-level texts with comprehension tasks — society, science, economics, culture, politics</p>
+  </div>
+  <div class="grid" id="readingGrid"></div>
+</div>
+
+<!-- VOCAB -->
+<div class="section" id="sec-vocab">
+  <div class="sec-header">
+    <h2 data-t="vocab_h">📚 C1 Vocabulary Sets</h2>
+    <p data-t="vocab_sub">5 focused vocabulary sets for academic, economic, scientific, political and cultural registers</p>
+  </div>
+  <div class="grid" id="vocabGrid"></div>
+</div>
+
+<!-- SPEAKING -->
+<div class="section" id="sec-speaking">
+  <div class="sec-header">
+    <h2 data-t="speaking_h">🗣️ C1 Speaking Cards</h2>
+    <p data-t="speaking_sub">10 speaking card sets — argumentation, negotiation, presentation, debate, and cultural comparison</p>
+  </div>
+  <div class="grid" id="speakingGrid"></div>
+</div>
+
+<!-- TESTS -->
+<div class="section" id="sec-tests">
+  <div class="sec-header">
+    <h2 data-t="tests_h">🎯 C1 Practice Tests</h2>
+    <p data-t="tests_sub">5 full Goethe-Zertifikat C1 style tests — Lesen, Hören, Schreiben, Sprachbausteine</p>
+  </div>
+  <div class="grid" id="testsGrid"></div>
+  <div class="upgrade">
+    <h3 data-t="up_title">🏆 Master Membership</h3>
+    <p data-t="up_sub">C1 & C2 content is included in the Master membership. Get full access to all tests, grammar files, vocabulary sets and speaking cards.</p>
+    <a href="https://www.skool.com/thegermanstefan-9325" class="btn-upgrade" data-t="up_btn">Join TheGermanStefan →</a>
+  </div>
+</div>
+
+<footer>© TheGermanStefan · C1 Advanced Hub · <a href="https://www.skool.com/thegermanstefan-9325/classroom" style="color:var(--muted)">Back to Classroom</a></footer>
+
+<script>
+const BASE = 'https://thegermanstefan.github.io';
+
+const grammar = [
+  {n:'01',t:'Konjunktiv II',s:'Wunsch, Möglichkeit & Höflichkeit',f:`${BASE}/TheGermanStefan_C1_Grammar_01.html`},
+  {n:'02',t:'Passivkonstruktionen',s:'Passiv & alle Passiversatzkonstruktionen',f:`${BASE}/TheGermanStefan_C1_Grammar_02.html`},
+  {n:'03',t:'Partizipialkonstruktionen',s:'Erweiterte Partizipien & Infinitivgruppen',f:`${BASE}/TheGermanStefan_C1_Grammar_03.html`},
+  {n:'04',t:'Konzessivsätze',s:'Obwohl, wenngleich, ungeachtet & mehr',f:`${BASE}/TheGermanStefan_C1_Grammar_04.html`},
+  {n:'05',t:'Modalpartikeln',s:'Doch, ja, mal, wohl, halt — Nuance & Ton',f:`${BASE}/TheGermanStefan_C1_Grammar_05.html`},
+  {n:'06',t:'Nominalstil',s:'Verbalnomina & formeller Schreibstil',f:`${BASE}/TheGermanStefan_C1_Grammar_06.html`},
+  {n:'07',t:'Konnektoren',s:'Kausale, finale & konzessive Verbindungen',f:`${BASE}/TheGermanStefan_C1_Grammar_07.html`},
+  {n:'08',t:'Relativsätze',s:'Komplexe Relativsätze & Pronominaladverbien',f:`${BASE}/TheGermanStefan_C1_Grammar_08.html`},
+  {n:'09',t:'Indirekte Rede',s:'Konjunktiv I & Meinungsreporting',f:`${BASE}/TheGermanStefan_C1_Grammar_09.html`},
+  {n:'10',t:'Textkohärenz',s:'Stilmittel & kohärentes Schreiben',f:`${BASE}/TheGermanStefan_C1_Grammar_10.html`},
+];
+const reading = [
+  {n:'01',t:'Gesellschaft & Medien',s:'Media criticism, digital society, cultural trends',f:`${BASE}/TheGermanStefan_C1_Reading_01.html`},
+  {n:'02',t:'Wissenschaft & Forschung',s:'Scientific texts, methodology, academic hedging',f:`${BASE}/TheGermanStefan_C1_Reading_02.html`},
+  {n:'03',t:'Wirtschaft & Globalisierung',s:'Trade, markets, inequality, global economy',f:`${BASE}/TheGermanStefan_C1_Reading_03.html`},
+  {n:'04',t:'Kultur & Identität',s:'Cultural identity, multilingualism, integration',f:`${BASE}/TheGermanStefan_C1_Reading_04.html`},
+  {n:'05',t:'Politik & Ethik',s:'Political philosophy, ethics, argumentation',f:`${BASE}/TheGermanStefan_C1_Reading_05.html`},
+];
+const vocab = [
+  {n:'01',t:'Akademische Sprache',s:'Scholarly verbs, abstract nouns, argumentation',f:`${BASE}/TheGermanStefan_C1_Vocab_01.html`},
+  {n:'02',t:'Wirtschaft & Finanzen',s:'Economic and financial vocabulary',f:`${BASE}/TheGermanStefan_C1_Vocab_02.html`},
+  {n:'03',t:'Wissenschaft & Technik',s:'Science, technology, environment',f:`${BASE}/TheGermanStefan_C1_Vocab_03.html`},
+  {n:'04',t:'Politik & Gesellschaft',s:'Political and social vocabulary',f:`${BASE}/TheGermanStefan_C1_Vocab_04.html`},
+  {n:'05',t:'Kultur & Medien',s:'Art, journalism, digital media',f:`${BASE}/TheGermanStefan_C1_Vocab_05.html`},
+];
+const speaking = [
+  {n:'01',t:'Meinung vertreten',s:'Advanced opinion & hedging phrases',f:`${BASE}/TheGermanStefan_C1_Sprechen_01.html`},
+  {n:'02',t:'Argumentation',s:'Build & respond to arguments',f:`${BASE}/TheGermanStefan_C1_Sprechen_02.html`},
+  {n:'03',t:'Hypothesen',s:'Conditional & hypothetical discussion',f:`${BASE}/TheGermanStefan_C1_Sprechen_03.html`},
+  {n:'04',t:'Verhandlung',s:'Negotiation & compromise',f:`${BASE}/TheGermanStefan_C1_Sprechen_04.html`},
+  {n:'05',t:'Präsentation',s:'Structuring a formal presentation',f:`${BASE}/TheGermanStefan_C1_Sprechen_05.html`},
+  {n:'06',t:'Gesellschaftliche Debatten',s:'Social issues & debate',f:`${BASE}/TheGermanStefan_C1_Sprechen_06.html`},
+  {n:'07',t:'Akademische Diskussion',s:'Analytical discussion vocabulary',f:`${BASE}/TheGermanStefan_C1_Sprechen_07.html`},
+  {n:'08',t:'Kulturvergleich',s:'Comparing cultures diplomatically',f:`${BASE}/TheGermanStefan_C1_Sprechen_08.html`},
+  {n:'09',t:'Problemlösung',s:'Problem analysis & solution proposals',f:`${BASE}/TheGermanStefan_C1_Sprechen_09.html`},
+  {n:'10',t:'Beschwerden & Konflikt',s:'Formal complaints & de-escalation',f:`${BASE}/TheGermanStefan_C1_Sprechen_10.html`},
+];
+const tests = [
+  {n:'01',t:'Test 1 — Lesen & Sprachbausteine',s:'Reading comprehension + language elements',f:`${BASE}/Goethe_C1_Test_1.html`},
+  {n:'02',t:'Test 2 — Hören & Schreiben',s:'Listening comprehension + writing tasks',f:`${BASE}/Goethe_C1_Test_2.html`},
+  {n:'03',t:'Test 3 — Lesen & Grammatik',s:'Integrated reading and grammar tasks',f:`${BASE}/Goethe_C1_Test_3.html`},
+  {n:'04',t:'Test 4 — Bioökonomie / Urbanisierung / Sorgearbeit',s:'Full Goethe-style C1 practice test',f:`${BASE}/Goethe_C1_Test_4.html`},
+  {n:'05',t:'Test 5 — Posthumanismus / Migrationspolitik / Neue Arbeit',s:'Full Goethe-style C1 practice test',f:`${BASE}/Goethe_C1_Test_5.html`},
+];
+
+const DONE_KEY = 'c1_done';
+const done = new Set(JSON.parse(localStorage.getItem(DONE_KEY)||'[]'));
+
+function renderGrid(containerId, items, prefix) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(item => {
+    const key = prefix + item.n;
+    const isDone = done.has(key);
+    return `<a href="${item.f}" class="card${isDone?' card-done':''}" target="_blank" onclick="markDone('${key}',this)">
+      <div class="card-icon">${prefix==='g'?'📝':prefix==='r'?'📖':prefix==='v'?'📚':prefix==='s'?'🗣️':'🎯'}</div>
+      <div class="card-title">${item.n}. ${item.t}</div>
+      <div class="card-sub">${item.s}</div>
+      <span class="card-badge">${isDone?'✓ Done':'C1'}</span>
+    </a>`;
+  }).join('');
+}
+
+function markDone(key, el) {
+  done.add(key);
+  localStorage.setItem(DONE_KEY, JSON.stringify([...done]));
+  el.classList.add('card-done');
+  el.querySelector('.card-badge').textContent = '✓ Done';
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = grammar.length + reading.length + vocab.length + speaking.length + tests.length;
+  const pct = Math.round(done.size / total * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = `${done.size} of ${total} completed · ${pct}%`;
+}
+
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => { if(t.getAttribute('onclick').includes("'"+name+"'")) t.classList.add('active'); });
+}
+
+// Multilingual
+const UI = {
+  EN:{hero_title:'🏆 C1 German — Advanced',hero_sub:'Express yourself fluently on any topic. Master academic grammar, sophisticated vocabulary, and the speaking skills that define true C1 proficiency.',pill1:'📝 10 Grammar Lessons',pill2:'📖 5 Reading Rooms',pill3:'📚 5 Vocabulary Sets',pill4:'🗣️ 10 Speaking Sets',pill5:'🎯 5 Practice Tests',tab_welcome:'👋 Overview',tab_grammar:'📝 Grammar',tab_reading:'📖 Reading',tab_vocab:'📚 Vocabulary',tab_speaking:'🗣️ Speaking',tab_tests:'🎯 Tests',w_title:'Welcome to C1 — Advanced German',w_p1:'At C1 you can express yourself fluently and spontaneously on complex topics — in academic writing, formal discussions, and nuanced debate.',w_li1:'Advanced grammar: Konjunktiv II, Passiv variants, Nominalstil, Modalpartikeln',w_li2:'Authentic reading texts: society, science, economics, culture, politics',w_li3:'Academic vocabulary sets across 5 topic areas',w_li4:'Speaking card sets for argumentation, negotiation and debate',w_li5:'5 full Goethe-Zertifikat C1 style practice tests',grammar_h:'📝 C1 Grammar Lessons',grammar_sub:'10 advanced grammar topics',reading_h:'📖 C1 Reading Room',reading_sub:'5 authentic C1-level texts with comprehension tasks',vocab_h:'📚 C1 Vocabulary Sets',vocab_sub:'5 focused vocabulary sets for academic registers',speaking_h:'🗣️ C1 Speaking Cards',speaking_sub:'10 speaking card sets for every exam scenario',tests_h:'🎯 C1 Practice Tests',tests_sub:'5 full Goethe-Zertifikat C1 style tests',up_title:'🏆 Master Membership',up_sub:'C1 & C2 content is included in the Master membership.',up_btn:'Join TheGermanStefan →'},
+  FR:{hero_title:'🏆 Allemand C1 — Avancé',hero_sub:'Exprimez-vous couramment sur tous les sujets. Maîtrisez la grammaire académique et le vocabulaire sophistiqué du niveau C1.',pill1:'📝 10 Leçons de grammaire',pill2:'📖 5 Salles de lecture',pill3:'📚 5 Ensembles de vocabulaire',pill4:'🗣️ 10 Ensembles d\'expression orale',pill5:'🎯 5 Tests d\'entraînement',tab_welcome:'👋 Aperçu',tab_grammar:'📝 Grammaire',tab_reading:'📖 Lecture',tab_vocab:'📚 Vocabulaire',tab_speaking:'🗣️ Expression',tab_tests:'🎯 Tests',w_title:'Bienvenue au niveau C1',w_p1:'Au niveau C1, vous pouvez vous exprimer couramment sur des sujets complexes.',w_li1:'Grammaire avancée : Konjunktiv II, Passif, Nominalstil',w_li2:'Textes authentiques C1',w_li3:'Vocabulaire académique dans 5 domaines',w_li4:'Cartes d\'expression orale pour l\'argumentation',w_li5:'5 tests d\'entraînement style Goethe C1',grammar_h:'📝 Leçons de grammaire C1',grammar_sub:'10 sujets de grammaire avancée',reading_h:'📖 Salle de lecture C1',reading_sub:'5 textes authentiques avec exercices',vocab_h:'📚 Vocabulaire C1',vocab_sub:'5 ensembles de vocabulaire académique',speaking_h:'🗣️ Cartes d\'expression C1',speaking_sub:'10 ensembles de cartes d\'expression orale',tests_h:'🎯 Tests C1',tests_sub:'5 tests style Goethe-Zertifikat C1',up_title:'🏆 Abonnement Master',up_sub:'Le contenu C1 & C2 est inclus dans l\'abonnement Master.',up_btn:'Rejoindre TheGermanStefan →'},
+  ES:{hero_title:'🏆 Alemán C1 — Avanzado',hero_sub:'Exprésate con fluidez sobre cualquier tema. Domina la gramática académica y el vocabulario sofisticado del nivel C1.',pill1:'📝 10 Lecciones de gramática',pill2:'📖 5 Salas de lectura',pill3:'📚 5 Sets de vocabulario',pill4:'🗣️ 10 Sets de expresión oral',pill5:'🎯 5 Tests de práctica',tab_welcome:'👋 Resumen',tab_grammar:'📝 Gramática',tab_reading:'📖 Lectura',tab_vocab:'📚 Vocabulario',tab_speaking:'🗣️ Expresión',tab_tests:'🎯 Tests',w_title:'Bienvenido al C1 — Alemán Avanzado',w_p1:'En el nivel C1 puedes expresarte con fluidez sobre temas complejos.',w_li1:'Gramática avanzada: Konjunktiv II, Passiv, Nominalstil',w_li2:'Textos auténticos de nivel C1',w_li3:'Vocabulario académico en 5 áreas temáticas',w_li4:'Tarjetas de expresión oral para debate y presentación',w_li5:'5 tests de práctica estilo Goethe C1',grammar_h:'📝 Lecciones de Gramática C1',grammar_sub:'10 temas de gramática avanzada',reading_h:'📖 Sala de Lectura C1',reading_sub:'5 textos auténticos con tareas de comprensión',vocab_h:'📚 Vocabulario C1',vocab_sub:'5 sets de vocabulario académico',speaking_h:'🗣️ Tarjetas de Expresión C1',speaking_sub:'10 sets de tarjetas de expresión oral',tests_h:'🎯 Tests C1',tests_sub:'5 tests estilo Goethe-Zertifikat C1',up_title:'🏆 Membresía Master',up_sub:'El contenido C1 y C2 está incluido en la membresía Master.',up_btn:'Únete a TheGermanStefan →'},
+  IT:{hero_title:'🏆 Tedesco C1 — Avanzato',hero_sub:'Esprimi te stesso con scioltezza su qualsiasi argomento. Padroneggia la grammatica accademica del livello C1.',pill1:'📝 10 Lezioni di grammatica',pill2:'📖 5 Stanze di lettura',pill3:'📚 5 Set di vocabolario',pill4:'🗣️ 10 Set di speaking',pill5:'🎯 5 Test di pratica',tab_welcome:'👋 Panoramica',tab_grammar:'📝 Grammatica',tab_reading:'📖 Lettura',tab_vocab:'📚 Vocabolario',tab_speaking:'🗣️ Speaking',tab_tests:'🎯 Test',w_title:'Benvenuto al C1 — Tedesco Avanzato',w_p1:'Al livello C1 puoi esprimerti con scioltezza su argomenti complessi.',w_li1:'Grammatica avanzata: Konjunktiv II, Passiv, Nominalstil',w_li2:'Testi autentici di livello C1',w_li3:'Vocabolario accademico in 5 aree tematiche',w_li4:'Set di carte per l\'argomentazione e il dibattito',w_li5:'5 test di pratica in stile Goethe C1',grammar_h:'📝 Lezioni di Grammatica C1',grammar_sub:'10 argomenti di grammatica avanzata',reading_h:'📖 Stanza di Lettura C1',reading_sub:'5 testi autentici con esercizi di comprensione',vocab_h:'📚 Vocabolario C1',vocab_sub:'5 set di vocabolario accademico',speaking_h:'🗣️ Carte di Speaking C1',speaking_sub:'10 set di carte per l\'espressione orale',tests_h:'🎯 Test C1',tests_sub:'5 test in stile Goethe-Zertifikat C1',up_title:'🏆 Abbonamento Master',up_sub:'Il contenuto C1 e C2 è incluso nell\'abbonamento Master.',up_btn:'Unisciti a TheGermanStefan →'},
+  PT:{hero_title:'🏆 Alemão C1 — Avançado',hero_sub:'Expresse-se fluentemente sobre qualquer tópico. Domine a gramática académica e o vocabulário sofisticado do nível C1.',pill1:'📝 10 Lições de gramática',pill2:'📖 5 Salas de leitura',pill3:'📚 5 Sets de vocabulário',pill4:'🗣️ 10 Sets de expressão oral',pill5:'🎯 5 Testes de prática',tab_welcome:'👋 Visão geral',tab_grammar:'📝 Gramática',tab_reading:'📖 Leitura',tab_vocab:'📚 Vocabulário',tab_speaking:'🗣️ Expressão',tab_tests:'🎯 Testes',w_title:'Bem-vindo ao C1 — Alemão Avançado',w_p1:'No nível C1 pode expressar-se fluentemente sobre tópicos complexos.',w_li1:'Gramática avançada: Konjunktiv II, Passiv, Nominalstil',w_li2:'Textos autênticos de nível C1',w_li3:'Vocabulário académico em 5 áreas temáticas',w_li4:'Cartões de expressão oral para debate e apresentação',w_li5:'5 testes de prática estilo Goethe C1',grammar_h:'📝 Lições de Gramática C1',grammar_sub:'10 tópicos de gramática avançada',reading_h:'📖 Sala de Leitura C1',reading_sub:'5 textos autênticos com tarefas de compreensão',vocab_h:'📚 Vocabulário C1',vocab_sub:'5 sets de vocabulário académico',speaking_h:'🗣️ Cartões de Expressão C1',speaking_sub:'10 sets de cartões de expressão oral',tests_h:'🎯 Testes C1',tests_sub:'5 testes estilo Goethe-Zertifikat C1',up_title:'🏆 Associação Master',up_sub:'O conteúdo C1 e C2 está incluído na associação Master.',up_btn:'Junte-se ao TheGermanStefan →'}
+};
+let currentLang = 'EN';
+function setLang(l){
+  currentLang = l;
+  document.querySelectorAll('.lb').forEach(b => b.classList.toggle('on', b.textContent===l));
+  const t = UI[l];
+  document.querySelectorAll('[data-t]').forEach(el => { if(t[el.dataset.t]) el.textContent = t[el.dataset.t]; });
+}
+
+// Init
+renderGrid('grammarGrid', grammar, 'g');
+renderGrid('readingGrid', reading, 'r');
+renderGrid('vocabGrid', vocab, 'v');
+renderGrid('speakingGrid', speaking, 's');
+renderGrid('testsGrid', tests, 't');
+updateProgress();
+</script>
+</body>
+</html>
