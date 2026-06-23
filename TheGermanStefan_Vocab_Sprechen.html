@@ -3,473 +3,536 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprechen & Diskussion — TheGermanStefan</title>
+<title>Sprechen — TheGermanStefan</title>
 <style>
-:root{--lc:#5c35c1;--lc2:#3d1f8c;--lv:#7b52d4;--navy:#0d1b2a;--gold:#f4c430;--off:#f5f6fa;--white:#fff;--radius:10px;
-  --green:#2e7d32;--red:#c62828;--amber:#f4a830;--blue:#1d3557;--mid:#7c6fd4;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off);color:var(--navy);min-height:100vh;}
-.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:52px;position:sticky;top:0;z-index:200;gap:10px;}
-.tb-left{display:flex;align-items:center;gap:10px;min-width:0;}
-.tb-logo{font-weight:900;font-size:14px;color:var(--gold);white-space:nowrap;}
-.tb-crumbs{font-size:12px;opacity:.65;white-space:nowrap;}
-.tb-langs{display:flex;gap:3px;flex-shrink:0;}
-.lb{background:transparent;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.2);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
-.lb.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
-.lb:hover:not(.on){background:rgba(255,255,255,.1);color:#fff;}
-#lang-bar{display:none;background:var(--amber);color:var(--navy);text-align:center;padding:5px 0;font-size:13px;font-weight:900;letter-spacing:1px;position:sticky;top:52px;z-index:198;}
-.lvl-header{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:28px 20px 22px;text-align:center;}
-.lvl-tag{font-size:11px;font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:1.2px;}
-.lvl-name{font-size:36px;font-weight:900;letter-spacing:-1px;line-height:1.1;}
-.lvl-desc{font-size:15px;opacity:.85;margin-top:6px;}
-.lvl-stats{display:flex;gap:16px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-.lvl-stat{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;}
-.controls{background:#fff;border-bottom:1px solid #e0e4ee;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:52px;z-index:190;}
-.mode-tabs{display:flex;gap:4px;background:var(--off);border-radius:8px;padding:3px;}
-.mode-tab{border:none;background:transparent;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;color:#666;transition:all .15s;white-space:nowrap;}
-.mode-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.12);}
-.content-area{padding:16px;max-width:900px;margin:0 auto;}
+:root{--lc:#5c35c1;--lc2:#3d1fa8;--lv:#7c5ce8;--navy:#0d1b2a;--gold:#f4c430;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:1.1rem;font-weight:800;color:var(--gold);letter-spacing:-.3px;text-decoration:none}
+.back-link{color:#8a9bb0;font-size:.85rem;text-decoration:none}
+.back-link:hover{color:var(--gold)}
+.lang-sel{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:.82rem;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+.hero{background:linear-gradient(135deg,#5c35c1,#3d1fa8);color:#fff;padding:36px 24px 28px;text-align:center}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;letter-spacing:.5px;margin-bottom:14px}
+.hero h1{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+.hero p{font-size:1rem;opacity:.9;max-width:520px;margin:0 auto}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#fff;padding:0 24px;overflow-x:auto;position:sticky;top:56px;z-index:90}
+.tab{padding:14px 20px;font-size:.87rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.tab:hover:not(.active){color:var(--text)}
+.content{max-width:900px;margin:0 auto;padding:24px 16px}
+.section{display:none}
+.section.active{display:block}
 
-/* ── SECTION CARDS ── */
-.section-card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
-.section-card h3{font-size:0.95rem;color:var(--lc2);margin-bottom:12px;font-weight:800;padding-bottom:8px;border-bottom:2px dashed #eee;display:flex;align-items:center;gap:8px;}
-.section-card p{font-size:0.85rem;color:#555;line-height:1.7;}
+/* PHRASE CARDS */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.search-box{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none}
+.search-box:focus{border-color:var(--lc)}
+.filter-sel{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:#fff;cursor:pointer}
+.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;min-width:80px}
+.stat-val{font-size:1.3rem;font-weight:800;color:var(--lc)}
+.stat-lbl{font-size:.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.phrase-grid{display:grid;gap:12px}
+.phrase-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .2s}
+.phrase-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.phrase-card.expanded .card-body{display:block}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.phrase-text{font-size:1.05rem;font-weight:800;color:var(--text)}
+.phrase-context{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
+.card-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.level-badge{padding:3px 8px;border-radius:12px;font-size:.7rem;font-weight:700}
+.lvl-a2{background:#e8f5e9;color:#2e7d32}
+.lvl-b1{background:#e3f2fd;color:#1565c0}
+.lvl-b2{background:#fff3e0;color:#e65100}
+.lvl-c1{background:#fce4ec;color:#c62828}
+.fav-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:2px;border-radius:4px;transition:transform .2s}
+.fav-btn:hover{transform:scale(1.2)}
+.card-body{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.card-row{margin-bottom:10px}
+.card-row-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:3px}
+.card-row-val{font-size:.88rem;color:var(--text);line-height:1.5}
+.trans{color:var(--muted);font-style:italic}
+.example-box{background:#f3f0fc;border-left:3px solid var(--lv);padding:8px 12px;border-radius:4px;font-size:.85rem;line-height:1.5}
+.tips-box{background:#f8f7ff;border-radius:8px;padding:12px;margin-top:4px;font-size:.83rem;color:var(--text);line-height:1.6}
+.tips-box strong{color:var(--lc)}
 
-/* ── TIMER ── */
-.timer-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
-.timer-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
-.preset-btn{border:2px solid var(--lc);background:transparent;color:var(--lc);border-radius:10px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
-.preset-btn.on,.preset-btn:hover{background:var(--lc);color:#fff;}
-.timer-display{font-size:60px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:2px;}
-.timer-display.running{color:var(--lc);}
-.timer-display.done{color:var(--green);}
-.timer-btns{display:flex;gap:10px;}
-.timer-btn{border:none;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:800;cursor:pointer;}
-.btn-start{background:var(--green);color:#fff;}
-.btn-pause{background:var(--amber);color:var(--navy);}
-.btn-reset{background:#e0e0e0;color:#555;}
-.timer-msg{font-size:14px;color:var(--green);font-weight:700;min-height:20px;}
+/* PRACTICE TAB */
+.practice-intro{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.practice-intro h2{font-size:1.1rem;font-weight:800;margin-bottom:8px;color:var(--lc)}
+.practice-intro p{font-size:.87rem;color:var(--muted);line-height:1.6}
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.scenario-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s}
+.scenario-card:hover{border-color:var(--lc);box-shadow:var(--shadow)}
+.sc-icon{font-size:2rem;margin-bottom:10px}
+.sc-title{font-size:.95rem;font-weight:800;margin-bottom:6px}
+.sc-desc{font-size:.82rem;color:var(--muted);line-height:1.4}
+.sc-level{display:inline-block;margin-top:8px;font-size:.7rem;font-weight:700;color:var(--lc);background:#f3f0fc;padding:2px 8px;border-radius:10px}
+.scenario-detail{display:none}
+.scenario-detail.active{display:block}
+.sd-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sd-back{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer;color:var(--muted)}
+.sd-back:hover{border-color:var(--lc);color:var(--lc)}
+.sd-title{font-size:1.2rem;font-weight:900}
+.prompt-card{background:var(--card);border:2px solid var(--lc);border-radius:var(--radius);padding:22px;margin-bottom:14px}
+.prompt-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:8px}
+.prompt-text{font-size:1rem;font-weight:700;line-height:1.5;color:var(--text)}
+.prompt-sub{font-size:.83rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.useful-box{background:#f8f7ff;border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.useful-box h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--lc);margin-bottom:10px}
+.useful-phrases{display:flex;flex-wrap:wrap;gap:7px}
+.up-chip{background:#fff;border:1px solid var(--border);border-radius:16px;padding:5px 12px;font-size:.8rem;cursor:pointer;transition:all .2s}
+.up-chip:hover{border-color:var(--lc);background:#f3f0fc;color:var(--lc)}
+.reveal-btn{display:block;width:100%;padding:12px;border:1px dashed var(--border);border-radius:10px;background:none;font-size:.87rem;color:var(--muted);cursor:pointer;margin-bottom:14px;transition:all .2s}
+.reveal-btn:hover{border-color:var(--lc);color:var(--lc)}
+.model-answer{display:none;background:#f8f7ff;border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.model-answer.shown{display:block}
+.model-answer p{font-size:.88rem;line-height:1.7}
+.next-prompt-btn{padding:10px 22px;background:var(--lc);color:#fff;border:none;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.next-prompt-btn:hover{background:var(--lc2);transform:translateY(-1px)}
 
-/* ── REDEMITTEL ── */
-.rm-group{margin-bottom:14px;border-radius:12px;overflow:hidden;border:1px solid #e0e4ee;}
-.rm-header{background:linear-gradient(135deg,var(--lc),var(--lv));color:#fff;padding:10px 14px;font-size:0.85rem;font-weight:800;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
-.rm-header:hover{opacity:.92;}
-.rm-arrow{transition:transform .2s;}
-.rm-group.open .rm-arrow{transform:rotate(90deg);}
-.rm-phrases{display:none;padding:10px 12px;flex-direction:column;gap:6px;}
-.rm-group.open .rm-phrases{display:flex;}
-.rm-phrase{background:#f5f0ff;border-left:3px solid var(--lc);border-radius:8px;padding:8px 12px;font-size:0.84rem;color:#333;line-height:1.6;}
-.rm-phrase .transl{color:#888;font-style:italic;font-size:0.76rem;margin-top:3px;}
+/* FLASHCARD */
+.fc-wrap{max-width:600px;margin:0 auto;text-align:center}
+.fc-cat-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.fc-cat-btn{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:#fff;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.fc-cat-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.fc-prog-lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.fc-prog{background:var(--border);border-radius:4px;height:6px;margin-bottom:20px}
+.fc-prog-bar{background:var(--lc);height:100%;border-radius:4px;transition:width .3s}
+.flashcard{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:44px 32px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow);margin-bottom:18px;position:relative}
+.flashcard.flipped{border-color:var(--lc);background:#f8f7ff}
+.fc-front,.fc-back{width:100%}
+.fc-back{display:none}
+.flashcard.flipped .fc-front{display:none}
+.flashcard.flipped .fc-back{display:block}
+.fc-phrase{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:10px;line-height:1.3}
+.fc-tap{font-size:.82rem;color:var(--muted)}
+.fc-meaning{font-size:1rem;font-weight:700;color:var(--lc);margin-bottom:10px}
+.fc-trans{font-size:.85rem;color:var(--muted);font-style:italic;margin-bottom:10px}
+.fc-ex{font-size:.83rem;color:var(--text);background:rgba(92,53,193,.08);padding:10px;border-radius:8px;text-align:left}
+.fc-flip-hint{position:absolute;bottom:12px;right:16px;font-size:.7rem;color:var(--muted)}
+.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.fc-btn{padding:9px 22px;border-radius:10px;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.fc-btn:hover{opacity:.85;transform:translateY(-1px)}
+.fc-skip{background:#f0f2f5;color:var(--muted)}
+.fc-again{background:#fff3e0;color:#e65100}
+.fc-know{background:#e8f5e9;color:#2e7d32}
+.fc-known-lbl{font-size:.78rem;color:var(--muted);text-align:center}
 
-/* ── TALK CARDS / FLIP CARDS ── */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
-.flip-card{perspective:800px;height:170px;cursor:pointer;}
-.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .45s;border-radius:14px;}
-.flip-card.flipped .flip-inner{transform:rotateY(180deg);}
-.flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
-.flip-front{background:linear-gradient(135deg,var(--lc),var(--lv));color:#fff;box-shadow:0 3px 14px rgba(92,53,193,.25);}
-.flip-back{background:#fff;border:2px solid var(--lc);transform:rotateY(180deg);color:var(--navy);}
-.flip-front .card-topic{font-size:1rem;font-weight:800;line-height:1.3;margin-bottom:8px;}
-.flip-front .card-hint{font-size:0.72rem;opacity:.7;margin-top:auto;}
-.flip-back .card-label{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--lc);margin-bottom:6px;}
-.flip-back .card-content{font-size:0.82rem;color:#444;line-height:1.6;}
-.flip-shuffle{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px;}
-.flip-shuffle:hover{opacity:.87;}
-
-/* ── DISCUSSION CARDS ── */
-.disc-card{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
-.disc-header{background:linear-gradient(135deg,var(--lc),var(--lv));color:#fff;padding:12px 16px;font-weight:800;font-size:0.9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
-.disc-body{display:none;padding:14px;border-top:1px solid #ece8ff;}
-.disc-card.open .disc-body{display:block;}
-.disc-q{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0eeff;}
-.disc-q:last-child{border-bottom:none;}
-.disc-q-num{background:var(--lc);color:#fff;border-radius:8px;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;margin-top:2px;}
-.disc-q-text{font-size:0.85rem;color:#333;line-height:1.6;}
-.vocab-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
-.chip{background:var(--off);border:1px solid #d0c8f0;border-radius:20px;padding:3px 10px;font-size:0.75rem;color:var(--lc2);font-weight:600;}
-
-/* ── DEBATE CARDS ── */
-.debate-flip{perspective:900px;margin-bottom:14px;}
-.debate-inner{position:relative;min-height:150px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer;}
-.debate-flip.flipped .debate-inner{transform:rotateY(180deg);}
-.debate-face{position:absolute;width:100%;backface-visibility:hidden;border-radius:14px;padding:16px;}
-.deb-front{background:linear-gradient(135deg,var(--lc),var(--lv));color:#fff;min-height:150px;display:flex;flex-direction:column;justify-content:center;}
-.deb-back{background:#fff;border:2px solid var(--lc);transform:rotateY(180deg);min-height:150px;display:flex;flex-direction:column;gap:10px;}
-.deb-front h4{font-size:1rem;font-weight:800;margin-bottom:6px;}
-.deb-front p{font-size:0.82rem;opacity:.85;line-height:1.6;}
-.deb-front .flip-hint{font-size:0.72rem;opacity:.6;margin-top:10px;}
-.deb-side{flex:1;}
-.deb-side h5{font-size:0.78rem;font-weight:800;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;}
-.deb-side.pro h5{color:var(--green);}.deb-side.con h5{color:var(--red);}
-.deb-arg{font-size:0.82rem;color:#444;line-height:1.6;}
-@media(min-width:600px){.deb-back{flex-direction:row;gap:16px;}}
-
-/* ── STORYTELLING ── */
-.story-scenario{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);}
-.story-badge{display:inline-block;background:var(--lc);color:#fff;font-size:0.72rem;font-weight:700;border-radius:8px;padding:2px 10px;margin-bottom:8px;}
-.story-prompt{font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.5;}
-.story-follow{margin-top:10px;}
-.story-follow h5{font-size:0.8rem;color:var(--lc2);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px;}
-.story-q{font-size:0.82rem;color:#555;line-height:1.7;padding:4px 0;border-bottom:1px solid #f0eeff;}
-.story-q:last-child{border-bottom:none;}
-
-/* ── TIPS ── */
-.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
-.tip-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:3px solid var(--lc);}
-.tip-icon{font-size:1.4rem;margin-bottom:6px;}
-.tip-title{font-size:0.82rem;font-weight:800;color:var(--lc2);margin-bottom:5px;}
-.tip-text{font-size:0.78rem;color:#555;line-height:1.6;}
-
-.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;}
-.back-hub:hover{background:#1a3a5c;}
-.footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:18px;font-size:12px;margin-top:32px;}
-.intro-banner{background:linear-gradient(135deg,rgba(92,53,193,.15),rgba(61,31,140,.1));border:2px solid rgba(92,53,193,.3);border-radius:14px;padding:14px 18px;margin-bottom:16px;text-align:center;}
-.intro-banner h2{color:var(--navy);font-size:1.1rem;margin-bottom:4px;}
-.intro-banner p{color:#555;font-size:0.85rem;}
+/* FAVOURITES */
+.empty{text-align:center;padding:48px 16px;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:12px}
 </style>
 </head>
 <body>
-
 <div class="topbar">
-  <div class="tb-left">
-    <span class="tb-logo">TheGermanStefan</span>
-    <span class="tb-crumbs" data-t="crumb">📚 Vocab Centre → Sprechen</span>
-  </div>
-  <div class="tb-langs">
-    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
-    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
-    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
-    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
-    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
-  </div>
+  <a href="TheGermanStefan_Vocab_Hub.html" class="back-link">← Hub</a>
+  <a href="TheGermanStefan_Vocab_Hub.html" class="logo">TheGermanStefan</a>
+  <select class="lang-sel" id="langSel" onchange="setLang(this.value)">
+    <option value="en">🇬🇧 EN</option>
+    <option value="fr">🇫🇷 FR</option>
+    <option value="es">🇪🇸 ES</option>
+    <option value="it">🇮🇹 IT</option>
+    <option value="pt">🇵🇹 PT</option>
+  </select>
 </div>
-<div id="lang-bar"></div>
+<div class="hero">
+  <div class="hero-badge" data-t="badge">Special · A2–C1</div>
+  <h1>🗣️ Sprechen</h1>
+  <p data-t="hero_sub">Build confidence with authentic German speaking phrases and guided conversation practice</p>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('browse')" data-t="tab_browse">📚 Phrases</div>
+  <div class="tab" onclick="switchTab('practice')" data-t="tab_practice">🎯 Practice</div>
+  <div class="tab" onclick="switchTab('flash')" data-t="tab_flash">🎴 Flashcards</div>
+  <div class="tab" onclick="switchTab('favs')" data-t="tab_favs">⭐ Favourites</div>
+</div>
+<div class="content">
 
-<div class="lvl-header">
-  <div class="lvl-tag" data-t="level_tag">Special — Speaking & Discussion</div>
-  <div class="lvl-name" data-t="lvl_name">🎙️ Sprechen & Diskussion</div>
-  <div class="lvl-desc" data-t="level_desc">Redemittel, debate cards, talk practice & fluency tips — all in one toolkit</div>
-  <div class="lvl-stats">
-    <span class="lvl-stat" data-t="stat1">6 Redemittel groups</span>
-    <span class="lvl-stat" data-t="stat2">12 talk cards</span>
-    <span class="lvl-stat" data-t="stat3">B2 level</span>
+<!-- BROWSE -->
+<div id="sec-browse" class="section active">
+  <div class="filter-bar">
+    <input class="search-box" id="searchBox" placeholder="Search phrases…" oninput="filterCards()">
+    <select class="filter-sel" id="catFilter" onchange="filterCards()">
+      <option value="all" data-t="cat_all">All Situations</option>
+      <option value="meinung">💬 Meinung</option>
+      <option value="zustimmung">✅ Zustimmung</option>
+      <option value="widerspruch">❌ Widerspruch</option>
+      <option value="erklarung">📖 Erklärung</option>
+      <option value="unsicherheit">🤔 Unsicherheit</option>
+      <option value="gefuhle">❤️ Gefühle</option>
+      <option value="gesprach">🗣️ Gespräch</option>
+      <option value="formal">👔 Formell</option>
+    </select>
+    <select class="filter-sel" id="lvlFilter" onchange="filterCards()">
+      <option value="all" data-t="lvl_all">All Levels</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+    </select>
   </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val" id="statTotal">80</span><span class="stat-lbl" data-t="stat_total">Total</span></div>
+    <div class="stat"><span class="stat-val" id="statShown">80</span><span class="stat-lbl" data-t="stat_shown">Shown</span></div>
+    <div class="stat"><span class="stat-val" id="statFavs">0</span><span class="stat-lbl" data-t="stat_favs">Saved</span></div>
+  </div>
+  <div class="phrase-grid" id="phraseGrid"></div>
+  <div class="empty" id="emptyBrowse" style="display:none"><div class="empty-icon">🔍</div><p data-t="no_results">No phrases match your search</p></div>
 </div>
 
-<div class="controls">
-  <div class="mode-tabs">
-    <button class="mode-tab on" id="tab-redemittel" onclick="switchMode('redemittel')" data-t="tab_rm">💬 Redemittel</button>
-    <button class="mode-tab" id="tab-talk" onclick="switchMode('talk')" data-t="tab_talk">🃏 Talk Cards</button>
-    <button class="mode-tab" id="tab-diskussion" onclick="switchMode('diskussion')" data-t="tab_disc">🗣️ Diskussion</button>
-    <button class="mode-tab" id="tab-debatte" onclick="switchMode('debatte')" data-t="tab_deb">⚖️ Debatte</button>
-    <button class="mode-tab" id="tab-story" onclick="switchMode('story')" data-t="tab_story">📖 Storytelling</button>
-    <button class="mode-tab" id="tab-tipps" onclick="switchMode('tipps')" data-t="tab_tips">💡 Tips</button>
+<!-- PRACTICE -->
+<div id="sec-practice" class="section">
+  <div class="practice-intro">
+    <h2 data-t="prac_title">🎯 Guided Speaking Practice</h2>
+    <p data-t="prac_sub">Choose a scenario below. For each prompt, speak your answer aloud in German — then reveal a model answer to compare.</p>
   </div>
+  <div id="scenarioList" class="scenario-grid"></div>
+  <div id="scenarioDetail" class="scenario-detail"></div>
 </div>
 
-<!-- ══ TIMER (fixed bottom) ══ -->
-<!-- Timer is accessible from any mode via the floating section below -->
-
-<!-- ══ REDEMITTEL VIEW ══ -->
-<div id="redemittel-view" class="content-area">
-  <div class="intro-banner">
-    <h2 data-t="rm_title">💬 Redemittel Toolkit — B2</h2>
-    <p data-t="rm_desc">Essential phrases for academic and professional discussions. Click each group to expand.</p>
-  </div>
-  <div class="section-card">
-    <h3>⏱️ <span data-t="timer_section">Quick Timer</span></h3>
-    <div class="timer-wrap">
-      <div class="timer-presets">
-        <button class="preset-btn" onclick="setPreset(60)" data-t="preset_1">1 min</button>
-        <button class="preset-btn on" onclick="setPreset(120)" data-t="preset_2">2 min</button>
-        <button class="preset-btn" onclick="setPreset(180)" data-t="preset_3">3 min</button>
-        <button class="preset-btn" onclick="setPreset(300)" data-t="preset_5">5 min</button>
-      </div>
-      <div class="timer-display" id="timer-disp">2:00</div>
-      <div class="timer-msg" id="timer-msg"></div>
-      <div class="timer-btns">
-        <button class="timer-btn btn-start" id="timer-start-btn" onclick="timerStart()" data-t="btn_start">▶ Start</button>
-        <button class="timer-btn btn-reset" onclick="timerReset()" data-t="btn_reset">↺ Reset</button>
-      </div>
+<!-- FLASHCARD -->
+<div id="sec-flash" class="section">
+  <div class="fc-wrap">
+    <div class="fc-cat-filter">
+      <button class="fc-cat-btn active" onclick="setFCFilter('all',this)" data-t="cat_all">All</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('meinung',this)">💬 Meinung</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('zustimmung',this)">✅ Zustimmung</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('widerspruch',this)">❌ Widerspruch</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('erklarung',this)">📖 Erklärung</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('unsicherheit',this)">🤔 Unsicherheit</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('gesprach',this)">🗣️ Gespräch</button>
     </div>
-  </div>
-
-  <div id="rm-container">
-    <!-- Groups rendered by JS -->
+    <div class="fc-prog-lbl" id="fcLbl">1 / 80</div>
+    <div class="fc-prog"><div class="fc-prog-bar" id="fcBar" style="width:1%"></div></div>
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front"><div class="fc-phrase" id="fcPhrase">—</div><div class="fc-tap" data-t="fc_tap">Tap to see translation</div></div>
+      <div class="fc-back">
+        <div class="fc-meaning" id="fcMeaning">—</div>
+        <div class="fc-trans" id="fcTrans">—</div>
+        <div class="fc-ex" id="fcEx">—</div>
+      </div>
+      <div class="fc-flip-hint" data-t="fc_hint">tap to flip</div>
+    </div>
+    <div class="fc-btns">
+      <button class="fc-btn fc-skip" onclick="nextCard(false)" data-t="fc_skip">↩ Skip</button>
+      <button class="fc-btn fc-again" onclick="nextCard(false)" data-t="fc_again">🔄 Again</button>
+      <button class="fc-btn fc-know" onclick="nextCard(true)" data-t="fc_know">✓ Got it</button>
+    </div>
+    <div class="fc-known-lbl" id="fcKnownLbl">0 known</div>
   </div>
 </div>
 
-<!-- ══ TALK CARDS VIEW ══ -->
-<div id="talk-view" class="content-area" style="display:none;">
-  <div class="intro-banner">
-    <h2 data-t="talk_title">🃏 Talk Cards — Spontansprache</h2>
-    <p data-t="talk_desc">Flip each card to see questions & vocabulary prompts. Speak for 1–2 minutes!</p>
-  </div>
-  <div style="margin-bottom:12px;">
-    <button class="flip-shuffle" onclick="shuffleTalkCards()" data-t="shuffle_cards">🔀 Shuffle Cards</button>
-  </div>
-  <div class="card-grid" id="talk-grid"></div>
+<!-- FAVOURITES -->
+<div id="sec-favs" class="section">
+  <div class="phrase-grid" id="favsGrid"></div>
+  <div class="empty" id="emptyFavs" style="display:none"><div class="empty-icon">⭐</div><p data-t="no_favs">Star phrases in Browse mode to save them here</p></div>
 </div>
 
-<!-- ══ DISKUSSION VIEW ══ -->
-<div id="diskussion-view" class="content-area" style="display:none;">
-  <div class="intro-banner">
-    <h2 data-t="disc_title">🗣️ Diskussionsthemen</h2>
-    <p data-t="disc_desc">In-depth discussion cards with questions and vocabulary. Use with a partner or alone!</p>
-  </div>
-  <div id="disc-container"></div>
 </div>
-
-<!-- ══ DEBATTE VIEW ══ -->
-<div id="debatte-view" class="content-area" style="display:none;">
-  <div class="intro-banner">
-    <h2 data-t="deb_title">⚖️ Debate Cards</h2>
-    <p data-t="deb_desc">Flip to see arguments for and against each statement. Practice both sides!</p>
-  </div>
-  <div id="deb-container"></div>
-</div>
-
-<!-- ══ STORYTELLING VIEW ══ -->
-<div id="story-view" class="content-area" style="display:none;">
-  <div class="intro-banner">
-    <h2 data-t="story_title">📖 Storytelling & Narrativ</h2>
-    <p data-t="story_desc">Describe the scenario in German for 2–3 minutes. Answer the follow-up questions!</p>
-  </div>
-  <div id="story-container"></div>
-</div>
-
-<!-- ══ TIPPS VIEW ══ -->
-<div id="tipps-view" class="content-area" style="display:none;">
-  <div class="intro-banner">
-    <h2 data-t="tips_title">💡 Fluency Tips</h2>
-    <p data-t="tips_desc">Practical strategies to sound more natural in German conversations.</p>
-  </div>
-  <div class="tips-grid" id="tips-container"></div>
-</div>
-
-<div style="text-align:center;padding-bottom:30px;"><a href="TheGermanStefan_Vocab_Hub.html" class="back-hub" data-t="back_hub">← Back to Vocabulary Hub</a></div>
-<div class="footer">TheGermanStefan — Sprechen & Diskussion © 2025</div>
-
 <script>
 const UI={
-en:{crumb:'📚 Vocab Centre → Sprechen',level_tag:'Special — Speaking & Discussion',lvl_name:'🎙️ Sprechen & Diskussion',level_desc:'Redemittel, debate cards, talk practice & fluency tips — all in one toolkit',stat1:'6 Redemittel groups',stat2:'12 talk cards',stat3:'B2 level',tab_rm:'💬 Redemittel',tab_talk:'🃏 Talk Cards',tab_disc:'🗣️ Diskussion',tab_deb:'⚖️ Debatte',tab_story:'📖 Storytelling',tab_tips:'💡 Tips',rm_title:'💬 Redemittel Toolkit — B2',rm_desc:'Essential phrases for academic and professional discussions.',timer_section:'Quick Timer',preset_1:'1 min',preset_2:'2 min',preset_3:'3 min',preset_5:'5 min',btn_start:'▶ Start',btn_pause:'⏸ Pause',btn_reset:'↺ Reset',timer_done:'Time is up! ✅',talk_title:'🃏 Talk Cards — Spontansprache',talk_desc:'Flip each card to see questions & vocabulary prompts. Speak for 1–2 minutes!',shuffle_cards:'🔀 Shuffle Cards',card_hint:'Click to flip',disc_title:'🗣️ Diskussionsthemen',disc_desc:'In-depth discussion cards with questions and vocabulary.',deb_title:'⚖️ Debate Cards',deb_desc:'Flip to see arguments for and against each statement.',deb_flip:'Flip for arguments →',story_title:'📖 Storytelling & Narrative',story_desc:'Describe the scenario for 2–3 minutes. Answer the follow-up questions!',tips_title:'💡 Fluency Tips',tips_desc:'Practical strategies to sound more natural in German.',back_hub:'← Back to Vocabulary Hub'},
-fr:{crumb:'📚 Centre Vocab → Parler',level_tag:'Spécial — Prise de parole',lvl_name:'🎙️ Sprechen & Diskussion',level_desc:'Expressions, cartes de débat, entraînement oral et conseils',stat1:'6 groupes d\'expressions',stat2:'12 cartes',stat3:'Niveau B2',tab_rm:'💬 Expressions',tab_talk:'🃏 Cartes de parole',tab_disc:'🗣️ Discussion',tab_deb:'⚖️ Débat',tab_story:'📖 Narration',tab_tips:'💡 Conseils',rm_title:'💬 Boîte à outils — B2',rm_desc:'Phrases essentielles pour discussions académiques et professionnelles.',timer_section:'Minuteur rapide',preset_1:'1 min',preset_2:'2 min',preset_3:'3 min',preset_5:'5 min',btn_start:'▶ Démarrer',btn_pause:'⏸ Pause',btn_reset:'↺ Réinitialiser',timer_done:'Temps écoulé! ✅',talk_title:'🃏 Cartes de parole',talk_desc:'Retournez chaque carte pour voir les questions. Parlez 1–2 minutes!',shuffle_cards:'🔀 Mélanger',card_hint:'Cliquez pour retourner',disc_title:'🗣️ Sujets de discussion',disc_desc:'Cartes de discussion approfondies avec questions et vocabulaire.',deb_title:'⚖️ Cartes de débat',deb_desc:'Retournez pour voir les arguments pour et contre.',deb_flip:'Retourner pour les arguments →',story_title:'📖 Narration',story_desc:'Décrivez le scénario pendant 2–3 minutes.',tips_title:'💡 Conseils de fluidité',tips_desc:'Stratégies pratiques pour paraître plus naturel en allemand.',back_hub:'← Retour au Hub'},
-es:{crumb:'📚 Centro Vocab → Hablar',level_tag:'Especial — Expresión oral',lvl_name:'🎙️ Sprechen & Diskussion',level_desc:'Expresiones, tarjetas de debate, práctica oral y consejos',stat1:'6 grupos de expresiones',stat2:'12 tarjetas',stat3:'Nivel B2',tab_rm:'💬 Expresiones',tab_talk:'🃏 Tarjetas de habla',tab_disc:'🗣️ Discusión',tab_deb:'⚖️ Debate',tab_story:'📖 Narración',tab_tips:'💡 Consejos',rm_title:'💬 Caja de herramientas — B2',rm_desc:'Frases esenciales para discusiones académicas y profesionales.',timer_section:'Temporizador rápido',preset_1:'1 min',preset_2:'2 min',preset_3:'3 min',preset_5:'5 min',btn_start:'▶ Iniciar',btn_pause:'⏸ Pausa',btn_reset:'↺ Reiniciar',timer_done:'¡Tiempo! ✅',talk_title:'🃏 Tarjetas de expresión',talk_desc:'Voltea cada tarjeta para ver preguntas. ¡Habla 1–2 minutos!',shuffle_cards:'🔀 Barajar',card_hint:'Clic para voltear',disc_title:'🗣️ Temas de discusión',disc_desc:'Tarjetas de discusión con preguntas y vocabulario.',deb_title:'⚖️ Tarjetas de debate',deb_desc:'Voltea para ver argumentos a favor y en contra.',deb_flip:'Voltear para argumentos →',story_title:'📖 Narración',story_desc:'Describe el escenario durante 2–3 minutos.',tips_title:'💡 Consejos de fluidez',tips_desc:'Estrategias prácticas para sonar más natural en alemán.',back_hub:'← Volver al Hub'},
-it:{crumb:'📚 Centro Vocab → Parlare',level_tag:'Speciale — Espressione orale',lvl_name:'🎙️ Sprechen & Diskussion',level_desc:'Espressioni, carte di dibattito, pratica orale e consigli',stat1:'6 gruppi di espressioni',stat2:'12 carte',stat3:'Livello B2',tab_rm:'💬 Espressioni',tab_talk:'🃏 Carte di parola',tab_disc:'🗣️ Discussione',tab_deb:'⚖️ Dibattito',tab_story:'📖 Narrazione',tab_tips:'💡 Consigli',rm_title:'💬 Toolkit — B2',rm_desc:'Frasi essenziali per discussioni accademiche e professionali.',timer_section:'Timer rapido',preset_1:'1 min',preset_2:'2 min',preset_3:'3 min',preset_5:'5 min',btn_start:'▶ Avvia',btn_pause:'⏸ Pausa',btn_reset:'↺ Ricomincia',timer_done:'Tempo scaduto! ✅',talk_title:'🃏 Carte di espressione',talk_desc:'Gira ogni carta per vedere le domande. Parla per 1–2 minuti!',shuffle_cards:'🔀 Mescola',card_hint:'Clicca per girare',disc_title:'🗣️ Argomenti di discussione',disc_desc:'Carte di discussione con domande e vocabolario.',deb_title:'⚖️ Carte di dibattito',deb_desc:'Gira per vedere gli argomenti pro e contro.',deb_flip:'Gira per gli argomenti →',story_title:'📖 Narrazione',story_desc:'Descrivi lo scenario per 2–3 minuti.',tips_title:'💡 Consigli di fluidità',tips_desc:'Strategie pratiche per sembrare più naturale in tedesco.',back_hub:'← Torna al Hub'},
-pt:{crumb:'📚 Centro Vocab → Falar',level_tag:'Especial — Expressão oral',lvl_name:'🎙️ Sprechen & Diskussion',level_desc:'Expressões, cartas de debate, prática oral e dicas',stat1:'6 grupos de expressões',stat2:'12 cartas',stat3:'Nível B2',tab_rm:'💬 Expressões',tab_talk:'🃏 Cartas de fala',tab_disc:'🗣️ Discussão',tab_deb:'⚖️ Debate',tab_story:'📖 Narração',tab_tips:'💡 Dicas',rm_title:'💬 Kit de ferramentas — B2',rm_desc:'Frases essenciais para discussões acadêmicas e profissionais.',timer_section:'Cronômetro rápido',preset_1:'1 min',preset_2:'2 min',preset_3:'3 min',preset_5:'5 min',btn_start:'▶ Iniciar',btn_pause:'⏸ Pausar',btn_reset:'↺ Reiniciar',timer_done:'Tempo esgotado! ✅',talk_title:'🃏 Cartas de fala',talk_desc:'Vire cada carta para ver as perguntas. Fale por 1–2 minutos!',shuffle_cards:'🔀 Embaralhar',card_hint:'Clique para virar',disc_title:'🗣️ Tópicos de discussão',disc_desc:'Cartas de discussão com perguntas e vocabulário.',deb_title:'⚖️ Cartas de debate',deb_desc:'Vire para ver argumentos a favor e contra.',deb_flip:'Virar para argumentos →',story_title:'📖 Narração',story_desc:'Descreva o cenário por 2–3 minutos.',tips_title:'💡 Dicas de fluência',tips_desc:'Estratégias práticas para soar mais natural em alemão.',back_hub:'← Voltar ao Hub'}
+en:{badge:'Special · A2–C1',hero_sub:'Build confidence with authentic German speaking phrases and guided conversation practice',tab_browse:'📚 Phrases',tab_practice:'🎯 Practice',tab_flash:'🎴 Flashcards',tab_favs:'⭐ Favourites',cat_all:'All Situations',lvl_all:'All Levels',stat_total:'Total',stat_shown:'Shown',stat_favs:'Saved',fc_tap:'Tap to see translation',fc_hint:'tap to flip',fc_skip:'↩ Skip',fc_again:'🔄 Again',fc_know:'✓ Got it',no_results:'No phrases match your search',no_favs:'Star phrases in Browse mode to save them here',lbl_use:'When to use',lbl_example:'Example',lbl_tips:'Speaking tips',prac_title:'🎯 Guided Speaking Practice',prac_sub:'Choose a scenario below. For each prompt, speak your answer aloud in German — then reveal a model answer to compare.',btn_reveal:'Reveal model answer',btn_next:'Next prompt →'},
+fr:{badge:'Spécial · A2–C1',hero_sub:'Construisez votre confiance avec des expressions allemandes authentiques',tab_browse:'📚 Expressions',tab_practice:'🎯 Pratique',tab_flash:'🎴 Flashcards',tab_favs:'⭐ Favoris',cat_all:'Toutes situations',lvl_all:'Tous niveaux',stat_total:'Total',stat_shown:'Affichés',stat_favs:'Sauvegardés',fc_tap:'Toucher pour voir',fc_hint:'retourner',fc_skip:'↩ Passer',fc_again:'🔄 Revoir',fc_know:'✓ Compris',no_results:'Aucun résultat',no_favs:'Étoilez des expressions pour les sauvegarder',lbl_use:'Quand utiliser',lbl_example:'Exemple',lbl_tips:'Conseils',prac_title:'🎯 Pratique guidée',prac_sub:'Choisissez un scénario. Répondez à voix haute en allemand, puis révélez la réponse modèle.',btn_reveal:'Voir la réponse',btn_next:'Suivant →'},
+es:{badge:'Especial · A2–C1',hero_sub:'Gana confianza con frases alemanas auténticas para hablar',tab_browse:'📚 Frases',tab_practice:'🎯 Práctica',tab_flash:'🎴 Tarjetas',tab_favs:'⭐ Favoritos',cat_all:'Todas las situaciones',lvl_all:'Todos los niveles',stat_total:'Total',stat_shown:'Mostrados',stat_favs:'Guardados',fc_tap:'Toca para ver',fc_hint:'voltear',fc_skip:'↩ Saltar',fc_again:'🔄 Repetir',fc_know:'✓ Lo sé',no_results:'Sin resultados',no_favs:'Marca frases para guardarlas',lbl_use:'Cuándo usar',lbl_example:'Ejemplo',lbl_tips:'Consejos',prac_title:'🎯 Práctica guiada',prac_sub:'Elige un escenario. Responde en voz alta en alemán y luego revela la respuesta modelo.',btn_reveal:'Revelar respuesta',btn_next:'Siguiente →'},
+it:{badge:'Speciale · A2–C1',hero_sub:'Acquisisci fiducia con frasi tedesche autentiche',tab_browse:'📚 Frasi',tab_practice:'🎯 Pratica',tab_flash:'🎴 Flashcard',tab_favs:'⭐ Preferiti',cat_all:'Tutte le situazioni',lvl_all:'Tutti i livelli',stat_total:'Totale',stat_shown:'Mostrati',stat_favs:'Salvati',fc_tap:'Tocca per vedere',fc_hint:'girare',fc_skip:'↩ Salta',fc_again:'🔄 Ancora',fc_know:'✓ Lo so',no_results:'Nessun risultato',no_favs:'Aggiungi frasi ai preferiti',lbl_use:'Quando usare',lbl_example:'Esempio',lbl_tips:'Consigli',prac_title:'🎯 Pratica guidata',prac_sub:'Scegli uno scenario. Rispondi ad alta voce in tedesco, poi rivela la risposta modello.',btn_reveal:'Mostra risposta',btn_next:'Prossimo →'},
+pt:{badge:'Especial · A2–C1',hero_sub:'Ganhe confiança com frases alemãs autênticas para falar',tab_browse:'📚 Frases',tab_practice:'🎯 Prática',tab_flash:'🎴 Flashcards',tab_favs:'⭐ Favoritos',cat_all:'Todas as situações',lvl_all:'Todos os níveis',stat_total:'Total',stat_shown:'Exibidos',stat_favs:'Salvos',fc_tap:'Toque para ver',fc_hint:'virar',fc_skip:'↩ Pular',fc_again:'🔄 Rever',fc_know:'✓ Entendi',no_results:'Sem resultados',no_favs:'Marque frases para salvá-las',lbl_use:'Quando usar',lbl_example:'Exemplo',lbl_tips:'Dicas',prac_title:'🎯 Prática guiada',prac_sub:'Escolha um cenário. Responda em voz alta em alemão e depois revele a resposta modelo.',btn_reveal:'Revelar resposta',btn_next:'Próximo →'}
 };
 
-const REDEMITTEL=[
-{icon:'💡',label:{en:'Expressing Opinion',fr:'Exprimer une opinion',es:'Expresar opinión',it:'Esprimere un\'opinione',pt:'Expressar opinião'},phrases:[
-  {de:'Meiner Meinung nach…',en:'In my opinion…'},
-  {de:'Ich bin der Ansicht / Auffassung, dass…',en:'I am of the view that…'},
-  {de:'Ich denke / glaube / meine, dass…',en:'I think / believe that…'},
-  {de:'Aus meiner Perspektive / Sicht…',en:'From my perspective / point of view…'},
-  {de:'Ich bin davon überzeugt, dass…',en:'I am convinced that…'},
-  {de:'Meines Erachtens…',en:'In my estimation… (formal)'},
-  {de:'Soweit ich das beurteilen kann…',en:'As far as I can judge…'}
+const PHRASES=[
+// MEINUNG (opinion expressions)
+{id:1,phrase:"Meiner Meinung nach…",trans:"In my opinion…",use:"Introducing a personal opinion in any context",example:"Meiner Meinung nach ist das eine sehr gute Idee.",cat:"meinung",level:"A2"},
+{id:2,phrase:"Ich bin der Meinung, dass…",trans:"I am of the opinion that…",use:"Stating a firm view, slightly more formal",example:"Ich bin der Meinung, dass wir mehr Zeit brauchen.",cat:"meinung",level:"A2"},
+{id:3,phrase:"Ich finde es wichtig, dass…",trans:"I find it important that…",use:"Expressing what you consider essential or significant",example:"Ich finde es wichtig, dass alle gehört werden.",cat:"meinung",level:"B1"},
+{id:4,phrase:"Ich halte das für…",trans:"I consider this to be…",use:"Making a judgement or assessment",example:"Ich halte das für eine ausgezeichnete Lösung.",cat:"meinung",level:"B1"},
+{id:5,phrase:"Was mich betrifft…",trans:"As far as I'm concerned…",use:"Giving your personal stance on a matter",example:"Was mich betrifft, bin ich zufrieden mit dem Ergebnis.",cat:"meinung",level:"B2"},
+{id:6,phrase:"Soweit ich das beurteilen kann…",trans:"As far as I can judge…",use:"Offering a careful, considered opinion",example:"Soweit ich das beurteilen kann, ist der Plan solide.",cat:"meinung",level:"B2"},
+{id:7,phrase:"Ich stehe auf dem Standpunkt, dass…",trans:"I take the position that…",use:"Defending a firm stance in debate or discussion",example:"Ich stehe auf dem Standpunkt, dass Ehrlichkeit die beste Politik ist.",cat:"meinung",level:"C1"},
+{id:8,phrase:"Wenn Sie mich fragen…",trans:"If you ask me…",use:"Introducing an opinion, often direct or blunt",example:"Wenn Sie mich fragen, sollten wir den Plan komplett überdenken.",cat:"meinung",level:"B1"},
+{id:9,phrase:"Persönlich gesehen…",trans:"Personally speaking…",use:"Signalling that what follows is your own view",example:"Persönlich gesehen bevorzuge ich den direkten Ansatz.",cat:"meinung",level:"B2"},
+{id:10,phrase:"Aus meiner Sicht…",trans:"From my point of view…",use:"Opening a viewpoint in discussion or debate",example:"Aus meiner Sicht ist die Situation komplizierter als gedacht.",cat:"meinung",level:"B1"},
+
+// ZUSTIMMUNG (agreeing)
+{id:11,phrase:"Da haben Sie völlig Recht.",trans:"You are absolutely right.",use:"Expressing full agreement, formal context",example:"Da haben Sie völlig Recht — das müssen wir ändern.",cat:"zustimmung",level:"A2"},
+{id:12,phrase:"Ich stimme dir zu.",trans:"I agree with you.",use:"Simple agreement in informal conversation",example:"Ich stimme dir zu. Das klingt nach einem guten Plan.",cat:"zustimmung",level:"A2"},
+{id:13,phrase:"Das sehe ich genauso.",trans:"I see it exactly the same way.",use:"Expressing strong agreement with someone's view",example:"Das sehe ich genauso — wir sollten früher anfangen.",cat:"zustimmung",level:"B1"},
+{id:14,phrase:"Du sprichst mir aus der Seele.",trans:"You speak from my soul / You're saying exactly what I feel.",use:"Enthusiastic agreement — the other person said exactly what you thought",example:"Du sprichst mir wirklich aus der Seele!",cat:"zustimmung",level:"B2"},
+{id:15,phrase:"Das leuchtet mir ein.",trans:"That makes sense to me.",use:"Something now makes logical sense after being explained",example:"Das leuchtet mir ein. Danke für die Erklärung.",cat:"zustimmung",level:"B2"},
+{id:16,phrase:"Ich kann das nur unterstützen.",trans:"I can only support this.",use:"Formal endorsement of an idea or proposal",example:"Dieser Vorschlag ist ausgezeichnet — ich kann das nur unterstützen.",cat:"zustimmung",level:"C1"},
+{id:17,phrase:"Da bin ich vollkommen Ihrer Meinung.",trans:"I completely agree with your opinion.",use:"Formal, strong agreement in professional settings",example:"Da bin ich vollkommen Ihrer Meinung, Herr Müller.",cat:"zustimmung",level:"B2"},
+{id:18,phrase:"Ich schließe mich dem an.",trans:"I concur with that / I second that.",use:"Formally adding your agreement in a meeting or discussion",example:"Ich schließe mich dem Vorschlag meines Kollegen an.",cat:"zustimmung",level:"C1"},
+{id:19,phrase:"Guter Punkt!",trans:"Good point!",use:"Quick acknowledgement of a strong argument",example:"Guter Punkt! Daran habe ich gar nicht gedacht.",cat:"zustimmung",level:"A2"},
+{id:20,phrase:"Ich teile Ihre Ansicht.",trans:"I share your view.",use:"Formal agreement, often in writing or presentations",example:"Ich teile Ihre Ansicht bezüglich der Budgetkürzungen.",cat:"zustimmung",level:"C1"},
+
+// WIDERSPRUCH (disagreeing)
+{id:21,phrase:"Da bin ich anderer Meinung.",trans:"I disagree / I have a different opinion.",use:"Politely signalling disagreement",example:"Da bin ich anderer Meinung. Ich denke, das ist zu riskant.",cat:"widerspruch",level:"A2"},
+{id:22,phrase:"Das sehe ich anders.",trans:"I see that differently.",use:"Disagreeing without being confrontational",example:"Das sehe ich anders — die Kosten sind noch vertretbar.",cat:"widerspruch",level:"B1"},
+{id:23,phrase:"Ich bezweifle, dass…",trans:"I doubt that…",use:"Expressing scepticism about a claim or plan",example:"Ich bezweifle, dass das innerhalb eines Monats möglich ist.",cat:"widerspruch",level:"B2"},
+{id:24,phrase:"Das überzeugt mich nicht ganz.",trans:"That doesn't quite convince me.",use:"Politely rejecting an argument without full opposition",example:"Ihr Argument ist interessant, aber das überzeugt mich nicht ganz.",cat:"widerspruch",level:"B2"},
+{id:25,phrase:"Mit Verlaub — ich sehe das etwas kritischer.",trans:"With all due respect — I see this somewhat more critically.",use:"Polite disagreement in formal discussions",example:"Mit Verlaub — ich sehe das etwas kritischer als die Mehrheit.",cat:"widerspruch",level:"C1"},
+{id:26,phrase:"Ich widerspreche dem mit allem Nachdruck.",trans:"I strongly oppose this.",use:"Firm, formal opposition in a professional setting",example:"Ich widerspreche dem mit allem Nachdruck — das wäre ein Fehler.",cat:"widerspruch",level:"C1"},
+{id:27,phrase:"Das stimmt so nicht ganz.",trans:"That's not entirely correct.",use:"Correcting someone politely without saying they're wrong",example:"Das stimmt so nicht ganz — es gibt noch einen dritten Faktor.",cat:"widerspruch",level:"B1"},
+{id:28,phrase:"Ich sehe da ein Problem.",trans:"I see a problem there.",use:"Raising a concern or objection",example:"Ich sehe da ein Problem: Die Zeit reicht nicht aus.",cat:"widerspruch",level:"B1"},
+{id:29,phrase:"Ja, aber man muss auch bedenken, dass…",trans:"Yes, but one must also consider that…",use:"Partial agreement followed by an important counter-point",example:"Ja, aber man muss auch bedenken, dass die Kosten steigen werden.",cat:"widerspruch",level:"B2"},
+{id:30,phrase:"Da hätte ich Einwände.",trans:"I would have some objections to that.",use:"Formal way of raising opposition in a meeting",example:"Gegen diesen Vorschlag hätte ich Einwände.",cat:"widerspruch",level:"C1"},
+
+// ERKLARUNG (explaining & clarifying)
+{id:31,phrase:"Ich meine damit, dass…",trans:"What I mean is that…",use:"Clarifying what you said or meant",example:"Ich meine damit, dass wir effizienter arbeiten müssen.",cat:"erklarung",level:"A2"},
+{id:32,phrase:"Mit anderen Worten…",trans:"In other words…",use:"Restating something more simply or clearly",example:"Mit anderen Worten — das Projekt ist gescheitert.",cat:"erklarung",level:"B1"},
+{id:33,phrase:"Um das zu verdeutlichen…",trans:"To make that clear…",use:"Introducing a clarifying example or explanation",example:"Um das zu verdeutlichen: Stellen Sie sich vor, Sie hätten kein Geld.",cat:"erklarung",level:"B2"},
+{id:34,phrase:"Vereinfacht gesagt…",trans:"Simply put… / In simple terms…",use:"Breaking down a complex idea",example:"Vereinfacht gesagt: Es gibt mehr Ausgaben als Einnahmen.",cat:"erklarung",level:"B2"},
+{id:35,phrase:"Das Wesentliche dabei ist…",trans:"The key point here is…",use:"Highlighting the most important aspect",example:"Das Wesentliche dabei ist, dass alle kooperieren müssen.",cat:"erklarung",level:"C1"},
+{id:36,phrase:"Ich möchte kurz erläutern, warum…",trans:"I'd like to briefly explain why…",use:"Introducing an explanation in a presentation or speech",example:"Ich möchte kurz erläutern, warum diese Entscheidung getroffen wurde.",cat:"erklarung",level:"C1"},
+{id:37,phrase:"Das heißt konkret…",trans:"In concrete terms, that means…",use:"Moving from abstract to practical application",example:"Das heißt konkret: Ab Montag arbeiten alle im Homeoffice.",cat:"erklarung",level:"B2"},
+{id:38,phrase:"Ich will ein Beispiel nennen.",trans:"I'd like to give an example.",use:"Introducing a clarifying example",example:"Ich will ein Beispiel nennen: Letztes Jahr haben wir…",cat:"erklarung",level:"B1"},
+{id:39,phrase:"Um auf den Punkt zu kommen…",trans:"To get to the point…",use:"Cutting to the essential message",example:"Um auf den Punkt zu kommen: Wir brauchen mehr Budget.",cat:"erklarung",level:"B2"},
+{id:40,phrase:"Das bedeutet im Klartext…",trans:"In plain language, that means…",use:"Being very direct after a roundabout explanation",example:"Das bedeutet im Klartext: Es gibt keine Gehaltserhöhungen dieses Jahr.",cat:"erklarung",level:"B2"},
+
+// UNSICHERHEIT (expressing uncertainty)
+{id:41,phrase:"Ich bin mir nicht ganz sicher, ob…",trans:"I'm not entirely sure whether…",use:"Expressing uncertainty about a fact",example:"Ich bin mir nicht ganz sicher, ob das die richtige Entscheidung ist.",cat:"unsicherheit",level:"A2"},
+{id:42,phrase:"Es könnte sein, dass…",trans:"It could be that…",use:"Speculating about a possibility",example:"Es könnte sein, dass sie heute nicht kommt.",cat:"unsicherheit",level:"B1"},
+{id:43,phrase:"Ich glaube schon, aber…",trans:"I think so, but…",use:"Giving a tentative yes with a caveat",example:"Ich glaube schon, aber ich müsste das noch prüfen.",cat:"unsicherheit",level:"B1"},
+{id:44,phrase:"Soweit ich weiß…",trans:"As far as I know…",use:"Prefacing information you're not 100% sure about",example:"Soweit ich weiß, beginnt das Meeting um zehn.",cat:"unsicherheit",level:"B1"},
+{id:45,phrase:"Das lässt sich schwer sagen.",trans:"That's hard to say.",use:"Acknowledging a question is genuinely difficult",example:"Das lässt sich schwer sagen — es hängt von vielen Faktoren ab.",cat:"unsicherheit",level:"B2"},
+{id:46,phrase:"Das steht noch in den Sternen.",trans:"That's still written in the stars. (= very uncertain)",use:"Expressing that something is quite unknown or unpredictable",example:"Ob das Projekt Erfolg haben wird, steht noch in den Sternen.",cat:"unsicherheit",level:"B2"},
+{id:47,phrase:"Ich würde vermuten, dass…",trans:"I would guess / assume that…",use:"Making an educated guess",example:"Ich würde vermuten, dass die Kosten steigen werden.",cat:"unsicherheit",level:"B2"},
+{id:48,phrase:"Das bleibt abzuwarten.",trans:"That remains to be seen.",use:"Indicating an outcome is unknown and time will tell",example:"Ob die Strategie aufgeht, bleibt abzuwarten.",cat:"unsicherheit",level:"C1"},
+{id:49,phrase:"Ich bin da etwas unschlüssig.",trans:"I'm a bit undecided / uncertain about this.",use:"Expressing personal indecision",example:"Ich bin da etwas unschlüssig — beide Optionen haben Vor- und Nachteile.",cat:"unsicherheit",level:"B2"},
+{id:50,phrase:"Das kann ich nicht mit Sicherheit sagen.",trans:"I cannot say that with certainty.",use:"Being honest about the limits of your knowledge",example:"Das kann ich leider nicht mit Sicherheit sagen.",cat:"unsicherheit",level:"B1"},
+
+// GEFÜHLE (expressing feelings in conversation)
+{id:51,phrase:"Das freut mich wirklich sehr!",trans:"I'm genuinely very pleased about that!",use:"Expressing genuine happiness at someone's news",example:"Du hast die Prüfung bestanden? Das freut mich wirklich sehr!",cat:"gefuhle",level:"A2"},
+{id:52,phrase:"Das tut mir sehr leid.",trans:"I'm very sorry about that.",use:"Expressing empathy or condolences",example:"Das tut mir wirklich sehr leid. Wie kann ich helfen?",cat:"gefuhle",level:"A2"},
+{id:53,phrase:"Ich bin begeistert von…",trans:"I'm enthusiastic about / excited by…",use:"Expressing enthusiasm",example:"Ich bin absolut begeistert von der neuen Strategie.",cat:"gefuhle",level:"B1"},
+{id:54,phrase:"Das überrascht mich ehrlich gesagt.",trans:"Honestly, that surprises me.",use:"Expressing genuine surprise at news",example:"Das überrascht mich ehrlich gesagt — ich hätte das nicht erwartet.",cat:"gefuhle",level:"B1"},
+{id:55,phrase:"Ich fühle mich unwohl dabei.",trans:"I feel uneasy about this.",use:"Diplomatically expressing discomfort with a situation",example:"Ehrlich gesagt fühle ich mich dabei etwas unwohl.",cat:"gefuhle",level:"B2"},
+{id:56,phrase:"Das macht mir Sorgen.",trans:"That worries me.",use:"Expressing concern about something",example:"Die Entwicklung der letzten Wochen macht mir wirklich Sorgen.",cat:"gefuhle",level:"B1"},
+{id:57,phrase:"Ich bin hin und hergerissen.",trans:"I'm torn / I'm conflicted.",use:"Expressing that you have mixed feelings",example:"Ich bin ehrlich gesagt hin und hergerissen zwischen den zwei Optionen.",cat:"gefuhle",level:"B2"},
+{id:58,phrase:"Das hat mich wirklich berührt.",trans:"That really moved me.",use:"Saying something had an emotional impact on you",example:"Deine Geschichte hat mich wirklich berührt.",cat:"gefuhle",level:"B2"},
+{id:59,phrase:"Ich bin positiv überrascht.",trans:"I'm pleasantly surprised.",use:"Expressing that something exceeded your expectations",example:"Ich muss sagen, ich bin positiv überrascht von dem Ergebnis.",cat:"gefuhle",level:"B1"},
+{id:60,phrase:"Das liegt mir sehr am Herzen.",trans:"This is very close to my heart.",use:"Expressing something you care deeply about",example:"Das Thema Bildung liegt mir wirklich sehr am Herzen.",cat:"gefuhle",level:"C1"},
+
+// GESPRACH (conversation management)
+{id:61,phrase:"Könnten Sie das bitte wiederholen?",trans:"Could you please repeat that?",use:"Politely asking for repetition",example:"Entschuldigung — könnten Sie das bitte nochmal wiederholen?",cat:"gesprach",level:"A2"},
+{id:62,phrase:"Was meinen Sie genau damit?",trans:"What exactly do you mean by that?",use:"Asking for clarification",example:"Was meinen Sie genau damit — können Sie ein Beispiel geben?",cat:"gesprach",level:"B1"},
+{id:63,phrase:"Wenn ich kurz einhaken darf…",trans:"If I may briefly interject…",use:"Politely interrupting a conversation",example:"Wenn ich kurz einhaken darf — das ist ein wichtiger Punkt.",cat:"gesprach",level:"B2"},
+{id:64,phrase:"Lassen Sie mich kurz zusammenfassen…",trans:"Let me briefly summarise…",use:"Summarising before concluding or continuing",example:"Lassen Sie mich kurz zusammenfassen, was wir bisher besprochen haben.",cat:"gesprach",level:"B2"},
+{id:65,phrase:"Darf ich Sie etwas fragen?",trans:"May I ask you something?",use:"Politely asking permission before a question",example:"Darf ich Sie etwas fragen — wie lange sind Sie schon hier?",cat:"gesprach",level:"A2"},
+{id:66,phrase:"Ich würde das gerne ausführlicher erklären.",trans:"I'd like to explain this in more detail.",use:"Signalling you want to expand on something",example:"Ich würde das gerne etwas ausführlicher erklären.",cat:"gesprach",level:"C1"},
+{id:67,phrase:"Um noch einmal auf Ihren Punkt zurückzukommen…",trans:"To return to your point again…",use:"Bringing back an earlier topic in discussion",example:"Um noch einmal auf Ihren Punkt zurückzukommen — ich denke, da liegt der Unterschied.",cat:"gesprach",level:"C1"},
+{id:68,phrase:"Wie sehen Sie das?",trans:"How do you see this? / What's your view?",use:"Inviting someone to share their opinion",example:"Das ist meine Perspektive — wie sehen Sie das?",cat:"gesprach",level:"B1"},
+{id:69,phrase:"Entschuldigung, ich habe Sie unterbrochen.",trans:"I'm sorry, I interrupted you.",use:"Apologising for cutting someone off",example:"Entschuldigung, ich habe Sie unterbrochen — bitte fahren Sie fort.",cat:"gesprach",level:"B1"},
+{id:70,phrase:"Ich komme gleich auf diesen Punkt zu sprechen.",trans:"I'll get to this point shortly.",use:"Managing a conversation or presentation",example:"Das ist wichtig — ich komme gleich auf diesen Punkt zu sprechen.",cat:"gesprach",level:"B2"},
+
+// FORMAL (formal register phrases)
+{id:71,phrase:"Ich erlaube mir, darauf hinzuweisen, dass…",trans:"I take the liberty of pointing out that…",use:"Politely drawing attention to an issue in formal writing/speech",example:"Ich erlaube mir, darauf hinzuweisen, dass der Bericht fehlerhaft ist.",cat:"formal",level:"C1"},
+{id:72,phrase:"Gestatten Sie mir eine Anmerkung.",trans:"Allow me a remark / If I may make a comment.",use:"Requesting the floor before making a formal comment",example:"Gestatten Sie mir eine kurze Anmerkung zum letzten Punkt.",cat:"formal",level:"C1"},
+{id:73,phrase:"Mit freundlichen Grüßen verbleibe ich…",trans:"I remain with kind regards… (formal letter closing)",use:"Closing a formal letter or email",example:"Mit freundlichen Grüßen verbleibe ich Ihr Stefan Menzel.",cat:"formal",level:"B2"},
+{id:74,phrase:"Ich würde es begrüßen, wenn…",trans:"I would welcome it if…",use:"Politely requesting something in a formal way",example:"Ich würde es sehr begrüßen, wenn wir das persönlich besprechen könnten.",cat:"formal",level:"C1"},
+{id:75,phrase:"Es wäre mir eine Freude…",trans:"It would be my pleasure…",use:"Accepting an offer or invitation very formally",example:"Es wäre mir eine Freude, an Ihrer Veranstaltung teilzunehmen.",cat:"formal",level:"C1"},
+{id:76,phrase:"Ich bitte um Ihr Verständnis.",trans:"I ask for your understanding.",use:"Apologising formally for a problem or inconvenience",example:"Die Lieferung verzögert sich — ich bitte um Ihr Verständnis.",cat:"formal",level:"B2"},
+{id:77,phrase:"Ich stehe für Rückfragen zur Verfügung.",trans:"I am available for any follow-up questions.",use:"Formal sign-off in emails, presentations, and meetings",example:"Bei weiteren Fragen stehe ich gerne zur Verfügung.",cat:"formal",level:"B2"},
+{id:78,phrase:"Bezüglich Ihrer Anfrage…",trans:"Regarding your enquiry…",use:"Opening a formal reply to a query",example:"Bezüglich Ihrer Anfrage vom letzten Dienstag möchte ich Folgendes mitteilen.",cat:"formal",level:"B2"},
+{id:79,phrase:"Ich nehme Ihre Einwände zur Kenntnis.",trans:"I take note of your objections.",use:"Formally acknowledging that objections have been heard",example:"Ich nehme Ihre Einwände zur Kenntnis und werde sie berücksichtigen.",cat:"formal",level:"C1"},
+{id:80,phrase:"Erlauben Sie mir, das präziser zu formulieren.",trans:"Allow me to phrase that more precisely.",use:"Self-correcting or refining a statement formally",example:"Erlauben Sie mir, das etwas präziser zu formulieren.",cat:"formal",level:"C1"}
+];
+
+const SCENARIOS=[
+{id:1,icon:"☕",title:"Kaffeegespräch",desc:"Small talk at the office kitchen — weather, weekend, hobbies",level:"A2–B1",prompts:[
+  {q:"Wie war Ihr Wochenende?",sub:"Answer in 3–4 sentences about something you did.",model:"Mein Wochenende war sehr entspannt. Am Samstag bin ich mit Freunden in ein Restaurant gegangen und wir haben sehr lecker gegessen. Am Sonntag habe ich zuhause gelesen und einen langen Spaziergang gemacht. Ich fühle mich jetzt richtig ausgeruht!"},
+  {q:"Was machen Sie in Ihrer Freizeit?",sub:"Talk about 2 hobbies with some detail.",model:"In meiner Freizeit treibe ich gerne Sport — besonders laufe ich regelmäßig. Außerdem interessiere ich mich sehr für Kochen. Ich probiere oft neue Rezepte aus, am liebsten aus verschiedenen Ländern. Es macht mir wirklich Spaß, neue Gerichte zu entdecken."},
+  {q:"Wie finden Sie das Wetter heute?",sub:"Comment on the weather and link it to something.",model:"Heute ist es wirklich herrlich! So ein sonniger Tag macht die Arbeit gleich angenehmer. Ich freue mich schon auf die Mittagspause, damit ich kurz nach draußen gehen kann. Bei solchem Wetter ist man viel motivierter, finde ich."}
 ]},
-{icon:'✅',label:{en:'Agreeing',fr:'Être d\'accord',es:'Estar de acuerdo',it:'Essere d\'accordo',pt:'Concordar'},phrases:[
-  {de:'Da stimme ich (Ihnen / dir) vollkommen zu.',en:'I completely agree with you.'},
-  {de:'Das sehe ich genauso.',en:'I see it the same way.'},
-  {de:'Ich teile Ihre / deine Meinung.',en:'I share your opinion.'},
-  {de:'Absolut! / Genau! / Ganz recht!',en:'Absolutely! / Exactly! / Quite right!'},
-  {de:'Das ist ein guter Punkt.',en:'That\'s a good point.'},
-  {de:'Das trifft den Kern der Sache.',en:'That hits the core of the matter.'}
+{id:2,icon:"💼",title:"Vorstellungsgespräch",desc:"Job interview — present yourself, your strengths and ambitions",level:"B1–B2",prompts:[
+  {q:"Erzählen Sie mir etwas über sich.",sub:"1-minute self-introduction: background, current role, why you're here.",model:"Guten Tag! Ich heiße Stefan und ich komme aus Deutschland. Ich habe Wirtschaftsinformatik studiert und danach fünf Jahre als Projektmanager gearbeitet. In meiner aktuellen Position bin ich für internationale Kunden zuständig. Ich schätze Teamarbeit sehr und bringe gerne neue Ideen ein. Ich bewerbe mich bei Ihnen, weil ich besonders von Ihrer Unternehmenskultur begeistert bin."},
+  {q:"Was sind Ihre größten Stärken?",sub:"Mention 2–3 strengths with a concrete example each.",model:"Meine größte Stärke ist meine Organisationsfähigkeit. Ich halte Deadlines immer ein und behalte auch bei komplexen Projekten den Überblick. Außerdem bin ich sehr kommunikativ — ich kann schwierige Sachverhalte klar erklären. Ein konkretes Beispiel: In meinem letzten Job habe ich ein Team von zehn Personen koordiniert und das Projekt zwei Wochen früher als geplant abgeschlossen."},
+  {q:"Wo sehen Sie sich in fünf Jahren?",sub:"Talk about your professional goals.",model:"In fünf Jahren möchte ich eine Führungsposition in einem internationalen Unternehmen bekleiden. Mir ist es wichtig, weiterhin zu wachsen — sowohl fachlich als auch persönlich. Ich möchte Verantwortung übernehmen und ein motiviertes Team leiten. Außerdem möchte ich meinen Erfahrungsschatz in verschiedenen Märkten erweitern, idealerweise auch im Ausland."}
 ]},
-{icon:'❌',label:{en:'Disagreeing',fr:'Être en désaccord',es:'No estar de acuerdo',it:'Non essere d\'accordo',pt:'Discordar'},phrases:[
-  {de:'Da bin ich anderer Meinung.',en:'I have a different opinion on that.'},
-  {de:'Das sehe ich etwas anders.',en:'I see that a little differently.'},
-  {de:'Ich möchte hier widersprechen.',en:'I would like to disagree here.'},
-  {de:'Das stimmt meiner Ansicht nach nicht.',en:'That\'s not correct, in my view.'},
-  {de:'Im Gegenteil! / Keineswegs!',en:'On the contrary! / By no means!'},
-  {de:'Ich bezweifle, dass…',en:'I doubt that…'}
+{id:3,icon:"📰",title:"Aktuelle Themen",desc:"Discuss current events or social topics",level:"B2",prompts:[
+  {q:"Was halten Sie von der Digitalisierung im Bildungssystem?",sub:"Give your opinion with 2 arguments.",model:"Meiner Meinung nach ist die Digitalisierung im Bildungssystem grundsätzlich positiv, aber sie muss richtig umgesetzt werden. Einerseits bietet sie großartige Möglichkeiten: Schüler können individuell lernen und auf riesige Informationsmengen zugreifen. Andererseits darf man nicht vergessen, dass nicht alle Familien gleichen Zugang zu Technologie haben. Ich bin daher der Meinung, dass die Schulen alle Schüler mit den nötigen Geräten ausstatten sollten."},
+  {q:"Wie stehen Sie zum Thema Homeoffice?",sub:"Discuss advantages and disadvantages.",model:"Das Thema Homeoffice sehe ich differenziert. Auf der einen Seite schätze ich die Flexibilität sehr — man spart Zeit durch den Wegfall des Pendelns und kann sich oft besser konzentrieren. Andererseits fehlt mir manchmal der direkte Kontakt mit Kollegen. Spontane Gespräche und der Teamgeist leiden unter vollständigem Homeoffice. Ich bevorzuge daher ein hybrides Modell: zwei bis drei Tage zuhause, den Rest im Büro."},
+  {q:"Welche Maßnahmen sollten gegen den Klimawandel ergriffen werden?",sub:"Name 3 concrete measures and justify them.",model:"Ich bin überzeugt, dass wir auf drei Ebenen handeln müssen. Erstens müssen wir die erneuerbaren Energien massiv ausbauen — Sonne und Wind sind unbegrenzt verfügbar. Zweitens sollten wir den öffentlichen Nahverkehr so attraktiv gestalten, dass die Menschen freiwillig auf das Auto verzichten. Und drittens brauchen wir mehr Investitionen in Forschung und Bildung, damit die nächste Generation innovative Lösungen entwickeln kann."}
 ]},
-{icon:'🤔',label:{en:'Hedging & Qualifying',fr:'Nuancer',es:'Matizar',it:'Sfumare',pt:'Qualificar'},phrases:[
-  {de:'Es kommt darauf an, ob / wie…',en:'It depends on whether / how…'},
-  {de:'Einerseits … andererseits …',en:'On the one hand … on the other hand …'},
-  {de:'Zwar … aber …',en:'Admittedly … but …'},
-  {de:'Unter bestimmten Umständen…',en:'Under certain circumstances…'},
-  {de:'Das lässt sich nicht so einfach verallgemeinern.',en:'That can\'t be generalized so easily.'},
-  {de:'Man muss dabei berücksichtigen, dass…',en:'One must take into account that…'}
+{id:4,icon:"🎓",title:"Präsentation",desc:"Present ideas clearly and handle questions",level:"B2–C1",prompts:[
+  {q:"Eröffnen Sie Ihre Präsentation zum Thema 'Nachhaltigkeit im Unternehmen'.",sub:"Write a strong 45-second opening.",model:"Guten Morgen, meine Damen und Herren. Ich freue mich, Ihnen heute einen Vortrag über Nachhaltigkeit in unserem Unternehmen halten zu dürfen. Darf ich Ihnen eine Frage stellen: Wer von Ihnen hat in der letzten Woche bewusst eine nachhaltige Entscheidung getroffen? Das Thema betrifft uns alle — sowohl privat als auch beruflich. In den nächsten zwanzig Minuten möchte ich Ihnen zeigen, warum Nachhaltigkeit kein optionaler Luxus ist, sondern eine strategische Notwendigkeit."},
+  {q:"Eine Zuhörerin fragt kritisch: 'Das ist doch nur PR, oder?'",sub:"Handle this objection diplomatically.",model:"Das ist eine sehr berechtigte Frage, vielen Dank dafür. Ich verstehe den Skeptizismus — es gibt tatsächlich Unternehmen, die 'Greenwashing' betreiben. Bei uns ist das jedoch anders: Wir haben unsere CO₂-Emissionen in den letzten drei Jahren um 40% reduziert, und das ist messbar und überprüfbar. Ich würde Ihnen gerne nach der Präsentation unseren Nachhaltigkeitsbericht zeigen, der von einer unabhängigen Organisation zertifiziert wurde."},
+  {q:"Schließen Sie Ihre Präsentation mit einem starken Abschluss.",sub:"Summarise and close memorably.",model:"Lassen Sie mich kurz zusammenfassen: Nachhaltigkeit ist für uns kein Trend, sondern eine Überzeugung — verankert in unserer Strategie und messbar in unseren Ergebnissen. Wir haben heute drei Kernbereiche besprochen: Energieverbrauch, Lieferkette und Mitarbeiterengagement. Ich bin überzeugt: Unternehmen, die jetzt handeln, sind die Gewinner von morgen. Vielen Dank für Ihre Aufmerksamkeit — ich stehe gerne für Ihre Fragen zur Verfügung."}
 ]},
-{icon:'🗂️',label:{en:'Structuring your argument',fr:'Structurer l\'argumentation',es:'Estructurar el argumento',it:'Strutturare l\'argomentazione',pt:'Estruturar o argumento'},phrases:[
-  {de:'Zunächst möchte ich … erläutern.',en:'First, I\'d like to explain …'},
-  {de:'Im Folgenden werde ich … darlegen.',en:'In the following, I will set out …'},
-  {de:'Zum einen … Zum anderen …',en:'On the one hand … On the other hand …'},
-  {de:'Als nächstes / Darüber hinaus …',en:'Next / Moreover …'},
-  {de:'Abschließend möchte ich festhalten, dass…',en:'In conclusion, I would like to state that…'},
-  {de:'Zusammenfassend lässt sich sagen, dass…',en:'In summary, it can be said that…'}
+{id:5,icon:"🤝",title:"Verhandlung",desc:"Negotiate professionally — price, terms, compromise",level:"C1",prompts:[
+  {q:"Der Kunde sagt: 'Der Preis ist zu hoch.'",sub:"Respond diplomatically and defend your position.",model:"Ich verstehe Ihre Bedenken vollkommen, und ich schätze Ihre Offenheit. Bevor wir über den Preis sprechen, möchte ich kurz erläutern, was darin enthalten ist: erstklassiger Support, eine dreijährige Garantie und kostenlose Updates. Wenn man diese Leistungen einzeln berechnet, ist unser Paketpreis tatsächlich sehr wettbewerbsfähig. Dennoch möchte ich Ihnen entgegenkommen — was wäre für Sie ein akzeptabler Rahmen?"},
+  {q:"Wie schlagen Sie einen Kompromiss vor?",sub:"Offer a concrete compromise diplomatically.",model:"Ich denke, wir können eine Lösung finden, die für beide Seiten vorteilhaft ist. Mein Vorschlag wäre folgender: Wir reduzieren den Preis um acht Prozent, dafür verlängern Sie den Vertrag um ein Jahr. Alternativ könnten wir den Lieferzeitraum auf sechs Wochen verschieben, was uns auf unserer Seite mehr Spielraum gibt. Welche Option käme für Sie eher in Frage?"},
+  {q:"Die Verhandlung läuft gut — kommen Sie zum Abschluss.",sub:"Close the deal professionally.",model:"Ich freue mich sehr, dass wir gemeinsam zu dieser Einigung gekommen sind. Ich glaube, das ist eine Partnerschaft, von der beide Seiten profitieren werden. Ich werde noch heute den überarbeiteten Vertrag vorbereiten und Ihnen bis morgen Mittag zusenden. Wäre es Ihnen möglich, ihn bis Ende der Woche zu prüfen? Ich freue mich auf eine erfolgreiche Zusammenarbeit!"}
 ]},
-{icon:'⏸️',label:{en:'Buying time',fr:'Gagner du temps',es:'Ganar tiempo',it:'Guadagnare tempo',pt:'Ganhar tempo'},phrases:[
-  {de:'Das ist eine gute / interessante Frage.',en:'That\'s a good / interesting question.'},
-  {de:'Lassen Sie mich kurz nachdenken.',en:'Let me think for a moment.'},
-  {de:'Wenn ich das richtig verstehe…',en:'If I understand correctly…'},
-  {de:'Mit anderen Worten…',en:'In other words…'},
-  {de:'Also, ich würde sagen…',en:'Well, I would say…'},
-  {de:'Darf ich kurz überlegen?',en:'May I take a moment to think?'}
+{id:6,icon:"🏥",title:"Arztgespräch",desc:"Describe symptoms and understand medical advice",level:"B1–B2",prompts:[
+  {q:"Sie sind beim Arzt. Beschreiben Sie Ihre Symptome.",sub:"Describe 2–3 symptoms clearly with details.",model:"Guten Tag, Herr Doktor. Ich fühle mich seit etwa drei Tagen nicht gut. Ich habe Kopfschmerzen — hauptsächlich an den Schläfen — und leichtes Fieber, ungefähr 37,8 Grad. Dazu kommt ein allgemeines Schwächegefühl. Ich habe keine Erkältungssymptome wie Schnupfen oder Husten, aber nachts schwitze ich sehr stark. Ich habe schon Paracetamol genommen, aber es hilft nur kurz.",trans:"",example:"",cat:"",level:""},
+  {q:"Der Arzt fragt: 'Haben Sie Allergien oder nehmen Sie regelmäßig Medikamente?'",sub:"Answer with your medication and allergy information.",model:"Ich bin gegen Penicillin allergisch — das steht auch in meiner Patientenakte. Außerdem nehme ich täglich ein Blutdruckmedikament, den Namen habe ich gerade nicht im Kopf, aber ich habe die Packung dabei. Gegen Schmerzen nehme ich gelegentlich Ibuprofen oder Paracetamol. Sonst nehme ich keine regelmäßigen Medikamente.",trans:"",example:"",cat:"",level:""},
+  {q:"Der Arzt erklärt die Diagnose. Sie haben etwas nicht verstanden. Fragen Sie nach.",sub:"Ask for clarification on 2 things.",model:"Vielen Dank für die Erklärung. Ich habe eine Frage: Sie haben 'viral' gesagt — bedeutet das, dass Antibiotika nicht helfen würden? Und ich habe 'Inhalation' nicht ganz verstanden — meinen Sie damit einen Dampfbad oder eine spezielle Inhalationsmaschine? Ich möchte die Behandlung wirklich richtig machen."}
 ]}
 ];
 
-const TALK_CARDS=[
-  {topic:'KI & Beruf',q:'Wird KI mehr Arbeitsplätze vernichten oder schaffen?',vocab:['die Automatisierung','ersetzen','verdrängen','schaffen']},
-  {topic:'Freizeit',q:'Was machst du in deiner Freizeit, um Stress abzubauen? Erkläre!',vocab:['entspannen','der Ausgleich','abschalten','erholen']},
-  {topic:'Reisen',q:'Beschreibe eine unvergessliche Reiseerfahrung!',vocab:['unvergesslich','beeindruckend','erleben','begegnen']},
-  {topic:'Bildung',q:'Sollte die Schule mehr auf praktische Fähigkeiten als auf Theorie setzen?',vocab:['praktisch','theoretisch','anwenden','vorbereiten']},
-  {topic:'Soziale Medien',q:'Wie haben soziale Medien die Kommunikation verändert?',vocab:['beeinflussen','verbreiten','vernetzt','oberflächlich']},
-  {topic:'Umwelt',q:'Was kannst du persönlich für die Umwelt tun?',vocab:['nachhaltig','der CO₂-Fußabdruck','verzichten','bewusst']},
-  {topic:'Gesundheit',q:'Was ist wichtiger: körperliche oder mentale Gesundheit? Begründe!',vocab:['das Wohlbefinden','ausgewogen','die Balance','vernachlässigen']},
-  {topic:'Arbeit',q:'Wie sieht dein idealer Arbeitsplatz aus?',vocab:['flexibel','die Unternehmenskultur','motivierend','das Betriebsklima']},
-  {topic:'Technologie',q:'Ist das Smartphone unser wichtigstes Alltagsgerät? Warum?',vocab:['unverzichtbar','abhängig','erleichtern','der Nachteil']},
-  {topic:'Familie & Gesellschaft',q:'Welche Rolle spielt die Familie in der modernen Gesellschaft?',vocab:['die Kernfamilie','Werte vermitteln','der Zusammenhalt','wandeln']},
-  {topic:'Geld & Erfolg',q:'Was bedeutet Erfolg für dich?',vocab:['materiell','immateriell','der Lebensstandard','die Erfüllung']},
-  {topic:'Kultur & Sprache',q:'Warum ist es wichtig, andere Sprachen und Kulturen zu lernen?',vocab:['die Toleranz','das Verständnis','interkulturell','bereichern']}
-];
+let lang='en',currentTab='browse';
+let favs=new Set(JSON.parse(localStorage.getItem('sp_favs')||'[]'));
+let fcFilter='all',fcQueue=[],fcIdx=0,fcKnown=0;
+let currentScenario=null,currentPromptIdx=0;
 
-const DISC_CARDS=[
-  {topic:'🤖 KI & Arbeit',qs:['Welche Berufe werden durch KI am stärksten verändert?','Wie kann man sich auf diese Veränderungen vorbereiten?','Ist Automatisierung eine Chance oder eine Bedrohung?','Was sollte die Politik tun, um Arbeitnehmer zu schützen?','Haben wir als Gesellschaft Verantwortung gegenüber denen, die ihren Job verlieren?'],vocab:['die Automatisierung','ersetzen','umschulen','das Grundeinkommen','die Disruption','anpassen']},
-  {topic:'⚖️ Work-Life-Balance',qs:['Was bedeutet Work-Life-Balance für dich persönlich?','Wie viel Einfluss hat der Beruf auf die Lebensqualität?','Welche Strukturen helfen, Beruf und Privatleben zu trennen?','Sollte Homeoffice ein Recht sein?','Was sind die Risiken von zu viel Freizeit oder zu viel Arbeit?'],vocab:['die Grenze setzen','ausgebrannt','das Homeoffice','selbstbestimmt','die Flexibilität','die Produktivität']},
-  {topic:'📱 Soziale Medien & Gesellschaft',qs:['Wie verändern soziale Medien unsere Meinungsbildung?','Sind Social-Media-Plattformen zu mächtig?','Was sollten Nutzer selbst tun, um bewusst mit Medien umzugehen?','Wie sollte man mit Fake News umgehen?','Welche Vorteile bieten soziale Netzwerke, die oft übersehen werden?'],vocab:['der Algorithmus','die Echokammer','manipulieren','die Medienkompetenz','die Filterbubble','bewusst konsumieren']}
-];
-
-const DEBATE_CARDS=[
-  {topic:'Homeoffice sollte für alle Arbeitnehmer verpflichtend angeboten werden.',pro:['Bessere Work-Life-Balance und weniger Pendelzeit','Höhere Produktivität bei vielen Arbeitnehmertypen','Weniger CO₂-Emissionen durch weniger Verkehr'],con:['Teamkommunikation und Unternehmenskultur leiden','Nicht alle Berufe oder Wohnungen sind geeignet','Gefahr von sozialer Isolation und Einsamkeit']},
-  {topic:'Das Studium an der Universität ist wichtiger als praktische Berufserfahrung.',pro:['Tiefes Fachwissen und kritisches Denken werden gefördert','Netzwerke mit Gleichaltrigen und Professoren entstehen','Wichtige Voraussetzung für viele Karrierewege'],con:['Praxisbezug fehlt oft im Studienplan','Berufsausbildungen bieten direktere Karrierewege','Hohe Studienkosten und lange Ausbildungsdauer'],},
-  {topic:'Fleisch essen sollte steuerlich stärker besteuert werden.',pro:['Klimafreundlicheres Verhalten wird gefördert','Einnahmen für Umweltschutzmaßnahmen','Langfristig gesündere Ernährungsweise für die Bevölkerung'],con:['Soziale Ungerechtigkeit – Ärmere treffen Steuererhöhungen härter','Eingriff in persönliche Entscheidungsfreiheit','Wirtschaftliche Schäden für Landwirtschaft und Fleischwirtschaft']},
-  {topic:'Kinder sollten erst ab 16 Jahren ein Smartphone besitzen dürfen.',pro:['Schutz vor Cybermobbing, Sucht und schädlichen Inhalten','Bessere Konzentration in der Schule und mehr Sozialkontakte','Entwicklung sozialer Kompetenzen ohne digitale Ablenkung'],con:['Kinder brauchen früh Medienkompetenz – die muss gelernt werden','Soziale Ausgrenzung wenn alle anderen schon Smartphones haben','Eltern können mit Regeln und Aufklärung besser helfen']},
-  {topic:'Öffentlicher Nahverkehr sollte komplett kostenlos sein.',pro:['Weniger Autos und damit weniger CO₂ und Staus','Soziale Gleichheit – auch Einkommensschwache können mobil sein','Entlastung der Infrastruktur und Städte'],con:['Enorme Kosten müssen durch Steuern finanziert werden','Qualität und Kapazität könnten sinken ohne Einnahmen','Anreiz für ÖPNV-Investitionen fehlt ohne Nachfragedruck']},
-  {topic:'Das Rentenalter sollte auf 70 Jahre angehoben werden.',pro:['Demografischer Wandel macht Rentenreform nötig','Gesündere Bevölkerung kann länger arbeiten als früher','Finanzieller Druck auf das Rentensystem wird reduziert'],con:['Körperlich belastende Berufe machen längeres Arbeiten unmöglich','Ältere Arbeitnehmer werden oft diskriminiert','Jüngere Generationen bekommen weniger Chancen auf dem Arbeitsmarkt']}
-];
-
-const STORY_SCENARIOS=[
-  {badge:'Szenario 1',prompt:'Du siehst folgendes Bild: Eine Person sitzt allein in einem leeren Café. Auf dem Tisch liegt ein Bewerbungsschreiben und ein Handy mit einer Benachrichtigung. Die Person schaut aus dem Fenster. Beschreibe die Situation und erzähle, was passiert ist und was als nächstes passieren könnte.',followups:['Wie fühlt sich die Person wahrscheinlich?','Was könnte in der Vergangenheit passiert sein?','Was sind die möglichen nächsten Schritte für die Person?','Welche Ratschläge würdest du ihr geben?','Wie endet die Geschichte?']},
-  {badge:'Szenario 2',prompt:'Du siehst folgendes Bild: Zwei Kollegen stehen in einem modernen Büro und diskutieren lebhaft. Auf einem Bildschirm hinter ihnen steht „Projekt X – Deadline: MORGEN". Eine der Personen schaut besorgt, die andere zeigt auf den Bildschirm. Beschreibe, was passiert und wie die Situation gelöst werden könnte.',followups:['Was könnte der Auslöser des Konflikts sein?','Wer hat hier mehr Recht?','Wie können die zwei Kollegen die Situation lösen?','Was hätten sie früher besser machen können?','Was können wir aus dieser Situation lernen?']}
-];
-
-const TIPS=[
-  {icon:'🔄',title:{en:'Use filler words',fr:'Mots de remplissage',es:'Palabras de relleno',it:'Parole di riempimento',pt:'Palavras de preenchimento'},text:{en:'Use "also", "äh", "naja", "sozusagen" naturally while thinking. They show you\'re engaged, not lost.',fr:'Utilisez "also", "naja", "sozusagen" naturellement.',es:'Use "also", "naja", "sozusagen" de forma natural.',it:'Usa "also", "naja", "sozusagen" in modo naturale.',pt:'Use "also", "naja", "sozusagen" naturalmente.'}},
-  {icon:'🔁',title:{en:'Rephrase if stuck',fr:'Reformuler',es:'Reformular',it:'Riformulare',pt:'Reformular'},text:{en:'Say "Also, ich meine damit…" or "Mit anderen Worten…" to explain yourself differently.',fr:'Dites "Also, ich meine damit…" pour vous expliquer.',es:'Diga "Also, ich meine damit…" para explicarse.',it:'Dite "Also, ich meine damit…" per spiegarvi.',pt:'Diga "Also, ich meine damit…" para se explicar.'}},
-  {icon:'🎯',title:{en:'Structure every answer',fr:'Structurer les réponses',es:'Estructurar respuestas',it:'Strutturare le risposte',pt:'Estruturar respostas'},text:{en:'Always: position → reason → example → conclusion. Use "Zunächst… dann… abschließend…"',fr:'Toujours: position → raison → exemple → conclusion.',es:'Siempre: posición → razón → ejemplo → conclusión.',it:'Sempre: posizione → motivo → esempio → conclusione.',pt:'Sempre: posição → razão → exemplo → conclusão.'}},
-  {icon:'💬',title:{en:'React to your partner',fr:'Réagir à l\'interlocuteur',es:'Reaccionar al interlocutor',it:'Reagire all\'interlocutore',pt:'Reagir ao interlocutor'},text:{en:'Say "Das ist ein interessanter Punkt" or "Da stimme ich dir zu" to show active listening.',fr:'Dites "Das ist ein interessanter Punkt" pour montrer l\'écoute.',es:'Diga "Das ist ein interessanter Punkt" para escucha activa.',it:'Dite "Das ist ein interessanter Punkt" per ascolto attivo.',pt:'Diga "Das ist ein interessanter Punkt" para escuta ativa.'}},
-  {icon:'🕐',title:{en:'Buy time gracefully',fr:'Gagner du temps',es:'Ganar tiempo',it:'Guadagnare tempo',pt:'Ganhar tempo'},text:{en:'Say "Das ist eine gute Frage" or "Lassen Sie mich kurz nachdenken" — never silence!',fr:'Dites "Das ist eine gute Frage" — jamais de silence!',es:'Diga "Das ist eine gute Frage" — ¡nunca silencio!',it:'Dite "Das ist eine gute Frage" — mai il silenzio!',pt:'Diga "Das ist eine gute Frage" — nunca silêncio!'}},
-  {icon:'📚',title:{en:'Learn topic vocabulary',fr:'Vocabulaire par thème',es:'Vocabulario temático',it:'Vocabolario tematico',pt:'Vocabulário temático'},text:{en:'Before discussions, learn 5–10 key words per topic. Quality beats quantity.',fr:'Apprenez 5–10 mots clés par sujet avant les discussions.',es:'Aprenda 5–10 palabras clave por tema antes de las discusiones.',it:'Imparate 5–10 parole chiave per argomento prima delle discussioni.',pt:'Aprenda 5–10 palavras-chave por tópico antes das discussões.'}}
-];
-
-let CL=localStorage.getItem('tgs_lang')||'en';
-let curMode='redemittel';
-let timerInterval=null,timerSeconds=120,timerRunning=false,timerMax=120;
-
-function t(k){return(UI[CL]||UI.en)[k]||k;}
+function t(k){return(UI[lang]&&UI[lang][k])||UI.en[k]||k;}
+function setLang(l){lang=l;applyLang();filterCards();}
 function applyLang(){
-  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
-  var bar=document.getElementById('lang-bar');
-  if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
-  document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
-  document.querySelectorAll('.lb').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===CL);});
-  rebuildRM();rebuildTips();
-}
-window.setLang=function(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();}
-var setLang=window.setLang;
-
-function switchMode(mode){
-  curMode=mode;
-  var modes=['redemittel','talk','diskussion','debatte','story','tipps'];
-  modes.forEach(function(m){
-    var el=document.getElementById(m+'-view');if(el)el.style.display=m===mode?'block':'none';
-    var tab=document.getElementById('tab-'+m);if(tab)tab.classList.toggle('on',m===mode);
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k=el.dataset.t;
+    if(el.tagName==='INPUT'){el.placeholder=t(k);}
+    else{el.textContent=t(k);}
   });
-  window.scrollTo(0,0);
+  document.querySelectorAll('option[data-t]').forEach(o=>o.textContent=t(o.dataset.t));
 }
-
-// ── REDEMITTEL ──
-function rebuildRM(){
-  var c=document.getElementById('rm-container');if(!c)return;c.innerHTML='';
-  REDEMITTEL.forEach(function(g,i){
-    var lbl=g.label[CL]||g.label.en;
-    var div=document.createElement('div');div.className='rm-group';div.id='rm-'+i;
-    div.innerHTML='<div class="rm-header" onclick="toggleRM('+i+')">'+g.icon+' '+lbl+'<span class="rm-arrow">›</span></div><div class="rm-phrases">'+g.phrases.map(function(p){return'<div class="rm-phrase">'+p.de+'<div class="transl">'+p.en+'</div></div>';}).join('')+'</div>';
-    c.appendChild(div);
-  });
+function saveFavs(){localStorage.setItem('sp_favs',JSON.stringify([...favs]));}
+function toggleFav(id,e){
+  if(e)e.stopPropagation();
+  if(favs.has(id))favs.delete(id);else favs.add(id);
+  saveFavs();filterCards();
+  if(currentTab==='favs')renderFavs();
+  document.getElementById('statFavs').textContent=favs.size;
 }
-function toggleRM(i){var g=document.getElementById('rm-'+i);g.classList.toggle('open');}
+function levelClass(l){return{A2:'lvl-a2',B1:'lvl-b1',B2:'lvl-b2',C1:'lvl-c1'}[l]||'lvl-b1';}
+function catIcon(c){return{meinung:'💬',zustimmung:'✅',widerspruch:'❌',erklarung:'📖',unsicherheit:'🤔',gefuhle:'❤️',gesprach:'🗣️',formal:'👔'}[c]||'';}
 
-// ── TIMER ──
-function setPreset(sec){timerMax=sec;timerSeconds=sec;timerRunning=false;clearInterval(timerInterval);document.getElementById('timer-disp').className='timer-display';document.getElementById('timer-msg').textContent='';document.getElementById('timer-start-btn').textContent='▶ '+t('btn_start');updateTimerDisp();document.querySelectorAll('.preset-btn').forEach(function(b){b.classList.remove('on');});event.target.classList.add('on');}
-function timerStart(){
-  if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-start-btn').textContent='▶ '+t('btn_start');return;}
-  timerRunning=true;document.getElementById('timer-start-btn').textContent='⏸ '+t('btn_pause');document.getElementById('timer-disp').className='timer-display running';
-  timerInterval=setInterval(function(){
-    if(timerSeconds<=0){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-disp').className='timer-display done';document.getElementById('timer-msg').textContent=t('timer_done');document.getElementById('timer-start-btn').textContent='▶ '+t('btn_start');return;}
-    timerSeconds--;updateTimerDisp();
-  },1000);
+function buildCard(p){
+  const isFav=favs.has(p.id);
+  if(!p.cat)return '';
+  return `<div class="phrase-card" id="pc-${p.id}" onclick="toggleCard(${p.id})">
+    <div class="card-head">
+      <div><div class="phrase-text">${p.phrase}</div><div class="phrase-context">${catIcon(p.cat)} ${p.cat}</div></div>
+      <div class="card-meta">
+        <span class="level-badge ${levelClass(p.level)}">${p.level}</span>
+        <button class="fav-btn" onclick="toggleFav(${p.id},event)">${isFav?'⭐':'☆'}</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-row"><div class="card-row-lbl">${t('lbl_use')}</div><div class="card-row-val trans">${p.use}</div></div>
+      <div class="card-row"><div class="card-row-lbl">${t('lbl_example')}</div><div class="example-box">${p.example}</div></div>
+    </div>
+  </div>`;
 }
-function timerReset(){clearInterval(timerInterval);timerRunning=false;timerSeconds=timerMax;document.getElementById('timer-disp').className='timer-display';document.getElementById('timer-msg').textContent='';document.getElementById('timer-start-btn').textContent='▶ '+t('btn_start');updateTimerDisp();}
-function updateTimerDisp(){var m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById('timer-disp').textContent=m+':'+(s<10?'0':'')+s;}
-
-// ── TALK CARDS ──
-var talkOrder=TALK_CARDS.map(function(_,i){return i;});
-function shuffleTalkCards(){for(var i=talkOrder.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t2=talkOrder[i];talkOrder[i]=talkOrder[j];talkOrder[j]=t2;}renderTalkCards();}
-function renderTalkCards(){
-  var g=document.getElementById('talk-grid');g.innerHTML='';
-  talkOrder.forEach(function(idx){
-    var c=TALK_CARDS[idx];
-    var div=document.createElement('div');div.className='flip-card';
-    div.innerHTML='<div class="flip-inner"><div class="flip-front"><div class="card-topic">'+c.topic+'</div><div style="font-size:0.78rem;opacity:.8;line-height:1.5;margin-top:6px;">'+c.q+'</div><div class="card-hint" data-t="card_hint">'+t('card_hint')+'</div></div><div class="flip-back"><div class="card-label">Vocabulary</div><div class="card-content">'+c.vocab.join(' · ')+'</div></div></div>';
-    div.addEventListener('click',function(){div.classList.toggle('flipped');});
-    g.appendChild(div);
+function toggleCard(id){document.getElementById('pc-'+id)?.classList.toggle('expanded');}
+function getFiltered(){
+  const q=(document.getElementById('searchBox')?.value||'').toLowerCase();
+  const cat=document.getElementById('catFilter')?.value||'all';
+  const lvl=document.getElementById('lvlFilter')?.value||'all';
+  return PHRASES.filter(p=>{
+    if(!p.cat)return false;
+    if(cat!=='all'&&p.cat!==cat)return false;
+    if(lvl!=='all'&&p.level!==lvl)return false;
+    if(q&&!p.phrase.toLowerCase().includes(q)&&!p.use.toLowerCase().includes(q)&&!p.example.toLowerCase().includes(q))return false;
+    return true;
   });
 }
-
-// ── DISCUSSION CARDS ──
-function renderDisc(){
-  var c=document.getElementById('disc-container');c.innerHTML='';
-  DISC_CARDS.forEach(function(d,i){
-    var div=document.createElement('div');div.className='disc-card';div.id='disc-'+i;
-    var qs=d.qs.map(function(q,n){return'<div class="disc-q"><div class="disc-q-num">'+(n+1)+'</div><div class="disc-q-text">'+q+'</div></div>';}).join('');
-    var chips=d.vocab.map(function(v){return'<div class="chip">'+v+'</div>';}).join('');
-    div.innerHTML='<div class="disc-header" onclick="toggleDisc('+i+')">'+d.topic+'<span class="rm-arrow">›</span></div><div class="disc-body">'+qs+'<div class="vocab-chips" style="margin-top:12px;">'+chips+'</div></div>';
-    c.appendChild(div);
-  });
+function filterCards(){
+  const list=getFiltered();
+  document.getElementById('phraseGrid').innerHTML=list.map(p=>buildCard(p)).join('');
+  document.getElementById('emptyBrowse').style.display=list.length?'none':'block';
+  document.getElementById('statTotal').textContent=PHRASES.filter(p=>p.cat).length;
+  document.getElementById('statShown').textContent=list.length;
+  document.getElementById('statFavs').textContent=favs.size;
 }
-function toggleDisc(i){var d=document.getElementById('disc-'+i);d.classList.toggle('open');}
-
-// ── DEBATE CARDS ──
-function renderDeb(){
-  var c=document.getElementById('deb-container');c.innerHTML='';
-  DEBATE_CARDS.forEach(function(d,i){
-    var div=document.createElement('div');div.className='debate-flip';div.id='deb-'+i;
-    var pros=d.pro.map(function(p){return'<div style="font-size:.8rem;padding:3px 0;border-bottom:1px solid #f0eeff;color:#333;">✅ '+p+'</div>';}).join('');
-    var cons=d.con.map(function(p){return'<div style="font-size:.8rem;padding:3px 0;border-bottom:1px solid #f0eeff;color:#333;">❌ '+p+'</div>';}).join('');
-    div.innerHTML='<div class="debate-inner"><div class="debate-face deb-front"><h4>'+d.topic+'</h4><p style="font-size:.78rem;opacity:.7;">'+t('deb_flip')+'</p></div><div class="debate-face deb-back"><div class="deb-side pro"><h5>✅ Dafür</h5><div class="deb-arg">'+pros+'</div></div><div class="deb-side con"><h5>❌ Dagegen</h5><div class="deb-arg">'+cons+'</div></div></div></div>';
-    div.addEventListener('click',function(){div.classList.toggle('flipped');});
-    c.appendChild(div);
-  });
+function renderFavs(){
+  const list=PHRASES.filter(p=>p.cat&&favs.has(p.id));
+  document.getElementById('favsGrid').innerHTML=list.map(p=>buildCard(p)).join('');
+  document.getElementById('emptyFavs').style.display=list.length?'none':'block';
 }
 
-// ── STORY ──
-function renderStory(){
-  var c=document.getElementById('story-container');c.innerHTML='';
-  STORY_SCENARIOS.forEach(function(s){
-    var div=document.createElement('div');div.className='story-scenario';
-    var fqs=s.followups.map(function(q){return'<div class="story-q">❓ '+q+'</div>';}).join('');
-    div.innerHTML='<div class="story-badge">'+s.badge+'</div><div class="story-prompt">'+s.prompt+'</div><div class="story-follow"><h5>Nachfragen / Follow-up questions</h5>'+fqs+'</div>';
-    c.appendChild(div);
-  });
+// SCENARIOS
+function renderScenarios(){
+  document.getElementById('scenarioList').innerHTML=SCENARIOS.map(s=>`
+    <div class="scenario-card" onclick="openScenario(${s.id})">
+      <div class="sc-icon">${s.icon}</div>
+      <div class="sc-title">${s.title}</div>
+      <div class="sc-desc">${s.desc}</div>
+      <span class="sc-level">${s.level}</span>
+    </div>`).join('');
+  document.getElementById('scenarioDetail').classList.remove('active');
+}
+function openScenario(id){
+  currentScenario=SCENARIOS.find(s=>s.id===id);
+  currentPromptIdx=0;
+  document.getElementById('scenarioList').style.display='none';
+  document.getElementById('scenarioDetail').classList.add('active');
+  renderPrompt();
+}
+function renderPrompt(){
+  if(!currentScenario)return;
+  const p=currentScenario.prompts[currentPromptIdx];
+  const total=currentScenario.prompts.length;
+  document.getElementById('scenarioDetail').innerHTML=`
+    <div class="sd-header">
+      <button class="sd-back" onclick="backToScenarios()">← Back</button>
+      <div class="sd-title">${currentScenario.icon} ${currentScenario.title}</div>
+    </div>
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt ${currentPromptIdx+1} / ${total}</div>
+      <div class="prompt-text">${p.q}</div>
+      ${p.sub?`<div class="prompt-sub">${p.sub}</div>`:''}
+    </div>
+    ${buildUsefulPhrases()}
+    <button class="reveal-btn" onclick="revealModel()">${t('btn_reveal')}</button>
+    <div class="model-answer" id="modelAnswer">
+      <div class="card-row-lbl" style="margin-bottom:8px">Model answer:</div>
+      <p>${p.model}</p>
+    </div>
+    ${currentPromptIdx+1<total?`<button class="next-prompt-btn" onclick="nextPrompt()">${t('btn_next')}</button>`:`<button class="next-prompt-btn" onclick="backToScenarios()">← Choose another scenario</button>`}
+    <div style="margin-top:16px;font-size:.75rem;color:var(--muted);text-align:center">${currentPromptIdx+1} of ${total} prompts</div>
+  `;
+}
+function buildUsefulPhrases(){
+  const pool=PHRASES.filter(p=>p.cat&&['meinung','erklarung','gesprach'].includes(p.cat)).sort(()=>Math.random()-.5).slice(0,6);
+  return `<div class="useful-box"><h4>Useful phrases:</h4><div class="useful-phrases">${pool.map(p=>`<span class="up-chip" title="${p.use}">${p.phrase}</span>`).join('')}</div></div>`;
+}
+function revealModel(){
+  const m=document.getElementById('modelAnswer');
+  if(m)m.classList.add('shown');
+  const btn=document.querySelector('.reveal-btn');
+  if(btn)btn.style.display='none';
+}
+function nextPrompt(){currentPromptIdx++;renderPrompt();}
+function backToScenarios(){
+  document.getElementById('scenarioList').style.display='';
+  document.getElementById('scenarioDetail').classList.remove('active');
 }
 
-// ── TIPS ──
-function rebuildTips(){
-  var c=document.getElementById('tips-container');if(!c)return;c.innerHTML='';
-  TIPS.forEach(function(tip){
-    var div=document.createElement('div');div.className='tip-card';
-    var title=tip.title[CL]||tip.title.en;var text=tip.text[CL]||tip.text.en;
-    div.innerHTML='<div class="tip-icon">'+tip.icon+'</div><div class="tip-title">'+title+'</div><div class="tip-text">'+text+'</div>';
-    c.appendChild(div);
-  });
+// FLASHCARD
+function setFCFilter(f,btn){fcFilter=f;document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');initFC();}
+function initFC(){
+  fcQueue=[...PHRASES.filter(p=>p.cat&&(fcFilter==='all'||p.cat===fcFilter))].sort(()=>Math.random()-.5);
+  fcIdx=0;fcKnown=0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  renderFlash();
+}
+function renderFlash(){
+  if(!fcQueue.length)return;
+  const p=fcQueue[fcIdx%fcQueue.length];
+  document.getElementById('fcPhrase').textContent=p.phrase;
+  document.getElementById('fcMeaning').textContent=p.use;
+  document.getElementById('fcTrans').textContent=p.trans;
+  document.getElementById('fcEx').textContent=p.example;
+  document.getElementById('fcLbl').textContent=(fcIdx%fcQueue.length+1)+' / '+fcQueue.length;
+  document.getElementById('fcBar').style.width=(((fcIdx%fcQueue.length+1)/fcQueue.length)*100)+'%';
+  document.getElementById('fcKnownLbl').textContent=fcKnown+' known';
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(known){if(known)fcKnown++;fcIdx++;if(fcIdx>=fcQueue.length)fcIdx=0;renderFlash();}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['browse','practice','flash','favs'][i]===tab);});
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  if(tab==='flash')initFC();
+  if(tab==='favs')renderFavs();
+  if(tab==='practice')renderScenarios();
 }
 
-// init
-rebuildRM();renderTalkCards();renderDisc();renderDeb();renderStory();rebuildTips();applyLang();
+document.addEventListener('DOMContentLoaded',()=>{applyLang();filterCards();initFC();renderScenarios();});
 </script>
 </body>
 </html>
