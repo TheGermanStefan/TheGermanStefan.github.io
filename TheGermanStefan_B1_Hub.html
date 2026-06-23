@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TheGermanStefan · B1 Hub</title>
+<title>TheGermanStefan Â· B1 Hub</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#0b2545;--lc:#e65100;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--green:#2e7d32;--red:#c62828}
@@ -49,7 +49,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .card{background:#fff;border:2px solid #e0e6f0;border-radius:12px;padding:16px 18px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
 .card:hover{border-color:var(--lc);box-shadow:0 4px 18px rgba(230,81,0,.15);transform:translateY(-2px)}
 .card.done{border-color:var(--green);background:linear-gradient(135deg,#f1f8f1,#fff)}
-.card.done::after{content:'✓';position:absolute;top:10px;right:12px;font-size:16px;font-weight:900;color:var(--green)}
+.card.done::after{content:'â';position:absolute;top:10px;right:12px;font-size:16px;font-weight:900;color:var(--green)}
 .card-num{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:4px}
 .card.done .card-num{color:var(--green)}
 .card-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3}
@@ -79,9 +79,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
 
 <div class="hero">
-  <div class="hero-badge" data-t="level_badge">B1 · Intermediate</div>
+  <div class="hero-badge" data-t="level_badge">B1 Â· Intermediate</div>
   <h1 data-t="hero_title">B1 Learning Hub</h1>
-  <p class="sub" data-t="hero_sub">Grammar · Reading · Vocabulary · Speaking</p>
+  <p class="sub" data-t="hero_sub">Grammar Â· Reading Â· Vocabulary Â· Speaking</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-n">10</div><div class="hero-stat-l" data-t="stat_grammar">Grammar</div></div>
     <div class="hero-stat"><div class="hero-stat-n">5</div><div class="hero-stat-l" data-t="stat_reading">Reading</div></div>
@@ -103,33 +103,33 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   </div>
 
   <!-- GRAMMAR -->
-  <div class="section-hdr"><span class="section-icon">📐</span><span class="section-title" data-t="sec_grammar">Grammar</span><span class="section-count">10 lessons</span></div>
+  <div class="section-hdr"><span class="section-icon">ð</span><span class="section-title" data-t="sec_grammar">Grammar</span><span class="section-count">10 lessons</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_g"></div></div>
   <div class="grid" id="grid_g"></div>
 
   <!-- READING -->
-  <div class="section-hdr"><span class="section-icon">📖</span><span class="section-title" data-t="sec_reading">Reading Room</span><span class="section-count">5 texts</span></div>
+  <div class="section-hdr"><span class="section-icon">ð</span><span class="section-title" data-t="sec_reading">Reading Room</span><span class="section-count">5 texts</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_r"></div></div>
   <div class="grid" id="grid_r"></div>
 
   <!-- VOCAB -->
-  <div class="section-hdr"><span class="section-icon">🔤</span><span class="section-title" data-t="sec_vocab">Vocabulary</span><span class="section-count">5 sets</span></div>
+  <div class="section-hdr"><span class="section-icon">ð¤</span><span class="section-title" data-t="sec_vocab">Vocabulary</span><span class="section-count">5 sets</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_v"></div></div>
   <div class="grid" id="grid_v"></div>
 
   <!-- SPRECHEN -->
-  <div class="section-hdr"><span class="section-icon">🎤</span><span class="section-title" data-t="sec_speaking">Speaking Cards</span><span class="section-count">10 cards</span></div>
+  <div class="section-hdr"><span class="section-icon">ð¤</span><span class="section-title" data-t="sec_speaking">Speaking Cards</span><span class="section-count">10 cards</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_s"></div></div>
   <div class="grid" id="grid_s"></div>
 </div>
 
 <script>
 const LANG={
-  en:{home:'Home',level_badge:'B1 · Intermediate',hero_title:'B1 Learning Hub',hero_sub:'Grammar · Reading · Vocabulary · Speaking',stat_grammar:'Grammar',stat_reading:'Reading',stat_vocab:'Vocab',stat_speaking:'Speaking',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocabulary',sec_speaking:'Speaking Cards'},
-  fr:{home:'Accueil',level_badge:'B1 · Intermédiaire',hero_title:'Hub B1',hero_sub:'Grammaire · Lecture · Vocabulaire · Expression',stat_grammar:'Grammaire',stat_reading:'Lecture',stat_vocab:'Vocabulaire',stat_speaking:'Expression',sec_grammar:'Grammaire',sec_reading:'Lecture',sec_vocab:'Vocabulaire',sec_speaking:'Expression orale'},
-  es:{home:'Inicio',level_badge:'B1 · Intermedio',hero_title:'Hub B1',hero_sub:'Gramática · Lectura · Vocabulario · Expresión',stat_grammar:'Gramática',stat_reading:'Lectura',stat_vocab:'Vocabulario',stat_speaking:'Expresión',sec_grammar:'Gramática',sec_reading:'Lectura',sec_vocab:'Vocabulario',sec_speaking:'Expresión oral'},
-  it:{home:'Home',level_badge:'B1 · Intermedio',hero_title:'Hub B1',hero_sub:'Grammatica · Lettura · Vocabolario · Espressione',stat_grammar:'Grammatica',stat_reading:'Lettura',stat_vocab:'Vocabolario',stat_speaking:'Espressione',sec_grammar:'Grammatica',sec_reading:'Lettura',sec_vocab:'Vocabolario',sec_speaking:'Espressione orale'},
-  pt:{home:'Início',level_badge:'B1 · Intermediário',hero_title:'Hub B1',hero_sub:'Gramática · Leitura · Vocabulário · Expressão',stat_grammar:'Gramática',stat_reading:'Leitura',stat_vocab:'Vocabulário',stat_speaking:'Expressão',sec_grammar:'Gramática',sec_reading:'Leitura',sec_vocab:'Vocabulário',sec_speaking:'Expressão oral'}
+  en:{home:'Home',level_badge:'B1 Â· Intermediate',hero_title:'B1 Learning Hub',hero_sub:'Grammar Â· Reading Â· Vocabulary Â· Speaking',stat_grammar:'Grammar',stat_reading:'Reading',stat_vocab:'Vocab',stat_speaking:'Speaking',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocabulary',sec_speaking:'Speaking Cards'},
+  fr:{home:'Accueil',level_badge:'B1 Â· IntermÃ©diaire',hero_title:'Hub B1',hero_sub:'Grammaire Â· Lecture Â· Vocabulaire Â· Expression',stat_grammar:'Grammaire',stat_reading:'Lecture',stat_vocab:'Vocabulaire',stat_speaking:'Expression',sec_grammar:'Grammaire',sec_reading:'Lecture',sec_vocab:'Vocabulaire',sec_speaking:'Expression orale'},
+  es:{home:'Inicio',level_badge:'B1 Â· Intermedio',hero_title:'Hub B1',hero_sub:'GramÃ¡tica Â· Lectura Â· Vocabulario Â· ExpresiÃ³n',stat_grammar:'GramÃ¡tica',stat_reading:'Lectura',stat_vocab:'Vocabulario',stat_speaking:'ExpresiÃ³n',sec_grammar:'GramÃ¡tica',sec_reading:'Lectura',sec_vocab:'Vocabulario',sec_speaking:'ExpresiÃ³n oral'},
+  it:{home:'Home',level_badge:'B1 Â· Intermedio',hero_title:'Hub B1',hero_sub:'Grammatica Â· Lettura Â· Vocabolario Â· Espressione',stat_grammar:'Grammatica',stat_reading:'Lettura',stat_vocab:'Vocabolario',stat_speaking:'Espressione',sec_grammar:'Grammatica',sec_reading:'Lettura',sec_vocab:'Vocabolario',sec_speaking:'Espressione orale'},
+  pt:{home:'InÃ­cio',level_badge:'B1 Â· IntermediÃ¡rio',hero_title:'Hub B1',hero_sub:'GramÃ¡tica Â· Leitura Â· VocabulÃ¡rio Â· ExpressÃ£o',stat_grammar:'GramÃ¡tica',stat_reading:'Leitura',stat_vocab:'VocabulÃ¡rio',stat_speaking:'ExpressÃ£o',sec_grammar:'GramÃ¡tica',sec_reading:'Leitura',sec_vocab:'VocabulÃ¡rio',sec_speaking:'ExpressÃ£o oral'}
 };
 let CL=localStorage.getItem('tgs_lang')||'en';
 function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
@@ -138,20 +138,20 @@ function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerH
 
 const GRAMMAR=[
   {n:'01',title:'Passiv',sub:'werden + Partizip II',file:'B1_Grammar_01_Passiv.html'},
-  {n:'02',title:'Konjunktiv II',sub:'Wünsche, Bedingungen, Höflichkeit',file:'B1_Grammar_02_Konjunktiv2.html'},
-  {n:'03',title:'Infinitivkonstruktionen',sub:'um…zu, ohne…zu, anstatt…zu',file:'B1_Grammar_03_Infinitivkonstruktionen.html'},
-  {n:'04',title:'Genitiv',sub:'des/der/eines/einer — possession',file:'B1_Grammar_04_Genitiv.html'},
-  {n:'05',title:'Temporale Nebensätze',sub:'als, wenn, während, bevor, nachdem',file:'B1_Grammar_05_Temporale_Nebensaetze.html'},
-  {n:'06',title:'Zweiteilige Konnektoren',sub:'entweder…oder, nicht nur…sondern auch',file:'B1_Grammar_06_Konnektoren.html'},
+  {n:'02',title:'Konjunktiv II',sub:'WÃ¼nsche, Bedingungen, HÃ¶flichkeit',file:'B1_Grammar_02_Konjunktiv2.html'},
+  {n:'03',title:'Infinitivkonstruktionen',sub:'umâ¦zu, ohneâ¦zu, anstattâ¦zu',file:'B1_Grammar_03_Infinitivkonstruktionen.html'},
+  {n:'04',title:'Genitiv',sub:'des/der/eines/einer â possession',file:'B1_Grammar_04_Genitiv.html'},
+  {n:'05',title:'Temporale NebensÃ¤tze',sub:'als, wenn, wÃ¤hrend, bevor, nachdem',file:'B1_Grammar_05_Temporale_Nebensaetze.html'},
+  {n:'06',title:'Zweiteilige Konnektoren',sub:'entwederâ¦oder, nicht nurâ¦sondern auch',file:'B1_Grammar_06_Konnektoren.html'},
   {n:'07',title:'Partizip I & II',sub:'Als Adjektiv: das lesende Kind',file:'B1_Grammar_07_Partizip.html'},
-  {n:'08',title:'Indirekte Rede',sub:'Konjunktiv I — reported speech',file:'B1_Grammar_08_Indirekte_Rede.html'},
+  {n:'08',title:'Indirekte Rede',sub:'Konjunktiv I â reported speech',file:'B1_Grammar_08_Indirekte_Rede.html'},
   {n:'09',title:'Passiv mit Modalverben',sub:'Das muss gemacht werden',file:'B1_Grammar_09_Passiv_Modal.html'},
-  {n:'10',title:'Relativsätze mit Präp.',sub:'das Buch, über das wir sprechen',file:'B1_Grammar_10_Relativsaetze_Praep.html'},
+  {n:'10',title:'RelativsÃ¤tze mit PrÃ¤p.',sub:'das Buch, Ã¼ber das wir sprechen',file:'B1_Grammar_10_Relativsaetze_Praep.html'},
 ];
 const READING=[
   {n:'01',title:'Umweltschutz',sub:'Environment & climate',file:'B1_Reading_01_Umweltschutz.html'},
   {n:'02',title:'Die Arbeitswelt',sub:'Work & careers',file:'B1_Reading_02_Arbeitswelt.html'},
-  {n:'03',title:'Gesundheit & Ernährung',sub:'Health & diet',file:'B1_Reading_03_Gesundheit.html'},
+  {n:'03',title:'Gesundheit & ErnÃ¤hrung',sub:'Health & diet',file:'B1_Reading_03_Gesundheit.html'},
   {n:'04',title:'Reisen & Kulturen',sub:'Travel & cultural exchange',file:'B1_Reading_04_Reisen.html'},
   {n:'05',title:'Technologie im Alltag',sub:'Digital life & technology',file:'B1_Reading_05_Technologie.html'},
 ];
@@ -163,16 +163,16 @@ const VOCAB=[
   {n:'05',title:'Gesellschaft & Politik',sub:'Society, politics & current affairs',file:'B1_Vocab_05_Gesellschaft.html'},
 ];
 const SPEAKING=[
-  {n:'01',title:'Meinung äußern',sub:'Expressing opinions',file:'B1_Sprechen_01_Meinung.html'},
+  {n:'01',title:'Meinung Ã¤uÃern',sub:'Expressing opinions',file:'B1_Sprechen_01_Meinung.html'},
   {n:'02',title:'Vor- & Nachteile',sub:'Discussing pros and cons',file:'B1_Sprechen_02_VorNachteile.html'},
   {n:'03',title:'Probleme beschreiben',sub:'Describing problems & complaints',file:'B1_Sprechen_03_Probleme.html'},
   {n:'04',title:'Rat geben',sub:'Giving and accepting advice',file:'B1_Sprechen_04_Rat.html'},
-  {n:'05',title:'Über die Vergangenheit',sub:'Recounting past events',file:'B1_Sprechen_05_Vergangenheit.html'},
-  {n:'06',title:'Zukunftspläne',sub:'Talking about future plans',file:'B1_Sprechen_06_Zukunft.html'},
+  {n:'05',title:'Ãber die Vergangenheit',sub:'Recounting past events',file:'B1_Sprechen_05_Vergangenheit.html'},
+  {n:'06',title:'ZukunftsplÃ¤ne',sub:'Talking about future plans',file:'B1_Sprechen_06_Zukunft.html'},
   {n:'07',title:'Hypothetisch sprechen',sub:'Konjunktiv II in conversation',file:'B1_Sprechen_07_Hypothetisch.html'},
   {n:'08',title:'Reklamation',sub:'Making a formal complaint',file:'B1_Sprechen_08_Reklamation.html'},
   {n:'09',title:'An Diskussionen teilnehmen',sub:'Discussion & debate phrases',file:'B1_Sprechen_09_Diskussion.html'},
-  {n:'10',title:'Kurzpräsentation',sub:'Giving a short presentation',file:'B1_Sprechen_10_Praesentation.html'},
+  {n:'10',title:'KurzprÃ¤sentation',sub:'Giving a short presentation',file:'B1_Sprechen_10_Praesentation.html'},
 ];
 
 const DONE_KEY='tgs_b1_done';
@@ -218,5 +218,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   applyLang();
 });
 </script>
+<script src="level-nav.js"></script>
 </body>
 </html>
