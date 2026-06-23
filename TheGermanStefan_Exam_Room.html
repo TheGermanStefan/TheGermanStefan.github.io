@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exam Room — TheGermanStefan</title>
+<style>
+:root{--navy:#0d1b2a;--gold:#f4c430;--bg:#f0f2f5;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.09);
+--a1:#2e7d32;--a2:#00796b;--b1:#1565c0;--b2:#4527a0;--c1:#6a1b9a;--c2:#880e4f;
+--free:#2e7d32;--s1:#1565c0;--s2:#e65100;--s3:#880e4f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:1.1rem;font-weight:800;color:var(--gold);letter-spacing:-.3px;text-decoration:none}
+.lang-sel{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:.82rem;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+/* HERO */
+.hero{background:linear-gradient(135deg,#0d1b2a 0%,#1a2f4a 60%,#0f2744 100%);color:#fff;padding:44px 24px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f4c430' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{display:inline-block;background:rgba(244,196,48,.15);border:1px solid rgba(244,196,48,.4);border-radius:20px;padding:5px 16px;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:.6px;margin-bottom:16px}
+.hero h1{font-size:2.4rem;font-weight:900;letter-spacing:-.5px;margin-bottom:10px}
+.hero h1 span{color:var(--gold)}
+.hero-sub{font-size:1rem;opacity:.8;max-width:560px;margin:0 auto 28px}
+.hero-stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:1.6rem;font-weight:900;color:var(--gold)}
+.hstat-lbl{font-size:.72rem;opacity:.7;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+/* TIER LEGEND */
+.tier-legend{background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+.tier-legend-lbl{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:6px}
+.tlbadge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:16px;font-size:.78rem;font-weight:700;border:1.5px solid}
+.tl-free{background:#e8f5e9;color:var(--free);border-color:var(--free)}
+.tl-s1{background:#e3f2fd;color:var(--s1);border-color:var(--s1)}
+.tl-s2{background:#fff3e0;color:var(--s2);border-color:var(--s2)}
+.tl-s3{background:#fce4ec;color:var(--s3);border-color:var(--s3)}
+/* CONTENT */
+.content{max-width:980px;margin:0 auto;padding:28px 16px}
+.sec-header{margin-bottom:20px}
+.sec-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
+.sec-desc{font-size:.87rem;color:var(--muted)}
+/* LEVEL CARDS */
+.level-grid{display:grid;gap:16px}
+.level-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:all .2s}
+.level-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.lc-header{padding:20px 22px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;cursor:pointer;user-select:none}
+.lc-left{display:flex;align-items:center;gap:14px}
+.lc-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:#fff;flex-shrink:0}
+.lc-a1{background:linear-gradient(135deg,#2e7d32,#1b5e20)}
+.lc-a2{background:linear-gradient(135deg,#00796b,#004d40)}
+.lc-b1{background:linear-gradient(135deg,#1565c0,#0d47a1)}
+.lc-b2{background:linear-gradient(135deg,#4527a0,#311b92)}
+.lc-c1{background:linear-gradient(135deg,#6a1b9a,#4a148c)}
+.lc-c2{background:linear-gradient(135deg,#880e4f,#560027)}
+.lc-name{font-size:1.15rem;font-weight:900;margin-bottom:3px}
+.lc-desc{font-size:.82rem;color:var(--muted);line-height:1.4}
+.lc-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.tier-badge{padding:4px 10px;border-radius:12px;font-size:.72rem;font-weight:700;border:1.5px solid;white-space:nowrap}
+.tb-free{background:#e8f5e9;color:var(--free);border-color:var(--free)}
+.tb-s1{background:#e3f2fd;color:var(--s1);border-color:var(--s1)}
+.tb-s2{background:#fff3e0;color:var(--s2);border-color:var(--s2)}
+.tb-s3{background:#fce4ec;color:var(--s3);border-color:var(--s3)}
+.lc-progress{font-size:.75rem;color:var(--muted);text-align:right}
+.lc-prog-bar-wrap{width:80px;height:5px;background:var(--border);border-radius:3px}
+.lc-prog-bar{height:100%;border-radius:3px;transition:width .3s}
+.lc-toggle{font-size:1rem;color:var(--muted);transition:transform .3s}
+.level-card.open .lc-toggle{transform:rotate(180deg)}
+/* TEST LIST */
+.test-list{display:none;border-top:1px solid var(--border);background:#fafbfc}
+.level-card.open .test-list{display:block}
+.modules-row{display:flex;gap:6px;flex-wrap:wrap;padding:12px 22px 8px;border-bottom:1px solid var(--border)}
+.mod-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:3px 10px;font-size:.72rem;font-weight:700;color:var(--muted)}
+.test-item{display:flex;align-items:center;justify-content:space-between;padding:13px 22px;border-bottom:1px solid var(--border);gap:12px;transition:background .15s}
+.test-item:last-child{border-bottom:none}
+.test-item:hover{background:#f0f4f8}
+.ti-left{display:flex;align-items:center;gap:10px}
+.ti-num{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#fff;flex-shrink:0}
+.ti-info{}
+.ti-title{font-size:.87rem;font-weight:700;color:var(--text)}
+.ti-topics{font-size:.75rem;color:var(--muted);margin-top:1px}
+.ti-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.done-badge{background:#e8f5e9;color:var(--free);border:1px solid #c8e6c9;border-radius:10px;padding:2px 8px;font-size:.7rem;font-weight:700}
+.start-btn{padding:6px 16px;border-radius:8px;border:none;font-size:.8rem;font-weight:700;cursor:pointer;color:#fff;text-decoration:none;display:inline-block;transition:all .15s}
+.start-btn:hover{opacity:.85;transform:translateY(-1px)}
+/* INFO SECTION */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:28px}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.info-icon{font-size:1.5rem;margin-bottom:10px}
+.info-title{font-size:.92rem;font-weight:800;margin-bottom:6px}
+.info-desc{font-size:.82rem;color:var(--muted);line-height:1.5}
+/* UPGRADE PROMPT */
+.upgrade-bar{background:linear-gradient(135deg,#1a2f4a,#0d1b2a);color:#fff;border-radius:12px;padding:20px 22px;margin-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.ub-text h3{font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:4px}
+.ub-text p{font-size:.83rem;opacity:.8}
+.ub-tiers{display:flex;gap:10px;flex-wrap:wrap}
+.ub-tier{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;min-width:120px}
+.ub-tier-name{font-size:.8rem;font-weight:800;color:var(--gold);margin-bottom:3px}
+.ub-tier-price{font-size:1.1rem;font-weight:900;margin-bottom:2px}
+.ub-tier-inc{font-size:.7rem;opacity:.7}
+.ub-join-btn{padding:11px 24px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-size:.9rem;font-weight:800;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .2s}
+.ub-join-btn:hover{opacity:.9;transform:translateY(-1px)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="TheGermanStefan_Vocab_Hub.html" class="logo">TheGermanStefan</a>
+  <select class="lang-sel" id="langSel" onchange="setLang(this.value)">
+    <option value="en">🇬🇧 EN</option>
+    <option value="fr">🇫🇷 FR</option>
+    <option value="es">🇪🇸 ES</option>
+    <option value="it">🇮🇹 IT</option>
+    <option value="pt">🇵🇹 PT</option>
+  </select>
+</div>
+
+<div class="hero">
+  <div class="hero-badge" data-t="hero_badge">Practice Exams · Goethe-Style</div>
+  <h1>🎓 <span data-t="hero_title">Exam Room</span></h1>
+  <p class="hero-sub" data-t="hero_sub">30 full practice tests — each modelled on the official Goethe-Zertifikat format. Hören · Lesen · Schreiben · Sprechen.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">30</div><div class="hstat-lbl" data-t="stat_tests">Practice Tests</div></div>
+    <div class="hstat"><div class="hstat-val">6</div><div class="hstat-lbl" data-t="stat_levels">CEFR Levels</div></div>
+    <div class="hstat"><div class="hstat-val">4</div><div class="hstat-lbl" data-t="stat_modules">Modules Each</div></div>
+    <div class="hstat"><div class="hstat-val" id="doneCount">0</div><div class="hstat-lbl" data-t="stat_completed">Completed</div></div>
+  </div>
+</div>
+
+<div class="tier-legend">
+  <span class="tier-legend-lbl" data-t="tier_label">Access:</span>
+  <span class="tlbadge tl-free">🟢 <span data-t="tier_free">Free</span></span>
+  <span class="tlbadge tl-s1">🔵 Starter — A1 + A2</span>
+  <span class="tlbadge tl-s2">🟠 Builder — B1 + B2</span>
+  <span class="tlbadge tl-s3">🔴 Master — C1 + C2</span>
+</div>
+
+<div class="content">
+  <div class="sec-header">
+    <div class="sec-title" data-t="sec_title">Choose Your Level</div>
+    <div class="sec-desc" data-t="sec_desc">Click any level to expand and access all 5 practice tests. Each test takes 60–90 minutes to complete.</div>
+  </div>
+
+  <div class="level-grid" id="levelGrid"></div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-icon">🎯</div>
+      <div class="info-title" data-t="info1_title">Goethe-Style Format</div>
+      <div class="info-desc" data-t="info1_desc">Every test follows the official Goethe-Zertifikat structure: Hören, Lesen, Schreiben, and Sprechen modules with authentic task types.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📊</div>
+      <div class="info-title" data-t="info2_title">Progress Tracking</div>
+      <div class="info-desc" data-t="info2_desc">Your completed tests are saved automatically in your browser. Come back anytime and pick up where you left off.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🔁</div>
+      <div class="info-title" data-t="info3_title">5 Tests Per Level</div>
+      <div class="info-desc" data-t="info3_desc">Each level has 5 unique full-length tests on different topics so you can practice repeatedly without repeating yourself.</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+      <div class="info-title" data-t="info4_title">Instant Feedback</div>
+      <div class="info-desc" data-t="info4_desc">All reading, listening, and grammar tasks are auto-graded. Check your answers immediately and learn from your mistakes.</div>
+    </div>
+  </div>
+
+  <div class="upgrade-bar">
+    <div class="ub-text">
+      <h3 data-t="ub_title">Unlock Full Access</h3>
+      <p data-t="ub_sub">Join TheGermanStefan community and access all 30 practice tests across every level.</p>
+    </div>
+    <div class="ub-tiers">
+      <div class="ub-tier">
+        <div class="ub-tier-name">Starter</div>
+        <div class="ub-tier-price">€9<span style="font-size:.7rem;opacity:.7">/mo</span></div>
+        <div class="ub-tier-inc">A1 + A2 tests</div>
+      </div>
+      <div class="ub-tier">
+        <div class="ub-tier-name">Builder</div>
+        <div class="ub-tier-price">€19<span style="font-size:.7rem;opacity:.7">/mo</span></div>
+        <div class="ub-tier-inc">B1 + B2 tests</div>
+      </div>
+      <div class="ub-tier">
+        <div class="ub-tier-name">Master</div>
+        <div class="ub-tier-price">€39<span style="font-size:.7rem;opacity:.7">/mo</span></div>
+        <div class="ub-tier-inc">C1 + C2 tests</div>
+      </div>
+    </div>
+    <a href="https://www.skool.com/thegermanstefan-9325" class="ub-join-btn" data-t="ub_btn">Join Now →</a>
+  </div>
+</div>
+
+<script>
+const UI={
+en:{hero_badge:'Practice Exams · Goethe-Style',hero_title:'Exam Room',hero_sub:'30 full practice tests — each modelled on the official Goethe-Zertifikat format. Hören · Lesen · Schreiben · Sprechen.',stat_tests:'Practice Tests',stat_levels:'CEFR Levels',stat_modules:'Modules Each',stat_completed:'Completed',tier_label:'Access:',tier_free:'Free',sec_title:'Choose Your Level',sec_desc:'Click any level to expand and access all 5 practice tests. Each test takes 60–90 minutes to complete.',info1_title:'Goethe-Style Format',info1_desc:'Every test follows the official Goethe-Zertifikat structure: Hören, Lesen, Schreiben, and Sprechen modules with authentic task types.',info2_title:'Progress Tracking',info2_desc:'Your completed tests are saved automatically in your browser. Come back anytime and pick up where you left off.',info3_title:'5 Tests Per Level',info3_desc:'Each level has 5 unique full-length tests on different topics so you can practice repeatedly without repeating yourself.',info4_title:'Instant Feedback',info4_desc:'All reading, listening, and grammar tasks are auto-graded. Check your answers immediately and learn from your mistakes.',ub_title:'Unlock Full Access',ub_sub:'Join TheGermanStefan community and access all 30 practice tests across every level.',ub_btn:'Join Now →',start:'Start Test →',done_lbl:'Done',prog_lbl:'completed',lc_a1_desc:'Beginner · Basic communication & everyday vocabulary',lc_a2_desc:'Elementary · Familiar topics, simple sentences & short texts',lc_b1_desc:'Intermediate · Main points of complex topics & travel language',lc_b2_desc:'Upper Intermediate · Complex texts, abstract topics & clear argument',lc_c1_desc:'Advanced · Fluent, flexible & effective language for all purposes',lc_c2_desc:'Mastery · Native-like precision, nuance & stylistic control'},
+fr:{hero_badge:'Examens pratiques · Style Goethe',hero_title:'Salle d\'Examen',hero_sub:'30 tests complets modélisés sur le format officiel Goethe-Zertifikat. Hören · Lesen · Schreiben · Sprechen.',stat_tests:'Tests pratiques',stat_levels:'Niveaux CECR',stat_modules:'Modules chacun',stat_completed:'Terminés',tier_label:'Accès :',tier_free:'Gratuit',sec_title:'Choisissez votre niveau',sec_desc:'Cliquez sur un niveau pour accéder aux 5 tests. Chaque test dure 60–90 minutes.',info1_title:'Format Goethe',info1_desc:'Chaque test suit la structure officielle Goethe : Hören, Lesen, Schreiben et Sprechen.',info2_title:'Suivi des progrès',info2_desc:'Les tests terminés sont sauvegardés automatiquement dans votre navigateur.',info3_title:'5 tests par niveau',info3_desc:'Chaque niveau propose 5 tests complets sur des sujets différents.',info4_title:'Correction instantanée',info4_desc:'Toutes les tâches de lecture, écoute et grammaire sont notées automatiquement.',ub_title:'Débloquer l\'accès complet',ub_sub:'Rejoignez la communauté et accédez à tous les 30 tests pratiques.',ub_btn:'S\'inscrire →',start:'Commencer →',done_lbl:'Fait',prog_lbl:'terminés',lc_a1_desc:'Débutant · Communication de base et vocabulaire quotidien',lc_a2_desc:'Élémentaire · Sujets familiers et textes courts',lc_b1_desc:'Intermédiaire · Sujets complexes et langue de voyage',lc_b2_desc:'Intermédiaire supérieur · Textes complexes et argumentation',lc_c1_desc:'Avancé · Langue fluide et flexible pour tous les contextes',lc_c2_desc:'Maîtrise · Précision et contrôle stylistique'},
+es:{hero_badge:'Exámenes prácticos · Estilo Goethe',hero_title:'Sala de Examen',hero_sub:'30 tests completos modelados en el formato oficial Goethe-Zertifikat. Hören · Lesen · Schreiben · Sprechen.',stat_tests:'Tests prácticos',stat_levels:'Niveles MCER',stat_modules:'Módulos c/u',stat_completed:'Completados',tier_label:'Acceso:',tier_free:'Gratis',sec_title:'Elige tu nivel',sec_desc:'Haz clic en un nivel para acceder a los 5 tests. Cada test dura 60–90 minutos.',info1_title:'Formato Goethe',info1_desc:'Cada test sigue la estructura oficial Goethe: Hören, Lesen, Schreiben y Sprechen.',info2_title:'Seguimiento del progreso',info2_desc:'Los tests completados se guardan automáticamente en tu navegador.',info3_title:'5 tests por nivel',info3_desc:'Cada nivel tiene 5 tests completos sobre diferentes temas.',info4_title:'Corrección instantánea',info4_desc:'Todas las tareas de lectura, comprensión y gramática se corrigen automáticamente.',ub_title:'Desbloquear acceso completo',ub_sub:'Únete a la comunidad y accede a los 30 tests prácticos.',ub_btn:'Unirse →',start:'Empezar →',done_lbl:'Hecho',prog_lbl:'completados',lc_a1_desc:'Principiante · Comunicación básica y vocabulario cotidiano',lc_a2_desc:'Elemental · Temas familiares y textos cortos',lc_b1_desc:'Intermedio · Temas complejos y lengua de viaje',lc_b2_desc:'Intermedio superior · Textos complejos y argumentación',lc_c1_desc:'Avanzado · Lengua fluida y flexible',lc_c2_desc:'Maestría · Precisión y control estilístico'},
+it:{hero_badge:'Esami pratici · Stile Goethe',hero_title:'Sala Esami',hero_sub:'30 test completi modellati sul formato ufficiale Goethe-Zertifikat.',stat_tests:'Test pratici',stat_levels:'Livelli QCER',stat_modules:'Moduli ognuno',stat_completed:'Completati',tier_label:'Accesso:',tier_free:'Gratuito',sec_title:'Scegli il tuo livello',sec_desc:'Clicca su un livello per accedere ai 5 test. Ogni test richiede 60–90 minuti.',info1_title:'Formato Goethe',info1_desc:'Ogni test segue la struttura ufficiale Goethe: Hören, Lesen, Schreiben e Sprechen.',info2_title:'Monitoraggio progressi',info2_desc:'I test completati vengono salvati automaticamente nel tuo browser.',info3_title:'5 test per livello',info3_desc:'Ogni livello ha 5 test completi su argomenti diversi.',info4_title:'Feedback istantaneo',info4_desc:'Tutte le attività di lettura e grammatica vengono valutate automaticamente.',ub_title:'Sblocca accesso completo',ub_sub:'Unisciti alla community e accedi a tutti i 30 test pratici.',ub_btn:'Iscriviti →',start:'Inizia →',done_lbl:'Fatto',prog_lbl:'completati',lc_a1_desc:'Principiante · Comunicazione di base e vocabolario quotidiano',lc_a2_desc:'Elementare · Argomenti familiari e testi brevi',lc_b1_desc:'Intermedio · Argomenti complessi e lingua di viaggio',lc_b2_desc:'Intermedio superiore · Testi complessi e argomentazione',lc_c1_desc:'Avanzato · Lingua fluida e flessibile',lc_c2_desc:'Padronanza · Precisione e controllo stilistico'},
+pt:{hero_badge:'Exames práticos · Estilo Goethe',hero_title:'Sala de Exames',hero_sub:'30 testes completos modelados no formato oficial Goethe-Zertifikat.',stat_tests:'Testes práticos',stat_levels:'Níveis QECR',stat_modules:'Módulos cada',stat_completed:'Concluídos',tier_label:'Acesso:',tier_free:'Grátis',sec_title:'Escolha seu nível',sec_desc:'Clique em um nível para acessar os 5 testes. Cada teste leva 60–90 minutos.',info1_title:'Formato Goethe',info1_desc:'Cada teste segue a estrutura oficial Goethe: Hören, Lesen, Schreiben e Sprechen.',info2_title:'Acompanhamento do progresso',info2_desc:'Os testes concluídos são salvos automaticamente no seu navegador.',info3_title:'5 testes por nível',info3_desc:'Cada nível tem 5 testes completos sobre temas diferentes.',info4_title:'Feedback instantâneo',info4_desc:'Todas as tarefas de leitura e gramática são corrigidas automaticamente.',ub_title:'Desbloquear acesso completo',ub_sub:'Junte-se à comunidade e acesse todos os 30 testes práticos.',ub_btn:'Entrar →',start:'Começar →',done_lbl:'Feito',prog_lbl:'concluídos',lc_a1_desc:'Iniciante · Comunicação básica e vocabulário cotidiano',lc_a2_desc:'Elementar · Tópicos familiares e textos curtos',lc_b1_desc:'Intermediário · Tópicos complexos e língua de viagem',lc_b2_desc:'Intermediário superior · Textos complexos e argumentação',lc_c1_desc:'Avançado · Língua fluente e flexível',lc_c2_desc:'Maestria · Precisão e controle estilístico'}
+};
+
+const LEVELS=[
+{id:'a1',name:'A1',label:'A1 — Anfänger',descKey:'lc_a1_desc',color:'#2e7d32',cls:'lc-a1',tier:'starter',tierLabel:'Starter',tierCls:'tb-s1',
+ tests:[
+  {n:1,title:'Mein Leben & meine Familie',topics:'Vorstellung · Familie · Wohnen'},
+  {n:2,title:'Alltag & Einkaufen',topics:'Zahlen · Uhrzeiten · Lebensmittel'},
+  {n:3,title:'Freizeit & Hobbys',topics:'Sport · Musik · Wochenende'},
+  {n:4,title:'Reisen & Verkehr',topics:'Transportmittel · Städte · Wegbeschreibung'},
+  {n:5,title:'Gesundheit & Körper',topics:'Körperteile · Arztbesuch · Befinden'}
+]},
+{id:'a2',name:'A2',label:'A2 — Grundstufe',descKey:'lc_a2_desc',color:'#00796b',cls:'lc-a2',tier:'starter',tierLabel:'Starter',tierCls:'tb-s1',
+ tests:[
+  {n:1,title:'Wohnen & Nachbarschaft',topics:'Wohnung · Stadtteile · Miete'},
+  {n:2,title:'Arbeit & Berufe',topics:'Berufsfelder · Bewerbung · Kollegen'},
+  {n:3,title:'Essen & Gesundheit',topics:'Ernährung · Kochen · Gesundheitstipps'},
+  {n:4,title:'Reise & Urlaub',topics:'Buchung · Hotel · Sehenswürdigkeiten'},
+  {n:5,title:'Medien & Kommunikation',topics:'Smartphone · Social Media · Nachrichten'}
+]},
+{id:'b1',name:'B1',label:'B1 — Mittelstufe',descKey:'lc_b1_desc',color:'#1565c0',cls:'lc-b1',tier:'builder',tierLabel:'Builder',tierCls:'tb-s2',
+ tests:[
+  {n:1,title:'Gesellschaft & Zusammenleben',topics:'Toleranz · Gemeinschaft · Integration'},
+  {n:2,title:'Umwelt & Natur',topics:'Klimawandel · Recycling · Naturschutz'},
+  {n:3,title:'Arbeit & Karriere',topics:'Berufswahl · Weiterbildung · Homeoffice'},
+  {n:4,title:'Ernährung · Digitales Leben · Ehrenamt',topics:'Nachhaltigkeit · Apps · Freiwilligenarbeit'},
+  {n:5,title:'Stadtleben · Klimawandel · Beruf',topics:'Urban Living · CO₂ · Arbeitsmarkt'}
+]},
+{id:'b2',name:'B2',label:'B2 — Oberstufe',descKey:'lc_b2_desc',color:'#4527a0',cls:'lc-b2',tier:'builder',tierLabel:'Builder',tierCls:'tb-s2',
+ tests:[
+  {n:1,title:'Globalisierung & Wirtschaft',topics:'Handel · Märkte · Internationale Beziehungen'},
+  {n:2,title:'Wissenschaft & Forschung',topics:'Innovation · Technologie · Ethik'},
+  {n:3,title:'Gesellschaft & Medien',topics:'Fake News · Meinungsbildung · Demokratie'},
+  {n:4,title:'Gesundheitspolitik · Medienkonsum · E-Mobilität',topics:'Prävention · Streaming · Elektroauto'},
+  {n:5,title:'Globalisierung · Bildungsreform · KI im Alltag',topics:'Welthandel · Schule · Künstliche Intelligenz'}
+]},
+{id:'c1',name:'C1',label:'C1 — Fortgeschrittene',descKey:'lc_c1_desc',color:'#6a1b9a',cls:'lc-c1',tier:'master',tierLabel:'Master',tierCls:'tb-s3',
+ tests:[
+  {n:1,title:'Kulturwandel & Identität',topics:'Sprache · Tradition · Moderne Identität'},
+  {n:2,title:'Wirtschaft & Nachhaltigkeit',topics:'ESG · Kreislaufwirtschaft · Grüne Energie'},
+  {n:3,title:'Technologie & Gesellschaft',topics:'Digitalisierung · Datenschutz · KI-Ethik'},
+  {n:4,title:'Bioökonomie · Urbanisierung · Sorgearbeit',topics:'Bioressourcen · Stadtplanung · Pflegearbeit'},
+  {n:5,title:'Posthumanismus · Migrationspolitik · Neue Arbeit',topics:'Transhumanismus · Asylrecht · Arbeit 4.0'}
+]},
+{id:'c2',name:'C2',label:'C2 — Meisterklasse',descKey:'lc_c2_desc',color:'#880e4f',cls:'lc-c2',tier:'master',tierLabel:'Master',tierCls:'tb-s3',
+ tests:[
+  {n:1,title:'Philosophie & Sprache',topics:'Erkenntnistheorie · Sprachkritik · Rhetorik'},
+  {n:2,title:'Literatur & Gesellschaftskritik',topics:'Gegenwartsliteratur · Satire · Kulturkritik'},
+  {n:3,title:'Wissenschaftstheorie & Ethik',topics:'Forschungsethik · Positivismus · Normativität'},
+  {n:4,title:'Biopolitik · Sprachphilosophie · Globale Gerechtigkeit',topics:'Foucault · Sprache & Macht · Verteilungsgerechtigkeit'},
+  {n:5,title:'Ästhetik · Demokratietheorien · Digitalphilosophie',topics:'Kunsttheorie · Republikanismus · Netzethik'}
+]}
+];
+
+let lang='en';
+const DONE_KEY='exam_done';
+let done=new Set(JSON.parse(localStorage.getItem(DONE_KEY)||'[]'));
+
+function t(k){return(UI[lang]&&UI[lang][k])||UI.en[k]||k;}
+function setLang(l){lang=l;applyLang();renderLevels();}
+function applyLang(){
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const k=el.dataset.t;
+    if(el.tagName==='INPUT'){el.placeholder=t(k);}
+    else{el.textContent=t(k);}
+  });
+}
+function saveDone(){localStorage.setItem(DONE_KEY,JSON.stringify([...done]));}
+function markDone(testId,e){
+  e.stopPropagation();e.preventDefault();
+  if(done.has(testId))done.delete(testId);else done.add(testId);
+  saveDone();renderLevels();updateDoneCount();
+}
+function updateDoneCount(){document.getElementById('doneCount').textContent=done.size;}
+
+function getFileUrl(levelId,n){
+  const lvl=levelId.toUpperCase();
+  return `Goethe_${lvl}_Test_${n}.html`;
+}
+
+function renderLevels(){
+  const grid=document.getElementById('levelGrid');
+  grid.innerHTML=LEVELS.map(lv=>{
+    const total=lv.tests.length;
+    const levelDone=lv.tests.filter(t=>done.has(lv.id+'-'+t.n)).length;
+    const pct=Math.round((levelDone/total)*100);
+    const testItems=lv.tests.map(test=>{
+      const testId=lv.id+'-'+test.n;
+      const isDone=done.has(testId);
+      const url=getFileUrl(lv.id,test.n);
+      return `<div class="test-item">
+        <div class="ti-left">
+          <div class="ti-num" style="background:${lv.color}">T${test.n}</div>
+          <div class="ti-info">
+            <div class="ti-title">${test.title}</div>
+            <div class="ti-topics">${test.topics}</div>
+          </div>
+        </div>
+        <div class="ti-right">
+          ${isDone?`<span class="done-badge">✓ ${t('done_lbl')}</span>`:''}
+          <button onclick="markDone('${testId}',event)" title="Toggle done" style="background:none;border:1px solid ${isDone?'#2e7d32':'#dde3ea'};border-radius:6px;padding:3px 7px;cursor:pointer;font-size:.75rem;color:${isDone?'#2e7d32':'var(--muted)'}">${isDone?'✓':'○'}</button>
+          <a href="${url}" class="start-btn" style="background:${lv.color}">${t('start')}</a>
+        </div>
+      </div>`;
+    }).join('');
+    const modules='Hören · Lesen · Schreiben · Sprechen';
+    return `<div class="level-card" id="lc-${lv.id}">
+      <div class="lc-header" onclick="toggleLevel('${lv.id}')">
+        <div class="lc-left">
+          <div class="lc-icon ${lv.cls}">${lv.name}</div>
+          <div>
+            <div class="lc-name">${lv.label}</div>
+            <div class="lc-desc">${t(lv.descKey)}</div>
+          </div>
+        </div>
+        <div class="lc-right">
+          <span class="tier-badge ${lv.tierCls}">${lv.tierLabel}</span>
+          <div class="lc-progress">
+            <div style="margin-bottom:4px;font-size:.72rem">${levelDone}/${total} ${t('prog_lbl')}</div>
+            <div class="lc-prog-bar-wrap"><div class="lc-prog-bar" style="width:${pct}%;background:${lv.color}"></div></div>
+          </div>
+          <div class="lc-toggle">▼</div>
+        </div>
+      </div>
+      <div class="test-list">
+        <div class="modules-row">
+          ${modules.split(' · ').map(m=>`<span class="mod-chip">${m}</span>`).join('')}
+        </div>
+        ${testItems}
+      </div>
+    </div>`;
+  }).join('');
+  updateDoneCount();
+}
+
+function toggleLevel(id){
+  document.getElementById('lc-'+id)?.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded',()=>{applyLang();renderLevels();});
+</script>
+</body>
+</html>
