@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TheGermanStefan · A0 Beginner Hub</title>
+<title>TheGermanStefan Â· A0 Beginner Hub</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -14,7 +14,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7;min-height:100vh}
 
-/* ── TOPBAR ── */
+/* ââ TOPBAR ââ */
 .topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
 .tb-left{display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden}
 .tb-logo{font-weight:900;font-size:15px;white-space:nowrap;color:#fff;letter-spacing:.3px}
@@ -28,11 +28,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .lb:hover{background:rgba(255,255,255,.15);color:#fff}
 .lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
 
-/* ── PROGRESS STRIP ── */
+/* ââ PROGRESS STRIP ââ */
 .pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
 .pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s ease}
 
-/* ── HERO ── */
+/* ââ HERO ââ */
 .hero{background:linear-gradient(135deg,#0b2545 0%,#1b6b32 60%,#00695c 100%);color:#fff;padding:36px 24px 28px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:12px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:12px;letter-spacing:.5px;position:relative}
@@ -44,7 +44,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .pb{height:7px;background:rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
 .pb-fill{height:100%;background:var(--amber);border-radius:10px;transition:width .6s ease;width:0%}
 
-/* ── MODULE NAV ── */
+/* ââ MODULE NAV ââ */
 .module-nav{background:#fff;border-bottom:2px solid #e0e0e0;position:sticky;top:56px;z-index:150;overflow-x:auto;white-space:nowrap;padding:0 12px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
 .mnav-inner{display:inline-flex;gap:0}
 .mtab{display:inline-flex;align-items:center;gap:6px;padding:12px 14px;font-size:13px;font-weight:700;color:#666;cursor:pointer;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap}
@@ -54,11 +54,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .mcheck{width:15px;height:15px;border-radius:50%;background:#e0e0e0;display:inline-flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
 .mtab.done .mcheck{background:var(--lc);color:#fff}
 
-/* ── MAIN ── */
+/* ââ MAIN ââ */
 .wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
 .module{display:none}.module.on{display:block}
 
-/* ── PAGE HEADER ── */
+/* ââ PAGE HEADER ââ */
 .page-hdr{background:linear-gradient(135deg,var(--lc),#1b8a3c);color:#fff;border-radius:14px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:center;gap:16px}
 .ph-icon{font-size:40px;flex-shrink:0}
 .ph-title{font-size:20px;font-weight:900}
@@ -67,11 +67,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .ph-pts{font-size:22px;font-weight:900;color:var(--amber)}
 .ph-ptsl{font-size:11px;opacity:.75}
 
-/* ── CARDS ── */
+/* ââ CARDS ââ */
 .card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
 .sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
 
-/* ── ALPHABET ── */
+/* ââ ALPHABET ââ */
 .alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px}
 .alpha-card{background:#f0f7ff;border:2px solid #b0cef8;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;user-select:none}
 .alpha-card:hover{border-color:var(--lc);background:#e6f4ea;transform:translateY(-2px)}
@@ -84,13 +84,13 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .alpha-card.flip .alpha-ex{color:rgba(255,255,255,.7)}
 .hint-text{font-size:12px;color:#aaa;text-align:center;margin-bottom:10px;font-style:italic}
 
-/* ── SPECIAL CHARS ── */
+/* ââ SPECIAL CHARS ââ */
 .special-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
 .sc{background:#fff3e0;border:2px solid #ffcc80;border-radius:10px;padding:12px 10px;text-align:center}
 .sc .sl{font-size:24px;font-weight:900;color:var(--orange)}
 .sc .sp{font-size:12px;color:#666;margin-top:3px}
 
-/* ── NUMBERS ── */
+/* ââ NUMBERS ââ */
 .num-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
 .num-card{background:#f0faf0;border:2px solid #a5d6a7;border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s}
 .num-card:hover,.num-card.flip{background:var(--lc);border-color:var(--lc);color:#fff}
@@ -99,7 +99,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .num-de{font-size:13px;font-weight:700;margin-top:3px;color:#333}
 .num-card:hover .num-de,.num-card.flip .num-de{color:rgba(255,255,255,.9)}
 
-/* ── COLORS ── */
+/* ââ COLORS ââ */
 .color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
 .color-card{border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;border:3px solid transparent;transition:.2s}
 .color-card:hover{transform:scale(1.05)}
@@ -107,7 +107,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .color-de{font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 .color-en{font-size:11px;color:rgba(255,255,255,.8)}
 
-/* ── GREETINGS ── */
+/* ââ GREETINGS ââ */
 .greet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .greet-card{border-radius:12px;padding:16px 18px;border-left:4px solid;cursor:pointer;transition:.2s}
 .greet-card:hover{transform:translateX(4px)}
@@ -122,7 +122,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .greet-en{font-size:13px;color:#444}
 .greet-when{font-size:11px;font-weight:700;margin-top:4px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
 
-/* ── FAMILY ── */
+/* ââ FAMILY ââ */
 .family-tree{display:flex;flex-direction:column;align-items:center;gap:0}
 .ft-row{display:flex;gap:14px;justify-content:center;margin-bottom:8px}
 .ft-connector{width:100%;height:30px;position:relative;display:flex;justify-content:center}
@@ -136,7 +136,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .fcard.show-en .fen{color:var(--lc);font-weight:700}
 .fcard.show-en .fde{color:#aaa}
 
-/* ── QUIZ / FILL ── */
+/* ââ QUIZ / FILL ââ */
 .qblock{background:#f8faff;border:2px solid #b0cef8;border-radius:12px;padding:18px 20px;margin-bottom:14px}
 .qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:6px}
 .qtext{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--navy)}
@@ -154,7 +154,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .fi.ok{border-color:var(--lc);color:var(--lc)}
 .fi.bad{border-color:var(--red);color:var(--red)}
 
-/* ── SENTENCE BUILDER ── */
+/* ââ SENTENCE BUILDER ââ */
 .sb-wrap{margin-bottom:14px}
 .sb-label{font-size:13px;font-weight:700;color:#555;margin-bottom:6px}
 .sb-input-wrap{background:#f8faff;border:2px solid #b0cef8;border-radius:10px;padding:12px 14px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:16px;font-weight:600;color:var(--navy);min-height:52px}
@@ -163,7 +163,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .sb-result{margin-top:8px;padding:10px 14px;border-radius:8px;font-size:14px;display:none}
 .sb-result.show{display:block;background:#e8f5e9;color:#1b5e20;font-weight:700}
 
-/* ── RESULT BANNERS ── */
+/* ââ RESULT BANNERS ââ */
 .rb{margin-top:14px;border-radius:12px;padding:14px 18px;display:none}
 .rb.show{display:block}
 .rb.perfect{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff}
@@ -175,7 +175,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .rbti{font-size:15px;font-weight:800}
 .rbs{font-size:13px;opacity:.85;margin-top:2px}
 
-/* ── DAYS & MONTHS ── */
+/* ââ DAYS & MONTHS ââ */
 .dm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .dm-list{list-style:none}
 .dm-list li{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;margin-bottom:6px;cursor:pointer;transition:.15s}
@@ -188,7 +188,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .dm-list li.flash{background:var(--lc);color:#fff}
 .dm-list li.flash .dm-n,.dm-list li.flash .dm-de,.dm-list li.flash .dm-en{color:#fff}
 
-/* ── WELCOME MODULE ── */
+/* ââ WELCOME MODULE ââ */
 .welcome-modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px}
 .wm{background:#fff;border-radius:12px;padding:16px;border:2px solid #eee;cursor:pointer;transition:.2s;text-align:center}
 .wm:hover{border-color:var(--lc);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
@@ -197,12 +197,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .wm-desc{font-size:12px;color:#777}
 .wm-free{font-size:10px;font-weight:800;background:#e8f5e9;color:var(--lc);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:6px}
 
-/* ── FINAL QUIZ ── */
+/* ââ FINAL QUIZ ââ */
 .final-wrap{max-width:680px;margin:0 auto}
 .final-score-card{background:linear-gradient(135deg,#1b5e20,#00695c);color:#fff;border-radius:16px;padding:32px;text-align:center;margin-top:20px}
 .score-circle{width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.2);border:4px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;margin:14px auto;font-size:34px;font-weight:900}
 
-/* ── BUTTONS ── */
+/* ââ BUTTONS ââ */
 .chk-btn{padding:8px 22px;border-radius:8px;border:none;background:var(--lc);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
 .chk-btn:hover{background:#1b5e20}
 .cta-btn{display:inline-block;margin-top:20px;padding:14px 32px;border-radius:12px;background:var(--amber);color:var(--navy);font-weight:900;font-size:16px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
@@ -212,12 +212,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .nav-prev{background:#eee;color:#555}.nav-prev:hover{background:#ddd}
 .nav-next{background:var(--lc);color:#fff}.nav-next:hover{background:#1b5e20}
 
-/* ── CTA BLOCK ── */
+/* ââ CTA BLOCK ââ */
 .cta{background:linear-gradient(135deg,#0b2545,var(--lc));border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-top:24px}
 .cta h3{font-size:20px;font-weight:900;margin-bottom:8px}
 .cta p{font-size:14px;opacity:.85;margin-bottom:0}
 
-/* ── RESPONSIVE ── */
+/* ââ RESPONSIVE ââ */
 @media(max-width:600px){
   .hero h1{font-size:22px}
   .greet-grid{grid-template-columns:1fr}
@@ -234,10 +234,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-left">
-    <span class="tb-logo">🇩🇪 TGS</span>
-    <span class="tb-sep">›</span>
+    <span class="tb-logo">ð©ðª TGS</span>
+    <span class="tb-sep">âº</span>
     <span class="tb-crumb" data-t="home">Home</span>
-    <span class="tb-sep">›</span>
+    <span class="tb-sep">âº</span>
     <span class="tb-crumb" data-t="a0_label">A0 Starter</span>
     <span class="tb-badge">A0</span>
     <span class="tb-mod-badge" data-t="hub_badge">Beginner Hub</span>
@@ -254,10 +254,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🇩🇪 TheGermanStefan · <span data-t="free_everyone">FREE for Everyone</span></div>
-  <h1>🇩🇪 <span data-t="a0_title">German from Zero — A0 Starter</span></h1>
-  <p class="sub" data-t="a0_subtitle">No German needed. Just curiosity. Let's go! 🚀</p>
-  <div class="free-tag" data-t="free_tag">✨ 100% Free · No Account Required · 7 Interactive Modules</div>
+  <div class="hero-badge">ð©ðª TheGermanStefan Â· <span data-t="free_everyone">FREE for Everyone</span></div>
+  <h1>ð©ðª <span data-t="a0_title">German from Zero â A0 Starter</span></h1>
+  <p class="sub" data-t="a0_subtitle">No German needed. Just curiosity. Let's go! ð</p>
+  <div class="free-tag" data-t="free_tag">â¨ 100% Free Â· No Account Required Â· 7 Interactive Modules</div>
   <div class="pb-wrap">
     <div class="pb-label"><span id="pb-text">0 of 7 modules completed</span><span id="pb-pct">0%</span></div>
     <div class="pb"><div class="pb-fill" id="pb-fill"></div></div>
@@ -267,51 +267,51 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <!-- MODULE NAV -->
 <div class="module-nav">
   <div class="mnav-inner">
-    <div class="mtab on" onclick="goModule(0)"><span class="micon">👋</span> <span data-t="mod_welcome">Welcome</span> <span class="mcheck" id="chk0"></span></div>
-    <div class="mtab" onclick="goModule(1)"><span class="micon">🔤</span> <span data-t="mod_alphabet">Alphabet</span> <span class="mcheck" id="chk1"></span></div>
-    <div class="mtab" onclick="goModule(2)"><span class="micon">🔢</span> <span data-t="mod_numbers">Numbers</span> <span class="mcheck" id="chk2"></span></div>
-    <div class="mtab" onclick="goModule(3)"><span class="micon">🎨</span> <span data-t="mod_colors">Colors</span> <span class="mcheck" id="chk3"></span></div>
-    <div class="mtab" onclick="goModule(4)"><span class="micon">🤝</span> <span data-t="mod_greetings">Greetings</span> <span class="mcheck" id="chk4"></span></div>
-    <div class="mtab" onclick="goModule(5)"><span class="micon">👨‍👩‍👧</span> <span data-t="mod_family">Family</span> <span class="mcheck" id="chk5"></span></div>
-    <div class="mtab" onclick="goModule(6)"><span class="micon">💬</span> <span data-t="mod_sentences">First Sentences</span> <span class="mcheck" id="chk6"></span></div>
-    <div class="mtab" onclick="goModule(7)"><span class="micon">🎯</span> <span data-t="mod_quiz">Final Quiz</span> <span class="mcheck" id="chk7"></span></div>
+    <div class="mtab on" onclick="goModule(0)"><span class="micon">ð</span> <span data-t="mod_welcome">Welcome</span> <span class="mcheck" id="chk0"></span></div>
+    <div class="mtab" onclick="goModule(1)"><span class="micon">ð¤</span> <span data-t="mod_alphabet">Alphabet</span> <span class="mcheck" id="chk1"></span></div>
+    <div class="mtab" onclick="goModule(2)"><span class="micon">ð¢</span> <span data-t="mod_numbers">Numbers</span> <span class="mcheck" id="chk2"></span></div>
+    <div class="mtab" onclick="goModule(3)"><span class="micon">ð¨</span> <span data-t="mod_colors">Colors</span> <span class="mcheck" id="chk3"></span></div>
+    <div class="mtab" onclick="goModule(4)"><span class="micon">ð¤</span> <span data-t="mod_greetings">Greetings</span> <span class="mcheck" id="chk4"></span></div>
+    <div class="mtab" onclick="goModule(5)"><span class="micon">ð¨âð©âð§</span> <span data-t="mod_family">Family</span> <span class="mcheck" id="chk5"></span></div>
+    <div class="mtab" onclick="goModule(6)"><span class="micon">ð¬</span> <span data-t="mod_sentences">First Sentences</span> <span class="mcheck" id="chk6"></span></div>
+    <div class="mtab" onclick="goModule(7)"><span class="micon">ð¯</span> <span data-t="mod_quiz">Final Quiz</span> <span class="mcheck" id="chk7"></span></div>
   </div>
 </div>
 
 <div class="wrap">
 
-<!-- ══ MODULE 0: WELCOME ══ -->
+<!-- ââ MODULE 0: WELCOME ââ -->
 <div class="module on" id="mod0">
   <div class="page-hdr">
-    <div class="ph-icon">👋</div>
+    <div class="ph-icon">ð</div>
     <div>
       <div class="ph-title" data-t="mod_welcome">Welcome to German!</div>
-      <div class="ph-desc" data-t="welcome_desc">7 modules · ~45 minutes · completely free · no experience needed</div>
+      <div class="ph-desc" data-t="welcome_desc">7 modules Â· ~45 minutes Â· completely free Â· no experience needed</div>
     </div>
   </div>
   <div class="card">
-    <p style="font-size:15px;margin-bottom:14px" data-t="welcome_p1">Hello! I'm <strong>Stefan</strong> 🇩🇪 — and this is your <strong>starting point</strong> for learning German, the language of 100 million people across Europe.</p>
-    <p style="font-size:14px;color:#555;margin-bottom:18px" data-t="welcome_p2">In this free A0 hub you'll learn the absolute basics: the alphabet, numbers, colors, greetings, family words, and your first full sentences in German. By the end, you'll be able to introduce yourself! 🎉</p>
+    <p style="font-size:15px;margin-bottom:14px" data-t="welcome_p1">Hello! I'm <strong>Stefan</strong> ð©ðª â and this is your <strong>starting point</strong> for learning German, the language of 100 million people across Europe.</p>
+    <p style="font-size:14px;color:#555;margin-bottom:18px" data-t="welcome_p2">In this free A0 hub you'll learn the absolute basics: the alphabet, numbers, colors, greetings, family words, and your first full sentences in German. By the end, you'll be able to introduce yourself! ð</p>
     <div class="welcome-modules">
-      <div class="wm" onclick="goModule(1)"><div class="wm-icon">🔤</div><div class="wm-title" data-t="mod_alphabet">Alphabet</div><div class="wm-desc" data-t="wm_alpha_desc">All 26 letters + ä, ö, ü, ß — with pronunciation</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(2)"><div class="wm-icon">🔢</div><div class="wm-title" data-t="mod_numbers">Numbers 1–20</div><div class="wm-desc" data-t="wm_num_desc">Count in German — click the cards!</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(3)"><div class="wm-icon">🎨</div><div class="wm-title" data-t="mod_colors">Colors</div><div class="wm-desc" data-t="wm_color_desc">12 essential colors with articles</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(4)"><div class="wm-icon">🤝</div><div class="wm-title" data-t="mod_greetings">Greetings</div><div class="wm-desc" data-t="wm_greet_desc">Hello, goodbye, please, thank you</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(5)"><div class="wm-icon">👨‍👩‍👧</div><div class="wm-title" data-t="mod_family">Family</div><div class="wm-desc" data-t="wm_fam_desc">Mother, father, sister, brother...</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(6)"><div class="wm-icon">💬</div><div class="wm-title" data-t="mod_sentences">First Sentences</div><div class="wm-desc" data-t="wm_sent_desc">Introduce yourself in German!</div><div class="wm-free">FREE</div></div>
-      <div class="wm" onclick="goModule(7)"><div class="wm-icon">🏆</div><div class="wm-title" data-t="mod_quiz">Final Quiz</div><div class="wm-desc" data-t="wm_quiz_desc">Test everything you've learned</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(1)"><div class="wm-icon">ð¤</div><div class="wm-title" data-t="mod_alphabet">Alphabet</div><div class="wm-desc" data-t="wm_alpha_desc">All 26 letters + Ã¤, Ã¶, Ã¼, Ã â with pronunciation</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(2)"><div class="wm-icon">ð¢</div><div class="wm-title" data-t="mod_numbers">Numbers 1â20</div><div class="wm-desc" data-t="wm_num_desc">Count in German â click the cards!</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(3)"><div class="wm-icon">ð¨</div><div class="wm-title" data-t="mod_colors">Colors</div><div class="wm-desc" data-t="wm_color_desc">12 essential colors with articles</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(4)"><div class="wm-icon">ð¤</div><div class="wm-title" data-t="mod_greetings">Greetings</div><div class="wm-desc" data-t="wm_greet_desc">Hello, goodbye, please, thank you</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(5)"><div class="wm-icon">ð¨âð©âð§</div><div class="wm-title" data-t="mod_family">Family</div><div class="wm-desc" data-t="wm_fam_desc">Mother, father, sister, brother...</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(6)"><div class="wm-icon">ð¬</div><div class="wm-title" data-t="mod_sentences">First Sentences</div><div class="wm-desc" data-t="wm_sent_desc">Introduce yourself in German!</div><div class="wm-free">FREE</div></div>
+      <div class="wm" onclick="goModule(7)"><div class="wm-icon">ð</div><div class="wm-title" data-t="mod_quiz">Final Quiz</div><div class="wm-desc" data-t="wm_quiz_desc">Test everything you've learned</div><div class="wm-free">FREE</div></div>
     </div>
   </div>
   <div class="card" style="background:linear-gradient(135deg,#e8f5e9,#f0f7ff);border:none">
-    <p style="font-size:14px" data-t="welcome_tip">💡 <strong>Quick tip:</strong> In German, all <strong>nouns are capitalized</strong> (e.g. <em>die Mutter</em>, <em>der Vater</em>) and every noun has a gender: <strong style="color:#1464b4">der</strong> (masculine), <strong style="color:#c62828">die</strong> (feminine), <strong style="color:#2e7d32">das</strong> (neuter).</p>
+    <p style="font-size:14px" data-t="welcome_tip">ð¡ <strong>Quick tip:</strong> In German, all <strong>nouns are capitalized</strong> (e.g. <em>die Mutter</em>, <em>der Vater</em>) and every noun has a gender: <strong style="color:#1464b4">der</strong> (masculine), <strong style="color:#c62828">die</strong> (feminine), <strong style="color:#2e7d32">das</strong> (neuter).</p>
   </div>
-  <div class="nav-btns"><div></div><button class="nav-btn nav-next" onclick="goModule(1)" data-t="start_alpha">Start with Alphabet →</button></div>
+  <div class="nav-btns"><div></div><button class="nav-btn nav-next" onclick="goModule(1)" data-t="start_alpha">Start with Alphabet â</button></div>
 </div>
 
-<!-- ══ MODULE 1: ALPHABET ══ -->
+<!-- ââ MODULE 1: ALPHABET ââ -->
 <div class="module" id="mod1">
   <div class="page-hdr">
-    <div class="ph-icon">🔤</div>
+    <div class="ph-icon">ð¤</div>
     <div>
       <div class="ph-title">Das Alphabet</div>
       <div class="ph-desc" data-t="alpha_desc">Click each card to see pronunciation tips and an example word</div>
@@ -319,158 +319,158 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="ph-score"><div class="ph-pts" id="alpha-flipped">0</div><div class="ph-ptsl" data-t="alpha_explored">/ 26 explored</div></div>
   </div>
   <div class="card">
-    <div class="sec-title">🔤 The German Alphabet (A–Z)</div>
+    <div class="sec-title">ð¤ The German Alphabet (AâZ)</div>
     <p class="hint-text" data-t="alpha_hint">Click any letter to see how it sounds in German.</p>
     <div class="alpha-grid" id="alpha-grid"></div>
   </div>
   <div class="card">
-    <div class="sec-title">⭐ Special German Characters</div>
+    <div class="sec-title">â­ Special German Characters</div>
     <p style="font-size:13px;color:#666;margin-bottom:12px" data-t="special_chars">German has 4 extra characters not found in English. These are unique to German!</p>
     <div class="special-grid">
-      <div class="sc"><div class="sl">Ä / ä</div><div class="sp">"ay" sound (like "air")<br><em>Ärger</em> (anger)</div></div>
-      <div class="sc"><div class="sl">Ö / ö</div><div class="sp">"ur" sound (round lips)<br><em>Öl</em> (oil)</div></div>
-      <div class="sc"><div class="sl">Ü / ü</div><div class="sp">"ee" + round lips<br><em>über</em> (over)</div></div>
-      <div class="sc"><div class="sl">ß</div><div class="sp">double "ss" sound<br><em>Straße</em> (street)</div></div>
+      <div class="sc"><div class="sl">Ã / Ã¤</div><div class="sp">"ay" sound (like "air")<br><em>Ãrger</em> (anger)</div></div>
+      <div class="sc"><div class="sl">Ã / Ã¶</div><div class="sp">"ur" sound (round lips)<br><em>Ãl</em> (oil)</div></div>
+      <div class="sc"><div class="sl">Ã / Ã¼</div><div class="sp">"ee" + round lips<br><em>Ã¼ber</em> (over)</div></div>
+      <div class="sc"><div class="sl">Ã</div><div class="sp">double "ss" sound<br><em>StraÃe</em> (street)</div></div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🎯 Quick Pronunciation Rules</div>
+    <div class="sec-title">ð¯ Quick Pronunciation Rules</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ei</strong> = sounds like "eye" → <em>nein</em> (no)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ie</strong> = sounds like "ee" → <em>viel</em> (much)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>eu</strong> = sounds like "oy" → <em>neu</em> (new)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>au</strong> = sounds like "ow" → <em>Haus</em> (house)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ch</strong> = soft "h" or "k" → <em>ich</em> (I)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>w</strong> = sounds like "v" → <em>wie</em> (how)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ei</strong> = sounds like "eye" â <em>nein</em> (no)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ie</strong> = sounds like "ee" â <em>viel</em> (much)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>eu</strong> = sounds like "oy" â <em>neu</em> (new)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>au</strong> = sounds like "ow" â <em>Haus</em> (house)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>ch</strong> = soft "h" or "k" â <em>ich</em> (I)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:10px 12px"><strong>w</strong> = sounds like "v" â <em>wie</em> (how)</div>
     </div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(0)" data-t="back_welcome">← Welcome</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(1,2)" data-t="next_numbers">Numbers →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(0)" data-t="back_welcome">â Welcome</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(1,2)" data-t="next_numbers">Numbers â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 2: NUMBERS ══ -->
+<!-- ââ MODULE 2: NUMBERS ââ -->
 <div class="module" id="mod2">
   <div class="page-hdr">
-    <div class="ph-icon">🔢</div>
+    <div class="ph-icon">ð¢</div>
     <div>
-      <div class="ph-title">Zahlen – Numbers</div>
+      <div class="ph-title">Zahlen â Numbers</div>
       <div class="ph-desc" data-t="num_desc">Click each number to flip and see the German word</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🔢 1–20 — <span data-t="click_flip">Click to flip!</span></div>
+    <div class="sec-title">ð¢ 1â20 â <span data-t="click_flip">Click to flip!</span></div>
     <p class="hint-text" data-t="num_hint">Click a card to reveal the German word. Click again to flip back.</p>
     <div class="num-grid" id="num-grid"></div>
   </div>
   <div class="card">
-    <div class="sec-title">🔑 Key patterns</div>
+    <div class="sec-title">ð Key patterns</div>
     <div style="font-size:13px;display:flex;flex-direction:column;gap:8px">
-      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>13–19:</strong> Add <strong>-zehn</strong> (ten) → drei<strong>zehn</strong> (13), vier<strong>zehn</strong> (14)...</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>Exceptions:</strong> sechszehn → <strong>sechzehn</strong> (16), siebzehn → <strong>siebzehn</strong> (17)</div>
-      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>20:</strong> <strong>zwanzig</strong> — from here: einundzwanzig (21), zweiundzwanzig (22)...</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>13â19:</strong> Add <strong>-zehn</strong> (ten) â drei<strong>zehn</strong> (13), vier<strong>zehn</strong> (14)...</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>Exceptions:</strong> sechszehn â <strong>sechzehn</strong> (16), siebzehn â <strong>siebzehn</strong> (17)</div>
+      <div style="background:#f0faf0;border-radius:8px;padding:9px 13px"><strong>20:</strong> <strong>zwanzig</strong> â from here: einundzwanzig (21), zweiundzwanzig (22)...</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">✏️ <span data-t="fill_num_title">Fill in the German number</span></div>
+    <div class="sec-title">âï¸ <span data-t="fill_num_title">Fill in the German number</span></div>
     <div id="num-fill"></div>
-    <button class="chk-btn" onclick="checkNumFill()" data-t="check">Check Answers ✓</button>
+    <button class="chk-btn" onclick="checkNumFill()" data-t="check">Check Answers â</button>
     <div id="num-fill-result" class="rb" style="margin-top:8px"></div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(1)" data-t="back_alpha">← Alphabet</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(2,3)" data-t="next_colors">Colors →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(1)" data-t="back_alpha">â Alphabet</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(2,3)" data-t="next_colors">Colors â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 3: COLORS ══ -->
+<!-- ââ MODULE 3: COLORS ââ -->
 <div class="module" id="mod3">
   <div class="page-hdr">
-    <div class="ph-icon">🎨</div>
+    <div class="ph-icon">ð¨</div>
     <div>
-      <div class="ph-title">Farben – Colors</div>
+      <div class="ph-title">Farben â Colors</div>
       <div class="ph-desc" data-t="color_desc">Learn 12 essential colors with their articles</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🎨 <span data-t="color_click">Click a color to select it</span></div>
+    <div class="sec-title">ð¨ <span data-t="color_click">Click a color to select it</span></div>
     <div class="color-grid" id="color-grid"></div>
     <div id="color-info" style="margin-top:14px;padding:12px 16px;background:#f0faf0;border-radius:10px;font-size:13px;display:none"></div>
   </div>
   <div class="card">
-    <div class="sec-title">🎯 <span data-t="color_quiz_title">Color Quiz — What color is it?</span></div>
+    <div class="sec-title">ð¯ <span data-t="color_quiz_title">Color Quiz â What color is it?</span></div>
     <div id="color-quiz"></div>
-    <button class="chk-btn" onclick="checkColorQuiz()" data-t="check_short">Check ✓</button>
+    <button class="chk-btn" onclick="checkColorQuiz()" data-t="check_short">Check â</button>
     <div id="color-result" class="rb" style="margin-top:8px"></div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(2)" data-t="back_numbers">← Numbers</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(3,4)" data-t="next_greet">Greetings →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(2)" data-t="back_numbers">â Numbers</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(3,4)" data-t="next_greet">Greetings â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 4: GREETINGS ══ -->
+<!-- ââ MODULE 4: GREETINGS ââ -->
 <div class="module" id="mod4">
   <div class="page-hdr">
-    <div class="ph-icon">🤝</div>
+    <div class="ph-icon">ð¤</div>
     <div>
-      <div class="ph-title">Begrüßungen – Greetings</div>
+      <div class="ph-title">BegrÃ¼Ãungen â Greetings</div>
       <div class="ph-desc" data-t="greet_desc">Everything you need to say hello, goodbye, please and thank you</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">👋 <span data-t="greet_cards_title">Essential Greetings — click any card</span></div>
+    <div class="sec-title">ð <span data-t="greet_cards_title">Essential Greetings â click any card</span></div>
     <div class="greet-grid">
       <div class="greet-card morning" onclick="playGreet(this)">
         <div class="greet-de">Guten Morgen!</div><div class="greet-pron">GOO-ten MOR-gen</div>
-        <div class="greet-en">Good morning!</div><div class="greet-when">☀️ morning</div>
+        <div class="greet-en">Good morning!</div><div class="greet-when">âï¸ morning</div>
       </div>
       <div class="greet-card day" onclick="playGreet(this)">
         <div class="greet-de">Guten Tag!</div><div class="greet-pron">GOO-ten TAHG</div>
-        <div class="greet-en">Good day / Hello!</div><div class="greet-when">🌤 daytime (formal)</div>
+        <div class="greet-en">Good day / Hello!</div><div class="greet-when">ð¤ daytime (formal)</div>
       </div>
       <div class="greet-card evening" onclick="playGreet(this)">
         <div class="greet-de">Guten Abend!</div><div class="greet-pron">GOO-ten AH-bent</div>
-        <div class="greet-en">Good evening!</div><div class="greet-when">🌙 evening</div>
+        <div class="greet-en">Good evening!</div><div class="greet-when">ð evening</div>
       </div>
       <div class="greet-card casual" onclick="playGreet(this)">
         <div class="greet-de">Hallo! / Hi!</div><div class="greet-pron">HA-lo / hi</div>
-        <div class="greet-en">Hello! / Hi!</div><div class="greet-when">😊 anytime (informal)</div>
+        <div class="greet-en">Hello! / Hi!</div><div class="greet-when">ð anytime (informal)</div>
       </div>
       <div class="greet-card goodbye" onclick="playGreet(this)">
         <div class="greet-de">Auf Wiedersehen!</div><div class="greet-pron">owf VEE-der-zayn</div>
-        <div class="greet-en">Goodbye! (formal)</div><div class="greet-when">👋 formal farewell</div>
+        <div class="greet-en">Goodbye! (formal)</div><div class="greet-when">ð formal farewell</div>
       </div>
       <div class="greet-card casual" onclick="playGreet(this)">
-        <div class="greet-de">Tschüss! / Ciao!</div><div class="greet-pron">CHEWS / CHOW</div>
-        <div class="greet-en">Bye! (informal)</div><div class="greet-when">😎 informal farewell</div>
+        <div class="greet-de">TschÃ¼ss! / Ciao!</div><div class="greet-pron">CHEWS / CHOW</div>
+        <div class="greet-en">Bye! (informal)</div><div class="greet-when">ð informal farewell</div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🙏 Please, Thank You &amp; You're Welcome</div>
+    <div class="sec-title">ð Please, Thank You &amp; You're Welcome</div>
     <div style="display:flex;flex-direction:column;gap:10px">
       <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#e8f5e9;border-radius:10px">
-        <span style="font-size:24px">🙏</span>
-        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Bitte</div><div style="font-size:12px;color:#555">BIT-te · Please / You're welcome</div></div>
+        <span style="font-size:24px">ð</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Bitte</div><div style="font-size:12px;color:#555">BIT-te Â· Please / You're welcome</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#e3f2fd;border-radius:10px">
-        <span style="font-size:24px">😊</span>
-        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Danke / Danke schön</div><div style="font-size:12px;color:#555">DANK-eh / DANK-eh SHURN · Thank you / Thank you very much</div></div>
+        <span style="font-size:24px">ð</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Danke / Danke schÃ¶n</div><div style="font-size:12px;color:#555">DANK-eh / DANK-eh SHURN Â· Thank you / Thank you very much</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#f3e5f5;border-radius:10px">
-        <span style="font-size:24px">😄</span>
-        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Entschuldigung</div><div style="font-size:12px;color:#555">ent-SHOOL-di-goong · Excuse me / Sorry</div></div>
+        <span style="font-size:24px">ð</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Entschuldigung</div><div style="font-size:12px;color:#555">ent-SHOOL-di-goong Â· Excuse me / Sorry</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#fff3e0;border-radius:10px">
-        <span style="font-size:24px">👍</span>
-        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Ja / Nein / Vielleicht</div><div style="font-size:12px;color:#555">ya / nine / fee-LYSHT · Yes / No / Maybe</div></div>
+        <span style="font-size:24px">ð</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Ja / Nein / Vielleicht</div><div style="font-size:12px;color:#555">ya / nine / fee-LYSHT Â· Yes / No / Maybe</div></div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">💬 Asking "How are you?"</div>
+    <div class="sec-title">ð¬ Asking "How are you?"</div>
     <div style="display:flex;flex-direction:column;gap:8px;font-size:14px">
       <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--navy)">Wie geht es Ihnen?</span><span style="color:#666">How are you? (formal)</span></div>
       <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--navy)">Wie geht's?</span><span style="color:#666">How are you? (informal)</span></div>
@@ -481,137 +481,137 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🎯 <span data-t="greet_quiz_title">Greeting Quiz</span></div>
+    <div class="sec-title">ð¯ <span data-t="greet_quiz_title">Greeting Quiz</span></div>
     <div id="greet-quiz"></div>
-    <button class="chk-btn" onclick="checkGreetQuiz()" data-t="check_short">Check ✓</button>
+    <button class="chk-btn" onclick="checkGreetQuiz()" data-t="check_short">Check â</button>
     <div id="greet-result" class="rb" style="margin-top:8px"></div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(3)" data-t="back_colors">← Colors</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(4,5)" data-t="next_family">Family →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(3)" data-t="back_colors">â Colors</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(4,5)" data-t="next_family">Family â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 5: FAMILY ══ -->
+<!-- ââ MODULE 5: FAMILY ââ -->
 <div class="module" id="mod5">
   <div class="page-hdr">
-    <div class="ph-icon">👨‍👩‍👧</div>
+    <div class="ph-icon">ð¨âð©âð§</div>
     <div>
-      <div class="ph-title">Familie – Family</div>
-      <div class="ph-desc" data-t="fam_desc">Learn family vocabulary with articles — click cards to toggle German/English</div>
+      <div class="ph-title">Familie â Family</div>
+      <div class="ph-desc" data-t="fam_desc">Learn family vocabulary with articles â click cards to toggle German/English</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">👨‍👩‍👧 <span data-t="fam_tree_title">The Family Tree — click any card to toggle</span></div>
+    <div class="sec-title">ð¨âð©âð§ <span data-t="fam_tree_title">The Family Tree â click any card to toggle</span></div>
     <div class="family-tree" id="family-tree"></div>
     <p style="text-align:center;font-size:12px;color:#aaa;margin-top:12px;font-style:italic" data-t="fam_toggle_hint">Click a card to reveal the English translation</p>
   </div>
   <div class="card">
-    <div class="sec-title">📋 Extended Family Vocabulary</div>
+    <div class="sec-title">ð Extended Family Vocabulary</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px">
-      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Onkel — uncle</div>
-      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tante — aunt</div>
-      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Cousin — (male) cousin</div>
-      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Cousine — (female) cousin</div>
-      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Mann — husband / man</div>
-      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Frau — wife / woman</div>
-      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Sohn — son</div>
-      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tochter — daughter</div>
+      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Onkel â uncle</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tante â aunt</div>
+      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Cousin â (male) cousin</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Cousine â (female) cousin</div>
+      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Mann â husband / man</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Frau â wife / woman</div>
+      <div style="padding:7px 12px;background:#e3f2fd;border-radius:8px"><strong style="color:var(--blue)">der</strong> Sohn â son</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tochter â daughter</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">✏️ <span data-t="fill_article">Fill in the article (der / die / das)</span></div>
+    <div class="sec-title">âï¸ <span data-t="fill_article">Fill in the article (der / die / das)</span></div>
     <div id="family-fill"></div>
-    <button class="chk-btn" onclick="checkFamilyFill()" data-t="check_short">Check ✓</button>
+    <button class="chk-btn" onclick="checkFamilyFill()" data-t="check_short">Check â</button>
     <div id="family-fill-result" class="rb" style="margin-top:8px"></div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(4)" data-t="back_greet">← Greetings</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(5,6)" data-t="next_sent">First Sentences →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(4)" data-t="back_greet">â Greetings</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(5,6)" data-t="next_sent">First Sentences â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 6: FIRST SENTENCES ══ -->
+<!-- ââ MODULE 6: FIRST SENTENCES ââ -->
 <div class="module" id="mod6">
   <div class="page-hdr">
-    <div class="ph-icon">💬</div>
+    <div class="ph-icon">ð¬</div>
     <div>
-      <div class="ph-title">Erste Sätze – First Sentences</div>
+      <div class="ph-title">Erste SÃ¤tze â First Sentences</div>
       <div class="ph-desc" data-t="sent_desc">Build your first sentences in German. Introduce yourself!</div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">🧩 Key Verbs First</div>
+    <div class="sec-title">ð§© Key Verbs First</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
       <div>
-        <div style="font-weight:800;color:var(--blue);margin-bottom:6px">sein — to be</div>
+        <div style="font-weight:800;color:var(--blue);margin-bottom:6px">sein â to be</div>
         <div style="background:#e3f2fd;border-radius:8px;padding:10px 12px;line-height:2.2">
-          ich <strong>bin</strong> — I am<br>du <strong>bist</strong> — you are<br>er/sie/es <strong>ist</strong> — he/she/it is<br>wir <strong>sind</strong> — we are
+          ich <strong>bin</strong> â I am<br>du <strong>bist</strong> â you are<br>er/sie/es <strong>ist</strong> â he/she/it is<br>wir <strong>sind</strong> â we are
         </div>
       </div>
       <div>
-        <div style="font-weight:800;color:var(--lc);margin-bottom:6px">heißen — to be called</div>
+        <div style="font-weight:800;color:var(--lc);margin-bottom:6px">heiÃen â to be called</div>
         <div style="background:#e8f5e9;border-radius:8px;padding:10px 12px;line-height:2.2">
-          ich <strong>heiße</strong> — my name is<br>du <strong>heißt</strong> — your name is<br>er/sie <strong>heißt</strong> — his/her name is<br>wir <strong>heißen</strong> — we are called
+          ich <strong>heiÃe</strong> â my name is<br>du <strong>heiÃt</strong> â your name is<br>er/sie <strong>heiÃt</strong> â his/her name is<br>wir <strong>heiÃen</strong> â we are called
         </div>
       </div>
       <div>
-        <div style="font-weight:800;color:var(--purple);margin-bottom:6px">kommen — to come from</div>
+        <div style="font-weight:800;color:var(--purple);margin-bottom:6px">kommen â to come from</div>
         <div style="background:#f3e5f5;border-radius:8px;padding:10px 12px;line-height:2.2">
-          ich <strong>komme</strong> aus — I come from<br>du <strong>kommst</strong> aus — you come from<br>er/sie <strong>kommt</strong> aus — he/she comes from
+          ich <strong>komme</strong> aus â I come from<br>du <strong>kommst</strong> aus â you come from<br>er/sie <strong>kommt</strong> aus â he/she comes from
         </div>
       </div>
       <div>
-        <div style="font-weight:800;color:var(--orange);margin-bottom:6px">wohnen — to live</div>
+        <div style="font-weight:800;color:var(--orange);margin-bottom:6px">wohnen â to live</div>
         <div style="background:#fff3e0;border-radius:8px;padding:10px 12px;line-height:2.2">
-          ich <strong>wohne</strong> in — I live in<br>du <strong>wohnst</strong> in — you live in<br>er/sie <strong>wohnt</strong> in — he/she lives in
+          ich <strong>wohne</strong> in â I live in<br>du <strong>wohnst</strong> in â you live in<br>er/sie <strong>wohnt</strong> in â he/she lives in
         </div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">✏️ <span data-t="build_intro_title">Build Your Introduction</span></div>
+    <div class="sec-title">âï¸ <span data-t="build_intro_title">Build Your Introduction</span></div>
     <p style="font-size:13px;color:#666;margin-bottom:14px" data-t="build_intro_desc">Fill in the blanks to create your personal introduction in German. Use your real information!</p>
     <div class="sb-wrap">
-      <div class="sb-label" data-t="sb_label1">1. My name is…</div>
-      <div class="sb-input-wrap"><span class="sb-static">Ich heiße</span><input class="sb-blank" id="sb1" type="text" data-placeholder-t="your_name" placeholder="your name"></div>
-      <div class="sb-hint">e.g. Ich heiße Maria</div>
+      <div class="sb-label" data-t="sb_label1">1. My name isâ¦</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich heiÃe</span><input class="sb-blank" id="sb1" type="text" data-placeholder-t="your_name" placeholder="your name"></div>
+      <div class="sb-hint">e.g. Ich heiÃe Maria</div>
     </div>
     <div class="sb-wrap">
-      <div class="sb-label" data-t="sb_label2">2. I am … years old</div>
+      <div class="sb-label" data-t="sb_label2">2. I am â¦ years old</div>
       <div class="sb-input-wrap"><span class="sb-static">Ich bin</span><input class="sb-blank" id="sb2" type="text" data-placeholder-t="your_age" placeholder="age" style="min-width:60px"><span class="sb-static">Jahre alt.</span></div>
       <div class="sb-hint">e.g. Ich bin 28 Jahre alt.</div>
     </div>
     <div class="sb-wrap">
-      <div class="sb-label" data-t="sb_label3">3. I come from…</div>
+      <div class="sb-label" data-t="sb_label3">3. I come fromâ¦</div>
       <div class="sb-input-wrap"><span class="sb-static">Ich komme aus</span><input class="sb-blank" id="sb3" type="text" data-placeholder-t="your_from" placeholder="country/city"><span class="sb-static">.</span></div>
       <div class="sb-hint">e.g. Ich komme aus Spanien.</div>
     </div>
     <div class="sb-wrap">
-      <div class="sb-label" data-t="sb_label4">4. I live in…</div>
+      <div class="sb-label" data-t="sb_label4">4. I live inâ¦</div>
       <div class="sb-input-wrap"><span class="sb-static">Ich wohne in</span><input class="sb-blank" id="sb4" type="text" data-placeholder-t="your_live" placeholder="city/country"><span class="sb-static">.</span></div>
       <div class="sb-hint">e.g. Ich wohne in Berlin.</div>
     </div>
     <div class="sb-wrap">
       <div class="sb-label" data-t="sb_label5">5. I speak a little German!</div>
       <div class="sb-input-wrap"><span class="sb-static">Ich spreche</span><input class="sb-blank" id="sb5" type="text" placeholder="???"><span class="sb-static">Deutsch.</span></div>
-      <div class="sb-hint" data-t="sb_hint5">Hint: "a little" in German → <em>ein bisschen</em></div>
+      <div class="sb-hint" data-t="sb_hint5">Hint: "a little" in German â <em>ein bisschen</em></div>
     </div>
-    <button class="chk-btn" onclick="buildIntro()" data-t="build_intro_btn">Build my introduction! 🎉</button>
+    <button class="chk-btn" onclick="buildIntro()" data-t="build_intro_btn">Build my introduction! ð</button>
     <div class="sb-result" id="sb-result"></div>
   </div>
   <div class="card">
-    <div class="sec-title">🗣️ More Useful First Phrases</div>
+    <div class="sec-title">ð£ï¸ More Useful First Phrases</div>
     <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
       <div style="display:flex;gap:12px;padding:8px 12px;background:#e3f2fd;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--navy);min-width:210px">Ich lerne Deutsch.</span><span style="color:#666">I am learning German.</span></div>
       <div style="display:flex;gap:12px;padding:8px 12px;background:#e3f2fd;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--navy);min-width:210px">Ich verstehe nicht.</span><span style="color:#666">I don't understand.</span></div>
-      <div style="display:flex;gap:12px;padding:8px 12px;background:#e3f2fd;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--navy);min-width:210px">Können Sie langsamer sprechen?</span><span style="color:#666">Can you speak more slowly?</span></div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#e3f2fd;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--navy);min-width:210px">KÃ¶nnen Sie langsamer sprechen?</span><span style="color:#666">Can you speak more slowly?</span></div>
       <div style="display:flex;gap:12px;padding:8px 12px;background:#e3f2fd;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--navy);min-width:210px">Was bedeutet das?</span><span style="color:#666">What does that mean?</span></div>
-      <div style="display:flex;gap:12px;padding:8px 12px;background:#e8f5e9;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--lc);min-width:210px">Deutsch macht Spaß!</span><span style="color:#666">German is fun! 🎉</span></div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#e8f5e9;border-radius:8px;align-items:baseline"><span style="font-weight:800;color:var(--lc);min-width:210px">Deutsch macht SpaÃ!</span><span style="color:#666">German is fun! ð</span></div>
     </div>
   </div>
   <div class="card">
-    <div class="sec-title">📅 Days of the Week &amp; Months</div>
+    <div class="sec-title">ð Days of the Week &amp; Months</div>
     <div class="dm-grid">
       <div>
         <p style="font-weight:800;font-size:13px;margin-bottom:8px;color:var(--blue)">Wochentage (Days)</p>
@@ -624,17 +624,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     </div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(5)" data-t="back_family">← Family</button>
-    <button class="nav-btn nav-next" onclick="completeAndGo(6,7)" data-t="next_quiz">Final Quiz →</button>
+    <button class="nav-btn nav-prev" onclick="goModule(5)" data-t="back_family">â Family</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(6,7)" data-t="next_quiz">Final Quiz â</button>
   </div>
 </div>
 
-<!-- ══ MODULE 7: FINAL QUIZ ══ -->
+<!-- ââ MODULE 7: FINAL QUIZ ââ -->
 <div class="module" id="mod7">
   <div class="page-hdr">
-    <div class="ph-icon">🏆</div>
+    <div class="ph-icon">ð</div>
     <div>
-      <div class="ph-title" data-t="quiz_title">Final Quiz — Test Everything!</div>
+      <div class="ph-title" data-t="quiz_title">Final Quiz â Test Everything!</div>
       <div class="ph-desc" data-t="quiz_desc">10 questions covering all 6 modules</div>
     </div>
     <div class="ph-score"><div class="ph-pts" id="q-score-display">0</div><div class="ph-ptsl" data-t="q_correct_label">/ 10 correct</div></div>
@@ -642,12 +642,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <div class="final-wrap">
     <div id="final-quiz-container"></div>
     <div style="margin-top:16px;text-align:center">
-      <button class="chk-btn" id="final-check-btn" onclick="checkFinalQuiz()" data-t="check_all" style="font-size:16px;padding:12px 36px">Check All Answers 🎯</button>
+      <button class="chk-btn" id="final-check-btn" onclick="checkFinalQuiz()" data-t="check_all" style="font-size:16px;padding:12px 36px">Check All Answers ð¯</button>
     </div>
     <div id="final-score-area"></div>
   </div>
   <div class="nav-btns">
-    <button class="nav-btn nav-prev" onclick="goModule(6)" data-t="back_sent">← First Sentences</button>
+    <button class="nav-btn nav-prev" onclick="goModule(6)" data-t="back_sent">â First Sentences</button>
     <div></div>
   </div>
 </div>
@@ -655,29 +655,29 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 </div><!-- /wrap -->
 
 <script>
-// ── LANG ─────────────────────────────────────────────────────────
+// ââ LANG âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const LANG={
 en:{
   home:'Home',a0_label:'A0 Starter',hub_badge:'Beginner Hub',
   free_everyone:'FREE for Everyone',
-  a0_title:'German from Zero — A0 Starter',
-  a0_subtitle:"No German needed. Just curiosity. Let's go! 🚀",
-  free_tag:'✨ 100% Free · No Account Required · 7 Interactive Modules',
+  a0_title:'German from Zero â A0 Starter',
+  a0_subtitle:"No German needed. Just curiosity. Let's go! ð",
+  free_tag:'â¨ 100% Free Â· No Account Required Â· 7 Interactive Modules',
   mod_welcome:'Welcome',mod_alphabet:'Alphabet',mod_numbers:'Numbers',
   mod_colors:'Colors',mod_greetings:'Greetings',mod_family:'Family',
   mod_sentences:'First Sentences',mod_quiz:'Final Quiz',
-  welcome_desc:'7 modules · ~45 minutes · completely free · no experience needed',
-  welcome_p1:'Hello! I\'m <strong>Stefan</strong> 🇩🇪 — and this is your <strong>starting point</strong> for learning German, the language of 100 million people across Europe.',
-  welcome_p2:'In this free A0 hub you\'ll learn the absolute basics: the alphabet, numbers, colors, greetings, family words, and your first full sentences in German. By the end, you\'ll be able to introduce yourself! 🎉',
-  welcome_tip:'💡 <strong>Quick tip:</strong> In German, all <strong>nouns are capitalized</strong> (e.g. <em>die Mutter</em>, <em>der Vater</em>) and every noun has a gender: <strong style="color:#1464b4">der</strong> (masculine), <strong style="color:#c62828">die</strong> (feminine), <strong style="color:#2e7d32">das</strong> (neuter).',
-  wm_alpha_desc:'All 26 letters + ä, ö, ü, ß — with pronunciation',
-  wm_num_desc:'Count in German — click the cards!',
+  welcome_desc:'7 modules Â· ~45 minutes Â· completely free Â· no experience needed',
+  welcome_p1:'Hello! I\'m <strong>Stefan</strong> ð©ðª â and this is your <strong>starting point</strong> for learning German, the language of 100 million people across Europe.',
+  welcome_p2:'In this free A0 hub you\'ll learn the absolute basics: the alphabet, numbers, colors, greetings, family words, and your first full sentences in German. By the end, you\'ll be able to introduce yourself! ð',
+  welcome_tip:'ð¡ <strong>Quick tip:</strong> In German, all <strong>nouns are capitalized</strong> (e.g. <em>die Mutter</em>, <em>der Vater</em>) and every noun has a gender: <strong style="color:#1464b4">der</strong> (masculine), <strong style="color:#c62828">die</strong> (feminine), <strong style="color:#2e7d32">das</strong> (neuter).',
+  wm_alpha_desc:'All 26 letters + Ã¤, Ã¶, Ã¼, Ã â with pronunciation',
+  wm_num_desc:'Count in German â click the cards!',
   wm_color_desc:'12 essential colors with articles',
   wm_greet_desc:'Hello, goodbye, please, thank you',
   wm_fam_desc:'Mother, father, sister, brother...',
   wm_sent_desc:'Introduce yourself in German!',
   wm_quiz_desc:'Test everything you\'ve learned',
-  start_alpha:'Start with Alphabet →',
+  start_alpha:'Start with Alphabet â',
   alpha_desc:'Click each card to see pronunciation tips and an example word',
   alpha_hint:'Click any letter to see how it sounds in German.',
   alpha_explored:'/ 26 explored',
@@ -688,230 +688,230 @@ en:{
   fill_num_title:'Fill in the German number',
   color_desc:'Learn 12 essential colors with their articles',
   color_click:'Click a color to select it',
-  color_quiz_title:'Color Quiz — What color is it?',
+  color_quiz_title:'Color Quiz â What color is it?',
   greet_desc:'Everything you need to say hello, goodbye, please and thank you',
-  greet_cards_title:'Essential Greetings — click any card',
+  greet_cards_title:'Essential Greetings â click any card',
   greet_quiz_title:'Greeting Quiz',
-  fam_desc:'Learn family vocabulary with articles — click cards to toggle German/English',
-  fam_tree_title:'The Family Tree — click any card to toggle',
+  fam_desc:'Learn family vocabulary with articles â click cards to toggle German/English',
+  fam_tree_title:'The Family Tree â click any card to toggle',
   fam_toggle_hint:'Click a card to reveal the English translation',
   fill_article:'Fill in the article (der / die / das)',
   sent_desc:'Build your first sentences in German. Introduce yourself!',
   build_intro_title:'Build Your Introduction',
   build_intro_desc:'Fill in the blanks to create your personal introduction in German. Use your real information!',
-  sb_label1:'1. My name is…',sb_label2:'2. I am … years old',
-  sb_label3:'3. I come from…',sb_label4:'4. I live in…',sb_label5:'5. I speak a little German!',
-  sb_hint5:'Hint: "a little" in German → <em>ein bisschen</em>',
-  build_intro_btn:'Build my introduction! 🎉',
+  sb_label1:'1. My name isâ¦',sb_label2:'2. I am â¦ years old',
+  sb_label3:'3. I come fromâ¦',sb_label4:'4. I live inâ¦',sb_label5:'5. I speak a little German!',
+  sb_hint5:'Hint: "a little" in German â <em>ein bisschen</em>',
+  build_intro_btn:'Build my introduction! ð',
   your_name:'your name',your_age:'age',your_from:'country/city',your_live:'city/country',
-  intro_label:'🎉 Your introduction in German:',
-  intro_copy:'Copy this and use it in the community chat! 🚀',
-  quiz_title:'Final Quiz — Test Everything!',
+  intro_label:'ð Your introduction in German:',
+  intro_copy:'Copy this and use it in the community chat! ð',
+  quiz_title:'Final Quiz â Test Everything!',
   quiz_desc:'10 questions covering all 6 modules',
   q_correct_label:'/ 10 correct',
-  check:'Check Answers ✓',check_short:'Check ✓',
-  check_all:'Check All Answers 🎯',
-  try_again:'Try Again 🔄',
-  join_community:'Join the Community — Free! 🇩🇪',
-  next_step:'🚀 Ready for the next step?',
-  back_welcome:'← Welcome',next_numbers:'Numbers →',
-  back_alpha:'← Alphabet',next_colors:'Colors →',
-  back_numbers:'← Numbers',next_greet:'Greetings →',
-  back_colors:'← Colors',next_family:'Family →',
-  back_greet:'← Greetings',next_sent:'First Sentences →',
-  back_family:'← Family',next_quiz:'Final Quiz →',
-  back_sent:'← First Sentences',
-  fb_correct:'✓ Correct! Well done!',fb_wrong:'✗ Not quite — the correct answer is highlighted.',
+  check:'Check Answers â',check_short:'Check â',
+  check_all:'Check All Answers ð¯',
+  try_again:'Try Again ð',
+  join_community:'Join the Community â Free! ð©ðª',
+  next_step:'ð Ready for the next step?',
+  back_welcome:'â Welcome',next_numbers:'Numbers â',
+  back_alpha:'â Alphabet',next_colors:'Colors â',
+  back_numbers:'â Numbers',next_greet:'Greetings â',
+  back_colors:'â Colors',next_family:'Family â',
+  back_greet:'â Greetings',next_sent:'First Sentences â',
+  back_family:'â Family',next_quiz:'Final Quiz â',
+  back_sent:'â First Sentences',
+  fb_correct:'â Correct! Well done!',fb_wrong:'â Not quite â the correct answer is highlighted.',
   res_perfect:'Outstanding!',res_great:'Great job!',res_good:'Good start!',res_practice:'Keep practicing!',
   res_score:'Score',res_of:'of',res_correct:'correct',
-  score_out:'🏆 Outstanding! You\'re ready for A1!',
-  score_great:'🎉 Great job! You know the basics!',
-  score_good:'👍 Good start! Review and try again!',
-  score_practice:'💪 Keep practicing — you\'ve got this!',
+  score_out:'ð Outstanding! You\'re ready for A1!',
+  score_great:'ð Great job! You know the basics!',
+  score_good:'ð Good start! Review and try again!',
+  score_practice:'ðª Keep practicing â you\'ve got this!',
   score_answered:'You answered',score_of_10:'out of 10 questions correctly.',
-  score_completed:'You\'ve completed the A0 Hub! 🎉',
+  score_completed:'You\'ve completed the A0 Hub! ð',
   score_ready:'You\'re ready to start your A1 journey.',
-  score_review:'Review the modules and try the quiz again — you\'ll get there! 💪',
+  score_review:'Review the modules and try the quiz again â you\'ll get there! ðª',
   pb_of:'of',pb_modules:'modules completed',
   q_of:'Question',
 },
 fr:{
-  home:'Accueil',a0_label:'Débutant A0',hub_badge:'Hub débutant',
+  home:'Accueil',a0_label:'DÃ©butant A0',hub_badge:'Hub dÃ©butant',
   free_everyone:'GRATUIT pour tous',
-  a0_title:'L\'allemand de zéro — A0 Débutant',
-  a0_subtitle:"Pas besoin d'allemand. Juste de la curiosité. C'est parti ! 🚀",
-  free_tag:'✨ 100% Gratuit · Sans inscription · 7 modules interactifs',
+  a0_title:'L\'allemand de zÃ©ro â A0 DÃ©butant',
+  a0_subtitle:"Pas besoin d'allemand. Juste de la curiositÃ©. C'est parti ! ð",
+  free_tag:'â¨ 100% Gratuit Â· Sans inscription Â· 7 modules interactifs',
   mod_welcome:'Bienvenue',mod_alphabet:'Alphabet',mod_numbers:'Chiffres',
   mod_colors:'Couleurs',mod_greetings:'Salutations',mod_family:'Famille',
-  mod_sentences:'Premières phrases',mod_quiz:'Quiz final',
-  welcome_desc:'7 modules · ~45 minutes · entièrement gratuit · aucune expérience nécessaire',
-  welcome_p1:'Bonjour ! Je suis <strong>Stefan</strong> 🇩🇪 — et voici votre <strong>point de départ</strong> pour apprendre l\'allemand.',
-  welcome_p2:'Dans ce hub A0 gratuit, vous apprendrez les bases absolues : l\'alphabet, les chiffres, les couleurs, les salutations, le vocabulaire de la famille et vos premières phrases en allemand. 🎉',
-  welcome_tip:'💡 <strong>Astuce :</strong> En allemand, tous les <strong>noms sont écrits avec une majuscule</strong> et chaque nom a un genre : <strong style="color:#1464b4">der</strong> (masculin), <strong style="color:#c62828">die</strong> (féminin), <strong style="color:#2e7d32">das</strong> (neutre).',
-  wm_alpha_desc:'Les 26 lettres + ä, ö, ü, ß — avec prononciation',
-  wm_num_desc:'Comptez en allemand — cliquez sur les cartes !',
+  mod_sentences:'PremiÃ¨res phrases',mod_quiz:'Quiz final',
+  welcome_desc:'7 modules Â· ~45 minutes Â· entiÃ¨rement gratuit Â· aucune expÃ©rience nÃ©cessaire',
+  welcome_p1:'Bonjour ! Je suis <strong>Stefan</strong> ð©ðª â et voici votre <strong>point de dÃ©part</strong> pour apprendre l\'allemand.',
+  welcome_p2:'Dans ce hub A0 gratuit, vous apprendrez les bases absolues : l\'alphabet, les chiffres, les couleurs, les salutations, le vocabulaire de la famille et vos premiÃ¨res phrases en allemand. ð',
+  welcome_tip:'ð¡ <strong>Astuce :</strong> En allemand, tous les <strong>noms sont Ã©crits avec une majuscule</strong> et chaque nom a un genre : <strong style="color:#1464b4">der</strong> (masculin), <strong style="color:#c62828">die</strong> (fÃ©minin), <strong style="color:#2e7d32">das</strong> (neutre).',
+  wm_alpha_desc:'Les 26 lettres + Ã¤, Ã¶, Ã¼, Ã â avec prononciation',
+  wm_num_desc:'Comptez en allemand â cliquez sur les cartes !',
   wm_color_desc:'12 couleurs essentielles avec articles',
-  wm_greet_desc:'Bonjour, au revoir, s\'il vous plaît, merci',
-  wm_fam_desc:'Mère, père, sœur, frère...',
-  wm_sent_desc:'Présentez-vous en allemand !',
+  wm_greet_desc:'Bonjour, au revoir, s\'il vous plaÃ®t, merci',
+  wm_fam_desc:'MÃ¨re, pÃ¨re, sÅur, frÃ¨re...',
+  wm_sent_desc:'PrÃ©sentez-vous en allemand !',
   wm_quiz_desc:'Testez tout ce que vous avez appris',
-  start_alpha:'Commencer par l\'Alphabet →',
+  start_alpha:'Commencer par l\'Alphabet â',
   alpha_desc:'Cliquez sur chaque carte pour voir les conseils de prononciation',
   alpha_hint:'Cliquez sur une lettre pour voir sa prononciation en allemand.',
-  alpha_explored:'/ 26 explorées',
-  special_chars:'L\'allemand possède 4 caractères supplémentaires absents de l\'anglais.',
+  alpha_explored:'/ 26 explorÃ©es',
+  special_chars:'L\'allemand possÃ¨de 4 caractÃ¨res supplÃ©mentaires absents de l\'anglais.',
   num_desc:'Cliquez sur chaque chiffre pour voir le mot en allemand',
-  num_hint:'Cliquez sur une carte pour révéler le mot allemand. Cliquez à nouveau pour retourner.',
+  num_hint:'Cliquez sur une carte pour rÃ©vÃ©ler le mot allemand. Cliquez Ã  nouveau pour retourner.',
   click_flip:'Cliquez pour retourner !',
-  fill_num_title:'Complétez le chiffre en allemand',
+  fill_num_title:'ComplÃ©tez le chiffre en allemand',
   color_desc:'Apprenez 12 couleurs essentielles avec leurs articles',
-  color_click:'Cliquez sur une couleur pour la sélectionner',
-  color_quiz_title:'Quiz couleurs — Quelle couleur est-ce ?',
-  greet_desc:'Tout ce qu\'il faut pour dire bonjour, au revoir, s\'il vous plaît et merci',
-  greet_cards_title:'Salutations essentielles — cliquez sur une carte',
+  color_click:'Cliquez sur une couleur pour la sÃ©lectionner',
+  color_quiz_title:'Quiz couleurs â Quelle couleur est-ce ?',
+  greet_desc:'Tout ce qu\'il faut pour dire bonjour, au revoir, s\'il vous plaÃ®t et merci',
+  greet_cards_title:'Salutations essentielles â cliquez sur une carte',
   greet_quiz_title:'Quiz salutations',
   fam_desc:'Apprenez le vocabulaire de la famille avec articles',
-  fam_tree_title:'L\'arbre généalogique — cliquez sur une carte',
-  fam_toggle_hint:'Cliquez sur une carte pour révéler la traduction en anglais',
-  fill_article:'Complétez l\'article (der / die / das)',
-  sent_desc:'Construisez vos premières phrases en allemand. Présentez-vous !',
-  build_intro_title:'Créez votre introduction',
-  build_intro_desc:'Remplissez les blancs pour créer votre introduction personnelle en allemand.',
-  sb_label1:'1. Je m\'appelle…',sb_label2:'2. J\'ai … ans',
-  sb_label3:'3. Je viens de…',sb_label4:'4. J\'habite à…',sb_label5:'5. Je parle un peu allemand !',
-  sb_hint5:'Indice : "un peu" en allemand → <em>ein bisschen</em>',
-  build_intro_btn:'Créer mon introduction ! 🎉',
-  your_name:'votre prénom',your_age:'âge',your_from:'pays/ville',your_live:'ville/pays',
-  intro_label:'🎉 Votre introduction en allemand :',
-  intro_copy:'Copiez et utilisez cela dans le chat communautaire ! 🚀',
-  quiz_title:'Quiz final — Testez tout !',
+  fam_tree_title:'L\'arbre gÃ©nÃ©alogique â cliquez sur une carte',
+  fam_toggle_hint:'Cliquez sur une carte pour rÃ©vÃ©ler la traduction en anglais',
+  fill_article:'ComplÃ©tez l\'article (der / die / das)',
+  sent_desc:'Construisez vos premiÃ¨res phrases en allemand. PrÃ©sentez-vous !',
+  build_intro_title:'CrÃ©ez votre introduction',
+  build_intro_desc:'Remplissez les blancs pour crÃ©er votre introduction personnelle en allemand.',
+  sb_label1:'1. Je m\'appelleâ¦',sb_label2:'2. J\'ai â¦ ans',
+  sb_label3:'3. Je viens deâ¦',sb_label4:'4. J\'habite Ã â¦',sb_label5:'5. Je parle un peu allemand !',
+  sb_hint5:'Indice : "un peu" en allemand â <em>ein bisschen</em>',
+  build_intro_btn:'CrÃ©er mon introduction ! ð',
+  your_name:'votre prÃ©nom',your_age:'Ã¢ge',your_from:'pays/ville',your_live:'ville/pays',
+  intro_label:'ð Votre introduction en allemand :',
+  intro_copy:'Copiez et utilisez cela dans le chat communautaire ! ð',
+  quiz_title:'Quiz final â Testez tout !',
   quiz_desc:'10 questions couvrant les 6 modules',
   q_correct_label:'/ 10 correctes',
-  check:'Vérifier ✓',check_short:'Vérifier ✓',
-  check_all:'Vérifier toutes les réponses 🎯',
-  try_again:'Réessayer 🔄',
-  join_community:'Rejoindre la communauté — Gratuit ! 🇩🇪',
-  next_step:'🚀 Prêt pour la prochaine étape ?',
-  back_welcome:'← Bienvenue',next_numbers:'Chiffres →',
-  back_alpha:'← Alphabet',next_colors:'Couleurs →',
-  back_numbers:'← Chiffres',next_greet:'Salutations →',
-  back_colors:'← Couleurs',next_family:'Famille →',
-  back_greet:'← Salutations',next_sent:'Premières phrases →',
-  back_family:'← Famille',next_quiz:'Quiz final →',
-  back_sent:'← Premières phrases',
-  fb_correct:'✓ Correct ! Bravo !',fb_wrong:'✗ Pas tout à fait — la bonne réponse est en surbrillance.',
-  res_perfect:'Excellent !',res_great:'Très bien !',res_good:'Bon début !',res_practice:'Continuez !',
+  check:'VÃ©rifier â',check_short:'VÃ©rifier â',
+  check_all:'VÃ©rifier toutes les rÃ©ponses ð¯',
+  try_again:'RÃ©essayer ð',
+  join_community:'Rejoindre la communautÃ© â Gratuit ! ð©ðª',
+  next_step:'ð PrÃªt pour la prochaine Ã©tape ?',
+  back_welcome:'â Bienvenue',next_numbers:'Chiffres â',
+  back_alpha:'â Alphabet',next_colors:'Couleurs â',
+  back_numbers:'â Chiffres',next_greet:'Salutations â',
+  back_colors:'â Couleurs',next_family:'Famille â',
+  back_greet:'â Salutations',next_sent:'PremiÃ¨res phrases â',
+  back_family:'â Famille',next_quiz:'Quiz final â',
+  back_sent:'â PremiÃ¨res phrases',
+  fb_correct:'â Correct ! Bravo !',fb_wrong:'â Pas tout Ã  fait â la bonne rÃ©ponse est en surbrillance.',
+  res_perfect:'Excellent !',res_great:'TrÃ¨s bien !',res_good:'Bon dÃ©but !',res_practice:'Continuez !',
   res_score:'Score',res_of:'sur',res_correct:'correct',
-  score_out:'🏆 Excellent ! Vous êtes prêt pour A1 !',
-  score_great:'🎉 Très bien ! Vous connaissez les bases !',
-  score_good:'👍 Bon début ! Révisez et réessayez !',
-  score_practice:'💪 Continuez à pratiquer !',
-  score_answered:'Vous avez répondu',score_of_10:'sur 10 questions correctement.',
-  score_completed:'Vous avez terminé le Hub A0 ! 🎉',
-  score_ready:'Vous êtes prêt à commencer le A1.',
-  score_review:'Révisez les modules et réessayez ! 💪',
-  pb_of:'sur',pb_modules:'modules complétés',
+  score_out:'ð Excellent ! Vous Ãªtes prÃªt pour A1 !',
+  score_great:'ð TrÃ¨s bien ! Vous connaissez les bases !',
+  score_good:'ð Bon dÃ©but ! RÃ©visez et rÃ©essayez !',
+  score_practice:'ðª Continuez Ã  pratiquer !',
+  score_answered:'Vous avez rÃ©pondu',score_of_10:'sur 10 questions correctement.',
+  score_completed:'Vous avez terminÃ© le Hub A0 ! ð',
+  score_ready:'Vous Ãªtes prÃªt Ã  commencer le A1.',
+  score_review:'RÃ©visez les modules et rÃ©essayez ! ðª',
+  pb_of:'sur',pb_modules:'modules complÃ©tÃ©s',
   q_of:'Question',
 },
 es:{
   home:'Inicio',a0_label:'Principiante A0',hub_badge:'Hub principiante',
   free_everyone:'GRATIS para todos',
-  a0_title:'Alemán desde cero — A0 Principiante',
-  a0_subtitle:'Sin alemán previo. Solo curiosidad. ¡Vamos! 🚀',
-  free_tag:'✨ 100% Gratis · Sin registro · 7 módulos interactivos',
-  mod_welcome:'Bienvenida',mod_alphabet:'Alfabeto',mod_numbers:'Números',
+  a0_title:'AlemÃ¡n desde cero â A0 Principiante',
+  a0_subtitle:'Sin alemÃ¡n previo. Solo curiosidad. Â¡Vamos! ð',
+  free_tag:'â¨ 100% Gratis Â· Sin registro Â· 7 mÃ³dulos interactivos',
+  mod_welcome:'Bienvenida',mod_alphabet:'Alfabeto',mod_numbers:'NÃºmeros',
   mod_colors:'Colores',mod_greetings:'Saludos',mod_family:'Familia',
   mod_sentences:'Primeras frases',mod_quiz:'Quiz final',
-  welcome_desc:'7 módulos · ~45 minutos · completamente gratis · sin experiencia necesaria',
-  welcome_p1:'¡Hola! Soy <strong>Stefan</strong> 🇩🇪 — y este es tu <strong>punto de partida</strong> para aprender alemán.',
-  welcome_p2:'En este hub A0 gratuito aprenderás lo básico: el alfabeto, números, colores, saludos, vocabulario familiar y tus primeras frases en alemán. ¡Al final podrás presentarte! 🎉',
-  welcome_tip:'💡 <strong>Consejo rápido:</strong> En alemán, todos los <strong>sustantivos se escriben con mayúscula</strong> y cada sustantivo tiene un género: <strong style="color:#1464b4">der</strong> (masculino), <strong style="color:#c62828">die</strong> (femenino), <strong style="color:#2e7d32">das</strong> (neutro).',
-  wm_alpha_desc:'Las 26 letras + ä, ö, ü, ß — con pronunciación',
-  wm_num_desc:'Cuenta en alemán — ¡haz clic en las tarjetas!',
-  wm_color_desc:'12 colores esenciales con artículos',
-  wm_greet_desc:'Hola, adiós, por favor, gracias',
+  welcome_desc:'7 mÃ³dulos Â· ~45 minutos Â· completamente gratis Â· sin experiencia necesaria',
+  welcome_p1:'Â¡Hola! Soy <strong>Stefan</strong> ð©ðª â y este es tu <strong>punto de partida</strong> para aprender alemÃ¡n.',
+  welcome_p2:'En este hub A0 gratuito aprenderÃ¡s lo bÃ¡sico: el alfabeto, nÃºmeros, colores, saludos, vocabulario familiar y tus primeras frases en alemÃ¡n. Â¡Al final podrÃ¡s presentarte! ð',
+  welcome_tip:'ð¡ <strong>Consejo rÃ¡pido:</strong> En alemÃ¡n, todos los <strong>sustantivos se escriben con mayÃºscula</strong> y cada sustantivo tiene un gÃ©nero: <strong style="color:#1464b4">der</strong> (masculino), <strong style="color:#c62828">die</strong> (femenino), <strong style="color:#2e7d32">das</strong> (neutro).',
+  wm_alpha_desc:'Las 26 letras + Ã¤, Ã¶, Ã¼, Ã â con pronunciaciÃ³n',
+  wm_num_desc:'Cuenta en alemÃ¡n â Â¡haz clic en las tarjetas!',
+  wm_color_desc:'12 colores esenciales con artÃ­culos',
+  wm_greet_desc:'Hola, adiÃ³s, por favor, gracias',
   wm_fam_desc:'Madre, padre, hermana, hermano...',
-  wm_sent_desc:'¡Preséntate en alemán!',
+  wm_sent_desc:'Â¡PresÃ©ntate en alemÃ¡n!',
   wm_quiz_desc:'Pon a prueba todo lo aprendido',
-  start_alpha:'Empezar con el Alfabeto →',
-  alpha_desc:'Haz clic en cada tarjeta para ver consejos de pronunciación',
-  alpha_hint:'Haz clic en una letra para ver cómo suena en alemán.',
+  start_alpha:'Empezar con el Alfabeto â',
+  alpha_desc:'Haz clic en cada tarjeta para ver consejos de pronunciaciÃ³n',
+  alpha_hint:'Haz clic en una letra para ver cÃ³mo suena en alemÃ¡n.',
   alpha_explored:'/ 26 exploradas',
-  special_chars:'El alemán tiene 4 caracteres especiales que no existen en inglés.',
-  num_desc:'Haz clic en cada número para ver la palabra en alemán',
+  special_chars:'El alemÃ¡n tiene 4 caracteres especiales que no existen en inglÃ©s.',
+  num_desc:'Haz clic en cada nÃºmero para ver la palabra en alemÃ¡n',
   num_hint:'Haz clic en una tarjeta para revelar la palabra alemana. Vuelve a hacer clic para voltear.',
-  click_flip:'¡Haz clic para voltear!',
-  fill_num_title:'Completa el número en alemán',
-  color_desc:'Aprende 12 colores esenciales con sus artículos',
+  click_flip:'Â¡Haz clic para voltear!',
+  fill_num_title:'Completa el nÃºmero en alemÃ¡n',
+  color_desc:'Aprende 12 colores esenciales con sus artÃ­culos',
   color_click:'Haz clic en un color para seleccionarlo',
-  color_quiz_title:'Quiz de colores — ¿Qué color es?',
+  color_quiz_title:'Quiz de colores â Â¿QuÃ© color es?',
   greet_desc:'Todo lo que necesitas para saludar y despedirte',
-  greet_cards_title:'Saludos esenciales — haz clic en una tarjeta',
+  greet_cards_title:'Saludos esenciales â haz clic en una tarjeta',
   greet_quiz_title:'Quiz de saludos',
-  fam_desc:'Aprende vocabulario familiar con artículos',
-  fam_tree_title:'El árbol familiar — haz clic en una tarjeta',
-  fam_toggle_hint:'Haz clic en una tarjeta para ver la traducción',
-  fill_article:'Completa el artículo (der / die / das)',
-  sent_desc:'Construye tus primeras frases en alemán. ¡Preséntate!',
-  build_intro_title:'Crea tu introducción',
-  build_intro_desc:'Rellena los espacios para crear tu introducción personal en alemán.',
-  sb_label1:'1. Me llamo…',sb_label2:'2. Tengo … años',
-  sb_label3:'3. Soy de…',sb_label4:'4. Vivo en…',sb_label5:'5. ¡Hablo un poco de alemán!',
-  sb_hint5:'Pista: "un poco" en alemán → <em>ein bisschen</em>',
-  build_intro_btn:'¡Crear mi introducción! 🎉',
-  your_name:'tu nombre',your_age:'edad',your_from:'país/ciudad',your_live:'ciudad/país',
-  intro_label:'🎉 Tu introducción en alemán:',
-  intro_copy:'¡Copia esto y úsalo en el chat de la comunidad! 🚀',
-  quiz_title:'Quiz final — ¡Prueba todo!',
-  quiz_desc:'10 preguntas sobre los 6 módulos',
+  fam_desc:'Aprende vocabulario familiar con artÃ­culos',
+  fam_tree_title:'El Ã¡rbol familiar â haz clic en una tarjeta',
+  fam_toggle_hint:'Haz clic en una tarjeta para ver la traducciÃ³n',
+  fill_article:'Completa el artÃ­culo (der / die / das)',
+  sent_desc:'Construye tus primeras frases en alemÃ¡n. Â¡PresÃ©ntate!',
+  build_intro_title:'Crea tu introducciÃ³n',
+  build_intro_desc:'Rellena los espacios para crear tu introducciÃ³n personal en alemÃ¡n.',
+  sb_label1:'1. Me llamoâ¦',sb_label2:'2. Tengo â¦ aÃ±os',
+  sb_label3:'3. Soy deâ¦',sb_label4:'4. Vivo enâ¦',sb_label5:'5. Â¡Hablo un poco de alemÃ¡n!',
+  sb_hint5:'Pista: "un poco" en alemÃ¡n â <em>ein bisschen</em>',
+  build_intro_btn:'Â¡Crear mi introducciÃ³n! ð',
+  your_name:'tu nombre',your_age:'edad',your_from:'paÃ­s/ciudad',your_live:'ciudad/paÃ­s',
+  intro_label:'ð Tu introducciÃ³n en alemÃ¡n:',
+  intro_copy:'Â¡Copia esto y Ãºsalo en el chat de la comunidad! ð',
+  quiz_title:'Quiz final â Â¡Prueba todo!',
+  quiz_desc:'10 preguntas sobre los 6 mÃ³dulos',
   q_correct_label:'/ 10 correctas',
-  check:'Comprobar ✓',check_short:'Comprobar ✓',
-  check_all:'Comprobar todas las respuestas 🎯',
-  try_again:'Intentar de nuevo 🔄',
-  join_community:'¡Unirse a la comunidad — Gratis! 🇩🇪',
-  next_step:'🚀 ¿Listo para el siguiente paso?',
-  back_welcome:'← Bienvenida',next_numbers:'Números →',
-  back_alpha:'← Alfabeto',next_colors:'Colores →',
-  back_numbers:'← Números',next_greet:'Saludos →',
-  back_colors:'← Colores',next_family:'Familia →',
-  back_greet:'← Saludos',next_sent:'Primeras frases →',
-  back_family:'← Familia',next_quiz:'Quiz final →',
-  back_sent:'← Primeras frases',
-  fb_correct:'✓ ¡Correcto! ¡Muy bien!',fb_wrong:'✗ No del todo — la respuesta correcta está resaltada.',
-  res_perfect:'¡Sobresaliente!',res_great:'¡Muy bien!',res_good:'¡Buen comienzo!',res_practice:'¡Sigue practicando!',
-  res_score:'Puntuación',res_of:'de',res_correct:'correctas',
-  score_out:'🏆 ¡Sobresaliente! ¡Estás listo para A1!',
-  score_great:'🎉 ¡Muy bien! ¡Conoces lo básico!',
-  score_good:'👍 ¡Buen comienzo! ¡Repasa e inténtalo de nuevo!',
-  score_practice:'💪 ¡Sigue practicando!',
+  check:'Comprobar â',check_short:'Comprobar â',
+  check_all:'Comprobar todas las respuestas ð¯',
+  try_again:'Intentar de nuevo ð',
+  join_community:'Â¡Unirse a la comunidad â Gratis! ð©ðª',
+  next_step:'ð Â¿Listo para el siguiente paso?',
+  back_welcome:'â Bienvenida',next_numbers:'NÃºmeros â',
+  back_alpha:'â Alfabeto',next_colors:'Colores â',
+  back_numbers:'â NÃºmeros',next_greet:'Saludos â',
+  back_colors:'â Colores',next_family:'Familia â',
+  back_greet:'â Saludos',next_sent:'Primeras frases â',
+  back_family:'â Familia',next_quiz:'Quiz final â',
+  back_sent:'â Primeras frases',
+  fb_correct:'â Â¡Correcto! Â¡Muy bien!',fb_wrong:'â No del todo â la respuesta correcta estÃ¡ resaltada.',
+  res_perfect:'Â¡Sobresaliente!',res_great:'Â¡Muy bien!',res_good:'Â¡Buen comienzo!',res_practice:'Â¡Sigue practicando!',
+  res_score:'PuntuaciÃ³n',res_of:'de',res_correct:'correctas',
+  score_out:'ð Â¡Sobresaliente! Â¡EstÃ¡s listo para A1!',
+  score_great:'ð Â¡Muy bien! Â¡Conoces lo bÃ¡sico!',
+  score_good:'ð Â¡Buen comienzo! Â¡Repasa e intÃ©ntalo de nuevo!',
+  score_practice:'ðª Â¡Sigue practicando!',
   score_answered:'Has respondido',score_of_10:'de 10 preguntas correctamente.',
-  score_completed:'¡Has completado el Hub A0! 🎉',
-  score_ready:'Estás listo para comenzar el A1.',
-  score_review:'Repasa los módulos y vuelve a intentar el quiz. ¡Tú puedes! 💪',
-  pb_of:'de',pb_modules:'módulos completados',
+  score_completed:'Â¡Has completado el Hub A0! ð',
+  score_ready:'EstÃ¡s listo para comenzar el A1.',
+  score_review:'Repasa los mÃ³dulos y vuelve a intentar el quiz. Â¡TÃº puedes! ðª',
+  pb_of:'de',pb_modules:'mÃ³dulos completados',
   q_of:'Pregunta',
 },
 it:{
   home:'Home',a0_label:'Principiante A0',hub_badge:'Hub principianti',
   free_everyone:'GRATUITO per tutti',
-  a0_title:'Il tedesco da zero — A0 Principiante',
-  a0_subtitle:"Nessuna conoscenza richiesta. Solo curiosità. Andiamo! 🚀",
-  free_tag:'✨ 100% Gratuito · Senza registrazione · 7 moduli interattivi',
+  a0_title:'Il tedesco da zero â A0 Principiante',
+  a0_subtitle:"Nessuna conoscenza richiesta. Solo curiositÃ . Andiamo! ð",
+  free_tag:'â¨ 100% Gratuito Â· Senza registrazione Â· 7 moduli interattivi',
   mod_welcome:'Benvenuto',mod_alphabet:'Alfabeto',mod_numbers:'Numeri',
   mod_colors:'Colori',mod_greetings:'Saluti',mod_family:'Famiglia',
   mod_sentences:'Prime frasi',mod_quiz:'Quiz finale',
-  welcome_desc:'7 moduli · ~45 minuti · completamente gratuito · senza esperienza',
-  welcome_p1:'Ciao! Sono <strong>Stefan</strong> 🇩🇪 — e questo è il tuo <strong>punto di partenza</strong> per imparare il tedesco.',
-  welcome_p2:'In questo hub A0 gratuito imparerai le basi assolute: alfabeto, numeri, colori, saluti, vocabolario familiare e le tue prime frasi in tedesco. 🎉',
-  welcome_tip:'💡 <strong>Consiglio:</strong> In tedesco, tutti i <strong>sostantivi sono scritti con la maiuscola</strong> e ogni sostantivo ha un genere: <strong style="color:#1464b4">der</strong> (maschile), <strong style="color:#c62828">die</strong> (femminile), <strong style="color:#2e7d32">das</strong> (neutro).',
-  wm_alpha_desc:'Tutte le 26 lettere + ä, ö, ü, ß — con pronuncia',
-  wm_num_desc:'Conta in tedesco — clicca le carte!',
+  welcome_desc:'7 moduli Â· ~45 minuti Â· completamente gratuito Â· senza esperienza',
+  welcome_p1:'Ciao! Sono <strong>Stefan</strong> ð©ðª â e questo Ã¨ il tuo <strong>punto di partenza</strong> per imparare il tedesco.',
+  welcome_p2:'In questo hub A0 gratuito imparerai le basi assolute: alfabeto, numeri, colori, saluti, vocabolario familiare e le tue prime frasi in tedesco. ð',
+  welcome_tip:'ð¡ <strong>Consiglio:</strong> In tedesco, tutti i <strong>sostantivi sono scritti con la maiuscola</strong> e ogni sostantivo ha un genere: <strong style="color:#1464b4">der</strong> (maschile), <strong style="color:#c62828">die</strong> (femminile), <strong style="color:#2e7d32">das</strong> (neutro).',
+  wm_alpha_desc:'Tutte le 26 lettere + Ã¤, Ã¶, Ã¼, Ã â con pronuncia',
+  wm_num_desc:'Conta in tedesco â clicca le carte!',
   wm_color_desc:'12 colori essenziali con articoli',
   wm_greet_desc:'Ciao, arrivederci, per favore, grazie',
   wm_fam_desc:'Madre, padre, sorella, fratello...',
   wm_sent_desc:'Presentati in tedesco!',
-  wm_quiz_desc:'Metti alla prova tutto ciò che hai imparato',
-  start_alpha:"Inizia con l'Alfabeto →",
+  wm_quiz_desc:'Metti alla prova tutto ciÃ² che hai imparato',
+  start_alpha:"Inizia con l'Alfabeto â",
   alpha_desc:'Clicca su ogni carta per vedere i consigli sulla pronuncia',
   alpha_hint:'Clicca su una lettera per vedere come suona in tedesco.',
   alpha_explored:'/ 26 esplorate',
@@ -922,134 +922,134 @@ it:{
   fill_num_title:'Inserisci il numero in tedesco',
   color_desc:'Impara 12 colori essenziali con i loro articoli',
   color_click:'Clicca su un colore per selezionarlo',
-  color_quiz_title:'Quiz colori — Che colore è?',
+  color_quiz_title:'Quiz colori â Che colore Ã¨?',
   greet_desc:'Tutto quello che ti serve per salutare e congedarti',
-  greet_cards_title:'Saluti essenziali — clicca su una carta',
+  greet_cards_title:'Saluti essenziali â clicca su una carta',
   greet_quiz_title:'Quiz saluti',
   fam_desc:'Impara il vocabolario familiare con gli articoli',
-  fam_tree_title:"L'albero genealogico — clicca su una carta",
+  fam_tree_title:"L'albero genealogico â clicca su una carta",
   fam_toggle_hint:'Clicca su una carta per vedere la traduzione',
   fill_article:"Inserisci l'articolo (der / die / das)",
   sent_desc:'Costruisci le tue prime frasi in tedesco. Presentati!',
   build_intro_title:'Crea la tua introduzione',
   build_intro_desc:'Compila gli spazi per creare la tua introduzione personale in tedesco.',
-  sb_label1:'1. Mi chiamo…',sb_label2:'2. Ho … anni',
-  sb_label3:'3. Vengo da…',sb_label4:'4. Vivo a…',sb_label5:'5. Parlo un po\' di tedesco!',
-  sb_hint5:'Suggerimento: "un po\'" in tedesco → <em>ein bisschen</em>',
-  build_intro_btn:'Crea la mia introduzione! 🎉',
-  your_name:'il tuo nome',your_age:'età',your_from:'paese/città',your_live:'città/paese',
-  intro_label:'🎉 La tua introduzione in tedesco:',
-  intro_copy:'Copia questo e usalo nella chat della community! 🚀',
-  quiz_title:'Quiz finale — Metti tutto alla prova!',
+  sb_label1:'1. Mi chiamoâ¦',sb_label2:'2. Ho â¦ anni',
+  sb_label3:'3. Vengo daâ¦',sb_label4:'4. Vivo aâ¦',sb_label5:'5. Parlo un po\' di tedesco!',
+  sb_hint5:'Suggerimento: "un po\'" in tedesco â <em>ein bisschen</em>',
+  build_intro_btn:'Crea la mia introduzione! ð',
+  your_name:'il tuo nome',your_age:'etÃ ',your_from:'paese/cittÃ ',your_live:'cittÃ /paese',
+  intro_label:'ð La tua introduzione in tedesco:',
+  intro_copy:'Copia questo e usalo nella chat della community! ð',
+  quiz_title:'Quiz finale â Metti tutto alla prova!',
   quiz_desc:'10 domande su tutti i 6 moduli',
   q_correct_label:'/ 10 corrette',
-  check:'Controlla ✓',check_short:'Controlla ✓',
-  check_all:'Controlla tutte le risposte 🎯',
-  try_again:'Riprova 🔄',
-  join_community:'Unisciti alla community — Gratis! 🇩🇪',
-  next_step:'🚀 Pronto per il passo successivo?',
-  back_welcome:'← Benvenuto',next_numbers:'Numeri →',
-  back_alpha:'← Alfabeto',next_colors:'Colori →',
-  back_numbers:'← Numeri',next_greet:'Saluti →',
-  back_colors:'← Colori',next_family:'Famiglia →',
-  back_greet:'← Saluti',next_sent:'Prime frasi →',
-  back_family:'← Famiglia',next_quiz:'Quiz finale →',
-  back_sent:'← Prime frasi',
-  fb_correct:'✓ Corretto! Bravo!',fb_wrong:'✗ Non proprio — la risposta corretta è evidenziata.',
+  check:'Controlla â',check_short:'Controlla â',
+  check_all:'Controlla tutte le risposte ð¯',
+  try_again:'Riprova ð',
+  join_community:'Unisciti alla community â Gratis! ð©ðª',
+  next_step:'ð Pronto per il passo successivo?',
+  back_welcome:'â Benvenuto',next_numbers:'Numeri â',
+  back_alpha:'â Alfabeto',next_colors:'Colori â',
+  back_numbers:'â Numeri',next_greet:'Saluti â',
+  back_colors:'â Colori',next_family:'Famiglia â',
+  back_greet:'â Saluti',next_sent:'Prime frasi â',
+  back_family:'â Famiglia',next_quiz:'Quiz finale â',
+  back_sent:'â Prime frasi',
+  fb_correct:'â Corretto! Bravo!',fb_wrong:'â Non proprio â la risposta corretta Ã¨ evidenziata.',
   res_perfect:'Eccellente!',res_great:'Ottimo lavoro!',res_good:'Buon inizio!',res_practice:'Continua a praticare!',
   res_score:'Punteggio',res_of:'su',res_correct:'corrette',
-  score_out:'🏆 Eccellente! Sei pronto per A1!',
-  score_great:'🎉 Ottimo lavoro! Conosci le basi!',
-  score_good:'👍 Buon inizio! Ripassa e riprova!',
-  score_practice:'💪 Continua a praticare!',
+  score_out:'ð Eccellente! Sei pronto per A1!',
+  score_great:'ð Ottimo lavoro! Conosci le basi!',
+  score_good:'ð Buon inizio! Ripassa e riprova!',
+  score_practice:'ðª Continua a praticare!',
   score_answered:'Hai risposto',score_of_10:'su 10 domande correttamente.',
-  score_completed:"Hai completato l'Hub A0! 🎉",
+  score_completed:"Hai completato l'Hub A0! ð",
   score_ready:'Sei pronto per iniziare il percorso A1.',
-  score_review:'Rivedi i moduli e riprova il quiz! 💪',
+  score_review:'Rivedi i moduli e riprova il quiz! ðª',
   pb_of:'di',pb_modules:'moduli completati',
   q_of:'Domanda',
 },
 pt:{
-  home:'Início',a0_label:'Iniciante A0',hub_badge:'Hub iniciante',
+  home:'InÃ­cio',a0_label:'Iniciante A0',hub_badge:'Hub iniciante',
   free_everyone:'GRATUITO para todos',
-  a0_title:'Alemão do zero — A0 Iniciante',
-  a0_subtitle:'Sem alemão necessário. Só curiosidade. Vamos! 🚀',
-  free_tag:'✨ 100% Gratuito · Sem cadastro · 7 módulos interativos',
-  mod_welcome:'Boas-vindas',mod_alphabet:'Alfabeto',mod_numbers:'Números',
-  mod_colors:'Cores',mod_greetings:'Saudações',mod_family:'Família',
+  a0_title:'AlemÃ£o do zero â A0 Iniciante',
+  a0_subtitle:'Sem alemÃ£o necessÃ¡rio. SÃ³ curiosidade. Vamos! ð',
+  free_tag:'â¨ 100% Gratuito Â· Sem cadastro Â· 7 mÃ³dulos interativos',
+  mod_welcome:'Boas-vindas',mod_alphabet:'Alfabeto',mod_numbers:'NÃºmeros',
+  mod_colors:'Cores',mod_greetings:'SaudaÃ§Ãµes',mod_family:'FamÃ­lia',
   mod_sentences:'Primeiras frases',mod_quiz:'Quiz final',
-  welcome_desc:'7 módulos · ~45 minutos · completamente gratuito · sem experiência',
-  welcome_p1:'Olá! Sou o <strong>Stefan</strong> 🇩🇪 — e este é o seu <strong>ponto de partida</strong> para aprender alemão.',
-  welcome_p2:'Neste hub A0 gratuito você aprenderá o básico: alfabeto, números, cores, saudações, vocabulário familiar e suas primeiras frases em alemão. 🎉',
-  welcome_tip:'💡 <strong>Dica rápida:</strong> Em alemão, todos os <strong>substantivos são escritos com maiúscula</strong> e cada substantivo tem um gênero: <strong style="color:#1464b4">der</strong> (masculino), <strong style="color:#c62828">die</strong> (feminino), <strong style="color:#2e7d32">das</strong> (neutro).',
-  wm_alpha_desc:'Todas as 26 letras + ä, ö, ü, ß — com pronúncia',
-  wm_num_desc:'Conte em alemão — clique nas fichas!',
+  welcome_desc:'7 mÃ³dulos Â· ~45 minutos Â· completamente gratuito Â· sem experiÃªncia',
+  welcome_p1:'OlÃ¡! Sou o <strong>Stefan</strong> ð©ðª â e este Ã© o seu <strong>ponto de partida</strong> para aprender alemÃ£o.',
+  welcome_p2:'Neste hub A0 gratuito vocÃª aprenderÃ¡ o bÃ¡sico: alfabeto, nÃºmeros, cores, saudaÃ§Ãµes, vocabulÃ¡rio familiar e suas primeiras frases em alemÃ£o. ð',
+  welcome_tip:'ð¡ <strong>Dica rÃ¡pida:</strong> Em alemÃ£o, todos os <strong>substantivos sÃ£o escritos com maiÃºscula</strong> e cada substantivo tem um gÃªnero: <strong style="color:#1464b4">der</strong> (masculino), <strong style="color:#c62828">die</strong> (feminino), <strong style="color:#2e7d32">das</strong> (neutro).',
+  wm_alpha_desc:'Todas as 26 letras + Ã¤, Ã¶, Ã¼, Ã â com pronÃºncia',
+  wm_num_desc:'Conte em alemÃ£o â clique nas fichas!',
   wm_color_desc:'12 cores essenciais com artigos',
-  wm_greet_desc:'Olá, adeus, por favor, obrigado',
-  wm_fam_desc:'Mãe, pai, irmã, irmão...',
-  wm_sent_desc:'Apresente-se em alemão!',
+  wm_greet_desc:'OlÃ¡, adeus, por favor, obrigado',
+  wm_fam_desc:'MÃ£e, pai, irmÃ£, irmÃ£o...',
+  wm_sent_desc:'Apresente-se em alemÃ£o!',
   wm_quiz_desc:'Teste tudo o que aprendeu',
-  start_alpha:'Começar com o Alfabeto →',
-  alpha_desc:'Clique em cada carta para ver dicas de pronúncia',
-  alpha_hint:'Clique em uma letra para ver como soa em alemão.',
+  start_alpha:'ComeÃ§ar com o Alfabeto â',
+  alpha_desc:'Clique em cada carta para ver dicas de pronÃºncia',
+  alpha_hint:'Clique em uma letra para ver como soa em alemÃ£o.',
   alpha_explored:'/ 26 exploradas',
-  special_chars:'O alemão tem 4 caracteres especiais não encontrados no inglês.',
-  num_desc:'Clique em cada número para ver a palavra em alemão',
-  num_hint:'Clique em uma carta para revelar a palavra alemã. Clique novamente para virar.',
+  special_chars:'O alemÃ£o tem 4 caracteres especiais nÃ£o encontrados no inglÃªs.',
+  num_desc:'Clique em cada nÃºmero para ver a palavra em alemÃ£o',
+  num_hint:'Clique em uma carta para revelar a palavra alemÃ£. Clique novamente para virar.',
   click_flip:'Clique para virar!',
-  fill_num_title:'Preencha o número em alemão',
+  fill_num_title:'Preencha o nÃºmero em alemÃ£o',
   color_desc:'Aprenda 12 cores essenciais com seus artigos',
-  color_click:'Clique em uma cor para selecioná-la',
-  color_quiz_title:'Quiz de cores — Que cor é?',
-  greet_desc:'Tudo o que você precisa para cumprimentar e se despedir',
-  greet_cards_title:'Saudações essenciais — clique em uma carta',
-  greet_quiz_title:'Quiz de saudações',
-  fam_desc:'Aprenda vocabulário familiar com artigos',
-  fam_tree_title:'A árvore genealógica — clique em uma carta',
-  fam_toggle_hint:'Clique em uma carta para ver a tradução',
+  color_click:'Clique em uma cor para selecionÃ¡-la',
+  color_quiz_title:'Quiz de cores â Que cor Ã©?',
+  greet_desc:'Tudo o que vocÃª precisa para cumprimentar e se despedir',
+  greet_cards_title:'SaudaÃ§Ãµes essenciais â clique em uma carta',
+  greet_quiz_title:'Quiz de saudaÃ§Ãµes',
+  fam_desc:'Aprenda vocabulÃ¡rio familiar com artigos',
+  fam_tree_title:'A Ã¡rvore genealÃ³gica â clique em uma carta',
+  fam_toggle_hint:'Clique em uma carta para ver a traduÃ§Ã£o',
   fill_article:'Preencha o artigo (der / die / das)',
-  sent_desc:'Construa suas primeiras frases em alemão. Apresente-se!',
-  build_intro_title:'Crie sua introdução',
-  build_intro_desc:'Preencha os espaços para criar sua introdução pessoal em alemão.',
-  sb_label1:'1. Meu nome é…',sb_label2:'2. Tenho … anos',
-  sb_label3:'3. Sou de…',sb_label4:'4. Moro em…',sb_label5:'5. Falo um pouco de alemão!',
-  sb_hint5:'Dica: "um pouco" em alemão → <em>ein bisschen</em>',
-  build_intro_btn:'Criar minha introdução! 🎉',
-  your_name:'seu nome',your_age:'idade',your_from:'país/cidade',your_live:'cidade/país',
-  intro_label:'🎉 Sua introdução em alemão:',
-  intro_copy:'Copie isso e use no chat da comunidade! 🚀',
-  quiz_title:'Quiz final — Teste tudo!',
-  quiz_desc:'10 perguntas sobre os 6 módulos',
+  sent_desc:'Construa suas primeiras frases em alemÃ£o. Apresente-se!',
+  build_intro_title:'Crie sua introduÃ§Ã£o',
+  build_intro_desc:'Preencha os espaÃ§os para criar sua introduÃ§Ã£o pessoal em alemÃ£o.',
+  sb_label1:'1. Meu nome Ã©â¦',sb_label2:'2. Tenho â¦ anos',
+  sb_label3:'3. Sou deâ¦',sb_label4:'4. Moro emâ¦',sb_label5:'5. Falo um pouco de alemÃ£o!',
+  sb_hint5:'Dica: "um pouco" em alemÃ£o â <em>ein bisschen</em>',
+  build_intro_btn:'Criar minha introduÃ§Ã£o! ð',
+  your_name:'seu nome',your_age:'idade',your_from:'paÃ­s/cidade',your_live:'cidade/paÃ­s',
+  intro_label:'ð Sua introduÃ§Ã£o em alemÃ£o:',
+  intro_copy:'Copie isso e use no chat da comunidade! ð',
+  quiz_title:'Quiz final â Teste tudo!',
+  quiz_desc:'10 perguntas sobre os 6 mÃ³dulos',
   q_correct_label:'/ 10 corretas',
-  check:'Verificar ✓',check_short:'Verificar ✓',
-  check_all:'Verificar todas as respostas 🎯',
-  try_again:'Tentar novamente 🔄',
-  join_community:'Entrar na comunidade — Grátis! 🇩🇪',
-  next_step:'🚀 Pronto para o próximo passo?',
-  back_welcome:'← Boas-vindas',next_numbers:'Números →',
-  back_alpha:'← Alfabeto',next_colors:'Cores →',
-  back_numbers:'← Números',next_greet:'Saudações →',
-  back_colors:'← Cores',next_family:'Família →',
-  back_greet:'← Saudações',next_sent:'Primeiras frases →',
-  back_family:'← Família',next_quiz:'Quiz final →',
-  back_sent:'← Primeiras frases',
-  fb_correct:'✓ Correto! Muito bem!',fb_wrong:'✗ Não foi desta vez — a resposta correta está destacada.',
-  res_perfect:'Excelente!',res_great:'Ótimo trabalho!',res_good:'Bom começo!',res_practice:'Continue praticando!',
-  res_score:'Pontuação',res_of:'de',res_correct:'corretas',
-  score_out:'🏆 Excelente! Você está pronto para o A1!',
-  score_great:'🎉 Ótimo trabalho! Você conhece o básico!',
-  score_good:'👍 Bom começo! Revise e tente novamente!',
-  score_practice:'💪 Continue praticando!',
-  score_answered:'Você respondeu',score_of_10:'de 10 perguntas corretamente.',
-  score_completed:'Você completou o Hub A0! 🎉',
-  score_ready:'Você está pronto para começar o A1.',
-  score_review:'Revise os módulos e tente o quiz novamente! 💪',
-  pb_of:'de',pb_modules:'módulos concluídos',
-  q_of:'Questão',
+  check:'Verificar â',check_short:'Verificar â',
+  check_all:'Verificar todas as respostas ð¯',
+  try_again:'Tentar novamente ð',
+  join_community:'Entrar na comunidade â GrÃ¡tis! ð©ðª',
+  next_step:'ð Pronto para o prÃ³ximo passo?',
+  back_welcome:'â Boas-vindas',next_numbers:'NÃºmeros â',
+  back_alpha:'â Alfabeto',next_colors:'Cores â',
+  back_numbers:'â NÃºmeros',next_greet:'SaudaÃ§Ãµes â',
+  back_colors:'â Cores',next_family:'FamÃ­lia â',
+  back_greet:'â SaudaÃ§Ãµes',next_sent:'Primeiras frases â',
+  back_family:'â FamÃ­lia',next_quiz:'Quiz final â',
+  back_sent:'â Primeiras frases',
+  fb_correct:'â Correto! Muito bem!',fb_wrong:'â NÃ£o foi desta vez â a resposta correta estÃ¡ destacada.',
+  res_perfect:'Excelente!',res_great:'Ãtimo trabalho!',res_good:'Bom comeÃ§o!',res_practice:'Continue praticando!',
+  res_score:'PontuaÃ§Ã£o',res_of:'de',res_correct:'corretas',
+  score_out:'ð Excelente! VocÃª estÃ¡ pronto para o A1!',
+  score_great:'ð Ãtimo trabalho! VocÃª conhece o bÃ¡sico!',
+  score_good:'ð Bom comeÃ§o! Revise e tente novamente!',
+  score_practice:'ðª Continue praticando!',
+  score_answered:'VocÃª respondeu',score_of_10:'de 10 perguntas corretamente.',
+  score_completed:'VocÃª completou o Hub A0! ð',
+  score_ready:'VocÃª estÃ¡ pronto para comeÃ§ar o A1.',
+  score_review:'Revise os mÃ³dulos e tente o quiz novamente! ðª',
+  pb_of:'de',pb_modules:'mÃ³dulos concluÃ­dos',
+  q_of:'QuestÃ£o',
 }
 };
 
-// ── LANG SYSTEM ───────────────────────────────────────────────────
+// ââ LANG SYSTEM âââââââââââââââââââââââââââââââââââââââââââââââââââ
 let CL=localStorage.getItem('tgs_lang')||'en';
 function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
@@ -1067,7 +1067,7 @@ function applyLang(){
   updateProgress();
 }
 
-// ── DATA ─────────────────────────────────────────────────────────
+// ââ DATA âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const ALPHA=[
   {l:'A',p:'"ah"',ex:'Apfel (apple)'},{l:'B',p:'"bay"',ex:'Buch (book)'},
   {l:'C',p:'"tsay"',ex:'Computer'},{l:'D',p:'"day"',ex:'Deutsch (German)'},
@@ -1084,41 +1084,41 @@ const ALPHA=[
   {l:'Y',p:'"ypsilon"',ex:'Yoga'},{l:'Z',p:'"tsett"',ex:'Zehn (ten)'}
 ];
 const NUMS=[
-  {n:1,de:'eins'},{n:2,de:'zwei'},{n:3,de:'drei'},{n:4,de:'vier'},{n:5,de:'fünf'},
+  {n:1,de:'eins'},{n:2,de:'zwei'},{n:3,de:'drei'},{n:4,de:'vier'},{n:5,de:'fÃ¼nf'},
   {n:6,de:'sechs'},{n:7,de:'sieben'},{n:8,de:'acht'},{n:9,de:'neun'},{n:10,de:'zehn'},
-  {n:11,de:'elf'},{n:12,de:'zwölf'},{n:13,de:'dreizehn'},{n:14,de:'vierzehn'},{n:15,de:'fünfzehn'},
+  {n:11,de:'elf'},{n:12,de:'zwÃ¶lf'},{n:13,de:'dreizehn'},{n:14,de:'vierzehn'},{n:15,de:'fÃ¼nfzehn'},
   {n:16,de:'sechzehn'},{n:17,de:'siebzehn'},{n:18,de:'achtzehn'},{n:19,de:'neunzehn'},{n:20,de:'zwanzig'}
 ];
 const COLORS=[
   {de:'rot',en:'red',hex:'#e53935'},{de:'blau',en:'blue',hex:'#1e88e5'},
-  {de:'grün',en:'green',hex:'#43a047'},{de:'gelb',en:'yellow',hex:'#fdd835'},
-  {de:'schwarz',en:'black',hex:'#212121'},{de:'weiß',en:'white',hex:'#bdbdbd'},
+  {de:'grÃ¼n',en:'green',hex:'#43a047'},{de:'gelb',en:'yellow',hex:'#fdd835'},
+  {de:'schwarz',en:'black',hex:'#212121'},{de:'weiÃ',en:'white',hex:'#bdbdbd'},
   {de:'orange',en:'orange',hex:'#fb8c00'},{de:'lila',en:'purple',hex:'#8e24aa'},
   {de:'rosa',en:'pink',hex:'#e91e63'},{de:'braun',en:'brown',hex:'#6d4c41'},
   {de:'grau',en:'grey',hex:'#757575'},{de:'beige',en:'beige',hex:'#c8a96e'}
 ];
 const FAMILY_TREE=[
-  [{emoji:'👴',de:'der Opa',en:'grandfather'},{emoji:'👵',de:'die Oma',en:'grandmother'}],
-  [{emoji:'👨',de:'der Vater',en:'father'},{emoji:'👩',de:'die Mutter',en:'mother'}],
-  [{emoji:'👦',de:'der Bruder',en:'brother'},{emoji:'🧒',de:'das Kind',en:'the child'},{emoji:'👧',de:'die Schwester',en:'sister'}]
+  [{emoji:'ð´',de:'der Opa',en:'grandfather'},{emoji:'ðµ',de:'die Oma',en:'grandmother'}],
+  [{emoji:'ð¨',de:'der Vater',en:'father'},{emoji:'ð©',de:'die Mutter',en:'mother'}],
+  [{emoji:'ð¦',de:'der Bruder',en:'brother'},{emoji:'ð§',de:'das Kind',en:'the child'},{emoji:'ð§',de:'die Schwester',en:'sister'}]
 ];
 const DAYS=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
 const DAYS_EN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-const MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const MONTHS=['Januar','Februar','MÃ¤rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 
-// ── RESULT BANNER ─────────────────────────────────────────────────
+// ââ RESULT BANNER âââââââââââââââââââââââââââââââââââââââââââââââââ
 function showRes(id,ok,tot){
   const el=document.getElementById(id);if(!el)return;
   const p=ok/tot;
-  let cls='practice',msg=t('res_practice'),em='💪';
-  if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}
-  else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}
-  else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}
+  let cls='practice',msg=t('res_practice'),em='ðª';
+  if(p===1){cls='perfect';msg=t('res_perfect');em='ð';}
+  else if(p>=0.8){cls='great';msg=t('res_great');em='ð';}
+  else if(p>=0.5){cls='good';msg=t('res_good');em='ð';}
   el.className='rb show '+cls;
   el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>';
 }
 
-// ── MODULE NAV ────────────────────────────────────────────────────
+// ââ MODULE NAV ââââââââââââââââââââââââââââââââââââââââââââââââââââ
 let completed=new Set();
 function goModule(i){
   document.querySelectorAll('.module').forEach((m,idx)=>m.classList.toggle('on',idx===i));
@@ -1128,7 +1128,7 @@ function goModule(i){
 function completeAndGo(from,to){
   completed.add(from);
   const chk=document.getElementById('chk'+from);
-  if(chk){chk.textContent='✓';chk.style.background='var(--lc)';chk.style.color='#fff';}
+  if(chk){chk.textContent='â';chk.style.background='var(--lc)';chk.style.color='#fff';}
   document.querySelectorAll('.mtab')[from].classList.add('done');
   updateProgress();
   goModule(to);
@@ -1141,7 +1141,7 @@ function updateProgress(){
   document.getElementById('pb-text').textContent=completed.size+' '+t('pb_of')+' 7 '+t('pb_modules');
 }
 
-// ── ALPHABET ──────────────────────────────────────────────────────
+// ââ ALPHABET ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 let alphaFlipped=0;
 (function buildAlpha(){
   const g=document.getElementById('alpha-grid');
@@ -1158,7 +1158,7 @@ let alphaFlipped=0;
   });
 })();
 
-// ── NUMBERS ───────────────────────────────────────────────────────
+// ââ NUMBERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 (function buildNums(){
   const g=document.getElementById('num-grid');
   NUMS.forEach(n=>{
@@ -1168,7 +1168,7 @@ let alphaFlipped=0;
     d.onclick=function(){this.classList.toggle('flip');};
     g.appendChild(d);
   });
-  const pairs=[[3,'drei'],[7,'sieben'],[12,'zwölf'],[15,'fünfzehn'],[20,'zwanzig']];
+  const pairs=[[3,'drei'],[7,'sieben'],[12,'zwÃ¶lf'],[15,'fÃ¼nfzehn'],[20,'zwanzig']];
   const f=document.getElementById('num-fill');
   pairs.forEach((p,i)=>{
     const row=document.createElement('div');
@@ -1184,12 +1184,12 @@ function checkNumFill(){
     const inp=document.getElementById('nf'+i);
     inp.classList.remove('ok','bad');
     if(inp.value.trim().toLowerCase()===window['_nfans'+i]){inp.classList.add('ok');ok++;}
-    else{inp.classList.add('bad');inp.placeholder='→ '+window['_nfans'+i];inp.value='';}
+    else{inp.classList.add('bad');inp.placeholder='â '+window['_nfans'+i];inp.value='';}
   }
   showRes('num-fill-result',ok,5);
 }
 
-// ── COLORS ────────────────────────────────────────────────────────
+// ââ COLORS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 (function buildColors(){
   const g=document.getElementById('color-grid');
   COLORS.forEach(c=>{
@@ -1202,16 +1202,16 @@ function checkNumFill(){
       this.classList.add('sel');
       const info=document.getElementById('color-info');
       info.style.display='block';
-      info.innerHTML='<strong>'+c.de+'</strong> = '+c.en+' · <span style="display:inline-block;width:16px;height:16px;background:'+c.hex+';border-radius:3px;vertical-align:middle;border:1px solid #ccc"></span> · <em>Der Himmel ist <strong>'+c.de+'</strong>.</em>';
+      info.innerHTML='<strong>'+c.de+'</strong> = '+c.en+' Â· <span style="display:inline-block;width:16px;height:16px;background:'+c.hex+';border-radius:3px;vertical-align:middle;border:1px solid #ccc"></span> Â· <em>Der Himmel ist <strong>'+c.de+'</strong>.</em>';
     };
     g.appendChild(d);
   });
   const quizData=[
-    {q:'🍅 What color is a tomato?',a:'rot'},
-    {q:'🌿 What color is grass?',a:'grün'},
-    {q:'☁️ What color is a cloud?',a:'weiß'},
-    {q:'🌙 What color is the night sky?',a:'schwarz'},
-    {q:'🌻 What color is a sunflower?',a:'gelb'}
+    {q:'ð What color is a tomato?',a:'rot'},
+    {q:'ð¿ What color is grass?',a:'grÃ¼n'},
+    {q:'âï¸ What color is a cloud?',a:'weiÃ'},
+    {q:'ð What color is the night sky?',a:'schwarz'},
+    {q:'ð» What color is a sunflower?',a:'gelb'}
   ];
   const qz=document.getElementById('color-quiz');
   quizData.forEach((q,i)=>{
@@ -1228,19 +1228,19 @@ function checkColorQuiz(){
     const inp=document.getElementById('cq'+i);
     inp.classList.remove('ok','bad');
     if(inp.value.trim().toLowerCase()===window['_cqans'+i]){inp.classList.add('ok');ok++;}
-    else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+window['_cqans'+i];}
+    else{inp.classList.add('bad');inp.value='';inp.placeholder='â '+window['_cqans'+i];}
   }
   showRes('color-result',ok,5);
 }
 
-// ── GREETINGS ─────────────────────────────────────────────────────
+// ââ GREETINGS âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function playGreet(el){el.style.transform='scale(1.04)';setTimeout(()=>el.style.transform='',300);}
 (function buildGreetQuiz(){
   const data=[
-    {q:'How do you say "Good morning" in German?',opts:['Guten Abend','Guten Morgen','Auf Wiedersehen','Tschüss'],a:1},
-    {q:'What does "Danke schön" mean?',opts:['Please','Excuse me','Thank you very much','Goodbye'],a:2},
-    {q:'How do you say "goodbye" informally?',opts:['Guten Tag','Bitte','Entschuldigung','Tschüss'],a:3},
-    {q:'"Wie geht\'s?" means…',opts:['What is your name?','How old are you?','How are you?','Where do you live?'],a:2}
+    {q:'How do you say "Good morning" in German?',opts:['Guten Abend','Guten Morgen','Auf Wiedersehen','TschÃ¼ss'],a:1},
+    {q:'What does "Danke schÃ¶n" mean?',opts:['Please','Excuse me','Thank you very much','Goodbye'],a:2},
+    {q:'How do you say "goodbye" informally?',opts:['Guten Tag','Bitte','Entschuldigung','TschÃ¼ss'],a:3},
+    {q:'"Wie geht\'s?" meansâ¦',opts:['What is your name?','How old are you?','How are you?','Where do you live?'],a:2}
   ];
   const c=document.getElementById('greet-quiz');
   data.forEach((q,i)=>{
@@ -1264,7 +1264,7 @@ function checkGreetQuiz(){
   showRes('greet-result',ok,4);
 }
 
-// ── FAMILY ────────────────────────────────────────────────────────
+// ââ FAMILY ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 (function buildFamily(){
   const tree=document.getElementById('family-tree');
   FAMILY_TREE.forEach((row,ri)=>{
@@ -1292,12 +1292,12 @@ function checkFamilyFill(){
   for(let i=0;i<5;i++){
     const inp=document.getElementById('ff'+i);inp.classList.remove('ok','bad');
     if(inp.value.trim().toLowerCase()===window['_ffans'+i]){inp.classList.add('ok');ok++;}
-    else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+window['_ffans'+i];}
+    else{inp.classList.add('bad');inp.value='';inp.placeholder='â '+window['_ffans'+i];}
   }
   showRes('family-fill-result',ok,5);
 }
 
-// ── DAYS & MONTHS ─────────────────────────────────────────────────
+// ââ DAYS & MONTHS âââââââââââââââââââââââââââââââââââââââââââââââââ
 (function buildDaysMonths(){
   const dl=document.getElementById('days-list');
   DAYS.forEach((d,i)=>{
@@ -1315,7 +1315,7 @@ function checkFamilyFill(){
   });
 })();
 
-// ── SENTENCE BUILDER ──────────────────────────────────────────────
+// ââ SENTENCE BUILDER ââââââââââââââââââââââââââââââââââââââââââââââ
 function buildIntro(){
   const n=document.getElementById('sb1').value.trim()||'___';
   const a=document.getElementById('sb2').value.trim()||'___';
@@ -1324,21 +1324,21 @@ function buildIntro(){
   const s=document.getElementById('sb5').value.trim()||'ein bisschen';
   const res=document.getElementById('sb-result');
   res.className='sb-result show';
-  res.innerHTML=t('intro_label')+'<br><br>„Hallo! Ich heiße <strong>'+n+'</strong>. Ich bin <strong>'+a+'</strong> Jahre alt. Ich komme aus <strong>'+f+'</strong>. Ich wohne in <strong>'+w+'</strong>. Ich spreche <strong>'+s+'</strong> Deutsch."<br><br><span style="font-size:12px;opacity:.75">'+t('intro_copy')+'</span>';
+  res.innerHTML=t('intro_label')+'<br><br>âHallo! Ich heiÃe <strong>'+n+'</strong>. Ich bin <strong>'+a+'</strong> Jahre alt. Ich komme aus <strong>'+f+'</strong>. Ich wohne in <strong>'+w+'</strong>. Ich spreche <strong>'+s+'</strong> Deutsch."<br><br><span style="font-size:12px;opacity:.75">'+t('intro_copy')+'</span>';
 }
 
-// ── FINAL QUIZ ────────────────────────────────────────────────────
+// ââ FINAL QUIZ ââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const FINAL_Q=[
   {q:'What does "Guten Morgen" mean?',opts:['Good evening','Good night','Good morning','Good afternoon'],a:2},
-  {q:'How do you say "three" in German?',opts:['zwei','vier','drei','fünf'],a:2},
+  {q:'How do you say "three" in German?',opts:['zwei','vier','drei','fÃ¼nf'],a:2},
   {q:'What is the German word for "mother"?',opts:['der Bruder','die Mutter','der Vater','die Schwester'],a:1},
   {q:'Which article goes with "Vater" (father)?',opts:['die','das','der','ein'],a:2},
   {q:'What color is "rot"?',opts:['blue','green','yellow','red'],a:3},
-  {q:'"Ich heiße Stefan" means…',opts:['I am from Stefan','My name is Stefan','I live in Stefan','I like Stefan'],a:1},
-  {q:'How do you say 12 in German?',opts:['zehn','zwölf','elf','zwanzig'],a:1},
-  {q:'What does "Tschüss" mean?',opts:['Hello','Please','Bye!','Thank you'],a:2},
-  {q:'"Ich komme aus Spanien" means…',opts:['I live in Spain','I am learning Spanish','I come from Spain','I speak Spanish'],a:2},
-  {q:'What is the German word for "green"?',opts:['blau','rot','gelb','grün'],a:3}
+  {q:'"Ich heiÃe Stefan" meansâ¦',opts:['I am from Stefan','My name is Stefan','I live in Stefan','I like Stefan'],a:1},
+  {q:'How do you say 12 in German?',opts:['zehn','zwÃ¶lf','elf','zwanzig'],a:1},
+  {q:'What does "TschÃ¼ss" mean?',opts:['Hello','Please','Bye!','Thank you'],a:2},
+  {q:'"Ich komme aus Spanien" meansâ¦',opts:['I live in Spain','I am learning Spanish','I come from Spain','I speak Spanish'],a:2},
+  {q:'What is the German word for "green"?',opts:['blau','rot','gelb','grÃ¼n'],a:3}
 ];
 (function buildFinalQuiz(){
   const c=document.getElementById('final-quiz-container');
@@ -1379,14 +1379,14 @@ function checkFinalQuiz(){
       ?'<p style="opacity:.8;font-size:13px">'+t('score_completed')+'<br>'+t('score_ready')+'</p>'
        +'<div style="margin-top:20px;padding:16px;background:rgba(255,255,255,.15);border-radius:12px">'
        +'<p style="font-weight:800;margin-bottom:6px">'+t('next_step')+'</p>'
-       +'<p style="font-size:13px;opacity:.85;margin-bottom:12px">Join <strong>TheGermanStefan Community</strong> — free access to A1 content, weekly Stammtisch, and thousands of learners just like you.</p>'
-       +'<button class="cta-btn" onclick="alert(\'Visit TheGermanStefan community! 🇩🇪\')">'+t('join_community')+'</button></div>'
+       +'<p style="font-size:13px;opacity:.85;margin-bottom:12px">Join <strong>TheGermanStefan Community</strong> â free access to A1 content, weekly Stammtisch, and thousands of learners just like you.</p>'
+       +'<button class="cta-btn" onclick="alert(\'Visit TheGermanStefan community! ð©ðª\')">'+t('join_community')+'</button></div>'
       :'<p style="opacity:.8;font-size:13px">'+t('score_review')+'</p>'
        +'<button class="cta-btn" onclick="resetFinal()">'+t('try_again')+'</button>')
     +'</div>';
   completed.add(7);
   const chk=document.getElementById('chk7');
-  if(chk){chk.textContent='✓';chk.style.background='var(--lc)';chk.style.color='#fff';}
+  if(chk){chk.textContent='â';chk.style.background='var(--lc)';chk.style.color='#fff';}
   document.querySelectorAll('.mtab')[7].classList.add('done');
   updateProgress();
 }
@@ -1403,12 +1403,13 @@ function resetFinal(){
   document.getElementById('final-score-area').innerHTML='';
 }
 
-// ── INIT ──────────────────────────────────────────────────────────
+// ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 document.addEventListener('DOMContentLoaded',()=>{
   // set initial lang button state
   document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
   applyLang();
 });
 </script>
+<script src="level-nav.js"></script>
 </body>
 </html>
