@@ -94,3 +94,8 @@
   // Always insert at the very top of body so sticky top:0 works correctly
   document.body.insertBefore(nav, document.body.firstChild);
 })();
+
+// Register service worker so level-nav appears on ALL pages site-wide
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(function(){});
+}
