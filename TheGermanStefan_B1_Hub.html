@@ -219,5 +219,34 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 <script src="level-nav.js"></script>
+
+<!-- NEXT LEVEL CTA -->
+<style>
+.next-lvl-wrap{margin:40px auto;padding:0 20px;max-width:900px}
+.next-lvl-link{display:block;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:transform .2s,box-shadow .2s}
+.next-lvl-link:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.65)}
+.next-lvl-inner{position:relative;background:linear-gradient(135deg,#1a0505,#4a0f0f,#1a0505);min-height:160px;display:flex;align-items:center;justify-content:space-between;padding:32px 40px}
+.next-lvl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.next-lvl-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.25) 60%,rgba(0,0,0,.6) 100%)}
+.next-lvl-text{position:relative;z-index:2}
+.next-lvl-badge{display:inline-block;background:#e53935;color:#000;font-weight:900;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+.next-lvl-title{color:#fff;font-size:2rem;font-weight:900;margin:0 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.next-lvl-sub{color:rgba(255,255,255,.85);font-size:1rem;margin:0}
+.next-lvl-arrow{position:relative;z-index:2;color:#e53935;font-size:3rem;font-weight:900;line-height:1}
+</style>
+<div class="next-lvl-wrap">
+  <a class="next-lvl-link" href="TheGermanStefan_B2_Hub.html">
+    <div class="next-lvl-inner">
+      <img class="next-lvl-img" src="banner_b2.jpg" alt="B2 German — Upper Intermediate" onerror="this.style.display='none'">
+      <div class="next-lvl-overlay"></div>
+      <div class="next-lvl-text">
+        <div class="next-lvl-badge">🔥 Level Up — B2</div>
+        <h2 class="next-lvl-title">B2 German — Upper Intermediate</h2>
+        <p class="next-lvl-sub">Master German</p>
+      </div>
+      <div class="next-lvl-arrow">→</div>
+    </div>
+  </a>
+</div>
 </body>
 </html>
