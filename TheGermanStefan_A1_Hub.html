@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TheGermanStefan Â· A1 Hub</title>
+<title>TheGermanStefan · A1 Hub</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -14,7 +14,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7;min-height:100vh}
 
-/* ââ TOPBAR ââ */
+/* ── TOPBAR ── */
 .topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
 .tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
 .tb-logo{font-weight:900;font-size:15px;white-space:nowrap;color:#fff}
@@ -28,11 +28,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .lb:hover{background:rgba(255,255,255,.15);color:#fff}
 .lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
 
-/* ââ PROGRESS STRIP ââ */
+/* ── PROGRESS STRIP ── */
 .pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
 .pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s ease}
 
-/* ââ HERO ââ */
+/* ── HERO ── */
 .hero{background:linear-gradient(135deg,#0b2545 0%,#1464b4 55%,#0d47a1 100%);color:#fff;padding:36px 24px 28px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:12px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:12px;letter-spacing:.5px;position:relative}
@@ -43,7 +43,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .hstat-n{font-size:22px;font-weight:900;color:var(--amber)}
 .hstat-l{font-size:11px;opacity:.8;margin-top:2px}
 
-/* ââ PROGRESS BAR ââ */
+/* ── PROGRESS BAR ── */
 .hub-progress{background:#fff;padding:16px 24px;border-bottom:1px solid var(--border)}
 .hub-progress-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:16px}
 .hp-label{font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap}
@@ -51,7 +51,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .hp-fill{height:100%;background:var(--lc);border-radius:10px;transition:width .5s}
 .hp-pct{font-size:13px;font-weight:800;color:var(--lc);white-space:nowrap;min-width:36px;text-align:right}
 
-/* ââ SECTION ââ */
+/* ── SECTION ── */
 .wrap{max-width:900px;margin:0 auto;padding:28px 16px 80px}
 .section{margin-bottom:36px}
 .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
@@ -60,7 +60,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .sec-sub{font-size:13px;color:var(--txt2);margin-top:1px}
 .sec-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-left:auto}
 
-/* ââ CONTENT CARDS GRID ââ */
+/* ── CONTENT CARDS GRID ── */
 .content-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
 .cc{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);border:2px solid transparent;cursor:pointer;transition:all .2s;text-decoration:none;display:block;position:relative}
 .cc:hover{border-color:var(--lc);transform:translateY(-3px);box-shadow:0 8px 24px rgba(20,100,180,.15)}
@@ -75,7 +75,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .cc.done .cc-done{opacity:1}
 .cc.done{border-color:#a5d6a7}
 
-/* ââ GRAMMAR MINI GRID (2 cols of 5) ââ */
+/* ── GRAMMAR MINI GRID (2 cols of 5) ── */
 .grammar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .gc{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.05);border:2px solid transparent;cursor:pointer;transition:all .18s;text-decoration:none;display:flex;align-items:center;gap:14px}
 .gc:hover{border-color:var(--lc);transform:translateX(4px);box-shadow:0 4px 16px rgba(20,100,180,.12)}
@@ -89,7 +89,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .gc.done .gc-done{opacity:1}
 .gc.done{border-color:#a5d6a7}
 
-/* ââ PROGRESS OVERVIEW ââ */
+/* ── PROGRESS OVERVIEW ── */
 .overview{background:#fff;border-radius:16px;padding:22px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:28px}
 .ov-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -100,14 +100,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .ov-bar{height:4px;background:#e0e6f0;border-radius:4px;margin-top:8px;overflow:hidden}
 .ov-bar-fill{height:100%;background:var(--lc);border-radius:4px;transition:width .5s}
 
-/* ââ CTA BLOCK ââ */
+/* ── CTA BLOCK ── */
 .cta{background:linear-gradient(135deg,#0b2545,var(--lc));border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-top:32px}
 .cta h3{font-size:20px;font-weight:900;margin-bottom:8px}
 .cta p{font-size:14px;opacity:.85;margin-bottom:16px}
 .cta-btn{display:inline-block;padding:12px 28px;border-radius:10px;background:var(--amber);color:var(--navy);font-weight:900;font-size:15px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
 .cta-btn:hover{background:#ffc107}
 
-/* ââ RESPONSIVE ââ */
+/* ── RESPONSIVE ── */
 @media(max-width:600px){
   .hero h1{font-size:22px}
   .ov-grid{grid-template-columns:repeat(2,1fr)}
@@ -120,10 +120,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-left">
-    <span class="tb-logo">ð©ðª TGS</span>
-    <span class="tb-sep">âº</span>
+    <span class="tb-logo">🇩🇪 TGS</span>
+    <span class="tb-sep">›</span>
     <span class="tb-crumb" data-t="home">Home</span>
-    <span class="tb-sep">âº</span>
+    <span class="tb-sep">›</span>
     <span class="tb-crumb" data-t="a1_label">A1 Beginner</span>
     <span class="tb-badge">A1</span>
     <span class="tb-mod-badge" data-t="hub_badge">Learning Hub</span>
@@ -140,9 +140,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">ð©ðª TheGermanStefan Â· <span data-t="level_label">A1 Beginner Level</span></div>
-  <h1>ð©ðª <span data-t="hub_title">A1 German â Learning Hub</span></h1>
-  <p class="sub" data-t="hub_sub">Your complete A1 journey: Grammar Â· Reading Â· Vocabulary Â· Speaking</p>
+  <div class="hero-badge">🇩🇪 TheGermanStefan · <span data-t="level_label">A1 Beginner Level</span></div>
+  <h1>🇩🇪 <span data-t="hub_title">A1 German — Learning Hub</span></h1>
+  <p class="sub" data-t="hub_sub">Your complete A1 journey: Grammar · Reading · Vocabulary · Speaking</p>
   <div class="hero-stats">
     <div class="hstat"><div class="hstat-n">10</div><div class="hstat-l" data-t="stat_grammar">Grammar Topics</div></div>
     <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" data-t="stat_reading">Reading Texts</div></div>
@@ -155,7 +155,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 
   <!-- PROGRESS OVERVIEW -->
   <div class="overview">
-    <div class="ov-title">ð <span data-t="progress_title">Your A1 Progress</span></div>
+    <div class="ov-title">📊 <span data-t="progress_title">Your A1 Progress</span></div>
     <div class="ov-grid">
       <div class="ov-item">
         <div class="ov-n"><span id="g-done">0</span></div>
@@ -187,10 +187,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <!-- GRAMMAR SECTION -->
   <div class="section">
     <div class="sec-hdr">
-      <div class="sec-icon">ð</div>
+      <div class="sec-icon">📖</div>
       <div>
         <div class="sec-title" data-t="grammar_title">Grammar</div>
-        <div class="sec-sub" data-t="grammar_sub">10 topics â from pronouns to the accusative case</div>
+        <div class="sec-sub" data-t="grammar_sub">10 topics — from pronouns to the accusative case</div>
       </div>
       <div class="sec-badge">10 <span data-t="files">files</span></div>
     </div>
@@ -200,10 +200,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <!-- READING SECTION -->
   <div class="section">
     <div class="sec-hdr">
-      <div class="sec-icon">ð</div>
+      <div class="sec-icon">📚</div>
       <div>
         <div class="sec-title" data-t="reading_title">Reading Room</div>
-        <div class="sec-sub" data-t="reading_sub">5 texts â read, understand, answer comprehension questions</div>
+        <div class="sec-sub" data-t="reading_sub">5 texts — read, understand, answer comprehension questions</div>
       </div>
       <div class="sec-badge">5 <span data-t="files">files</span></div>
     </div>
@@ -213,10 +213,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <!-- VOCABULARY SECTION -->
   <div class="section">
     <div class="sec-hdr">
-      <div class="sec-icon">ðï¸</div>
+      <div class="sec-icon">🗂️</div>
       <div>
         <div class="sec-title" data-t="vocab_title">Vocabulary Sets</div>
-        <div class="sec-sub" data-t="vocab_sub">5 themed sets â flashcards, fill-in exercises, word lists</div>
+        <div class="sec-sub" data-t="vocab_sub">5 themed sets — flashcards, fill-in exercises, word lists</div>
       </div>
       <div class="sec-badge">5 <span data-t="files">files</span></div>
     </div>
@@ -226,10 +226,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <!-- SPEAKING SECTION -->
   <div class="section">
     <div class="sec-hdr">
-      <div class="sec-icon">ð£ï¸</div>
+      <div class="sec-icon">🗣️</div>
       <div>
-        <div class="sec-title" data-t="speaking_title">Sprechen â Speaking Cards</div>
-        <div class="sec-sub" data-t="speaking_sub">10 speaking prompts â practice talking about yourself and everyday topics</div>
+        <div class="sec-title" data-t="speaking_title">Sprechen — Speaking Cards</div>
+        <div class="sec-sub" data-t="speaking_sub">10 speaking prompts — practice talking about yourself and everyday topics</div>
       </div>
       <div class="sec-badge">10 <span data-t="files">files</span></div>
     </div>
@@ -238,105 +238,105 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 
   <!-- CTA -->
   <div class="cta">
-    <h3 data-t="cta_title">Ready for A2? ð</h3>
-    <p data-t="cta_sub">Complete all A1 content above, then level up to A2 â intermediate German awaits!</p>
-    <button class="cta-btn" data-t="cta_btn">Coming Soon â A2 Hub</button>
+    <h3 data-t="cta_title">Ready for A2? 🚀</h3>
+    <p data-t="cta_sub">Complete all A1 content above, then level up to A2 — intermediate German awaits!</p>
+    <button class="cta-btn" data-t="cta_btn">Coming Soon — A2 Hub</button>
   </div>
 
 </div><!-- /wrap -->
 
 <script>
-// ââ LANG âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── LANG ─────────────────────────────────────────────────────────
 const LANG={
 en:{
   home:'Home',a1_label:'A1 Beginner',hub_badge:'Learning Hub',
   level_label:'A1 Beginner Level',
-  hub_title:'A1 German â Learning Hub',
-  hub_sub:'Your complete A1 journey: Grammar Â· Reading Â· Vocabulary Â· Speaking',
+  hub_title:'A1 German — Learning Hub',
+  hub_sub:'Your complete A1 journey: Grammar · Reading · Vocabulary · Speaking',
   stat_grammar:'Grammar Topics',stat_reading:'Reading Texts',
   stat_vocab:'Vocab Sets',stat_speaking:'Speaking Cards',
   progress_title:'Your A1 Progress',
-  grammar_title:'Grammar',grammar_sub:'10 topics â from pronouns to the accusative case',
-  reading_title:'Reading Room',reading_sub:'5 texts â read, understand, answer comprehension questions',
-  vocab_title:'Vocabulary Sets',vocab_sub:'5 themed sets â flashcards, fill-in exercises, word lists',
-  speaking_title:'Sprechen â Speaking Cards',speaking_sub:'10 speaking prompts â practice talking about yourself and everyday topics',
+  grammar_title:'Grammar',grammar_sub:'10 topics — from pronouns to the accusative case',
+  reading_title:'Reading Room',reading_sub:'5 texts — read, understand, answer comprehension questions',
+  vocab_title:'Vocabulary Sets',vocab_sub:'5 themed sets — flashcards, fill-in exercises, word lists',
+  speaking_title:'Sprechen — Speaking Cards',speaking_sub:'10 speaking prompts — practice talking about yourself and everyday topics',
   files:'files',tag_grammar:'Grammar',tag_reading:'Reading',tag_vocab:'Vocab',tag_speaking:'Speaking',
   completed:'Completed',
-  cta_title:'Ready for A2? ð',
-  cta_sub:'Complete all A1 content above, then level up to A2 â intermediate German awaits!',
-  cta_btn:'Coming Soon â A2 Hub',
+  cta_title:'Ready for A2? 🚀',
+  cta_sub:'Complete all A1 content above, then level up to A2 — intermediate German awaits!',
+  cta_btn:'Coming Soon — A2 Hub',
 },
 fr:{
-  home:'Accueil',a1_label:'A1 DÃ©butant',hub_badge:'Hub d\'apprentissage',
-  level_label:'Niveau A1 DÃ©butant',
-  hub_title:'Allemand A1 â Hub d\'apprentissage',
-  hub_sub:'Votre parcours A1 complet : Grammaire Â· Lecture Â· Vocabulaire Â· Expression orale',
+  home:'Accueil',a1_label:'A1 Débutant',hub_badge:'Hub d\'apprentissage',
+  level_label:'Niveau A1 Débutant',
+  hub_title:'Allemand A1 — Hub d\'apprentissage',
+  hub_sub:'Votre parcours A1 complet : Grammaire · Lecture · Vocabulaire · Expression orale',
   stat_grammar:'Sujets de grammaire',stat_reading:'Textes de lecture',
   stat_vocab:'Sets de vocabulaire',stat_speaking:'Cartes de conversation',
   progress_title:'Votre progression A1',
-  grammar_title:'Grammaire',grammar_sub:'10 sujets â des pronoms au cas accusatif',
-  reading_title:'Salle de lecture',reading_sub:'5 textes â lisez, comprenez, rÃ©pondez aux questions',
-  vocab_title:'Sets de vocabulaire',vocab_sub:'5 sets thÃ©matiques â flashcards, exercices, listes de mots',
-  speaking_title:'Sprechen â Cartes d\'expression orale',speaking_sub:'10 sujets de conversation â pratiquez parler de vous et de la vie quotidienne',
+  grammar_title:'Grammaire',grammar_sub:'10 sujets — des pronoms au cas accusatif',
+  reading_title:'Salle de lecture',reading_sub:'5 textes — lisez, comprenez, répondez aux questions',
+  vocab_title:'Sets de vocabulaire',vocab_sub:'5 sets thématiques — flashcards, exercices, listes de mots',
+  speaking_title:'Sprechen — Cartes d\'expression orale',speaking_sub:'10 sujets de conversation — pratiquez parler de vous et de la vie quotidienne',
   files:'fichiers',tag_grammar:'Grammaire',tag_reading:'Lecture',tag_vocab:'Vocab',tag_speaking:'Expression',
-  completed:'ComplÃ©tÃ©',
-  cta_title:'PrÃªt pour A2 ? ð',
+  completed:'Complété',
+  cta_title:'Prêt pour A2 ? 🚀',
   cta_sub:'Terminez tout le contenu A1, puis passez au niveau A2 !',
-  cta_btn:'BientÃ´t disponible â Hub A2',
+  cta_btn:'Bientôt disponible — Hub A2',
 },
 es:{
   home:'Inicio',a1_label:'A1 Principiante',hub_badge:'Hub de aprendizaje',
   level_label:'Nivel A1 Principiante',
-  hub_title:'AlemÃ¡n A1 â Hub de aprendizaje',
-  hub_sub:'Tu recorrido completo por A1: GramÃ¡tica Â· Lectura Â· Vocabulario Â· ConversaciÃ³n',
-  stat_grammar:'Temas de gramÃ¡tica',stat_reading:'Textos de lectura',
-  stat_vocab:'Sets de vocabulario',stat_speaking:'Tarjetas de conversaciÃ³n',
+  hub_title:'Alemán A1 — Hub de aprendizaje',
+  hub_sub:'Tu recorrido completo por A1: Gramática · Lectura · Vocabulario · Conversación',
+  stat_grammar:'Temas de gramática',stat_reading:'Textos de lectura',
+  stat_vocab:'Sets de vocabulario',stat_speaking:'Tarjetas de conversación',
   progress_title:'Tu progreso en A1',
-  grammar_title:'GramÃ¡tica',grammar_sub:'10 temas â desde los pronombres hasta el caso acusativo',
-  reading_title:'Sala de lectura',reading_sub:'5 textos â lee, comprende, responde las preguntas',
-  vocab_title:'Sets de vocabulario',vocab_sub:'5 sets temÃ¡ticos â flashcards, ejercicios, listas de palabras',
-  speaking_title:'Sprechen â Tarjetas de conversaciÃ³n',speaking_sub:'10 temas de conversaciÃ³n â practica hablar de ti y de la vida cotidiana',
-  files:'archivos',tag_grammar:'GramÃ¡tica',tag_reading:'Lectura',tag_vocab:'Vocab',tag_speaking:'ConversaciÃ³n',
+  grammar_title:'Gramática',grammar_sub:'10 temas — desde los pronombres hasta el caso acusativo',
+  reading_title:'Sala de lectura',reading_sub:'5 textos — lee, comprende, responde las preguntas',
+  vocab_title:'Sets de vocabulario',vocab_sub:'5 sets temáticos — flashcards, ejercicios, listas de palabras',
+  speaking_title:'Sprechen — Tarjetas de conversación',speaking_sub:'10 temas de conversación — practica hablar de ti y de la vida cotidiana',
+  files:'archivos',tag_grammar:'Gramática',tag_reading:'Lectura',tag_vocab:'Vocab',tag_speaking:'Conversación',
   completed:'Completado',
-  cta_title:'Â¿Listo para A2? ð',
+  cta_title:'¿Listo para A2? 🚀',
   cta_sub:'Completa todo el contenido A1, luego pasa al nivel A2.',
-  cta_btn:'PrÃ³ximamente â Hub A2',
+  cta_btn:'Próximamente — Hub A2',
 },
 it:{
   home:'Home',a1_label:'A1 Principiante',hub_badge:'Hub di apprendimento',
   level_label:'Livello A1 Principiante',
-  hub_title:'Tedesco A1 â Hub di apprendimento',
-  hub_sub:'Il tuo percorso A1 completo: Grammatica Â· Lettura Â· Vocabolario Â· Parlato',
+  hub_title:'Tedesco A1 — Hub di apprendimento',
+  hub_sub:'Il tuo percorso A1 completo: Grammatica · Lettura · Vocabolario · Parlato',
   stat_grammar:'Argomenti di grammatica',stat_reading:'Testi di lettura',
   stat_vocab:'Set di vocabolario',stat_speaking:'Carte di conversazione',
   progress_title:'Il tuo progresso A1',
-  grammar_title:'Grammatica',grammar_sub:'10 argomenti â dai pronomi al caso accusativo',
-  reading_title:'Sala di lettura',reading_sub:'5 testi â leggi, comprendi, rispondi alle domande',
-  vocab_title:'Set di vocabolario',vocab_sub:'5 set tematici â flashcard, esercizi, liste di parole',
-  speaking_title:'Sprechen â Carte di conversazione',speaking_sub:'10 argomenti di conversazione â pratica a parlare di te e della vita quotidiana',
+  grammar_title:'Grammatica',grammar_sub:'10 argomenti — dai pronomi al caso accusativo',
+  reading_title:'Sala di lettura',reading_sub:'5 testi — leggi, comprendi, rispondi alle domande',
+  vocab_title:'Set di vocabolario',vocab_sub:'5 set tematici — flashcard, esercizi, liste di parole',
+  speaking_title:'Sprechen — Carte di conversazione',speaking_sub:'10 argomenti di conversazione — pratica a parlare di te e della vita quotidiana',
   files:'file',tag_grammar:'Grammatica',tag_reading:'Lettura',tag_vocab:'Vocab',tag_speaking:'Parlato',
   completed:'Completato',
-  cta_title:'Pronto per A2? ð',
+  cta_title:'Pronto per A2? 🚀',
   cta_sub:'Completa tutti i contenuti A1, poi passa al livello A2!',
-  cta_btn:'Prossimamente â Hub A2',
+  cta_btn:'Prossimamente — Hub A2',
 },
 pt:{
-  home:'InÃ­cio',a1_label:'A1 Iniciante',hub_badge:'Hub de aprendizagem',
-  level_label:'NÃ­vel A1 Iniciante',
-  hub_title:'AlemÃ£o A1 â Hub de aprendizagem',
-  hub_sub:'Sua jornada A1 completa: GramÃ¡tica Â· Leitura Â· VocabulÃ¡rio Â· Fala',
-  stat_grammar:'TÃ³picos de gramÃ¡tica',stat_reading:'Textos de leitura',
-  stat_vocab:'Sets de vocabulÃ¡rio',stat_speaking:'CartÃµes de conversaÃ§Ã£o',
+  home:'Início',a1_label:'A1 Iniciante',hub_badge:'Hub de aprendizagem',
+  level_label:'Nível A1 Iniciante',
+  hub_title:'Alemão A1 — Hub de aprendizagem',
+  hub_sub:'Sua jornada A1 completa: Gramática · Leitura · Vocabulário · Fala',
+  stat_grammar:'Tópicos de gramática',stat_reading:'Textos de leitura',
+  stat_vocab:'Sets de vocabulário',stat_speaking:'Cartões de conversação',
   progress_title:'Seu progresso no A1',
-  grammar_title:'GramÃ¡tica',grammar_sub:'10 tÃ³picos â dos pronomes ao caso acusativo',
-  reading_title:'Sala de leitura',reading_sub:'5 textos â leia, entenda, responda Ã s perguntas',
-  vocab_title:'Sets de vocabulÃ¡rio',vocab_sub:'5 sets temÃ¡ticos â flashcards, exercÃ­cios, listas de palavras',
-  speaking_title:'Sprechen â CartÃµes de conversaÃ§Ã£o',speaking_sub:'10 temas de conversaÃ§Ã£o â pratique falar sobre si mesmo e a vida cotidiana',
-  files:'arquivos',tag_grammar:'GramÃ¡tica',tag_reading:'Leitura',tag_vocab:'Vocab',tag_speaking:'Fala',
-  completed:'ConcluÃ­do',
-  cta_title:'Pronto para A2? ð',
-  cta_sub:'Conclua todo o conteÃºdo A1 e avance para o A2!',
-  cta_btn:'Em breve â Hub A2',
+  grammar_title:'Gramática',grammar_sub:'10 tópicos — dos pronomes ao caso acusativo',
+  reading_title:'Sala de leitura',reading_sub:'5 textos — leia, entenda, responda às perguntas',
+  vocab_title:'Sets de vocabulário',vocab_sub:'5 sets temáticos — flashcards, exercícios, listas de palavras',
+  speaking_title:'Sprechen — Cartões de conversação',speaking_sub:'10 temas de conversação — pratique falar sobre si mesmo e a vida cotidiana',
+  files:'arquivos',tag_grammar:'Gramática',tag_reading:'Leitura',tag_vocab:'Vocab',tag_speaking:'Fala',
+  completed:'Concluído',
+  cta_title:'Pronto para A2? 🚀',
+  cta_sub:'Conclua todo o conteúdo A1 e avance para o A2!',
+  cta_btn:'Em breve — Hub A2',
 }
 };
 
@@ -348,35 +348,35 @@ function applyLang(){
   document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
 }
 
-// ââ CONTENT DATA âââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── CONTENT DATA ─────────────────────────────────────────────────
 const GRAMMAR=[
-  {n:'01',title:'Personalpronomen',sub:'ich Â· du Â· er/sie/es Â· wir Â· ihr Â· sie/Sie',file:'A1_Grammar_01_Personalpronomen.html'},
-  {n:'02',title:'Sein & Haben',sub:'bin/bist/ist Â· habe/hast/hat',file:'A1_Grammar_02_Sein_Haben.html'},
-  {n:'03',title:'PrÃ¤sens',sub:'Regular verb conjugation: -e/-st/-t/-en/-t/-en',file:'A1_Grammar_03_Praesens.html'},
-  {n:'04',title:'Artikel',sub:'der / die / das Â· ein / eine / ein',file:'A1_Grammar_04_Artikel.html'},
+  {n:'01',title:'Personalpronomen',sub:'ich · du · er/sie/es · wir · ihr · sie/Sie',file:'A1_Grammar_01_Personalpronomen.html'},
+  {n:'02',title:'Sein & Haben',sub:'bin/bist/ist · habe/hast/hat',file:'A1_Grammar_02_Sein_Haben.html'},
+  {n:'03',title:'Präsens',sub:'Regular verb conjugation: -e/-st/-t/-en/-t/-en',file:'A1_Grammar_03_Praesens.html'},
+  {n:'04',title:'Artikel',sub:'der / die / das · ein / eine / ein',file:'A1_Grammar_04_Artikel.html'},
   {n:'05',title:'Negation',sub:'nicht vs. kein/keine/kein',file:'A1_Grammar_05_Negation.html'},
-  {n:'06',title:'Zahlen',sub:'Numbers 0â100 Â· einundzwanzig pattern',file:'A1_Grammar_06_Zahlen.html'},
-  {n:'07',title:'Wortstellung',sub:'V2 rule Â· yes/no questions Â· W-questions',file:'A1_Grammar_07_Wortstellung.html'},
-  {n:'08',title:'Trennbare Verben',sub:'aufstehen Â· anrufen Â· einkaufen Â· abfahren...',file:'A1_Grammar_08_Trennbare_Verben.html'},
-  {n:'09',title:'Adjektive',sub:'Predicative adjectives â groÃ Â· klein Â· schÃ¶n...',file:'A1_Grammar_09_Adjektive.html'},
-  {n:'10',title:'Akkusativ',sub:'Direct object Â· derâden Â· einâeinen',file:'A1_Grammar_10_Akkusativ.html'},
+  {n:'06',title:'Zahlen',sub:'Numbers 0–100 · einundzwanzig pattern',file:'A1_Grammar_06_Zahlen.html'},
+  {n:'07',title:'Wortstellung',sub:'V2 rule · yes/no questions · W-questions',file:'A1_Grammar_07_Wortstellung.html'},
+  {n:'08',title:'Trennbare Verben',sub:'aufstehen · anrufen · einkaufen · abfahren...',file:'A1_Grammar_08_Trennbare_Verben.html'},
+  {n:'09',title:'Adjektive',sub:'Predicative adjectives — groß · klein · schön...',file:'A1_Grammar_09_Adjektive.html'},
+  {n:'10',title:'Akkusativ',sub:'Direct object · der→den · ein→einen',file:'A1_Grammar_10_Akkusativ.html'},
 ];
 const READING=[
-  {n:'01',emoji:'ð ',title:'Mein Zuhause',sub:'Describing your home â rooms, furniture, location',file:'A1_Reading_01_Mein_Zuhause.html'},
-  {n:'02',emoji:'ð',title:'Im Supermarkt',sub:'Shopping dialogue â food, quantities, prices',file:'A1_Reading_02_Im_Supermarkt.html'},
-  {n:'03',emoji:'ð',title:'Eine Reise',sub:'Travel story â trains, tickets, destinations',file:'A1_Reading_03_Eine_Reise.html'},
-  {n:'04',emoji:'ð©ââï¸',title:'Beim Arzt',sub:'Doctor visit â body parts, symptoms, appointments',file:'A1_Reading_04_Beim_Arzt.html'},
-  {n:'05',emoji:'ð',title:'Mein Alltag',sub:'Daily routine â times, activities, weekdays',file:'A1_Reading_05_Mein_Alltag.html'},
+  {n:'01',emoji:'🏠',title:'Mein Zuhause',sub:'Describing your home — rooms, furniture, location',file:'A1_Reading_01_Mein_Zuhause.html'},
+  {n:'02',emoji:'🛒',title:'Im Supermarkt',sub:'Shopping dialogue — food, quantities, prices',file:'A1_Reading_02_Im_Supermarkt.html'},
+  {n:'03',emoji:'🚂',title:'Eine Reise',sub:'Travel story — trains, tickets, destinations',file:'A1_Reading_03_Eine_Reise.html'},
+  {n:'04',emoji:'👩‍⚕️',title:'Beim Arzt',sub:'Doctor visit — body parts, symptoms, appointments',file:'A1_Reading_04_Beim_Arzt.html'},
+  {n:'05',emoji:'📅',title:'Mein Alltag',sub:'Daily routine — times, activities, weekdays',file:'A1_Reading_05_Mein_Alltag.html'},
 ];
 const VOCAB=[
-  {n:'01',emoji:'ð ',title:'Wohnen',sub:'Rooms Â· furniture Â· household objects',file:'A1_Vocab_01_Wohnen.html'},
-  {n:'02',emoji:'ð',title:'Essen & Trinken',sub:'Food, drinks, meals, quantities',file:'A1_Vocab_02_Essen.html'},
-  {n:'03',emoji:'ð',title:'Kleidung',sub:'Clothing items Â· colours Â· getting dressed',file:'A1_Vocab_03_Kleidung.html'},
-  {n:'04',emoji:'ðï¸',title:'Stadt & Orte',sub:'City places Â· directions Â· transport',file:'A1_Vocab_04_Stadt.html'},
-  {n:'05',emoji:'ð¼',title:'Arbeit & Berufe',sub:'Jobs Â· workplace Â· daily work vocabulary',file:'A1_Vocab_05_Arbeit.html'},
+  {n:'01',emoji:'🏠',title:'Wohnen',sub:'Rooms · furniture · household objects',file:'A1_Vocab_01_Wohnen.html'},
+  {n:'02',emoji:'🍎',title:'Essen & Trinken',sub:'Food, drinks, meals, quantities',file:'A1_Vocab_02_Essen.html'},
+  {n:'03',emoji:'👗',title:'Kleidung',sub:'Clothing items · colours · getting dressed',file:'A1_Vocab_03_Kleidung.html'},
+  {n:'04',emoji:'🏙️',title:'Stadt & Orte',sub:'City places · directions · transport',file:'A1_Vocab_04_Stadt.html'},
+  {n:'05',emoji:'💼',title:'Arbeit & Berufe',sub:'Jobs · workplace · daily work vocabulary',file:'A1_Vocab_05_Arbeit.html'},
 ];
 const SPEAKING=[
-  {n:'01',title:'Sich vorstellen',sub:'Introduce yourself â name, age, origin, job',file:'A1_Sprechen_01_Vorstellen.html'},
+  {n:'01',title:'Sich vorstellen',sub:'Introduce yourself — name, age, origin, job',file:'A1_Sprechen_01_Vorstellen.html'},
   {n:'02',title:'Familie beschreiben',sub:'Talk about your family members',file:'A1_Sprechen_02_Familie.html'},
   {n:'03',title:'Wohnen',sub:'Describe where and how you live',file:'A1_Sprechen_03_Wohnen.html'},
   {n:'04',title:'Einkaufen',sub:'Shopping dialogue at a market or store',file:'A1_Sprechen_04_Einkaufen.html'},
@@ -384,11 +384,11 @@ const SPEAKING=[
   {n:'06',title:'Hobbys & Freizeit',sub:'Talk about your hobbies and free time',file:'A1_Sprechen_06_Hobbys.html'},
   {n:'07',title:'Im Restaurant',sub:'Order food and drinks in a restaurant',file:'A1_Sprechen_07_Restaurant.html'},
   {n:'08',title:'Weg beschreiben',sub:'Give and understand directions',file:'A1_Sprechen_08_Weg.html'},
-  {n:'09',title:'Termine & PlÃ¤ne',sub:'Make appointments and talk about plans',file:'A1_Sprechen_09_Termine.html'},
+  {n:'09',title:'Termine & Pläne',sub:'Make appointments and talk about plans',file:'A1_Sprechen_09_Termine.html'},
   {n:'10',title:'Reisen',sub:'Talk about travel, transport and destinations',file:'A1_Sprechen_10_Reisen.html'},
 ];
 
-// ââ PROGRESS TRACKING âââââââââââââââââââââââââââââââââââââââââââââ
+// ── PROGRESS TRACKING ─────────────────────────────────────────────
 const DONE=JSON.parse(localStorage.getItem('tgs_a1_done')||'{}');
 function markDone(key){DONE[key]=true;localStorage.setItem('tgs_a1_done',JSON.stringify(DONE));updateProgress();}
 function updateProgress(){
@@ -408,7 +408,7 @@ function updateProgress(){
   document.getElementById('pgf').style.width=(total/30*100)+'%';
 }
 
-// ââ BUILD GRIDS âââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── BUILD GRIDS ───────────────────────────────────────────────────
 function buildGrids(){
   // Grammar
   const gg=document.getElementById('grammar-grid');gg.innerHTML='';
@@ -420,8 +420,8 @@ function buildGrids(){
     el.innerHTML=
       '<div class="gc-num">'+item.n+'</div>'
       +'<div class="gc-body"><div class="gc-title">'+item.title+'</div><div class="gc-sub">'+item.sub+'</div></div>'
-      +'<div class="gc-arrow">â</div>'
-      +'<div class="gc-done">â</div>';
+      +'<div class="gc-arrow">→</div>'
+      +'<div class="gc-done">✓</div>';
     el.addEventListener('click',()=>markDone('g'+i));
     gg.appendChild(el);
   });
@@ -434,7 +434,7 @@ function buildGrids(){
     el.className='cc'+(isDone?' done':'');
     el.href=item.file;
     el.innerHTML=
-      '<div class="cc-done">â</div>'
+      '<div class="cc-done">✓</div>'
       +'<div class="cc-num">'+t('tag_reading')+' '+item.n+'</div>'
       +'<div class="cc-title">'+item.emoji+' '+item.title+'</div>'
       +'<div class="cc-sub">'+item.sub+'</div>'
@@ -451,7 +451,7 @@ function buildGrids(){
     el.className='cc'+(isDone?' done':'');
     el.href=item.file;
     el.innerHTML=
-      '<div class="cc-done">â</div>'
+      '<div class="cc-done">✓</div>'
       +'<div class="cc-num">'+t('tag_vocab')+' '+item.n+'</div>'
       +'<div class="cc-title">'+item.emoji+' '+item.title+'</div>'
       +'<div class="cc-sub">'+item.sub+'</div>'
@@ -470,14 +470,14 @@ function buildGrids(){
     el.innerHTML=
       '<div class="gc-num">'+item.n+'</div>'
       +'<div class="gc-body"><div class="gc-title">'+item.title+'</div><div class="gc-sub">'+item.sub+'</div></div>'
-      +'<div class="gc-arrow">â</div>'
-      +'<div class="gc-done">â</div>';
+      +'<div class="gc-arrow">→</div>'
+      +'<div class="gc-done">✓</div>';
     el.addEventListener('click',()=>markDone('s'+i));
     sg.appendChild(el);
   });
 }
 
-// ââ INIT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
   applyLang();
