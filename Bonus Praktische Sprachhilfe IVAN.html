@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🗣️ Ivans Sprechhilfe</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #21262d;
+  --blue: #58a6ff; --purple: #c084fc; --teal: #34d399;
+  --orange: #fb923c; --green: #86efac; --yellow: #fde68a;
+  --pink: #f472b6; --red: #f87171;
+  --text: #e6edf3; --muted: #8b949e; --border: rgba(255,255,255,0.08);
+}
+html { font-size: 16px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── HEADER ── */
+header {
+  background: rgba(13,17,23,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.logo-text { font-size: 1rem; font-weight: 800; color: var(--text); }
+.logo-text span { color: var(--blue); }
+
+.header-btns { display: flex; gap: 8px; }
+.hbtn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 7px 12px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+.hbtn:active { transform: scale(0.96); }
+.hbtn.active { background: var(--blue); border-color: var(--blue); color: #000; }
+
+/* ── QUICK BAR ── */
+#quick-bar {
+  background: rgba(88,166,255,0.08); border-bottom: 1px solid rgba(88,166,255,0.2);
+  padding: 10px 14px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  display: flex; gap: 8px; scrollbar-width: none;
+}
+#quick-bar::-webkit-scrollbar { display: none; }
+.quick-chip {
+  flex-shrink: 0; background: rgba(88,166,255,0.12); border: 1px solid rgba(88,166,255,0.3);
+  border-radius: 20px; padding: 6px 14px; font-size: 0.8rem; font-weight: 600;
+  color: var(--blue); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.quick-chip:active { background: rgba(88,166,255,0.3); transform: scale(0.97); }
+
+/* ── SEARCH ── */
+.search-wrap { padding: 12px 14px 4px; }
+#search { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; font-size: 0.9rem; color: var(--text); outline: none; -webkit-appearance: none; }
+#search::placeholder { color: var(--muted); }
+#search:focus { border-color: var(--blue); }
+
+/* ── NAV ── */
+nav { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 6px; }
+nav::-webkit-scrollbar { display: none; }
+nav button { flex-shrink: 0; background: none; border: none; color: var(--muted); padding: 11px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+nav button.active { color: var(--text); border-bottom-color: var(--blue); }
+
+/* ── SECTIONS ── */
+.section { display: none; padding: 14px 14px 180px; }
+.section.active { display: block; }
+
+/* ── CATEGORY HEADER ── */
+.cat-head {
+  display: flex; align-items: center; gap: 10px; margin: 18px 0 10px;
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+}
+.cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.cat-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── PHRASE CARDS ── */
+.phrase-grid { display: flex; flex-direction: column; gap: 6px; }
+.phrase-card {
+  background: var(--surface); border: 1px solid var(--border); border-left: 3px solid transparent;
+  border-radius: 10px; padding: 11px 13px; cursor: pointer; transition: all 0.15s; position: relative;
+}
+.phrase-card:active { transform: scale(0.98); }
+.phrase-card.selected { border-color: rgba(255,255,255,0.15); }
+.phrase-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; font-size: 0.75rem; font-weight: 800; }
+.phrase-main { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.phrase-sub { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.phrase-ex { font-size: 0.75rem; font-style: italic; color: var(--muted); margin-top: 5px; line-height: 1.5; display: none; }
+.phrase-card.open .phrase-ex { display: block; }
+.phrase-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; border-radius: 5px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; opacity: 0.8; }
+
+/* ── PRÄPOSITIONEN TABLE ── */
+.prep-table { background: var(--surface); border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
+.prep-row { display: flex; align-items: flex-start; gap: 0; border-bottom: 1px solid var(--border); }
+.prep-row:last-child { border-bottom: none; }
+.prep-case { background: rgba(255,255,255,0.04); padding: 10px 12px; font-size: 0.75rem; font-weight: 800; min-width: 80px; color: var(--orange); display: flex; align-items: center; }
+.prep-words { padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; flex: 1; }
+.prep-chip {
+  background: rgba(251,146,60,0.12); border: 1px solid rgba(251,146,60,0.3);
+  border-radius: 8px; padding: 5px 10px; font-size: 0.8rem; font-weight: 600;
+  color: var(--orange); cursor: pointer; transition: all 0.15s;
+}
+.prep-chip:active { background: rgba(251,146,60,0.3); }
+.prep-chip.selected { background: var(--orange); color: #000; border-color: var(--orange); }
+.prep-chip.w { background: rgba(52,211,153,0.12); border-color: rgba(52,211,153,0.3); color: var(--teal); }
+.prep-chip.w.selected { background: var(--teal); color: #000; border-color: var(--teal); }
+
+/* ── UPGRADE CARDS ── */
+.upgrade-row { background: var(--surface); border-radius: 10px; margin-bottom: 8px; overflow: hidden; border: 1px solid var(--border); }
+.upgrade-from { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; cursor: pointer; }
+.upgrade-from-word { font-size: 0.88rem; font-weight: 700; color: var(--muted); }
+.upgrade-arrow { color: var(--muted); font-size: 0.9rem; transition: transform 0.2s; }
+.upgrade-row.open .upgrade-arrow { transform: rotate(90deg); }
+.upgrade-to { display: none; padding: 0 14px 12px; flex-wrap: wrap; gap: 6px; }
+.upgrade-row.open .upgrade-to { display: flex; }
+.upgrade-chip {
+  background: rgba(134,239,172,0.12); border: 1px solid rgba(134,239,172,0.25);
+  border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 700;
+  color: var(--green); cursor: pointer; transition: all 0.15s;
+}
+.upgrade-chip:active { transform: scale(0.96); }
+.upgrade-chip.selected { background: var(--green); color: #000; border-color: var(--green); }
+.upgrade-note { font-size: 0.72rem; color: var(--muted); padding: 0 14px 10px; font-style: italic; display: none; }
+.upgrade-row.open .upgrade-note { display: block; }
+
+/* ── RANDOM BUTTON ── */
+.random-btn {
+  width: 100%; background: linear-gradient(135deg, rgba(192,132,252,0.15), rgba(88,166,255,0.15));
+  border: 1px solid rgba(192,132,252,0.3); border-radius: 12px; padding: 14px;
+  color: var(--purple); font-size: 0.88rem; font-weight: 700; cursor: pointer;
+  margin-bottom: 16px; transition: all 0.2s; text-align: center;
+}
+.random-btn:active { transform: scale(0.98); }
+.random-result { background: var(--surface2); border: 1px solid rgba(192,132,252,0.4); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: none; }
+.random-result.show { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
+.rr-phrase { font-size: 1rem; font-weight: 800; color: var(--purple); margin-bottom: 6px; }
+.rr-ex { font-size: 0.83rem; color: var(--muted); font-style: italic; line-height: 1.6; }
+
+/* ── SPEAKING PANEL (bottom) ── */
+#speak-panel {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+  background: rgba(13,17,23,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border); transition: all 0.3s;
+}
+.panel-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; }
+.panel-title { font-size: 0.78rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+.panel-btns { display: flex; gap: 6px; }
+.panel-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; color: var(--muted); padding: 5px 10px; font-size: 0.73rem; font-weight: 700; cursor: pointer; }
+.panel-btn.speak { background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.4); color: var(--teal); }
+.panel-words { padding: 0 14px 12px; display: flex; flex-wrap: wrap; gap: 6px; max-height: 80px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.panel-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; padding: 4px 0 8px; }
+.panel-tag { background: var(--surface2); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 5px 12px; font-size: 0.78rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.panel-tag .rem { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.85rem; padding: 0; line-height: 1; }
+
+/* ── SPRECHMODUS ── */
+body.speak-mode .section > *:not(#speak-mode-overlay) { filter: blur(2px); opacity: 0.2; pointer-events: none; }
+#speak-mode-overlay { display: none; position: fixed; inset: 0; background: rgba(13,17,23,0.85); z-index: 130; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+body.speak-mode #speak-mode-overlay { display: flex; }
+.smo-title { color: var(--teal); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+.smo-words { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 500px; }
+.smo-tag { background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 10px 18px; font-size: 0.95rem; font-weight: 700; color: var(--text); text-align: center; }
+.smo-empty { color: var(--muted); font-size: 0.9rem; text-align: center; }
+.smo-btn { margin-top: 24px; background: rgba(52,211,153,0.2); border: 2px solid var(--teal); border-radius: 12px; color: var(--teal); font-size: 0.9rem; font-weight: 800; padding: 12px 28px; cursor: pointer; }
+
+/* Sprechmodus: header/nav still visible */
+body.speak-mode header, body.speak-mode nav, body.speak-mode #speak-panel { filter: none; opacity: 1; pointer-events: auto; }
+
+/* ── SECTION-SPECIFIC COLORS ── */
+/* verknuepfen=blue, meinung=purple, struktur=teal, prep=orange, upgrade=green */
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🗣️</div>
+    <div class="logo-text">Ivans <span>Sprechhilfe</span></div>
+  </div>
+  <div class="header-btns">
+    <button class="hbtn" onclick="randomPhrase()">🎲 Zufall</button>
+    <button class="hbtn speak" id="speak-btn" onclick="toggleSpeakMode()">🎙️ Modus</button>
+  </div>
+</header>
+
+<!-- QUICK-ACCESS BAR -->
+<div id="quick-bar">
+  <div class="quick-chip" onclick="addToPanel('Ich denke, dass…')">Ich denke, dass…</div>
+  <div class="quick-chip" onclick="addToPanel('Außerdem…')">Außerdem…</div>
+  <div class="quick-chip" onclick="addToPanel('Zum Beispiel…')">Zum Beispiel…</div>
+  <div class="quick-chip" onclick="addToPanel('Allerdings…')">Allerdings…</div>
+  <div class="quick-chip" onclick="addToPanel('Deshalb…')">Deshalb…</div>
+  <div class="quick-chip" onclick="addToPanel('Im Gegensatz dazu…')">Im Gegensatz dazu…</div>
+  <div class="quick-chip" onclick="addToPanel('Zusammenfassend…')">Zusammenfassend…</div>
+  <div class="quick-chip" onclick="addToPanel('Was … betrifft,…')">Was … betrifft,…</div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <input id="search" type="search" placeholder="🔍  Wort oder Ausdruck suchen…" autocomplete="off" oninput="filterCards()">
+</div>
+
+<!-- NAV -->
+<nav>
+  <button class="active" onclick="go('verk')">🔗 Verknüpfen</button>
+  <button onclick="go('mein')">💭 Meinung</button>
+  <button onclick="go('struk')">📊 Struktur</button>
+  <button onclick="go('prep')">📍 Präpositionen</button>
+  <button onclick="go('upg')">✨ Upgrade</button>
+  <button onclick="go('fav')">⭐ Meine Wörter</button>
+</nav>
+
+<!-- ═══════════════════════════════════
+     VERKNÜPFEN
+═══════════════════════════════════ -->
+<div id="verk" class="section active">
+
+  <div class="random-result" id="rr-box">
+    <div class="rr-phrase" id="rr-phrase"></div>
+    <div class="rr-ex" id="rr-ex"></div>
+  </div>
+
+  <!-- KAUSAL -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--blue)"></div><span style="color:var(--blue)">Grund angeben</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-kausal">
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'weil…','Weil es regnete, blieb ich zu Hause.')">
+      <div class="phrase-main" style="color:var(--blue)">weil…  <span class="phrase-badge" style="background:rgba(88,166,255,0.2);color:var(--blue)">Nebensatz</span></div>
+      <div class="phrase-sub">→ Verb ans Ende · Weil es wichtig <em>ist</em>…</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'denn…','Er kam nicht, denn er war krank.')">
+      <div class="phrase-main" style="color:var(--blue)">denn…  <span class="phrase-badge" style="background:rgba(88,166,255,0.2);color:var(--blue)">Hauptsatz</span></div>
+      <div class="phrase-sub">→ normales Verb · Er blieb zu Hause, denn er hatte keine Zeit.</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'da…','Da ich müde war, ging ich früh schlafen.')">
+      <div class="phrase-main" style="color:var(--blue)">da…  <span class="phrase-badge" style="background:rgba(88,166,255,0.2);color:var(--blue)">Nebensatz</span></div>
+      <div class="phrase-sub">→ wie „weil", aber formeller · oft am Satzanfang</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'deshalb / daher / deswegen…','Er war krank, deshalb kam er nicht.')">
+      <div class="phrase-main" style="color:var(--blue)">deshalb / daher / deswegen…</div>
+      <div class="phrase-sub">→ leitet die Folge ein · Verb direkt danach</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'aus diesem Grund…','Aus diesem Grund habe ich mich entschieden…')">
+      <div class="phrase-main" style="color:var(--blue)">aus diesem Grund…</div>
+      <div class="phrase-sub">→ formeller Ausdruck für „deshalb"</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--blue)" onclick="toggleCard(this,'nämlich…','Ich mag das Buch, es ist nämlich sehr spannend.')">
+      <div class="phrase-main" style="color:var(--blue)">nämlich…</div>
+      <div class="phrase-sub">→ erklärt im selben Satz · steht nach dem Verb</div>
+    </div>
+  </div>
+
+  <!-- KONTRAST -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--pink)"></div><span style="color:var(--pink)">Kontrast & Gegensatz</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-kontrast">
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'aber…','Ich mag Sport, aber heute bin ich zu müde.')">
+      <div class="phrase-main" style="color:var(--pink)">aber…</div>
+      <div class="phrase-sub">→ einfachster Gegensatz · Hauptsatz + Hauptsatz</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'jedoch / allerdings…','Das klingt gut. Allerdings gibt es ein Problem.')">
+      <div class="phrase-main" style="color:var(--pink)">jedoch / allerdings…</div>
+      <div class="phrase-sub">→ formeller als „aber" · kann am Satzanfang stehen</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'obwohl…','Obwohl es kalt war, ging er schwimmen.')">
+      <div class="phrase-main" style="color:var(--pink)">obwohl…  <span class="phrase-badge" style="background:rgba(244,114,182,0.2);color:var(--pink)">Nebensatz</span></div>
+      <div class="phrase-sub">→ trotz diesem Umstand · Verb ans Ende</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'trotzdem / dennoch…','Es war kalt. Trotzdem gingen wir raus.')">
+      <div class="phrase-main" style="color:var(--pink)">trotzdem / dennoch…</div>
+      <div class="phrase-sub">→ „obwohl" als Hauptsatz · Verb nach trotzdem</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'während / wohingegen…','Er liebt Kaffee, während sie Tee bevorzugt.')">
+      <div class="phrase-main" style="color:var(--pink)">während / wohingegen…</div>
+      <div class="phrase-sub">→ zwei Gegensätze gleichzeitig vergleichen</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--pink)" onclick="toggleCard(this,'im Gegensatz dazu…','Sie ist sportlich. Im Gegensatz dazu sitzt er lieber.')">
+      <div class="phrase-main" style="color:var(--pink)">im Gegensatz dazu…</div>
+      <div class="phrase-sub">→ zum Vergleich mit dem Vorherigen</div>
+    </div>
+  </div>
+
+  <!-- ADDITION -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Etwas hinzufügen</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-addition">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'außerdem…','Außerdem möchte ich sagen, dass…')">
+      <div class="phrase-main" style="color:var(--teal)">außerdem…</div>
+      <div class="phrase-sub">→ häufigste Art, etwas hinzuzufügen</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'zusätzlich…','Zusätzlich gibt es noch einen weiteren Grund.')">
+      <div class="phrase-main" style="color:var(--teal)">zusätzlich…</div>
+      <div class="phrase-sub">→ etwas Weiteres anfügen</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'darüber hinaus…','Darüber hinaus ist es auch wichtig, dass…')">
+      <div class="phrase-main" style="color:var(--teal)">darüber hinaus…</div>
+      <div class="phrase-sub">→ formeller, betont, dass es noch mehr gibt</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'nicht nur … sondern auch…','Er ist nicht nur intelligent, sondern auch kreativ.')">
+      <div class="phrase-main" style="color:var(--teal)">nicht nur … sondern auch…</div>
+      <div class="phrase-sub">→ verstärkt die Aussage doppelt</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'ebenfalls / gleichzeitig…','Gleichzeitig muss man beachten, dass…')">
+      <div class="phrase-main" style="color:var(--teal)">ebenfalls / gleichzeitig…</div>
+      <div class="phrase-sub">→ zwei Dinge parallel betonen</div>
+    </div>
+  </div>
+
+  <!-- TEMPORAL -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--yellow)"></div><span style="color:var(--yellow)">Zeit & Reihenfolge</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-temporal">
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'als…','Als ich jung war, lebte ich in Berlin.')">
+      <div class="phrase-main" style="color:var(--yellow)">als…  <span class="phrase-badge" style="background:rgba(253,230,138,0.15);color:var(--yellow)">einmalig / Vergangenheit</span></div>
+      <div class="phrase-sub">→ einmalige abgeschlossene Handlung in der Vergangenheit</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'wenn…','Wenn ich Zeit habe, lese ich gern.')">
+      <div class="phrase-main" style="color:var(--yellow)">wenn…  <span class="phrase-badge" style="background:rgba(253,230,138,0.15);color:var(--yellow)">wiederholt / Gegenwart</span></div>
+      <div class="phrase-sub">→ wiederholte Handlung oder Bedingung (Präsens/Futur)</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'während…','Während ich arbeitete, hörte ich Musik.')">
+      <div class="phrase-main" style="color:var(--yellow)">während…  <span class="phrase-badge" style="background:rgba(253,230,138,0.15);color:var(--yellow)">gleichzeitig</span></div>
+      <div class="phrase-sub">→ zwei Handlungen gleichzeitig</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'bevor…','Bevor ich schlafe, lese ich immer.')">
+      <div class="phrase-main" style="color:var(--yellow)">bevor…  <span class="phrase-badge" style="background:rgba(253,230,138,0.15);color:var(--yellow)">vorher</span></div>
+      <div class="phrase-sub">→ A passiert, bevor B passiert</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'nachdem…','Nachdem ich gegessen hatte, ging ich spazieren.')">
+      <div class="phrase-main" style="color:var(--yellow)">nachdem…  <span class="phrase-badge" style="background:rgba(253,230,138,0.15);color:var(--yellow)">danach</span></div>
+      <div class="phrase-sub">→ A passiert, nachdem B fertig ist · Plusquamperfekt!</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'seitdem…','Seitdem er dort arbeitet, ist er glücklicher.')">
+      <div class="phrase-main" style="color:var(--yellow)">seitdem / seit…</div>
+      <div class="phrase-sub">→ ab einem Zeitpunkt bis jetzt</div>
+    </div>
+  </div>
+
+  <!-- KONDITIONAL -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--purple)"></div><span style="color:var(--purple)">Bedingung</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-kondit">
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'wenn… (Bedingung)','Wenn du mehr übst, wirst du besser.')">
+      <div class="phrase-main" style="color:var(--purple)">wenn… (Bedingung)</div>
+      <div class="phrase-sub">→ falls eine Bedingung erfüllt ist → dann …</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'falls…','Falls es regnet, bleiben wir drinnen.')">
+      <div class="phrase-main" style="color:var(--purple)">falls…</div>
+      <div class="phrase-sub">→ formeller / unsicherer als „wenn"</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'sofern…','Sofern du einverstanden bist, starten wir.')">
+      <div class="phrase-main" style="color:var(--purple)">sofern…</div>
+      <div class="phrase-sub">→ „unter der Bedingung, dass" · formell</div>
+    </div>
+  </div>
+
+  <!-- FINAL / KONZESSIV -->
+  <div class="cat-head"><div class="cat-dot" style="background:var(--orange)"></div><span style="color:var(--orange)">Zweck & Absicht</span><div class="cat-line"></div></div>
+  <div class="phrase-grid" id="g-final">
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'damit…','Ich erkläre es langsam, damit du es verstehst.')">
+      <div class="phrase-main" style="color:var(--orange)">damit…  <span class="phrase-badge" style="background:rgba(251,146,60,0.15);color:var(--orange)">Nebensatz</span></div>
+      <div class="phrase-sub">→ verschiedene Subjekte · Ich erkläre es, damit <em>du</em> es verstehst.</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'um … zu …','Er lernt Deutsch, um in Wien zu arbeiten.')">
+      <div class="phrase-main" style="color:var(--orange)">um … zu …</div>
+      <div class="phrase-sub">→ gleiches Subjekt · Er lernt, um zu arbeiten.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MEINUNG
+═══════════════════════════════════ -->
+<div id="mein" class="section">
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--purple)"></div><span style="color:var(--purple)">Meinung ausdrücken</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Ich denke, dass…','Ich denke, dass diese Lösung am besten ist.')">
+      <div class="phrase-main" style="color:var(--purple)">Ich denke, dass…</div>
+      <div class="phrase-sub">→ neutrale, alltägliche Meinungsäußerung</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Ich bin der Meinung, dass…','Ich bin der Meinung, dass wir mehr Zeit brauchen.')">
+      <div class="phrase-main" style="color:var(--purple)">Ich bin der Meinung, dass…</div>
+      <div class="phrase-sub">→ klarer, bestimmter als „ich denke" · B2</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Meiner Meinung nach…','Meiner Meinung nach ist das die beste Option.')">
+      <div class="phrase-main" style="color:var(--purple)">Meiner Meinung nach…</div>
+      <div class="phrase-sub">→ kein dass-Satz danach · Verb direkt</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Ich bin davon überzeugt, dass…','Ich bin davon überzeugt, dass er recht hat.')">
+      <div class="phrase-main" style="color:var(--purple)">Ich bin davon überzeugt, dass…</div>
+      <div class="phrase-sub">→ starke, sichere Überzeugung · sehr gut für B2</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Es scheint mir, dass…','Es scheint mir, dass das Problem tiefer liegt.')">
+      <div class="phrase-main" style="color:var(--purple)">Es scheint mir, dass…</div>
+      <div class="phrase-sub">→ vorsichtig, nachdenklich · wie „it seems to me"</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Was mich betrifft,…','Was mich betrifft, finde ich das sehr wichtig.')">
+      <div class="phrase-main" style="color:var(--purple)">Was mich betrifft,… / Persönlich…</div>
+      <div class="phrase-sub">→ betont die persönliche Perspektive</div>
+    </div>
+    <div class="phrase-card" style="border-left-color:var(--purple)" onclick="toggleCard(this,'Ich finde es + Adj., dass…','Ich finde es wichtig, dass wir das besprechen.')">
+      <div class="phrase-main" style="color:var(--purple)">Ich finde es + Adj., dass…</div>
+      <div class="phrase-sub">→ Ich finde es <em>wichtig / problematisch / interessant</em>, dass…</div>
+    </div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Zustimmen</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Das stimmt (genau).','Das stimmt – ich sehe das genauso.')"><div class="phrase-main" style="color:var(--teal)">Das stimmt (genau).</div><div class="phrase-sub">→ einfach und klar zustimmen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Da hast du recht.','Da hast du absolut recht.')"><div class="phrase-main" style="color:var(--teal)">Da hast du recht.</div><div class="phrase-sub">→ direkte Zustimmung</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Das sehe ich genauso.','Das sehe ich genauso – das ist ein wichtiger Punkt.')"><div class="phrase-main" style="color:var(--teal)">Das sehe ich genauso.</div><div class="phrase-sub">→ Übereinstimmung ausdrücken</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Ich bin (völlig) einverstanden.','Ich bin völlig einverstanden mit dieser Aussage.')"><div class="phrase-main" style="color:var(--teal)">Ich bin (völlig) einverstanden.</div><div class="phrase-sub">→ formeller Ausdruck der Zustimmung</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Genau! / Absolut! / Richtig!','Genau! Das habe ich auch gedacht.')"><div class="phrase-main" style="color:var(--teal)">Genau! / Absolut! / Richtig!</div><div class="phrase-sub">→ kurze, spontane Zustimmung</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--red)"></div><span style="color:var(--red)">Widersprechen</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--red)" onclick="toggleCard(this,'Ich bin anderer Meinung.','Ich bin anderer Meinung – ich denke, dass…')"><div class="phrase-main" style="color:var(--red)">Ich bin anderer Meinung.</div><div class="phrase-sub">→ höflich widersprechen · immer mit Begründung!</div></div>
+    <div class="phrase-card" style="border-left-color:var(--red)" onclick="toggleCard(this,'Das sehe ich anders, weil…','Das sehe ich anders, weil die Fakten zeigen…')"><div class="phrase-main" style="color:var(--red)">Das sehe ich anders, weil…</div><div class="phrase-sub">→ direkte, sachliche Ablehnung mit Grund</div></div>
+    <div class="phrase-card" style="border-left-color:var(--red)" onclick="toggleCard(this,'Da muss ich widersprechen.','Da muss ich widersprechen – das ist nicht ganz richtig.')"><div class="phrase-main" style="color:var(--red)">Da muss ich widersprechen.</div><div class="phrase-sub">→ formell, deutlich · gut für Diskussionen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--red)" onclick="toggleCard(this,'Das bezweifle ich.','Das bezweifle ich – es gibt keine Belege dafür.')"><div class="phrase-main" style="color:var(--red)">Das bezweifle ich.</div><div class="phrase-sub">→ skeptisch sein; etwas in Frage stellen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--red)" onclick="toggleCard(this,'Im Gegenteil,…','Im Gegenteil, ich denke das Gegenteil ist wahr.')"><div class="phrase-main" style="color:var(--red)">Im Gegenteil,…</div><div class="phrase-sub">→ das Gegenteil behaupten</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--orange)"></div><span style="color:var(--orange)">Beispiele & Belege</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'Zum Beispiel…','Zum Beispiel könnte man das so lösen…')"><div class="phrase-main" style="color:var(--orange)">Zum Beispiel…</div><div class="phrase-sub">→ häufigste Einleitung eines Beispiels</div></div>
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'Das heißt / Das bedeutet,…','Das heißt, wir müssen schneller handeln.')"><div class="phrase-main" style="color:var(--orange)">Das heißt / Das bedeutet,…</div><div class="phrase-sub">→ etwas erklären oder konkretisieren</div></div>
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'Das zeigt, dass…','Das zeigt, dass Kommunikation entscheidend ist.')"><div class="phrase-main" style="color:var(--orange)">Das zeigt, dass…</div><div class="phrase-sub">→ einen Beleg oder Beweis anführen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--orange)" onclick="toggleCard(this,'Stell dir vor, dass…','Stell dir vor, du bist in dieser Situation.')"><div class="phrase-main" style="color:var(--orange)">Stell dir vor, dass…</div><div class="phrase-sub">→ Hypothetisches Beispiel geben</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     STRUKTUR
+═══════════════════════════════════ -->
+<div id="struk" class="section">
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Einstieg & Einleitung</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Ich möchte über … sprechen.','Ich möchte heute über Umweltschutz sprechen.')"><div class="phrase-main" style="color:var(--teal)">Ich möchte über … sprechen.</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Es geht heute um…','Es geht heute um die Vor- und Nachteile.')"><div class="phrase-main" style="color:var(--teal)">Es geht (heute) um…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Zunächst möchte ich…','Zunächst möchte ich den Kontext erklären.')"><div class="phrase-main" style="color:var(--teal)">Zunächst möchte ich…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Als Erstes…','Als Erstes erkläre ich die Geschichte.')"><div class="phrase-main" style="color:var(--teal)">Als Erstes… / Zuerst…</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Aufzählen & Ordnen</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Erstens… zweitens… drittens…','Erstens ist es günstig, zweitens ist es praktisch.')"><div class="phrase-main" style="color:var(--teal)">Erstens… zweitens… drittens…</div><div class="phrase-sub">→ klar strukturierte Aufzählung · sehr gut für Prüfungen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Einerseits… andererseits…','Einerseits ist es teuer, andererseits sehr qualitativ.')"><div class="phrase-main" style="color:var(--teal)">Einerseits… andererseits…</div><div class="phrase-sub">→ Vor- und Nachteile abwägen</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Dann / Danach / Anschließend…','Dann gehe ich auf den zweiten Punkt ein.')"><div class="phrase-main" style="color:var(--teal)">Dann / Danach / Anschließend…</div><div class="phrase-sub">→ weiterleiten zum nächsten Punkt</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Was … betrifft,…','Was die Kosten betrifft, sind sie sehr hoch.')"><div class="phrase-main" style="color:var(--teal)">Was … betrifft,…</div><div class="phrase-sub">→ ein neues Thema einführen · sehr elegant</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Überleiten & Verbinden</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Ich möchte noch hinzufügen, dass…','Ich möchte noch hinzufügen, dass das nicht alles ist.')"><div class="phrase-main" style="color:var(--teal)">Ich möchte noch hinzufügen, dass…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Wie ich bereits erwähnt habe,…','Wie ich bereits erwähnt habe, ist das entscheidend.')"><div class="phrase-main" style="color:var(--teal)">Wie ich bereits erwähnt habe,…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Kommen wir nun zu…','Kommen wir nun zum zweiten Argument.')"><div class="phrase-main" style="color:var(--teal)">Kommen wir nun zu…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Das bringt mich zu meinem nächsten Punkt…','Das bringt mich zu meinem nächsten Punkt…')"><div class="phrase-main" style="color:var(--teal)">Das bringt mich zu meinem nächsten Punkt…</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Abschluss & Fazit</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Zusammenfassend lässt sich sagen, dass…','Zusammenfassend lässt sich sagen, dass es komplex ist.')"><div class="phrase-main" style="color:var(--teal)">Zusammenfassend lässt sich sagen, dass…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Alles in allem…','Alles in allem bin ich positiv eingestellt.')"><div class="phrase-main" style="color:var(--teal)">Alles in allem… / Insgesamt…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Zum Schluss möchte ich noch sagen, dass…','Zum Schluss möchte ich sagen, dass ich optimistisch bin.')"><div class="phrase-main" style="color:var(--teal)">Zum Schluss möchte ich noch sagen, dass…</div></div>
+    <div class="phrase-card" style="border-left-color:var(--teal)" onclick="toggleCard(this,'Als Fazit lässt sich festhalten:…','Als Fazit lässt sich festhalten: Es lohnt sich.')"><div class="phrase-main" style="color:var(--teal)">Als Fazit lässt sich festhalten:…</div><div class="phrase-sub">→ sehr stark für formelle Situationen / Prüfungen</div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--yellow)"></div><span style="color:var(--yellow)">Zeit gewinnen & nachfragen</span><div class="cat-line"></div></div>
+  <div class="phrase-grid">
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'Das ist eine gute Frage…','Das ist eine gute Frage. Ich denke…')"><div class="phrase-main" style="color:var(--yellow)">Das ist eine gute Frage…</div><div class="phrase-sub">→ Zeit gewinnen · dann weiterreden!</div></div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'Also… / Äh… / Nun…','Also, ich denke, dass das stimmt.')"><div class="phrase-main" style="color:var(--yellow)">Also… / Äh… / Nun…</div><div class="phrase-sub">→ natürliche Füllwörter beim Denken</div></div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'Könnten Sie das bitte wiederholen?','Könnten Sie das bitte wiederholen? Ich habe es nicht ganz verstanden.')"><div class="phrase-main" style="color:var(--yellow)">Könnten Sie das bitte wiederholen?</div></div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'Wie meinen Sie das genau?','Wie meinen Sie das genau? Ich bin mir nicht sicher.')"><div class="phrase-main" style="color:var(--yellow)">Wie meinen Sie das genau?</div></div>
+    <div class="phrase-card" style="border-left-color:var(--yellow)" onclick="toggleCard(this,'Wenn ich Sie richtig verstehe,…','Wenn ich Sie richtig verstehe, meinen Sie…')"><div class="phrase-main" style="color:var(--yellow)">Wenn ich Sie richtig verstehe,…</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PRÄPOSITIONEN
+═══════════════════════════════════ -->
+<div id="prep" class="section">
+
+  <div style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:0.82rem;color:var(--muted);line-height:1.7;">
+    💡 <strong style="color:var(--orange)">Tipp:</strong> Tippe auf eine Präposition, um sie zu deiner Auswahl hinzuzufügen. Lerne zuerst die Eselsbrücke: <strong style="color:var(--text)">DOGFU = Dativ-Präpositionen: durch, ohne, gegen, für, um</strong> → Nein! Das ist Akkusativ. Eselsbrücke für Dativ: <strong style="color:var(--text)">„Aus bei mit nach – sei von zu gegenüber"</strong>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--red)"></div><span style="color:var(--red)">Akkusativ</span><div class="cat-line"></div></div>
+  <div class="prep-table">
+    <div class="prep-row"><div class="prep-case">durch</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">durch den Park · durch die Stadt · through</div></div></div>
+    <div class="prep-row"><div class="prep-case">für</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">für den Chef · für mich · für eine Stunde · for</div></div></div>
+    <div class="prep-row"><div class="prep-case">gegen</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">gegen die Wand · gegen ihn · against</div></div></div>
+    <div class="prep-row"><div class="prep-case">ohne</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">ohne einen Grund · ohne dich · without</div></div></div>
+    <div class="prep-row"><div class="prep-case">um</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">um den Tisch · um 9 Uhr · um … zu · around / at</div></div></div>
+    <div class="prep-row"><div class="prep-case">bis</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">bis nächsten Montag · bis jetzt · until</div></div></div>
+    <div class="prep-row"><div class="prep-case">entlang</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">den Fluss entlang · along (nachgestellt!)</div></div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--blue)"></div><span style="color:var(--blue)">Dativ</span><div class="cat-line"></div></div>
+  <div class="prep-table">
+    <div class="prep-row"><div class="prep-case">aus</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">aus der Schweiz · aus dem Haus · out of / from</div></div></div>
+    <div class="prep-row"><div class="prep-case">bei</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">bei dem Chef · beim Arzt · bei schlechtem Wetter · at / with</div></div></div>
+    <div class="prep-row"><div class="prep-case">mit</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">mit dem Bus · mit einem Freund · with</div></div></div>
+    <div class="prep-row"><div class="prep-case">nach</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">nach der Arbeit · nach Hause · nach Berlin · after / to</div></div></div>
+    <div class="prep-row"><div class="prep-case">seit</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">seit einem Jahr · seit gestern · since / for (Präsens!)</div></div></div>
+    <div class="prep-row"><div class="prep-case">von</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">von dem Chef · von morgen an · from / of / by</div></div></div>
+    <div class="prep-row"><div class="prep-case">zu</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">zu der Schule · zu Hause · zum Glück · to / at</div></div></div>
+    <div class="prep-row"><div class="prep-case">außer</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">außer mir · außer Betrieb · except / apart from</div></div></div>
+    <div class="prep-row"><div class="prep-case">gegenüber</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">dem Hotel gegenüber · gegenüber dem Problem · opposite / towards</div></div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--teal)"></div><span style="color:var(--teal)">Wechselpräpositionen — Dativ (Wo?) oder Akkusativ (Wohin?)</span><div class="cat-line"></div></div>
+  <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:0.8rem;color:var(--muted);line-height:1.7;">
+    🧭 <strong style="color:var(--teal)">Wo?</strong> = Dativ · Das Buch liegt <em>auf dem</em> Tisch.<br>
+    🚀 <strong style="color:var(--teal)">Wohin?</strong> = Akkusativ · Er legt das Buch <em>auf den</em> Tisch.
+  </div>
+  <div class="prep-table">
+    <div class="prep-row"><div class="prep-case">an</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">am Tisch (wo?) · an den Tisch (wohin?) · at / on</div></div></div>
+    <div class="prep-row"><div class="prep-case">auf</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">auf dem Tisch (wo?) · auf den Tisch (wohin?) · on</div></div></div>
+    <div class="prep-row"><div class="prep-case">hinter</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">hinter dem Haus (wo?) · hinter das Haus (wohin?) · behind</div></div></div>
+    <div class="prep-row"><div class="prep-case">in</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">im Zimmer (wo?) · in das Zimmer / ins Zimmer (wohin?) · in</div></div></div>
+    <div class="prep-row"><div class="prep-case">neben</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">neben dem Stuhl (wo?) · neben den Stuhl (wohin?) · next to</div></div></div>
+    <div class="prep-row"><div class="prep-case">über</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">über dem Tisch (wo?) · über den Tisch (wohin?) · over / about</div></div></div>
+    <div class="prep-row"><div class="prep-case">unter</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">unter dem Tisch (wo?) · unter den Tisch (wohin?) · under</div></div></div>
+    <div class="prep-row"><div class="prep-case">vor</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">vor der Tür (wo?) · vor die Tür (wohin?) · in front of / before</div></div></div>
+    <div class="prep-row"><div class="prep-case">zwischen</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">zwischen den Stühlen (wo?) · zwischen die Stühle (wohin?) · between</div></div></div>
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--purple)"></div><span style="color:var(--purple)">Genitiv-Präpositionen</span><div class="cat-line"></div></div>
+  <div class="prep-table">
+    <div class="prep-row"><div class="prep-case">wegen</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">wegen des Wetters · because of</div></div></div>
+    <div class="prep-row"><div class="prep-case">trotz</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">trotz des Regens · despite</div></div></div>
+    <div class="prep-row"><div class="prep-case">während</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">während des Unterrichts · during</div></div></div>
+    <div class="prep-row"><div class="prep-case">statt / anstatt</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">statt des Busses · instead of</div></div></div>
+    <div class="prep-row"><div class="prep-case">aufgrund</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">aufgrund der Situation · due to / because of</div></div></div>
+    <div class="prep-row"><div class="prep-case">innerhalb / außerhalb</div><div class="prep-words"><div style="font-size:0.8rem;color:var(--muted);">innerhalb einer Stunde · außerhalb der Stadt · within / outside of</div></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     UPGRADE
+═══════════════════════════════════ -->
+<div id="upg" class="section">
+  <div style="background:rgba(134,239,172,0.08);border:1px solid rgba(134,239,172,0.2);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:0.82rem;color:var(--muted);line-height:1.7;">
+    ✨ <strong style="color:var(--green)">Wörter upgraden:</strong> Ersetze einfache Wörter durch präzisere, reichere Ausdrücke. Tippe auf ein einfaches Wort, um bessere Alternativen zu sehen!
+  </div>
+
+  <div class="cat-head"><div class="cat-dot" style="background:var(--green)"></div><span style="color:var(--green)">Verben upgraden</span><div class="cat-line"></div></div>
+
+  <div id="upgrade-list">
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">sagen →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('behaupten')">behaupten</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('betonen')">betonen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('erläutern')">erläutern</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('feststellen')">feststellen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('erwähnen')">erwähnen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('hinweisen auf')">hinweisen auf</div>
+      </div>
+      <div class="upgrade-note">behaupten = claim · betonen = emphasize · erläutern = explain in detail · feststellen = state · erwähnen = mention</div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">denken →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('überlegen')">überlegen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('vermuten')">vermuten</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('annehmen')">annehmen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('schlussfolgern')">schlussfolgern</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('davon ausgehen')">davon ausgehen</div>
+      </div>
+      <div class="upgrade-note">vermuten = assume · annehmen = suppose · schlussfolgern = conclude · davon ausgehen = take it that</div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">machen →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('herstellen')">herstellen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('durchführen')">durchführen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('gestalten')">gestalten</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('entwickeln')">entwickeln</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('erledigen')">erledigen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('bewerkstelligen')">bewerkstelligen</div>
+      </div>
+      <div class="upgrade-note">herstellen = produce · durchführen = carry out · gestalten = design/shape · erledigen = complete</div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">gehen / funktionieren →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('verlaufen')">verlaufen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('sich entwickeln')">sich entwickeln</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('klappen')">klappen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('gelingen')">gelingen</div>
+      </div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">zeigen →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('demonstrieren')">demonstrieren</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('verdeutlichen')">verdeutlichen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('belegen')">belegen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('beweisen')">beweisen</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('aufzeigen')">aufzeigen</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-head" style="margin-top:18px;"><div class="cat-dot" style="background:var(--green)"></div><span style="color:var(--green)">Adjektive upgraden</span><div class="cat-line"></div></div>
+  <div id="adj-list">
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">gut →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('ausgezeichnet')">ausgezeichnet</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('hervorragend')">hervorragend</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('vorbildlich')">vorbildlich</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('bemerkenswert')">bemerkenswert</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('erstklassig')">erstklassig</div>
+      </div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">schlecht →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('mangelhaft')">mangelhaft</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('unzureichend')">unzureichend</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('enttäuschend')">enttäuschend</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('bedenklich')">bedenklich</div>
+      </div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">wichtig →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('entscheidend')">entscheidend</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('grundlegend')">grundlegend</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('wesentlich')">wesentlich</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('unerlässlich')">unerlässlich</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('ausschlaggebend')">ausschlaggebend</div>
+      </div>
+    </div>
+    <div class="upgrade-row" onclick="toggleUpgrade(this)">
+      <div class="upgrade-from"><div class="upgrade-from-word">interessant →</div><div class="upgrade-arrow">›</div></div>
+      <div class="upgrade-to">
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('fesselnd')">fesselnd</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('aufschlussreich')">aufschlussreich</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('bemerkenswert')">bemerkenswert</div>
+        <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('lehrreich')">lehrreich</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-head" style="margin-top:18px;"><div class="cat-dot" style="background:var(--green)"></div><span style="color:var(--green)">Adverbien upgraden – Intensität</span><div class="cat-line"></div></div>
+  <div class="upgrade-row" onclick="toggleUpgrade(this)">
+    <div class="upgrade-from"><div class="upgrade-from-word">sehr →</div><div class="upgrade-arrow">›</div></div>
+    <div class="upgrade-to">
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('äußerst')">äußerst</div>
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('besonders')">besonders</div>
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('überaus')">überaus</div>
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('ungemein')">ungemein</div>
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('außerordentlich')">außerordentlich</div>
+      <div class="upgrade-chip" onclick="event.stopPropagation();addToPanel('unbestreitbar')">unbestreitbar</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     FAVORITEN / MEINE WÖRTER
+═══════════════════════════════════ -->
+<div id="fav" class="section">
+  <div class="banner" style="background:rgba(253,230,138,0.1);border:1px solid rgba(253,230,138,0.3);border-radius:16px;padding:14px 16px;margin-bottom:16px;text-align:center;">
+    <h2 style="color:var(--yellow);font-size:1.1rem;margin-bottom:4px;">⭐ Meine ausgewählten Wörter</h2>
+    <p style="color:var(--muted);font-size:0.8rem;">Wörter, die du in anderen Tabs angetippt hast, erscheinen hier.</p>
+  </div>
+  <div id="fav-list" style="display:flex;flex-direction:column;gap:8px;">
+    <p style="color:var(--muted);font-size:0.85rem;text-align:center;padding:20px;">Noch nichts ausgewählt. Tippe in anderen Tabs auf Karten!</p>
+  </div>
+  <button onclick="clearAll()" style="margin-top:14px;width:100%;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:10px;color:var(--red);padding:10px;font-size:0.83rem;font-weight:700;cursor:pointer;">🗑️ Alles löschen</button>
+</div>
+
+<!-- SPRECHMODUS OVERLAY -->
+<div id="speak-mode-overlay">
+  <div class="smo-title">🎙️ Sprechmodus – Deine Wörter</div>
+  <div class="smo-words" id="smo-words">
+    <div class="smo-empty">Keine Wörter ausgewählt.<br>Gehe zurück und wähle Wörter aus.</div>
+  </div>
+  <button class="smo-btn" onclick="toggleSpeakMode()">✕ Sprechmodus beenden</button>
+</div>
+
+<!-- SPEAKING PANEL -->
+<div id="speak-panel">
+  <div class="panel-header">
+    <div class="panel-title">⭐ Meine Auswahl</div>
+    <div class="panel-btns">
+      <button class="panel-btn speak" onclick="toggleSpeakMode()">🎙️ Sprechmodus</button>
+      <button class="panel-btn" onclick="clearPanel()">Leeren</button>
+    </div>
+  </div>
+  <div class="panel-words" id="panel-words">
+    <div class="panel-empty">Tippe auf eine Karte, um sie hier zu speichern →</div>
+  </div>
+</div>
+
+<script>
+// ══ DATA für Random ══
+const ALL_PHRASES = [
+  {p:"Nicht nur … sondern auch …", e:"Er ist nicht nur intelligent, sondern auch sehr hilfsbereit."},
+  {p:"Was … betrifft,…", e:"Was die Kosten betrifft, sind sie leider sehr hoch."},
+  {p:"Alles in allem…", e:"Alles in allem war es eine erfolgreiche Präsentation."},
+  {p:"Ich bin davon überzeugt, dass…", e:"Ich bin davon überzeugt, dass wir die richtige Entscheidung getroffen haben."},
+  {p:"Einerseits … andererseits …", e:"Einerseits ist es praktisch, andererseits sehr kostspielig."},
+  {p:"Darüber hinaus…", e:"Darüber hinaus gibt es noch weitere Argumente."},
+  {p:"Das bringt mich zu meinem nächsten Punkt…", e:"Das bringt mich zu meinem nächsten Punkt: der Finanzierung."},
+  {p:"Wenn ich Sie richtig verstehe,…", e:"Wenn ich Sie richtig verstehe, meinen Sie, dass…"},
+  {p:"Im Gegensatz dazu…", e:"Im Gegensatz dazu bevorzuge ich einen anderen Ansatz."},
+  {p:"Zusammenfassend lässt sich sagen, dass…", e:"Zusammenfassend lässt sich sagen, dass das Ergebnis positiv ist."},
+  {p:"Es scheint mir, dass…", e:"Es scheint mir, dass hier ein Missverständnis vorliegt."},
+  {p:"Nicht zu vergessen…", e:"Nicht zu vergessen ist auch der kulturelle Aspekt."},
+  {p:"Da muss ich widersprechen.", e:"Da muss ich widersprechen – die Fakten sagen etwas anderes."},
+  {p:"Das zeigt, dass…", e:"Das zeigt, dass eine bessere Vorbereitung nötig wäre."},
+  {p:"Obwohl… (trotzdem)", e:"Obwohl es schwierig war, haben wir es geschafft."},
+];
+
+function randomPhrase() {
+  const i = Math.floor(Math.random() * ALL_PHRASES.length);
+  const d = ALL_PHRASES[i];
+  const box = document.getElementById('rr-box');
+  document.getElementById('rr-phrase').textContent = d.p;
+  document.getElementById('rr-ex').textContent = '💬 ' + d.e;
+  box.classList.add('show');
+  go('verk');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══ TABS ══
+function go(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const ids=['verk','mein','struk','prep','upg','fav'];
+  document.querySelectorAll('nav button')[ids.indexOf(id)].classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='fav') renderFav();
+}
+
+// ══ PANEL / SELECTION ══
+let selected = new Set();
+let panelItems = [];
+
+function addToPanel(word) {
+  if(!panelItems.includes(word)) {
+    panelItems.push(word);
+    renderPanel();
+  }
+}
+
+function renderPanel() {
+  const el = document.getElementById('panel-words');
+  if(panelItems.length===0) {
+    el.innerHTML='<div class="panel-empty">Tippe auf eine Karte, um sie hier zu speichern →</div>';
+    return;
+  }
+  el.innerHTML = panelItems.map((w,i)=>`
+    <div class="panel-tag">
+      ${w}
+      <button class="rem" onclick="removePanel(${i})">✕</button>
+    </div>
+  `).join('');
+  // update speak mode
+  const smo = document.getElementById('smo-words');
+  smo.innerHTML = panelItems.length ? panelItems.map(w=>`<div class="smo-tag">${w}</div>`).join('') : '<div class="smo-empty">Keine Wörter ausgewählt.</div>';
+}
+
+function removePanel(i) {
+  panelItems.splice(i,1);
+  renderPanel();
+  renderFav();
+}
+
+function clearPanel() {
+  panelItems=[];
+  selected.clear();
+  document.querySelectorAll('.phrase-card.selected').forEach(c=>c.classList.remove('selected'));
+  renderPanel();
+}
+
+function clearAll() {
+  clearPanel();
+  renderFav();
+}
+
+// ══ CARD TOGGLE ══
+function toggleCard(card, phrase, example) {
+  card.classList.toggle('open');
+  if(card.querySelector('.phrase-ex')) {
+    card.querySelector('.phrase-ex').textContent = '💬 ' + example;
+  } else {
+    const ex = document.createElement('div');
+    ex.className='phrase-ex';
+    ex.textContent = '💬 ' + example;
+    card.appendChild(ex);
+  }
+  card.classList.toggle('selected');
+  if(card.classList.contains('selected')) {
+    addToPanel(phrase);
+    selected.add(phrase);
+  } else {
+    const idx = panelItems.indexOf(phrase);
+    if(idx>-1) panelItems.splice(idx,1);
+    selected.delete(phrase);
+    renderPanel();
+  }
+  const checkmark = card.querySelector('.ck');
+  if(card.classList.contains('selected')) {
+    if(!checkmark) { const c=document.createElement('span'); c.className='ck'; c.style.cssText='position:absolute;top:10px;right:12px;font-size:0.75rem;color:var(--green);font-weight:800;'; c.textContent='✓'; card.appendChild(c); }
+  } else {
+    if(checkmark) checkmark.remove();
+  }
+}
+
+// ══ UPGRADE TOGGLE ══
+function toggleUpgrade(row) {
+  row.classList.toggle('open');
+}
+
+// ══ FAV RENDER ══
+function renderFav() {
+  const el = document.getElementById('fav-list');
+  if(panelItems.length===0) {
+    el.innerHTML='<p style="color:var(--muted);font-size:0.85rem;text-align:center;padding:20px;">Noch nichts ausgewählt. Tippe in anderen Tabs auf Karten!</p>';
+    return;
+  }
+  el.innerHTML = panelItems.map((w,i)=>`
+    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:10px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:0.9rem;font-weight:700;color:var(--text);">${w}</span>
+      <button onclick="removePanel(${i})" style="background:none;border:none;color:var(--muted);font-size:0.9rem;cursor:pointer;">✕</button>
+    </div>
+  `).join('');
+}
+
+// ══ SPRECHMODUS ══
+function toggleSpeakMode() {
+  document.body.classList.toggle('speak-mode');
+  document.getElementById('speak-btn').classList.toggle('active');
+  renderPanel();
+}
+
+// ══ SEARCH ══
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.phrase-card').forEach(c => {
+    const txt = c.textContent.toLowerCase();
+    c.style.display = !q || txt.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.upgrade-row').forEach(r => {
+    const txt = r.textContent.toLowerCase();
+    r.style.display = !q || txt.includes(q) ? '' : 'none';
+  });
+}
+
+// Quick chips
+document.querySelectorAll('.quick-chip').forEach(c => {
+  c.addEventListener('click', () => {
+    c.style.background = 'rgba(88,166,255,0.35)';
+    setTimeout(()=>c.style.background='', 500);
+  });
+});
+</script>
+</body>
+</html>

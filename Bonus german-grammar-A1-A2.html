@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A1–A2 | Vollständige Grammatik mit Übungen</title>
+<style>
+:root {
+  --black:#1a1a2e; --gold:#e8b84b; --navy:#1e3a5f; --bg:#f5f6f8;
+  --card:#ffffff; --border:#e0e4ea; --muted:#7a8090;
+  --red:#c0392b; --green:#1a7a4a; --blue:#1d5fa8; --orange:#c45c0a;
+  --light-blue:#e8f0ff; --light-green:#e8fff0; --light-red:#fff0f0; --light-gold:#fffbea;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--black);line-height:1.7;}
+
+/* HEADER */
+header{background:var(--navy);color:white;padding:2.8rem 2rem 2.2rem;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,var(--gold),#c8960a);}
+.header-inner{max-width:1000px;margin:0 auto;padding-left:1.2rem;position:relative;z-index:1;}
+.series-label{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+header h1{font-size:2rem;font-weight:700;line-height:1.2;}
+header h1 span{color:var(--gold);}
+.header-sub{margin-top:0.5rem;font-size:0.95rem;color:rgba(255,255,255,0.7);font-style:italic;}
+.header-meta{margin-top:1rem;font-family:sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.5);display:flex;gap:1.4rem;flex-wrap:wrap;}
+.badge{display:inline-block;background:var(--gold);color:var(--navy);font-family:sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.7rem;border-radius:3px;margin-right:0.3rem;}
+
+/* NAV */
+nav{background:var(--black);padding:0.7rem 2rem;position:sticky;top:0;z-index:100;overflow-x:auto;white-space:nowrap;}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;gap:0.4rem;}
+nav a{font-family:sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.6);text-decoration:none;padding:0.3rem 0.6rem;border-radius:4px;transition:all 0.15s;}
+nav a:hover{background:rgba(232,184,75,0.2);color:var(--gold);}
+
+/* MAIN */
+main{max-width:1000px;margin:2rem auto;padding:0 1.5rem 5rem;}
+section{margin-bottom:3.5rem;scroll-margin-top:50px;}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem;padding-bottom:0.7rem;border-bottom:2px solid var(--border);}
+.section-icon{width:38px;height:38px;background:var(--navy);color:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.section-header h2{font-size:1.15rem;font-weight:700;}
+.section-header h2 small{display:block;font-size:0.78rem;font-weight:400;color:var(--muted);margin-top:0.1rem;}
+.level-tag{font-family:sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;padding:0.1rem 0.45rem;border-radius:3px;text-transform:uppercase;margin-left:0.5rem;}
+.tag-a1{background:#dff0d8;color:#2d6a1e;}
+.tag-a2{background:#dce9ff;color:#1a4a90;}
+.tag-a1a2{background:#f0e8ff;color:#5a20a0;}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:0.8rem 0 1.2rem;}
+table{border-collapse:collapse;width:100%;font-size:0.9rem;}
+th{background:var(--navy);color:white;padding:0.55rem 0.85rem;text-align:left;font-family:sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.04em;}
+td{padding:0.5rem 0.85rem;border-bottom:1px solid var(--border);}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#f9fafb;}
+.tbl-accent td:first-child{font-weight:700;color:var(--navy);}
+.highlight{background:var(--light-gold)!important;font-weight:700;}
+.der{color:#1d5fa8;font-weight:700;}
+.die{color:#c0392b;font-weight:700;}
+.das{color:#1a7a4a;font-weight:700;}
+.die-pl{color:#8e44ad;font-weight:700;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.6rem;margin-bottom:1rem;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.card-grid{display:grid;gap:0.8rem;}
+.two-col{grid-template-columns:1fr 1fr;}
+.three-col{grid-template-columns:1fr 1fr 1fr;}
+
+/* RULE BOXES */
+.rule{background:var(--light-gold);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.92rem;}
+.rule strong{color:var(--navy);}
+.tip{background:var(--light-blue);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.88rem;}
+.tip strong{color:var(--blue);}
+.beispiel{background:#f8f9ff;border:1px solid #d0d8f0;border-radius:8px;padding:0.8rem 1.1rem;margin:0.6rem 0;font-size:0.9rem;}
+.beispiel em{color:var(--blue);font-style:normal;font-weight:700;}
+
+/* EXERCISES */
+.exercise{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem 1.8rem;margin-top:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.ex-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.1rem;padding-bottom:0.6rem;border-bottom:1px dashed var(--border);}
+.ex-icon{font-size:1.1rem;}
+.ex-title{font-family:sans-serif;font-size:0.82rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.06em;}
+.ex-item{margin-bottom:0.8rem;font-size:0.92rem;display:flex;align-items:center;flex-wrap:wrap;gap:0.4rem;}
+.ex-item label{flex:1;min-width:200px;}
+.fill{border:none;border-bottom:2px solid var(--border);background:transparent;font-family:Georgia,serif;font-size:0.92rem;color:var(--black);padding:0.1rem 0.3rem;width:90px;outline:none;transition:border-color 0.2s;}
+.fill:focus{border-color:var(--blue);}
+.fill.correct{border-color:var(--green);background:var(--light-green);}
+.fill.wrong{border-color:var(--red);background:var(--light-red);}
+select.fill{width:auto;cursor:pointer;}
+.mc-opts{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.3rem;}
+.mc-btn{font-family:Georgia,serif;font-size:0.88rem;padding:0.25rem 0.75rem;border:2px solid var(--border);border-radius:6px;background:white;cursor:pointer;transition:all 0.15s;}
+.mc-btn:hover{border-color:var(--blue);background:var(--light-blue);}
+.mc-btn.correct{background:var(--light-green);border-color:var(--green);color:var(--green);font-weight:700;}
+.mc-btn.wrong{background:var(--light-red);border-color:var(--red);color:var(--red);font-weight:700;}
+.mc-btn:disabled{cursor:default;}
+.check-btn{font-family:sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:var(--navy);color:white;border:none;border-radius:7px;padding:0.5rem 1.2rem;cursor:pointer;margin-top:0.8rem;transition:background 0.15s;}
+.check-btn:hover{background:#2d4a6e;}
+.score-line{font-family:sans-serif;font-size:0.82rem;margin-top:0.6rem;color:var(--muted);}
+.score-line strong{color:var(--navy);}
+.feedback{font-family:sans-serif;font-size:0.8rem;margin-top:0.3rem;}
+.feedback.ok{color:var(--green);}
+.feedback.bad{color:var(--red);}
+
+/* VERB TABS */
+.verb-tabs{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.8rem;}
+.vtab{font-family:sans-serif;font-size:0.8rem;padding:0.3rem 0.8rem;border:2px solid var(--border);border-radius:6px;background:white;cursor:pointer;transition:all 0.15s;}
+.vtab.active{background:var(--navy);color:white;border-color:var(--navy);}
+.verb-display{display:none;}
+.verb-display.active{display:block;}
+
+/* PREPOSITION GRID */
+.prep-group{margin-bottom:1.2rem;}
+.prep-group h4{font-family:sans-serif;font-size:0.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;}
+.prep-chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.prep-chip{font-size:0.88rem;padding:0.25rem 0.7rem;border-radius:20px;font-weight:600;}
+.chip-akk{background:#ffe8d0;color:#a04000;}
+.chip-dat{background:#d0e8ff;color:#003a80;}
+.chip-two{background:#e8d0ff;color:#400090;}
+
+/* PROGRESS BAR */
+.prog-wrap{background:#e0e4ea;border-radius:10px;height:8px;margin-top:0.5rem;overflow:hidden;}
+.prog-bar{height:100%;border-radius:10px;background:linear-gradient(to right,var(--gold),var(--green));transition:width 0.4s;}
+
+footer{text-align:center;font-family:sans-serif;font-size:0.78rem;color:var(--muted);padding:2.5rem 1rem;border-top:1px solid var(--border);}
+@media(max-width:640px){
+  .two-col,.three-col{grid-template-columns:1fr;}
+  header h1{font-size:1.4rem;}
+  nav{padding:0.5rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Grammatik-Referenz</div>
+    <h1>Deutsch <span>A1 – A2</span></h1>
+    <div class="header-sub">Vollständige Grammatik mit interaktiven Übungen</div>
+    <div class="header-meta">
+      <span><span class="badge">A1</span><span class="badge">A2</span> Anfänger bis Grundstufe</span>
+      <span>📚 15 Themen · Tabellen · Übungen · Beispiele</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#artikel">Artikel</a>
+    <a href="#pronomen">Pronomen</a>
+    <a href="#kasus">Kasus</a>
+    <a href="#praesens">Präsens</a>
+    <a href="#modal">Modalverben</a>
+    <a href="#negation">Negation</a>
+    <a href="#wortstellung">Wortstellung</a>
+    <a href="#trennbar">Trennbare Verben</a>
+    <a href="#reflexiv">Reflexive Verben</a>
+    <a href="#perfekt">Perfekt</a>
+    <a href="#praeteritum">Präteritum</a>
+    <a href="#adjektiv">Adjektive</a>
+    <a href="#komparativ">Komparativ</a>
+    <a href="#praepositionen">Präpositionen</a>
+    <a href="#nebensaetze">Nebensätze</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════
+  1. ARTIKEL
+═══════════════════════════════════ -->
+<section id="artikel">
+  <div class="section-header">
+    <div class="section-icon">📌</div>
+    <h2>1. Artikel <small>Bestimmter und unbestimmter Artikel im Nominativ</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span>
+
+  <p style="margin-bottom:1rem;font-size:0.93rem;">Jedes Nomen hat ein grammatisches Geschlecht: <strong class="der">Maskulinum (der)</strong>, <strong class="die">Femininum (die)</strong> oder <strong class="das">Neutrum (das)</strong>. Im Plural ist es immer <strong class="die-pl">die</strong>.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Genus</th><th>Bestimmter Artikel</th><th>Unbestimmter Artikel</th><th>Negativartikel</th><th>Beispiel</th></tr>
+      <tr><td><strong class="der">Maskulinum</strong></td><td class="der">der</td><td>ein</td><td>kein</td><td>der / ein / kein Mann</td></tr>
+      <tr><td><strong class="die">Femininum</strong></td><td class="die">die</td><td>eine</td><td>keine</td><td>die / eine / keine Frau</td></tr>
+      <tr><td><strong class="das">Neutrum</strong></td><td class="das">das</td><td>ein</td><td>kein</td><td>das / ein / kein Kind</td></tr>
+      <tr><td><strong class="die-pl">Plural</strong></td><td class="die-pl">die</td><td>— (keine)</td><td>keine</td><td>die / — / keine Kinder</td></tr>
+    </table>
+  </div>
+
+  <div class="rule"><strong>Tipp:</strong> Das Genus muss auswendig gelernt werden — es gibt aber Muster. Nomen auf <em>-ung, -heit, -keit, -schaft, -ion</em> → fast immer <strong class="die">die</strong>. Auf <em>-chen, -lein</em> → immer <strong class="das">das</strong>. Auf <em>-er</em> (Person, Beruf) → oft <strong class="der">der</strong>.</div>
+
+  <div class="exercise" id="ex-artikel">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Welcher Artikel?</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Schreibe den richtigen bestimmten Artikel: <em>der / die / das</em></p>
+    <div class="ex-item"><label>1. <input class="fill" data-ans="der" placeholder="…"> Tisch (m)</label></div>
+    <div class="ex-item"><label>2. <input class="fill" data-ans="die" placeholder="…"> Lampe (f)</label></div>
+    <div class="ex-item"><label>3. <input class="fill" data-ans="das" placeholder="…"> Buch (n)</label></div>
+    <div class="ex-item"><label>4. <input class="fill" data-ans="die" placeholder="…"> Kinder (Pl.)</label></div>
+    <div class="ex-item"><label>5. <input class="fill" data-ans="der" placeholder="…"> Lehrer (m)</label></div>
+    <div class="ex-item"><label>6. <input class="fill" data-ans="die" placeholder="…"> Zeitung (f)</label></div>
+    <div class="ex-item"><label>7. <input class="fill" data-ans="das" placeholder="…"> Mädchen (n)</label></div>
+    <div class="ex-item"><label>8. <input class="fill" data-ans="der" placeholder="…"> Bahnhof (m)</label></div>
+    <button class="check-btn" onclick="checkFills('ex-artikel')">Überprüfen</button>
+    <div class="score-line" id="score-ex-artikel"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  2. PERSONALPRONOMEN
+═══════════════════════════════════ -->
+<section id="pronomen">
+  <div class="section-header">
+    <div class="section-icon">👤</div>
+    <h2>2. Personalpronomen <small>Nominativ, Akkusativ, Dativ</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span><span class="level-tag tag-a2">A2</span>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Person</th><th>Nominativ</th><th>Akkusativ</th><th>Dativ</th></tr>
+      <tr class="tbl-accent"><td>1. Sg.</td><td>ich</td><td>mich</td><td>mir</td></tr>
+      <tr class="tbl-accent"><td>2. Sg.</td><td>du</td><td>dich</td><td>dir</td></tr>
+      <tr class="tbl-accent"><td>3. Sg. m.</td><td>er</td><td>ihn</td><td>ihm</td></tr>
+      <tr class="tbl-accent"><td>3. Sg. f.</td><td>sie</td><td>sie</td><td>ihr</td></tr>
+      <tr class="tbl-accent"><td>3. Sg. n.</td><td>es</td><td>es</td><td>ihm</td></tr>
+      <tr class="tbl-accent"><td>1. Pl.</td><td>wir</td><td>uns</td><td>uns</td></tr>
+      <tr class="tbl-accent"><td>2. Pl.</td><td>ihr</td><td>euch</td><td>euch</td></tr>
+      <tr class="tbl-accent"><td>3. Pl. / Sie</td><td>sie / Sie</td><td>sie / Sie</td><td>ihnen / Ihnen</td></tr>
+    </table>
+  </div>
+
+  <div class="beispiel">Das ist <em>mein</em> Bruder. <em>Er</em> heißt Tom. <em>Ich</em> kenne <em>ihn</em> gut. Er hilft <em>mir</em> oft.</div>
+
+  <div class="exercise" id="ex-pron">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Pronomen einsetzen</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Nominativ, Akkusativ oder Dativ?</p>
+    <div class="ex-item"><label>1. ___ lerne Deutsch. (ich – Nom.) <input class="fill" data-ans="ich" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Ich sehe ___ jeden Tag. (er – Akk.) <input class="fill" data-ans="ihn" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Sie gibt ___ das Buch. (ich – Dat.) <input class="fill" data-ans="mir" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. ___ spielen Fußball. (wir – Nom.) <input class="fill" data-ans="wir" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Rufst du ___ an? (sie Pl. – Akk.) <input class="fill" data-ans="sie" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Ich helfe ___ gerne. (du – Dat.) <input class="fill" data-ans="dir" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-pron')">Überprüfen</button>
+    <div class="score-line" id="score-ex-pron"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  3. KASUS
+═══════════════════════════════════ -->
+<section id="kasus">
+  <div class="section-header">
+    <div class="section-icon">🔲</div>
+    <h2>3. Die vier Kasus <small>Nominativ · Akkusativ · Dativ · Genitiv</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span><span class="level-tag tag-a2">A2</span>
+
+  <div class="card-grid two-col">
+    <div class="card">
+      <strong>Nominativ</strong> — Wer? Was? (Subjekt)<br>
+      <div class="beispiel"><em>Der Mann</em> kauft ein Buch.</div>
+    </div>
+    <div class="card">
+      <strong>Akkusativ</strong> — Wen? Was? (direktes Objekt)<br>
+      <div class="beispiel">Der Mann kauft <em>ein Buch</em>.</div>
+    </div>
+    <div class="card">
+      <strong>Dativ</strong> — Wem? (indirektes Objekt)<br>
+      <div class="beispiel">Er gibt <em>dem Kind</em> das Buch.</div>
+    </div>
+    <div class="card">
+      <strong>Genitiv</strong> — Wessen? (Besitz) <span class="level-tag tag-a2">A2</span><br>
+      <div class="beispiel">Das ist das Buch <em>des Mannes</em>.</div>
+    </div>
+  </div>
+
+  <h3 style="margin:1.2rem 0 0.6rem;font-size:1rem;">Artikel nach Kasus</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Kasus</th><th class="der">Maskulinum</th><th class="die">Femininum</th><th class="das">Neutrum</th><th class="die-pl">Plural</th></tr>
+      <tr><td><strong>Nominativ</strong></td><td class="der">der / ein</td><td class="die">die / eine</td><td class="das">das / ein</td><td class="die-pl">die / —</td></tr>
+      <tr><td><strong>Akkusativ</strong></td><td class="highlight der">den / einen</td><td class="die">die / eine</td><td class="das">das / ein</td><td class="die-pl">die / —</td></tr>
+      <tr><td><strong>Dativ</strong></td><td class="highlight der">dem / einem</td><td class="highlight die">der / einer</td><td class="highlight das">dem / einem</td><td class="highlight die-pl">den+n / —</td></tr>
+      <tr><td><strong>Genitiv</strong></td><td class="highlight der">des+s / eines+s</td><td class="highlight die">der / einer</td><td class="highlight das">des+s / eines+s</td><td class="highlight die-pl">der / —</td></tr>
+    </table>
+  </div>
+  <div class="tip"><strong>Merkhilfe:</strong> Im <strong>Akkusativ</strong> ändert sich nur der Maskulinum-Artikel: <em>der → den</em>, <em>ein → einen</em>. Im <strong>Dativ</strong> ändern sich alle drei + Nomen bekommt oft <em>-n</em> im Plural.</div>
+
+  <div class="exercise" id="ex-kasus">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Richtiger Artikel im richtigen Kasus</span></div>
+    <div class="ex-item"><label>1. Ich sehe _____ Lehrer. (der – Akk.) <input class="fill" data-ans="den" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Das Buch gehört _____ Frau. (die – Dat.) <input class="fill" data-ans="der" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. _____ Kind spielt. (das – Nom.) <input class="fill" data-ans="das" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Er hilft _____ Mann. (der – Dat.) <input class="fill" data-ans="dem" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Ich kaufe _____ Tisch. (der – Akk., unb.) <input class="fill" data-ans="einen" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Das ist die Tasche _____ Lehrerin. (die – Gen.) <input class="fill" data-ans="der" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-kasus')">Überprüfen</button>
+    <div class="score-line" id="score-ex-kasus"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  4. PRÄSENS
+═══════════════════════════════════ -->
+<section id="praesens">
+  <div class="section-header">
+    <div class="section-icon">🕐</div>
+    <h2>4. Präsens <small>Regelmäßige &amp; unregelmäßige Verben</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span>
+
+  <div class="rule"><strong>Bildung:</strong> Verbstamm (Infinitiv ohne <em>-en</em>) + Endung</div>
+
+  <div class="verb-tabs">
+    <button class="vtab active" onclick="showVerb('machen')">machen (reg.)</button>
+    <button class="vtab" onclick="showVerb('fahren')">fahren (unreg.)</button>
+    <button class="vtab" onclick="showVerb('lesen')">lesen (unreg.)</button>
+    <button class="vtab" onclick="showVerb('sein')">sein</button>
+    <button class="vtab" onclick="showVerb('haben')">haben</button>
+    <button class="vtab" onclick="showVerb('werden')">werden</button>
+  </div>
+
+  <div class="tbl-wrap">
+    <div id="v-machen" class="verb-display active">
+      <table><tr><th>Person</th><th>machen (regelmäßig)</th><th>Endung</th></tr>
+      <tr><td>ich</td><td>mach<strong>e</strong></td><td>-e</td></tr>
+      <tr><td>du</td><td>mach<strong>st</strong></td><td>-st</td></tr>
+      <tr><td>er/sie/es</td><td>mach<strong>t</strong></td><td>-t</td></tr>
+      <tr><td>wir</td><td>mach<strong>en</strong></td><td>-en</td></tr>
+      <tr><td>ihr</td><td>mach<strong>t</strong></td><td>-t</td></tr>
+      <tr><td>sie/Sie</td><td>mach<strong>en</strong></td><td>-en</td></tr></table>
+    </div>
+    <div id="v-fahren" class="verb-display">
+      <table><tr><th>Person</th><th>fahren (a → ä)</th><th>Besonderheit</th></tr>
+      <tr><td>ich</td><td>fahr<strong>e</strong></td><td>—</td></tr>
+      <tr><td>du</td><td>f<strong>ä</strong>hr<strong>st</strong></td><td>Umlaut!</td></tr>
+      <tr><td>er/sie/es</td><td>f<strong>ä</strong>hr<strong>t</strong></td><td>Umlaut!</td></tr>
+      <tr><td>wir</td><td>fahr<strong>en</strong></td><td>—</td></tr>
+      <tr><td>ihr</td><td>fahr<strong>t</strong></td><td>—</td></tr>
+      <tr><td>sie/Sie</td><td>fahr<strong>en</strong></td><td>—</td></tr></table>
+      <p style="font-size:0.85rem;margin-top:0.5rem;color:var(--muted);">Ähnliche Verben mit a→ä: schlafen, tragen, waschen, laufen (äu)</p>
+    </div>
+    <div id="v-lesen" class="verb-display">
+      <table><tr><th>Person</th><th>lesen (e → ie)</th><th>Besonderheit</th></tr>
+      <tr><td>ich</td><td>les<strong>e</strong></td><td>—</td></tr>
+      <tr><td>du</td><td>l<strong>ie</strong>s<strong>t</strong></td><td>Vokalwechsel!</td></tr>
+      <tr><td>er/sie/es</td><td>l<strong>ie</strong>s<strong>t</strong></td><td>Vokalwechsel!</td></tr>
+      <tr><td>wir</td><td>les<strong>en</strong></td><td>—</td></tr>
+      <tr><td>ihr</td><td>les<strong>t</strong></td><td>—</td></tr>
+      <tr><td>sie/Sie</td><td>les<strong>en</strong></td><td>—</td></tr></table>
+      <p style="font-size:0.85rem;margin-top:0.5rem;color:var(--muted);">Ähnliche e→ie Verben: sehen, geben, nehmen, sprechen, treffen</p>
+    </div>
+    <div id="v-sein" class="verb-display">
+      <table><tr><th>Person</th><th>sein (völlig unregelmäßig)</th></tr>
+      <tr><td>ich</td><td><strong>bin</strong></td></tr>
+      <tr><td>du</td><td><strong>bist</strong></td></tr>
+      <tr><td>er/sie/es</td><td><strong>ist</strong></td></tr>
+      <tr><td>wir</td><td><strong>sind</strong></td></tr>
+      <tr><td>ihr</td><td><strong>seid</strong></td></tr>
+      <tr><td>sie/Sie</td><td><strong>sind</strong></td></tr></table>
+    </div>
+    <div id="v-haben" class="verb-display">
+      <table><tr><th>Person</th><th>haben</th></tr>
+      <tr><td>ich</td><td>habe</td></tr>
+      <tr><td>du</td><td>ha<strong>st</strong> ← (kein b!)</td></tr>
+      <tr><td>er/sie/es</td><td>ha<strong>t</strong> ← (kein b!)</td></tr>
+      <tr><td>wir</td><td>haben</td></tr>
+      <tr><td>ihr</td><td>habt</td></tr>
+      <tr><td>sie/Sie</td><td>haben</td></tr></table>
+    </div>
+    <div id="v-werden" class="verb-display">
+      <table><tr><th>Person</th><th>werden (e → i)</th></tr>
+      <tr><td>ich</td><td>werde</td></tr>
+      <tr><td>du</td><td>w<strong>i</strong>rst</td></tr>
+      <tr><td>er/sie/es</td><td>w<strong>i</strong>rd</td></tr>
+      <tr><td>wir</td><td>werden</td></tr>
+      <tr><td>ihr</td><td>werdet</td></tr>
+      <tr><td>sie/Sie</td><td>werden</td></tr></table>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex-praesens">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Verben konjugieren</span></div>
+    <div class="ex-item"><label>1. du / arbeiten → <input class="fill" data-ans="arbeitest" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. er / sein → <input class="fill" data-ans="ist" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. wir / haben → <input class="fill" data-ans="haben" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. sie (Pl.) / kommen → <input class="fill" data-ans="kommen" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. du / fahren → <input class="fill" data-ans="fährst" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. er / schlafen → <input class="fill" data-ans="schläft" placeholder="…"></label></div>
+    <div class="ex-item"><label>7. ich / werden → <input class="fill" data-ans="werde" placeholder="…"></label></div>
+    <div class="ex-item"><label>8. ihr / lesen → <input class="fill" data-ans="lest" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-praesens')">Überprüfen</button>
+    <div class="score-line" id="score-ex-praesens"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  5. MODALVERBEN
+═══════════════════════════════════ -->
+<section id="modal">
+  <div class="section-header">
+    <div class="section-icon">⚙️</div>
+    <h2>5. Modalverben <small>können · müssen · wollen · dürfen · sollen · mögen/möchten</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span>
+
+  <div class="rule"><strong>Satzstruktur:</strong> Modalverb (Position 2, konjugiert) + Infinitiv (am Ende)</div>
+  <div class="beispiel">Ich <em>kann</em> gut Deutsch <em>sprechen</em>. &nbsp;|&nbsp; Du <em>musst</em> jetzt <em>gehen</em>.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Person</th><th>können</th><th>müssen</th><th>wollen</th><th>dürfen</th><th>sollen</th><th>möchten</th></tr>
+      <tr><td>ich</td><td>kann</td><td>muss</td><td>will</td><td>darf</td><td>soll</td><td>möchte</td></tr>
+      <tr><td>du</td><td>kannst</td><td>musst</td><td>willst</td><td>darfst</td><td>sollst</td><td>möchtest</td></tr>
+      <tr><td>er/sie/es</td><td>kann</td><td>muss</td><td>will</td><td>darf</td><td>soll</td><td>möchte</td></tr>
+      <tr><td>wir</td><td>können</td><td>müssen</td><td>wollen</td><td>dürfen</td><td>sollen</td><td>möchten</td></tr>
+      <tr><td>ihr</td><td>könnt</td><td>müsst</td><td>wollt</td><td>dürft</td><td>sollt</td><td>möchtet</td></tr>
+      <tr><td>sie/Sie</td><td>können</td><td>müssen</td><td>wollen</td><td>dürfen</td><td>sollen</td><td>möchten</td></tr>
+    </table>
+  </div>
+
+  <div class="card-grid two-col" style="margin-top:0.8rem;">
+    <div class="card"><strong>können</strong> = Fähigkeit / Möglichkeit<br><em>Ich kann schwimmen.</em></div>
+    <div class="card"><strong>müssen</strong> = Notwendigkeit / Pflicht<br><em>Du musst das lesen.</em></div>
+    <div class="card"><strong>wollen</strong> = Wunsch / Absicht<br><em>Er will nach Berlin fahren.</em></div>
+    <div class="card"><strong>dürfen</strong> = Erlaubnis<br><em>Hier darf man nicht rauchen.</em></div>
+    <div class="card"><strong>sollen</strong> = Auftrag (von anderen)<br><em>Sie soll das Formular ausfüllen.</em></div>
+    <div class="card"><strong>möchten</strong> = höflicher Wunsch<br><em>Ich möchte einen Kaffee, bitte.</em></div>
+  </div>
+
+  <div class="exercise" id="ex-modal">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Modalverben</span></div>
+    <div class="ex-item"><label>1. Ich ___ gut kochen. (Fähigkeit) <input class="fill" data-ans="kann" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Du ___ jetzt schlafen. (Notwendigkeit) <input class="fill" data-ans="musst" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Er ___ einen Tee. (höfl. Wunsch) <input class="fill" data-ans="möchte" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Wir ___ nicht hier parken. (Verbot) <input class="fill" data-ans="dürfen" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Ihr ___ das nicht vergessen. (Auftrag) <input class="fill" data-ans="sollt" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Sie ___ nach Paris reisen. (Wunsch) <input class="fill" data-ans="wollen" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-modal')">Überprüfen</button>
+    <div class="score-line" id="score-ex-modal"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  6. NEGATION
+═══════════════════════════════════ -->
+<section id="negation">
+  <div class="section-header">
+    <div class="section-icon">🚫</div>
+    <h2>6. Negation <small>nicht vs. kein</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span>
+
+  <div class="card-grid two-col">
+    <div class="card">
+      <strong style="color:var(--red);">kein / keine / kein</strong> — negiert Nomen mit unbestimmtem Artikel oder ohne Artikel<br>
+      <div class="beispiel">Ich habe <em>kein</em> Auto. (→ ein Auto)<br>Ich esse <em>kein</em> Fleisch. (→ Fleisch)</div>
+    </div>
+    <div class="card">
+      <strong style="color:var(--blue);">nicht</strong> — negiert Verben, Adjektive, Adverbien oder Nomen mit bestimmtem Artikel<br>
+      <div class="beispiel">Ich komme <em>nicht</em>.<br>Das ist <em>nicht</em> schön.<br>Ich kenne <em>den</em> Mann <em>nicht</em>.</div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Position von nicht:</strong> <em>nicht</em> steht meistens am Ende des Satzes — aber <strong>vor</strong> Adjektiven, Präpositionen und Infinitiven.</div>
+
+  <div class="exercise" id="ex-neg">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — nicht oder kein/keine?</span></div>
+    <div class="ex-item"><label>1. Ich habe ___ Hunger. <input class="fill" data-ans="keinen" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Er kommt heute ___. <input class="fill" data-ans="nicht" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Sie hat ___ Schwester. <input class="fill" data-ans="keine" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Das ist ___ richtig. <input class="fill" data-ans="nicht" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Wir haben ___ Zeit. <input class="fill" data-ans="keine" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Ich kenne den Film ___. <input class="fill" data-ans="nicht" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-neg')">Überprüfen</button>
+    <div class="score-line" id="score-ex-neg"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  7. WORTSTELLUNG
+═══════════════════════════════════ -->
+<section id="wortstellung">
+  <div class="section-header">
+    <div class="section-icon">📐</div>
+    <h2>7. Wortstellung <small>Das Verb-Zweit-Prinzip &amp; Fragewörter</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span>
+
+  <div class="rule"><strong>V2-Regel:</strong> Das konjugierte Verb steht immer auf <strong>Position 2</strong>, egal was auf Position 1 steht.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Position 1</th><th style="background:#c8960a;">Position 2 (Verb)</th><th>Rest</th></tr>
+      <tr><td>Ich</td><td style="background:var(--light-gold);font-weight:700;">lerne</td><td>jeden Tag Deutsch.</td></tr>
+      <tr><td>Jeden Tag</td><td style="background:var(--light-gold);font-weight:700;">lerne</td><td>ich Deutsch.</td></tr>
+      <tr><td>Deutsch</td><td style="background:var(--light-gold);font-weight:700;">lerne</td><td>ich jeden Tag.</td></tr>
+    </table>
+  </div>
+
+  <h3 style="margin:1rem 0 0.5rem;font-size:0.95rem;">Fragetypen</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Fragetyp</th><th>Struktur</th><th>Beispiel</th></tr>
+      <tr><td><strong>Ja/Nein-Frage</strong></td><td>Verb – Subjekt – Rest</td><td><em>Kommst du heute?</em></td></tr>
+      <tr><td><strong>W-Frage</strong></td><td>Fragewort – Verb – Subjekt – Rest</td><td><em>Wohin fährst du?</em></td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:0.8rem;">
+    <strong>W-Fragewörter:</strong><br>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1.5rem;margin-top:0.5rem;font-size:0.9rem;">
+      <span><em>Wer?</em> Person (Nom.)</span><span><em>Was?</em> Sache</span><span><em>Wen?</em> Person (Akk.)</span>
+      <span><em>Wem?</em> Person (Dat.)</span><span><em>Wessen?</em> Besitz</span><span><em>Wo?</em> Ort (statisch)</span>
+      <span><em>Wohin?</em> Richtung</span><span><em>Woher?</em> Herkunft</span><span><em>Wann?</em> Zeit</span>
+      <span><em>Wie?</em> Art &amp; Weise</span><span><em>Warum?</em> Grund</span><span><em>Wie viel?</em> Menge</span>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex-wort">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Sätze umstellen (Multiple Choice)</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Was ist richtig, wenn das Adverb auf Position 1 steht?</p>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>1. Morgen ___ er nach Berlin.</label>
+      <div class="mc-opts" id="mc1">
+        <button class="mc-btn" onclick="checkMC(this,'mc1','fährt er')">fährt er</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc1','er fährt')">er fährt</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc1','fährt')">fährt</button>
+      </div>
+    </div>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>2. Am Wochenende ___ wir immer Fußball.</label>
+      <div class="mc-opts" id="mc2">
+        <button class="mc-btn" onclick="checkMC(this,'mc2','spielen wir')">spielen wir</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc2','wir spielen')">wir spielen</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc2','wir')">wir</button>
+      </div>
+    </div>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>3. Heute Abend ___ sie ein Konzert.</label>
+      <div class="mc-opts" id="mc3">
+        <button class="mc-btn" onclick="checkMC(this,'mc3','besucht sie')">besucht sie</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc3','sie besucht')">sie besucht</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc3','besuchen sie')">besuchen sie</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  8. TRENNBARE VERBEN
+═══════════════════════════════════ -->
+<section id="trennbar">
+  <div class="section-header">
+    <div class="section-icon">✂️</div>
+    <h2>8. Trennbare Verben <small>Präfix geht ans Satzende</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span><span class="level-tag tag-a2">A2</span>
+
+  <div class="rule"><strong>Regel:</strong> Das trennbare Präfix wird abgetrennt und an das <strong>Satzende</strong> gestellt. Das Verb bleibt auf Position 2.</div>
+  <div class="beispiel"><em>anrufen</em> → Ich <em>ruf</em>e dich morgen <em>an</em>.<br><em>aufmachen</em> → Sie <em>macht</em> das Fenster <em>auf</em>.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Präfix</th><th>Verb</th><th>Beispielsatz</th></tr>
+      <tr><td><em>an-</em></td><td>anfangen, ankommen, anrufen, anmachen</td><td>Der Kurs <em>fängt</em> um 9 Uhr <em>an</em>.</td></tr>
+      <tr><td><em>auf-</em></td><td>aufstehen, aufmachen, aufräumen, aufhören</td><td>Er <em>steht</em> früh <em>auf</em>.</td></tr>
+      <tr><td><em>aus-</em></td><td>ausgehen, ausziehen, ausmachen, ausfüllen</td><td>Wir <em>gehen</em> heute Abend <em>aus</em>.</td></tr>
+      <tr><td><em>mit-</em></td><td>mitkommen, mitnehmen, mitbringen</td><td>Kommst du <em>mit</em>?</td></tr>
+      <tr><td><em>ein-</em></td><td>einschlafen, einkaufen, einladen</td><td>Ich <em>kaufe</em> gerade <em>ein</em>.</td></tr>
+      <tr><td><em>ab-</em></td><td>abfahren, abholen, abschreiben</td><td>Der Zug <em>fährt</em> um 10 <em>ab</em>.</td></tr>
+      <tr><td><em>zurück-</em></td><td>zurückkommen, zurückgeben</td><td>Wann <em>kommt</em> sie <em>zurück</em>?</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" id="ex-trenn">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Satz mit trennbarem Verb</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Schreibe das Verb in die Lücke und das Präfix ans Ende.</p>
+    <div class="ex-item"><label>1. Ich ___ um 7 Uhr ___. (aufstehen) <input class="fill" data-ans="stehe" placeholder="Verb"> … <input class="fill" data-ans="auf" placeholder="Präfix"></label></div>
+    <div class="ex-item"><label>2. Sie ___ ihre Freundin ___. (anrufen) <input class="fill" data-ans="ruft" placeholder="Verb"> … <input class="fill" data-ans="an" placeholder="Präfix"></label></div>
+    <div class="ex-item"><label>3. Wir ___ die Freunde ___. (einladen) <input class="fill" data-ans="laden" placeholder="Verb"> … <input class="fill" data-ans="ein" placeholder="Präfix"></label></div>
+    <div class="ex-item"><label>4. Er ___ den Müll ___. (wegbringen) <input class="fill" data-ans="bringt" placeholder="Verb"> … <input class="fill" data-ans="weg" placeholder="Präfix"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-trenn')">Überprüfen</button>
+    <div class="score-line" id="score-ex-trenn"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  9. REFLEXIVE VERBEN
+═══════════════════════════════════ -->
+<section id="reflexiv">
+  <div class="section-header">
+    <div class="section-icon">🔄</div>
+    <h2>9. Reflexive Verben <small>sich + Verb</small></h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="card-grid two-col">
+    <div>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Pronomen</th><th>Refl. (Akk.)</th><th>Refl. (Dat.)</th></tr>
+          <tr><td>ich</td><td>mich</td><td>mir</td></tr>
+          <tr><td>du</td><td>dich</td><td>dir</td></tr>
+          <tr><td>er/sie/es</td><td>sich</td><td>sich</td></tr>
+          <tr><td>wir</td><td>uns</td><td>uns</td></tr>
+          <tr><td>ihr</td><td>euch</td><td>euch</td></tr>
+          <tr><td>sie/Sie</td><td>sich</td><td>sich</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:0.8rem;">
+        <strong>Wichtige reflexive Verben:</strong>
+        <ul style="font-size:0.88rem;list-style:none;margin-top:0.5rem;line-height:1.9;">
+          <li>sich freuen — sich ärgern</li>
+          <li>sich waschen — sich anziehen</li>
+          <li>sich vorstellen — sich erinnern</li>
+          <li>sich setzen — sich legen</li>
+          <li>sich beeilen — sich entspannen</li>
+          <li>sich interessieren (für)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="beispiel">Ich <em>freue mich</em> auf das Wochenende. &nbsp;|&nbsp; Er <em>wäscht sich</em> die Hände. (Dativ)</div>
+
+  <div class="exercise" id="ex-refl">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Reflexivpronomen einsetzen</span></div>
+    <div class="ex-item"><label>1. Ich freue ___ sehr! <input class="fill" data-ans="mich" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Du musst ___ beeilen! <input class="fill" data-ans="dich" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Er erinnert ___ nicht. <input class="fill" data-ans="sich" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Wir setzen ___ hin. <input class="fill" data-ans="uns" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Sie (Pl.) ärgern ___ oft. <input class="fill" data-ans="sich" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Ich wasche ___ die Haare. (Dat.) <input class="fill" data-ans="mir" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-refl')">Überprüfen</button>
+    <div class="score-line" id="score-ex-refl"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  10. PERFEKT
+═══════════════════════════════════ -->
+<section id="perfekt">
+  <div class="section-header">
+    <div class="section-icon">⏮️</div>
+    <h2>10. Perfekt <small>haben / sein + Partizip II — die mündliche Vergangenheit</small></h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="rule"><strong>Bildung:</strong> haben/sein (Position 2, konjugiert) + Partizip II (am Satzende)</div>
+
+  <div class="card-grid two-col">
+    <div class="card">
+      <strong>Partizip II — regelmäßig:</strong><br>
+      <em>ge- + Stamm + -t</em><br>
+      <div style="margin-top:0.5rem;font-size:0.88rem;line-height:1.8;">
+        machen → ge<strong>macht</strong><br>
+        spielen → ge<strong>spielt</strong><br>
+        kaufen → ge<strong>kauft</strong><br>
+        arbeiten → gear<strong>beitet</strong>
+      </div>
+    </div>
+    <div class="card">
+      <strong>Partizip II — unregelmäßig:</strong><br>
+      <em>ge- + Stamm (geändert) + -en</em><br>
+      <div style="margin-top:0.5rem;font-size:0.88rem;line-height:1.8;">
+        schreiben → ge<strong>schrieben</strong><br>
+        lesen → ge<strong>lesen</strong><br>
+        kommen → ge<strong>kommen</strong><br>
+        essen → ge<strong>gessen</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>sein oder haben?</strong><br>
+  <strong>sein</strong>: Bewegungsverben (gehen, fahren, fliegen, kommen, laufen…) + Zustandsverben (bleiben, werden, sein)<br>
+  <strong>haben</strong>: alle anderen Verben (fast alles)</div>
+
+  <div class="tbl-wrap" style="margin-top:0.8rem;">
+    <table>
+      <tr><th>Verb</th><th>Hilfsverb</th><th>Partizip II</th><th>Beispiel</th></tr>
+      <tr><td>machen</td><td>haben</td><td>gemacht</td><td>Ich <em>habe</em> die Hausaufgaben <em>gemacht</em>.</td></tr>
+      <tr><td>kommen</td><td>sein</td><td>gekommen</td><td>Er <em>ist</em> spät <em>gekommen</em>.</td></tr>
+      <tr><td>schreiben</td><td>haben</td><td>geschrieben</td><td>Sie <em>hat</em> einen Brief <em>geschrieben</em>.</td></tr>
+      <tr><td>gehen</td><td>sein</td><td>gegangen</td><td>Wir <em>sind</em> ins Kino <em>gegangen</em>.</td></tr>
+      <tr><td>essen</td><td>haben</td><td>gegessen</td><td>Ich <em>habe</em> Pizza <em>gegessen</em>.</td></tr>
+      <tr><td>bleiben</td><td>sein</td><td>geblieben</td><td>Er <em>ist</em> zu Hause <em>geblieben</em>.</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" id="ex-perf">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Perfekt bilden</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Schreibe das Hilfsverb UND das Partizip II.</p>
+    <div class="ex-item"><label>1. ich / trinken → ich <input class="fill" data-ans="habe" placeholder="hab./sein"> <input class="fill" data-ans="getrunken" placeholder="Part. II"></label></div>
+    <div class="ex-item"><label>2. sie / fahren → sie <input class="fill" data-ans="ist" placeholder="hab./sein"> <input class="fill" data-ans="gefahren" placeholder="Part. II"></label></div>
+    <div class="ex-item"><label>3. wir / kaufen → wir <input class="fill" data-ans="haben" placeholder="hab./sein"> <input class="fill" data-ans="gekauft" placeholder="Part. II"></label></div>
+    <div class="ex-item"><label>4. er / bleiben → er <input class="fill" data-ans="ist" placeholder="hab./sein"> <input class="fill" data-ans="geblieben" placeholder="Part. II"></label></div>
+    <div class="ex-item"><label>5. du / sehen → du <input class="fill" data-ans="hast" placeholder="hab./sein"> <input class="fill" data-ans="gesehen" placeholder="Part. II"></label></div>
+    <div class="ex-item"><label>6. ich / gehen → ich <input class="fill" data-ans="bin" placeholder="hab./sein"> <input class="fill" data-ans="gegangen" placeholder="Part. II"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-perf')">Überprüfen</button>
+    <div class="score-line" id="score-ex-perf"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  11. PRÄTERITUM
+═══════════════════════════════════ -->
+<section id="praeteritum">
+  <div class="section-header">
+    <div class="section-icon">📜</div>
+    <h2>11. Präteritum <small>Vergangenheit im Schriftlichen (sein/haben/Modalverben)</small></h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="tip"><strong>Wann Präteritum?</strong> Meistens in der Schriftsprache. Im Alltag benutzt man das <strong>Perfekt</strong>. Ausnahme: <strong>sein, haben</strong> und Modalverben — diese nimmt man fast immer im Präteritum, auch mündlich.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Person</th><th>sein</th><th>haben</th><th>können</th><th>müssen</th><th>wollen</th></tr>
+      <tr><td>ich</td><td>war</td><td>hatte</td><td>konnte</td><td>musste</td><td>wollte</td></tr>
+      <tr><td>du</td><td>warst</td><td>hattest</td><td>konntest</td><td>musstest</td><td>wolltest</td></tr>
+      <tr><td>er/sie/es</td><td>war</td><td>hatte</td><td>konnte</td><td>musste</td><td>wollte</td></tr>
+      <tr><td>wir</td><td>waren</td><td>hatten</td><td>konnten</td><td>mussten</td><td>wollten</td></tr>
+      <tr><td>ihr</td><td>wart</td><td>hattet</td><td>konntet</td><td>musstet</td><td>wolltet</td></tr>
+      <tr><td>sie/Sie</td><td>waren</td><td>hatten</td><td>konnten</td><td>mussten</td><td>wollten</td></tr>
+    </table>
+  </div>
+  <div class="beispiel">Gestern <em>war</em> ich müde. &nbsp;|&nbsp; Ich <em>musste</em> arbeiten. &nbsp;|&nbsp; Er <em>wollte</em> nicht kommen.</div>
+
+  <div class="exercise" id="ex-praet">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Präteritum</span></div>
+    <div class="ex-item"><label>1. Ich ___ gestern krank. (sein) <input class="fill" data-ans="war" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Wir ___ keine Zeit. (haben) <input class="fill" data-ans="hatten" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Er ___ nicht schlafen. (können) <input class="fill" data-ans="konnte" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Sie ___ früh aufstehen. (müssen) <input class="fill" data-ans="musste" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Die Kinder ___ laut. (sein) <input class="fill" data-ans="waren" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-praet')">Überprüfen</button>
+    <div class="score-line" id="score-ex-praet"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  12. ADJEKTIVDEKLINATION
+═══════════════════════════════════ -->
+<section id="adjektiv">
+  <div class="section-header">
+    <div class="section-icon">🎨</div>
+    <h2>12. Adjektivdeklination <small>Prädikativ &amp; attributiv</small></h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="card-grid two-col">
+    <div class="card">
+      <strong>Prädikativ</strong> (nach sein/werden) — keine Endung:<br>
+      <div class="beispiel">Das Haus ist <em>schön</em>. &nbsp; Der Mann ist <em>groß</em>.</div>
+    </div>
+    <div class="card">
+      <strong>Attributiv</strong> (vor dem Nomen) — Endung nötig!<br>
+      <div class="beispiel">das <em>schöne</em> Haus &nbsp; ein <em>großer</em> Mann</div>
+    </div>
+  </div>
+
+  <h4 style="margin:1rem 0 0.5rem;font-size:0.9rem;">Nach bestimmtem Artikel</h4>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Kasus</th><th class="der">Mask.</th><th class="die">Fem.</th><th class="das">Neutr.</th><th class="die-pl">Plural</th></tr>
+      <tr><td>Nom.</td><td>-e</td><td>-e</td><td>-e</td><td>-en</td></tr>
+      <tr><td>Akk.</td><td>-en</td><td>-e</td><td>-e</td><td>-en</td></tr>
+      <tr><td>Dat.</td><td>-en</td><td>-en</td><td>-en</td><td>-en</td></tr>
+    </table>
+  </div>
+
+  <h4 style="margin:1rem 0 0.5rem;font-size:0.9rem;">Nach unbestimmtem Artikel (ein/eine)</h4>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Kasus</th><th class="der">Mask.</th><th class="die">Fem.</th><th class="das">Neutr.</th></tr>
+      <tr><td>Nom.</td><td><strong>-er</strong></td><td>-e</td><td><strong>-es</strong></td></tr>
+      <tr><td>Akk.</td><td><strong>-en</strong></td><td>-e</td><td><strong>-es</strong></td></tr>
+      <tr><td>Dat.</td><td>-en</td><td>-en</td><td>-en</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" id="ex-adj">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Adjektivendungen</span></div>
+    <div class="ex-item"><label>1. Das ist ein alt___ Haus. (n, Nom.) <input class="fill" data-ans="es" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Ich kaufe den rot___ Rock. (m, Akk.) <input class="fill" data-ans="en" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Sie hat eine schön___ Wohnung. (f, Akk.) <input class="fill" data-ans="e" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Mit dem klein___ Kind. (n, Dat.) <input class="fill" data-ans="en" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Der neu___ Lehrer ist nett. (m, Nom.) <input class="fill" data-ans="e" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Ein gut___ Mann hilft. (m, Nom.) <input class="fill" data-ans="er" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-adj')">Überprüfen</button>
+    <div class="score-line" id="score-ex-adj"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  13. KOMPARATIV & SUPERLATIV
+═══════════════════════════════════ -->
+<section id="komparativ">
+  <div class="section-header">
+    <div class="section-icon">📈</div>
+    <h2>13. Komparativ &amp; Superlativ</h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Positiv</th><th>Komparativ</th><th>Superlativ</th></tr>
+      <tr><td>schnell</td><td>schnell<strong>er</strong></td><td>am schnell<strong>sten</strong></td></tr>
+      <tr><td>schön</td><td>schön<strong>er</strong></td><td>am schön<strong>sten</strong></td></tr>
+      <tr><td>groß</td><td>größ<strong>er</strong> (Umlaut!)</td><td>am größ<strong>ten</strong></td></tr>
+      <tr><td>alt</td><td>ält<strong>er</strong></td><td>am ält<strong>esten</strong></td></tr>
+      <tr><td>gut</td><td><strong>besser</strong> (unreg.)</td><td>am <strong>besten</strong></td></tr>
+      <tr><td>viel</td><td><strong>mehr</strong></td><td>am <strong>meisten</strong></td></tr>
+      <tr><td>gern</td><td><strong>lieber</strong></td><td>am <strong>liebsten</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="card-grid two-col" style="margin-top:0.8rem;">
+    <div class="card">
+      <strong>Gleichheit:</strong> so ___ wie<br>
+      <div class="beispiel">Er ist <em>so groß wie</em> ich.</div>
+    </div>
+    <div class="card">
+      <strong>Unterschied:</strong> ___ als<br>
+      <div class="beispiel">Sie ist <em>größer als</em> er.</div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex-komp">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Komparativ &amp; Superlativ</span></div>
+    <div class="ex-item"><label>1. warm → Komparativ: <input class="fill" data-ans="wärmer" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. jung → Superlativ: am <input class="fill" data-ans="jüngsten" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Berlin ist ___ Hamburg. (groß, Komparativ) <input class="fill" data-ans="größer als" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Sie singt ___ von allen. (gut, Superlativ) <input class="fill" data-ans="am besten" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Er isst ___ ich. (viel = mehr) <input class="fill" data-ans="mehr als" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-komp')">Überprüfen</button>
+    <div class="score-line" id="score-ex-komp"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  14. PRÄPOSITIONEN
+═══════════════════════════════════ -->
+<section id="praepositionen">
+  <div class="section-header">
+    <div class="section-icon">🗺️</div>
+    <h2>14. Präpositionen <small>Akkusativ · Dativ · Wechselpräpositionen</small></h2>
+  </div>
+  <span class="level-tag tag-a1">A1</span><span class="level-tag tag-a2">A2</span>
+
+  <div class="prep-group">
+    <h4>Immer Akkusativ</h4>
+    <div class="prep-chips">
+      <span class="prep-chip chip-akk">durch</span>
+      <span class="prep-chip chip-akk">für</span>
+      <span class="prep-chip chip-akk">gegen</span>
+      <span class="prep-chip chip-akk">ohne</span>
+      <span class="prep-chip chip-akk">um</span>
+      <span class="prep-chip chip-akk">bis</span>
+      <span class="prep-chip chip-akk">entlang</span>
+    </div>
+    <div class="beispiel" style="margin-top:0.5rem;">Das Geschenk ist <em>für dich</em>. &nbsp; Ich gehe <em>ohne meinen</em> Bruder.</div>
+  </div>
+
+  <div class="prep-group">
+    <h4>Immer Dativ</h4>
+    <div class="prep-chips">
+      <span class="prep-chip chip-dat">aus</span>
+      <span class="prep-chip chip-dat">bei</span>
+      <span class="prep-chip chip-dat">mit</span>
+      <span class="prep-chip chip-dat">nach</span>
+      <span class="prep-chip chip-dat">seit</span>
+      <span class="prep-chip chip-dat">von</span>
+      <span class="prep-chip chip-dat">zu</span>
+      <span class="prep-chip chip-dat">gegenüber</span>
+      <span class="prep-chip chip-dat">außer</span>
+    </div>
+    <div class="beispiel" style="margin-top:0.5rem;">Ich fahre <em>mit dem</em> Bus. &nbsp; Sie kommt <em>aus der</em> Schweiz.</div>
+  </div>
+
+  <div class="prep-group">
+    <h4>Wechselpräpositionen — Dativ (Ort, wo?) oder Akkusativ (Richtung, wohin?)</h4>
+    <div class="prep-chips">
+      <span class="prep-chip chip-two">an</span>
+      <span class="prep-chip chip-two">auf</span>
+      <span class="prep-chip chip-two">hinter</span>
+      <span class="prep-chip chip-two">in</span>
+      <span class="prep-chip chip-two">neben</span>
+      <span class="prep-chip chip-two">über</span>
+      <span class="prep-chip chip-two">unter</span>
+      <span class="prep-chip chip-two">vor</span>
+      <span class="prep-chip chip-two">zwischen</span>
+    </div>
+    <div class="card-grid two-col" style="margin-top:0.7rem;">
+      <div class="card" style="border-color:#d0d8f0;">
+        <strong>Wo? → Dativ</strong><br>
+        <div class="beispiel">Das Buch liegt <em>auf dem</em> Tisch.<br>Er sitzt <em>in der</em> Küche.</div>
+      </div>
+      <div class="card" style="border-color:#f0d0c0;">
+        <strong>Wohin? → Akkusativ</strong><br>
+        <div class="beispiel">Leg das Buch <em>auf den</em> Tisch.<br>Sie geht <em>in die</em> Küche.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise" id="ex-prep">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Präpositionen + Artikel</span></div>
+    <div class="ex-item"><label>1. Das Buch liegt auf ___ Tisch. (m, Dat.) <input class="fill" data-ans="dem" placeholder="…"></label></div>
+    <div class="ex-item"><label>2. Ich fahre mit ___ Zug. (m, Dat.) <input class="fill" data-ans="dem" placeholder="…"></label></div>
+    <div class="ex-item"><label>3. Das Geschenk ist für ___ Mutter. (f, Akk.) <input class="fill" data-ans="die" placeholder="…"></label></div>
+    <div class="ex-item"><label>4. Sie stellt die Vase auf ___ Tisch. (m, Akk.) <input class="fill" data-ans="den" placeholder="…"></label></div>
+    <div class="ex-item"><label>5. Er kommt aus ___ Deutschland. <input class="fill" data-ans="—" placeholder="…"> (kein Artikel nötig!)</label></div>
+    <div class="ex-item"><label>6. Das Kind sitzt neben ___ Mutter. (f, Dat.) <input class="fill" data-ans="der" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-prep')">Überprüfen</button>
+    <div class="score-line" id="score-ex-prep"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  15. NEBENSÄTZE
+═══════════════════════════════════ -->
+<section id="nebensaetze">
+  <div class="section-header">
+    <div class="section-icon">🔗</div>
+    <h2>15. Nebensätze <small>weil · dass · wenn · obwohl · als · damit</small></h2>
+  </div>
+  <span class="level-tag tag-a2">A2</span>
+
+  <div class="rule"><strong>Verbklammer-Regel:</strong> Im Nebensatz steht das konjugierte Verb immer am <strong>Ende</strong>.</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Konjunktion</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td><strong>weil</strong></td><td>Grund</td><td>Ich lerne Deutsch, weil es schön <em>ist</em>.</td></tr>
+      <tr><td><strong>dass</strong></td><td>Aussage</td><td>Ich weiß, dass er müde <em>ist</em>.</td></tr>
+      <tr><td><strong>wenn</strong></td><td>Bedingung / Zeitpunkt (Pres.)</td><td>Wenn ich Zeit <em>habe</em>, gehe ich spazieren.</td></tr>
+      <tr><td><strong>obwohl</strong></td><td>Konzession (Trotz)</td><td>Obwohl es kalt <em>ist</em>, gehen wir raus.</td></tr>
+      <tr><td><strong>als</strong></td><td>Einmaliger Moment in der Vergangenheit</td><td>Als ich jung <em>war</em>, wohnte ich in Berlin.</td></tr>
+      <tr><td><strong>damit</strong></td><td>Zweck</td><td>Ich lerne, damit ich Arbeit <em>bekomme</em>.</td></tr>
+      <tr><td><strong>ob</strong></td><td>Indirekte Ja/Nein-Frage</td><td>Ich frage ihn, ob er <em>kommt</em>.</td></tr>
+    </table>
+  </div>
+
+  <div class="tip"><strong>Hauptsatz + Nebensatz:</strong> Wenn der Nebensatz am Anfang steht, beginnt der Hauptsatz sofort mit dem Verb (V2 = Invertion):<br>
+  <em>Weil ich müde bin, <strong>gehe</strong> ich jetzt schlafen.</em></div>
+
+  <div class="exercise" id="ex-neb">
+    <div class="ex-header"><span class="ex-icon">✏️</span><span class="ex-title">Übung — Nebensätze verbinden</span></div>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Wähle die richtige Konjunktion.</p>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>1. Ich esse viel, ___ ich Hunger habe.</label>
+      <div class="mc-opts" id="mc4">
+        <button class="mc-btn" onclick="checkMC(this,'mc4','weil')">weil</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc4','damit')">damit</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc4','obwohl')">obwohl</button>
+      </div>
+    </div>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>2. Sie fragt, ___ er Zeit hat.</label>
+      <div class="mc-opts" id="mc5">
+        <button class="mc-btn" onclick="checkMC(this,'mc5','weil')">weil</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc5','ob')">ob</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc5','als')">als</button>
+      </div>
+    </div>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>3. ___ es regnet, nehme ich einen Schirm. (Bedingung)</label>
+      <div class="mc-opts" id="mc6">
+        <button class="mc-btn" onclick="checkMC(this,'mc6','Wenn')">Wenn</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc6','Als')">Als</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc6','Damit')">Damit</button>
+      </div>
+    </div>
+    <div class="ex-item" style="flex-direction:column;align-items:flex-start;">
+      <label>4. Er geht schlafen, ___ er müde ist.</label>
+      <div class="mc-opts" id="mc7">
+        <button class="mc-btn" onclick="checkMC(this,'mc7','weil')">weil</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc7','obwohl')">obwohl</button>
+        <button class="mc-btn" onclick="checkMC(this,'mc7','damit')">damit</button>
+      </div>
+    </div>
+
+    <br>
+    <p style="font-size:0.86rem;color:var(--muted);margin-bottom:0.8rem;">Schreibe die Verbform ans Ende des Nebensatzes.</p>
+    <div class="ex-item"><label>5. Ich weiß, dass er morgen ___ (kommen). <input class="fill" data-ans="kommt" placeholder="…"></label></div>
+    <div class="ex-item"><label>6. Sie lernt, damit sie Deutsch ___ (sprechen). <input class="fill" data-ans="spricht" placeholder="…"></label></div>
+    <div class="ex-item"><label>7. Obwohl es kalt ___, gehen wir spazieren. (sein) <input class="fill" data-ans="ist" placeholder="…"></label></div>
+    <button class="check-btn" onclick="checkFills('ex-neb')">Überprüfen</button>
+    <div class="score-line" id="score-ex-neb"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; A1–A2 Grammatik-Referenz &nbsp;·&nbsp; Viel Erfolg! 🇩🇪</footer>
+
+<script>
+// ── Verb tabs ───────────────────────────────
+function showVerb(key) {
+  document.querySelectorAll('.verb-display').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+  document.getElementById('v-' + key).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Fill-in checker ─────────────────────────
+function checkFills(sectionId) {
+  const section = document.getElementById(sectionId);
+  const inputs = section.querySelectorAll('input.fill');
+  let correct = 0, total = 0;
+  inputs.forEach(inp => {
+    const ans = (inp.dataset.ans || '').trim().toLowerCase();
+    const val = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct', 'wrong');
+    // accept multiple answers separated by /
+    const accepted = ans.split('/').map(a => a.trim());
+    if (accepted.includes(val)) {
+      inp.classList.add('correct');
+      correct++;
+    } else {
+      inp.classList.add('wrong');
+    }
+    total++;
+  });
+  const scoreEl = document.getElementById('score-' + sectionId);
+  if (scoreEl) {
+    const pct = Math.round(correct / total * 100);
+    scoreEl.innerHTML = `<strong>${correct} / ${total}</strong> richtig (${pct} %) &nbsp;
+      <div class="prog-wrap" style="max-width:200px;display:inline-block;vertical-align:middle;">
+        <div class="prog-bar" style="width:${pct}%"></div>
+      </div>`;
+  }
+}
+
+// ── Multiple choice ─────────────────────────
+const MC_ANSWERS = {
+  mc1: 'fährt er',
+  mc2: 'spielen wir',
+  mc3: 'besucht sie',
+  mc4: 'weil',
+  mc5: 'ob',
+  mc6: 'Wenn',
+  mc7: 'weil'
+};
+
+function checkMC(btn, groupId, chosen) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.mc-btn').forEach(b => b.disabled = true);
+  if (chosen === MC_ANSWERS[groupId]) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+    group.querySelectorAll('.mc-btn').forEach(b => {
+      if (b.textContent.trim() === MC_ANSWERS[groupId]) b.classList.add('correct');
+    });
+  }
+}
+</script>
+</body>
+</html>

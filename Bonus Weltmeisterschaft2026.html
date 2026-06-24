@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WM 2026 – Hörverstehen für Lucas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:   #f0c040;
+    --dark:   #0a1628;
+    --green:  #1a7a3e;
+    --green2: #23a455;
+    --red:    #c0392b;
+    --blue:   #1565c0;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: var(--dark);
+    color: #e8e0cc;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #0a1628 0%, #0d2545 50%, #0a3020 100%);
+    padding: 36px 24px 28px;
+    text-align: center;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '⚽';
+    position: absolute;
+    font-size: 300px;
+    opacity: 0.04;
+    top: -60px;
+    right: -60px;
+    line-height: 1;
+  }
+  .hero .tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 900;
+    color: white;
+    line-height: 1.15;
+    max-width: 680px;
+    margin: 0 auto 10px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero .subtitle {
+    font-size: 14px;
+    color: #8aafcc;
+    max-width: 520px;
+    margin: 0 auto 22px;
+  }
+  .hero-flags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .flag-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: #ccd;
+  }
+
+  /* ── TEACHER CONTROL BAR ── */
+  .teacher-bar {
+    background: #112035;
+    border-bottom: 2px solid #1e3a5f;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .teacher-bar .tb-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .teacher-bar .tb-info {
+    font-size: 12px;
+    color: #6a8faa;
+  }
+  .btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-gold { background: var(--gold); color: var(--dark); }
+  .btn-gold:hover { background: #ffd050; transform: translateY(-1px); }
+  .btn-outline { background: transparent; border: 1.5px solid #446; color: #aac; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-green { background: var(--green2); color: white; }
+  .btn-green:hover { background: #28c462; }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* ── PHASE BADGE ── */
+  .phase-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .phase-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .phase-num.gold { background: var(--gold); color: var(--dark); }
+  .phase-num.blue { background: var(--blue); color: white; }
+  .phase-title { font-size: 17px; font-weight: 800; color: white; }
+  .phase-sub { font-size: 12px; color: #7a9ab0; }
+
+  /* ── TEXT CARD ── */
+  .text-card {
+    background: #0e1f38;
+    border: 1px solid #1e3a5f;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .text-card-header {
+    background: linear-gradient(90deg, #0d2545, #0a3020);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #1e3a5f;
+  }
+  .text-card-header .article-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+  }
+  .text-card-header .article-meta {
+    font-size: 12px;
+    color: #6a8faa;
+    margin-top: 2px;
+  }
+  .text-card-header .wm-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .text-card-body { padding: 24px 26px; }
+  .text-card-body p {
+    font-size: 15.5px;
+    line-height: 1.85;
+    margin-bottom: 16px;
+    color: #dde8f0;
+  }
+  .text-card-body p:last-child { margin-bottom: 0; }
+  .text-card-body p strong { color: white; }
+
+  /* ── EXPRESSIONS ── */
+  .expr {
+    background: rgba(240, 192, 64, 0.15);
+    border-bottom: 2px solid var(--gold);
+    color: var(--gold);
+    font-weight: 700;
+    padding: 0 2px;
+    border-radius: 2px;
+    cursor: help;
+    position: relative;
+  }
+  .expr:hover::after {
+    content: attr(data-def);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a3050;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 5px 12px;
+    border-radius: 6px;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  /* ── EXPRESSION GLOSSARY ── */
+  .glossary-toggle {
+    width: 100%;
+    background: #112035;
+    border: 1px solid #1e3a5f;
+    border-radius: 10px;
+    padding: 12px 18px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background .2s;
+  }
+  .glossary-toggle:hover { background: #1a2d45; }
+  .glossary-toggle .arrow { transition: transform .3s; margin-left: auto; }
+  .glossary-toggle.open .arrow { transform: rotate(180deg); }
+  .glossary-panel {
+    display: none;
+    background: #0e1f38;
+    border: 1px solid #1e3a5f;
+    border-radius: 0 0 10px 10px;
+    margin-top: -28px;
+    margin-bottom: 28px;
+    padding: 16px 20px;
+  }
+  .glossary-panel.open { display: block; }
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .glossary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: rgba(240,192,64,0.07);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+  .glossary-item .g-expr { font-weight: 700; color: var(--gold); }
+  .glossary-item .g-def { color: #8aafcc; }
+
+  /* ── QUIZ ── */
+  .quiz-card {
+    background: #0e1f38;
+    border: 1px solid #1e3a5f;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .quiz-header {
+    background: linear-gradient(90deg, #112b4a, #0d2035);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #1e3a5f;
+  }
+  .quiz-header .qh-title { font-size: 16px; font-weight: 800; color: white; }
+  .quiz-header .qh-sub { font-size: 12px; color: #6a8faa; }
+  .score-display {
+    background: rgba(240,192,64,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 6px 16px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .score-display .sd-label { font-size: 10px; color: #9ab0c0; font-weight: 600; }
+  .score-display .sd-value { font-size: 20px; font-weight: 800; color: var(--gold); }
+
+  .quiz-body { padding: 6px 0; }
+
+  .question-block {
+    padding: 18px 24px;
+    border-bottom: 1px solid #13283f;
+    transition: background .2s;
+  }
+  .question-block:last-child { border-bottom: none; }
+  .question-block.answered { background: #0c1a2e; }
+
+  .q-stem {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .q-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1e3a5f;
+    color: var(--gold);
+    font-weight: 800;
+    font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-text {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #ddeeff;
+    line-height: 1.5;
+  }
+  .q-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .q-tag.expr-tag { background: rgba(240,192,64,0.2); color: var(--gold); }
+  .q-tag.fact-tag { background: rgba(21,101,192,0.25); color: #6aacff; }
+
+  .options { display: flex; flex-direction: column; gap: 8px; padding-left: 40px; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #1e3a5f;
+    cursor: pointer;
+    transition: all .18s;
+    font-size: 14px;
+    color: #c8daea;
+    background: transparent;
+    text-align: left;
+    width: 100%;
+  }
+  .option:hover:not([disabled]) {
+    border-color: var(--gold);
+    background: rgba(240,192,64,0.07);
+    color: white;
+  }
+  .option .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid #446;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #6a8faa;
+    flex-shrink: 0;
+    transition: all .18s;
+  }
+  .option:hover:not([disabled]) .opt-letter {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .option.correct {
+    border-color: var(--green2);
+    background: rgba(35,164,85,0.12);
+    color: white;
+  }
+  .option.correct .opt-letter { border-color: var(--green2); background: var(--green2); color: white; }
+  .option.wrong {
+    border-color: var(--red);
+    background: rgba(192,57,43,0.1);
+    color: #ffaaaa;
+  }
+  .option.wrong .opt-letter { border-color: var(--red); background: var(--red); color: white; }
+  .option.dimmed { opacity: 0.4; cursor: default; }
+  .option.correct-reveal {
+    border-color: var(--green2);
+    background: rgba(35,164,85,0.07);
+    opacity: 0.7;
+  }
+  .option.correct-reveal .opt-letter { border-color: var(--green2); color: var(--green2); }
+
+  .feedback {
+    display: none;
+    padding: 8px 12px 0 40px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .feedback.correct-fb { color: #4cde8a; }
+  .feedback.wrong-fb { color: #ff8888; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    padding: 14px 24px 10px;
+    border-bottom: 1px solid #13283f;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: #6a8faa; margin-bottom: 5px;
+  }
+  .progress-bar-bg {
+    background: #1a3050;
+    border-radius: 10px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    background: linear-gradient(90deg, var(--green), var(--gold));
+    height: 100%;
+    border-radius: 10px;
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  /* ── RESULT ── */
+  .result-panel {
+    display: none;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .result-panel .result-emoji { font-size: 60px; line-height: 1; margin-bottom: 12px; }
+  .result-panel .result-score {
+    font-size: 48px; font-weight: 900; color: var(--gold); margin-bottom: 6px;
+  }
+  .result-panel .result-msg { font-size: 16px; color: #aac; margin-bottom: 20px; }
+  .result-panel .result-detail {
+    font-size: 13px; color: #6a8faa; margin-bottom: 24px;
+  }
+
+  /* ── CONFETTI ── */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 14px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── RESET BTN ── */
+  #reset-btn { display: none; }
+
+  @media(max-width: 600px) {
+    .glossary-grid { grid-template-columns: 1fr; }
+    .teacher-bar { flex-direction: column; align-items: flex-start; }
+  }
+  /* ── GRAMMAR & VOCAB ── */
+  .grammar-card {
+    background: #0e1f38; border: 1px solid #2a1e5f;
+    border-radius: 14px; overflow: hidden; margin-bottom: 28px;
+  }
+  .grammar-header {
+    background: linear-gradient(90deg, #160d35, #0d1a3a);
+    padding: 14px 22px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #2a1e5f; flex-wrap: wrap; gap: 10px;
+  }
+  .grammar-header .gh-title { font-size: 16px; font-weight: 800; color: white; }
+  .grammar-header .gh-sub { font-size: 12px; color: #9a8acc; }
+  .g-score-box {
+    background: rgba(160,110,255,0.15); border: 1px solid #7a5fff;
+    border-radius: 8px; padding: 6px 16px; text-align: center; min-width: 90px;
+  }
+  .g-score-box .gsl { font-size: 10px; color: #9ab0c0; font-weight: 600; }
+  .g-score-box .gsv { font-size: 20px; font-weight: 800; color: #b08fff; }
+  .g-section { padding: 20px 24px; border-bottom: 1px solid #13283f; }
+  .g-section:last-child { border-bottom: none; }
+  .g-section-title { font-size: 13px; font-weight: 800; color: #b08fff; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .g-section-rule {
+    font-size: 12px; color: #7a9abb; margin-bottom: 14px;
+    background: rgba(120,80,220,0.08); border-left: 2px solid #7a5fff;
+    padding: 6px 12px; border-radius: 0 6px 6px 0; line-height: 1.6;
+  }
+  .fill-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 8px; padding: 10px 14px;
+    border-radius: 8px; border: 1px solid #1e3a5f;
+    background: rgba(255,255,255,0.02); font-size: 14px; color: #dde8f0; line-height: 1.7;
+  }
+  .fill-row .rn {
+    width: 22px; height: 22px; border-radius: 50%; background: #1e3a5f; color: #8a9fc0;
+    font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .fill-select {
+    background: #112035; border: 1.5px solid #335; color: #c8daea;
+    border-radius: 6px; padding: 4px 10px; font-size: 13.5px; font-family: inherit;
+    cursor: pointer; outline: none; -webkit-appearance: none; appearance: none; transition: border-color .2s;
+  }
+  .fill-select:focus { border-color: #7a5fff; }
+  .fill-select.ok  { border-color: var(--green2); background: rgba(35,164,85,0.1); color: #4cde8a; }
+  .fill-select.err { border-color: var(--red);    background: rgba(192,57,43,0.1); color: #ff8888; }
+  .rfb { font-size: 12px; font-weight: 600; }
+  .rfb.ok  { color: #4cde8a; }
+  .rfb.err { color: #ff8888; }
+  .g-check-btn {
+    margin-top: 12px; background: rgba(120,80,220,0.25); border: 1.5px solid #7a5fff;
+    color: #c8aeff; border-radius: 8px; padding: 8px 20px; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+  }
+  .g-check-btn:hover { background: rgba(120,80,220,0.4); color: white; }
+  .pass-block { margin-bottom: 14px; }
+  .pass-block:last-child { margin-bottom: 0; }
+  .pass-q { font-size: 13.5px; color: #aac8e0; margin-bottom: 8px; line-height: 1.5; }
+  .pass-q strong { color: white; }
+  .mc-opts { display: flex; flex-direction: column; gap: 6px; }
+  .mc-opt {
+    display: flex; align-items: flex-start; gap: 10px; padding: 9px 14px; border-radius: 8px;
+    border: 1.5px solid #1e3a5f; cursor: pointer; font-size: 13.5px; color: #c8daea;
+    background: transparent; text-align: left; width: 100%; transition: all .18s; line-height: 1.4;
+  }
+  .mc-opt:hover:not([disabled]) { border-color: #7a5fff; background: rgba(120,80,220,0.08); color: white; }
+  .mc-opt .ml {
+    width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #446; color: #6a8faa;
+    font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all .18s;
+  }
+  .mc-opt:hover:not([disabled]) .ml { border-color: #7a5fff; color: #b08fff; }
+  .mc-opt.correct { border-color: var(--green2); background: rgba(35,164,85,0.12); color: white; }
+  .mc-opt.correct .ml { border-color: var(--green2); background: var(--green2); color: white; }
+  .mc-opt.wrong   { border-color: var(--red); background: rgba(192,57,43,0.1); color: #ffaaaa; }
+  .mc-opt.wrong .ml { border-color: var(--red); background: var(--red); color: white; }
+  .mc-opt.dimmed  { opacity: 0.35; cursor: default; }
+  .mc-opt.correct-reveal { border-color: var(--green2); background: rgba(35,164,85,0.07); opacity: 0.75; }
+  .mc-opt.correct-reveal .ml { border-color: var(--green2); color: var(--green2); }
+  .mc-fb { display: none; font-size: 12px; font-weight: 600; padding: 3px 0 3px 4px; margin-bottom: 4px; }
+  .mc-fb.ok  { color: #4cde8a; }
+  .mc-fb.err { color: #ff8888; }
+
+  /* Vocab */
+  .vocab-card { background: #0e1f38; border: 1px solid #1e3a5f; border-radius: 14px; overflow: hidden; margin-bottom: 28px; }
+  .vocab-header {
+    background: linear-gradient(90deg, #0d2535, #0d2a1a); padding: 14px 22px;
+    border-bottom: 1px solid #1e3a5f; display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap; justify-content: space-between;
+  }
+  .vocab-header .vh-title { font-size: 16px; font-weight: 800; color: white; }
+  .vocab-header .vh-sub   { font-size: 12px; color: #6a8faa; }
+  .vocab-search {
+    background: #112035; border: 1.5px solid #1e3a5f; color: #c8daea;
+    border-radius: 8px; padding: 7px 14px; font-size: 13px; font-family: inherit;
+    outline: none; width: 200px; transition: border-color .2s;
+  }
+  .vocab-search:focus { border-color: var(--gold); }
+  .vocab-filter-bar { padding: 10px 22px; display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid #13283f; }
+  .vfbtn {
+    background: #112035; border: 1.5px solid #1e3a5f; color: #8aafcc;
+    border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .18s;
+  }
+  .vfbtn:hover { border-color: var(--gold); color: var(--gold); }
+  .vfbtn.active { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .vocab-body { padding: 0 22px 20px; overflow-x: auto; }
+  .vocab-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 12px; }
+  .vocab-tbl thead th {
+    text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: #6a8faa; border-bottom: 2px solid #1e3a5f; padding: 8px 10px;
+  }
+  .vocab-tbl tbody tr { border-bottom: 1px solid #13283f; transition: background .15s; }
+  .vocab-tbl tbody tr:hover { background: rgba(255,255,255,0.03); }
+  .vocab-tbl tbody tr.v-hidden { display: none; }
+  .vocab-tbl td { padding: 9px 10px; vertical-align: top; line-height: 1.5; }
+  .vw { font-weight: 700; color: white; }
+  .va { color: #f07a50; font-weight: 700; }
+  .vbadge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+  .vb-n { background: rgba(240,192,64,0.2);  color: var(--gold); }
+  .vb-v { background: rgba(35,164,85,0.2);   color: #4cde8a; }
+  .vb-a { background: rgba(21,101,192,0.3);  color: #6aacff; }
+  .vb-r { background: rgba(255,100,100,0.2); color: #ffaaaa; }
+  .vm  { color: #aac8e0; }
+  .vex { color: #6a8aaa; font-style: italic; font-size: 12.5px; }
+
+  /* Homework box */
+  .hw-box { background: linear-gradient(135deg, #0d2a40, #0a2a14); border: 2px solid var(--gold); border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+  .hw-box .hw-title { font-size: 16px; font-weight: 800; color: var(--gold); margin-bottom: 12px; }
+  .hw-list { list-style: none; padding: 0; }
+  .hw-list li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(240,192,64,0.15); font-size: 14px; color: #c8daea; line-height: 1.5; }
+  .hw-list li:last-child { border-bottom: none; }
+  .hw-n { background: var(--gold); color: var(--dark); font-weight: 800; font-size: 12px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+  @media(max-width:600px) { .vocab-search { width: 100%; } .fill-row { font-size: 13px; } .vocab-tbl { font-size: 12.5px; } }
+
+  @media print {
+    body { background: white; color: black; }
+    .teacher-bar, .glossary-toggle, .glossary-panel, .quiz-card { display: none; }
+    .text-card { background: white; border: 1px solid #ddd; color: black; box-shadow: none; }
+    .text-card-body p { color: #222; }
+    .expr { color: #8B6914; background: #fff8dc; }
+    .hero { background: #003f88; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="tag">Hörverstehen · A2/B1 · Ausdrücke</div>
+  <h1>Die <span>Weltmeisterschaft 2026</span> beginnt morgen!</h1>
+  <p class="subtitle">Lesetext mit Ausdrücken · 10 interaktive Fragen · Für Lucas</p>
+  <div class="hero-flags">
+    <span class="flag-chip">🇲🇽 Mexiko</span>
+    <span class="flag-chip">🇺🇸 USA</span>
+    <span class="flag-chip">🇨🇦 Kanada</span>
+    <span class="flag-chip">48 Mannschaften</span>
+    <span class="flag-chip">104 Spiele</span>
+    <span class="flag-chip">⚽ Finale: 19. Juli</span>
+  </div>
+</div>
+
+<!-- ══ TEACHER BAR ══ -->
+<div class="teacher-bar">
+  <div>
+    <div class="tb-label">👨‍🏫 Lehrermodus – Phase 1</div>
+    <div class="tb-info">Lesen Sie zuerst den Text laut vor. Lucas hört zu und macht sich Notizen. Dann Quiz starten.</div>
+  </div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <button class="btn btn-outline" onclick="toggleGlossary()">📖 Ausdrücke einblenden</button>
+    <button class="btn btn-gold" onclick="scrollToQuiz()">⬇ Zum Quiz springen</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="container">
+
+  <!-- PHASE 1 -->
+  <div class="phase-badge" style="margin-bottom:12px;">
+    <div class="phase-num gold">1</div>
+    <div>
+      <div class="phase-title">Lesetext – Lehrer liest vor</div>
+      <div class="phase-sub">Lucas hört zu · Die markierten Ausdrücke sind besonders wichtig</div>
+    </div>
+  </div>
+
+  <!-- TEXT CARD -->
+  <div class="text-card">
+    <div class="text-card-header">
+      <span class="wm-icon">⚽</span>
+      <div>
+        <div class="article-title">Das größte Fußball-Fest der Welt beginnt!</div>
+        <div class="article-meta">Niveau A2/B1 · Ausdrücke &amp; Leseverstehen · 11. Juni 2026</div>
+      </div>
+    </div>
+    <div class="text-card-body">
+      <p>
+        Morgen, am <strong>11. Juni 2026</strong>, ist es endlich so weit! Im legendären
+        <strong>Estadio Azteca</strong> in Mexiko-Stadt wird die Eröffnungsfeier der
+        FIFA Weltmeisterschaft 2026 stattfinden.
+        <strong>Shakira</strong> wird <span class="expr" data-def="im Mittelpunkt der Aufmerksamkeit sein">im Rampenlicht stehen</span>
+        und das Turnier mit dem offiziellen WM-Song eröffnen.
+        Danach trifft Mexiko auf Südafrika – ein Spiel, bei dem beide Teams
+        <span class="expr" data-def="alles versuchen, das Maximum leisten">alles geben</span> wollen.
+      </p>
+      <p>
+        Diese WM ist historisch: Zum ersten Mal nehmen <strong>48 Mannschaften</strong>
+        in <strong>12 Gruppen</strong> teil. Insgesamt werden <strong>104 Spiele</strong> gespielt,
+        bis am <strong>19. Juli</strong> das große Finale stattfindet.
+        Für die drei Gastgeberländer USA, Mexiko und Kanada
+        <span class="expr" data-def="etwas Wichtiges/Großes steht auf dem Spiel">steht viel auf dem Spiel</span>
+        – sie wollen vor ihrem Heimpublikum glänzen und zeigen,
+        dass sie zu den Besten gehören.
+      </p>
+      <p>
+        Wer hat
+        <span class="expr" data-def="vorn liegen, im Vorteil sein">die Nase vorn</span>?
+        Als größte Favoriten gelten <strong>Spanien</strong> und <strong>Frankreich</strong>.
+        Frankreich hat mit <strong>Kylian Mbappé</strong>
+        <span class="expr" data-def="einen geheimen Vorteil haben">einen Trumpf im Ärmel</span>,
+        der die Gegner
+        <span class="expr" data-def="jemanden sehr nervös machen">zum Zittern bringt</span>.
+        <strong>Brasilien</strong> setzt auf <strong>Vinícius Júnior</strong>, einen der besten
+        Spieler der Welt. Und der amtierende Weltmeister <strong>Argentinien</strong> will
+        seinen Titel natürlich verteidigen.
+      </p>
+      <p>
+        Deutschland spielt in <strong>Gruppe E</strong> – zusammen mit Ecuador, der
+        Elfenbeinküste und Curaçao.
+        <span class="expr" data-def="die Vorbereitungen sind abgeschlossen, es kann losgehen">Die Weichen sind gestellt</span>:
+        Bundestrainer <strong>Julian Nagelsmann</strong> setzt auf das
+        junge Duo <strong>Jamal Musiala</strong> und <strong>Florian Wirtz</strong>.
+        Auf der großen WM-Bühne wird es wichtig sein,
+        <span class="expr" data-def="ruhig und konzentriert bleiben, auch unter Druck">die Nerven zu behalten</span>.
+        <span class="expr" data-def="mit maximalem Engagement und Leidenschaft">Mit vollem Einsatz</span>
+        will die Nationalmannschaft beweisen, dass Deutschland wieder an die Weltspitze gehört.
+      </p>
+      <p>
+        Fußballfans in aller Welt sind
+        <span class="expr" data-def="sehr begeistert und enthusiastisch sein">in Feuer und Flamme</span>.
+        Bei 104 Spielen und 48 Teams haben Fans und Experten wirklich
+        <span class="expr" data-def="eine schwierige Wahl zwischen vielen guten Optionen">die Qual der Wahl</span>,
+        welches Spiel sie zuerst anschauen sollen. Eines ist sicher:
+        Der WM-Sommer 2026 wird unvergesslich sein. Wer wird Weltmeister?
+      </p>
+    </div>
+  </div>
+
+  <!-- GLOSSARY TOGGLE -->
+  <button class="glossary-toggle" id="glossaryBtn" onclick="toggleGlossary()">
+    📖 &nbsp; Ausdrücke im Text – Bedeutungen anzeigen / verbergen
+    <span class="arrow">▼</span>
+  </button>
+  <div class="glossary-panel" id="glossaryPanel">
+    <div class="glossary-grid">
+      <div class="glossary-item">
+        <span class="g-expr">im Rampenlicht stehen</span>
+        <span class="g-def">im Mittelpunkt der Aufmerksamkeit sein</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">alles geben</span>
+        <span class="g-def">sein Maximum leisten, alles versuchen</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">auf dem Spiel stehen</span>
+        <span class="g-def">etwas Wichtiges ist in Gefahr oder möglich</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">die Nase vorn haben</span>
+        <span class="g-def">vorn liegen, im Vorteil sein</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">einen Trumpf im Ärmel haben</span>
+        <span class="g-def">einen geheimen Vorteil / ein Ass haben</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">jemanden zum Zittern bringen</span>
+        <span class="g-def">jemanden sehr nervös / ängstlich machen</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">die Weichen stellen</span>
+        <span class="g-def">die Vorbereitungen abschließen, Kurs setzen</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">die Nerven behalten</span>
+        <span class="g-def">ruhig und konzentriert bleiben</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">mit vollem Einsatz</span>
+        <span class="g-def">mit maximaler Energie und Leidenschaft</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">in Feuer und Flamme sein</span>
+        <span class="g-def">sehr begeistert und enthusiastisch sein</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">die Qual der Wahl haben</span>
+        <span class="g-def">eine schwierige Wahl zwischen vielen Optionen</span>
+      </div>
+      <div class="glossary-item">
+        <span class="g-expr">an die Weltspitze gehören</span>
+        <span class="g-def">zu den weltbesten Mannschaften zählen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-badge" id="quizSection" style="margin-bottom:12px;">
+    <div class="phase-num blue">2</div>
+    <div>
+      <div class="phase-title">Quiz – 10 Fragen für Lucas</div>
+      <div class="phase-sub">Verstehst du den Text und die Ausdrücke? Klick auf deine Antwort!</div>
+    </div>
+  </div>
+
+  <!-- QUIZ CARD -->
+  <div class="quiz-card">
+    <div class="quiz-header">
+      <div>
+        <div class="qh-title">Fragen zum Text</div>
+        <div class="qh-sub">🟡 = Ausdruck-Frage &nbsp;·&nbsp; 🔵 = Inhaltsfrage</div>
+      </div>
+      <div class="score-display">
+        <div class="sd-label">Punkte</div>
+        <div class="sd-value"><span id="score">0</span>/10</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Fortschritt</span>
+        <span id="progress-text">0 von 10 beantwortet</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="quiz-body" id="quizBody">
+
+      <!-- Q1 -->
+      <div class="question-block" id="qb1">
+        <div class="q-stem">
+          <div class="q-num">1</div>
+          <div class="q-text">Wo findet die Eröffnungsfeier der WM 2026 statt? <span class="q-tag fact-tag">Inhalt</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(1,'a','b')"><span class="opt-letter">A</span>Im MetLife Stadium in New York</button>
+          <button class="option" onclick="answer(1,'b','b')"><span class="opt-letter">B</span>Im Estadio Azteca in Mexiko-Stadt</button>
+          <button class="option" onclick="answer(1,'c','b')"><span class="opt-letter">C</span>Im Rose Bowl Stadium in Los Angeles</button>
+        </div>
+        <div class="feedback" id="fb1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" id="qb2">
+        <div class="q-stem">
+          <div class="q-num">2</div>
+          <div class="q-text">Was bedeutet der Ausdruck <em>„im Rampenlicht stehen"</em>? <span class="q-tag expr-tag">Ausdruck</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(2,'a','b')"><span class="opt-letter">A</span>Auf der Bühne tanzen</button>
+          <button class="option" onclick="answer(2,'b','b')"><span class="opt-letter">B</span>Im Mittelpunkt der Aufmerksamkeit stehen</button>
+          <button class="option" onclick="answer(2,'c','b')"><span class="opt-letter">C</span>Eine Lampe auf der Bühne kaufen</button>
+        </div>
+        <div class="feedback" id="fb2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" id="qb3">
+        <div class="q-stem">
+          <div class="q-num">3</div>
+          <div class="q-text">Wer singt bei der Eröffnungsfeier den offiziellen WM-Song? <span class="q-tag fact-tag">Inhalt</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(3,'a','b')"><span class="opt-letter">A</span>Beyoncé</button>
+          <button class="option" onclick="answer(3,'b','b')"><span class="opt-letter">B</span>Shakira</button>
+          <button class="option" onclick="answer(3,'c','b')"><span class="opt-letter">C</span>J Balvin</button>
+        </div>
+        <div class="feedback" id="fb3"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block" id="qb4">
+        <div class="q-stem">
+          <div class="q-num">4</div>
+          <div class="q-text">Was bedeutet <em>„auf dem Spiel stehen"</em> im Kontext des Textes? <span class="q-tag expr-tag">Ausdruck</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(4,'a','b')"><span class="opt-letter">A</span>Ein Spiel auf dem Spielfeld spielen</button>
+          <button class="option" onclick="answer(4,'b','b')"><span class="opt-letter">B</span>Etwas sehr Wichtiges ist in Gefahr oder möglich</button>
+          <button class="option" onclick="answer(4,'c','b')"><span class="opt-letter">C</span>Auf dem Bildschirm stehen</button>
+        </div>
+        <div class="feedback" id="fb4"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block" id="qb5">
+        <div class="q-stem">
+          <div class="q-num">5</div>
+          <div class="q-text">Wie viele Mannschaften nehmen an der WM 2026 teil? <span class="q-tag fact-tag">Inhalt</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(5,'a','b')"><span class="opt-letter">A</span>32 Mannschaften</button>
+          <button class="option" onclick="answer(5,'b','b')"><span class="opt-letter">B</span>48 Mannschaften</button>
+          <button class="option" onclick="answer(5,'c','b')"><span class="opt-letter">C</span>64 Mannschaften</button>
+        </div>
+        <div class="feedback" id="fb5"></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-block" id="qb6">
+        <div class="q-stem">
+          <div class="q-num">6</div>
+          <div class="q-text">Was bedeutet <em>„einen Trumpf im Ärmel haben"</em>? <span class="q-tag expr-tag">Ausdruck</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(6,'a','b')"><span class="opt-letter">A</span>Karten im Ärmel verstecken</button>
+          <button class="option" onclick="answer(6,'b','b')"><span class="opt-letter">B</span>Einen geheimen Vorteil haben</button>
+          <button class="option" onclick="answer(6,'c','b')"><span class="opt-letter">C</span>Einen neuen Pullover tragen</button>
+        </div>
+        <div class="feedback" id="fb6"></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-block" id="qb7">
+        <div class="q-stem">
+          <div class="q-num">7</div>
+          <div class="q-text">In welcher Gruppe spielt Deutschland bei der WM 2026? <span class="q-tag fact-tag">Inhalt</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(7,'a','b')"><span class="opt-letter">A</span>Gruppe A</button>
+          <button class="option" onclick="answer(7,'b','b')"><span class="opt-letter">B</span>Gruppe C</button>
+          <button class="option" onclick="answer(7,'c','b')"><span class="opt-letter">C</span>Gruppe E</button>
+        </div>
+        <div class="feedback" id="fb7"></div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="question-block" id="qb8">
+        <div class="q-stem">
+          <div class="q-num">8</div>
+          <div class="q-text">Was bedeutet <em>„die Nerven behalten"</em>? <span class="q-tag expr-tag">Ausdruck</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(8,'a','b')"><span class="opt-letter">A</span>Sehr nervös werden und schreien</button>
+          <button class="option" onclick="answer(8,'b','b')"><span class="opt-letter">B</span>Ruhig und konzentriert bleiben, auch unter Druck</button>
+          <button class="option" onclick="answer(8,'c','b')"><span class="opt-letter">C</span>Die Nerven verlieren und weglaufen</button>
+        </div>
+        <div class="feedback" id="fb8"></div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="question-block" id="qb9">
+        <div class="q-stem">
+          <div class="q-num">9</div>
+          <div class="q-text">Was bedeutet <em>„in Feuer und Flamme sein"</em> im Text? <span class="q-tag expr-tag">Ausdruck</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(9,'a','b')"><span class="opt-letter">A</span>Bei einem Brand sein</span></button>
+          <button class="option" onclick="answer(9,'b','b')"><span class="opt-letter">B</span>Sehr begeistert und enthusiastisch sein</button>
+          <button class="option" onclick="answer(9,'c','b')"><span class="opt-letter">C</span>Angst vor Feuer haben</button>
+        </div>
+        <div class="feedback" id="fb9"></div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="question-block" id="qb10">
+        <div class="q-stem">
+          <div class="q-num">10</div>
+          <div class="q-text">Welcher Spieler wird laut dem Text als „Trumpf" für Frankreich erwähnt? <span class="q-tag fact-tag">Inhalt</span></div>
+        </div>
+        <div class="options">
+          <button class="option" onclick="answer(10,'a','b')"><span class="opt-letter">A</span>Vinícius Júnior</button>
+          <button class="option" onclick="answer(10,'b','b')"><span class="opt-letter">B</span>Florian Wirtz</button>
+          <button class="option" onclick="answer(10,'c','b')"><span class="opt-letter">C</span>Kylian Mbappé</button>
+        </div>
+        <div class="feedback" id="fb10"></div>
+      </div>
+
+    </div><!-- /quiz-body -->
+
+    <!-- RESULT PANEL -->
+    <div class="result-panel" id="resultPanel">
+      <div class="result-emoji" id="resultEmoji">🏆</div>
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <div class="result-detail" id="resultDetail"></div>
+      <button class="btn btn-outline" id="reset-btn" onclick="resetQuiz()">🔄 Quiz neu starten</button>
+    </div>
+
+  </div><!-- /quiz-card -->
+
+  <!-- ══ PHASE 3: GRAMMATIK ══ -->
+  <div class="phase-badge" style="margin-bottom:12px; margin-top:40px;">
+    <div class="phase-num" style="background:#7a5fff; color:white;">3</div>
+    <div>
+      <div class="phase-title">Grammatik-Übungen (B2)</div>
+      <div class="phase-sub">Relativsätze · Passiv · Konjunktiv II · Konnektoren – Hausaufgabe</div>
+    </div>
+  </div>
+
+  <div class="grammar-card">
+    <div class="grammar-header">
+      <div>
+        <div class="gh-title">Grammatik – 4 Übungen · 16 Punkte</div>
+        <div class="gh-sub">B2-Niveau · Thema: WM 2026</div>
+      </div>
+      <div class="g-score-box">
+        <div class="gsl">Punkte</div>
+        <div class="gsv"><span id="gscore">0</span>/16</div>
+      </div>
+    </div>
+
+    <!-- ÜBUNG A: Relativsätze -->
+    <div class="g-section">
+      <div class="g-section-title">Übung A – Relativsätze mit Präpositionen</div>
+      <div class="g-section-rule">💡 Tipp: Achte auf den Kasus nach der Präposition (Akk. oder Dat.) und auf das Genus des Bezugsworts.</div>
+
+      <div class="fill-row">
+        <span class="rn">1</span>
+        Mbappé ist der Spieler, auf
+        <select class="fill-select" id="rs1">
+          <option value="">– wählen –</option>
+          <option>den</option><option>dem</option><option>der</option><option>dessen</option>
+        </select>
+        alle WM-Fans warten.
+        <span class="rfb" id="rsfb1"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">2</span>
+        Shakira ist die Künstlerin, mit
+        <select class="fill-select" id="rs2">
+          <option value="">– wählen –</option>
+          <option>der</option><option>dem</option><option>den</option><option>dessen</option>
+        </select>
+        die WM eröffnet wird.
+        <span class="rfb" id="rsfb2"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">3</span>
+        Das Estadio Azteca ist das Stadion, in
+        <select class="fill-select" id="rs3">
+          <option value="">– wählen –</option>
+          <option>dem</option><option>das</option><option>der</option><option>den</option>
+        </select>
+        die Eröffnungsfeier stattfindet.
+        <span class="rfb" id="rsfb3"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">4</span>
+        Spanien ist das Land, über
+        <select class="fill-select" id="rs4">
+          <option value="">– wählen –</option>
+          <option>das</option><option>dem</option><option>der</option><option>dessen</option>
+        </select>
+        alle Experten sprechen.
+        <span class="rfb" id="rsfb4"></span>
+      </div>
+      <button class="g-check-btn" onclick="checkRelativ()">✔ Antworten prüfen</button>
+    </div>
+
+    <!-- ÜBUNG B: Passiv -->
+    <div class="g-section">
+      <div class="g-section-title">Übung B – Passiv Präsens</div>
+      <div class="g-section-rule">💡 Tipp: Passiv Präsens = <strong>werden</strong> (konjugiert) + Partizip II. Das Subjekt im Aktiv → <em>„von + Dativ"</em> im Passiv.</div>
+
+      <div class="pass-block">
+        <div class="pass-q"><strong>Aktiv:</strong> „Bundestrainer Nagelsmann trainiert die Nationalmannschaft." → <em>Passivsatz?</em></div>
+        <div class="mc-opts" id="pbg1">
+          <button class="mc-opt" onclick="gMC('pb',1,'a','a')"><span class="ml">A</span>Die Nationalmannschaft wird von Bundestrainer Nagelsmann trainiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',1,'b','a')"><span class="ml">B</span>Bundestrainer Nagelsmann wird von der Nationalmannschaft trainiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',1,'c','a')"><span class="ml">C</span>Die Nationalmannschaft trainierte Nagelsmann gestern.</button>
+        </div>
+        <div class="mc-fb" id="pbfb1"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q"><strong>Aktiv:</strong> „Die FIFA organisiert 104 Spiele." → <em>Passivsatz?</em></div>
+        <div class="mc-opts" id="pbg2">
+          <button class="mc-opt" onclick="gMC('pb',2,'a','b')"><span class="ml">A</span>Die FIFA wird von 104 Spielen organisiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',2,'b','b')"><span class="ml">B</span>104 Spiele werden von der FIFA organisiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',2,'c','b')"><span class="ml">C</span>104 Spiele organisierten die FIFA selbst.</button>
+        </div>
+        <div class="mc-fb" id="pbfb2"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q"><strong>Aktiv:</strong> „Shakira singt den offiziellen WM-Song." → <em>Passivsatz?</em></div>
+        <div class="mc-opts" id="pbg3">
+          <button class="mc-opt" onclick="gMC('pb',3,'a','c')"><span class="ml">A</span>Shakira wird von dem WM-Song gesungen.</button>
+          <button class="mc-opt" onclick="gMC('pb',3,'b','c')"><span class="ml">B</span>Der WM-Song singt Shakira bei der Feier.</button>
+          <button class="mc-opt" onclick="gMC('pb',3,'c','c')"><span class="ml">C</span>Der offizielle WM-Song wird von Shakira gesungen.</button>
+        </div>
+        <div class="mc-fb" id="pbfb3"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q"><strong>Aktiv:</strong> „Die Fans feiern die Spieler nach dem Sieg." → <em>Passivsatz?</em></div>
+        <div class="mc-opts" id="pbg4">
+          <button class="mc-opt" onclick="gMC('pb',4,'a','a')"><span class="ml">A</span>Die Spieler werden von den Fans nach dem Sieg gefeiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',4,'b','a')"><span class="ml">B</span>Die Fans werden von den Spielern nach dem Sieg gefeiert.</button>
+          <button class="mc-opt" onclick="gMC('pb',4,'c','a')"><span class="ml">C</span>Die Spieler feierten die Fans nach dem Sieg.</button>
+        </div>
+        <div class="mc-fb" id="pbfb4"></div>
+      </div>
+    </div>
+
+    <!-- ÜBUNG C: Konjunktiv II -->
+    <div class="g-section">
+      <div class="g-section-title">Übung C – Konjunktiv II</div>
+      <div class="g-section-rule">💡 Tipp: KII drückt hypothetische Situationen aus. Oft: <strong>würde + Infinitiv</strong>, oder eigene KII-Formen: <em>wäre, hätte, könnte, müsste …</em></div>
+
+      <div class="fill-row">
+        <span class="rn">1</span>
+        Wenn das WM-Finale in Florida
+        <select class="fill-select" id="kj1">
+          <option value="">– wählen –</option>
+          <option>ist</option><option>war</option><option>wäre</option><option>sein wird</option>
+        </select>
+        , könntest du live dabei sein.
+        <span class="rfb" id="kjfb1"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">2</span>
+        Ich
+        <select class="fill-select" id="kj2">
+          <option value="">– wählen –</option>
+          <option>werde</option><option>würde</option><option>bin</option><option>wäre</option>
+        </select>
+        gerne nach Mexiko reisen, um die WM-Eröffnung zu sehen.
+        <span class="rfb" id="kjfb2"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">3</span>
+        Wenn Mbappé nicht spielen
+        <select class="fill-select" id="kj3">
+          <option value="">– wählen –</option>
+          <option>kann</option><option>konnte</option><option>könnte</option><option>dürfte</option>
+        </select>
+        , hätte Frankreich viel weniger Chancen.
+        <span class="rfb" id="kjfb3"></span>
+      </div>
+      <div class="fill-row">
+        <span class="rn">4</span>
+        An Nagelsmanns Stelle
+        <select class="fill-select" id="kj4">
+          <option value="">– wählen –</option>
+          <option>werde</option><option>würde</option><option>hätte</option><option>wäre</option>
+        </select>
+        ich Musiala zum Kapitän machen.
+        <span class="rfb" id="kjfb4"></span>
+      </div>
+      <button class="g-check-btn" onclick="checkKonjII()">✔ Antworten prüfen</button>
+    </div>
+
+    <!-- ÜBUNG D: Konnektoren -->
+    <div class="g-section">
+      <div class="g-section-title">Übung D – Konnektoren (B2)</div>
+      <div class="g-section-rule">💡 Tipp: <em>damit</em> = so dass (Zweck) · <em>obwohl</em> = although (Konzession) · <em>sodass</em> = so that (Folge) · <em>da</em> = since/because (Grund)</div>
+
+      <div class="pass-block">
+        <div class="pass-q">Deutschland trainiert intensiv, _____ sie bei der WM erfolgreich sind. <em style="color:#6a8aaa;">(Zweck)</em></div>
+        <div class="mc-opts" id="kkg1">
+          <button class="mc-opt" onclick="gMC('kk',1,'a','b')"><span class="ml">A</span>obwohl</button>
+          <button class="mc-opt" onclick="gMC('kk',1,'b','b')"><span class="ml">B</span>damit</button>
+          <button class="mc-opt" onclick="gMC('kk',1,'c','b')"><span class="ml">C</span>während</button>
+        </div>
+        <div class="mc-fb" id="kkfb1"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q">Frankreich gilt als Favorit, _____ Spanien ebenfalls sehr stark ist. <em style="color:#6a8aaa;">(Konzession)</em></div>
+        <div class="mc-opts" id="kkg2">
+          <button class="mc-opt" onclick="gMC('kk',2,'a','a')"><span class="ml">A</span>obwohl</button>
+          <button class="mc-opt" onclick="gMC('kk',2,'b','a')"><span class="ml">B</span>damit</button>
+          <button class="mc-opt" onclick="gMC('kk',2,'c','a')"><span class="ml">C</span>da</button>
+        </div>
+        <div class="mc-fb" id="kkfb2"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q">Mbappé ist so schnell, _____ kein Verteidiger ihn stoppen kann. <em style="color:#6a8aaa;">(Folge)</em></div>
+        <div class="mc-opts" id="kkg3">
+          <button class="mc-opt" onclick="gMC('kk',3,'a','a')"><span class="ml">A</span>sodass</button>
+          <button class="mc-opt" onclick="gMC('kk',3,'b','a')"><span class="ml">B</span>damit</button>
+          <button class="mc-opt" onclick="gMC('kk',3,'c','a')"><span class="ml">C</span>obwohl</button>
+        </div>
+        <div class="mc-fb" id="kkfb3"></div>
+      </div>
+      <div class="pass-block">
+        <div class="pass-q">_____ das Spiel schwierig war, kämpfte die Mannschaft bis zur letzten Minute. <em style="color:#6a8aaa;">(Konzession – Satzanfang)</em></div>
+        <div class="mc-opts" id="kkg4">
+          <button class="mc-opt" onclick="gMC('kk',4,'a','c')"><span class="ml">A</span>Damit</button>
+          <button class="mc-opt" onclick="gMC('kk',4,'b','c')"><span class="ml">B</span>Sodass</button>
+          <button class="mc-opt" onclick="gMC('kk',4,'c','c')"><span class="ml">C</span>Obwohl</button>
+        </div>
+        <div class="mc-fb" id="kkfb4"></div>
+      </div>
+    </div>
+  </div><!-- /grammar-card -->
+
+
+  <!-- ══ PHASE 4: VOKABELN ══ -->
+  <div class="phase-badge" style="margin-bottom:12px; margin-top:40px;">
+    <div class="phase-num" style="background:var(--green2); color:white;">4</div>
+    <div>
+      <div class="phase-title">Vokabelliste – WM 2026</div>
+      <div class="phase-sub">28 Wörter &amp; Ausdrücke aus dem Text · zum Lernen und Nachschlagen</div>
+    </div>
+  </div>
+
+  <div class="vocab-card">
+    <div class="vocab-header">
+      <div>
+        <div class="vh-title">📚 Vokabeln &amp; Ausdrücke</div>
+        <div class="vh-sub">Hausaufgabe: alle 28 Wörter lernen</div>
+      </div>
+      <input class="vocab-search" type="text" placeholder="🔍 Suchen …" oninput="filterVocab()" id="vsearch">
+    </div>
+    <div class="vocab-filter-bar">
+      <button class="vfbtn active" onclick="setVFilter('all',this)">Alle (28)</button>
+      <button class="vfbtn" onclick="setVFilter('n',this)">Nomen</button>
+      <button class="vfbtn" onclick="setVFilter('v',this)">Verben</button>
+      <button class="vfbtn" onclick="setVFilter('a',this)">Adjektive</button>
+      <button class="vfbtn" onclick="setVFilter('r',this)">Redewendungen</button>
+    </div>
+    <div class="vocab-body">
+      <table class="vocab-tbl" id="vocabTable">
+        <thead>
+          <tr><th>Wort</th><th>Typ</th><th>Bedeutung (EN)</th><th>Beispiel aus dem Text</th></tr>
+        </thead>
+        <tbody>
+          <!-- NOMEN -->
+          <tr data-cat="n" data-text="weltmeisterschaft wm turnier">
+            <td><span class="vw"><span class="va">die</span> Weltmeisterschaft, -en</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">World Cup / world championship</td>
+            <td class="vex">Die WM 2026 findet in drei Ländern statt.</td>
+          </tr>
+          <tr data-cat="n" data-text="eröffnungsfeier eröffnung feier zeremonie">
+            <td><span class="vw"><span class="va">die</span> Eröffnungsfeier, -n</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">opening ceremony</td>
+            <td class="vex">Die Eröffnungsfeier findet im Estadio Azteca statt.</td>
+          </tr>
+          <tr data-cat="n" data-text="gastgeber gastgeberland host">
+            <td><span class="vw"><span class="va">der</span> Gastgeber, –</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">host (country / person)</td>
+            <td class="vex">Die Gastgeberländer USA, Mexiko und Kanada wollen glänzen.</td>
+          </tr>
+          <tr data-cat="n" data-text="mannschaft team gruppe">
+            <td><span class="vw"><span class="va">die</span> Mannschaft, -en</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">team</td>
+            <td class="vex">48 Mannschaften nehmen an der WM teil.</td>
+          </tr>
+          <tr data-cat="n" data-text="favorit kandidat">
+            <td><span class="vw"><span class="va">der</span> Favorit, -en</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">favourite (to win)</td>
+            <td class="vex">Spanien und Frankreich gelten als Favoriten.</td>
+          </tr>
+          <tr data-cat="n" data-text="turnier wettbewerb">
+            <td><span class="vw"><span class="va">das</span> Turnier, -e</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">tournament</td>
+            <td class="vex">Das Turnier dauert von Juni bis Juli.</td>
+          </tr>
+          <tr data-cat="n" data-text="finale endspiel">
+            <td><span class="vw"><span class="va">das</span> Finale, -s</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">final (match)</td>
+            <td class="vex">Das große Finale findet am 19. Juli statt.</td>
+          </tr>
+          <tr data-cat="n" data-text="stadion arena">
+            <td><span class="vw"><span class="va">das</span> Stadion, Stadien</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">stadium</td>
+            <td class="vex">Das Estadio Azteca ist ein legendäres Stadion.</td>
+          </tr>
+          <tr data-cat="n" data-text="bundestrainer trainer coach nationaltrainer">
+            <td><span class="vw"><span class="va">der</span> Bundestrainer, –</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">German national team coach</td>
+            <td class="vex">Bundestrainer Nagelsmann setzt auf Musiala und Wirtz.</td>
+          </tr>
+          <tr data-cat="n" data-text="gruppe gruppenphase">
+            <td><span class="vw"><span class="va">die</span> Gruppe, -n</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">group (in a tournament)</td>
+            <td class="vex">Deutschland spielt in Gruppe E.</td>
+          </tr>
+          <tr data-cat="n" data-text="heimpublikum zuschauer fans">
+            <td><span class="vw"><span class="va">das</span> Heimpublikum</span></td>
+            <td><span class="vbadge vb-n">Nomen</span></td>
+            <td class="vm">home crowd / home audience</td>
+            <td class="vex">Die Gastgeberländer wollen vor ihrem Heimpublikum glänzen.</td>
+          </tr>
+          <!-- VERBEN -->
+          <tr data-cat="v" data-text="stattfinden passieren">
+            <td><span class="vw">stattfinden (findet statt)</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to take place</td>
+            <td class="vex">Die Eröffnungsfeier wird im Azteca stattfinden.</td>
+          </tr>
+          <tr data-cat="v" data-text="eröffnen beginnen starten">
+            <td><span class="vw">eröffnen</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to open, to inaugurate</td>
+            <td class="vex">Shakira wird die WM 2026 eröffnen.</td>
+          </tr>
+          <tr data-cat="v" data-text="verteidigen schützen">
+            <td><span class="vw">verteidigen</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to defend</td>
+            <td class="vex">Argentinien will seinen WM-Titel verteidigen.</td>
+          </tr>
+          <tr data-cat="v" data-text="beweisen zeigen nachweisen">
+            <td><span class="vw">beweisen</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to prove</td>
+            <td class="vex">Deutschland will beweisen, dass es zur Weltspitze gehört.</td>
+          </tr>
+          <tr data-cat="v" data-text="glänzen leuchten exzellieren">
+            <td><span class="vw">glänzen</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to shine, to excel</td>
+            <td class="vex">Die Gastgeberländer wollen vor ihrem Publikum glänzen.</td>
+          </tr>
+          <tr data-cat="v" data-text="gelten als gelten betrachtet werden">
+            <td><span class="vw">gelten als</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to be considered (as), to be regarded as</td>
+            <td class="vex">Mbappé gilt als einer der besten Spieler der Welt.</td>
+          </tr>
+          <tr data-cat="v" data-text="teilnehmen mitmachen">
+            <td><span class="vw">teilnehmen an + Dat.</span></td>
+            <td><span class="vbadge vb-v">Verb</span></td>
+            <td class="vm">to participate in</td>
+            <td class="vex">48 Teams nehmen an der WM 2026 teil.</td>
+          </tr>
+          <!-- ADJEKTIVE -->
+          <tr data-cat="a" data-text="unvergesslich erinnerungswürdig">
+            <td><span class="vw">unvergesslich</span></td>
+            <td><span class="vbadge vb-a">Adjektiv</span></td>
+            <td class="vm">unforgettable</td>
+            <td class="vex">Der WM-Sommer 2026 wird unvergesslich sein.</td>
+          </tr>
+          <tr data-cat="a" data-text="historisch geschichtlich bedeutend">
+            <td><span class="vw">historisch</span></td>
+            <td><span class="vbadge vb-a">Adjektiv</span></td>
+            <td class="vm">historic</td>
+            <td class="vex">Diese WM ist historisch – 48 Teams zum ersten Mal!</td>
+          </tr>
+          <tr data-cat="a" data-text="legendär berühmt bekannt">
+            <td><span class="vw">legendär</span></td>
+            <td><span class="vbadge vb-a">Adjektiv</span></td>
+            <td class="vm">legendary</td>
+            <td class="vex">Das Estadio Azteca ist ein legendäres Stadion.</td>
+          </tr>
+          <tr data-cat="a" data-text="amtierend aktuell derzeitig regierend">
+            <td><span class="vw">amtierend</span></td>
+            <td><span class="vbadge vb-a">Adjektiv</span></td>
+            <td class="vm">reigning, current (title-holder)</td>
+            <td class="vex">Argentinien ist der amtierende Weltmeister.</td>
+          </tr>
+          <!-- REDEWENDUNGEN -->
+          <tr data-cat="r" data-text="rampenlicht stehen mittelpunkt aufmerksamkeit">
+            <td><span class="vw">im Rampenlicht stehen</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to be in the spotlight</td>
+            <td class="vex">Shakira steht bei der Eröffnungsfeier im Rampenlicht.</td>
+          </tr>
+          <tr data-cat="r" data-text="nase vorn haben vorne liegen führen">
+            <td><span class="vw">die Nase vorn haben</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to be in the lead, to have the edge</td>
+            <td class="vex">Spanien hat im Moment die Nase vorn.</td>
+          </tr>
+          <tr data-cat="r" data-text="trumpf ärmel vorteil geheimwaffe">
+            <td><span class="vw">einen Trumpf im Ärmel haben</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to have an ace up one's sleeve</td>
+            <td class="vex">Frankreich hat mit Mbappé einen Trumpf im Ärmel.</td>
+          </tr>
+          <tr data-cat="r" data-text="nerven behalten ruhig konzentriert bleiben druck">
+            <td><span class="vw">die Nerven behalten</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to keep one's nerve, to stay calm under pressure</td>
+            <td class="vex">Im Elfmeterschießen muss man die Nerven behalten.</td>
+          </tr>
+          <tr data-cat="r" data-text="feuer flamme begeistert enthusiastisch">
+            <td><span class="vw">in Feuer und Flamme sein</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to be fired up / very enthusiastic</td>
+            <td class="vex">Fußballfans in aller Welt sind in Feuer und Flamme.</td>
+          </tr>
+          <tr data-cat="r" data-text="alles geben maximum leistung">
+            <td><span class="vw">alles geben</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to give it one's all, to try one's hardest</td>
+            <td class="vex">Beide Teams wollen alles geben und gewinnen.</td>
+          </tr>
+          <tr data-cat="r" data-text="auf dem spiel stehen risiko gefahr">
+            <td><span class="vw">auf dem Spiel stehen</span></td>
+            <td><span class="vbadge vb-r">Redewendung</span></td>
+            <td class="vm">to be at stake</td>
+            <td class="vex">Für die Gastgeberländer steht viel auf dem Spiel.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- HAUSAUFGABEN -->
+  <div class="hw-box">
+    <div class="hw-title">📋 Hausaufgaben für Lucas</div>
+    <ul class="hw-list">
+      <li>
+        <span class="hw-n">1</span>
+        <span>Alle <strong>4 Grammatik-Übungen</strong> (A–D) vollständig lösen. Ziel: mindestens <strong>12 von 16 Punkten</strong>.</span>
+      </li>
+      <li>
+        <span class="hw-n">2</span>
+        <span>Die <strong>28 Vokabeln</strong> aus der Liste lernen – besonders Verben und Redewendungen auf Englisch übersetzen können.</span>
+      </li>
+      <li>
+        <span class="hw-n">3</span>
+        <span>Einen kurzen Text schreiben (8–10 Sätze): <strong>„Wer wird Weltmeister 2026, und warum?"</strong> – Mindestens 3 Redewendungen und 1 Passivsatz verwenden.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div style="text-align:center; font-size:12px; color:#3a5060; margin-top:28px;">
+    Für Lucas · Deutsch A2/B1–B2 · WM 2026 · Quellen: FIFA.com, Sportschau.de, Kicker.de
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── CORRECT ANSWERS ──
+  const CORRECT = {1:'b', 2:'b', 3:'b', 4:'b', 5:'b', 6:'b', 7:'c', 8:'b', 9:'b', 10:'c'};
+  const FEEDBACK_CORRECT = {
+    1: '✅ Richtig! Das Estadio Azteca in Mexiko-Stadt.',
+    2: '✅ Genau! „Im Rampenlicht stehen" = im Mittelpunkt der Aufmerksamkeit sein.',
+    3: '✅ Super! Shakira eröffnet die WM 2026.',
+    4: '✅ Perfekt! Etwas Wichtiges steht auf dem Spiel = ist in Gefahr oder möglich.',
+    5: '✅ Richtig! 48 Teams – das ist ein historischer Rekord!',
+    6: '✅ Genau! Einen Trumpf im Ärmel haben = einen geheimen Vorteil besitzen.',
+    7: '✅ Richtig! Deutschland ist in Gruppe E mit Ecuador, Elfenbeinküste und Curaçao.',
+    8: '✅ Super! Die Nerven behalten = ruhig und konzentriert bleiben.',
+    9: '✅ Genau! In Feuer und Flamme sein = sehr begeistert sein.',
+    10: '✅ Richtig! Kylian Mbappé ist Frankreichs Trumpfkarte.'
+  };
+  const FEEDBACK_WRONG = {
+    1: '❌ Leider falsch. Die richtige Antwort: Das Estadio Azteca in Mexiko-Stadt.',
+    2: '❌ Nicht ganz. „Im Rampenlicht stehen" = im Mittelpunkt der Aufmerksamkeit sein.',
+    3: '❌ Leider nicht. Es ist Shakira, die die WM eröffnet.',
+    4: '❌ Nicht korrekt. „Auf dem Spiel stehen" = etwas Wichtiges ist in Gefahr oder möglich.',
+    5: '❌ Leider falsch. Es sind 48 Mannschaften – erstmals in der WM-Geschichte.',
+    6: '❌ Nicht ganz. Einen Trumpf im Ärmel haben = einen geheimen Vorteil haben.',
+    7: '❌ Leider falsch. Deutschland spielt in Gruppe E.',
+    8: '❌ Nicht korrekt. Die Nerven behalten = ruhig und konzentriert bleiben.',
+    9: '❌ Nicht ganz. In Feuer und Flamme sein = sehr begeistert und enthusiastisch sein.',
+    10: '❌ Leider falsch. Es ist Kylian Mbappé, Frankreichs Superstar.'
+  };
+
+  let answered = {};
+  let score = 0;
+
+  function answer(qNum, chosen, correct) {
+    if (answered[qNum]) return;
+    answered[qNum] = chosen;
+
+    const block = document.getElementById('qb' + qNum);
+    const buttons = block.querySelectorAll('.option');
+    const letters = ['a','b','c'];
+    const fb = document.getElementById('fb' + qNum);
+
+    buttons.forEach((btn, i) => {
+      btn.disabled = true;
+      const letter = letters[i];
+      if (letter === correct) {
+        if (chosen === correct) {
+          btn.classList.add('correct');
+        } else {
+          btn.classList.add('correct-reveal');
+        }
+      } else if (letter === chosen) {
+        btn.classList.add('wrong');
+      } else {
+        btn.classList.add('dimmed');
+      }
+    });
+
+    fb.style.display = 'block';
+    if (chosen === correct) {
+      score++;
+      document.getElementById('score').textContent = score;
+      fb.textContent = FEEDBACK_CORRECT[qNum];
+      fb.className = 'feedback correct-fb';
+    } else {
+      fb.textContent = FEEDBACK_WRONG[qNum];
+      fb.className = 'feedback wrong-fb';
+    }
+
+    block.classList.add('answered');
+
+    // Update progress
+    const total = Object.keys(answered).length;
+    document.getElementById('progress-text').textContent = total + ' von 10 beantwortet';
+    document.getElementById('progressBar').style.width = (total * 10) + '%';
+
+    if (total === 10) showResult();
+  }
+
+  function showResult() {
+    setTimeout(() => {
+      const panel = document.getElementById('resultPanel');
+      panel.style.display = 'block';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      document.getElementById('resultScore').textContent = score + ' / 10';
+      document.getElementById('reset-btn').style.display = 'inline-block';
+
+      let emoji, msg, detail;
+      if (score === 10) {
+        emoji = '🏆🎉⚽';
+        msg = 'Perfekt, Lucas! Du bist ein Champion!';
+        detail = 'Alle 10 Fragen richtig – dein Deutsch ist wirklich stark!';
+        launchConfetti();
+      } else if (score >= 8) {
+        emoji = '🥇⚽';
+        msg = 'Ausgezeichnet, Lucas! Fast perfekt!';
+        detail = score + ' von 10 – sehr gut! Schau dir die falschen Antworten noch einmal an.';
+      } else if (score >= 6) {
+        emoji = '🥈⚽';
+        msg = 'Gut gemacht, Lucas!';
+        detail = score + ' von 10 – du verstehst den Text gut. Üb die Ausdrücke noch ein bisschen!';
+      } else if (score >= 4) {
+        emoji = '🎯';
+        msg = 'Weiter üben, Lucas!';
+        detail = score + ' von 10 – lies den Text noch einmal und achte auf die Ausdrücke.';
+      } else {
+        emoji = '💪';
+        msg = 'Nicht aufgeben, Lucas!';
+        detail = score + ' von 10 – Übung macht den Meister! Lass uns den Text zusammen noch einmal lesen.';
+      }
+
+      document.getElementById('resultEmoji').textContent = emoji;
+      document.getElementById('resultMsg').textContent = msg;
+      document.getElementById('resultDetail').textContent = detail;
+    }, 400);
+  }
+
+  function launchConfetti() {
+    const colors = ['#f0c040','#23a455','#1565c0','#e74c3c','#9b59b6','#ffffff'];
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.top = '-20px';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+        el.style.animationDuration = (2 + Math.random() * 3) + 's';
+        el.style.width = (8 + Math.random() * 8) + 'px';
+        el.style.height = (10 + Math.random() * 10) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      }, i * 60);
+    }
+  }
+
+  function resetQuiz() {
+    answered = {};
+    score = 0;
+    document.getElementById('score').textContent = '0';
+    document.getElementById('progress-text').textContent = '0 von 10 beantwortet';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('resultPanel').style.display = 'none';
+    document.getElementById('reset-btn').style.display = 'none';
+
+    for (let i = 1; i <= 10; i++) {
+      const block = document.getElementById('qb' + i);
+      block.classList.remove('answered');
+      const buttons = block.querySelectorAll('.option');
+      buttons.forEach(btn => {
+        btn.disabled = false;
+        btn.className = 'option';
+        // Re-attach onclick (already there)
+      });
+      const fb = document.getElementById('fb' + i);
+      fb.style.display = 'none';
+      fb.textContent = '';
+      fb.className = 'feedback';
+    }
+
+    document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleGlossary() {
+    const btn = document.getElementById('glossaryBtn');
+    const panel = document.getElementById('glossaryPanel');
+    btn.classList.toggle('open');
+    panel.classList.toggle('open');
+  }
+
+  function scrollToQuiz() {
+    document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── GRAMMATIK ──
+  let gScore = 0;
+  const gAnswered = {};
+  const gMCAnswered = {};
+
+  // Übung A: Relativsätze
+  const RS_CORRECT = { rs1:'den', rs2:'der', rs3:'dem', rs4:'das' };
+
+  function checkRelativ() {
+    if (gAnswered.relativ) return;
+    let pts = 0;
+    [1,2,3,4].forEach(i => {
+      const sel = document.getElementById('rs' + i);
+      const fb  = document.getElementById('rsfb' + i);
+      const val = sel.value;
+      sel.disabled = true;
+      if (val === RS_CORRECT['rs' + i]) {
+        sel.classList.add('ok');
+        fb.textContent = '✅ Richtig!'; fb.className = 'rfb ok'; pts++;
+      } else {
+        sel.classList.add('err');
+        fb.textContent = '❌ → ' + RS_CORRECT['rs' + i]; fb.className = 'rfb err';
+      }
+    });
+    gScore += pts;
+    gAnswered.relativ = true;
+    document.getElementById('gscore').textContent = gScore;
+  }
+
+  // Übung C: Konjunktiv II
+  const KJ_CORRECT = { kj1:'wäre', kj2:'würde', kj3:'könnte', kj4:'würde' };
+
+  function checkKonjII() {
+    if (gAnswered.konjii) return;
+    let pts = 0;
+    [1,2,3,4].forEach(i => {
+      const sel = document.getElementById('kj' + i);
+      const fb  = document.getElementById('kjfb' + i);
+      const val = sel.value;
+      sel.disabled = true;
+      if (val === KJ_CORRECT['kj' + i]) {
+        sel.classList.add('ok');
+        fb.textContent = '✅ Richtig!'; fb.className = 'rfb ok'; pts++;
+      } else {
+        sel.classList.add('err');
+        fb.textContent = '❌ → ' + KJ_CORRECT['kj' + i]; fb.className = 'rfb err';
+      }
+    });
+    gScore += pts;
+    gAnswered.konjii = true;
+    document.getElementById('gscore').textContent = gScore;
+  }
+
+  // Übung B & D: Multiple Choice
+  function gMC(prefix, qNum, chosen, correct) {
+    const key = prefix + qNum;
+    if (gMCAnswered[key]) return;
+    gMCAnswered[key] = true;
+
+    const grp  = document.getElementById(prefix + 'g' + qNum);
+    const fb   = document.getElementById(prefix + 'fb' + qNum);
+    const btns = grp.querySelectorAll('.mc-opt');
+    const letters = ['a','b','c'];
+
+    btns.forEach((btn, i) => {
+      btn.disabled = true;
+      const letter = letters[i];
+      if (letter === correct) {
+        btn.classList.add(chosen === correct ? 'correct' : 'correct-reveal');
+      } else if (letter === chosen) {
+        btn.classList.add('wrong');
+      } else {
+        btn.classList.add('dimmed');
+      }
+    });
+
+    fb.style.display = 'block';
+    if (chosen === correct) {
+      gScore++;
+      fb.textContent = '✅ Richtig! Sehr gut!';
+      fb.className = 'mc-fb ok';
+    } else {
+      fb.textContent = '❌ Leider nicht. Richtige Antwort: ' + correct.toUpperCase() + '.';
+      fb.className = 'mc-fb err';
+    }
+    document.getElementById('gscore').textContent = gScore;
+  }
+
+  // ── VOKABELN ──
+  let vFilter = 'all';
+
+  function setVFilter(cat, btn) {
+    vFilter = cat;
+    document.querySelectorAll('.vfbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterVocab();
+  }
+
+  function filterVocab() {
+    const q = (document.getElementById('vsearch').value || '').toLowerCase().trim();
+    document.querySelectorAll('#vocabTable tbody tr').forEach(row => {
+      const matchCat = vFilter === 'all' || row.dataset.cat === vFilter;
+      const matchQ   = !q || (row.dataset.text || '').includes(q) || row.textContent.toLowerCase().includes(q);
+      row.classList.toggle('v-hidden', !(matchCat && matchQ));
+    });
+  }
+</script>
+</body>
+</html>

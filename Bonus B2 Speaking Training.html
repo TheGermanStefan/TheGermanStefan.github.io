@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch B2 | Sprechtraining – Fluency Class</title>
+<style>
+:root {
+  --black: #1a1a2e;
+  --gold: #e8b84b;
+  --red: #c0392b;
+  --bg: #f9f7f3;
+  --card: #ffffff;
+  --border: #e0dbd0;
+  --muted: #7a7165;
+  --agree: #27ae60;
+  --disagree: #e74c3c;
+  --hedge: #2980b9;
+  --structure: #8e44ad;
+  --time: #e67e22;
+  --opinion: #16a085;
+  --react: #d35400;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; background: var(--bg); color: var(--black); line-height: 1.7; }
+
+/* HEADER */
+header { background: var(--black); color: white; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+header::before { content:''; position:absolute; left:0;top:0;bottom:0;width:8px; background: linear-gradient(to bottom,#000,var(--gold),var(--red)); }
+.header-inner { max-width: 920px; margin: 0 auto; padding-left: 1rem; }
+.series-label { font-family:sans-serif; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
+header h1 { font-size:2rem; font-weight:700; letter-spacing:-0.02em; line-height:1.2; }
+header h1 span { color:var(--gold); }
+.header-meta { margin-top:0.75rem; font-family:sans-serif; font-size:0.82rem; color:#aaa; display:flex; gap:1.4rem; flex-wrap:wrap; }
+.level-badge { display:inline-block; background:var(--gold); color:var(--black); font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.08em; padding:0.2rem 0.6rem; border-radius:3px; margin-right:0.4rem; }
+
+/* LESSON PLAN STRIP */
+.lesson-plan { background: linear-gradient(135deg,#1a1a2e,#2d2d4e); border-radius:12px; padding:1.4rem 1.8rem; margin:2rem auto; max-width:920px; color:white; }
+.lesson-plan h3 { font-family:sans-serif; font-size:0.82rem; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.9rem; }
+.lp-row { display:flex; align-items:center; gap:1rem; padding:0.35rem 0; border-bottom:1px solid rgba(255,255,255,0.07); font-size:0.88rem; }
+.lp-row:last-child { border-bottom:none; }
+.lp-time { background:var(--gold); color:var(--black); font-family:sans-serif; font-size:0.72rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:4px; white-space:nowrap; min-width:60px; text-align:center; }
+.lp-title { color:white; font-weight:600; }
+.lp-sub { color:#aaa; font-size:0.8rem; margin-left:auto; font-family:sans-serif; }
+
+/* LAYOUT */
+main { max-width:920px; margin:0 auto; padding:0 1.5rem 4rem; }
+section { margin-bottom:3rem; }
+.section-header { display:flex; align-items:center; gap:0.9rem; margin-bottom:1.4rem; padding-bottom:0.6rem; border-bottom:2px solid var(--border); }
+.section-icon { width:36px;height:36px; background:var(--black); color:var(--gold); border-radius:8px; display:flex;align-items:center;justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.section-header h2 { font-size:1.2rem; font-weight:700; }
+.section-header h2 small { display:block; font-size:0.78rem; font-weight:400; color:var(--muted); margin-top:0.1rem; }
+.teacher-note { font-family:sans-serif; font-size:0.8rem; color:var(--muted); background:#fff8e1; border-left:3px solid var(--gold); padding:0.5rem 0.8rem; border-radius:0 6px 6px 0; margin-bottom:1rem; }
+.teacher-note strong { color:var(--black); }
+
+/* TIMER */
+.timer-widget { background:var(--black); color:white; border-radius:12px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1.5rem; margin-bottom:1.4rem; flex-wrap:wrap; }
+.timer-display { font-family:monospace; font-size:2.4rem; font-weight:700; color:var(--gold); letter-spacing:0.05em; min-width:100px; }
+.timer-label { font-family:sans-serif; font-size:0.78rem; color:#aaa; letter-spacing:0.06em; text-transform:uppercase; }
+.timer-presets { display:flex; gap:0.4rem; flex-wrap:wrap; }
+.timer-btn { font-family:sans-serif; font-size:0.78rem; font-weight:700; border:1.5px solid rgba(255,255,255,0.2); background:transparent; color:white; border-radius:6px; padding:0.3rem 0.7rem; cursor:pointer; transition:all 0.15s; }
+.timer-btn:hover { background:rgba(255,255,255,0.1); }
+.timer-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); }
+.timer-controls { display:flex; gap:0.5rem; margin-left:auto; }
+.timer-ctrl { font-family:sans-serif; font-size:0.82rem; font-weight:700; border:none; border-radius:7px; padding:0.45rem 1rem; cursor:pointer; transition:all 0.15s; }
+#timerStart { background:var(--agree); color:white; }
+#timerReset { background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); }
+#timerStart:hover { opacity:0.85; }
+
+/* TALK CARDS */
+.talk-card-wrapper { position:relative; perspective:1000px; height:220px; margin-bottom:1rem; cursor:pointer; }
+.talk-card { width:100%; height:100%; position:relative; transform-style:preserve-3d; transition:transform 0.5s; border-radius:14px; }
+.talk-card.flipped { transform:rotateY(180deg); }
+.talk-card-front, .talk-card-back {
+  position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:14px;
+  display:flex; flex-direction:column; justify-content:center; align-items:center; padding:1.5rem; text-align:center;
+}
+.talk-card-front { background: linear-gradient(135deg,var(--black),#2d2d4e); color:white; }
+.talk-card-back { background: linear-gradient(135deg,#f0f7ff,#e8f4ff); color:var(--black); transform:rotateY(180deg); }
+.talk-card-front .card-icon { font-size:2.5rem; margin-bottom:0.8rem; }
+.talk-card-front .card-hint { font-family:sans-serif; font-size:0.78rem; color:#aaa; letter-spacing:0.06em; text-transform:uppercase; }
+.talk-card-back .topic { font-size:1.15rem; font-weight:700; line-height:1.4; margin-bottom:0.8rem; }
+.talk-card-back .prompts { font-size:0.82rem; color:var(--muted); font-style:italic; font-family:sans-serif; line-height:1.6; }
+.card-nav { display:flex; gap:0.7rem; align-items:center; justify-content:center; }
+.card-nav-btn { font-family:sans-serif; font-size:0.85rem; font-weight:700; border:1.5px solid var(--border); background:white; border-radius:8px; padding:0.45rem 1.2rem; cursor:pointer; transition:all 0.15s; }
+.card-nav-btn:hover { background:var(--black); color:white; border-color:var(--black); }
+.card-counter { font-family:sans-serif; font-size:0.82rem; color:var(--muted); }
+#shuffleBtn { background:var(--black); color:white; border-color:var(--black); }
+
+/* REDEMITTEL */
+.redemittel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:0.8rem; }
+.rm-group { border-radius:10px; padding:1rem 1.2rem; }
+.rm-group.agree { background:#f0faf4; border:2px solid var(--agree); }
+.rm-group.disagree { background:#fdf2f2; border:2px solid var(--disagree); }
+.rm-group.hedge { background:#eaf4fc; border:2px solid var(--hedge); }
+.rm-group.structure { background:#f5f0ff; border:2px solid var(--structure); }
+.rm-group.opinion { background:#e8f8f5; border:2px solid var(--opinion); }
+.rm-group.time { background:#fef9e7; border:2px solid var(--time); }
+.rm-group h4 { font-family:sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.7rem; }
+.rm-group.agree h4 { color:var(--agree); }
+.rm-group.disagree h4 { color:var(--disagree); }
+.rm-group.hedge h4 { color:var(--hedge); }
+.rm-group.structure h4 { color:var(--structure); }
+.rm-group.opinion h4 { color:var(--opinion); }
+.rm-group.time h4 { color:var(--time); }
+.rm-phrase { font-size:0.88rem; padding:0.2rem 0; border-bottom:1px dashed rgba(0,0,0,0.06); line-height:1.5; }
+.rm-phrase:last-child { border-bottom:none; }
+.rm-phrase em { font-style:normal; color:var(--muted); font-size:0.78rem; }
+
+/* DISCUSSION CARDS */
+.discussion-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.8rem 2rem; margin-bottom:1.2rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+.dc-header { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.2rem; }
+.dc-num { width:40px; height:40px; background:var(--black); color:var(--gold); border-radius:8px; display:flex;align-items:center;justify-content:center; font-weight:700; font-size:1.1rem; flex-shrink:0; font-family:sans-serif; }
+.dc-title { font-size:1.1rem; font-weight:700; line-height:1.3; }
+.dc-subtitle { font-size:0.82rem; color:var(--muted); font-style:italic; margin-top:0.2rem; }
+.dc-statement { background: linear-gradient(135deg,#1a1a2e,#2d2d4e); color:white; border-radius:8px; padding:1rem 1.2rem; font-size:1rem; font-style:italic; margin-bottom:1.2rem; position:relative; }
+.dc-statement::before { content:'"'; font-size:3rem; color:var(--gold); position:absolute; top:-0.3rem; left:0.6rem; line-height:1; font-family:Georgia,serif; }
+.dc-statement .quote-text { padding-left:2rem; }
+.dc-questions { display:grid; grid-template-columns:1fr; gap:0.5rem; }
+.dc-q { display:flex; gap:0.7rem; font-size:0.9rem; padding:0.4rem 0.6rem; background:var(--bg); border-radius:6px; }
+.dc-q-num { font-weight:700; color:var(--gold); font-family:sans-serif; flex-shrink:0; background:var(--black); width:22px; height:22px; border-radius:4px; display:flex;align-items:center;justify-content:center; font-size:0.75rem; margin-top:0.1rem; }
+.dc-vocab { margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--border); }
+.dc-vocab h5 { font-family:sans-serif; font-size:0.75rem; letter-spacing:0.07em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem; }
+.vocab-chips { display:flex; flex-wrap:wrap; gap:0.35rem; }
+.vocab-chip { background:var(--bg); border:1px solid var(--border); border-radius:20px; font-size:0.8rem; padding:0.15rem 0.6rem; font-family:sans-serif; }
+.vocab-chip em { color:var(--muted); font-style:italic; }
+
+/* ROLE PLAYS */
+.roleplay-card { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:1.2rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.rp-header { background: linear-gradient(135deg,#c0392b,#e74c3c); color:white; padding:1rem 1.5rem; }
+.rp-header h3 { font-size:1rem; font-weight:700; }
+.rp-header p { font-size:0.82rem; opacity:0.85; margin-top:0.2rem; font-family:sans-serif; }
+.rp-body { padding:1.4rem 1.5rem; }
+.rp-situation { font-size:0.92rem; background:#fff8e1; border-radius:8px; padding:0.9rem 1rem; margin-bottom:1.1rem; border-left:3px solid var(--gold); }
+.rp-roles { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+.rp-role { border-radius:8px; padding:1rem; }
+.rp-role.a { background:#eaf4fc; border:1.5px solid #2980b9; }
+.rp-role.b { background:#fdf2f2; border:1.5px solid #c0392b; }
+.rp-role h4 { font-family:sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:0.5rem; }
+.rp-role.a h4 { color:#2980b9; }
+.rp-role.b h4 { color:#c0392b; }
+.rp-role ul { list-style:none; font-size:0.87rem; }
+.rp-role ul li::before { content:'→ '; color:var(--muted); }
+.rp-role ul li { margin-bottom:0.25rem; }
+.rp-usefulphrases { margin-top:1rem; padding-top:0.8rem; border-top:1px dashed var(--border); font-size:0.82rem; color:var(--muted); font-family:sans-serif; }
+
+/* DEBATE FLIP CARDS */
+.debate-area { }
+.debate-card-wrapper { perspective:1000px; height:180px; cursor:pointer; margin-bottom:0.8rem; }
+.debate-card { width:100%; height:100%; transform-style:preserve-3d; transition:transform 0.55s; border-radius:12px; position:relative; }
+.debate-card.flipped { transform:rotateY(180deg); }
+.debate-front, .debate-back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:12px; display:flex; flex-direction:column; justify-content:center; padding:1.2rem 1.5rem; }
+.debate-front { background: linear-gradient(135deg,#2d2d4e,#1a1a2e); color:white; }
+.debate-front .statement { font-size:1rem; font-weight:600; line-height:1.4; margin-bottom:0.5rem; }
+.debate-front .flip-hint { font-family:sans-serif; font-size:0.72rem; color:#aaa; letter-spacing:0.05em; text-transform:uppercase; }
+.debate-back { background:white; border:2px solid var(--border); color:var(--black); transform:rotateY(180deg); }
+.debate-back .pro { color:var(--agree); font-size:0.85rem; margin-bottom:0.5rem; }
+.debate-back .con { color:var(--disagree); font-size:0.85rem; }
+.debate-back h5 { font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:0.3rem; }
+.debate-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+
+/* STORY PROMPT */
+.story-scenario { background: linear-gradient(135deg,#f0f7ff,#e8f0ff); border:2px solid #a8c4f0; border-radius:14px; padding:1.8rem; margin-bottom:1.2rem; }
+.story-scene { font-size:4rem; text-align:center; margin-bottom:0.8rem; }
+.story-setup { font-size:1rem; font-weight:600; line-height:1.5; margin-bottom:1rem; }
+.story-questions { font-size:0.88rem; color:var(--muted); }
+.story-questions li { margin-bottom:0.3rem; }
+
+/* SPEAKING TIPS */
+.tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0.7rem; }
+.tip-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.9rem 1.1rem; }
+.tip-card .tip-icon { font-size:1.4rem; margin-bottom:0.4rem; }
+.tip-card h4 { font-family:sans-serif; font-size:0.82rem; font-weight:700; margin-bottom:0.3rem; }
+.tip-card p { font-size:0.83rem; color:var(--muted); line-height:1.5; }
+.tip-card .example { background:var(--bg); border-radius:5px; padding:0.3rem 0.6rem; font-size:0.8rem; margin-top:0.4rem; font-style:italic; }
+
+footer { text-align:center; font-family:sans-serif; font-size:0.78rem; color:var(--muted); padding:2rem 1rem; border-top:1px solid var(--border); }
+@media(max-width:600px){
+  header h1{font-size:1.4rem;}
+  .debate-grid,.rp-roles{grid-template-columns:1fr;}
+  .redemittel-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Sprechen</div>
+    <h1>B2 <span>Sprechtraining</span></h1>
+    <div class="header-meta">
+      <span><span class="level-badge">B2</span> Fluency Class</span>
+      <span>🗣️ 45–60 Min &nbsp;·&nbsp; Diskussion · Rollenspiel · Redemittel · Debatte</span>
+    </div>
+  </div>
+</header>
+
+<!-- LESSON PLAN -->
+<div class="lesson-plan">
+  <h3>📋 Stundenplan — Lesson Plan</h3>
+  <div class="lp-row"><span class="lp-time">0–5 min</span><span class="lp-title">Warm-up: Spontansprache</span><span class="lp-sub">1-min talk cards</span></div>
+  <div class="lp-row"><span class="lp-time">5–15 min</span><span class="lp-title">Redemittel-Toolkit</span><span class="lp-sub">phrases for fluent speech</span></div>
+  <div class="lp-row"><span class="lp-time">15–30 min</span><span class="lp-title">Diskussion</span><span class="lp-sub">3 rich topics with depth questions</span></div>
+  <div class="lp-row"><span class="lp-time">30–42 min</span><span class="lp-title">Rollenspiel</span><span class="lp-sub">2 interactive role plays</span></div>
+  <div class="lp-row"><span class="lp-time">42–52 min</span><span class="lp-title">Debatte: Flip Cards</span><span class="lp-sub">argue both sides of a statement</span></div>
+  <div class="lp-row"><span class="lp-time">52–60 min</span><span class="lp-title">Storytelling</span><span class="lp-sub">spontaneous narrative from a scenario</span></div>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════
+  TIMER
+═══════════════════════════════════ -->
+<div class="timer-widget">
+  <div>
+    <div class="timer-label">Speaking Timer</div>
+    <div class="timer-display" id="timerDisplay">1:00</div>
+  </div>
+  <div>
+    <div class="timer-label" style="margin-bottom:0.4rem;">Presets</div>
+    <div class="timer-presets">
+      <button class="timer-btn active" onclick="setTimer(60)">1 min</button>
+      <button class="timer-btn" onclick="setTimer(120)">2 min</button>
+      <button class="timer-btn" onclick="setTimer(180)">3 min</button>
+      <button class="timer-btn" onclick="setTimer(300)">5 min</button>
+    </div>
+  </div>
+  <div class="timer-controls">
+    <button class="timer-ctrl" id="timerStart" onclick="toggleTimer()">▶ Start</button>
+    <button class="timer-ctrl" id="timerReset" onclick="resetTimer()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+  1. WARM-UP: SPONTAN-SPEAK CARDS
+═══════════════════════════════════ -->
+<section id="warmup">
+  <div class="section-header">
+    <div class="section-icon">🃏</div>
+    <h2>Warm-up: Spontansprache <small>Draw a card — speak for 1 minute without stopping</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Student draws a card and speaks for 1 minute non-stop. No pausing, no "I don't know" — encourage them to talk around gaps. Use the timer above. Flip the card to see follow-up prompts.
+  </div>
+
+  <div class="talk-card-wrapper" onclick="flipTalkCard()">
+    <div class="talk-card" id="talkCard">
+      <div class="talk-card-front">
+        <div class="card-icon">🎯</div>
+        <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;">Klicke um die Karte aufzudecken</div>
+        <div class="card-hint">Click to reveal • Speak for 1 minute</div>
+      </div>
+      <div class="talk-card-back">
+        <div class="topic" id="talkTopic">Loading…</div>
+        <div class="prompts" id="talkPrompts"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-nav">
+    <button class="card-nav-btn" onclick="prevCard()">← Zurück</button>
+    <span class="card-counter" id="cardCounter">1 / 12</span>
+    <button class="card-nav-btn" onclick="nextCard()">Weiter →</button>
+    <button class="card-nav-btn" id="shuffleBtn" onclick="shuffleCards()">🔀 Zufällig</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  2. REDEMITTEL TOOLKIT
+═══════════════════════════════════ -->
+<section id="redemittel">
+  <div class="section-header">
+    <div class="section-icon">🧰</div>
+    <h2>Redemittel-Toolkit <small>Phrases that make you sound fluent — learn to use one per conversation</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Walk through one colour group. Pick 2–3 phrases and ask the student to use them in the next activity. Avoid memorising all at once — depth over breadth.
+  </div>
+
+  <div class="redemittel-grid">
+    <div class="rm-group opinion">
+      <h4>💬 Meinung äußern — Giving an opinion</h4>
+      <div class="rm-phrase">Ich bin der Meinung, dass … <em>(I am of the opinion that…)</em></div>
+      <div class="rm-phrase">Meiner Ansicht nach … <em>(In my view…)</em></div>
+      <div class="rm-phrase">Ich halte es für wichtig, dass … <em>(I think it's important that…)</em></div>
+      <div class="rm-phrase">Was mich betrifft, … <em>(As far as I'm concerned…)</em></div>
+      <div class="rm-phrase">Ich würde sagen, dass … <em>(I would say that…)</em></div>
+      <div class="rm-phrase">Soweit ich weiß, … <em>(As far as I know…)</em></div>
+    </div>
+
+    <div class="rm-group agree">
+      <h4>✅ Zustimmen — Agreeing</h4>
+      <div class="rm-phrase">Da stimme ich völlig zu. <em>(I completely agree.)</em></div>
+      <div class="rm-phrase">Das sehe ich genauso. <em>(I see it exactly the same way.)</em></div>
+      <div class="rm-phrase">Du hast absolut recht. <em>(You're absolutely right.)</em></div>
+      <div class="rm-phrase">Da bin ich ganz Ihrer Meinung. <em>(I fully agree with you.)</em></div>
+      <div class="rm-phrase">Das trifft den Nagel auf den Kopf! <em>(That hits the nail on the head!)</em></div>
+      <div class="rm-phrase">Genau das wollte ich sagen. <em>(That's exactly what I wanted to say.)</em></div>
+    </div>
+
+    <div class="rm-group disagree">
+      <h4>❌ Widersprechen — Disagreeing</h4>
+      <div class="rm-phrase">Da bin ich anderer Meinung. <em>(I disagree.)</em></div>
+      <div class="rm-phrase">Das sehe ich etwas anders. <em>(I see that a bit differently.)</em></div>
+      <div class="rm-phrase">Ich bezweifle, dass … <em>(I doubt that…)</em></div>
+      <div class="rm-phrase">Das stimmt so nicht ganz. <em>(That's not quite right.)</em></div>
+      <div class="rm-phrase">Ich verstehe Ihren Punkt, aber … <em>(I understand your point, but…)</em></div>
+      <div class="rm-phrase">Ja, aber man muss auch bedenken, dass … <em>(Yes, but one must also consider…)</em></div>
+    </div>
+
+    <div class="rm-group hedge">
+      <h4>🤔 Abschwächen — Hedging / Nuancing</h4>
+      <div class="rm-phrase">Das kommt darauf an. <em>(It depends.)</em></div>
+      <div class="rm-phrase">Einerseits … andererseits … <em>(On the one hand… on the other…)</em></div>
+      <div class="rm-phrase">Das ist nicht schwarz-weiß. <em>(It's not black and white.)</em></div>
+      <div class="rm-phrase">Ich bin mir da nicht ganz sicher. <em>(I'm not entirely sure about that.)</em></div>
+      <div class="rm-phrase">Es gibt gute Argumente für beide Seiten. <em>(There are good arguments on both sides.)</em></div>
+      <div class="rm-phrase">Das hängt von der Situation ab. <em>(That depends on the situation.)</em></div>
+    </div>
+
+    <div class="rm-group structure">
+      <h4>📐 Strukturieren — Structuring your speech</h4>
+      <div class="rm-phrase">Zunächst möchte ich … <em>(First, I'd like to…)</em></div>
+      <div class="rm-phrase">Außerdem / Darüber hinaus … <em>(Furthermore / In addition…)</em></div>
+      <div class="rm-phrase">Als letzten Punkt … <em>(As a final point…)</em></div>
+      <div class="rm-phrase">Um es zusammenzufassen … <em>(To summarise…)</em></div>
+      <div class="rm-phrase">Das führt mich zu meinem nächsten Punkt. <em>(That brings me to my next point.)</em></div>
+      <div class="rm-phrase">Was ich damit meine, ist … <em>(What I mean by that is…)</em></div>
+    </div>
+
+    <div class="rm-group time">
+      <h4>⏳ Zeit gewinnen — Buying time</h4>
+      <div class="rm-phrase">Das ist eine gute Frage… <em>(That's a good question…)</em></div>
+      <div class="rm-phrase">Lassen Sie mich kurz nachdenken. <em>(Let me think for a moment.)</em></div>
+      <div class="rm-phrase">Wie soll ich das sagen… <em>(How shall I put this…)</em></div>
+      <div class="rm-phrase">Also, wenn ich ehrlich bin… <em>(Well, if I'm honest…)</em></div>
+      <div class="rm-phrase">Ich meine damit … <em>(What I mean is…)</em></div>
+      <div class="rm-phrase">Mit anderen Worten … <em>(In other words…)</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  3. DISCUSSION TOPICS
+═══════════════════════════════════ -->
+<section id="discussion">
+  <div class="section-header">
+    <div class="section-icon">💬</div>
+    <h2>Diskussionsthemen <small>Pick one — go deep, not wide</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Choose <strong>one topic</strong> that interests the student. Start with the provocation, then work through the depth questions. Gently introduce 1–2 Redemittel mid-discussion.
+  </div>
+
+  <!-- TOPIC 1 -->
+  <div class="discussion-card">
+    <div class="dc-header">
+      <div class="dc-num">1</div>
+      <div>
+        <div class="dc-title">KI &amp; die Zukunft der Arbeit</div>
+        <div class="dc-subtitle">Artificial Intelligence and the future of work</div>
+      </div>
+    </div>
+    <div class="dc-statement">
+      <div class="quote-text">„Künstliche Intelligenz wird in den nächsten 20 Jahren mehr Arbeitsplätze vernichten als schaffen."</div>
+    </div>
+    <div class="dc-questions">
+      <div class="dc-q"><span class="dc-q-num">1</span><span>Stimmen Sie dieser Aussage zu? Warum / warum nicht?</span></div>
+      <div class="dc-q"><span class="dc-q-num">2</span><span>Welche Berufe sind Ihrer Meinung nach am meisten gefährdet? Welche sind sicher?</span></div>
+      <div class="dc-q"><span class="dc-q-num">3</span><span>Haben Sie selbst schon KI-Tools benutzt (z.B. ChatGPT)? Was denken Sie darüber?</span></div>
+      <div class="dc-q"><span class="dc-q-num">4</span><span>Was sollten Regierungen tun, um die Menschen auf diese Veränderungen vorzubereiten?</span></div>
+      <div class="dc-q"><span class="dc-q-num">5</span><span>Stellen Sie sich vor: Ihr Job wird von einer KI übernommen. Was würden Sie tun?</span></div>
+    </div>
+    <div class="dc-vocab">
+      <h5>Nützliche Wörter</h5>
+      <div class="vocab-chips">
+        <span class="vocab-chip">der Arbeitsplatz <em>job</em></span>
+        <span class="vocab-chip">ersetzen <em>to replace</em></span>
+        <span class="vocab-chip">umschulen <em>to retrain</em></span>
+        <span class="vocab-chip">die Automatisierung <em>automation</em></span>
+        <span class="vocab-chip">gefährdet <em>at risk</em></span>
+        <span class="vocab-chip">das Grundeinkommen <em>basic income</em></span>
+        <span class="vocab-chip">die Effizienz <em>efficiency</em></span>
+        <span class="vocab-chip">sich anpassen <em>to adapt</em></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 2 -->
+  <div class="discussion-card">
+    <div class="dc-header">
+      <div class="dc-num">2</div>
+      <div>
+        <div class="dc-title">Work-Life-Balance &amp; Homeoffice</div>
+        <div class="dc-subtitle">Is remote work a blessing or a trap?</div>
+      </div>
+    </div>
+    <div class="dc-statement">
+      <div class="quote-text">„Wer immer von zu Hause arbeitet, verliert langfristig Karrierechancen und soziale Kontakte."</div>
+    </div>
+    <div class="dc-questions">
+      <div class="dc-q"><span class="dc-q-num">1</span><span>Was sind Ihrer Meinung nach die größten Vor- und Nachteile von Homeoffice?</span></div>
+      <div class="dc-q"><span class="dc-q-num">2</span><span>Wie trennen Sie Arbeit und Privatleben, wenn beides am gleichen Ort stattfindet?</span></div>
+      <div class="dc-q"><span class="dc-q-num">3</span><span>Sollten Arbeitgeber verpflichtet sein, Homeoffice anzubieten?</span></div>
+      <div class="dc-q"><span class="dc-q-num">4</span><span>Wie hat sich die Arbeitswelt durch die Pandemie verändert? Ist das gut oder schlecht?</span></div>
+      <div class="dc-q"><span class="dc-q-num">5</span><span>Was bedeutet „Erfolg im Beruf" für Sie persönlich?</span></div>
+    </div>
+    <div class="dc-vocab">
+      <h5>Nützliche Wörter</h5>
+      <div class="vocab-chips">
+        <span class="vocab-chip">das Homeoffice <em>remote work</em></span>
+        <span class="vocab-chip">die Flexibilität <em>flexibility</em></span>
+        <span class="vocab-chip">die Grenze <em>boundary</em></span>
+        <span class="vocab-chip">verpflichtet sein <em>to be obligated</em></span>
+        <span class="vocab-chip">der Arbeitgeber <em>employer</em></span>
+        <span class="vocab-chip">das Wohlbefinden <em>wellbeing</em></span>
+        <span class="vocab-chip">isoliert <em>isolated</em></span>
+        <span class="vocab-chip">pendeln <em>to commute</em></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 3 -->
+  <div class="discussion-card">
+    <div class="dc-header">
+      <div class="dc-num">3</div>
+      <div>
+        <div class="dc-title">Soziale Medien &amp; Gesellschaft</div>
+        <div class="dc-subtitle">Are we more connected, or more alone?</div>
+      </div>
+    </div>
+    <div class="dc-statement">
+      <div class="quote-text">„Soziale Medien machen uns nicht verbundener — sie machen uns einsamer, ärger und weniger aufmerksam."</div>
+    </div>
+    <div class="dc-questions">
+      <div class="dc-q"><span class="dc-q-num">1</span><span>Welche sozialen Medien nutzen Sie und warum? Was mögen Sie daran nicht?</span></div>
+      <div class="dc-q"><span class="dc-q-num">2</span><span>Glauben Sie, dass soziale Medien die Demokratie stärken oder schwächen?</span></div>
+      <div class="dc-q"><span class="dc-q-num">3</span><span>Haben Sie schon mal eine „digitale Pause" gemacht? Wie war das?</span></div>
+      <div class="dc-q"><span class="dc-q-num">4</span><span>Wie sollte man Kinder und Jugendliche vor den negativen Seiten schützen?</span></div>
+      <div class="dc-q"><span class="dc-q-num">5</span><span>Wäre Ihr Leben besser oder schlechter ohne soziale Medien? Begründen Sie!</span></div>
+    </div>
+    <div class="dc-vocab">
+      <h5>Nützliche Wörter</h5>
+      <div class="vocab-chips">
+        <span class="vocab-chip">die Aufmerksamkeitsspanne <em>attention span</em></span>
+        <span class="vocab-chip">die Echokammer <em>echo chamber</em></span>
+        <span class="vocab-chip">süchtig nach <em>addicted to</em></span>
+        <span class="vocab-chip">die Desinformation <em>disinformation</em></span>
+        <span class="vocab-chip">vergleichen <em>to compare</em></span>
+        <span class="vocab-chip">der Algorithmus <em>algorithm</em></span>
+        <span class="vocab-chip">beeinflussen <em>to influence</em></span>
+        <span class="vocab-chip">anonym <em>anonymous</em></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  4. ROLE PLAYS
+═══════════════════════════════════ -->
+<section id="roleplays">
+  <div class="section-header">
+    <div class="section-icon">🎭</div>
+    <h2>Rollenspiele <small>Real-life scenarios — one of you plays each role</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Take one role yourself. Let the student read their card for 30 seconds before starting. Encourage them to use Redemittel. Switch roles after the first round for extra practice.
+  </div>
+
+  <!-- ROLEPLAY 1 -->
+  <div class="roleplay-card">
+    <div class="rp-header">
+      <h3>🎭 Rollenspiel 1: Das Vorstellungsgespräch</h3>
+      <p>A job interview at a German company — formal register required</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-situation">
+        <strong>Situation:</strong> The student is applying for a position as a project manager at a Berlin tech company. The interviewer (teacher) has the CV in front of them and will ask about experience, strengths, weaknesses, and motivation. The conversation is formal (<em>Sie</em>).
+      </div>
+      <div class="rp-roles">
+        <div class="rp-role a">
+          <h4>Person A: Bewerber/in (Student)</h4>
+          <ul>
+            <li>Stellen Sie sich kurz vor</li>
+            <li>Erzählen Sie von Ihrer Berufserfahrung</li>
+            <li>Nennen Sie eine Stärke und eine Schwäche</li>
+            <li>Erklären Sie, warum Sie diese Stelle wollen</li>
+            <li>Stellen Sie am Ende 2 eigene Fragen</li>
+          </ul>
+        </div>
+        <div class="rp-role b">
+          <h4>Person B: Personalleiter/in (Teacher)</h4>
+          <ul>
+            <li>Begrüßen Sie die Person formell</li>
+            <li>Fragen Sie nach Lücken im Lebenslauf</li>
+            <li>Fragen: „Wo sehen Sie sich in 5 Jahren?"</li>
+            <li>Fragen: „Wie gehen Sie mit Stress um?"</li>
+            <li>Beenden Sie das Gespräch höflich</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-usefulphrases">
+        💡 Useful phrases: <em>Ich habe X Jahre Erfahrung in …</em> · <em>Meine größte Stärke ist …</em> · <em>Ich lerne schnell und …</em> · <em>Darf ich fragen, wie …?</em> · <em>Ich würde gerne wissen, ob …</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLEPLAY 2 -->
+  <div class="roleplay-card">
+    <div class="rp-header">
+      <h3>🎭 Rollenspiel 2: Die Wohnungssuche — Konflikt mit dem Vermieter</h3>
+      <p>A real-life situation requiring negotiation and assertiveness</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-situation">
+        <strong>Situation:</strong> The student rents a flat in Berlin. The landlord has raised the rent by 15% with one month's notice. The student thinks this is illegal under the Mietpreisbremse (rent cap law). They call the landlord to discuss it. Semi-formal register.
+      </div>
+      <div class="rp-roles">
+        <div class="rp-role a">
+          <h4>Person A: Mieter/in (Student)</h4>
+          <ul>
+            <li>Fragen Sie nach dem Grund für die Erhöhung</li>
+            <li>Erwähnen Sie die Mietpreisbremse</li>
+            <li>Bestehen Sie auf eine schriftliche Begründung</li>
+            <li>Schlagen Sie einen Kompromiss vor</li>
+            <li>Bleiben Sie ruhig aber bestimmt</li>
+          </ul>
+        </div>
+        <div class="rp-role b">
+          <h4>Person B: Vermieter/in (Teacher)</h4>
+          <ul>
+            <li>Begründen Sie die Erhöhung mit Renovierungen</li>
+            <li>Zeigen Sie sich anfangs unbeweglich</li>
+            <li>Reagieren Sie auf rechtliche Argumente</li>
+            <li>Bieten Sie am Ende einen kleinen Kompromiss an</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-usefulphrases">
+        💡 Useful phrases: <em>Ich wende mich an Sie bezüglich …</em> · <em>Nach meinem Verständnis …</em> · <em>Ich bestehe darauf, dass …</em> · <em>Können wir einen Kompromiss finden?</em> · <em>Das ist rechtlich nicht zulässig.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  5. DEBATE FLIP CARDS
+═══════════════════════════════════ -->
+<section id="debate">
+  <div class="section-header">
+    <div class="section-icon">⚡</div>
+    <h2>Debatte: Für &amp; Wider <small>Click a card to reveal — argue BOTH sides</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Pick a card. Student argues <em>für</em> (for) the statement for 1 minute, then <em>gegen</em> (against) for 1 minute. Flip the card to reveal starter arguments. Goal: use Redemittel, not just content!
+  </div>
+
+  <div class="debate-grid">
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Universitäten sollten vollständig kostenlos sein."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Bildung ist ein Grundrecht · Chancengleichheit · Fachkräftemangel bekämpfen</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Wer zahlt? Steuerzahler · Qualität sinkt bei Überangebot · Verantwortung fördern</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Deutschland sollte mehr Flüchtlinge aufnehmen."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Humanitäre Pflicht · Demografischer Wandel · Fachkräftebedarf</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Integrationskapazität begrenzt · Sozialsystem belastet · gesellschaftliche Spannungen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Autos in Innenstädten sollten verboten werden."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Klimaschutz · Lebensqualität · ÖPNV stärken · weniger Lärm</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Mobilität eingeschränkt · wirtschaftliche Schäden · ländliche Gebiete benachteiligt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Soziale Medien sollten für unter 16-Jährige verboten werden."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Jugendschutz · psychische Gesundheit · soziale Kompetenz stärken</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Kaum durchsetzbar · soziale Ausgrenzung · digitale Kompetenzen fehlen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Ein veganer Lebensstil sollte steuerlich belohnt werden."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Klimaschutz · Tierwohl · Gesundheitskosten senken</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Bevormundung · soziale Ungerechtigkeit · Steuerrecht überkomplex</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card-wrapper" onclick="this.querySelector('.debate-card').classList.toggle('flipped')">
+      <div class="debate-card">
+        <div class="debate-front">
+          <div class="statement">„Die 4-Tage-Woche sollte in Deutschland Standard werden."</div>
+          <div class="flip-hint">Click to reveal arguments ↓</div>
+        </div>
+        <div class="debate-back">
+          <h5>✅ Dafür</h5>
+          <div class="pro">Produktivität steigt · psychische Gesundheit · Work-Life-Balance</div>
+          <h5 style="margin-top:0.5rem;">❌ Dagegen</h5>
+          <div class="con">Wettbewerbsfähigkeit · nicht alle Branchen umsetzbar · höhere Kosten</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  6. STORYTELLING
+═══════════════════════════════════ -->
+<section id="storytelling">
+  <div class="section-header">
+    <div class="section-icon">📖</div>
+    <h2>Spontanes Erzählen <small>Describe the scenario — tell the story in 2–3 minutes</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Give the student 30 seconds to read the scenario, then start the timer. Encourage use of past tense (Perfekt/Präteritum) and narrative connectors. Interrupt gently with follow-up questions.
+  </div>
+
+  <div class="story-scenario">
+    <div class="story-scene">🌆🧳😮</div>
+    <div class="story-setup">
+      Sie waren auf einer Geschäftsreise in München. Am letzten Tag haben Sie Ihr Portemonnaie verloren — inklusive Ausweis, Kreditkarte und Bargeld. Der nächste Zug nach Berlin fährt in zwei Stunden. Erzählen Sie, was passiert ist und wie Sie das Problem gelöst haben.
+    </div>
+    <div class="story-questions">
+      <strong style="font-family:sans-serif;font-size:0.8rem;color:var(--muted);">FOLLOW-UP QUESTIONS:</strong>
+      <ul style="list-style:none;margin-top:0.4rem;">
+        <li>→ Wie haben Sie sich in diesem Moment gefühlt?</li>
+        <li>→ Wen haben Sie um Hilfe gebeten? Warum diese Person?</li>
+        <li>→ Was haben Sie zuerst gemacht? Was war Ihnen am wichtigsten?</li>
+        <li>→ Was würden Sie beim nächsten Mal anders machen?</li>
+        <li>→ Kennen Sie jemanden, dem etwas Ähnliches passiert ist?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="story-scenario" style="background:linear-gradient(135deg,#f0fff4,#e8fff0);border-color:#a8dfc0;">
+    <div class="story-scene">🍽️😤🙋</div>
+    <div class="story-setup">
+      Sie waren in einem teuren Restaurant zum Abendessen mit Freunden. Das Essen war kalt und zu spät, der Service war unhöflich, und die Rechnung hatte einen Fehler. Sie haben beschlossen, sich zu beschweren. Erzählen Sie, wie das Gespräch verlaufen ist.
+    </div>
+    <div class="story-questions">
+      <strong style="font-family:sans-serif;font-size:0.8rem;color:var(--muted);">FOLLOW-UP QUESTIONS:</strong>
+      <ul style="list-style:none;margin-top:0.4rem;">
+        <li>→ Wie haben Sie das Gespräch mit dem Kellner begonnen?</li>
+        <li>→ Wie hat der Kellner reagiert? War er verständnisvoll?</li>
+        <li>→ Was war das Ergebnis der Beschwerde?</li>
+        <li>→ Würden Sie das Restaurant weiterempfehlen? Warum / warum nicht?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  7. FLUENCY TIPS
+═══════════════════════════════════ -->
+<section id="tips">
+  <div class="section-header">
+    <div class="section-icon">💡</div>
+    <h2>Flüssigkeit verbessern <small>Tips to sound more natural</small></h2>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🔗</div>
+      <h4>Verbinde Sätze</h4>
+      <p>Don't speak in short bursts. Chain ideas together with connectors to keep the flow going.</p>
+      <div class="example">„… und deswegen denke ich, dass … obwohl man natürlich auch sagen könnte …"</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">⏸️</div>
+      <h4>Pausen füllen</h4>
+      <p>Fill pauses with German fillers, not English ones. Never say "um" in an English accent!</p>
+      <div class="example">„Also …" / „Ähm …" / „Na ja …" / „Wie soll ich sagen …"</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🔁</div>
+      <h4>Fragen reformulieren</h4>
+      <p>If you don't understand, don't say "What?" — ask in German using a full sentence.</p>
+      <div class="example">„Könnten Sie das bitte wiederholen?" / „Was meinen Sie genau mit …?"</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🎯</div>
+      <h4>Umschreiben</h4>
+      <p>Don't stop when you forget a word — describe it. Native speakers do this too!</p>
+      <div class="example">„Das ist das Ding, mit dem man … es ist so eine Art … man benutzt es, wenn …"</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📣</div>
+      <h4>Laut denken</h4>
+      <p>At B2, thinking out loud is a skill. Show your reasoning process — examiners love it.</p>
+      <div class="example">„Ich überlege gerade … Also, wenn ich das bedenke …"</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🧠</div>
+      <h4>Meinung begründen</h4>
+      <p>Always add a "weil" or "denn" after stating an opinion. Never just say "Ich finde das gut."</p>
+      <div class="example">„Ich finde das gut, weil es …" / „Das ist wichtig, denn ohne das …"</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; B2 Sprechtraining &nbsp;·&nbsp; Viel Spaß beim Sprechen! 🗣️🇩🇪</footer>
+
+<script>
+/* ─── TIMER ─── */
+let timerSeconds = 60, timerTarget = 60, timerInterval = null, timerRunning = false;
+function setTimer(s) {
+  clearInterval(timerInterval); timerRunning = false;
+  timerSeconds = s; timerTarget = s;
+  document.getElementById('timerStart').textContent = '▶ Start';
+  document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  updateTimerDisplay();
+}
+function toggleTimer() {
+  if (timerRunning) {
+    clearInterval(timerInterval); timerRunning = false;
+    document.getElementById('timerStart').textContent = '▶ Start';
+  } else {
+    if (timerSeconds <= 0) timerSeconds = timerTarget;
+    timerRunning = true;
+    document.getElementById('timerStart').textContent = '⏸ Pause';
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      updateTimerDisplay();
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval); timerRunning = false;
+        document.getElementById('timerStart').textContent = '▶ Start';
+        document.getElementById('timerDisplay').style.color = '#e74c3c';
+        setTimeout(() => document.getElementById('timerDisplay').style.color = 'var(--gold)', 1500);
+      }
+    }, 1000);
+  }
+}
+function resetTimer() {
+  clearInterval(timerInterval); timerRunning = false;
+  timerSeconds = timerTarget;
+  document.getElementById('timerStart').textContent = '▶ Start';
+  updateTimerDisplay();
+}
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
+  document.getElementById('timerDisplay').textContent = m + ':' + String(s).padStart(2,'0');
+}
+
+/* ─── TALK CARDS ─── */
+const talkCards = [
+  { topic: 'Beschreiben Sie Ihre Heimatstadt oder Ihr Heimatland.', prompts: 'Was macht sie besonders? · Was vermissen Sie, wenn Sie weg sind? · Was würden Sie einem Touristen empfehlen?' },
+  { topic: 'Was war das aufregendste Erlebnis in Ihrem Leben?', prompts: 'Wo war das? · Mit wem waren Sie? · Was haben Sie dabei gelernt?' },
+  { topic: 'Beschreiben Sie Ihren idealen Arbeitstag.', prompts: 'Wann fangen Sie an? · Wo arbeiten Sie am liebsten? · Was motiviert Sie?' },
+  { topic: 'Wenn Sie 1 Million Euro hätten — was würden Sie damit machen?', prompts: 'Investieren oder ausgeben? · Helfen Sie anderen? · Wie würde sich Ihr Leben ändern?' },
+  { topic: 'Welches Buch, welchen Film oder welche Serie würden Sie empfehlen?', prompts: 'Worum geht es? · Warum finden Sie es gut? · Wem würden Sie es empfehlen?' },
+  { topic: 'Erzählen Sie von einer Person, die Sie bewundern.', prompts: 'Warum bewundern Sie sie? · Was können wir von ihr lernen? · Haben Sie sie je getroffen?' },
+  { topic: 'Wie hat sich Ihre Stadt / Ihr Land in den letzten 10 Jahren verändert?', prompts: 'Was ist besser geworden? · Was ist schlechter? · Was wünschen Sie sich für die Zukunft?' },
+  { topic: 'Was bedeutet Glück für Sie?', prompts: 'Ist Glück planbar? · Was macht Sie wirklich glücklich? · Kann man Glück kaufen?' },
+  { topic: 'Beschreiben Sie eine typische deutsche Eigenschaft, die Sie kennen.', prompts: 'Stimmt das Klischee? · Haben Sie Beispiele dafür erlebt? · Was denken Deutsche über Ihr Land?' },
+  { topic: 'Was ist Ihre Meinung zu vegetarischer / veganer Ernährung?', prompts: 'Essen Sie selbst so? · Sollte man weniger Fleisch essen? · Ist gesund Essen teuer?' },
+  { topic: 'Welche Technologie hat Ihr Leben am meisten verändert?', prompts: 'Positiv oder negativ? · Können Sie sich das Leben ohne sie vorstellen? · Was kommt als nächstes?' },
+  { topic: 'Erzählen Sie von Ihrer Sprachlernreise — wie haben Sie Deutsch gelernt?', prompts: 'Was war schwierig? · Was hat am besten geholfen? · Welche Tipps geben Sie anderen?' }
+];
+let currentCard = 0;
+let isFlipped = false;
+
+function renderTalkCard() {
+  const card = talkCards[currentCard];
+  document.getElementById('talkTopic').textContent = card.topic;
+  document.getElementById('talkPrompts').textContent = card.prompts;
+  document.getElementById('cardCounter').textContent = (currentCard + 1) + ' / ' + talkCards.length;
+  // reset flip
+  const tc = document.getElementById('talkCard');
+  tc.classList.remove('flipped');
+  isFlipped = false;
+}
+function flipTalkCard() {
+  const tc = document.getElementById('talkCard');
+  tc.classList.toggle('flipped');
+  isFlipped = !isFlipped;
+}
+function nextCard() {
+  currentCard = (currentCard + 1) % talkCards.length;
+  renderTalkCard();
+}
+function prevCard() {
+  currentCard = (currentCard - 1 + talkCards.length) % talkCards.length;
+  renderTalkCard();
+}
+function shuffleCards() {
+  currentCard = Math.floor(Math.random() * talkCards.length);
+  renderTalkCard();
+}
+renderTalkCard();
+</script>
+</body>
+</html>

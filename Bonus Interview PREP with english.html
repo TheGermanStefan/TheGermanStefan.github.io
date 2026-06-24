@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch B2+ | Interview Prep – Bewerbungsgespräch</title>
+<style>
+:root {
+  --black: #1a1a2e;
+  --gold: #e8b84b;
+  --navy: #1e3a5f;
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --border: #e0e4ea;
+  --muted: #7a8090;
+  --red: #c0392b;
+  --green: #1a7a4a;
+  --blue: #1d5fa8;
+  --orange: #c45c0a;
+  --tag-why: #1d5fa8;
+  --tag-how: #1a7a4a;
+  --tag-avoid: #c0392b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; background: var(--bg); color: var(--black); line-height: 1.7; }
+
+/* ── HEADER ── */
+header {
+  background: var(--navy);
+  color: white;
+  padding: 2.8rem 2rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: linear-gradient(to bottom, var(--gold), #c8960a);
+}
+header::after {
+  content: '';
+  position: absolute; right: -80px; top: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+}
+.header-inner { max-width: 960px; margin: 0 auto; padding-left: 1.2rem; position: relative; z-index: 1; }
+.series-label { font-family: sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+header h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+header h1 span { color: var(--gold); }
+.header-sub { margin-top: 0.6rem; font-size: 0.95rem; color: rgba(255,255,255,0.7); font-style: italic; }
+.header-meta { margin-top: 1rem; font-family: sans-serif; font-size: 0.82rem; color: rgba(255,255,255,0.5); display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.level-badge { display: inline-block; background: var(--gold); color: var(--navy); font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.2rem 0.7rem; border-radius: 3px; margin-right: 0.4rem; }
+
+/* ── LAYOUT ── */
+main { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem 5rem; }
+section { margin-bottom: 3.5rem; }
+.section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; padding-bottom: 0.7rem; border-bottom: 2px solid var(--border); }
+.section-icon { width: 38px; height: 38px; background: var(--navy); color: var(--gold); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.section-header h2 { font-size: 1.2rem; font-weight: 700; }
+.section-header h2 small { display: block; font-size: 0.78rem; font-weight: 400; color: var(--muted); margin-top: 0.1rem; }
+.teacher-note { font-family: sans-serif; font-size: 0.8rem; color: #5a4a00; background: #fffbea; border-left: 3px solid var(--gold); padding: 0.55rem 0.9rem; border-radius: 0 7px 7px 0; margin-bottom: 1.2rem; }
+.teacher-note strong { color: var(--navy); }
+
+/* ── STAR METHOD BOX ── */
+.star-box { background: var(--navy); color: white; border-radius: 14px; padding: 2rem; margin-bottom: 2rem; }
+.star-box h3 { color: var(--gold); font-size: 1rem; font-family: sans-serif; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem; }
+.star-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.8rem; }
+.star-item { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 1rem; text-align: center; }
+.star-letter { font-size: 2.2rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.star-word { font-size: 0.88rem; font-weight: 700; margin: 0.3rem 0 0.15rem; }
+.star-desc { font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
+.star-example { margin-top: 1.2rem; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 1rem; font-size: 0.87rem; color: rgba(255,255,255,0.8); }
+.star-example strong { color: var(--gold); }
+
+/* ── QUESTION CARDS ── */
+.q-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 1rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: box-shadow 0.2s; }
+.q-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.q-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; cursor: pointer; user-select: none; }
+.q-num { width: 34px; height: 34px; background: var(--navy); color: var(--gold); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: sans-serif; font-size: 0.9rem; flex-shrink: 0; }
+.q-text { flex: 1; }
+.q-german { font-size: 1.02rem; font-weight: 700; line-height: 1.3; }
+.q-english { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 0.1rem; font-family: sans-serif; }
+.q-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.35rem; }
+.q-tag { font-family: sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.12rem 0.5rem; border-radius: 20px; text-transform: uppercase; }
+.tag-behavioral { background: #e8f0ff; color: var(--blue); }
+.tag-strategic { background: #fff0e0; color: var(--orange); }
+.tag-personal { background: #e8fff0; color: var(--green); }
+.tag-tricky { background: #ffe8e8; color: var(--red); }
+.q-toggle { font-size: 1.2rem; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
+.q-card.open .q-toggle { transform: rotate(180deg); }
+
+.q-body { display: none; border-top: 1px solid var(--border); }
+.q-card.open .q-body { display: block; }
+
+.q-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.q-section { padding: 1.2rem 1.5rem; }
+.q-section:first-child { border-right: 1px solid var(--border); }
+.q-section h4 { font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.4rem; }
+.q-section.why h4 { color: var(--tag-why); }
+.q-section.how h4 { color: var(--tag-how); }
+.q-section p, .q-section li { font-size: 0.88rem; line-height: 1.6; }
+.q-section ul { list-style: none; }
+.q-section ul li::before { content: '→ '; color: var(--muted); }
+.q-section ul li { margin-bottom: 0.25rem; }
+
+.q-avoid { padding: 0.9rem 1.5rem; background: #fff5f5; border-top: 1px solid #fdd; }
+.q-avoid h4 { font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+.q-avoid ul { list-style: none; font-size: 0.86rem; }
+.q-avoid ul li::before { content: '✗ '; color: var(--red); font-weight: 700; }
+.q-avoid ul li { margin-bottom: 0.2rem; }
+
+.q-opener { padding: 1rem 1.5rem; background: linear-gradient(135deg, #f0f5ff, #e8f0ff); border-top: 1px solid #d0dff0; }
+.q-opener h4 { font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+.q-opener p { font-size: 0.9rem; font-style: italic; color: var(--navy); line-height: 1.5; }
+.q-opener em { font-style: normal; font-weight: 700; color: var(--blue); }
+
+/* ── SALARY SECTION ── */
+.salary-box { background: var(--card); border: 2px solid var(--gold); border-radius: 14px; padding: 1.8rem; margin-bottom: 1.5rem; }
+.salary-box h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.salary-rule { display: flex; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; }
+.salary-rule:last-child { border-bottom: none; }
+.salary-rule .rule-num { width: 26px; height: 26px; background: var(--navy); color: var(--gold); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: sans-serif; font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+/* ── QUESTIONS TO ASK ── */
+.ask-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 0.7rem; }
+.ask-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.1rem; }
+.ask-card .ask-q { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; font-style: italic; }
+.ask-card .ask-why { font-family: sans-serif; font-size: 0.78rem; color: var(--green); }
+
+/* ── ROLE PLAY ── */
+.rp-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.rp-top { background: linear-gradient(135deg, var(--navy), #2d4a6e); color: white; padding: 1.4rem 1.8rem; }
+.rp-top h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+.rp-top p { font-size: 0.83rem; opacity: 0.8; font-family: sans-serif; }
+.rp-body { padding: 1.5rem 1.8rem; }
+.rp-context { background: #fffbea; border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 0.9rem 1.1rem; margin-bottom: 1.3rem; font-size: 0.9rem; }
+.rp-context strong { color: var(--navy); }
+.rp-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.3rem; }
+.rp-role { border-radius: 10px; padding: 1.1rem; }
+.rp-role.candidate { background: #f0f5ff; border: 1.5px solid #a8c0e8; }
+.rp-role.interviewer { background: #f0fff5; border: 1.5px solid #a8d8b0; }
+.rp-role h4 { font-family: sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.rp-role.candidate h4 { color: var(--blue); }
+.rp-role.interviewer h4 { color: var(--green); }
+.rp-role ul { list-style: none; font-size: 0.86rem; }
+.rp-role ul li { margin-bottom: 0.3rem; padding-left: 1rem; position: relative; }
+.rp-role ul li::before { content: '·'; position: absolute; left: 0; color: var(--muted); }
+.rp-script { background: var(--bg); border-radius: 10px; padding: 1.2rem; }
+.rp-script h4 { font-family: sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+.script-line { display: flex; gap: 0.8rem; margin-bottom: 0.6rem; font-size: 0.88rem; }
+.script-who { font-weight: 700; font-family: sans-serif; font-size: 0.8rem; min-width: 80px; color: var(--muted); flex-shrink: 0; }
+.script-who.c { color: var(--blue); }
+.script-who.i { color: var(--green); }
+.script-says { color: var(--black); flex: 1; }
+.script-blank { border-bottom: 2px dashed var(--border); display: inline-block; min-width: 160px; cursor: text; }
+.rp-debrief { margin-top: 1.3rem; padding-top: 1.1rem; border-top: 1px solid var(--border); }
+.rp-debrief h4 { font-family: sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.debrief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.debrief-item { font-family: sans-serif; font-size: 0.82rem; background: var(--bg); border-radius: 7px; padding: 0.5rem 0.7rem; }
+.debrief-item.check { border-left: 3px solid var(--green); }
+.debrief-item.watch { border-left: 3px solid var(--orange); }
+
+/* ── CHECKLIST ── */
+.checklist { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.8rem; }
+.checklist h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; font-family: sans-serif; }
+.cl-item { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; cursor: pointer; user-select: none; }
+.cl-item:last-child { border-bottom: none; }
+.cl-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 0.1rem; transition: all 0.15s; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+.cl-item.done .cl-box { background: var(--green); border-color: var(--green); color: white; }
+.cl-item.done span { text-decoration: line-through; color: var(--muted); }
+
+footer { text-align: center; font-family: sans-serif; font-size: 0.78rem; color: var(--muted); padding: 2.5rem 1rem; border-top: 1px solid var(--border); }
+@media(max-width:640px){
+  header h1{font-size:1.4rem;}
+  .q-sections{grid-template-columns:1fr;}
+  .q-section:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  .star-grid{grid-template-columns:1fr 1fr;}
+  .rp-roles,.debrief-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Beruf &amp; Karriere</div>
+    <h1>Das <span>Bewerbungsgespräch</span></h1>
+    <div class="header-sub">Interview Prep — Strategy, Psychology &amp; Practice</div>
+    <div class="header-meta">
+      <span><span class="level-badge">B2+</span><span class="level-badge">C1</span> Fluent Speaker</span>
+      <span>💼 15 Fragen · Strategie · Rollenspiele · Gehaltsverhandlung</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════
+  INTRO: HOW TO USE THIS
+══════════════════════════════════ -->
+<div class="teacher-note" style="margin-top:1.5rem;font-size:0.88rem;padding:0.8rem 1.1rem;">
+  <strong>👩‍🏫 How to use this file:</strong> For each question — read it aloud, let the student answer naturally first, <em>then</em> open it to reveal the hidden agenda, strategy, and what to avoid. Debrief together. End with a full role play.
+</div>
+
+<!-- ══════════════════════════════════
+  THE STAR METHOD
+══════════════════════════════════ -->
+<section id="star">
+  <div class="section-header">
+    <div class="section-icon">⭐</div>
+    <h2>Die STAR-Methode <small>The universal framework for behavioural interview answers</small></h2>
+  </div>
+
+  <div class="star-box">
+    <h3>⭐ STAR — Deine Antwortstruktur für Verhaltensfragen</h3>
+    <div class="star-grid">
+      <div class="star-item">
+        <div class="star-letter">S</div>
+        <div class="star-word">Situation</div>
+        <div class="star-desc">Set the scene briefly. When, where, what was the context?</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">T</div>
+        <div class="star-word">Task / Aufgabe</div>
+        <div class="star-desc">What was YOUR specific responsibility or challenge?</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">A</div>
+        <div class="star-word">Action / Aktion</div>
+        <div class="star-desc">What did YOU do? (Use "ich", not "wir") — this is the main part.</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">R</div>
+        <div class="star-word">Result / Ergebnis</div>
+        <div class="star-desc">What was the outcome? Quantify if possible. What did you learn?</div>
+      </div>
+    </div>
+    <div class="star-example">
+      <strong>Beispiel:</strong> "Erzählen Sie von einem Konflikt mit einem Kollegen." →
+      <strong>S:</strong> „In meinem letzten Job gab es Spannungen über die Zuständigkeiten im Projekt…"
+      <strong>T:</strong> „Ich war verantwortlich für die Kommunikation mit dem Kunden, aber mein Kollege…"
+      <strong>A:</strong> „Ich habe ein direktes Gespräch gesucht und vorgeschlagen, dass wir…"
+      <strong>R:</strong> „Das Ergebnis war, dass wir das Projekt zwei Wochen früher abgeschlossen haben und…"
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  THE 15 QUESTIONS
+══════════════════════════════════ -->
+<section id="questions">
+  <div class="section-header">
+    <div class="section-icon">❓</div>
+    <h2>Die 15 Kernfragen <small>Click each card to reveal the strategy — answer first, then check</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Let the student answer each question naturally first (1–2 min). Then open the card and debrief together: Did she address what they were really looking for? What was strong? What would she change?
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card" id="qcard1">
+    <div class="q-header" onclick="toggleCard('qcard1')">
+      <div class="q-num">1</div>
+      <div class="q-text">
+        <div class="q-german">„Erzählen Sie mir etwas über sich."</div>
+        <div class="q-english">Tell me about yourself.</div>
+        <div class="q-tags"><span class="q-tag tag-strategic">Strategic</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>This is not an invitation to tell your life story. They want to see: <strong>Can you communicate concisely? Do you understand what's relevant for this role?</strong> Can you sell yourself without sounding arrogant? It also sets the tone for the entire conversation — a confident opener signals confidence throughout.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Use the <strong>Present–Past–Future</strong> formula</li>
+            <li>Start with your current role / what you do NOW</li>
+            <li>Add 1–2 relevant past experiences</li>
+            <li>End with why THIS job, why NOW</li>
+            <li>Keep it to <strong>90 seconds max</strong></li>
+            <li>Tailor every word to the job description</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Chronological life story from birth to present</li>
+          <li>Starting with "Ich bin 1988 in… geboren"</li>
+          <li>Repeating the CV word for word</li>
+          <li>Being too modest: "Ich bin eigentlich nur…"</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Aktuell arbeite ich als <em>[Position]</em> bei <em>[Unternehmen]</em>, wo ich hauptsächlich für <em>[Kernaufgabe]</em> zuständig bin. Davor habe ich <em>[relevante Erfahrung]</em> gesammelt, was mir besonders geholfen hat, <em>[Fähigkeit]</em> zu entwickeln. Diese Stelle interessiert mich, weil <em>[konkreter Bezug zum Job]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qcard2">
+    <div class="q-header" onclick="toggleCard('qcard2')">
+      <div class="q-num">2</div>
+      <div class="q-text">
+        <div class="q-german">„Warum möchten Sie bei uns arbeiten?"</div>
+        <div class="q-english">Why do you want to work here?</div>
+        <div class="q-tags"><span class="q-tag tag-strategic">Strategic</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They want to know: <strong>Did you actually research us? Or are you just applying everywhere?</strong> They're filtering for genuine motivation and cultural fit. A vague answer ("great company, good reputation") is an immediate red flag — it proves you didn't do your homework.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Research 3 specific things about this company before the interview</li>
+            <li>Mention something <em>specific</em>: a product, a project, a value, a market position</li>
+            <li>Connect their strength to YOUR goal: "Ich möchte X erreichen, und Ihr Unternehmen bietet genau das, weil…"</li>
+            <li>Show you understand their mission, not just their brand</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Ich habe gehört, Sie zahlen gut." (Never mention salary here)</li>
+          <li>Generic praise: "Sie sind ja ein sehr bekanntes Unternehmen…"</li>
+          <li>Focusing only on what YOU get, not what you BRING</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Was mich besonders an <em>[Unternehmen]</em> begeistert, ist <em>[spezifisches Detail — Produkt / Strategie / Wert]</em>. Ich habe gelesen, dass Sie gerade <em>[aktuelles Projekt/Thema]</em> vorantreiben, und genau in diesem Bereich möchte ich meine Erfahrung in <em>[relevante Stärke]</em> einbringen."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qcard3">
+    <div class="q-header" onclick="toggleCard('qcard3')">
+      <div class="q-num">3</div>
+      <div class="q-text">
+        <div class="q-german">„Was sind Ihre größten Stärken?"</div>
+        <div class="q-english">What are your greatest strengths?</div>
+        <div class="q-tags"><span class="q-tag tag-personal">Personal</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They're checking three things at once: <strong>self-awareness</strong> (do you know yourself?), <strong>relevance</strong> (are your strengths useful to US?), and <strong>credibility</strong> (can you prove it, or just claim it?). Anyone can say "I'm a team player." They want evidence.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Choose 2–3 strengths that are <em>directly relevant to the job description</em></li>
+            <li>For each: name it → prove it with a brief example → link to value for them</li>
+            <li>Use the formula: <em>"Eine meiner Stärken ist X. Das zeigte sich zum Beispiel, als… Das bedeutet für Sie, dass…"</em></li>
+            <li>Don't list 7 strengths — depth beats breadth</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Soft clichés without proof: "Ich bin sehr teamfähig und kommunikativ"</li>
+          <li>Strengths that don't relate to the role</li>
+          <li>Being falsely modest: "Na ja, ich versuche halt, meine Arbeit gut zu machen"</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Eine meiner größten Stärken ist <em>[Stärke]</em>. Das hat sich besonders gezeigt, als ich bei <em>[Unternehmen/Situation]</em> <em>[konkrete Handlung]</em>. Das Ergebnis war <em>[messbares Resultat]</em> — und ich denke, das ist genau das, was in dieser Rolle gefragt ist."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qcard4">
+    <div class="q-header" onclick="toggleCard('qcard4')">
+      <div class="q-num">4</div>
+      <div class="q-text">
+        <div class="q-german">„Was ist Ihre größte Schwäche?"</div>
+        <div class="q-english">What is your greatest weakness?</div>
+        <div class="q-tags"><span class="q-tag tag-tricky">⚠️ Tricky</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>This is a <strong>trap question</strong> — but it's also a golden opportunity. They're not actually looking for a weakness. They're testing: <strong>honesty, self-awareness, and growth mindset</strong>. Can you be vulnerable without being reckless? Do you reflect on yourself? Are you someone who improves?</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Pick a <strong>real</strong> weakness — not a disguised strength ("Ich arbeite zu viel")</li>
+            <li>Choose something <em>not critical</em> to the core of the job</li>
+            <li>Always follow with: what you have done to improve it</li>
+            <li>Formula: weakness → context → what you changed → current status</li>
+            <li>End on a positive: "Seitdem hat sich das deutlich verbessert"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Ich bin ein Perfektionist." (Overused, transparent, dishonest)</li>
+          <li>"Ich habe eigentlich keine wirklichen Schwächen."</li>
+          <li>Naming a weakness core to the job (e.g. "Ich bin nicht so gut mit Zahlen" for a finance role)</li>
+          <li>Going too deep — this should take 45 seconds max</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Früher hatte ich manchmal Schwierigkeiten mit <em>[echte, unkritische Schwäche]</em>. Mir ist das aufgefallen, als <em>[kurze Situation]</em>. Seitdem habe ich aktiv daran gearbeitet, indem ich <em>[konkrete Maßnahme]</em>. Das hat sich deutlich verbessert, auch wenn ich weiterhin darauf achte."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qcard5">
+    <div class="q-header" onclick="toggleCard('qcard5')">
+      <div class="q-num">5</div>
+      <div class="q-text">
+        <div class="q-german">„Wo sehen Sie sich in fünf Jahren?"</div>
+        <div class="q-english">Where do you see yourself in five years?</div>
+        <div class="q-tags"><span class="q-tag tag-strategic">Strategic</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They want to know: <strong>Will you stay? Are you ambitious in a way that benefits us? Is this job a stepping stone or a destination?</strong> They're checking commitment and whether your career goals are compatible with what this company can offer you.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Stay within a realistic scope — don't say "Ich will CEO sein"</li>
+            <li>Show ambition that <em>serves the company</em>: grow into more responsibility, lead projects, develop expertise</li>
+            <li>Anchor your answer to THIS role: "Ich sehe diese Stelle als Grundlage, um…"</li>
+            <li>Make it clear you want to grow <em>within</em> the organisation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Ich weiß es ehrlich gesagt nicht genau." (Shows no ambition)</li>
+          <li>Describing goals unrelated to the field: "Ich möchte dann eigentlich selbstständig sein"</li>
+          <li>Saying you want THEIR boss's job within 2 years</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„In fünf Jahren möchte ich meine Expertise in <em>[Bereich]</em> deutlich vertieft haben und idealerweise <em>[nächste Stufe — mehr Verantwortung / Teamleitung / Spezialisierung]</em> übernehmen. Diese Stelle ist für mich ein wichtiger Schritt in diese Richtung, weil <em>[konkreter Bezug]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qcard6">
+    <div class="q-header" onclick="toggleCard('qcard6')">
+      <div class="q-num">6</div>
+      <div class="q-text">
+        <div class="q-german">„Warum verlassen Sie Ihren aktuellen Job?"</div>
+        <div class="q-english">Why are you leaving your current job?</div>
+        <div class="q-tags"><span class="q-tag tag-tricky">⚠️ Tricky</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They're listening for <strong>red flags</strong>: Are you fleeing a disaster? Do you speak badly about former employers? Are you difficult to work with? This question reveals character and professionalism more than most. They also want to understand your motivations — are you <em>attracted</em> to them, or just <em>escaping</em> somewhere?</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li><strong>Never</strong> criticise your current employer, boss, or colleagues</li>
+            <li>Frame it as pull, not push: moving towards something, not away from something</li>
+            <li>Good reasons: new challenge, growth ceiling reached, new direction, company restructuring</li>
+            <li>If leaving due to conflict: say "kulturelle Unterschiede" and move on quickly</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Complaining about the boss, team, pay or culture</li>
+          <li>"Die Firma läuft nicht gut" (makes you sound like a sinking ship deserter)</li>
+          <li>Vague: "Ich suche einfach was Neues" — no direction shown</li>
+          <li>Too much detail about internal conflicts</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Ich habe in meiner aktuellen Stelle viel gelernt und bin dem Unternehmen dankbar für die Erfahrungen. Allerdings merke ich, dass ich nach <em>[X Jahren]</em> die Möglichkeiten dort weitgehend ausgeschöpft habe und nach einer neuen Herausforderung suche — insbesondere in <em>[Bereich]</em>, der mich schon länger interessiert."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qcard7">
+    <div class="q-header" onclick="toggleCard('qcard7')">
+      <div class="q-num">7</div>
+      <div class="q-text">
+        <div class="q-german">„Beschreiben Sie eine schwierige Situation und wie Sie sie gelöst haben."</div>
+        <div class="q-english">Describe a difficult situation and how you solved it.</div>
+        <div class="q-tags"><span class="q-tag tag-behavioral">Behavioral</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>Behavioural questions are based on the principle: <strong>past behaviour predicts future behaviour</strong>. They want to see problem-solving in action, resilience under pressure, and how you actually function when things go wrong — not how you imagine you'd function. Use STAR.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Prepare 3–4 strong STAR stories before the interview (they cover many questions)</li>
+            <li>Choose a situation where <em>you</em> made a real difference</li>
+            <li>Make the Action section the longest — that's what they care about</li>
+            <li>Include a quantifiable result if possible: "um 20% schneller", "das Team von 8 Personen"</li>
+            <li>End with a learning: "Das hat mir gezeigt, dass…"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Choosing a situation where YOU caused the problem (unless growth is the point)</li>
+          <li>Using "wir" throughout — they want to know what YOU did</li>
+          <li>No clear result: "Es hat sich dann irgendwie gelöst"</li>
+          <li>A trivial situation: spilled coffee, minor admin issue</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage (STAR)</h4>
+        <p>„<strong>S:</strong> In meinem letzten Job war ich mit der Situation konfrontiert, dass… <strong>T:</strong> Meine Aufgabe war es, sicherzustellen, dass… <strong>A:</strong> Ich habe mich entschieden, zunächst… und dann… <strong>R:</strong> Das Ergebnis war, dass wir… und ich habe daraus gelernt, dass…"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qcard8">
+    <div class="q-header" onclick="toggleCard('qcard8')">
+      <div class="q-num">8</div>
+      <div class="q-text">
+        <div class="q-german">„Wie gehen Sie mit Druck und Stress um?"</div>
+        <div class="q-english">How do you handle pressure and stress?</div>
+        <div class="q-tags"><span class="q-tag tag-behavioral">Behavioral</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They want to know if you'll <strong>fall apart under pressure</strong> — or if you can function, prioritise, and deliver. Especially important for fast-moving roles. They're also watching for self-awareness: people who claim they "never get stressed" are not trusted.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Acknowledge that pressure exists — don't pretend you're unaffected</li>
+            <li>Describe a <em>concrete method</em> you use (prioritisation, time-boxing, communication)</li>
+            <li>Give a brief example of performing well under pressure</li>
+            <li>Show self-regulation: you notice stress early and act on it</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Ich kenne das nicht wirklich, ich stresse mich nie." (Unbelievable)</li>
+          <li>Describing yourself as falling apart: "Ich schlafe dann schlecht und…"</li>
+          <li>Abstract answer with no example</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Ich kenne Drucksituationen gut und habe im Laufe der Zeit gelernt, damit strukturiert umzugehen. Wenn viel auf einmal kommt, priorisiere ich zuerst nach <em>[Methode]</em> und kommuniziere frühzeitig, wenn Deadlines gefährdet sind. Ein Beispiel: <em>[kurze STAR-Situation]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qcard9">
+    <div class="q-header" onclick="toggleCard('qcard9')">
+      <div class="q-num">9</div>
+      <div class="q-text">
+        <div class="q-german">„Wie würden Ihre Kollegen oder Ihr Chef Sie beschreiben?"</div>
+        <div class="q-english">How would your colleagues or manager describe you?</div>
+        <div class="q-tags"><span class="q-tag tag-personal">Personal</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>This is a <strong>third-party credibility check</strong>. When you describe yourself, it's marketing. When "others" describe you, it feels more objective. They want to see: consistency between self-image and external perception, and <strong>cultural fit</strong> — are you the kind of person we want on our team?</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Choose 2–3 traits you genuinely have AND that are relevant to the role</li>
+            <li>Ground each in a real example: "Meine Kollegin hat mir mal gesagt, dass…"</li>
+            <li>If you have a reference letter (Zeugnis) with phrases, use those words — they're pre-verified</li>
+            <li>Include one trait about collaboration/impact on the team</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Making it up — they may check with references</li>
+          <li>Being too vague: "Ich glaube, sie finden mich nett und zuverlässig"</li>
+          <li>Describing only task skills and forgetting interpersonal qualities</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Ich denke, meine Kolleginnen würden sagen, dass ich <em>[Eigenschaft 1]</em> bin. Mein letzter Vorgesetzter hat mir tatsächlich in meinem Arbeitszeugnis bescheinigt, dass ich <em>[Zitat oder Umschreibung]</em>. Und im Team bin ich bekannt dafür, <em>[Teamqualität mit Mini-Beispiel]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qcard10">
+    <div class="q-header" onclick="toggleCard('qcard10')">
+      <div class="q-num">10</div>
+      <div class="q-text">
+        <div class="q-german">„Was war Ihre größte berufliche Leistung?"</div>
+        <div class="q-english">What was your greatest professional achievement?</div>
+        <div class="q-tags"><span class="q-tag tag-behavioral">Behavioral</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>This reveals your <strong>standards and ambitions</strong>. What do you consider a real achievement? Is it impressive relative to the role? It also tests whether you can quantify impact — not just describe activities. Anyone can "work on a project." Did you move the needle?</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Choose something with a measurable, impressive result</li>
+            <li>Make it <strong>relevant to THIS role</strong> — not your proudest personal moment</li>
+            <li>Use numbers: revenue, time saved, team size, percentage growth</li>
+            <li>Apply STAR — but make A and R the bulk of the answer</li>
+            <li>End with: what this says about you as a professional</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Choosing a team achievement and using only "wir" throughout</li>
+          <li>No numbers or vague impact: "Das Projekt lief dann sehr gut"</li>
+          <li>Something irrelevant to the job: personal hobbies, private achievements</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Eine Leistung, auf die ich besonders stolz bin, war <em>[kurze Beschreibung]</em>. Die Ausgangssituation war, dass <em>[Problem/Kontext]</em>. Ich habe dann <em>[konkrete Schritte]</em> unternommen, was dazu geführt hat, dass <em>[messbares Ergebnis — Zahlen!]</em>. Das hat mir gezeigt, dass ich auch in komplexen Situationen <em>[Qualität]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qcard11">
+    <div class="q-header" onclick="toggleCard('qcard11')">
+      <div class="q-num">11</div>
+      <div class="q-text">
+        <div class="q-german">„Wie arbeiten Sie im Team?"</div>
+        <div class="q-english">How do you work in a team?</div>
+        <div class="q-tags"><span class="q-tag tag-behavioral">Behavioral</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They're probing for <strong>cultural fit and conflict behaviour</strong>. Can you collaborate? How do you handle disagreements? Do you lead, follow, or adapt? They want to picture you sitting in their team. "I'm a great team player" is the most useless sentence in any interview.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Describe your natural role in teams — and show flexibility</li>
+            <li>Include a specific example of collaboration that worked well</li>
+            <li>Mention how you handle disagreements constructively</li>
+            <li>Show both leading AND following — adapt to what the team needs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Ich arbeite sowohl gut alleine als auch im Team." (Means nothing)</li>
+          <li>Only describing the ideal team, not your actual role in it</li>
+          <li>Implying you're always right in team disagreements</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Im Team übernehme ich je nach Bedarf unterschiedliche Rollen — mal koordiniere ich, mal treibe ich inhaltlich voran. Was mir besonders wichtig ist: offene Kommunikation bei Konflikten. Ein Beispiel dafür war, als <em>[kurze STAR-Situation mit Teamkonflikt]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qcard12">
+    <div class="q-header" onclick="toggleCard('qcard12')">
+      <div class="q-num">12</div>
+      <div class="q-text">
+        <div class="q-german">„Was motiviert Sie?"</div>
+        <div class="q-english">What motivates you?</div>
+        <div class="q-tags"><span class="q-tag tag-personal">Personal</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They want to know if the <strong>job can actually keep you engaged</strong> — and if your motivation is sustainable (intrinsic) rather than purely external. A person motivated by "Gehalt und Urlaub" will leave the moment a better offer comes. They want someone who cares about the work itself.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Choose intrinsic motivators: solving problems, impact, learning, creativity, autonomy</li>
+            <li>Link your motivation directly to elements of THIS role</li>
+            <li>Be specific — "Ich liebe Herausforderungen" is not enough</li>
+            <li>Show that you've thought about it: use an example of when you felt most energised at work</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Saying "Geld" or "Sicherheit" (even if true — saves it for salary talks)</li>
+          <li>Generic: "Ich möchte wachsen und lernen" with no specifics</li>
+          <li>Motivation that has nothing to do with the role</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Am meisten motiviert mich <em>[konkrete intrinsische Motivation]</em>. Ich merke das besonders, wenn ich <em>[Situation im Job]</em> — dann verliere ich das Zeitgefühl. In dieser Stelle reizt mich vor allem, dass <em>[spezifisches Element der Stelle]</em>, weil das genau das ist, was ich als bedeutungsvoll erlebe."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qcard13">
+    <div class="q-header" onclick="toggleCard('qcard13')">
+      <div class="q-num">13</div>
+      <div class="q-text">
+        <div class="q-german">„Was wissen Sie über unser Unternehmen?"</div>
+        <div class="q-english">What do you know about our company?</div>
+        <div class="q-tags"><span class="q-tag tag-strategic">Strategic</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>Purely a <strong>homework check</strong>. A candidate who can't answer this has disrespected the interviewer's time. It also reveals how seriously you want the job. The more specific and insightful your answer, the more you stand out from candidates who just read the "About" page.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Research: website, LinkedIn, recent news, annual report, Glassdoor reviews</li>
+            <li>Know: what they do, who their customers are, recent news/changes, their values/culture</li>
+            <li>Go beyond basics: mention something specific you find genuinely impressive or interesting</li>
+            <li>End with a connection to your own experience: "Was mich besonders interessiert, ist…"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Only repeating the first sentence of their website</li>
+          <li>Getting facts wrong — better to say less than to be corrected</li>
+          <li>Not researching at all: "Ich kenne Ihre Website, aber nicht so sehr…"</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Ich habe mich intensiv vorbereitet. <em>[Unternehmen]</em> ist bekannt für <em>[Kernprodukt/Service]</em> und bedient hauptsächlich <em>[Zielmarkt]</em>. Was mich besonders beeindruckt hat, war <em>[spezifische Information aus Recherche]</em>. Ich habe auch gelesen, dass Sie gerade <em>[aktuelles Thema/Projekt]</em> — das hat mein Interesse an dieser Stelle noch verstärkt."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qcard14">
+    <div class="q-header" onclick="toggleCard('qcard14')">
+      <div class="q-num">14</div>
+      <div class="q-text">
+        <div class="q-german">„Haben Sie Fragen an uns?"</div>
+        <div class="q-english">Do you have any questions for us?</div>
+        <div class="q-tags"><span class="q-tag tag-strategic">Strategic</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>This is your <strong>second interview — of them</strong>. The quality of your questions tells them how seriously you've thought about the role, how intellectually curious you are, and whether you're evaluating the fit as actively as they are. "No questions" is the worst answer possible.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Prepare 5–6 questions — some may get answered during the interview</li>
+            <li>Ask about the role, the team, the challenges, the success metrics</li>
+            <li>Ask the interviewer a personal question: "Was schätzen Sie persönlich an der Arbeit hier?"</li>
+            <li>Avoid questions about salary, holidays, sick leave in early rounds</li>
+            <li>Never ask anything you could Google in 30 seconds</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>"Nein, ich glaube, alles wurde geklärt." (Fatal)</li>
+          <li>Asking about salary and benefits in the first round</li>
+          <li>Asking questions that show you didn't research: "Was machen Sie eigentlich genau?"</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Ja, ich habe einige Fragen vorbereitet. Erstens würde mich interessieren: <em>[substantielle Frage zur Rolle/Team/Herausforderungen]</em>. Außerdem: Wie würde ein Erfolg in dieser Stelle nach dem ersten Jahr aussehen? Und persönlich — was schätzen Sie am meisten an der Arbeit hier?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qcard15">
+    <div class="q-header" onclick="toggleCard('qcard15')">
+      <div class="q-num">15</div>
+      <div class="q-text">
+        <div class="q-german">„Was sind Ihre Gehaltsvorstellungen?"</div>
+        <div class="q-english">What are your salary expectations?</div>
+        <div class="q-tags"><span class="q-tag tag-tricky">⚠️ Tricky</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section why">
+          <h4>🔍 Was sie wirklich testen</h4>
+          <p>They want to know if you're <strong>affordable and realistic</strong>. But this is also a negotiation — whoever names a number first often loses. They're testing if you know your market value and whether you negotiate confidently or collapse under pressure.</p>
+        </div>
+        <div class="q-section how">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Research the market salary range for this role in this city BEFORE the interview</li>
+            <li>Give a range where your target is at the <em>lower end</em>: "zwischen X und Y"</li>
+            <li>Anchor high — it's easier to come down than up</li>
+            <li>If pressed early: "Das hängt vom Gesamtpaket ab — können Sie mir erst mehr über die Stelle erzählen?"</li>
+            <li>In Germany: Jahresgehalt (annual gross) is standard</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-avoid">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Saying "Ich bin flexibel" — you'll get the minimum</li>
+          <li>Naming a number without market research (too low = undersell, too high = disqualified)</li>
+          <li>Apologising for your number: "Ich weiß, das ist vielleicht etwas viel, aber…"</li>
+          <li>Negotiating in the first round without leverage</li>
+        </ul>
+      </div>
+      <div class="q-opener">
+        <h4>💬 Startsatz-Vorlage</h4>
+        <p>„Auf Basis meiner Recherche und meiner <em>[X Jahre]</em> Erfahrung in <em>[Bereich]</em> orientiere ich mich an einem Jahresgehalt zwischen <em>[Betrag]</em> und <em>[Betrag]</em> brutto. Das ist natürlich abhängig vom Gesamtpaket und dem Entwicklungspotenzial der Stelle — ich bin offen für ein Gespräch darüber."</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════
+  SMART QUESTIONS TO ASK BACK
+══════════════════════════════════ -->
+<section id="askback">
+  <div class="section-header">
+    <div class="section-icon">🙋</div>
+    <h2>Fragen, die Sie stellen sollten <small>Questions that signal intelligence and preparation</small></h2>
+  </div>
+  <div class="ask-grid">
+    <div class="ask-card"><div class="ask-q">„Wie sieht ein typischer Arbeitstag in dieser Rolle aus?"</div><div class="ask-why">✅ Shows role curiosity, not just title interest</div></div>
+    <div class="ask-card"><div class="ask-q">„Welche Herausforderungen muss die Person in dieser Stelle in den ersten 6 Monaten meistern?"</div><div class="ask-why">✅ Shows you think about impact, not just tasks</div></div>
+    <div class="ask-card"><div class="ask-q">„Woran würde man nach einem Jahr erkennen, dass ich in dieser Rolle erfolgreich war?"</div><div class="ask-why">✅ Reveals their success criteria — and shows ambition</div></div>
+    <div class="ask-card"><div class="ask-q">„Wie würden Sie die Teamkultur beschreiben?"</div><div class="ask-why">✅ You're evaluating fit too — shows confidence</div></div>
+    <div class="ask-card"><div class="ask-q">„Was schätzen Sie persönlich am meisten an der Arbeit hier?"</div><div class="ask-why">✅ Personal question — builds rapport, reveals authentic culture</div></div>
+    <div class="ask-card"><div class="ask-q">„Warum ist diese Stelle vakant? Ist es eine Neuschaffung oder Nachbesetzung?"</div><div class="ask-why">✅ Smart due diligence — reveals turnover patterns</div></div>
+    <div class="ask-card"><div class="ask-q">„Wie fördern Sie die Weiterentwicklung Ihrer Mitarbeiter?"</div><div class="ask-why">✅ Shows long-term thinking — you plan to stay and grow</div></div>
+    <div class="ask-card"><div class="ask-q">„Was sind die nächsten Schritte im Bewerbungsprozess?"</div><div class="ask-why">✅ Shows initiative — always ask this at the end</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  ROLE PLAYS
+══════════════════════════════════ -->
+<section id="roleplays">
+  <div class="section-header">
+    <div class="section-icon">🎭</div>
+    <h2>Rollenspiele <small>Full interview simulations — treat them like the real thing</small></h2>
+  </div>
+  <div class="teacher-note">
+    <strong>👩‍🏫 Teacher:</strong> Run the interview with no interruptions first. Then debrief using the checklist below. For round 2 — increase pressure: challenge weak answers, give difficult follow-ups, test the salary conversation.
+  </div>
+
+  <!-- ROLE PLAY 1 -->
+  <div class="rp-card">
+    <div class="rp-top">
+      <h3>🎭 Rollenspiel 1 — Marketing Manager, Tech-Startup Berlin</h3>
+      <p>Mid-level position · Modern company culture · Semi-formal register</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-context">
+        <strong>Kontext:</strong> The student is applying for a Marketing Manager role at a Berlin-based SaaS startup (~150 employees). The company builds project management software for SMEs. They're growing 40% YoY and just received Series B funding. The interview is with the Head of Marketing (teacher). Semi-formal, first-name basis expected. Duration: 15–20 minutes.
+      </div>
+      <div class="rp-roles">
+        <div class="rp-role candidate">
+          <h4>🧑‍💼 Bewerberin (Student)</h4>
+          <ul>
+            <li>3 years in digital marketing (agencies + in-house)</li>
+            <li>Experience with content, SEO, paid social</li>
+            <li>Left last job due to restructuring</li>
+            <li>Salary expectation: €58,000–65,000</li>
+            <li>Goal: grow into Head of Marketing in 3–4 years</li>
+            <li>Prepare a STAR story about a campaign success</li>
+          </ul>
+        </div>
+        <div class="rp-role interviewer">
+          <h4>🎤 Interviewer (Teacher)</h4>
+          <ul>
+            <li>Start with: "Erzähl mir kurz von dir."</li>
+            <li>Ask about a failed project</li>
+            <li>Challenge: "Du hast keine B2B-Erfahrung. Warum sollten wir dich nehmen?"</li>
+            <li>Ask salary expectations mid-interview (not at end)</li>
+            <li>Ask: "Hast du noch Fragen an mich?"</li>
+            <li>End: give vague timeline to test if she asks for clarity</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-script">
+        <h4>💬 Gesprächseinstieg (Opening script)</h4>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Danke, dass du heute da bist. Ich bin [Name], Head of Marketing. Magst du kurz erzählen, wer du bist und was dich zu uns gebracht hat?"</span></div>
+        <div class="script-line"><span class="script-who c">Bewerberin:</span><span class="script-says"><span class="script-blank">[Student answers freely — 60–90 sec pitch]</span></span></div>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Interessant. Kannst du mir von einer Kampagne erzählen, auf die du besonders stolz bist?"</span></div>
+        <div class="script-line"><span class="script-who c">Bewerberin:</span><span class="script-says"><span class="script-blank">[STAR answer — 2–3 min]</span></span></div>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Und jetzt die schwierige Frage: Was war mal ein Projekt, das nicht gut gelaufen ist? Was hast du daraus gelernt?"</span></div>
+      </div>
+      <div class="rp-debrief">
+        <h4>📋 Debrief-Checkliste</h4>
+        <div class="debrief-grid">
+          <div class="debrief-item check">✅ Öffner: klar, prägnant, relevant?</div>
+          <div class="debrief-item check">✅ STAR-Struktur sichtbar?</div>
+          <div class="debrief-item check">✅ Messbare Ergebnisse genannt?</div>
+          <div class="debrief-item check">✅ Schwierige Frage (Fehler) souverän beantwortet?</div>
+          <div class="debrief-item watch">👁 Zu viel "wir" statt "ich"?</div>
+          <div class="debrief-item watch">👁 Auf Provokation ruhig geblieben?</div>
+          <div class="debrief-item watch">👁 Gehalt selbstbewusst genannt?</div>
+          <div class="debrief-item watch">👁 Starke Rückfragen gestellt?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE PLAY 2 -->
+  <div class="rp-card">
+    <div class="rp-top">
+      <h3>🎭 Rollenspiel 2 — Projektleiterin, Unternehmensberatung</h3>
+      <p>Senior position · Formal culture · High-pressure interview style</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-context">
+        <strong>Kontext:</strong> The student applies for a Project Lead role at a mid-size consulting firm in Munich. Formal culture, Sie-form throughout. The interviewer (teacher) is a Partner who uses behavioural and pressure questions. The firm advises DAX companies on digital transformation. Duration: 15 min.
+      </div>
+      <div class="rp-roles">
+        <div class="rp-role candidate">
+          <h4>🧑‍💼 Bewerberin (Student)</h4>
+          <ul>
+            <li>5 years in project management, PMP certified</li>
+            <li>Has led cross-functional teams of 10+</li>
+            <li>Reason for change: wants more strategic exposure</li>
+            <li>Salary expectation: €80,000–90,000</li>
+            <li>Prepare: a story about a project that went off track and how she saved it</li>
+            <li>Must ask 2 intelligent questions at the end</li>
+          </ul>
+        </div>
+        <div class="rp-role interviewer">
+          <h4>🎤 Interviewer (Teacher)</h4>
+          <ul>
+            <li>Formal, slightly intimidating tone</li>
+            <li>Interrupt vague answers: "Das ist mir zu allgemein — ein konkretes Beispiel bitte."</li>
+            <li>Challenge ambition: "Warum sollten wir eine externe Person nehmen?"</li>
+            <li>Salary pressure: "Das ist über unserem Budget. Wie flexibel sind Sie?"</li>
+            <li>Time pressure: "Wir haben noch 5 Minuten."</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-script">
+        <h4>💬 Gesprächseinstieg</h4>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Guten Tag. Ich habe Ihren Lebenslauf gelesen. Fassen Sie bitte in zwei Minuten zusammen, warum Sie die richtige Person für diese Stelle sind."</span></div>
+        <div class="script-line"><span class="script-who c">Bewerberin:</span><span class="script-says"><span class="script-blank">[Confident, concise, value-focused pitch — no life story]</span></span></div>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Beschreiben Sie mir eine Situation, in der ein Projekt zu scheitern drohte. Was haben Sie konkret getan?"</span></div>
+        <div class="script-line"><span class="script-who c">Bewerberin:</span><span class="script-says"><span class="script-blank">[STAR — focus on personal action and measurable result]</span></span></div>
+        <div class="script-line"><span class="script-who i">Interviewer:</span><span class="script-says">„Interessant. Und was würden Sie sagen, war Ihr größter Fehler als Führungskraft?"</span></div>
+      </div>
+      <div class="rp-debrief">
+        <h4>📋 Debrief-Checkliste</h4>
+        <div class="debrief-grid">
+          <div class="debrief-item check">✅ Pitch: strategic, not biographical?</div>
+          <div class="debrief-item check">✅ Handled interruptions gracefully?</div>
+          <div class="debrief-item check">✅ Answered the "Fehler" question honestly without oversharing?</div>
+          <div class="debrief-item check">✅ Held firm on salary or conceded intelligently?</div>
+          <div class="debrief-item watch">👁 Register: stayed formal (Sie-form) throughout?</div>
+          <div class="debrief-item watch">👁 Showed resilience under pressure?</div>
+          <div class="debrief-item watch">👁 Avoided filler words / long pauses?</div>
+          <div class="debrief-item watch">👁 Questions at end: substantive, not generic?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  FINAL CHECKLIST
+══════════════════════════════════ -->
+<section id="checklist">
+  <div class="section-header">
+    <div class="section-icon">✅</div>
+    <h2>Vor dem Interview <small>Click each item as you prepare — your pre-interview checklist</small></h2>
+  </div>
+  <div class="checklist">
+    <h3>VORBEREITUNGS-CHECKLISTE</h3>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe 3–4 STAR-Geschichten vorbereitet (Erfolg, Konflikt, Fehler, Druck)</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich kenne meine 90-Sekunden-Selbstpräsentation auswendig</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe das Unternehmen recherchiert (Website, News, LinkedIn, Glassdoor)</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich kenne den Marktgehalt für diese Stelle in dieser Stadt</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe 5–6 Fragen vorbereitet, die ich dem Interviewer stellen kann</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe die Stellenbeschreibung mit meinem Lebenslauf abgeglichen</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich weiß, was mich an DIESER Stelle und DIESEM Unternehmen wirklich interessiert</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe meine Gehaltsvorstellung als Spanne mit Begründung vorbereitet</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich habe das Rollenspiel mindestens einmal durchgeführt</span></div>
+    <div class="cl-item" onclick="this.classList.toggle('done')"><div class="cl-box">✓</div><span>Ich weiß, wie ich auf die Schwächefrage antworte — ohne Klischees</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; Bewerbungsgespräch B2+ &nbsp;·&nbsp; Viel Erfolg! 💼🇩🇪</footer>
+
+<script>
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  const isOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.q-card.open').forEach(c => c.classList.remove('open'));
+  // Open clicked (if it wasn't open)
+  if (!isOpen) card.classList.add('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A1–A2 | Lektion 1: Berlin – Eine Weltstadt</title>
+<style>
+  :root {
+    --black: #1a1a2e;
+    --gold: #e8b84b;
+    --red: #c0392b;
+    --bg: #f9f7f3;
+    --card: #ffffff;
+    --border: #e0dbd0;
+    --muted: #7a7165;
+    --success: #2ecc71;
+    --error: #e74c3c;
+    --info: #3498db;
+    --tag-a1: #2980b9;
+    --tag-a2: #8e44ad;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--bg);
+    color: var(--black);
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--black);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 8px;
+    background: linear-gradient(to bottom, #000, var(--gold), var(--red));
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; padding-left: 1rem; }
+  .series-label {
+    font-family: sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  header h1 span { color: var(--gold); }
+  .header-meta {
+    margin-top: 0.75rem;
+    font-family: sans-serif;
+    font-size: 0.82rem;
+    color: #aaa;
+    display: flex; gap: 1.4rem; flex-wrap: wrap;
+  }
+  .level-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-family: sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-right: 0.4rem;
+  }
+
+  /* ── LAYOUT ── */
+  main { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+
+  section { margin-bottom: 3rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    background: var(--black);
+    color: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .section-header h2 small {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0;
+    margin-top: 0.1rem;
+  }
+
+  /* ── TEXT BLOCK ── */
+  .reading-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .reading-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+  }
+  .reading-card .subtitle {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 1.3rem;
+  }
+  .reading-card p { margin-bottom: 1rem; font-size: 1.0rem; }
+  .reading-card p:last-child { margin-bottom: 0; }
+
+  .highlight {
+    background: #fff8e1;
+    border-bottom: 2px solid var(--gold);
+    cursor: help;
+    position: relative;
+  }
+  .highlight[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--black);
+    color: white;
+    font-size: 0.78rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* ── VOCABULARY BOX ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+  .vocab-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.88rem;
+  }
+  .vocab-item .de { font-weight: 700; font-size: 0.95rem; }
+  .vocab-item .en { color: var(--muted); font-style: italic; }
+  .vocab-item .gender { color: var(--tag-a1); font-size: 0.78rem; margin-left: 0.3rem; }
+
+  /* ── EXERCISES ── */
+  .exercise-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .exercise-block h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: sans-serif;
+    margin-bottom: 0.3rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .ex-num {
+    background: var(--black);
+    color: white;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+  }
+  .grammar-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .tag-a1 { background: #dbeafe; color: var(--tag-a1); }
+  .tag-a2 { background: #ede9fe; color: var(--tag-a2); }
+
+  .exercise-block .instruction {
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 1.1rem;
+    font-family: sans-serif;
+  }
+
+  /* True / False */
+  .tf-list { list-style: none; }
+  .tf-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.93rem;
+  }
+  .tf-list li:last-child { border-bottom: none; }
+  .tf-list li span { flex: 1; }
+  .tf-options { display: flex; gap: 0.5rem; margin-top: 0.1rem; }
+  .tf-btn {
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 5px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tf-btn:hover { border-color: var(--black); }
+  .tf-btn.correct { background: #d4edda; border-color: var(--success); color: #155724; }
+  .tf-btn.wrong { background: #f8d7da; border-color: var(--error); color: #721c24; }
+
+  /* MC */
+  .mc-item { margin-bottom: 1.2rem; }
+  .mc-item:last-child { margin-bottom: 0; }
+  .mc-question { font-size: 0.93rem; margin-bottom: 0.5rem; font-weight: 600; }
+  .mc-options { display: flex; flex-direction: column; gap: 0.35rem; }
+  .mc-opt {
+    font-family: sans-serif;
+    font-size: 0.86rem;
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 7px;
+    padding: 0.45rem 0.85rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .mc-opt:hover:not(.locked) { border-color: var(--black); background: #f5f3ee; }
+  .mc-opt.correct { background: #d4edda; border-color: var(--success); color: #155724; }
+  .mc-opt.wrong { background: #f8d7da; border-color: var(--error); color: #721c24; }
+
+  /* Fill-in */
+  .fill-sentence {
+    font-size: 0.93rem;
+    margin-bottom: 0.8rem;
+    line-height: 2;
+  }
+  .fill-sentence input[type="text"] {
+    border: none;
+    border-bottom: 2px solid var(--black);
+    background: transparent;
+    font-family: Georgia, serif;
+    font-size: 0.93rem;
+    width: 110px;
+    text-align: center;
+    outline: none;
+    padding: 0 0.2rem;
+    transition: border-color 0.2s;
+  }
+  .fill-sentence input[type="text"]:focus { border-color: var(--gold); }
+  .fill-sentence input.correct { border-color: var(--success); color: #155724; }
+  .fill-sentence input.wrong { border-color: var(--error); color: #721c24; }
+
+  /* Dropdown */
+  select.inline-select {
+    border: none;
+    border-bottom: 2px solid var(--black);
+    background: transparent;
+    font-family: Georgia, serif;
+    font-size: 0.93rem;
+    padding: 0 0.2rem;
+    cursor: pointer;
+    outline: none;
+  }
+  select.inline-select.correct { border-color: var(--success); color: #155724; }
+  select.inline-select.wrong { border-color: var(--error); color: #721c24; }
+
+  /* Matching */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .match-col { display: flex; flex-direction: column; gap: 0.4rem; }
+  .match-item {
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 7px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .match-item:hover { border-color: var(--black); }
+  .match-item.selected { border-color: var(--gold); background: #fff8e1; }
+  .match-item.matched { border-color: var(--success); background: #d4edda; color: #155724; cursor: default; }
+  .match-item.wrong-match { border-color: var(--error); background: #f8d7da; color: #721c24; }
+
+  /* Check buttons */
+  .check-btn {
+    margin-top: 1.1rem;
+    font-family: sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--black);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .check-btn:hover { opacity: 0.8; }
+  .check-btn.reset {
+    background: white;
+    color: var(--black);
+    border: 1.5px solid var(--border);
+    margin-left: 0.5rem;
+  }
+
+  .feedback-msg {
+    display: inline-block;
+    font-family: sans-serif;
+    font-size: 0.82rem;
+    margin-left: 0.8rem;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  .feedback-msg.ok { color: var(--success); }
+  .feedback-msg.bad { color: var(--error); }
+
+  /* Score bar */
+  .score-bar {
+    background: #eee;
+    border-radius: 20px;
+    height: 6px;
+    margin: 0.4rem 0 0.8rem;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold), var(--success));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* ── GRAMMAR REFERENCE STRIP ── */
+  .grammar-ref {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.4rem;
+  }
+  .grammar-ref h3 {
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .ref-table th {
+    text-align: left;
+    color: var(--gold);
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .ref-table td {
+    padding: 0.3rem 0.5rem 0.3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    color: #e0e0e0;
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table td:first-child { color: white; font-weight: 600; }
+
+  /* ── PROGRESS ── */
+  .progress-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.8rem;
+  }
+  .progress-section h3 {
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+  }
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    font-family: sans-serif;
+  }
+  .progress-row .label { min-width: 170px; color: var(--muted); }
+  .progress-row .bar { flex: 1; background: #eee; border-radius: 20px; height: 8px; overflow: hidden; }
+  .progress-row .bar-fill { height: 100%; border-radius: 20px; background: var(--black); transition: width 0.5s; }
+  .progress-row .count { min-width: 40px; text-align: right; font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4rem; }
+    .reading-card, .exercise-block { padding: 1.2rem 1.1rem; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Lektion 1</div>
+    <h1>Berlin – <span>Eine Weltstadt</span></h1>
+    <div class="header-meta">
+      <span><span class="level-badge">A1</span><span class="level-badge">A2</span> Lektion</span>
+      <span>📖 Lesetext · Übungen · Grammatik · Vokabeln</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — READING TEXT
+═══════════════════════════════════════════ -->
+<section id="text">
+  <div class="section-header">
+    <div class="section-icon">📰</div>
+    <h2>Lesetext <small>Reading text — hover the highlighted words for a translation tip</small></h2>
+  </div>
+
+  <div class="reading-card">
+    <h3>Berlin – Eine Weltstadt mit großer Geschichte</h3>
+    <p class="subtitle">Ein Text für Deutschlernende auf dem Niveau A1–A2</p>
+
+    <p>
+      Berlin ist die <span class="highlight" title="capital city">Hauptstadt</span> von Deutschland.
+      Mehr als <strong>3,5 Millionen Menschen</strong> wohnen hier.
+      Die Stadt liegt im Nordosten des Landes und ist sehr groß –
+      sie ist <span class="highlight" title="almost / nearly">fast</span> neunmal so groß wie Paris!
+    </p>
+
+    <p>
+      Früher war Berlin eine <span class="highlight" title="divided / split">geteilte</span> Stadt.
+      Von 1961 bis 1989 gab es die <strong>Berliner Mauer</strong>.
+      Die Mauer hat die Stadt in zwei Teile geteilt:
+      <em>Ost-Berlin</em> und <em>West-Berlin</em>.
+      Das Leben war auf beiden Seiten sehr <span class="highlight" title="different">unterschiedlich</span>.
+    </p>
+
+    <p>
+      Am <strong>9. November 1989</strong> ist etwas <span class="highlight" title="incredible / unbelievable">Unglaubliches</span> passiert:
+      Die Mauer ist <span class="highlight" title="fallen / come down">gefallen</span>!
+      Die Menschen haben geweint und getanzt.
+      Ein Jahr später, am 3. Oktober 1990, war die
+      <span class="highlight" title="reunification">Wiedervereinigung</span> – Deutschland war wieder <em>ein</em> Land.
+    </p>
+
+    <p>
+      Seitdem hat sich Berlin sehr <span class="highlight" title="changed">verändert</span>.
+      Heute ist die Stadt ein wichtiges <span class="highlight" title="centre">Zentrum</span> für Kultur, Kunst und Technologie.
+      Viele junge Menschen aus der ganzen Welt <span class="highlight" title="move here">ziehen hierher</span>,
+      weil Berlin so <span class="highlight" title="lively / vibrant">lebendig</span> und <span class="highlight" title="affordable">günstig</span> ist –
+      <em>na ja</em>, früher war es noch günstiger!
+    </p>
+
+    <p>
+      In Berlin kann man viel machen. Man kann
+      das <strong>Brandenburger Tor</strong> besuchen,
+      durch den <strong>Tiergarten</strong> <span class="highlight" title="take a walk">spazieren gehen</span>,
+      oder in einem der vielen Museen etwas lernen.
+      Abends gehen viele Berliner in ein Restaurant oder Café –
+      <em>natürlich!</em> Essen ist in Berlin sehr wichtig.
+    </p>
+
+    <p>
+      Berlin ist auch bekannt für seine Musik- und <span class="highlight" title="nightlife">Nachtleben</span>-Szene.
+      Aber <span class="highlight" title="don't worry">keine Sorge</span> – man muss nicht immer ausgehen.
+      Es gibt auch viele ruhige Parks und <span class="highlight" title="lakes">Seen</span> in der Stadt.
+      <em>Was für eine Stadt!</em>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — VOCABULARY
+═══════════════════════════════════════════ -->
+<section id="vocabulary">
+  <div class="section-header">
+    <div class="section-icon">🔤</div>
+    <h2>Vokabeln <small>Key vocabulary from the text</small></h2>
+  </div>
+
+  <div class="vocab-grid">
+    <div class="vocab-item"><div class="de">die Hauptstadt <span class="gender">(f)</span></div><div class="en">capital city</div></div>
+    <div class="vocab-item"><div class="de">die Mauer <span class="gender">(f)</span></div><div class="en">wall</div></div>
+    <div class="vocab-item"><div class="de">die Wiedervereinigung <span class="gender">(f)</span></div><div class="en">reunification</div></div>
+    <div class="vocab-item"><div class="de">geteilt</div><div class="en">divided, split</div></div>
+    <div class="vocab-item"><div class="de">unterschiedlich</div><div class="en">different</div></div>
+    <div class="vocab-item"><div class="de">unglaublich</div><div class="en">incredible</div></div>
+    <div class="vocab-item"><div class="de">das Zentrum <span class="gender">(n)</span></div><div class="en">centre</div></div>
+    <div class="vocab-item"><div class="de">lebendig</div><div class="en">lively, vibrant</div></div>
+    <div class="vocab-item"><div class="de">günstig</div><div class="en">affordable, cheap</div></div>
+    <div class="vocab-item"><div class="de">besuchen</div><div class="en">to visit</div></div>
+    <div class="vocab-item"><div class="de">spazieren gehen</div><div class="en">to go for a walk</div></div>
+    <div class="vocab-item"><div class="de">das Nachtleben <span class="gender">(n)</span></div><div class="en">nightlife</div></div>
+    <div class="vocab-item"><div class="de">der See <span class="gender">(m)</span></div><div class="en">lake</div></div>
+    <div class="vocab-item"><div class="de">fallen (ist gefallen)</div><div class="en">to fall (has fallen)</div></div>
+    <div class="vocab-item"><div class="de">sich verändern</div><div class="en">to change</div></div>
+    <div class="vocab-item"><div class="de">bekannt für</div><div class="en">known for</div></div>
+  </div>
+
+  <!-- VOCAB EXERCISE: Matching -->
+  <div class="exercise-block" style="margin-top:1.4rem;">
+    <h3><span class="ex-num">V1</span> Wörter verbinden <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Click a German word, then click its English translation. Match all pairs!</p>
+    <div class="match-grid" id="matchGrid">
+      <div class="match-col" id="matchDE">
+        <div class="match-item" data-pair="1">die Hauptstadt</div>
+        <div class="match-item" data-pair="2">die Mauer</div>
+        <div class="match-item" data-pair="3">günstig</div>
+        <div class="match-item" data-pair="4">lebendig</div>
+        <div class="match-item" data-pair="5">besuchen</div>
+        <div class="match-item" data-pair="6">der See</div>
+      </div>
+      <div class="match-col" id="matchEN">
+        <div class="match-item" data-pair="4">lively</div>
+        <div class="match-item" data-pair="1">capital city</div>
+        <div class="match-item" data-pair="6">lake</div>
+        <div class="match-item" data-pair="3">affordable</div>
+        <div class="match-item" data-pair="2">wall</div>
+        <div class="match-item" data-pair="5">to visit</div>
+      </div>
+    </div>
+    <div id="matchFeedback" class="feedback-msg" style="display:none;margin-top:0.7rem;"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — COMPREHENSION
+═══════════════════════════════════════════ -->
+<section id="comprehension">
+  <div class="section-header">
+    <div class="section-icon">💡</div>
+    <h2>Leseverstehen <small>Comprehension exercises</small></h2>
+  </div>
+
+  <!-- TRUE / FALSE -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">C1</span> Richtig oder Falsch? <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Ist der Satz richtig (R) oder falsch (F)?</p>
+    <ul class="tf-list" id="tfList">
+      <li>
+        <span>1. Berlin ist die Hauptstadt von Österreich.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-ans="F" data-correct="F" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-ans="F" data-correct="F" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+      <li>
+        <span>2. Mehr als 3,5 Millionen Menschen wohnen in Berlin.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+      <li>
+        <span>3. Die Berliner Mauer ist im Jahr 1990 gefallen.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="F" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-correct="F" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+      <li>
+        <span>4. Nach dem Mauerfall war Deutschland wieder ein Land.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+      <li>
+        <span>5. Berlin liegt im Süden von Deutschland.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="F" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-correct="F" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+      <li>
+        <span>6. In Berlin gibt es Parks und Seen.</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">R</button>
+          <button class="tf-btn" data-correct="R" onclick="checkTF(this)">F</button>
+        </div>
+      </li>
+    </ul>
+    <div id="tfScore" style="margin-top:0.7rem;font-family:sans-serif;font-size:0.82rem;color:var(--muted);"></div>
+  </div>
+
+  <!-- MULTIPLE CHOICE -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">C2</span> Multiple Choice <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Wähle die richtige Antwort.</p>
+
+    <div class="mc-item">
+      <div class="mc-question">1. Wie lange gab es die Berliner Mauer?</div>
+      <div class="mc-options" id="mc1">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc1')">Von 1945 bis 1989</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc1')">Von 1961 bis 1989</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc1')">Von 1955 bis 1990</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc1')">Von 1939 bis 1989</button>
+      </div>
+    </div>
+
+    <div class="mc-item">
+      <div class="mc-question">2. Warum ziehen viele junge Menschen nach Berlin?</div>
+      <div class="mc-options" id="mc2">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc2')">Weil die Stadt sehr ruhig ist</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc2')">Weil es dort viel Schnee gibt</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc2')">Weil die Stadt lebendig und günstig ist</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc2')">Weil das Wetter sehr gut ist</button>
+      </div>
+    </div>
+
+    <div class="mc-item">
+      <div class="mc-question">3. Was kann man im Tiergarten machen?</div>
+      <div class="mc-options" id="mc3">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc3')">Museen besuchen</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc3')">Spazieren gehen</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc3')">Ausgehen und tanzen</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc3')">Die Mauer sehen</button>
+      </div>
+    </div>
+
+    <div class="mc-item">
+      <div class="mc-question">4. Berlin ist bekannt für …</div>
+      <div class="mc-options" id="mc4">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc4')">Landwirtschaft und Natur</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc4')">Seinen Hafen und seine Strände</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc4')">Musik, Kunst und Nachtleben</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc4')">Seine Berge und seinen Schnee</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — GRAMMAR
+═══════════════════════════════════════════ -->
+<section id="grammar">
+  <div class="section-header">
+    <div class="section-icon">⚙️</div>
+    <h2>Grammatik <small>Grammar exercises — A1 &amp; A2 topics</small></h2>
+  </div>
+
+  <!-- REFERENCE: Artikel -->
+  <div class="grammar-ref">
+    <h3>📌 Quick Reference: Der / Die / Das (Nominativ &amp; Akkusativ)</h3>
+    <table class="ref-table">
+      <tr><th>Genus</th><th>Nominativ</th><th>Akkusativ</th><th>Beispiel</th></tr>
+      <tr><td>Maskulin (m)</td><td>der / ein</td><td>den / einen</td><td>der Mann → Ich sehe <em>den</em> Mann</td></tr>
+      <tr><td>Feminin (f)</td><td>die / eine</td><td>die / eine</td><td>die Stadt → Ich besuche <em>die</em> Stadt</td></tr>
+      <tr><td>Neutrum (n)</td><td>das / ein</td><td>das / ein</td><td>das Museum → Ich kenne <em>das</em> Museum</td></tr>
+      <tr><td>Plural</td><td>die / –</td><td>die / –</td><td>die Museen → Ich liebe <em>die</em> Museen</td></tr>
+    </table>
+  </div>
+
+  <!-- G1: Articles -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">G1</span> Der, Die oder Das? <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Wähle den richtigen Artikel (Nominativ).</p>
+    <div id="g1">
+      <p class="fill-sentence">
+        1. <select class="inline-select" data-correct="die" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Hauptstadt von Deutschland ist Berlin.
+      </p>
+      <p class="fill-sentence">
+        2. <select class="inline-select" data-correct="die" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Mauer hat die Stadt geteilt.
+      </p>
+      <p class="fill-sentence">
+        3. <select class="inline-select" data-correct="das" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Museum in Berlin ist sehr interessant.
+      </p>
+      <p class="fill-sentence">
+        4. <select class="inline-select" data-correct="der" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Tiergarten ist ein großer Park.
+      </p>
+      <p class="fill-sentence">
+        5. <select class="inline-select" data-correct="das" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Nachtleben in Berlin ist weltbekannt.
+      </p>
+    </div>
+  </div>
+
+  <!-- G2: sein / haben conjugation -->
+  <div class="grammar-ref" style="margin-top:0;">
+    <h3>📌 Quick Reference: sein &amp; haben (Präsens)</h3>
+    <table class="ref-table">
+      <tr><th>Person</th><th>sein</th><th>haben</th></tr>
+      <tr><td>ich</td><td>bin</td><td>habe</td></tr>
+      <tr><td>du</td><td>bist</td><td>hast</td></tr>
+      <tr><td>er/sie/es</td><td>ist</td><td>hat</td></tr>
+      <tr><td>wir</td><td>sind</td><td>haben</td></tr>
+      <tr><td>ihr</td><td>seid</td><td>habt</td></tr>
+      <tr><td>sie/Sie</td><td>sind</td><td>haben</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise-block">
+    <h3><span class="ex-num">G2</span> sein oder haben? <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Ergänze mit der richtigen Form von <em>sein</em> oder <em>haben</em>.</p>
+    <div id="g2">
+      <p class="fill-sentence">1. Berlin _____ die Hauptstadt von Deutschland.
+        <input type="text" data-correct="ist" placeholder="…" oninput="liveCheck(this)">
+      </p>
+      <p class="fill-sentence">2. Ich _____ einen Bruder in Berlin.
+        <input type="text" data-correct="habe" placeholder="…" oninput="liveCheck(this)">
+      </p>
+      <p class="fill-sentence">3. Wir _____ heute im Tiergarten.
+        <input type="text" data-correct="sind" placeholder="…" oninput="liveCheck(this)">
+      </p>
+      <p class="fill-sentence">4. Du _____ Recht – Berlin ist toll!
+        <input type="text" data-correct="hast" placeholder="…" oninput="liveCheck(this)">
+      </p>
+      <p class="fill-sentence">5. Die Stadt _____ viele Parks und Museen.
+        <input type="text" data-correct="hat" placeholder="…" oninput="liveCheck(this)">
+      </p>
+    </div>
+  </div>
+
+  <!-- G3: Modal verbs -->
+  <div class="grammar-ref" style="margin-top:0;">
+    <h3>📌 Quick Reference: Modalverben (Präsens)</h3>
+    <table class="ref-table">
+      <tr><th>Person</th><th>können</th><th>müssen</th><th>wollen</th><th>dürfen</th></tr>
+      <tr><td>ich</td><td>kann</td><td>muss</td><td>will</td><td>darf</td></tr>
+      <tr><td>du</td><td>kannst</td><td>musst</td><td>willst</td><td>darfst</td></tr>
+      <tr><td>er/sie/es</td><td>kann</td><td>muss</td><td>will</td><td>darf</td></tr>
+      <tr><td>wir/sie/Sie</td><td>können</td><td>müssen</td><td>wollen</td><td>dürfen</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise-block">
+    <h3><span class="ex-num">G3</span> Modalverben <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Wähle das richtige Modalverb.</p>
+    <div id="g3">
+      <p class="fill-sentence">1. In Berlin _____ man viele Museen besuchen.
+        <select class="inline-select" data-correct="kann" onchange="checkSelect(this)">
+          <option value="">—</option><option>muss</option><option>kann</option><option>will</option><option>darf</option>
+        </select>
+      </p>
+      <p class="fill-sentence">2. Du _____ die Mauer-Gedenkstätte sehen – sie ist wichtig!
+        <select class="inline-select" data-correct="musst" onchange="checkSelect(this)">
+          <option value="">—</option><option>musst</option><option>kannst</option><option>darfst</option><option>willst</option>
+        </select>
+      </p>
+      <p class="fill-sentence">3. Wir _____ heute Abend ins Restaurant gehen.
+        <select class="inline-select" data-correct="wollen" onchange="checkSelect(this)">
+          <option value="">—</option><option>können</option><option>müssen</option><option>wollen</option><option>dürfen</option>
+        </select>
+      </p>
+      <p class="fill-sentence">4. Hier _____ man nicht rauchen.
+        <select class="inline-select" data-correct="darf" onchange="checkSelect(this)">
+          <option value="">—</option><option>kann</option><option>muss</option><option>darf</option><option>will</option>
+        </select>
+      </p>
+      <p class="fill-sentence">5. Ich _____ kein Deutsch sprechen, aber ich lerne es!
+        <select class="inline-select" data-correct="kann" onchange="checkSelect(this)">
+          <option value="">—</option><option>muss</option><option>kann</option><option>will</option><option>darf</option>
+        </select>
+      </p>
+    </div>
+  </div>
+
+  <!-- G4: Perfekt -->
+  <div class="grammar-ref" style="margin-top:0;">
+    <h3>📌 Quick Reference: Perfekt (Past Tense)</h3>
+    <table class="ref-table">
+      <tr><th>Pattern</th><th>Auxiliary</th><th>Example</th></tr>
+      <tr><td>Most verbs</td><td>haben</td><td>Ich habe Deutsch <em>gelernt</em>.</td></tr>
+      <tr><td>Movement / state change</td><td>sein</td><td>Ich <em>bin</em> nach Berlin <em>gefahren</em>.</td></tr>
+      <tr><td>Regular ge- form</td><td>–</td><td>machen → ge<em>macht</em></td></tr>
+      <tr><td>Irregular (strong)</td><td>–</td><td>fahren → ge<em>fahren</em> / gehen → ge<em>gangen</em></td></tr>
+    </table>
+  </div>
+
+  <div class="exercise-block">
+    <h3><span class="ex-num">G4</span> Perfekt bilden <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Schreibe den Satz im Perfekt. (Type the missing past participle.)</p>
+    <div id="g4">
+      <p class="fill-sentence">1. Die Mauer _____ im Jahr 1989 <em>fallen</em>.
+        <br><small style="color:var(--muted);font-size:0.78rem;">Hilfsverb: <strong>ist</strong> … gefallen</small>
+        <br>→ Die Mauer <input type="text" data-correct="ist" placeholder="aux." oninput="liveCheck(this)" style="width:60px"> _____ gefallen.
+      </p>
+      <p class="fill-sentence">2. Die Menschen haben <em>weinen</em> und <em>tanzen</em>.
+        <br><small style="color:var(--muted);font-size:0.78rem;">→ haben … geweint und ge<em>tanzt</em></small>
+        <br>→ Die Menschen haben <input type="text" data-correct="geweint" placeholder="…" oninput="liveCheck(this)"> und getanzt.
+      </p>
+      <p class="fill-sentence">3. Viele Familien <em>kommen</em> nach Berlin.
+        <br>→ Viele Familien sind nach Berlin <input type="text" data-correct="gekommen" placeholder="…" oninput="liveCheck(this)">.
+      </p>
+      <p class="fill-sentence">4. Ich <em>besuchen</em> das Brandenburger Tor.
+        <br>→ Ich habe das Brandenburger Tor <input type="text" data-correct="besucht" placeholder="…" oninput="liveCheck(this)">.
+      </p>
+    </div>
+  </div>
+
+  <!-- G5: Negation -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">G5</span> Negation: nicht oder kein? <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Wähle <em>nicht</em> oder <em>kein / keine / keinen</em>.</p>
+    <div id="g5">
+      <p class="fill-sentence">1. Berlin ist _____ kleine Stadt.
+        <select class="inline-select" data-correct="keine" onchange="checkSelect(this)">
+          <option value="">—</option><option>nicht</option><option>keine</option><option>keinen</option>
+        </select>
+      </p>
+      <p class="fill-sentence">2. Ich spreche _____ Russisch.
+        <select class="inline-select" data-correct="kein" onchange="checkSelect(this)">
+          <option value="">—</option><option>nicht</option><option>kein</option><option>keine</option>
+        </select>
+      </p>
+      <p class="fill-sentence">3. Wir gehen heute _____ ins Museum.
+        <select class="inline-select" data-correct="nicht" onchange="checkSelect(this)">
+          <option value="">—</option><option>nicht</option><option>kein</option><option>keine</option>
+        </select>
+      </p>
+      <p class="fill-sentence">4. Er hat _____ Auto, aber er hat ein Fahrrad.
+        <select class="inline-select" data-correct="kein" onchange="checkSelect(this)">
+          <option value="">—</option><option>nicht</option><option>kein</option><option>keine</option>
+        </select>
+      </p>
+      <p class="fill-sentence">5. Die Mauer existiert _____ mehr.
+        <select class="inline-select" data-correct="nicht" onchange="checkSelect(this)">
+          <option value="">—</option><option>nicht</option><option>kein</option><option>keine</option>
+        </select>
+      </p>
+    </div>
+  </div>
+
+  <!-- G6: Word order / sentence building -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">G6</span> Satzbau – Satzstellung <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Bringe die Wörter in die richtige Reihenfolge. Type the full sentence.</p>
+    <div id="g6">
+      <p class="fill-sentence">1. [heute / ich / nach Berlin / fahre]
+        <br><input type="text" data-correct="Ich fahre heute nach Berlin." placeholder="Ich …" oninput="liveCheck(this)" style="width:100%;max-width:340px">
+      </p>
+      <p class="fill-sentence">2. [die Stadt / sehr groß / ist / Berlin]
+        <br><input type="text" data-correct="Berlin ist eine sehr große Stadt." placeholder="Berlin …" oninput="liveCheck(this)" style="width:100%;max-width:340px">
+        <br><small style="color:var(--muted);font-size:0.76rem;">Tip: Berlin ist eine sehr große Stadt. / Berlin ist sehr groß.</small>
+      </p>
+      <p class="fill-sentence">3. [können / wir / das Museum / besuchen]
+        <br><input type="text" data-correct="Wir können das Museum besuchen." placeholder="Wir …" oninput="liveCheck(this)" style="width:100%;max-width:340px">
+      </p>
+    </div>
+  </div>
+
+  <!-- G7: Prepositions + Dative -->
+  <div class="grammar-ref" style="margin-top:0;">
+    <h3>📌 Quick Reference: Präpositionen mit Dativ</h3>
+    <table class="ref-table">
+      <tr><th>Präposition</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td>in + dem → im</td><td>in the</td><td>im Park, im Museum</td></tr>
+      <tr><td>an + dem → am</td><td>on / at</td><td>am Bahnhof, am See</td></tr>
+      <tr><td>nach</td><td>to (cities/countries)</td><td>nach Berlin fahren</td></tr>
+      <tr><td>aus</td><td>from</td><td>Ich komme aus Berlin.</td></tr>
+      <tr><td>mit</td><td>with / by</td><td>mit dem Bus fahren</td></tr>
+      <tr><td>von</td><td>from / of</td><td>die Hauptstadt von Deutschland</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise-block">
+    <h3><span class="ex-num">G7</span> Präpositionen <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Wähle die richtige Präposition.</p>
+    <div id="g7">
+      <p class="fill-sentence">1. Wir fahren _____ dem Zug nach Berlin.
+        <select class="inline-select" data-correct="mit" onchange="checkSelect(this)">
+          <option value="">—</option><option>in</option><option>mit</option><option>von</option><option>aus</option>
+        </select>
+      </p>
+      <p class="fill-sentence">2. Das Brandenburger Tor liegt _____ Zentrum der Stadt.
+        <select class="inline-select" data-correct="im" onchange="checkSelect(this)">
+          <option value="">—</option><option>im</option><option>am</option><option>nach</option><option>aus</option>
+        </select>
+      </p>
+      <p class="fill-sentence">3. Ich komme _____ München, aber ich wohne jetzt in Berlin.
+        <select class="inline-select" data-correct="aus" onchange="checkSelect(this)">
+          <option value="">—</option><option>nach</option><option>von</option><option>aus</option><option>mit</option>
+        </select>
+      </p>
+      <p class="fill-sentence">4. Die Familie sitzt _____ See und genießt die Sonne.
+        <select class="inline-select" data-correct="am" onchange="checkSelect(this)">
+          <option value="">—</option><option>im</option><option>am</option><option>nach</option><option>aus</option>
+        </select>
+      </p>
+    </div>
+  </div>
+
+  <!-- G8: Komparativ -->
+  <div class="exercise-block">
+    <h3><span class="ex-num">G8</span> Komparativ &amp; Superlativ <span class="grammar-tag tag-a2">A2</span></h3>
+    <p class="instruction">Ergänze die richtige Form.</p>
+    <div id="g8">
+      <p class="fill-sentence">1. Berlin ist <em>groß</em>, aber Moskau ist <input type="text" data-correct="größer" placeholder="…er" oninput="liveCheck(this)" style="width:90px">.
+      </p>
+      <p class="fill-sentence">2. Im Sommer ist es <em>warm</em>. Im Winter ist es <input type="text" data-correct="kälter" placeholder="kält…" oninput="liveCheck(this)" style="width:90px">.
+      <br><small style="color:var(--muted);font-size:0.76rem;">(Tipp: kalt → kälter)</small>
+      </p>
+      <p class="fill-sentence">3. Das ist das <input type="text" data-correct="schönste" placeholder="schön…" oninput="liveCheck(this)" style="width:100px"> Museum in Berlin. (schön → Superlativ)
+      </p>
+      <p class="fill-sentence">4. Berlin ist <input type="text" data-correct="interessanter" placeholder="…er" oninput="liveCheck(this)" style="width:130px"> als meine Heimatstadt. (interessant)
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — PROGRESS OVERVIEW
+═══════════════════════════════════════════ -->
+<section id="progress">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <h2>Fortschritt <small>Your progress today</small></h2>
+  </div>
+  <div class="progress-section">
+    <h3>ÜBERSICHT DER ÜBUNGEN</h3>
+    <div class="progress-row">
+      <span class="label">V1 · Vokabeln verbinden</span>
+      <div class="bar"><div class="bar-fill" id="bar-v1" style="width:0%"></div></div>
+      <span class="count" id="cnt-v1">0/6</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">C1 · Richtig oder Falsch</span>
+      <div class="bar"><div class="bar-fill" id="bar-c1" style="width:0%"></div></div>
+      <span class="count" id="cnt-c1">0/6</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">C2 · Multiple Choice</span>
+      <div class="bar"><div class="bar-fill" id="bar-c2" style="width:0%"></div></div>
+      <span class="count" id="cnt-c2">0/4</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G1 · Artikel</span>
+      <div class="bar"><div class="bar-fill" id="bar-g1" style="width:0%"></div></div>
+      <span class="count" id="cnt-g1">0/5</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G2 · sein / haben</span>
+      <div class="bar"><div class="bar-fill" id="bar-g2" style="width:0%"></div></div>
+      <span class="count" id="cnt-g2">0/5</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G3 · Modalverben</span>
+      <div class="bar"><div class="bar-fill" id="bar-g3" style="width:0%"></div></div>
+      <span class="count" id="cnt-g3">0/5</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G4 · Perfekt</span>
+      <div class="bar"><div class="bar-fill" id="bar-g4" style="width:0%"></div></div>
+      <span class="count" id="cnt-g4">0/4</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G5 · Negation</span>
+      <div class="bar"><div class="bar-fill" id="bar-g5" style="width:0%"></div></div>
+      <span class="count" id="cnt-g5">0/5</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G7 · Präpositionen</span>
+      <div class="bar"><div class="bar-fill" id="bar-g7" style="width:0%"></div></div>
+      <span class="count" id="cnt-g7">0/4</span>
+    </div>
+    <div class="progress-row">
+      <span class="label">G8 · Komparativ</span>
+      <div class="bar"><div class="bar-fill" id="bar-g8" style="width:0%"></div></div>
+      <span class="count" id="cnt-g8">0/4</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Allgemeine Deutschklasse &nbsp;·&nbsp; Lektion 1: Berlin &nbsp;·&nbsp; Niveau A1–A2 &nbsp;·&nbsp; Viel Erfolg! 🇩🇪
+</footer>
+
+<script>
+/* ─── UTILITIES ─── */
+function updateProgress(barId, cntId, correct, total) {
+  const pct = Math.round(correct / total * 100);
+  const bar = document.getElementById('bar-' + barId);
+  const cnt = document.getElementById('cnt-' + cntId);
+  if (bar) bar.style.width = pct + '%';
+  if (cnt) cnt.textContent = correct + '/' + total;
+}
+
+/* ─── TRUE / FALSE ─── */
+function checkTF(btn) {
+  const group = btn.closest('.tf-options');
+  if (group.dataset.done) return;
+  const buttons = group.querySelectorAll('.tf-btn');
+  const correct = btn.dataset.correct;
+  const pressed = btn.textContent.trim();
+
+  buttons.forEach(b => {
+    b.classList.remove('correct','wrong');
+    if (b.textContent.trim() === correct) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrong');
+  });
+  group.dataset.done = '1';
+  updateTFScore();
+}
+
+function updateTFScore() {
+  const total = 6;
+  const done = document.querySelectorAll('#tfList .tf-options[data-done]').length;
+  const correct = document.querySelectorAll('#tfList .tf-btn.correct:not(.wrong)').length;
+  // Count how many of the "done" ones got correct
+  let rightCount = 0;
+  document.querySelectorAll('#tfList .tf-options[data-done]').forEach(group => {
+    if (group.querySelector('.tf-btn.correct') && !group.querySelector('.tf-btn.wrong')) {
+      // user picked correctly
+    }
+    // simpler: check if the clicked btn has class correct
+    const wrongBtn = group.querySelector('.tf-btn.wrong');
+    if (!wrongBtn) rightCount++;
+  });
+  const msg = document.getElementById('tfScore');
+  if (done === total) {
+    msg.textContent = `Ergebnis: ${rightCount}/${total} richtig`;
+    msg.style.color = rightCount === total ? 'var(--success)' : 'var(--error)';
+  }
+  updateProgress('c1','c1', rightCount, total);
+}
+
+/* ─── MULTIPLE CHOICE ─── */
+function checkMC(btn, groupId) {
+  const group = document.getElementById(groupId);
+  if (group.dataset.done) return;
+  group.dataset.done = '1';
+  const opts = group.querySelectorAll('.mc-opt');
+  opts.forEach(o => {
+    o.classList.add('locked');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === btn) o.classList.add('wrong');
+  });
+  updateMCScore();
+}
+
+function updateMCScore() {
+  let right = 0, total = 4;
+  ['mc1','mc2','mc3','mc4'].forEach(id => {
+    const g = document.getElementById(id);
+    if (g && g.dataset.done) {
+      // correct if no wrong button is in there that the user clicked
+      const wrongClicked = g.querySelector('.mc-opt.wrong');
+      if (!wrongClicked) right++;
+    }
+  });
+  updateProgress('c2','c2', right, total);
+}
+
+/* ─── LIVE CHECK for text inputs ─── */
+function liveCheck(input) {
+  const val = input.value.trim().toLowerCase();
+  const correct = (input.dataset.correct || '').toLowerCase();
+  input.classList.remove('correct','wrong');
+  if (val === correct) {
+    input.classList.add('correct');
+  } else if (val.length >= correct.length) {
+    input.classList.add('wrong');
+  }
+  recalcTextGroup(input);
+}
+
+function recalcTextGroup(input) {
+  // find parent section
+  const section = input.closest('[id^="g"]');
+  if (!section) return;
+  const id = section.id;
+  const inputs = section.querySelectorAll('input[data-correct]');
+  const total = inputs.length;
+  let correct = 0;
+  inputs.forEach(i => { if (i.classList.contains('correct')) correct++; });
+  updateProgress(id, id, correct, total);
+}
+
+/* ─── SELECT CHECK ─── */
+function checkSelect(sel) {
+  const val = sel.value;
+  const correct = sel.dataset.correct;
+  sel.classList.remove('correct','wrong');
+  if (val === correct) sel.classList.add('correct');
+  else if (val) sel.classList.add('wrong');
+  recalcSelectGroup(sel);
+}
+
+function recalcSelectGroup(sel) {
+  const section = sel.closest('[id^="g"]');
+  if (!section) return;
+  const id = section.id;
+  const selects = section.querySelectorAll('select[data-correct]');
+  const total = selects.length;
+  let correct = 0;
+  selects.forEach(s => { if (s.classList.contains('correct')) correct++; });
+  updateProgress(id, id, correct, total);
+}
+
+/* ─── MATCHING ─── */
+let matchSelected = null;
+let matchCorrect = 0;
+const matchTotal = 6;
+
+document.querySelectorAll('.match-item').forEach(item => {
+  item.addEventListener('click', function() {
+    if (this.classList.contains('matched')) return;
+    if (matchSelected === null) {
+      matchSelected = this;
+      this.classList.add('selected');
+    } else {
+      if (matchSelected === this) {
+        matchSelected.classList.remove('selected');
+        matchSelected = null;
+        return;
+      }
+      const a = matchSelected, b = this;
+      a.classList.remove('selected');
+      if (a.dataset.pair === b.dataset.pair &&
+          a.closest('#matchDE') !== b.closest('#matchDE')) {
+        a.classList.add('matched');
+        b.classList.add('matched');
+        matchCorrect++;
+        matchSelected = null;
+        const fb = document.getElementById('matchFeedback');
+        if (matchCorrect === matchTotal) {
+          fb.textContent = '🎉 Alle Paare gefunden! Prima!';
+          fb.className = 'feedback-msg ok';
+          fb.style.display = 'inline-block';
+        }
+        updateProgress('v1','v1', matchCorrect, matchTotal);
+      } else {
+        a.classList.add('wrong-match');
+        b.classList.add('wrong-match');
+        setTimeout(() => {
+          a.classList.remove('wrong-match');
+          b.classList.remove('wrong-match');
+          matchSelected = null;
+        }, 700);
+      }
+    }
+  });
+});
+
+// G6 sentence order — flexible matching
+document.querySelectorAll('#g6 input').forEach(inp => {
+  inp.addEventListener('input', function() {
+    const val = this.value.trim().toLowerCase().replace(/[.,!?]/g,'');
+    const corrects = (this.dataset.correct || '').toLowerCase().split('|').map(s => s.replace(/[.,!?]/g,'').trim());
+    this.classList.remove('correct','wrong');
+    if (corrects.some(c => val === c)) {
+      this.classList.add('correct');
+    } else if (val.length >= 10) {
+      this.classList.add('wrong');
+    }
+    recalcTextGroup(this);
+  });
+});
+</script>
+</body>
+</html>

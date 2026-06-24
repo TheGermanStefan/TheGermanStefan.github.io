@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🍔 McDonald's – Deutschstunde</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red: #da291c; --gold: #FFC72C; --dark: #1a1a1a;
+  --mid: #c8961a; --cream: #fff8e7; --green: #27ae60;
+  --blue: #2980b9; --grey: #f4f4f4; --white: #ffffff;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #da291c 0%, #c8200f 100%); min-height: 100vh; color: var(--dark); }
+
+header { background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 13px 18px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+header h1 { color: white; font-size: 1rem; font-weight: 800; }
+header h1 span { color: var(--gold); }
+.badge { background: var(--gold); color: var(--dark); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; font-weight: 800; }
+
+nav { display: flex; background: rgba(0,0,0,0.3); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+nav::-webkit-scrollbar { display: none; }
+nav button { flex: 1; min-width: 100px; padding: 11px 10px; background: none; border: none; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; -webkit-tap-highlight-color: transparent; }
+nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.section { display: none; padding: 16px 14px 80px; }
+.section.active { display: block; }
+
+.banner { background: linear-gradient(135deg, rgba(255,199,44,0.25), rgba(255,255,255,0.1)); border: 2px solid rgba(255,199,44,0.5); border-radius: 16px; padding: 14px 16px; margin-bottom: 16px; text-align: center; }
+.banner h2 { color: white; font-size: 1.1rem; font-weight: 800; text-shadow: 0 1px 4px rgba(0,0,0,0.4); margin-bottom: 3px; }
+.banner p { color: rgba(255,255,255,0.88); font-size: 0.8rem; }
+
+.card { background: white; border-radius: 16px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.card h2 { font-size: 1rem; color: var(--red); margin-bottom: 12px; font-weight: 800; border-bottom: 2px solid #ffe; padding-bottom: 8px; }
+.card h3 { font-size: 0.9rem; color: var(--dark); margin: 14px 0 8px; font-weight: 700; }
+
+/* TEXT */
+.story { font-size: 0.9rem; line-height: 2; color: #333; }
+.story p { margin-bottom: 14px; }
+.story ul { padding-left: 20px; margin-bottom: 14px; }
+.story ul li { margin-bottom: 6px; line-height: 1.8; }
+.rw { background: linear-gradient(120deg, rgba(255,199,44,0.35), rgba(255,199,44,0.1)); border-bottom: 2px solid var(--gold); border-radius: 3px; padding: 1px 3px; cursor: pointer; font-weight: 700; color: #7a4800; -webkit-tap-highlight-color: transparent; }
+.rw:active { background: rgba(255,199,44,0.6); }
+.fact-box { background: var(--cream); border-left: 5px solid var(--gold); border-radius: 8px; padding: 12px 14px; margin: 12px 0; font-size: 0.88rem; line-height: 1.8; }
+.fact-box strong { color: var(--red); }
+
+/* POPUP */
+.pop-wrap { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; align-items: flex-end; justify-content: center; padding: 16px; }
+.pop-wrap.open { display: flex; }
+.pop-box { background: white; border-radius: 20px 20px 14px 14px; padding: 20px; max-width: 480px; width: 100%; position: relative; animation: su .2s ease; }
+@keyframes su { from { transform:translateY(30px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.pop-title { font-size: 1.1rem; font-weight: 800; color: var(--red); margin-bottom: 4px; }
+.pop-sub { font-size: 0.78rem; font-weight: 700; color: var(--mid); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.pop-meaning { font-size: 0.88rem; color: #444; margin-bottom: 10px; line-height: 1.6; }
+.pop-example { background: var(--cream); border-left: 4px solid var(--gold); border-radius: 6px; padding: 10px 12px; font-size: 0.83rem; font-style: italic; color: #333; line-height: 1.6; }
+.pop-close { position: absolute; top: 14px; right: 14px; background: #eee; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* QUIZ */
+.qblock { margin-bottom: 18px; }
+.qblock p { font-size: 0.88rem; font-weight: 700; color: #222; margin-bottom: 8px; line-height: 1.5; }
+.qblock p em { color: #555; font-weight: 400; }
+.qopts { display: flex; flex-direction: column; gap: 6px; }
+.qbtn { background: var(--grey); border: 2px solid #ddd; border-radius: 10px; padding: 10px 13px; font-size: 0.84rem; text-align: left; cursor: pointer; color: #333; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+.qbtn.ok { background: #d4edda; border-color: var(--green); color: #155724; font-weight: 700; }
+.qbtn.no { background: #f8d7da; border-color: var(--red); color: #721c24; }
+.qbtn.show { background: #d4edda; border-color: var(--green); }
+.qbtn:disabled { cursor: default; }
+.q-result { display:none; margin-top: 10px; padding: 10px 13px; border-radius: 10px; font-size: 0.84rem; font-weight: 700; }
+.q-result.show { display: block; }
+.q-result.ok { background: #d4edda; color: #155724; }
+.q-result.no { background: #fff3cd; color: #856404; }
+
+/* BILD */
+.img-wrap { position: relative; width: 100%; max-width: 640px; margin: 0 auto 16px; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+.img-wrap svg { display: block; width: 100%; height: auto; }
+.hotspot { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hotspot circle { transition: all 0.15s; }
+.hotspot.found circle.hs-bg { fill: var(--green); }
+.hotspot text { pointer-events: none; font-weight: 800; font-size: 11px; fill: white; }
+.found-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.found-tag { background: white; border-radius: 10px; padding: 5px 10px; font-size: 0.78rem; color: #333; display: flex; align-items: center; gap: 5px; }
+.found-tag .num { background: var(--red); color: white; border-radius: 6px; padding: 1px 6px; font-weight: 800; font-size: 0.72rem; }
+.found-tag.revealed { opacity: 0.6; }
+.bild-controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.ctrl-btn { border: none; border-radius: 10px; padding: 9px 16px; font-size: 0.82rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ctrl-btn.primary { background: var(--red); color: white; }
+.ctrl-btn.secondary { background: white; color: var(--red); border: 2px solid var(--red); }
+.bild-popup { display: none; background: white; border-radius: 14px; padding: 16px; margin-bottom: 14px; border: 3px solid var(--gold); }
+.bild-popup.open { display: block; }
+.bild-popup .bp-num { font-size: 1.5rem; font-weight: 800; color: var(--red); }
+.bild-popup .bp-word { font-size: 1.3rem; font-weight: 800; color: var(--dark); margin: 4px 0; }
+.bild-popup .bp-art { font-size: 0.85rem; color: #666; margin-bottom: 6px; }
+.bild-popup .bp-example { font-size: 0.82rem; color: #555; font-style: italic; line-height: 1.6; }
+.progress-bar { background: #ddd; border-radius: 10px; height: 10px; margin-bottom: 10px; overflow: hidden; }
+.progress-fill { background: linear-gradient(90deg, var(--red), var(--gold)); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+
+/* VOKABELN */
+.vok-section { margin-bottom: 20px; }
+.vok-title { background: linear-gradient(135deg, var(--red), #c8200f); color: white; border-radius: 10px; padding: 8px 14px; font-size: 0.88rem; font-weight: 800; margin-bottom: 10px; }
+.vok-row { background: white; border-radius: 10px; padding: 10px 13px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.vok-word { font-size: 0.88rem; font-weight: 700; color: var(--dark); }
+.vok-art { font-size: 0.72rem; color: var(--mid); font-weight: 600; }
+.vok-def { font-size: 0.8rem; color: #555; text-align: right; max-width: 55%; line-height: 1.5; }
+.rw-item { background: white; border-radius: 10px; padding: 11px 13px; margin-bottom: 8px; border-left: 4px solid var(--gold); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.rw-item .ri-phrase { font-size: 0.88rem; font-weight: 800; color: var(--red); margin-bottom: 3px; }
+.rw-item .ri-meaning { font-size: 0.8rem; color: #444; line-height: 1.5; }
+.rw-item .ri-ex { font-size: 0.77rem; color: #777; font-style: italic; margin-top: 4px; }
+
+/* HAUSAUFGABE */
+.ha-block { background: white; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.ha-block h2 { font-size: 1rem; font-weight: 800; color: var(--red); margin-bottom: 12px; }
+.ha-checklist { list-style: none; }
+.ha-checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.87rem; color: #333; line-height: 1.5; }
+.ha-checklist li:last-child { border-bottom: none; }
+.ha-checklist li::before { content: "✅"; font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+.ha-fact { background: var(--cream); border-left: 4px solid var(--gold); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem; color: #333; line-height: 1.7; }
+.starter-list li { font-size: 0.84rem; color: #444; margin-bottom: 6px; line-height: 1.6; padding-left: 4px; }
+.starter-list { list-style: disc; padding-left: 18px; }
+textarea.essay { width: 100%; min-height: 200px; border: 2px solid #ddd; border-radius: 12px; padding: 12px; font-size: 0.88rem; font-family: inherit; resize: vertical; outline: none; line-height: 1.7; color: #333; }
+textarea.essay:focus { border-color: var(--gold); }
+.word-count { font-size: 0.78rem; color: #999; text-align: right; margin-top: 4px; }
+
+/* SCORE BAR */
+#score-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: white; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 9px 16px; font-size: 0.8rem; z-index: 99; }
+#score-bar span { font-weight: 800; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍔 <span>McDonald's</span> – Deutschstunde</h1>
+  <div class="badge">B1 · 5 Teile</div>
+</header>
+
+<nav>
+  <button class="active" onclick="go('text')">📖 Text</button>
+  <button onclick="go('quiz')">❓ Quiz</button>
+  <button onclick="go('bild')">🖼️ Bild</button>
+  <button onclick="go('vok')">📋 Vokabeln</button>
+  <button onclick="go('ha')">✏️ Hausaufgabe</button>
+</nav>
+
+
+<!-- ══════════════════════════════
+     TEIL 1 – TEXT
+══════════════════════════════ -->
+<div id="text" class="section active">
+  <div class="banner">
+    <h2>📖 Die Geschichte von McDonald's</h2>
+    <p>Tippe auf einen <span style="background:rgba(255,199,44,0.4);padding:1px 6px;border-radius:3px;font-weight:700;color:#6b3a00;">markierten Ausdruck</span> für die Bedeutung!</p>
+  </div>
+
+  <div class="card">
+    <h2>🏠 Die Anfänge – Zwei Brüder und eine Idee</h2>
+    <div class="story">
+      <p>Die Geschichte von McDonald's beginnt nicht in einer glitzernden Firmenzentrale, sondern in einer kleinen Imbissbude in San Bernardino, Kalifornien. Im Jahr 1940 eröffneten die Brüder <strong>Richard „Dick" McDonald</strong> und <strong>Maurice „Mac" McDonald</strong> ihr erstes Restaurant. Anfangs boten sie ein breites Sortiment an: Hotdogs, Barbecue und natürlich Hamburger. Doch das Geschäft lief nicht rund, und die Brüder wussten, dass sie <span class="rw" onclick="popRW(0)">das Ruder herumreißen</span> mussten.</p>
+      <p>Sie <span class="rw" onclick="popRW(1)">krempelten die Ärmel hoch</span> und überarbeiteten ihr Konzept von Grund auf. 1948 führten sie das sogenannte <em>„Speedee Service System"</em> ein – eine revolutionäre Methode, bei der nur 9 Produkte angeboten wurden, die Küche wie eine Fabrik funktionierte und ein Hamburger für unglaublich günstige 15 Cent verkauft wurde. Die Brüder hatten damit <span class="rw" onclick="popRW(2)">den Nagel auf den Kopf getroffen</span>: Das Konzept war ein sofortiger Erfolg.</p>
+
+      <div class="fact-box">
+        📅 <strong>1940</strong> – Eröffnung des ersten McDonald's-Restaurants in San Bernardino, Kalifornien<br>
+        📅 <strong>1948</strong> – Einführung des Speedee Service Systems (nur 9 Produkte, Fließbandprinzip)<br>
+        💰 Ein Hamburger kostete damals <strong>15 Cent</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🤝 Ray Kroc – Der Mann, der alles veränderte</h2>
+    <div class="story">
+      <p>Im Jahr 1954 kam ein gewisser <strong>Ray Kroc</strong> in das Restaurant der Brüder McDonald – als einfacher Vertreter für Milchshake-Maschinen. Er war ein Mann, der <span class="rw" onclick="popRW(3)">nicht lange um den heißen Brei herumredete</span>: Sofort erkannte er das enorme Potenzial des Konzepts und war entschlossen, McDonald's in die ganze Welt zu bringen.</p>
+      <p>1955 eröffnete Kroc in Des Plaines, Illinois, das erste Franchise-Restaurant unter seiner Führung. Er wurde regelrecht <span class="rw" onclick="popRW(4)">ins kalte Wasser geworfen</span> – er musste alles selbst aufbauen, kämpfen und riskieren. Aber Kroc hatte <span class="rw" onclick="popRW(5)">einen langen Atem</span> und ließ sich nicht entmutigen.</p>
+      <p>1961 <span class="rw" onclick="popRW(6)">übernahm er das Ruder</span> vollständig: Er kaufte die Markenrechte von den Brüdern McDonald für 2,7 Millionen Dollar – damals eine Riesensumme, die viele für Wahnsinn hielten. Doch Kroc wollte <span class="rw" onclick="popRW(7)">Nägel mit Köpfen machen</span>. Seine vier heiligen Grundsätze: <strong>Qualität, Sauberkeit, Service und Preis (QSC&V)</strong>. Kein Kompromiss, kein halbes Engagement.</p>
+
+      <div class="fact-box">
+        📅 <strong>1954</strong> – Ray Kroc besucht das McDonald's-Restaurant als Milchshake-Vertreter<br>
+        📅 <strong>1955</strong> – Krocs erstes Franchise-Restaurant in Des Plaines, Illinois<br>
+        💰 <strong>1961</strong> – Kroc kauft die Marke für <strong>2,7 Millionen Dollar</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📈 Der Aufstieg zur Weltmarke</h2>
+    <div class="story">
+      <p>Unter Krocs Führung lief das Unternehmen <span class="rw" onclick="popRW(8)">auf Hochtouren</span>. 1965 ging McDonald's an die Börse – wer damals 2.250 Dollar investierte, war wenige Jahrzehnte später Millionär. Das Unternehmen war der Konkurrenz immer <span class="rw" onclick="popRW(9)">einen Schritt voraus</span>. In den 1960er und 70er Jahren kamen die legendären Produktinnovationen:</p>
+      <ul>
+        <li><strong>1963</strong> – Ronald McDonald wird als Markenbotschafter eingeführt</li>
+        <li><strong>1968</strong> – Der legendäre <strong>Big Mac</strong> kommt auf die Karte</li>
+        <li><strong>1971</strong> – McDonald's expandiert nach Japan und Australien</li>
+        <li><strong>1976</strong> – Das erste McDonald's in der <strong>Schweiz</strong> eröffnet in Genf</li>
+        <li><strong>1979</strong> – Das <strong>Happy Meal</strong> für Kinder wird eingeführt</li>
+      </ul>
+      <p>Bald war McDonald's <span class="rw" onclick="popRW(10)">in aller Munde</span> – buchstäblich und sprichwörtlich. Das goldene „M", die <em>„Goldenen Bögen"</em>, wurde zu einem der bekanntesten Logos der Welt. McDonald's hatte <span class="rw" onclick="popRW(11)">sich einen Namen gemacht</span> wie kaum ein anderes Unternehmen in der Geschichte.</p>
+      <p>Um das Jahr 1980 konnte das Unternehmen sagen, dass es endlich <span class="rw" onclick="popRW(12)">über den Berg war</span>. Krisen und Rückschläge hatte es gegeben, aber McDonald's stand fest wie ein Fels. Wer <span class="rw" onclick="popRW(13)">über seinen Schatten gesprungen</span> war und früh in das Franchise-System eingestiegen war, hatte es <span class="rw" onclick="popRW(14)">zu etwas gebracht</span>.</p>
+
+      <div class="fact-box">
+        📅 <strong>1965</strong> – Börsengang (IPO) von McDonald's<br>
+        📅 <strong>1983</strong> – McDonald's ist die größte Fast-Food-Kette der Welt<br>
+        🌍 Heute: über <strong>100 Länder</strong>, über <strong>40.000 Restaurants</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🌍 McDonald's heute – Zahlen, die beeindrucken</h2>
+    <div class="story">
+      <p>Heute braucht McDonald's keine Werbung mehr, um sich zu erklären. Das Unternehmen hat <span class="rw" onclick="popRW(15)">grünes Licht</span> von Verbrauchern auf der ganzen Welt und bleibt die bekannteste Fast-Food-Marke der Erde. Die Zahlen sprechen <span class="rw" onclick="popRW(16)">schwarz auf weiß</span> für sich:</p>
+      <ul>
+        <li>Über <strong>40.000 Restaurants</strong> in mehr als <strong>100 Ländern</strong></li>
+        <li>Täglich werden weltweit über <strong>69 Millionen Kunden</strong> bedient</li>
+        <li>Über <strong>2 Millionen Mitarbeiter</strong> weltweit</li>
+        <li>Jahresumsatz von rund <strong>23 Milliarden US-Dollar</strong></li>
+        <li>Das Logo der „Goldenen Bögen" wird von <strong>mehr Menschen erkannt</strong> als das christliche Kreuz</li>
+        <li>McDonald's ist einer der weltgrößten <strong>Immobilienbesitzer</strong> – das eigentliche Geschäftsmodell!</li>
+        <li>Ca. <strong>80 % der Restaurants</strong> werden von selbstständigen Franchise-Nehmern betrieben</li>
+      </ul>
+      <p>Das Unternehmen steht aber auch immer wieder in der Kritik: Gesundheit, Umwelt, Arbeitsbedingungen. McDonald's muss <span class="rw" onclick="popRW(17)">immer wieder das Ruder herumreißen</span> und sich anpassen – mit Salaten, veganen Optionen und nachhaltiger Verpackung. Die Zukunft bleibt spannend.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     TEIL 2 – QUIZ
+══════════════════════════════ -->
+<div id="quiz" class="section">
+  <div class="banner">
+    <h2>❓ Quiz – 10 Fragen zum Text</h2>
+    <p>Lies den Text gut durch und beantworte dann die Fragen!</p>
+  </div>
+
+  <div class="card">
+    <div class="qblock" id="q1">
+      <p>1. In welchem Jahr wurde das erste McDonald's-Restaurant eröffnet?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q1',false)">a) 1928</button>
+        <button class="qbtn" onclick="qmc(this,'q1',true)">b) 1940</button>
+        <button class="qbtn" onclick="qmc(this,'q1',false)">c) 1955</button>
+        <button class="qbtn" onclick="qmc(this,'q1',false)">d) 1961</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q2">
+      <p>2. Wie hießen die Gründer von McDonald's?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q2',false)">a) Ray und Ronald McDonald</button>
+        <button class="qbtn" onclick="qmc(this,'q2',false)">b) Henry und James McDonald</button>
+        <button class="qbtn" onclick="qmc(this,'q2',true)">c) Richard und Maurice McDonald</button>
+        <button class="qbtn" onclick="qmc(this,'q2',false)">d) Dick und Ray McDonald</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q3">
+      <p>3. Was war Ray Krocs Beruf, als er das Restaurant der Brüder besuchte?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q3',false)">a) Bäcker</button>
+        <button class="qbtn" onclick="qmc(this,'q3',false)">b) Journalist</button>
+        <button class="qbtn" onclick="qmc(this,'q3',true)">c) Vertreter für Milchshake-Maschinen</button>
+        <button class="qbtn" onclick="qmc(this,'q3',false)">d) Bankmanager</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q4">
+      <p>4. Für wie viel Geld kaufte Ray Kroc 1961 die Markenrechte?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q4',false)">a) 500.000 Dollar</button>
+        <button class="qbtn" onclick="qmc(this,'q4',false)">b) 1,5 Millionen Dollar</button>
+        <button class="qbtn" onclick="qmc(this,'q4',true)">c) 2,7 Millionen Dollar</button>
+        <button class="qbtn" onclick="qmc(this,'q4',false)">d) 10 Millionen Dollar</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q5">
+      <p>5. Was waren Krocs vier Grundsätze?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q5',false)">a) Schnelligkeit, Günstig, Groß, Lecker</button>
+        <button class="qbtn" onclick="qmc(this,'q5',true)">b) Qualität, Sauberkeit, Service und Preis</button>
+        <button class="qbtn" onclick="qmc(this,'q5',false)">c) Werbung, Expansion, Franchise, Gewinn</button>
+        <button class="qbtn" onclick="qmc(this,'q5',false)">d) Design, Innovation, Teamwork, Wachstum</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q6">
+      <p>6. Wann wurde der Big Mac eingeführt?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q6',false)">a) 1955</button>
+        <button class="qbtn" onclick="qmc(this,'q6',false)">b) 1963</button>
+        <button class="qbtn" onclick="qmc(this,'q6',true)">c) 1968</button>
+        <button class="qbtn" onclick="qmc(this,'q6',false)">d) 1979</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q7">
+      <p>7. In welcher Stadt eröffnete 1976 das erste McDonald's in der Schweiz?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q7',false)">a) Zürich</button>
+        <button class="qbtn" onclick="qmc(this,'q7',true)">b) Genf</button>
+        <button class="qbtn" onclick="qmc(this,'q7',false)">c) Bern</button>
+        <button class="qbtn" onclick="qmc(this,'q7',false)">d) Basel</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q8">
+      <p>8. Wie viele Kunden bedient McDonald's täglich weltweit?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q8',false)">a) ca. 10 Millionen</button>
+        <button class="qbtn" onclick="qmc(this,'q8',false)">b) ca. 30 Millionen</button>
+        <button class="qbtn" onclick="qmc(this,'q8',true)">c) über 69 Millionen</button>
+        <button class="qbtn" onclick="qmc(this,'q8',false)">d) über 200 Millionen</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q9">
+      <p>9. Was bedeutet die Redewendung „das Ruder herumreißen"?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q9',false)">a) Ein Boot steuern</button>
+        <button class="qbtn" onclick="qmc(this,'q9',false)">b) Eine schwere Entscheidung treffen</button>
+        <button class="qbtn" onclick="qmc(this,'q9',true)">c) Eine schlechte Entwicklung schnell umkehren</button>
+        <button class="qbtn" onclick="qmc(this,'q9',false)">d) Geld ausgeben</button>
+      </div>
+    </div>
+
+    <div class="qblock" id="q10">
+      <p>10. Wie wird das McDonald's-Logo auch genannt?</p>
+      <div class="qopts">
+        <button class="qbtn" onclick="qmc(this,'q10',false)">a) Die roten Bögen</button>
+        <button class="qbtn" onclick="qmc(this,'q10',false)">b) Das goldene M-Zeichen</button>
+        <button class="qbtn" onclick="qmc(this,'q10',true)">c) Die Goldenen Bögen</button>
+        <button class="qbtn" onclick="qmc(this,'q10',false)">d) Das Fast-Food-Symbol</button>
+      </div>
+    </div>
+
+    <div id="quiz-result" style="display:none;margin-top:14px;padding:14px;border-radius:12px;font-weight:700;font-size:1rem;text-align:center;"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     TEIL 3 – BILD
+══════════════════════════════ -->
+<div id="bild" class="section">
+  <div class="banner">
+    <h2>🖼️ Entdecke 20 Gegenstände!</h2>
+    <p>Klicke auf eine Nummer im Bild → errate den deutschen Begriff!</p>
+  </div>
+
+  <div class="card" style="padding:12px;">
+    <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+    <p style="font-size:0.82rem;color:#666;margin-bottom:10px;text-align:center;">Gefunden: <strong id="found-count">0</strong> von 20</p>
+
+    <div class="bild-popup" id="bild-popup">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>
+          <div class="bp-num" id="bp-num">Nr. 1</div>
+          <div class="bp-word" id="bp-word"></div>
+          <div class="bp-art" id="bp-art"></div>
+          <div class="bp-example" id="bp-ex"></div>
+        </div>
+        <button onclick="closeBildPopup()" style="margin-left:auto;background:#eee;border:none;border-radius:50%;width:32px;height:32px;font-size:1.1rem;cursor:pointer;flex-shrink:0;">✕</button>
+      </div>
+    </div>
+
+    <div class="img-wrap">
+<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif">
+  <!-- FLOOR -->
+  <rect width="640" height="420" fill="#f0e0c0"/>
+  <!-- BACK WALL -->
+  <rect width="640" height="200" fill="#c8200f"/>
+  <!-- WALL BASEBOARD -->
+  <rect y="195" width="640" height="12" fill="#a01808"/>
+
+  <!-- WINDOW LEFT -->
+  <rect x="18" y="18" width="100" height="72" rx="5" fill="#87ceeb" stroke="white" stroke-width="3"/>
+  <line x1="68" y1="18" x2="68" y2="90" stroke="white" stroke-width="2"/>
+  <line x1="18" y1="54" x2="118" y2="54" stroke="white" stroke-width="2"/>
+  <rect x="22" y="22" width="44" height="30" fill="rgba(200,230,255,0.4)"/>
+
+  <!-- WINDOW RIGHT -->
+  <rect x="522" y="18" width="100" height="72" rx="5" fill="#87ceeb" stroke="white" stroke-width="3"/>
+  <line x1="572" y1="18" x2="572" y2="90" stroke="white" stroke-width="2"/>
+  <line x1="522" y1="54" x2="622" y2="54" stroke="white" stroke-width="2"/>
+
+  <!-- GOLDEN M LOGO on wall -->
+  <g transform="translate(268,10)">
+    <path d="M10,70 L10,0 L30,40 L50,0 L70,40 L90,0 L90,70 Z" fill="#FFC72C" stroke="#e6ac00" stroke-width="1.5"/>
+    <!-- shine -->
+    <path d="M10,70 L10,0 L30,40 L50,0" fill="rgba(255,255,180,0.3)"/>
+  </g>
+
+  <!-- MENU BOARD LEFT -->
+  <rect x="145" y="12" width="120" height="88" rx="5" fill="#111"/>
+  <rect x="149" y="16" width="112" height="80" rx="3" fill="#1a1a2e"/>
+  <text x="205" y="35" font-size="9" fill="white" text-anchor="middle" font-weight="bold">MENÜ</text>
+  <text x="205" y="50" font-size="8" fill="#FFC72C" text-anchor="middle">Big Mac ......... 8.90</text>
+  <text x="205" y="63" font-size="8" fill="white" text-anchor="middle">McChicken ..... 6.50</text>
+  <text x="205" y="76" font-size="8" fill="#FFC72C" text-anchor="middle">Pommes ......... 3.90</text>
+  <text x="205" y="89" font-size="8" fill="white" text-anchor="middle">McFlurry ......... 3.50</text>
+
+  <!-- MENU BOARD RIGHT -->
+  <rect x="375" y="12" width="120" height="88" rx="5" fill="#111"/>
+  <rect x="379" y="16" width="112" height="80" rx="3" fill="#1a1a2e"/>
+  <text x="435" y="35" font-size="9" fill="white" text-anchor="middle" font-weight="bold">MENÜ</text>
+  <text x="435" y="50" font-size="8" fill="#FFC72C" text-anchor="middle">Happy Meal ..... 7.90</text>
+  <text x="435" y="63" font-size="8" fill="white" text-anchor="middle">Milchshake .... 4.50</text>
+  <text x="435" y="76" font-size="8" fill="#FFC72C" text-anchor="middle">McCafé ........... 3.90</text>
+  <text x="435" y="89" font-size="8" fill="white" text-anchor="middle">Salat ............... 5.90</text>
+
+  <!-- COUNTER / THEKE -->
+  <rect x="0" y="172" width="640" height="52" fill="#e8c060"/>
+  <rect x="0" y="218" width="640" height="8" fill="#c8a040"/>
+
+  <!-- CASH REGISTER / KASSE -->
+  <rect x="48" y="148" width="78" height="40" rx="4" fill="#2a2a2a"/>
+  <rect x="52" y="152" width="70" height="30" rx="3" fill="#3a3a3a"/>
+  <rect x="56" y="156" width="62" height="20" rx="2" fill="#001a00"/>
+  <text x="87" y="169" font-size="7" fill="#00ff88" text-anchor="middle">€ 12.90</text>
+  <rect x="52" y="184" width="70" height="10" rx="2" fill="#444"/>
+  <!-- keys -->
+  <rect x="56" y="188" width="8" height="4" rx="1" fill="#777"/><rect x="68" y="188" width="8" height="4" rx="1" fill="#777"/>
+  <rect x="80" y="188" width="8" height="4" rx="1" fill="#777"/><rect x="92" y="188" width="8" height="4" rx="1" fill="#999"/>
+  <rect x="104" y="188" width="14" height="4" rx="1" fill="#c8200f"/>
+
+  <!-- EMPLOYEE / ANGESTELLTE (at counter right side) -->
+  <circle cx="560" cy="148" r="18" fill="#f5c5a0"/>
+  <!-- hair -->
+  <path d="M543,140 Q560,125 577,140" fill="#5a3010" stroke="none"/>
+  <!-- uniform shirt -->
+  <rect x="542" y="166" width="36" height="44" rx="5" fill="#c8200f"/>
+  <!-- collar -->
+  <path d="M553,166 L560,174 L567,166" fill="white"/>
+  <!-- hat -->
+  <rect x="548" y="128" width="24" height="8" rx="3" fill="#c8200f"/>
+  <rect x="544" y="134" width="32" height="5" fill="#c8200f"/>
+  <!-- arms -->
+  <line x1="542" y1="174" x2="524" y2="195" stroke="#f5c5a0" stroke-width="9" stroke-linecap="round"/>
+  <line x1="578" y1="174" x2="596" y2="195" stroke="#f5c5a0" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- TABLE 1 -->
+  <rect x="60" y="295" width="220" height="90" rx="10" fill="#c8a050"/>
+  <rect x="64" y="299" width="212" height="82" rx="8" fill="#d4b060"/>
+  <!-- table legs -->
+  <rect x="80" y="382" width="12" height="38" fill="#b09040"/>
+  <rect x="248" y="382" width="12" height="38" fill="#b09040"/>
+
+  <!-- CHAIR -->
+  <rect x="30" y="310" width="50" height="40" rx="6" fill="#e05020"/>
+  <rect x="30" y="300" width="50" height="14" rx="4" fill="#c04010"/>
+  <rect x="32" y="348" width="8" height="28" fill="#a03010"/>
+  <rect x="68" y="348" width="8" height="28" fill="#a03010"/>
+
+  <!-- TRAY / TABLETT on table -->
+  <rect x="85" y="310" width="180" height="68" rx="6" fill="#8B6914"/>
+  <rect x="89" y="314" width="172" height="60" rx="4" fill="#a07820"/>
+
+  <!-- BURGER on tray -->
+  <ellipse cx="135" cy="345" rx="28" ry="10" fill="#8B4513"/>
+  <ellipse cx="135" cy="338" rx="26" ry="9" fill="#c8a060"/>
+  <rect x="109" y="335" width="52" height="8" fill="#e0c080"/>
+  <ellipse cx="135" cy="335" rx="26" ry="5" fill="#6B8E23"/>
+  <ellipse cx="135" cy="330" rx="27" ry="9" fill="#8B4513"/>
+  <ellipse cx="135" cy="323" rx="30" ry="10" fill="#d4905a"/>
+  <!-- sesame seeds -->
+  <ellipse cx="128" cy="321" rx="3" ry="2" fill="white"/>
+  <ellipse cx="140" cy="319" rx="3" ry="2" fill="white"/>
+  <ellipse cx="133" cy="317" rx="2" ry="1.5" fill="white"/>
+
+  <!-- POMMES FRITES box + fries -->
+  <rect x="183" y="318" width="36" height="44" rx="3" fill="#c8200f"/>
+  <text x="201" y="336" font-size="7" fill="#FFC72C" text-anchor="middle" font-weight="bold">Mc</text>
+  <!-- fries sticks -->
+  <rect x="188" y="296" width="4" height="24" rx="2" fill="#FFC72C"/>
+  <rect x="194" y="292" width="4" height="28" rx="2" fill="#FFD700"/>
+  <rect x="200" y="294" width="4" height="26" rx="2" fill="#FFC72C"/>
+  <rect x="206" y="298" width="4" height="22" rx="2" fill="#FFD700"/>
+  <rect x="212" y="295" width="4" height="25" rx="2" fill="#FFC72C"/>
+
+  <!-- COLA CUP on table -->
+  <path d="M238,318 L246,362 L258,362 L266,318 Z" fill="#c8200f"/>
+  <path d="M236,314 L268,314 L268,320 L236,320 Z" fill="#ddd" rx="2"/>
+  <text x="252" y="340" font-size="8" fill="#FFC72C" text-anchor="middle" font-weight="bold">M</text>
+  <!-- straw in cola -->
+  <line x1="255" y1="314" x2="262" y2="290" stroke="#e00" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- NAPKIN / SERVIETTE beside tray -->
+  <rect x="245" y="310" width="22" height="28" rx="2" fill="white" stroke="#ddd" stroke-width="1" transform="rotate(-10,256,324)"/>
+  <line x1="247" y1="318" x2="265" y2="318" stroke="#eee" stroke-width="0.8" transform="rotate(-10,256,324)"/>
+  <line x1="247" y1="323" x2="265" y2="323" stroke="#eee" stroke-width="0.8" transform="rotate(-10,256,324)"/>
+
+  <!-- KETCHUP packet -->
+  <rect x="89" y="356" width="28" height="14" rx="4" fill="#c8200f"/>
+  <text x="103" y="366" font-size="6" fill="white" text-anchor="middle">KETCHUP</text>
+
+  <!-- SALT SHAKER / SALZSTREUER -->
+  <rect x="89" y="318" width="14" height="32" rx="7" fill="white" stroke="#ccc" stroke-width="1"/>
+  <rect x="92" y="316" width="8" height="5" rx="2" fill="#ddd"/>
+  <circle cx="94" cy="326" r="1.5" fill="#ccc"/>
+  <circle cx="98" cy="328" r="1.5" fill="#ccc"/>
+  <circle cx="94" cy="332" r="1.5" fill="#ccc"/>
+
+  <!-- HAPPY MEAL BOX (floor near table) -->
+  <rect x="30" y="370" width="48" height="36" rx="4" fill="#FFC72C"/>
+  <rect x="30" y="370" width="48" height="12" rx="4" fill="#c8200f"/>
+  <text x="54" y="380" font-size="7" fill="white" text-anchor="middle" font-weight="bold">Happy</text>
+  <text x="54" y="389" font-size="7" fill="white" text-anchor="middle" font-weight="bold">Meal</text>
+  <text x="54" y="398" font-size="7" fill="#c8200f" text-anchor="middle">🍟 🎁</text>
+
+  <!-- TRASH CAN / MÜLLEIMER -->
+  <rect x="598" y="290" width="36" height="50" rx="4" fill="#555"/>
+  <rect x="594" y="286" width="44" height="10" rx="3" fill="#444"/>
+  <rect x="602" y="296" width="28" height="4" rx="2" fill="#c8200f"/>
+  <text x="616" y="320" font-size="8" fill="#999" text-anchor="middle">🍔</text>
+
+  <!-- McCafé PAPER CUP / PAPPBECHER -->
+  <path d="M390,210 L396,260 L414,260 L420,210 Z" fill="white" stroke="#ccc" stroke-width="1"/>
+  <rect x="388" y="206" width="34" height="7" rx="2" fill="#bbb"/>
+  <path d="M392,215 L418,215" stroke="#6B3FA0" stroke-width="2"/>
+  <text x="405" y="238" font-size="7" fill="#6B3FA0" text-anchor="middle" font-weight="bold">McCafé</text>
+  <!-- coffee straw -->
+  <line x1="410" y1="206" x2="416" y2="186" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- MILKSHAKE (on counter) -->
+  <path d="M450,186 L455,220 L475,220 L480,186 Z" fill="#ffb6c1"/>
+  <rect x="447" y="182" width="36" height="8" rx="3" fill="#ddd"/>
+  <ellipse cx="465" cy="180" rx="18" ry="8" fill="white"/>
+  <ellipse cx="465" cy="178" rx="14" ry="6" fill="#ffb6c1"/>
+  <!-- cherry on top -->
+  <circle cx="465" cy="173" r="5" fill="#c8200f"/>
+  <line x1="462" y1="182" x2="465" y2="186" stroke="#6B8E23" stroke-width="1.5"/>
+  <!-- straw -->
+  <line x1="472" y1="182" x2="479" y2="154" stroke="#ff69b4" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- HOTSPOT CIRCLES (numbered, clickable) -->
+  <!-- 1: Logo M -->
+  <g class="hotspot" id="hs1" onclick="showBild(1)">
+    <circle cx="313" cy="45" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="313" y="49" text-anchor="middle">1</text>
+  </g>
+  <!-- 2: Menütafel links -->
+  <g class="hotspot" id="hs2" onclick="showBild(2)">
+    <circle cx="205" cy="56" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="205" y="60" text-anchor="middle">2</text>
+  </g>
+  <!-- 3: Fenster links -->
+  <g class="hotspot" id="hs3" onclick="showBild(3)">
+    <circle cx="68" cy="54" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="68" y="58" text-anchor="middle">3</text>
+  </g>
+  <!-- 4: Theke -->
+  <g class="hotspot" id="hs4" onclick="showBild(4)">
+    <circle cx="310" cy="192" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="310" y="196" text-anchor="middle">4</text>
+  </g>
+  <!-- 5: Kasse -->
+  <g class="hotspot" id="hs5" onclick="showBild(5)">
+    <circle cx="87" cy="168" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="87" y="172" text-anchor="middle">5</text>
+  </g>
+  <!-- 6: Angestellte/Uniform -->
+  <g class="hotspot" id="hs6" onclick="showBild(6)">
+    <circle cx="560" cy="175" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="560" y="179" text-anchor="middle">6</text>
+  </g>
+  <!-- 7: Tisch -->
+  <g class="hotspot" id="hs7" onclick="showBild(7)">
+    <circle cx="170" cy="358" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="170" y="362" text-anchor="middle">7</text>
+  </g>
+  <!-- 8: Stuhl -->
+  <g class="hotspot" id="hs8" onclick="showBild(8)">
+    <circle cx="55" cy="325" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="55" y="329" text-anchor="middle">8</text>
+  </g>
+  <!-- 9: Tablett -->
+  <g class="hotspot" id="hs9" onclick="showBild(9)">
+    <circle cx="175" cy="395" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="175" y="399" text-anchor="middle">9</text>
+  </g>
+  <!-- 10: Burger -->
+  <g class="hotspot" id="hs10" onclick="showBild(10)">
+    <circle cx="135" cy="330" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="135" y="334" text-anchor="middle">10</text>
+  </g>
+  <!-- 11: Pommes frites -->
+  <g class="hotspot" id="hs11" onclick="showBild(11)">
+    <circle cx="201" cy="315" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="201" y="319" text-anchor="middle">11</text>
+  </g>
+  <!-- 12: Cola -->
+  <g class="hotspot" id="hs12" onclick="showBild(12)">
+    <circle cx="252" cy="340" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="252" y="344" text-anchor="middle">12</text>
+  </g>
+  <!-- 13: Strohhalm -->
+  <g class="hotspot" id="hs13" onclick="showBild(13)">
+    <circle cx="264" cy="295" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="264" y="299" text-anchor="middle">13</text>
+  </g>
+  <!-- 14: Serviette -->
+  <g class="hotspot" id="hs14" onclick="showBild(14)">
+    <circle cx="260" cy="320" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="260" y="324" text-anchor="middle">14</text>
+  </g>
+  <!-- 15: Ketchup -->
+  <g class="hotspot" id="hs15" onclick="showBild(15)">
+    <circle cx="103" cy="365" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="103" y="369" text-anchor="middle">15</text>
+  </g>
+  <!-- 16: Salzstreuer -->
+  <g class="hotspot" id="hs16" onclick="showBild(16)">
+    <circle cx="96" cy="320" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="96" y="324" text-anchor="middle">16</text>
+  </g>
+  <!-- 17: Happy Meal Box -->
+  <g class="hotspot" id="hs17" onclick="showBild(17)">
+    <circle cx="54" cy="385" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="54" y="389" text-anchor="middle">17</text>
+  </g>
+  <!-- 18: Mülleimer -->
+  <g class="hotspot" id="hs18" onclick="showBild(18)">
+    <circle cx="616" cy="315" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="616" y="319" text-anchor="middle">18</text>
+  </g>
+  <!-- 19: Pappbecher (McCafé) -->
+  <g class="hotspot" id="hs19" onclick="showBild(19)">
+    <circle cx="405" cy="235" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="405" y="239" text-anchor="middle">19</text>
+  </g>
+  <!-- 20: Milchshake -->
+  <g class="hotspot" id="hs20" onclick="showBild(20)">
+    <circle cx="465" cy="198" r="13" fill="#c8200f" class="hs-bg" opacity="0.9"/>
+    <text x="465" y="202" text-anchor="middle">20</text>
+  </g>
+</svg>
+    </div>
+
+    <div class="bild-controls">
+      <button class="ctrl-btn primary" onclick="revealAll()">👁️ Alle zeigen</button>
+      <button class="ctrl-btn secondary" onclick="resetBild()">🔄 Zurücksetzen</button>
+    </div>
+
+    <div class="found-list" id="found-list"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     TEIL 4 – VOKABELN
+══════════════════════════════ -->
+<div id="vok" class="section">
+  <div class="banner">
+    <h2>📋 Vokabeln &amp; Redewendungen</h2>
+    <p>Alle Begriffe aus dem Text – zum Nachlernen und Wiederholen</p>
+  </div>
+
+  <div class="card">
+    <h2>🍔 Nomen – Unternehmen &amp; Wirtschaft</h2>
+    <div class="vok-section">
+      <div class="vok-row"><div><div class="vok-word">die Imbissbude, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">kleines, einfaches Schnellrestaurant</div></div>
+      <div class="vok-row"><div><div class="vok-word">das Franchise, -s</div><div class="vok-art">Substantiv (n)</div></div><div class="vok-def">Geschäftsmodell: Lizenz für eine Marke kaufen</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Franchise-Nehmer, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Person, die ein Franchise betreibt</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Weltmarke, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">eine weltweit bekannte Marke</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Jahresumsatz, ¨-e</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Gesamteinnahmen eines Unternehmens pro Jahr</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Börsengang, ¨-e</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">erstmaliger Verkauf von Aktien (IPO)</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Grundsatz, ¨-e</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">wichtiges Prinzip oder Regel</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Expansion, -en</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">Ausdehnung, Wachstum eines Unternehmens</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Firmenzentrale, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">Hauptsitz eines Unternehmens</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Markenbotschafter, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Person/Figur, die eine Marke repräsentiert</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Markenrechte (Pl.)</div><div class="vok-art">Substantiv (n, Pl.)</div></div><div class="vok-def">rechtliche Eigentumsrechte an einer Marke</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Immobilienbesitzer, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">jemand, dem Gebäude und Grundstücke gehören</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🍟 Nomen – Essen &amp; Restaurant</h2>
+    <div class="vok-section">
+      <div class="vok-row"><div><div class="vok-word">das Tablett, -s</div><div class="vok-art">Substantiv (n)</div></div><div class="vok-def">flache Unterlage zum Tragen von Speisen</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Pommes frites (Pl.)</div><div class="vok-art">Substantiv (f, Pl.)</div></div><div class="vok-def">gebratene Kartoffelstreifen</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Milchshake, -s</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">dickes, kaltes Getränk aus Milch und Eis</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Strohhalm, ¨-e</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Röhrchen zum Trinken</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Serviette, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">Papier zum Abwischen des Mundes</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Salzstreuer, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Behälter für Salz mit kleinen Löchern</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Pappbecher, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Einwegbecher aus Pappe (z.B. für Kaffee)</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Theke, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">Tresen/Counter in einem Restaurant</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Menütafel, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">große Tafel/Bildschirm mit dem Speiseangebot</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Kasse, -n</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">Gerät/Ort zum Bezahlen</div></div>
+      <div class="vok-row"><div><div class="vok-word">der Mülleimer, -</div><div class="vok-art">Substantiv (m)</div></div><div class="vok-def">Behälter für Abfall</div></div>
+      <div class="vok-row"><div><div class="vok-word">die Uniform, -en</div><div class="vok-art">Substantiv (f)</div></div><div class="vok-def">einheitliche Arbeitskleidung</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚡ Verben &amp; Adjektive</h2>
+    <div class="vok-section">
+      <div class="vok-row"><div><div class="vok-word">expandieren</div><div class="vok-art">Verb</div></div><div class="vok-def">wachsen, sich ausdehnen</div></div>
+      <div class="vok-row"><div><div class="vok-word">revolutionär</div><div class="vok-art">Adjektiv</div></div><div class="vok-def">völlig neu und bahnbrechend</div></div>
+      <div class="vok-row"><div><div class="vok-word">standardisiert</div><div class="vok-art">Adjektiv</div></div><div class="vok-def">nach einem einheitlichen Standard hergestellt</div></div>
+      <div class="vok-row"><div><div class="vok-word">entmutigen</div><div class="vok-art">Verb</div></div><div class="vok-def">jemanden mutlos machen</div></div>
+      <div class="vok-row"><div><div class="vok-word">beeindrucken</div><div class="vok-art">Verb</div></div><div class="vok-def">großen Eindruck machen; imponieren</div></div>
+      <div class="vok-row"><div><div class="vok-word">preisgünstig</div><div class="vok-art">Adjektiv</div></div><div class="vok-def">günstig im Preis; billig</div></div>
+      <div class="vok-row"><div><div class="vok-word">effizient</div><div class="vok-art">Adjektiv</div></div><div class="vok-def">ohne Verschwendung; leistungsstark</div></div>
+      <div class="vok-row"><div><div class="vok-word">nachhaltig</div><div class="vok-art">Adjektiv</div></div><div class="vok-def">umweltfreundlich und langfristig denkend</div></div>
+      <div class="vok-row"><div><div class="vok-word">betreiben</div><div class="vok-art">Verb (betrieb, betrieben)</div></div><div class="vok-def">ein Geschäft/Unternehmen führen</div></div>
+      <div class="vok-row"><div><div class="vok-word">riskieren</div><div class="vok-art">Verb</div></div><div class="vok-def">etwas aufs Spiel setzen; ein Risiko eingehen</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💬 Redewendungen aus dem Text</h2>
+    <div class="rw-item"><div class="ri-phrase">das Ruder herumreißen</div><div class="ri-meaning">Eine schlechte Entwicklung schnell und entschlossen umkehren.</div><div class="ri-ex">„Das Unternehmen muss das Ruder herumreißen, sonst droht der Bankrott."</div></div>
+    <div class="rw-item"><div class="ri-phrase">die Ärmel hochkrempeln</div><div class="ri-meaning">Sich energisch an die Arbeit machen; ernsthaft beginnen.</div><div class="ri-ex">„Es gibt viel zu tun – also Ärmel hochkrempeln!"</div></div>
+    <div class="rw-item"><div class="ri-phrase">den Nagel auf den Kopf treffen</div><div class="ri-meaning">Genau das Richtige sagen oder tun; eine präzise Analyse liefern.</div><div class="ri-ex">„Mit ihrer Erklärung hat sie den Nagel auf den Kopf getroffen."</div></div>
+    <div class="rw-item"><div class="ri-phrase">nicht um den heißen Brei herumreden</div><div class="ri-meaning">Direkt und offen sagen, was man denkt; keine Umschweife machen.</div><div class="ri-ex">„Ich rede nicht um den heißen Brei herum: Das Projekt ist gescheitert."</div></div>
+    <div class="rw-item"><div class="ri-phrase">ins kalte Wasser geworfen werden</div><div class="ri-meaning">Ohne Vorbereitung mit einer schwierigen Aufgabe konfrontiert werden.</div><div class="ri-ex">„Am ersten Arbeitstag wurde ich ins kalte Wasser geworfen."</div></div>
+    <div class="rw-item"><div class="ri-phrase">einen langen Atem haben</div><div class="ri-meaning">Ausdauer und Durchhaltevermögen besitzen; nicht aufgeben.</div><div class="ri-ex">„Für dieses Projekt braucht man wirklich einen langen Atem."</div></div>
+    <div class="rw-item"><div class="ri-phrase">das Ruder übernehmen</div><div class="ri-meaning">Die Führung oder Kontrolle übernehmen.</div><div class="ri-ex">„Als der Chef krank wurde, übernahm sie das Ruder."</div></div>
+    <div class="rw-item"><div class="ri-phrase">Nägel mit Köpfen machen</div><div class="ri-meaning">Etwas gründlich und konsequent erledigen; keine halben Sachen machen.</div><div class="ri-ex">„Wenn wir das Projekt starten, machen wir Nägel mit Köpfen."</div></div>
+    <div class="rw-item"><div class="ri-phrase">auf Hochtouren laufen</div><div class="ri-meaning">Mit maximaler Leistung oder Kapazität arbeiten; auf vollen Touren sein.</div><div class="ri-ex">„Die Produktion läuft auf Hochtouren – wir haben riesige Aufträge."</div></div>
+    <div class="rw-item"><div class="ri-phrase">in aller Munde sein</div><div class="ri-meaning">Von allen besprochen werden; überall bekannt sein.</div><div class="ri-ex">„Nach dem Skandal war das Unternehmen in aller Munde."</div></div>
+    <div class="rw-item"><div class="ri-phrase">einen Schritt voraus sein</div><div class="ri-meaning">Einen Vorteil haben; besser vorbereitet sein als die Konkurrenz.</div><div class="ri-ex">„Dank ihrer Innovation ist die Firma immer einen Schritt voraus."</div></div>
+    <div class="rw-item"><div class="ri-phrase">sich einen Namen machen</div><div class="ri-meaning">Bekannt und angesehen werden; eine gute Reputation aufbauen.</div><div class="ri-ex">„Mit seiner Arbeit hat er sich in der Branche einen Namen gemacht."</div></div>
+    <div class="rw-item"><div class="ri-phrase">über den Berg sein</div><div class="ri-meaning">Das Schlimmste überstanden haben; auf dem Weg der Besserung sein.</div><div class="ri-ex">„Das Unternehmen ist endlich über den Berg – die Verluste sind aufgeholt."</div></div>
+    <div class="rw-item"><div class="ri-phrase">über seinen Schatten springen</div><div class="ri-meaning">Sich überwinden und etwas tun, das man normalerweise nicht tun würde.</div><div class="ri-ex">„Er musste über seinen Schatten springen und um Hilfe bitten."</div></div>
+    <div class="rw-item"><div class="ri-phrase">es zu etwas bringen</div><div class="ri-meaning">Erfolgreich werden; eine gute Position im Leben erreichen.</div><div class="ri-ex">„Mit Fleiß und Ausdauer kann jeder es zu etwas bringen."</div></div>
+    <div class="rw-item"><div class="ri-phrase">grünes Licht geben</div><div class="ri-meaning">Die Erlaubnis geben, mit etwas anzufangen oder weiterzumachen.</div><div class="ri-ex">„Der Vorstand hat grünes Licht für die neue Strategie gegeben."</div></div>
+    <div class="rw-item"><div class="ri-phrase">schwarz auf weiß</div><div class="ri-meaning">Schriftlich bestätigt; offiziell und nicht zu leugnen.</div><div class="ri-ex">„Ich habe den Vertrag schwarz auf weiß – er kann nicht zurückrudern."</div></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     TEIL 5 – HAUSAUFGABE
+══════════════════════════════ -->
+<div id="ha" class="section">
+  <div class="banner">
+    <h2>✏️ Hausaufgabe</h2>
+    <p>Schreibe einen Aufsatz über McDonald's in der Schweiz!</p>
+  </div>
+
+  <div class="ha-block">
+    <h2>📝 Aufgabenstellung</h2>
+    <p style="font-size:0.9rem;color:#333;line-height:1.7;margin-bottom:14px;">
+      Schreibe einen <strong>Aufsatz über McDonald's in der Schweiz</strong> (mindestens <strong>200 Wörter</strong>). Verwende dabei mindestens <strong>5 Redewendungen</strong> aus der Stunde und baue folgende Punkte ein:
+    </p>
+    <ul class="ha-checklist">
+      <li>Die Geschichte von McDonald's in der Schweiz – wann kam McDonald's, wo wurde das erste Restaurant eröffnet?</li>
+      <li>Unternehmensstatistiken heute – wie viele Restaurants, wie viele Mitarbeiter, besondere Zahlen?</li>
+      <li>Menü-Highlights in der Schweiz – welche typisch schweizerischen Spezialitäten gibt es bei McDonald's Schweiz?</li>
+      <li>Preise in der Schweiz – ist McDonald's in der Schweiz teurer als in Deutschland? Warum?</li>
+      <li>Nachhaltigkeit und lokale Produkte – woher kommen die Zutaten bei McDonald's Schweiz?</li>
+      <li>Deine persönliche Meinung – magst du McDonald's? Warum (nicht)?</li>
+    </ul>
+  </div>
+
+  <div class="ha-block">
+    <h2>🇨🇭 Fakten für deinen Aufsatz</h2>
+    <p style="font-size:0.83rem;color:#777;margin-bottom:10px;"><em>Diese Fakten kannst du verwenden oder selbst weiter recherchieren:</em></p>
+    <div class="ha-fact">📅 <strong>1976</strong> – Das erste McDonald's der Schweiz eröffnete in <strong>Genf (Genève)</strong></div>
+    <div class="ha-fact">🏪 Heute gibt es rund <strong>170 McDonald's-Restaurants</strong> in der Schweiz (Stand: ca. 2024)</div>
+    <div class="ha-fact">👥 McDonald's Schweiz beschäftigt rund <strong>10.000 Mitarbeiter</strong></div>
+    <div class="ha-fact">🐄 Rund <strong>40 % der Zutaten</strong> kommen direkt aus der Schweiz – darunter Rindfleisch, Milch und Kartoffeln</div>
+    <div class="ha-fact">🧀 Schweizer Spezialitäten auf dem Menü: <strong>McLand</strong> (Schweizer Rindfleisch), <strong>McRaclette</strong> (saisonales Winterangebot mit Raclettekäse), Birchermüesli beim Frühstück</div>
+    <div class="ha-fact">💰 Ein Big Mac kostet in der Schweiz ca. <strong>8–9 CHF</strong> – im Vergleich zu ca. 5–6 EUR in Deutschland deutlich teurer (Schweiz ist ein Hochpreisland)</div>
+    <div class="ha-fact">☕ <strong>McCafé</strong> ist in der Schweiz sehr beliebt – Schweizer lieben guten Kaffee</div>
+    <div class="ha-fact">♻️ McDonald's Schweiz hat klare Nachhaltigkeitsziele: Reduktion von Plastik, regionale Beschaffung, weniger CO₂</div>
+  </div>
+
+  <div class="ha-block">
+    <h2>🚀 Nützliche Satzanfänge</h2>
+    <ul class="starter-list">
+      <li>„Das erste McDonald's in der Schweiz wurde im Jahr 1976 in Genf eröffnet …"</li>
+      <li>„Heute gibt es in der Schweiz rund 170 Restaurants, die …"</li>
+      <li>„Im Vergleich zu Deutschland sind die Preise in der Schweiz deutlich höher, weil …"</li>
+      <li>„Besonders interessant finde ich, dass McDonald's Schweiz …"</li>
+      <li>„Ein typisches Schweizer Highlight auf dem Menü ist der/das …, weil …"</li>
+      <li>„Meiner Meinung nach ist McDonald's …, denn …"</li>
+      <li>„McDonald's hat sich in der Schweiz wirklich einen Namen gemacht, indem …"</li>
+      <li>„Was mich überrascht hat: McDonald's musste in der Schweiz über seinen Schatten springen und …"</li>
+    </ul>
+  </div>
+
+  <div class="ha-block">
+    <h2>✍️ Schreibe hier deinen Aufsatz</h2>
+    <textarea class="essay" id="essay-area" placeholder="Beginne hier mit deinem Aufsatz über McDonald's in der Schweiz …" oninput="countWords()"></textarea>
+    <div class="word-count" id="wc">Wörter: 0 / Minimum: 200</div>
+
+    <div style="margin-top:12px;padding:12px;background:#f0f6ff;border-radius:10px;">
+      <p style="font-size:0.82rem;color:#555;font-weight:700;margin-bottom:6px;">🔍 Checkliste – Hast du alles?</p>
+      <ul style="padding-left:18px;font-size:0.8rem;color:#555;line-height:2;">
+        <li>Mindestens 200 Wörter geschrieben?</li>
+        <li>Mindestens 5 Redewendungen verwendet?</li>
+        <li>Geschichte von McDonald's Schweiz erwähnt?</li>
+        <li>Statistiken (Restaurants, Mitarbeiter) eingebaut?</li>
+        <li>Schweizer Menü-Highlights beschrieben?</li>
+        <li>Preisvergleich Schweiz / Deutschland gemacht?</li>
+        <li>Persönliche Meinung geäußert?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- POPUP -->
+<div class="pop-wrap" id="pop-wrap">
+  <div class="pop-box">
+    <button class="pop-close" onclick="closePop()">✕</button>
+    <div class="pop-sub" id="pop-sub"></div>
+    <div class="pop-title" id="pop-title"></div>
+    <div class="pop-meaning" id="pop-meaning"></div>
+    <div class="pop-example" id="pop-example"></div>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div id="score-bar">
+  ⭐ Quiz: <span id="sc">0</span>/<span id="tot">0</span> &nbsp;|&nbsp; 🖼️ Bild: <span id="found-sc">0</span>/20
+</div>
+
+<script>
+// ══ REDEWENDUNGEN (Popup-Daten) ══
+const RW = [
+  {t:"das Ruder herumreißen", s:"Redewendung – Arbeit", m:"Eine schlechte Entwicklung schnell und entschlossen umkehren; die Situation retten.", e:"Das Unternehmen muss das Ruder herumreißen – sonst droht die Insolvenz."},
+  {t:"die Ärmel hochkrempeln", s:"Redewendung – Arbeit", m:"Sich energisch und bereit an die Arbeit machen; das Signalisieren von Tatkraft.", e:"Genug geredet – jetzt müssen wir die Ärmel hochkrempeln!"},
+  {t:"den Nagel auf den Kopf treffen", s:"Redewendung – Kommunikation", m:"Genau das Richtige sagen; eine präzise und treffende Aussage machen.", e:"Mit seiner Analyse hat er wirklich den Nagel auf den Kopf getroffen."},
+  {t:"nicht um den heißen Brei herumreden", s:"Redewendung – Kommunikation", m:"Direkt und offen sprechen, ohne Themen zu umgehen oder zu verschleiern.", e:"Ich rede nicht um den heißen Brei herum: Das Konzept funktioniert nicht."},
+  {t:"ins kalte Wasser geworfen werden", s:"Redewendung – Arbeit", m:"Ohne Vorbereitung oder Einführung in eine schwierige Situation geworfen werden.", e:"Am ersten Tag wurde er direkt ins kalte Wasser geworfen."},
+  {t:"einen langen Atem haben", s:"Redewendung – Alltag", m:"Große Ausdauer und Durchhaltevermögen besitzen; nicht bei der ersten Schwierigkeit aufgeben.", e:"Für dieses Projekt braucht man wirklich einen langen Atem."},
+  {t:"das Ruder übernehmen", s:"Redewendung – Arbeit", m:"Die Führung, Kontrolle oder Verantwortung in die eigenen Hände nehmen.", e:"Als der Direktor zurücktrat, übernahm sie sofort das Ruder."},
+  {t:"Nägel mit Köpfen machen", s:"Redewendung – Arbeit", m:"Etwas gründlich, entschlossen und kompromisslos erledigen; keine halben Maßnahmen.", e:"Wenn wir das Projekt angehen, machen wir Nägel mit Köpfen – kein Halbherziges!"},
+  {t:"auf Hochtouren laufen", s:"Redewendung – Arbeit", m:"Mit maximaler Leistung, Kapazität oder Energie arbeiten oder funktionieren.", e:"Die Fabrik läuft auf Hochtouren – die Aufträge kommen nicht nach."},
+  {t:"einen Schritt voraus sein", s:"Redewendung – Arbeit", m:"Einen Vorteil haben; besser vorbereitet oder weiterentwickelt als andere sein.", e:"Dank unserer Technologie sind wir der Konkurrenz immer einen Schritt voraus."},
+  {t:"in aller Munde sein", s:"Redewendung – Kommunikation", m:"Von allen Menschen gesprochen oder besprochen werden; sehr bekannt sein.", e:"Der neue Film ist in aller Munde – alle reden nur darüber."},
+  {t:"sich einen Namen machen", s:"Redewendung – Arbeit", m:"Bekannt und anerkannt werden; eine gute Reputation aufbauen.", e:"Mit ihrer Erfindung hat sie sich in der Wissenschaft einen Namen gemacht."},
+  {t:"über den Berg sein", s:"Redewendung – Alltag", m:"Das Schlimmste oder Schwierigste überstanden haben; auf dem Weg der Erholung/Besserung.", e:"Die Firma ist endlich über den Berg – die Verluste sind aufgeholt."},
+  {t:"über seinen Schatten springen", s:"Redewendung – Alltag", m:"Sich überwinden und etwas tun, das man normalerweise scheut oder ablehnt.", e:"Sie musste über ihren Schatten springen und sich beim Kollegen entschuldigen."},
+  {t:"es zu etwas bringen", s:"Redewendung – Alltag", m:"Erfolgreich sein; eine gute soziale oder berufliche Position erreichen.", e:"Wer fleißig ist und nicht aufgibt, kann es weit bringen."},
+  {t:"grünes Licht geben", s:"Redewendung – Arbeit", m:"Die Erlaubnis oder Genehmigung erteilen, etwas zu beginnen oder fortzuführen.", e:"Der Vorstand hat grünes Licht für die Expansion gegeben."},
+  {t:"schwarz auf weiß", s:"Redewendung – Kommunikation", m:"Schriftlich bestätigt und dokumentiert; offiziell und nicht zu bezweifeln.", e:"Ich habe es schwarz auf weiß – der Vertrag ist gültig."},
+  {t:"das Ruder herumreißen (2)", s:"Redewendung – Arbeit", m:"Eine negative Entwicklung schnell und entschlossen umkehren.", e:"McDonald's muss sich ständig anpassen und das Ruder herumreißen, um relevant zu bleiben."},
+];
+
+function popRW(i) {
+  const d = RW[i];
+  document.getElementById('pop-sub').textContent = d.s;
+  document.getElementById('pop-title').textContent = d.t;
+  document.getElementById('pop-meaning').textContent = d.m;
+  document.getElementById('pop-example').textContent = '💬 ' + d.e;
+  document.getElementById('pop-wrap').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePop() { document.getElementById('pop-wrap').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('pop-wrap').addEventListener('click', e => { if(e.target===document.getElementById('pop-wrap')) closePop(); });
+
+// ══ TABS ══
+function go(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  ['text','quiz','bild','vok','ha'].forEach((s,i)=>{ if(s===id) document.querySelectorAll('nav button')[i].classList.add('active'); });
+  window.scrollTo(0,0);
+}
+
+// ══ QUIZ ══
+let qScore=0, qTotal=0;
+const qDone={};
+function qmc(btn, id, correct) {
+  if(qDone[id]) return; qDone[id]=true; qTotal++;
+  if(correct) qScore++;
+  document.querySelectorAll(`#${id} .qbtn`).forEach(b => {
+    b.disabled=true;
+    if(b.getAttribute('onclick').includes('true')) b.classList.add(b===btn?'ok':'show');
+  });
+  if(!correct) { btn.classList.remove('show'); btn.classList.add('no'); }
+  document.getElementById('sc').textContent=qScore;
+  document.getElementById('tot').textContent=qTotal;
+  if(Object.keys(qDone).length===10) showFinalQuiz();
+}
+function showFinalQuiz() {
+  const el=document.getElementById('quiz-result');
+  el.style.display='block';
+  const pct=Math.round(qScore/10*100);
+  if(pct===100) { el.style.background='#d4edda'; el.style.color='#155724'; el.textContent='🏆 Perfekt! 10/10 – Ausgezeichnet!'; }
+  else if(pct>=70) { el.style.background='#d4edda'; el.style.color='#155724'; el.textContent=`🎉 Sehr gut! ${qScore}/10 richtig (${pct}%)`; }
+  else if(pct>=50) { el.style.background='#fff3cd'; el.style.color='#856404'; el.textContent=`👍 Gut gemacht! ${qScore}/10 richtig – Lies den Text nochmal!`; }
+  else { el.style.background='#f8d7da'; el.style.color='#721c24'; el.textContent=`💪 ${qScore}/10 – Lies den Text genau durch und versuche es nochmal!`; }
+}
+
+// ══ BILD ══
+const ITEMS = [
+  null, // placeholder for 1-based indexing
+  {w:"das Logo / die Goldenen Bögen", a:"Substantiv (n/Pl.)", e:"Das goldene ‚M' ist das bekannteste Logo der Welt."},
+  {w:"die Menütafel", a:"Substantiv (f)", e:"Ich schaue auf die Menütafel, um zu entscheiden, was ich bestelle."},
+  {w:"das Fenster", a:"Substantiv (n)", e:"Durch das Fenster kann man die Straße sehen."},
+  {w:"die Theke / der Tresen", a:"Substantiv (f/m)", e:"Der Angestellte steht hinter der Theke und nimmt Bestellungen an."},
+  {w:"die Kasse / das Kassengerät", a:"Substantiv (f/n)", e:"An der Kasse bezahlt man mit Karte oder Bargeld."},
+  {w:"die Uniform / der Angestellte", a:"Substantiv (f/m)", e:"Der Angestellte trägt eine rote Uniform."},
+  {w:"der Tisch", a:"Substantiv (m)", e:"Wir setzen uns an einen freien Tisch und essen."},
+  {w:"der Stuhl", a:"Substantiv (m)", e:"Der Stuhl im McDonald's ist aus Kunststoff und oft rot."},
+  {w:"das Tablett", a:"Substantiv (n)", e:"Man trägt das Essen auf einem Tablett zum Tisch."},
+  {w:"der Burger / das Hamburger", a:"Substantiv (m/n)", e:"Ein Big Mac ist der bekannteste Burger bei McDonald's."},
+  {w:"die Pommes frites", a:"Substantiv (f, Plural)", e:"Die Pommes frites sind knusprig und goldgelb."},
+  {w:"die Cola / das Getränk", a:"Substantiv (f/n)", e:"Ich trinke eine Cola zu meinem Burger."},
+  {w:"der Strohhalm", a:"Substantiv (m)", e:"Man trinkt den Milchshake mit einem Strohhalm."},
+  {w:"die Serviette", a:"Substantiv (f)", e:"Nach dem Essen wischt man sich den Mund mit einer Serviette ab."},
+  {w:"das Ketchup", a:"Substantiv (n)", e:"Ich tunke meine Pommes in Ketchup."},
+  {w:"der Salzstreuer", a:"Substantiv (m)", e:"Mit dem Salzstreuer würzt man die Pommes."},
+  {w:"die Happy-Meal-Box", a:"Substantiv (f)", e:"Kinder bekommen ihr Essen in einer bunten Happy-Meal-Box."},
+  {w:"der Mülleimer / der Abfallbehälter", a:"Substantiv (m)", e:"Nach dem Essen wirft man den Abfall in den Mülleimer."},
+  {w:"der Pappbecher (McCafé)", a:"Substantiv (m)", e:"Den Kaffee trinkt man aus einem Pappbecher."},
+  {w:"der Milchshake", a:"Substantiv (m)", e:"Der Milchshake ist cremig, kalt und sehr süß."},
+];
+
+let foundSet = new Set();
+function showBild(n) {
+  const d = ITEMS[n];
+  document.getElementById('bp-num').textContent = 'Nr. ' + n;
+  document.getElementById('bp-word').textContent = d.w;
+  document.getElementById('bp-art').textContent = d.a;
+  document.getElementById('bp-ex').textContent = '💬 ' + d.e;
+  document.getElementById('bild-popup').classList.add('open');
+  if(!foundSet.has(n)) {
+    foundSet.add(n);
+    document.getElementById('hs'+n).classList.add('found');
+    updateFoundList();
+  }
+}
+function closeBildPopup() { document.getElementById('bild-popup').classList.remove('open'); }
+function updateFoundList() {
+  const count=foundSet.size;
+  document.getElementById('found-count').textContent=count;
+  document.getElementById('prog').style.width=(count/20*100)+'%';
+  document.getElementById('found-sc').textContent=count;
+  const fl=document.getElementById('found-list');
+  fl.innerHTML='';
+  [...foundSet].sort((a,b)=>a-b).forEach(n=>{
+    const tag=document.createElement('div');
+    tag.className='found-tag';
+    tag.innerHTML=`<span class="num">${n}</span> ${ITEMS[n].w.split('/')[0].trim()}`;
+    fl.appendChild(tag);
+  });
+}
+function revealAll() {
+  for(let i=1;i<=20;i++) {
+    if(!foundSet.has(i)) { foundSet.add(i); document.getElementById('hs'+i).classList.add('found'); }
+  }
+  updateFoundList();
+  document.getElementById('bild-popup').classList.remove('open');
+}
+function resetBild() {
+  foundSet.clear();
+  for(let i=1;i<=20;i++) document.getElementById('hs'+i).classList.remove('found');
+  document.getElementById('found-list').innerHTML='';
+  document.getElementById('found-count').textContent='0';
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('found-sc').textContent='0';
+  document.getElementById('bild-popup').classList.remove('open');
+}
+
+// ══ WORTZEÄHLER ══
+function countWords() {
+  const text = document.getElementById('essay-area').value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  const el = document.getElementById('wc');
+  el.textContent = `Wörter: ${words} / Minimum: 200`;
+  el.style.color = words >= 200 ? '#27ae60' : '#999';
+}
+</script>
+</body>
+</html>

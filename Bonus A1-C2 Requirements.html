@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsches Lernsystem A1–C2 | Vollständige Referenz</title>
+<style>
+:root {
+  --bg: #f5f4f0;
+  --card: #ffffff;
+  --navy: #1a2744;
+  --gold: #c9a257;
+  --goldl: #e8c97a;
+  --red: #b03030;
+  --green: #2e7d52;
+  --blue: #1e5fa8;
+  --text: #1a1a1a;
+  --muted: #666;
+  --border: #ddd;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ── HEADER ── */
+.header { background: var(--navy); color: white; padding: 24px 32px; border-bottom: 3px solid var(--gold); }
+.header h1 { font-size: 26px; font-weight: 700; letter-spacing: 0.02em; }
+.header p { color: #aab8d0; font-size: 13px; margin-top: 4px; }
+
+/* ── TAB NAV ── */
+.tab-nav { display: flex; background: var(--navy); padding: 0 32px; gap: 2px; overflow-x: auto; }
+.tab-btn {
+  padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
+  border: none; background: transparent; color: #8899bb;
+  border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap;
+  letter-spacing: 0.05em; text-decoration: none; display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-btn:hover { color: var(--goldl); }
+.tab-btn.summary-btn { color: #99ccaa; }
+/* Active state: A1 is default, others via :target */
+a[href="#tab-a1"],
+body:has(#tab-a1:target) a[href="#tab-a1"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-a2:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-b1:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-b2:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-c1:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-c2:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-summary:target) a[href="#tab-a1"] { color: #8899bb; border-bottom-color: transparent; }
+body:has(#tab-a2:target) a[href="#tab-a2"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-b1:target) a[href="#tab-b1"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-b2:target) a[href="#tab-b2"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-c1:target) a[href="#tab-c1"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-c2:target) a[href="#tab-c2"] { color: var(--goldl); border-bottom-color: var(--gold); }
+body:has(#tab-summary:target) a[href="#tab-summary"] { color: #55ee88; border-bottom-color: #55ee88; }
+
+/* ── CONTENT ── */
+.tab-panel { display: none; padding: 28px 32px 48px; max-width: 1200px; margin: 0 auto; scroll-margin-top: 70px; }
+/* Default: show A1 */
+#tab-a1 { display: block; }
+/* Show any targeted panel */
+.tab-panel:target { display: block; }
+/* Hide A1 when any other tab is targeted */
+body:has(#tab-a2:target) #tab-a1,
+body:has(#tab-b1:target) #tab-a1,
+body:has(#tab-b2:target) #tab-a1,
+body:has(#tab-c1:target) #tab-a1,
+body:has(#tab-c2:target) #tab-a1,
+body:has(#tab-summary:target) #tab-a1 { display: none; }
+
+/* ── LEVEL BADGE ── */
+.level-header { display: flex; align-items: center; gap: 20px; margin-bottom: 24px; }
+.level-badge {
+  font-size: 40px; font-weight: 900; width: 72px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px; flex-shrink: 0; letter-spacing: -1px;
+}
+.badge-a1 { background: #e8f5e9; color: #2e7d32; border: 2px solid #81c784; }
+.badge-a2 { background: #e3f2fd; color: #1565c0; border: 2px solid #64b5f6; }
+.badge-b1 { background: #fff8e1; color: #f57f17; border: 2px solid #ffcc02; }
+.badge-b2 { background: #fff3e0; color: #e65100; border: 2px solid #ff9800; }
+.badge-c1 { background: #fce4ec; color: #880e4f; border: 2px solid #f48fb1; }
+.badge-c2 { background: #ede7f6; color: #4527a0; border: 2px solid #9575cd; }
+.level-info h2 { font-size: 22px; font-weight: 700; }
+.level-info p { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.level-cefr { font-size: 12px; background: var(--navy); color: white; padding: 2px 10px; border-radius: 20px; display: inline-block; margin-top: 6px; }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.grid-full { margin-bottom: 20px; }
+@media(max-width:800px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* ── CARDS ── */
+.card { background: var(--card); border-radius: 10px; padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.card h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.card h3 .icon { font-size: 16px; }
+
+/* ── VOCAB STATS ── */
+.stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.stat { text-align: center; background: var(--bg); border-radius: 8px; padding: 12px 20px; flex: 1; min-width: 90px; }
+.stat .num { font-size: 26px; font-weight: 800; color: var(--navy); }
+.stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── TAGS ── */
+.tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+.tag-green { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.tag-blue { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+.tag-orange { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
+.tag-red { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+.tag-purple { background: #ede7f6; color: #4527a0; border: 1px solid #ce93d8; }
+.tag-navy { background: #e8eaf6; color: #1a237e; border: 1px solid #9fa8da; }
+
+/* ── GRAMMAR TABLE ── */
+.g-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.g-table th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-size: 12px; letter-spacing: 0.05em; }
+.g-table td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+.g-table tr:hover td { background: #f8f8f8; }
+.g-table .cat { font-weight: 700; color: var(--navy); width: 180px; }
+.g-table .ex { color: var(--red); font-style: italic; font-size: 12px; }
+
+/* ── EXAM SECTION ── */
+.exam-header { background: var(--navy); color: white; padding: 14px 20px; border-radius: 10px 10px 0 0; display: flex; justify-content: space-between; align-items: center; }
+.exam-header h3 { font-size: 15px; font-weight: 700; }
+.exam-body { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; padding: 20px; margin-bottom: 20px; }
+.exam-parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-bottom: 16px; }
+.exam-part { background: var(--bg); border-radius: 8px; padding: 12px; border-left: 3px solid var(--gold); }
+.exam-part .part-name { font-weight: 700; font-size: 13px; color: var(--navy); }
+.exam-part .part-time { font-size: 11px; color: var(--muted); }
+.exam-part .part-desc { font-size: 12px; color: var(--text); margin-top: 4px; }
+
+/* ── SAMPLE EXAM ── */
+.sample-exam { border: 2px solid var(--navy); border-radius: 10px; margin-bottom: 24px; overflow: hidden; }
+.sample-header { background: var(--navy); color: white; padding: 12px 20px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; }
+.sample-header span { color: var(--goldl); font-size: 12px; font-weight: 400; }
+.sample-section { padding: 18px 20px; border-bottom: 1px solid #eee; }
+.sample-section:last-child { border-bottom: none; }
+.sample-section h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; display: flex; justify-content: space-between; }
+.sample-section h4 span { color: var(--muted); font-weight: 400; font-size: 12px; }
+.q { margin-bottom: 10px; }
+.q p { margin-bottom: 4px; }
+.q .options { margin-left: 16px; font-size: 13px; }
+.q .options div { padding: 2px 0; }
+.blank { display: inline-block; border-bottom: 2px solid var(--navy); min-width: 80px; height: 18px; margin: 0 4px; }
+.answer-key { background: #f0fff4; border: 1px solid #81c784; border-radius: 6px; padding: 10px 14px; margin-top: 10px; font-size: 12px; }
+.answer-key strong { color: var(--green); }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap { margin: 8px 0; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+.progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+
+/* ── SUMMARY ── */
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 13px; box-shadow: var(--shadow); border-radius: 10px; overflow: hidden; }
+.comparison-table th { background: var(--navy); color: white; padding: 10px 14px; text-align: center; font-size: 12px; letter-spacing: 0.05em; }
+.comparison-table th:first-child { text-align: left; }
+.comparison-table td { padding: 10px 14px; border-bottom: 1px solid #eee; text-align: center; }
+.comparison-table td:first-child { text-align: left; font-weight: 600; color: var(--navy); }
+.comparison-table tr:hover td { background: #fafafa; }
+.comparison-table .level-cell { font-weight: 900; font-size: 15px; }
+
+.chart-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.chart-bar-label { width: 40px; font-weight: 800; font-size: 14px; text-align: center; }
+.chart-bar-track { flex: 1; background: #e0e0e0; border-radius: 4px; height: 22px; overflow: hidden; position: relative; }
+.chart-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 700; color: white; }
+.chart-bar-value { width: 80px; font-size: 13px; font-weight: 600; color: var(--muted); }
+
+ul.checklist { list-style: none; }
+ul.checklist li { padding: 3px 0; font-size: 13px; }
+ul.checklist li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+ul.bullet li::before { content: '• '; color: var(--gold); }
+
+.section-divider { border: none; border-top: 2px solid var(--border); margin: 24px 0; }
+.section-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); display: inline-block; }
+
+.tip-box { background: #fff8e1; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+.tip-box strong { color: var(--navy); }
+
+.warn-box { background: #fce4ec; border-left: 4px solid #e91e63; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+
+footer { background: var(--navy); color: #8899bb; text-align: center; padding: 16px; font-size: 12px; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🇩🇪 Deutsches Sprachlernsystem — Vollständige Referenz</h1>
+  <p>Lernziele · Grammatik · Vokabeln · Prüfungsstruktur · Beispielprüfungen für alle GER-Niveaus</p>
+</div>
+
+<div class="tab-nav">
+  <a class="tab-btn active" href="#tab-a1">A1 — Anfänger</a>
+  <a class="tab-btn" href="#tab-a2">A2 — Grundkenntnisse</a>
+  <a class="tab-btn" href="#tab-b1">B1 — Mittelstufe</a>
+  <a class="tab-btn" href="#tab-b2">B2 — Gehobene Mittelstufe</a>
+  <a class="tab-btn" href="#tab-c1">C1 — Fortgeschritten</a>
+  <a class="tab-btn" href="#tab-c2">C2 — Beherrschung</a>
+  <a class="tab-btn summary-btn" href="#tab-summary">📊 Zusammenfassung</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ A1 -->
+<div id="tab-a1" class="tab-panel active">
+  <div class="level-header">
+    <div class="level-badge badge-a1">A1</div>
+    <div class="level-info">
+      <h2>Anfänger — Breakthrough</h2>
+      <p>Kann vertraute, alltägliche Ausdrücke und ganz einfache Sätze verstehen und verwenden.</p>
+      <span class="level-cefr">GER: A1 · CEFR: A1 · Breakthrough</span>
+    </div>
+  </div>
+
+  <!-- Vokabeln -->
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~700</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~150</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~120</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~200</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~30</div><div class="lbl">Präpositionen</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Themenfelder & Vokabeln</h3>
+      <div class="tag-list">
+        <span class="tag tag-green">Begrüßung & Abschied</span>
+        <span class="tag tag-green">Familie & Personen</span>
+        <span class="tag tag-green">Zahlen 1–1000</span>
+        <span class="tag tag-green">Farben</span>
+        <span class="tag tag-green">Wochentage & Monate</span>
+        <span class="tag tag-green">Uhrzeit</span>
+        <span class="tag tag-green">Körperteile</span>
+        <span class="tag tag-green">Kleidung</span>
+        <span class="tag tag-green">Essen & Trinken</span>
+        <span class="tag tag-green">Wohnung & Möbel</span>
+        <span class="tag tag-green">Berufe</span>
+        <span class="tag tag-green">Länder & Nationalitäten</span>
+        <span class="tag tag-green">Transport & Verkehr</span>
+        <span class="tag tag-green">Schule & Lernen</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> Wichtigste Verben (A1)</h3>
+      <ul class="checklist">
+        <li>sein, haben, werden</li>
+        <li>heißen, wohnen, leben</li>
+        <li>kommen, gehen, fahren, fliegen</li>
+        <li>machen, sagen, fragen, antworten</li>
+        <li>essen, trinken, kaufen, kosten</li>
+        <li>spielen, lesen, schreiben, hören</li>
+        <li>arbeiten, lernen, studieren</li>
+        <li>können (Modalverb)</li>
+        <li>mögen, möchten</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Grammatik -->
+  <p class="section-title">📐 Grammatik</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Artikel</td><td>bestimmte Artikel (der/die/das), unbestimmte (ein/eine), Nullartikel</td><td class="ex">der Mann, eine Frau, Das ist Milch.</td></tr>
+      <tr><td class="cat">Kasus</td><td>Nominativ und Akkusativ (Grundverständnis)</td><td class="ex">Der Mann trinkt einen Kaffee.</td></tr>
+      <tr><td class="cat">Pronomen</td><td>Personalpronomen: ich, du, er/sie/es, wir, ihr, sie/Sie</td><td class="ex">Ich heiße Anna. Er ist Lehrer.</td></tr>
+      <tr><td class="cat">Präsens</td><td>Konjugation regelmäßiger Verben + sein/haben</td><td class="ex">ich lerne, du lernst, er lernt</td></tr>
+      <tr><td class="cat">Negation</td><td>nicht, kein/keine</td><td class="ex">Ich trinke keinen Kaffee. Er schläft nicht.</td></tr>
+      <tr><td class="cat">Possessivpron.</td><td>mein/meine, dein/deine, sein/ihre (Nom./Akk.)</td><td class="ex">Das ist mein Buch. Wo ist deine Tasche?</td></tr>
+      <tr><td class="cat">Modalverb</td><td>können + Infinitiv (einfache Form)</td><td class="ex">Ich kann Deutsch sprechen.</td></tr>
+      <tr><td class="cat">Wortstellung</td><td>Subjekt-Verb-Objekt (SVO), V2-Regel Grundlagen, W-Fragen, Ja/Nein-Fragen</td><td class="ex">Woher kommst du? Bist du Student?</td></tr>
+      <tr><td class="cat">Imperativ</td><td>einfache Imperativformen (du/Sie)</td><td class="ex">Komm! / Kommen Sie bitte!</td></tr>
+      <tr><td class="cat">Pluralformen</td><td>häufigste Pluralformen kennen</td><td class="ex">das Buch → die Bücher</td></tr>
+      <tr><td class="cat">Präpositionen</td><td>in, an, auf, bei, mit, nach, von, zu (Grundbedeutung)</td><td class="ex">Ich wohne in Berlin.</td></tr>
+      <tr><td class="cat">Zahlen</td><td>Kardinalzahlen 1–1000, Ordinalzahlen 1.–31.</td><td class="ex">Ich bin am 5. März geboren.</td></tr>
+    </table>
+  </div>
+
+  <!-- Prüfungsstruktur -->
+  <p class="section-title">🎓 Prüfungsstruktur A1</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat A1 / telc Deutsch A1</h3><span>Gesamtdauer: ~65 Min.</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">25 Min.</div><div class="part-desc">Schilder, kurze Texte, Formulare lesen und verstehen. 3 Teile, 15 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">20 Min.</div><div class="part-desc">Kurze Gespräche und Ansagen verstehen. 3 Teile, 15 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">20 Min.</div><div class="part-desc">Formular ausfüllen + kurze Mitteilung schreiben (30–40 Wörter).</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">15 Min.</div><div class="part-desc">Sich vorstellen, Informationen erfragen/geben. Mit Partner. 3 Teile.</div></div>
+    </div>
+    <div class="tip-box"><strong>Bestehensgrenze:</strong> Jeder Modul mindestens 60% · Schriftlich: Lesen + Hören + Schreiben = 60% insgesamt · Mündlich separat.</div>
+  </div>
+
+  <!-- Beispielprüfung -->
+  <p class="section-title">📝 Beispielprüfung A1</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest A1 — Goethe-Zertifikat A1 (verkürzte Version) <span>~40 Minuten</span></div>
+
+    <div class="sample-section">
+      <h4>Teil 1: Lesen — Schilder verstehen <span>5 Aufgaben · je 1 Punkt</span></h4>
+      <div class="q"><p><strong>1.</strong> Wo liest man das? <em>"Bitte nicht stören!"</em></p>
+        <div class="options"><div>A) Im Supermarkt</div><div>B) Im Hotel / an einer Tür</div><div>C) Im Park</div></div></div>
+      <div class="q"><p><strong>2.</strong> Was bedeutet das Schild? <em>"Geöffnet: Mo–Fr 9–18 Uhr"</em></p>
+        <div class="options"><div>A) Das Geschäft ist am Samstag offen.</div><div>B) Das Geschäft öffnet montags um 9 Uhr.</div><div>C) Das Geschäft schließt samstags.</div></div></div>
+      <div class="q"><p><strong>3.</strong> Was soll man tun? <em>"Kein Rauchen!"</em></p>
+        <div class="options"><div>A) Hier kann man rauchen.</div><div>B) Hier darf man nicht rauchen.</div><div>C) Bitte draußen rauchen.</div></div></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1-B, 2-B, 3-B</div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 2: Lesen — Kurze Texte <span>5 Aufgaben · je 1 Punkt</span></h4>
+      <p style="background:#f8f8f8;padding:10px;border-radius:6px;margin-bottom:10px;font-size:13px;"><em>SMS von Maria:</em> „Hallo Lena! Ich komme heute um 18 Uhr zu dir. Ich bringe Kuchen mit. Kannst du Kaffee machen? Bis später! Maria"</p>
+      <div class="q"><p><strong>4.</strong> Was bringt Maria mit?</p>
+        <div class="options"><div>A) Kaffee</div><div>B) Kuchen ✓</div><div>C) Tee</div></div></div>
+      <div class="q"><p><strong>5.</strong> Wann kommt Maria?</p>
+        <div class="options"><div>A) Um 8 Uhr</div><div>B) Um 16 Uhr</div><div>C) Um 18 Uhr ✓</div></div></div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 3: Hören — Kurze Dialoge <span>5 Aufgaben · je 1 Punkt (Text des Hörtextes)</span></h4>
+      <p style="background:#e3f2fd;padding:10px;border-radius:6px;margin-bottom:10px;font-size:12px;font-style:italic;">🎧 [Dialog]: „Entschuldigung, wie viel kostet das Brot?" — „Das kostet 1 Euro 50." — „Und die Milch?" — „80 Cent."</p>
+      <div class="q"><p><strong>6.</strong> Wie viel kostet das Brot?</p>
+        <div class="options"><div>A) 80 Cent</div><div>B) 1 Euro 50 ✓</div><div>C) 2 Euro</div></div></div>
+      <div class="q"><p><strong>7.</strong> Was kostet 80 Cent?</p>
+        <div class="options"><div>A) Das Brot</div><div>B) Die Milch ✓</div><div>C) Der Käse</div></div></div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 4: Schreiben — Formular ausfüllen + kurze Mitteilung <span>15 Punkte</span></h4>
+      <p style="margin-bottom:10px;"><strong>Aufgabe 4a:</strong> Füllen Sie das Formular aus (Ihre eigenen Daten):</p>
+      <div style="background:#f8f8f8;padding:14px;border-radius:6px;border:1px solid #ddd;font-size:13px;">
+        <div style="margin-bottom:8px;">Name: <span class="blank"></span></div>
+        <div style="margin-bottom:8px;">Vorname: <span class="blank"></span></div>
+        <div style="margin-bottom:8px;">Geburtsland: <span class="blank"></span></div>
+        <div style="margin-bottom:8px;">Sprachen: <span class="blank"></span></div>
+        <div>Telefon: <span class="blank"></span></div>
+      </div>
+      <p style="margin:12px 0 8px;"><strong>Aufgabe 4b:</strong> Schreiben Sie eine kurze SMS an Ihren Freund Thomas (30–40 Wörter).</p>
+      <p style="font-style:italic;color:#666;font-size:13px;">Sie können morgen nicht in die Schule kommen. Sie sind krank. Sagen Sie Thomas, dass er Ihnen die Hausaufgaben schicken soll.</p>
+      <div class="answer-key"><strong>Musterlösung:</strong> „Hallo Thomas, ich bin leider krank und kann morgen nicht in die Schule kommen. Kannst du mir bitte die Hausaufgaben schicken? Danke! Viele Grüße, [Name]" (34 Wörter)</div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 5: Sprechen — Sich vorstellen <span>Mündliche Prüfung · 15 Minuten</span></h4>
+      <ul class="checklist">
+        <li>Stellen Sie sich vor: Name, Alter, Wohnort, Herkunft, Beruf/Studium</li>
+        <li>Bitten Sie Ihren Partner, Buchstaben zu buchstabieren (A wie Anton, B wie Berta…)</li>
+        <li>Stellen Sie 3 Fragen an Ihren Partner (Wo wohnst du? Was machst du gern?)</li>
+        <li>Reagieren Sie auf Bilder: Was sehen Sie? Was kostet das?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ A2 -->
+<div id="tab-a2" class="tab-panel">
+  <div class="level-header">
+    <div class="level-badge badge-a2">A2</div>
+    <div class="level-info">
+      <h2>Grundkenntnisse — Waystage</h2>
+      <p>Kann Sätze und Ausdrücke zu vertrauten Themen verstehen. Kann sich einfach verständigen.</p>
+      <span class="level-cefr">GER: A2 · CEFR: A2 · Waystage</span>
+    </div>
+  </div>
+
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~1.500</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~280</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~220</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~450</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~50</div><div class="lbl">Präpositionen</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Neue Themenfelder A2</h3>
+      <div class="tag-list">
+        <span class="tag tag-blue">Einkaufen & Preise</span>
+        <span class="tag tag-blue">Freizeit & Hobbys</span>
+        <span class="tag tag-blue">Gesundheit & Körper</span>
+        <span class="tag tag-blue">Reisen & Unterkunft</span>
+        <span class="tag tag-blue">Wetter & Jahreszeiten</span>
+        <span class="tag tag-blue">Orientierung in der Stadt</span>
+        <span class="tag tag-blue">Post & Behörden</span>
+        <span class="tag tag-blue">Feste & Traditionen</span>
+        <span class="tag tag-blue">Medien & Kommunikation</span>
+        <span class="tag tag-blue">Schule & Bildung</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> Neue wichtige Verben (A2)</h3>
+      <ul class="checklist">
+        <li>Trennbare Verben: aufstehen, anfangen, einladen, abfahren</li>
+        <li>Reflexive Verben: sich waschen, sich freuen, sich ärgern</li>
+        <li>Modalverben (alle): müssen, sollen, wollen, dürfen</li>
+        <li>Perfekt-Verben: gegangen, gekommen, gefahren</li>
+        <li>Vergleiche: aussehen, werden, bleiben, passieren</li>
+        <li>Verben mit Dativ: helfen, gefallen, gehören</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-title">📐 Grammatik</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Alle 4 Kasus</td><td>Nominativ, Akkusativ, Dativ (vollständig), Genitiv (Grundlagen)</td><td class="ex">Er gibt dem Mann das Buch.</td></tr>
+      <tr><td class="cat">Perfekt</td><td>haben/sein + Partizip II (regelmäßig + häufige unregelmäßige Verben)</td><td class="ex">Ich habe gegessen. Sie ist gefahren.</td></tr>
+      <tr><td class="cat">Präteritum</td><td>sein, haben, Modalverben im Präteritum</td><td class="ex">Ich war, ich hatte, ich musste</td></tr>
+      <tr><td class="cat">Futur I</td><td>werden + Infinitiv</td><td class="ex">Ich werde morgen kommen.</td></tr>
+      <tr><td class="cat">Alle Modalverben</td><td>müssen, sollen, wollen, dürfen, mögen, können</td><td class="ex">Du sollst das machen. Darf ich?</td></tr>
+      <tr><td class="cat">Trennbare Verben</td><td>Präfixe: auf-, ab-, an-, ein-, mit-, vor-, zurück-</td><td class="ex">Ich stehe um 7 Uhr auf.</td></tr>
+      <tr><td class="cat">Reflexive Verben</td><td>Reflexivpronomen: mich/mir, dich/dir, sich</td><td class="ex">Ich wasche mich. Er freut sich.</td></tr>
+      <tr><td class="cat">Präpositionen + Kasus</td><td>mit Dativ: aus, bei, mit, nach, seit, von, zu, gegenüber; mit Akkusativ: durch, für, gegen, ohne, um</td><td class="ex">Er kommt mit dem Bus. Ohne dich.</td></tr>
+      <tr><td class="cat">Komparativ/Superlativ</td><td>Adjektivkomparation: gut – besser – am besten</td><td class="ex">Sie ist größer als ich.</td></tr>
+      <tr><td class="cat">Nebensätze</td><td>weil, dass, wenn, als (einfache Formen)</td><td class="ex">Ich komme nicht, weil ich krank bin.</td></tr>
+      <tr><td class="cat">Adjektivdeklination</td><td>Prädikativ + einfache attributive Formen</td><td class="ex">Das Wetter ist schön. Ein schöner Tag.</td></tr>
+      <tr><td class="cat">Wechselpräpositionen</td><td>an, auf, hinter, in, neben, über, unter, vor, zwischen (Dativ: Wo? / Akkusativ: Wohin?)</td><td class="ex">Das Buch liegt auf dem Tisch. Ich lege es auf den Tisch.</td></tr>
+    </table>
+  </div>
+
+  <p class="section-title">🎓 Prüfungsstruktur A2</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat A2 / telc Deutsch A2</h3><span>Gesamtdauer: ~90 Min. schriftlich + 15 Min. mündlich</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">30 Min.</div><div class="part-desc">Kurze Texte, Anzeigen, E-Mails lesen. 4 Teile, 20 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">25 Min.</div><div class="part-desc">Gespräche, Durchsagen, kurze Interviews. 4 Teile, 20 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">30 Min.</div><div class="part-desc">E-Mail oder Nachricht schreiben (40–60 Wörter), auf Anzeige reagieren.</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">15 Min.</div><div class="part-desc">Über sich sprechen, gemeinsam planen, Bilder beschreiben.</div></div>
+    </div>
+    <div class="tip-box"><strong>Schwerpunkt A2:</strong> Alltägliche Kommunikation, Orientierung, einfache schriftliche Mitteilungen. Perfekt-Bildung ist zentrales Prüfungsthema!</div>
+  </div>
+
+  <p class="section-title">📝 Beispielprüfung A2</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest A2 — Goethe-Zertifikat A2 (Auszug) <span>~45 Minuten</span></div>
+    <div class="sample-section">
+      <h4>Teil 1: Lesen — E-Mail verstehen <span>5 Punkte</span></h4>
+      <div style="background:#f8f8f8;padding:12px;border-radius:6px;margin-bottom:10px;font-size:13px;">
+        <p><strong>Von:</strong> Klaus Werner &nbsp;&nbsp; <strong>An:</strong> Martina Huber</p>
+        <p style="margin-top:8px;">Liebe Martina, ich mache nächste Woche Urlaub in Wien. Ich fahre am Montag mit dem Zug ab. Das Hotel kostet 80 Euro pro Nacht. Ich bleibe 5 Tage. Hast du Tipps für Restaurants? Ich esse sehr gern österreichische Küche! Liebe Grüße, Klaus</p>
+      </div>
+      <div class="q"><p><strong>1.</strong> Wie fährt Klaus nach Wien? → <span class="blank"></span></p></div>
+      <div class="q"><p><strong>2.</strong> Wie viel kostet das Hotel insgesamt für 5 Nächte? → <span class="blank"></span></p></div>
+      <div class="q"><p><strong>3.</strong> Was möchte Klaus gern essen? → <span class="blank"></span></p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- Mit dem Zug, 2- 400 Euro, 3- Österreichische Küche</div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 2: Grammatik — Perfekt bilden <span>10 Punkte</span></h4>
+      <p style="margin-bottom:10px;">Schreiben Sie die Sätze im Perfekt:</p>
+      <div class="q"><p><strong>1.</strong> Ich esse einen Apfel. → Ich <span class="blank"></span> einen Apfel <span class="blank"></span>.</p></div>
+      <div class="q"><p><strong>2.</strong> Sie fährt nach Berlin. → Sie <span class="blank"></span> nach Berlin <span class="blank"></span>.</p></div>
+      <div class="q"><p><strong>3.</strong> Wir stehen früh auf. → Wir <span class="blank"></span> früh <span class="blank"></span>.</p></div>
+      <div class="q"><p><strong>4.</strong> Er schläft lange. → Er <span class="blank"></span> lange <span class="blank"></span>.</p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- habe / gegessen; 2- ist / gefahren; 3- sind / aufgestanden; 4- hat / geschlafen</div>
+    </div>
+
+    <div class="sample-section">
+      <h4>Teil 3: Schreiben — Kurze E-Mail (40–60 Wörter) <span>15 Punkte</span></h4>
+      <p style="font-style:italic;color:#666;font-size:13px;">Sie haben eine Einladung zum Geburtstag Ihres Freundes bekommen. Schreiben Sie eine E-Mail. Bedanken Sie sich für die Einladung. Sagen Sie, ob Sie kommen können. Schreiben Sie auch, was Sie mitbringen möchten.</p>
+      <div class="answer-key"><strong>Musterlösung:</strong> „Lieber Thomas, vielen Dank für deine Einladung! Ich komme sehr gern zu deiner Party. Ich bringe einen Kuchen mit — ich weiß, dass du Schokolade magst! Bis Samstag! Liebe Grüße, Anna" (44 Wörter)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ B1 -->
+<div id="tab-b1" class="tab-panel">
+  <div class="level-header">
+    <div class="level-badge badge-b1">B1</div>
+    <div class="level-info">
+      <h2>Mittelstufe — Threshold</h2>
+      <p>Kann die Hauptpunkte verstehen, wenn klare Standardsprache verwendet wird und vertraute Themen behandelt werden.</p>
+      <span class="level-cefr">GER: B1 · CEFR: B1 · Threshold · Zertifikat Deutsch</span>
+    </div>
+  </div>
+
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~2.900</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~600</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~450</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~1.200</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~80</div><div class="lbl">Konnektoren</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Themenfelder B1</h3>
+      <div class="tag-list">
+        <span class="tag tag-orange">Beruf & Bewerbung</span>
+        <span class="tag tag-orange">Gesellschaft & soziales Leben</span>
+        <span class="tag tag-orange">Umwelt & Natur</span>
+        <span class="tag tag-orange">Medien & Technologie</span>
+        <span class="tag tag-orange">Kultur & Geschichte</span>
+        <span class="tag tag-orange">Reisen & interkulturell</span>
+        <span class="tag tag-orange">Gesundheit & Ernährung</span>
+        <span class="tag tag-orange">Wohnen & Alltag</span>
+        <span class="tag tag-orange">Gefühle & Meinungen</span>
+        <span class="tag tag-orange">Pläne & Zukunft</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> Neue Verbtypen B1</h3>
+      <ul class="checklist">
+        <li>Verben mit festen Präpositionen: warten auf, denken an, sich freuen über</li>
+        <li>Verben im Passiv: wird gebaut, wurde gemacht</li>
+        <li>Konjunktiv II (Wunsch/Höflichkeit): würde, hätte, wäre</li>
+        <li>Infinitivkonstruktionen: Es ist wichtig, gesund zu essen.</li>
+        <li>Nomen-Verb-Verbindungen: eine Frage stellen, Angst haben</li>
+        <li>Zitierverben: sagen, meinen, berichten, erklären</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-title">📐 Grammatik</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Konjunktiv II</td><td>würde + Inf., hätte, wäre, könnte, müsste (Wunsch, Höflichkeit, irreal)</td><td class="ex">Ich würde gern reisen. Hättest du Zeit?</td></tr>
+      <tr><td class="cat">Passiv Präsens</td><td>werden + Partizip II</td><td class="ex">Das Auto wird repariert.</td></tr>
+      <tr><td class="cat">Passiv Präteritum</td><td>wurde + Partizip II</td><td class="ex">Das Haus wurde gebaut.</td></tr>
+      <tr><td class="cat">Infinitivsätze</td><td>um...zu, ohne...zu, anstatt...zu</td><td class="ex">Er arbeitet, um Geld zu verdienen.</td></tr>
+      <tr><td class="cat">Relativsätze</td><td>der/die/das als Relativpronomen (alle Kasus)</td><td class="ex">Das ist der Mann, dem ich geholfen habe.</td></tr>
+      <tr><td class="cat">Präteritum</td><td>Vollständiges Präteritum aller wichtigen Verben (erzählend)</td><td class="ex">Er kam, sah und siegte.</td></tr>
+      <tr><td class="cat">Konnektoren</td><td>deshalb, trotzdem, dennoch, außerdem, zwar…aber, einerseits…andererseits</td><td class="ex">Es regnete, trotzdem gingen wir spazieren.</td></tr>
+      <tr><td class="cat">Präp. mit Genitiv</td><td>wegen, trotz, während, statt, innerhalb, außerhalb</td><td class="ex">Wegen des Regens blieb er zu Hause.</td></tr>
+      <tr><td class="cat">Adjektivdeklination</td><td>Vollständige Deklination nach bestimmtem/unbestimmtem/keinem Artikel</td><td class="ex">mit einem alten Mann, des alten Mannes</td></tr>
+      <tr><td class="cat">Verben + Präp.</td><td>feste Präpositionalkonstruktionen + Pronominaladverbien (darauf, dafür)</td><td class="ex">Ich warte auf den Bus. → Ich warte darauf.</td></tr>
+      <tr><td class="cat">Zweiteilige Konj.</td><td>nicht nur…sondern auch, sowohl…als auch, weder…noch, entweder…oder</td><td class="ex">Sowohl Lesen als auch Schreiben ist wichtig.</td></tr>
+      <tr><td class="cat">Indirekte Frage</td><td>ob, wann, warum + Nebensatz</td><td class="ex">Er fragte, ob ich kommen würde.</td></tr>
+    </table>
+  </div>
+
+  <p class="section-title">🎓 Prüfungsstruktur B1</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat B1 / Zertifikat Deutsch (ZD)</h3><span>Gesamtdauer: ~3 Stunden</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">65 Min.</div><div class="part-desc">4 Teile: Globalverstehen, Selektivverstehen, Detailverstehen, Textergänzung. 30 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">40 Min.</div><div class="part-desc">4 Teile: Nachrichten, Gespräche, Interview, Radiobeitrag. 30 Aufgaben.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">60 Min.</div><div class="part-desc">Teil 1: Brief/E-Mail (80–100 Wörter). Teil 2: Meinung äußern (80–100 Wörter).</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">15 Min.</div><div class="part-desc">3 Teile: Gemeinsam planen, Bild beschreiben + Gespräch, Thema diskutieren.</div></div>
+    </div>
+    <div class="tip-box"><strong>B1 Schwerpunkte:</strong> Konjunktiv II, Relativsätze, Konnektoren, Passiv, Briefschreiben (formal + informell), Meinungsäußerung. <br><strong>Neue Kompetenz:</strong> Texte zusammenfassen, Argumente formulieren.</div>
+  </div>
+
+  <p class="section-title">📝 Beispielprüfung B1</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest B1 — Goethe-Zertifikat B1 (Auszug) <span>~60 Minuten</span></div>
+    <div class="sample-section">
+      <h4>Teil 1: Grammatik — Konjunktiv II & Passiv <span>10 Punkte</span></h4>
+      <div class="q"><p><strong>1.</strong> Ergänzen Sie mit Konjunktiv II: „Wenn ich Zeit ______ (haben), ______ ich mehr Sport ______ (treiben)."</p></div>
+      <div class="q"><p><strong>2.</strong> Bilden Sie Passiv Präsens: „Man renoviert die Schule." → „Die Schule ______ ______."</p></div>
+      <div class="q"><p><strong>3.</strong> Passiv Präteritum: „Man baute die Brücke 1920." → „Die Brücke ______ 1920 ______."</p></div>
+      <div class="q"><p><strong>4.</strong> Konjunktiv höflich: „Können Sie mir helfen?" → Höflicher: „______ Sie mir ______ ______?"</p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- hätte / würde / treiben; 2- wird renoviert; 3- wurde gebaut; 4- Könnten / helfen (Würden Sie mir helfen?)</div>
+    </div>
+    <div class="sample-section">
+      <h4>Teil 2: Lesen — Zeitungsartikel <span>10 Punkte</span></h4>
+      <div style="background:#f8f8f8;padding:12px;border-radius:6px;margin-bottom:10px;font-size:13px;">
+        <p><strong>Homeoffice: Fluch oder Segen?</strong></p>
+        <p style="margin-top:6px;">Seit der Pandemie arbeiten immer mehr Menschen von zu Hause aus. Eine aktuelle Studie zeigt, dass 68% der Beschäftigten produktiver sind, wenn sie im Homeoffice arbeiten. Trotzdem beklagen viele die fehlenden sozialen Kontakte. Einerseits spart man Zeit und Geld für den Weg zur Arbeit, andererseits ist die Grenze zwischen Beruf und Privatleben oft nicht mehr klar. Experten empfehlen deshalb ein hybrides Modell: zwei bis drei Tage im Büro, der Rest von zu Hause.</p>
+      </div>
+      <div class="q"><p><strong>1.</strong> Wie viel Prozent der Mitarbeiter sind im Homeoffice produktiver? → <span class="blank"></span></p></div>
+      <div class="q"><p><strong>2.</strong> Was empfehlen Experten? → <span class="blank"></span></p></div>
+      <div class="q"><p><strong>3.</strong> Welchen Nachteil des Homeoffice nennt der Text? → <span class="blank"></span></p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- 68%; 2- Ein hybrides Modell (2–3 Tage Büro, Rest Homeoffice); 3- Fehlende soziale Kontakte / keine klare Grenze zwischen Beruf und Privatleben</div>
+    </div>
+    <div class="sample-section">
+      <h4>Teil 3: Schreiben — Formeller Brief (80–100 Wörter) <span>20 Punkte</span></h4>
+      <p style="font-style:italic;color:#666;font-size:13px;">Sie haben in einer Zeitung gelesen, dass Ihr Lieblingsrestaurant geschlossen werden soll. Schreiben Sie einen Brief an die Stadtverwaltung. Erklären Sie, warum das Restaurant wichtig ist. Machen Sie einen Vorschlag, wie man es retten könnte.</p>
+      <div class="answer-key"><strong>Bewertungskriterien:</strong> Inhalt (alle 3 Punkte angesprochen), Grammatik (Relativsätze, Konjunktiv, Konnektoren), Wortwahl (B1-Niveau), Formeller Briefstil (Anrede, Gruß, Unterschrift)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ B2 -->
+<div id="tab-b2" class="tab-panel">
+  <div class="level-header">
+    <div class="level-badge badge-b2">B2</div>
+    <div class="level-info">
+      <h2>Gehobene Mittelstufe — Vantage</h2>
+      <p>Kann die Hauptinhalte komplexer Texte zu konkreten und abstrakten Themen verstehen.</p>
+      <span class="level-cefr">GER: B2 · CEFR: B2 · Vantage · Europäischer Referenzrahmen</span>
+    </div>
+  </div>
+
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~5.000</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~1.000</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~700</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~2.500</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~150</div><div class="lbl">Fachausdrücke</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Themenfelder B2</h3>
+      <div class="tag-list">
+        <span class="tag tag-red">Politik & Gesellschaft</span>
+        <span class="tag tag-red">Wirtschaft & Finanzen</span>
+        <span class="tag tag-red">Wissenschaft & Forschung</span>
+        <span class="tag tag-red">Literatur & Kunst</span>
+        <span class="tag tag-red">Philosophie & Ethik</span>
+        <span class="tag tag-red">Digitalisierung</span>
+        <span class="tag tag-red">Globalisierung</span>
+        <span class="tag tag-red">Nachhaltigkeit</span>
+        <span class="tag tag-red">Psychologie & Bildung</span>
+        <span class="tag tag-red">Sprachliche Nuancen</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> Sprachliche Kompetenzen B2</h3>
+      <ul class="checklist">
+        <li>Nominalstil (Substantivierungen): die Entwicklung, das Scheitern</li>
+        <li>Erweiterte Partizipialkonstruktionen</li>
+        <li>Konjunktiv I (indirekte Rede)</li>
+        <li>Futur II (Vermutungen): Er wird gegangen sein.</li>
+        <li>Bedeutungsnuancen von Synonymen</li>
+        <li>Idiome und feste Redewendungen</li>
+        <li>Kollokationen (sprachliche Verbindungen)</li>
+        <li>Register: formell ↔ umgangssprachlich</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-title">📐 Grammatik</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Konjunktiv I</td><td>Indirekte Rede: sei, habe, komme, werde (Berichte, Zitate)</td><td class="ex">Er sagte, er sei krank. Sie behauptet, sie habe nichts gewusst.</td></tr>
+      <tr><td class="cat">Futur II</td><td>werden + Partizip II + haben/sein (Vermutung über Vergangenheit)</td><td class="ex">Er wird die Prüfung bestanden haben.</td></tr>
+      <tr><td class="cat">Passiv mit Modalv.</td><td>können, müssen, sollen + Passiv-Infinitiv</td><td class="ex">Das muss sofort repariert werden.</td></tr>
+      <tr><td class="cat">Erweitertes Partizip</td><td>Partizip I und II als Adjektiv (erweiterte Attributsätze)</td><td class="ex">der von uns erwartete Bericht; das schlafende Kind</td></tr>
+      <tr><td class="cat">Nominalisierung</td><td>Verben und Adjektive als Nomen; Gerundiv</td><td class="ex">das Lesen fällt schwer; das zu lösende Problem</td></tr>
+      <tr><td class="cat">Konsekutivsätze</td><td>so...dass, sodass, weshalb, weswegen</td><td class="ex">Es war so kalt, dass die Heizung ausfiel.</td></tr>
+      <tr><td class="cat">Konzessivsätze</td><td>obwohl, obgleich, auch wenn, selbst wenn, wenngleich</td><td class="ex">Obgleich er krank war, kam er zur Arbeit.</td></tr>
+      <tr><td class="cat">Finalsätze</td><td>damit, um...zu (bei versch. Subjekten: damit!)</td><td class="ex">Er erklärt es langsam, damit alle verstehen.</td></tr>
+      <tr><td class="cat">Doppelinfin.</td><td>lassen + Infinitiv, hören/sehen + Infinitiv (Perfekt!)</td><td class="ex">Er hat es reparieren lassen. Ich habe sie singen hören.</td></tr>
+      <tr><td class="cat">Wortbildung</td><td>Vorsilben (be-, ver-, ent-, er-, zer-), Nachsilben (-heit, -keit, -ung, -schaft)</td><td class="ex">Verantwortlichkeit, Entscheidungsfreiheit</td></tr>
+      <tr><td class="cat">Indefinitpronomen</td><td>alle, beide, einige, mehrere, manche, irgendjemand, niemand</td><td class="ex">Manche Leute denken anders darüber.</td></tr>
+    </table>
+  </div>
+
+  <p class="section-title">🎓 Prüfungsstruktur B2</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat B2 / telc Deutsch B2</h3><span>Gesamtdauer: ~4 Stunden</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">70 Min.</div><div class="part-desc">Komplexe Sachtexte, Zeitungsartikel. 4 Teile, 30 Aufgaben. Selektiv- und Detailverstehen.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">50 Min.</div><div class="part-desc">Interviews, Diskussionen, Vorträge. 4 Teile, 25 Aufgaben. Implizite Bedeutungen erfassen.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">75 Min.</div><div class="part-desc">Teil 1: Formeller Brief/Bericht (150–200 Wörter). Teil 2: Meinungsaufsatz (200 Wörter).</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">15 Min.</div><div class="part-desc">Kurzpräsentation + Diskussion. Argumente vertreten und diskutieren.</div></div>
+    </div>
+    <div class="tip-box"><strong>B2 Schwerpunkte:</strong> Konjunktiv I (indirekte Rede), erweiterter Nominalstil, argumentatives Schreiben, Registerkenntnis. Texte analysieren und zusammenfassen ist zentral.</div>
+  </div>
+
+  <p class="section-title">📝 Beispielprüfung B2</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest B2 — Goethe-Zertifikat B2 (Auszug) <span>~75 Minuten</span></div>
+    <div class="sample-section">
+      <h4>Teil 1: Grammatik — Konjunktiv I + Nominalisierung <span>12 Punkte</span></h4>
+      <div class="q"><p><strong>1.</strong> Formen Sie in indirekte Rede um: „Ich weiß die Antwort nicht." → Der Schüler sagte, er ______ die Antwort nicht.</p></div>
+      <div class="q"><p><strong>2.</strong> Nominalisieren Sie: „Man muss das Problem schnell lösen." → <span class="blank"></span> des Problems ist dringend notwendig.</p></div>
+      <div class="q"><p><strong>3.</strong> Erweiterte Partizipialkonstruktion: „Der Brief, der gestern geschrieben wurde" → der gestern ______ Brief</p></div>
+      <div class="q"><p><strong>4.</strong> Futur II: „Er hat wahrscheinlich die Aufgabe vergessen." → Er ______ die Aufgabe ______ ______.</p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- wisse / kenne; 2- Die schnelle Lösung / Das schnelle Lösen; 3- geschriebene; 4- wird vergessen haben</div>
+    </div>
+    <div class="sample-section">
+      <h4>Teil 2: Schreiben — Erörterung (200 Wörter) <span>25 Punkte</span></h4>
+      <p style="font-style:italic;color:#666;font-size:13px;">„Soziale Medien haben mehr Nachteile als Vorteile." Schreiben Sie eine Erörterung. Nennen Sie mindestens 2 Argumente für und 2 gegen diese These. Beziehen Sie klar Stellung.</p>
+      <div class="answer-key"><strong>Bewertungskriterien:</strong> Argumentation (4 Argumente + Stellungnahme), Textstruktur (Einleitung/Hauptteil/Schluss), B2-Strukturen (Konjunktiv I, Nominalstil, konzessive/konsekutive Nebensätze), Wortwahl (Konnektoren: einerseits, andererseits, nichtsdestotrotz), Formale Korrektheit</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ C1 -->
+<div id="tab-c1" class="tab-panel">
+  <div class="level-header">
+    <div class="level-badge badge-c1">C1</div>
+    <div class="level-info">
+      <h2>Fortgeschritten — Effective Operational Proficiency</h2>
+      <p>Kann ein breites Spektrum anspruchsvoller, langer Texte verstehen und die implizite Bedeutung erfassen.</p>
+      <span class="level-cefr">GER: C1 · CEFR: C1 · EOP · DSH-Equivalent</span>
+    </div>
+  </div>
+
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~10.000</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~2.000</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~1.500</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~5.000</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~500</div><div class="lbl">Fachbegriffe</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Themenfelder C1</h3>
+      <div class="tag-list">
+        <span class="tag tag-red">Akademische Fachsprache</span>
+        <span class="tag tag-red">Rechtswesen & Verwaltung</span>
+        <span class="tag tag-red">Philosophie & Linguistik</span>
+        <span class="tag tag-red">Literaturanalyse</span>
+        <span class="tag tag-red">Komplexe Wirtschaftsthemen</span>
+        <span class="tag tag-red">Naturwissenschaften</span>
+        <span class="tag tag-red">Stilistische Variation</span>
+        <span class="tag tag-red">Ironie & Metapher erkennen</span>
+        <span class="tag tag-red">Idiomatische Ausdrücke</span>
+        <span class="tag tag-red">Regionaldialekte (passiv)</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> C1 Sprachliche Fähigkeiten</h3>
+      <ul class="checklist">
+        <li>Komplexe Satzgefüge spontan verwenden</li>
+        <li>Wissenschaftliche Texte produzieren und verstehen</li>
+        <li>Stilistisch variieren (Präzision vs. Eleganz)</li>
+        <li>Implizite und metaphorische Bedeutungen erfassen</li>
+        <li>Rhetorische Mittel erkennen und einsetzen</li>
+        <li>Fachsprachliche Termini korrekt einsetzen</li>
+        <li>Texte argumentativ kohärent strukturieren</li>
+        <li>Spontane mündliche Argumentation</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-title">📐 Grammatik (erweitert)</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Erw. Attributsätze</td><td>Komplexe Partizipialgruppen als Attribut (schriftsprachlich)</td><td class="ex">die vom Ausschuss erst kürzlich verabschiedete Reform</td></tr>
+      <tr><td class="cat">Freier Dativ</td><td>Dativus commodi/incommodi, Pertinenziv</td><td class="ex">Das ist mir zu teuer. Er wusch sich die Hände.</td></tr>
+      <tr><td class="cat">Gerundiv</td><td>zu + Partizip I als Adjektiv (Notwendigkeit)</td><td class="ex">das zu lösende Problem, ein nicht zu unterschätzendes Risiko</td></tr>
+      <tr><td class="cat">Kausalsätze</td><td>da, weil, denn (stilistische Unterschiede!), zumal</td><td class="ex">Zumal er krank war, blieb er zu Hause.</td></tr>
+      <tr><td class="cat">Modale Inf.konstr.</td><td>sein + zu + Infinitiv (Passiv-Bedeutung mit Notwendigkeit)</td><td class="ex">Das Problem ist nicht zu lösen.</td></tr>
+      <tr><td class="cat">Irrealis</td><td>Konjunktiv II in der Vergangenheit: hätte/wäre + Partizip II</td><td class="ex">Wenn er gelernt hätte, hätte er bestanden.</td></tr>
+      <tr><td class="cat">Wortbildung adv.</td><td>Präfixe (hyper-, ultra-, pseudo-, quasi-) + Konfixe</td><td class="ex">hyperintelligent, pseudowissenschaftlich</td></tr>
+      <tr><td class="cat">Textkohärenz</td><td>Proformen, Ellipsen, Anapher, Katapher</td><td class="ex">Das Ergebnis... es... dieses...</td></tr>
+      <tr><td class="cat">Inversion/Ellipse</td><td>Stilistische Inversion, elliptische Konstruktionen in Literatur</td><td class="ex">Kaum hatte er die Tür geöffnet, klingelte das Telefon.</td></tr>
+    </table>
+  </div>
+
+  <p class="section-title">🎓 Prüfungsstruktur C1</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat C1 / telc Deutsch C1 / DSH</h3><span>Gesamtdauer: ~4,5 Stunden</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">80 Min.</div><div class="part-desc">Komplexe Sachtexte, literarische Texte, wissenschaftliche Aufsätze. Implizite Bedeutungen, Textstruktur analysieren.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">40 Min.</div><div class="part-desc">Vorträge, Podiumsdiskussionen, komplexe Interviews. Standpunkte und Argumentationsstrukturen erkennen.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">90 Min.</div><div class="part-desc">Wissenschaftlicher Aufsatz oder komplexer Bericht (250–300 Wörter). Textkommentar oder Analyse.</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">20 Min.</div><div class="part-desc">Strukturierte Präsentation + lebhafte Diskussion. Spontane Stellungnahmen, differenzierte Argumentation.</div></div>
+    </div>
+    <div class="tip-box"><strong>C1 Schwerpunkte:</strong> Wissenschaftliche Textproduktion, komplexe Partizipialkonstruktionen, Stilsicherheit, differenzierte Argumentation. Akademisches Schreiben ist zentral für DSH/TestDaF.</div>
+    <div class="warn-box"><strong>Äquivalente:</strong> C1 ≈ TestDaF TDN 4 ≈ DSH-2 ≈ Hochschulzugangsberechtigung für Deutschland/Österreich/Schweiz</div>
+  </div>
+
+  <p class="section-title">📝 Beispielprüfung C1</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest C1 — Goethe-Zertifikat C1 (Auszug) <span>~90 Minuten</span></div>
+    <div class="sample-section">
+      <h4>Teil 1: Grammatik — Erweiterte Strukturen <span>15 Punkte</span></h4>
+      <div class="q"><p><strong>1.</strong> Formen Sie um (Partizipialkonstruktion): „Der Vertrag, der von beiden Seiten unterschrieben wurde" → <span class="blank"></span></p></div>
+      <div class="q"><p><strong>2.</strong> Gerundiv: „Das Problem kann nicht gelöst werden." → Das <span class="blank"></span> Problem</p></div>
+      <div class="q"><p><strong>3.</strong> Konjunktiv II Vergangenheit: „Er hat nicht gelernt, deshalb ist er durchgefallen." (Irrealis) → Wenn er gelernt ______, wäre er nicht durchgefallen ______.</p></div>
+      <div class="q"><p><strong>4.</strong> Sein + zu-Infinitiv: „Man kann das nicht vermeiden." → Das ______ nicht zu ______.</p></div>
+      <div class="answer-key"><strong>Lösungen:</strong> 1- der von beiden Seiten unterschriebene Vertrag; 2- nicht zu lösende; 3- hätte / worden; 4- ist / vermeiden</div>
+    </div>
+    <div class="sample-section">
+      <h4>Teil 2: Schreiben — Wissenschaftlicher Kommentar (250 Wörter) <span>30 Punkte</span></h4>
+      <p style="font-style:italic;color:#666;font-size:13px;">Lesen Sie folgenden Textausschnitt und kommentieren Sie ihn kritisch. Gehen Sie auf die Argumentation des Autors ein, nennen Sie Stärken und Schwächen und formulieren Sie Ihre eigene fundierte Stellungnahme.</p>
+      <div style="background:#f8f8f8;padding:12px;border-radius:6px;font-size:12px;font-style:italic;margin-bottom:10px;">„Die zunehmende Digitalisierung des Bildungswesens birgt sowohl erhebliche Chancen als auch nicht zu unterschätzende Risiken. Während einerseits individualisiertes Lernen und globaler Wissenstransfer erleichtert werden, droht andererseits eine Vertiefung der digitalen Kluft zwischen sozial privilegierten und benachteiligten Schülergruppen..."</div>
+      <div class="answer-key"><strong>Erwartete C1-Strukturen:</strong> Erweiterte Partizipialattribute, Gerundive, komplexe Kausalgefüge, Konjunktiv I in Referenzen auf den Text, präziser Nominalstil, rhetorische Gegensatzpaare, akademische Konnektoren (gleichwohl, indes, nichtsdestoweniger)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ C2 -->
+<div id="tab-c2" class="tab-panel">
+  <div class="level-header">
+    <div class="level-badge badge-c2">C2</div>
+    <div class="level-info">
+      <h2>Beherrschung — Mastery</h2>
+      <p>Kann praktisch alles, was gehört oder gelesen wird, mühelos verstehen. Kann sich sehr flüssig, spontan und genau ausdrücken.</p>
+      <span class="level-cefr">GER: C2 · CEFR: C2 · Mastery · Großes Deutsches Sprachdiplom</span>
+    </div>
+  </div>
+
+  <p class="section-title">📚 Vokabular</p>
+  <div class="stat-row">
+    <div class="stat"><div class="num">~16.000+</div><div class="lbl">Gesamtwörter</div></div>
+    <div class="stat"><div class="num">~4.000+</div><div class="lbl">Verben</div></div>
+    <div class="stat"><div class="num">~3.000+</div><div class="lbl">Adjektive</div></div>
+    <div class="stat"><div class="num">~8.000+</div><div class="lbl">Nomen</div></div>
+    <div class="stat"><div class="num">~1.500+</div><div class="lbl">Idiome/Phrasen</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> C2 Sprachdomänen</h3>
+      <div class="tag-list">
+        <span class="tag tag-purple">Literarische Sprache</span>
+        <span class="tag tag-purple">Veraltete & historische Formen</span>
+        <span class="tag tag-purple">Dialekte (aktiv & passiv)</span>
+        <span class="tag tag-purple">Alle Fachsprachen</span>
+        <span class="tag tag-purple">Umgangssprache & Slang</span>
+        <span class="tag tag-purple">Sprachliche Ironie & Satire</span>
+        <span class="tag tag-purple">Bürokratendeutsch</span>
+        <span class="tag tag-purple">Jugendsprache</span>
+        <span class="tag tag-purple">Stilistische Meisterschaft</span>
+        <span class="tag tag-purple">Kulturspezifische Referenzen</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔤</span> C2 Mastery-Kennzeichen</h3>
+      <ul class="checklist">
+        <li>Vollständige Grammatikbeherrschung ohne Nachdenken</li>
+        <li>Spontane stilistische Anpassung an jede Situation</li>
+        <li>Subtile Bedeutungsunterschiede wahrnehmen und nutzen</li>
+        <li>Muttersprachliche Ausdrucksweise in allen Registern</li>
+        <li>Kulturelle Anspielungen und historische Referenzen</li>
+        <li>Komplexe literarische Texte produzieren</li>
+        <li>Rhetorik, Prosody, Stilanalyse</li>
+        <li>Fremdwörter und Latinismen korrekt einsetzen</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-title">📐 Grammatik (vollständige Beherrschung)</p>
+  <div class="card grid-full">
+    <table class="g-table">
+      <tr><th>Bereich</th><th>Inhalt auf C2-Niveau</th><th>Beispiel</th></tr>
+      <tr><td class="cat">Historische Formen</td><td>Veralteter Konjunktiv I/II (er spreche, er käme), Pluperfekt in Literatur</td><td class="ex">Er sprach, als sei er der König. (Schiller-Stil)</td></tr>
+      <tr><td class="cat">Archaisierung</td><td>Genitiv-Objekte, alte Kasusfomen, Dativ-e (dem Manne)</td><td class="ex">Kraft dieses Beschlusses... des Herrn Mannes...</td></tr>
+      <tr><td class="cat">Komplexe Stilmittel</td><td>Chiasmus, Anapher, Klimax, Antithese, Euphemismus — erkennen + produzieren</td><td class="ex">Veni, vidi, vici. / Arm im Geiste, reich an Tugend.</td></tr>
+      <tr><td class="cat">Fremdwortgrammatik</td><td>Lateinische/griechische Deklinationen im Deutschen</td><td class="ex">das Thema → die Themen/Themata; das Datum → die Daten</td></tr>
+      <tr><td class="cat">Satzbauvarianten</td><td>Apposition, freies Thema, Parenthese, Nachtrag</td><td class="ex">Berlin, die Hauptstadt, liegt im Nordosten.</td></tr>
+      <tr><td class="cat">Syntax-Rhetorik</td><td>Hyperbel, Litotes, Understatement in der Sprachanalyse</td><td class="ex">„nicht ganz uninteressant" = sehr interessant</td></tr>
+      <tr><td class="cat">Vollst. Wortbildung</td><td>Alle Wortbildungsregeln, Neologismen bilden und analysieren</td><td class="ex">Fernseher → Fernseherinnen → Fernsehsucht...</td></tr>
+    </table>
+  </div>
+
+  <p class="section-title">🎓 Prüfungsstruktur C2</p>
+  <div class="exam-header"><h3>Goethe-Zertifikat C2 (GDS) / ÖSD C2</h3><span>Gesamtdauer: ~5 Stunden über 2 Tage</span></div>
+  <div class="exam-body">
+    <div class="exam-parts">
+      <div class="exam-part"><div class="part-name">📖 Lesen</div><div class="part-time">90 Min.</div><div class="part-desc">Literarische, akademische, journalistische Texte. Sprachliche Analyse, Stilmittel erkennen, implizite Bedeutungen.</div></div>
+      <div class="exam-part"><div class="part-name">🎧 Hören</div><div class="part-time">50 Min.</div><div class="part-desc">Vorlesungen, Rundfunksendungen, spontane Diskussionen. Argumentationslogik, Ironie, Subtext erfassen.</div></div>
+      <div class="exam-part"><div class="part-name">✍️ Schreiben</div><div class="part-time">120 Min.</div><div class="part-desc">Literarischer Aufsatz oder wissenschaftliche Analyse (300–400 Wörter). Stilistisch anspruchsvoll und differenziert.</div></div>
+      <div class="exam-part"><div class="part-name">🗣️ Sprechen</div><div class="part-time">25 Min.</div><div class="part-desc">Freier Vortrag, komplexe Diskussion, Sprachreflexion. Muttersprachlichem Niveau nahekommen.</div></div>
+    </div>
+    <div class="warn-box"><strong>C2 = Nahezu muttersprachliche Kompetenz.</strong> Der Unterschied zu C1: Spontaneität, stilistische Brillanz, kulturelles Tiefenverständnis und vollständige Fehlervermeidung auch unter Druck.</div>
+  </div>
+
+  <p class="section-title">📝 Beispielprüfung C2</p>
+  <div class="sample-exam">
+    <div class="sample-header">Beispieltest C2 — Goethe C2 / GDS (Auszug) <span>~120 Minuten</span></div>
+    <div class="sample-section">
+      <h4>Teil 1: Textanalyse — Literarischer Ausschnitt <span>20 Punkte</span></h4>
+      <div style="background:#f8f8f8;padding:14px;border-radius:6px;font-size:13px;font-style:italic;margin-bottom:12px;">
+        „Die Sprache, diese zerbrechliche, unzuverlässige und doch unentbehrliche Brücke zwischen den Menschen, versagt immer dann, wenn wir sie am nötigsten brauchen. Im Angesicht des Todes, der Liebe, des tiefsten Schmerzes: da schweigt der beredte Mund, und das Schweigen selbst spricht Bände."
+      </div>
+      <ul class="checklist" style="margin-bottom:10px;">
+        <li>Identifizieren Sie mindestens 3 Stilmittel im Text und erklären Sie deren Wirkung.</li>
+        <li>Analysieren Sie den Aufbau des Satzes „da schweigt der beredte Mund" (Grammatik + Stilistik).</li>
+        <li>Schreiben Sie einen 3-Satz-Kommentar zur These des Autors in einem gleichwertigen stilistischen Register.</li>
+      </ul>
+      <div class="answer-key"><strong>Stilmittel:</strong> Metapher (Brücke), Epitheton ornans (zerbrechliche/unzuverlässige/unentbehrliche), Oxymoron (beredte Mund schweigt), Paradoxon (Schweigen spricht), Klimax (Tod, Liebe, Schmerz), Inversion (da schweigt der...)</div>
+    </div>
+    <div class="sample-section">
+      <h4>Teil 2: Schreiben — Akademischer Aufsatz (300 Wörter) <span>40 Punkte</span></h4>
+      <p style="font-style:italic;color:#666;font-size:13px;">„Die Digitalisierung hat die Sprache demokratisiert oder korrumpiert?" — Verfassen Sie einen strukturierten Aufsatz, in dem Sie Argumente aus der Sprachwissenschaft, Kulturphilosophie und persönlicher Reflexion verknüpfen.</p>
+      <div class="answer-key"><strong>C2-Erwartungen:</strong> Eigenständige These, belastbare Argumentation aus 3 Perspektiven, fehlerloses Deutsch, stilistische Brillanz (Variation von Satzbau und Wortfeldern), kulturelle und historische Referenzen, akademischer Zitierstil, differenziertes Fazit ohne Simplifizierung</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ SUMMARY -->
+<div id="tab-summary" class="tab-panel">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+    <div style="font-size:40px;">📊</div>
+    <div>
+      <h2 style="font-size:22px;font-weight:700;">Gesamtvergleich A1–C2</h2>
+      <p style="color:var(--muted);font-size:13px;">Übersicht aller Niveaus · Lernziel-Unterschiede · Vokabular- und Grammatikausbau · Prüfungsanforderungen</p>
+    </div>
+  </div>
+
+  <p class="section-title">📈 Vokabular-Wachstum (Anzahl Wörter)</p>
+  <div class="card grid-full">
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#2e7d32">A1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:4%;background:#4caf50;">A1</div></div><div class="chart-bar-value">~700</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#1565c0">A2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:9%;background:#2196f3;">A2</div></div><div class="chart-bar-value">~1.500</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#e65100">B1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:18%;background:#ff9800;">B1</div></div><div class="chart-bar-value">~2.900</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#bf360c">B2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:31%;background:#ff5722;">B2</div></div><div class="chart-bar-value">~5.000</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#880e4f">C1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:62%;background:#e91e63;">C1</div></div><div class="chart-bar-value">~10.000</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#4527a0">C2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%;background:#9c27b0;">C2</div></div><div class="chart-bar-value">~16.000+</div></div>
+  </div>
+
+  <p class="section-title">🔢 Verben nach Niveau</p>
+  <div class="card grid-full">
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#2e7d32">A1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:4%;background:#4caf50;"></div></div><div class="chart-bar-value">~150 Verben</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#1565c0">A2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:7%;background:#2196f3;"></div></div><div class="chart-bar-value">~280 Verben</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#e65100">B1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:15%;background:#ff9800;"></div></div><div class="chart-bar-value">~600 Verben</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#bf360c">B2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:25%;background:#ff5722;"></div></div><div class="chart-bar-value">~1.000 Verben</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#880e4f">C1</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:50%;background:#e91e63;"></div></div><div class="chart-bar-value">~2.000 Verben</div></div>
+    <div class="chart-bar-row"><div class="chart-bar-label" style="color:#4527a0">C2</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:100%;background:#9c27b0;"></div></div><div class="chart-bar-value">~4.000+ Verben</div></div>
+  </div>
+
+  <p class="section-title">📋 Grammatik-Vergleichstabelle</p>
+  <table class="comparison-table" style="margin-bottom:28px;">
+    <tr><th>Grammatikbereich</th><th class="level-cell" style="color:#4caf50">A1</th><th class="level-cell" style="color:#2196f3">A2</th><th class="level-cell" style="color:#ff9800">B1</th><th class="level-cell" style="color:#ff5722">B2</th><th class="level-cell" style="color:#e91e63">C1</th><th class="level-cell" style="color:#9c27b0">C2</th></tr>
+    <tr><td>Kasus</td><td>Nom. + Akk.</td><td>Alle 4</td><td>Alle 4 aktiv</td><td>Vollständig</td><td>Vollständig</td><td>Vollständig</td></tr>
+    <tr><td>Vergangenheit</td><td>—</td><td>Perfekt + Prät. (sein/haben)</td><td>Perfekt + voll. Präteritum</td><td>+ Plusquamperfekt</td><td>+ histor. Formen</td><td>Alle Formen</td></tr>
+    <tr><td>Modalverben</td><td>können</td><td>Alle 6</td><td>Alle 6 + Präteritum</td><td>+ Passiv-Inf.</td><td>Vollständig</td><td>Vollständig</td></tr>
+    <tr><td>Konjunktiv II</td><td>—</td><td>—</td><td>Grundformen</td><td>+ Vergangenheit</td><td>+ Irrealis voll.</td><td>Vollständig</td></tr>
+    <tr><td>Konjunktiv I</td><td>—</td><td>—</td><td>—</td><td>Vollständig</td><td>+ Differenzierung</td><td>Vollständig</td></tr>
+    <tr><td>Passiv</td><td>—</td><td>—</td><td>Präs. + Prät.</td><td>Alle Zeiten</td><td>+ Modalv.</td><td>Vollständig</td></tr>
+    <tr><td>Relativsätze</td><td>—</td><td>Einfach</td><td>Alle Kasus</td><td>+ Partizipalattr.</td><td>+ Erweitert</td><td>Komplex</td></tr>
+    <tr><td>Nebensätze</td><td>—</td><td>weil, dass, wenn</td><td>+ob, damit, als</td><td>+obwohl, sodass</td><td>+zumal, wobei</td><td>Alle Typen</td></tr>
+    <tr><td>Nominalisierung</td><td>—</td><td>Einfach</td><td>Grundformen</td><td>Vollständig</td><td>+ Gerundiv</td><td>Meisterschaft</td></tr>
+    <tr><td>Stilistik</td><td>—</td><td>—</td><td>—</td><td>Register-kenntnis</td><td>Aktiv variieren</td><td>Stilmeisterschaft</td></tr>
+  </table>
+
+  <p class="section-title">🎓 Prüfungs-Vergleich</p>
+  <table class="comparison-table" style="margin-bottom:28px;">
+    <tr><th>Merkmal</th><th>A1</th><th>A2</th><th>B1</th><th>B2</th><th>C1</th><th>C2</th></tr>
+    <tr><td>Schreiblänge</td><td>30–40 W.</td><td>40–60 W.</td><td>80–100 W.</td><td>150–200 W.</td><td>250–300 W.</td><td>300–400 W.</td></tr>
+    <tr><td>Prüfungsdauer</td><td>~65 Min.</td><td>~90 Min.</td><td>~180 Min.</td><td>~240 Min.</td><td>~270 Min.</td><td>~300 Min.</td></tr>
+    <tr><td>Texttypen Lesen</td><td>Schilder</td><td>E-Mails</td><td>Artikel</td><td>Fachtexte</td><td>Wissenschaft</td><td>Literatur</td></tr>
+    <tr><td>Schreibaufgabe</td><td>Formular + SMS</td><td>E-Mail</td><td>Brief + Meinung</td><td>Erörterung</td><td>Analyse</td><td>Lit. Aufsatz</td></tr>
+    <tr><td>Hauptzertifikat</td><td>Goethe A1</td><td>Goethe A2</td><td>Goethe B1/ZD</td><td>Goethe B2</td><td>Goethe C1/DSH</td><td>GDS/ÖSD C2</td></tr>
+    <tr><td>Äquivalenz</td><td>Einstieg</td><td>Grundschule</td><td>Alltagsleben</td><td>Studium mögl.</td><td>Hochschule DE</td><td>Muttersprache</td></tr>
+  </table>
+
+  <p class="section-title">🚀 Lernwegweiser: Stufenübergänge</p>
+  <div class="grid-3">
+    <div class="card">
+      <h3><span class="icon">➡️</span> A1 → A2</h3>
+      <ul class="checklist">
+        <li>Alle 4 Kasus beherrschen</li>
+        <li>Perfekt mit haben + sein</li>
+        <li>Alle 6 Modalverben</li>
+        <li>Trennbare + reflexive Verben</li>
+        <li>Einfache Nebensätze (weil, dass)</li>
+        <li>Wechselpräpositionen</li>
+      </ul>
+      <div class="tip-box" style="margin-top:10px;">⏱ Lernzeit: ~150–200 Std.</div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">➡️</span> A2 → B1</h3>
+      <ul class="checklist">
+        <li>Vollständiges Präteritum</li>
+        <li>Konjunktiv II (Grundformen)</li>
+        <li>Passiv Präsens + Präteritum</li>
+        <li>Relativsätze (alle Kasus)</li>
+        <li>Infinitivkonstruktionen</li>
+        <li>Viele Konnektoren</li>
+        <li>Texte: 80–100 Wörter schreiben</li>
+      </ul>
+      <div class="tip-box" style="margin-top:10px;">⏱ Lernzeit: ~200–300 Std.</div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">➡️</span> B1 → B2</h3>
+      <ul class="checklist">
+        <li>Konjunktiv I (indirekte Rede)</li>
+        <li>Passiv in allen Zeiten</li>
+        <li>Futur II</li>
+        <li>Erweitertes Partizipialattribut</li>
+        <li>Nominalstil / Substantivierung</li>
+        <li>Akademischer Wortschatz</li>
+        <li>Erörterungen strukturiert schreiben</li>
+      </ul>
+      <div class="tip-box" style="margin-top:10px;">⏱ Lernzeit: ~300–400 Std.</div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">➡️</span> B2 → C1</h3>
+      <ul class="checklist">
+        <li>Erweiterte Partizipialgruppen</li>
+        <li>Gerundiv (das zu lösende Problem)</li>
+        <li>Konjunktiv II Vergangenheit (Irrealis)</li>
+        <li>Akademische Textproduktion</li>
+        <li>Stilistische Variation aktiv</li>
+        <li>Implizite Bedeutungen erfassen</li>
+        <li>Fachsprachen (mind. 1 Bereich)</li>
+      </ul>
+      <div class="tip-box" style="margin-top:10px;">⏱ Lernzeit: ~400–600 Std.</div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">➡️</span> C1 → C2</h3>
+      <ul class="checklist">
+        <li>Vollständige Stilsicherheit</li>
+        <li>Literarische Textproduktion</li>
+        <li>Historische/veraltete Formen</li>
+        <li>Alle Idiome und Redewendungen</li>
+        <li>Kulturelle Tiefenkenntnisse</li>
+        <li>Fehlerfreies Deutsch unter Druck</li>
+        <li>Alle Dialekte passiv verstehen</li>
+      </ul>
+      <div class="tip-box" style="margin-top:10px;">⏱ Lernzeit: ~600–1000 Std.</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#1a2744,#2a3d6e);color:white;">
+      <h3 style="color:#e8c97a;"><span class="icon">🎯</span> Schnelldiagnose</h3>
+      <p style="font-size:12px;color:#aab8d0;margin-bottom:10px;">Wenn ein Schüler sagt „Ich bin B1" — prüfen Sie:</p>
+      <ul style="list-style:none;font-size:12px;color:#ddd;">
+        <li style="padding:3px 0;">✓ Kann er Konjunktiv II bilden?</li>
+        <li style="padding:3px 0;">✓ Kann er Passiv anwenden?</li>
+        <li style="padding:3px 0;">✓ Kann er Relativsätze im Dativ bilden?</li>
+        <li style="padding:3px 0;">✓ Kann er einen 100-Wort-Brief schreiben?</li>
+        <li style="padding:3px 0;">✓ Versteht er Zeitungsartikel global?</li>
+      </ul>
+      <p style="font-size:11px;color:#99b;margin-top:10px;">Ja bei allen 5 → echtes B1 → jetzt B2 beginnen!</p>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:28px;">⏰ Gesamtlernzeit-Übersicht</p>
+  <div class="card grid-full">
+    <table class="comparison-table">
+      <tr><th>Niveau</th><th>Gesamtstunden bis Abschluss</th><th>Zusätzliche Stunden von Vorstufe</th><th>Lernintensität (Empfehlung)</th></tr>
+      <tr><td><strong style="color:#4caf50">A1</strong></td><td>80–150 Std.</td><td>Einstieg</td><td>2–3 Std./Tag → 2–3 Monate</td></tr>
+      <tr><td><strong style="color:#2196f3">A2</strong></td><td>200–350 Std.</td><td>+100–200 Std.</td><td>2–3 Std./Tag → 3–4 Monate</td></tr>
+      <tr><td><strong style="color:#ff9800">B1</strong></td><td>500–650 Std.</td><td>+250–350 Std.</td><td>2–3 Std./Tag → 5–7 Monate</td></tr>
+      <tr><td><strong style="color:#ff5722">B2</strong></td><td>900–1.100 Std.</td><td>+350–500 Std.</td><td>2–4 Std./Tag → 8–12 Monate</td></tr>
+      <tr><td><strong style="color:#e91e63">C1</strong></td><td>1.400–1.800 Std.</td><td>+500–700 Std.</td><td>3–4 Std./Tag → 12–18 Monate</td></tr>
+      <tr><td><strong style="color:#9c27b0">C2</strong></td><td>2.400–3.000+ Std.</td><td>+600–1.200 Std.</td><td>Immersion + 18–36 Monate</td></tr>
+    </table>
+    <div class="tip-box" style="margin-top:12px;"><strong>Hinweis:</strong> Diese Werte gelten für Lernende ohne verwandte Muttersprache (z.B. Englisch ≈ 20% schneller, Arabisch/Chinesisch ≈ 20–30% langsamer).</div>
+  </div>
+</div>
+
+<footer>
+  🇩🇪 Deutsches Lernsystem A1–C2 · Basierend auf CEFR/GER · Goethe-Institut · telc · ÖSD · Erstellt mit LTC Menzel Reference Tools
+</footer>
+
+<script>
+// Scroll to top on tab click so nav is always visible
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    setTimeout(function() { window.scrollTo({top: 0, behavior: 'smooth'}); }, 50);
+  });
+});
+</script>
+</body>
+</html>

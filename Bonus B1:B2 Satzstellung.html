@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsche Satzstellung — Alle Regeln</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f7ff; --white:#fff; --navy:#1a2d6b; --blue:#2563eb; --blue-l:#dbeafe;
+  --blue-d:#1d4ed8; --teal:#0d9488; --teal-l:#ccfbf1; --green:#059669;
+  --green-l:#d1fae5; --orange:#d97706; --orange-l:#fef3c7; --red:#dc2626;
+  --red-l:#fee2e2; --purple:#7c3aed; --purple-l:#ede9fe; --pink:#db2777;
+  --pink-l:#fce7f3; --gray:#374151; --gray2:#6b7280; --gray3:#e5e7eb;
+  --gray4:#f9fafb; --border:#d1d5db;
+  --sans:'Nunito',sans-serif; --mono:'JetBrains Mono',monospace;
+  --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 4px 20px rgba(0,0,0,.12);
+  --r:14px; --rsm:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--gray);font-size:16px;line-height:1.6}
+
+/* NAV */
+.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:2px solid var(--gray3);box-shadow:var(--shadow);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.logo{font-size:17px;font-weight:900;color:var(--navy)}
+.logo span{color:var(--blue)}
+.tabs{display:flex;gap:3px;flex-wrap:wrap}
+.tab{font-size:12px;font-weight:700;padding:5px 11px;border-radius:20px;border:2px solid transparent;background:transparent;color:var(--gray2);cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.tab:hover{background:var(--blue-l);color:var(--blue)}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tab.done{background:var(--green-l);color:var(--green);border-color:var(--green)}
+.timer-btn{font-family:var(--mono);font-size:13px;font-weight:600;background:var(--orange-l);color:var(--orange);border:2px solid var(--orange);border-radius:20px;padding:5px 13px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.timer-btn:hover{background:var(--orange);color:#fff}
+.timer-btn.urgent{background:var(--red-l);color:var(--red);border-color:var(--red)}
+.prog-wrap{height:4px;background:var(--gray3)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .5s}
+
+/* PAGES */
+.page{display:none;max-width:920px;margin:0 auto;padding:28px 20px 80px}
+.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* DOTS */
+.dots{display:flex;gap:5px;justify-content:center;margin-bottom:18px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--gray3);cursor:pointer;transition:all .2s}
+.dot.active{background:var(--blue);transform:scale(1.4)}
+.dot.done{background:var(--green)}
+
+/* TYPOGRAPHY */
+h1{font-size:30px;font-weight:900;color:var(--navy);margin-bottom:10px}
+h2{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px}
+h3{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px}
+p{color:var(--gray);font-size:15px;line-height:1.75;margin-bottom:8px}
+p:last-child{margin-bottom:0}
+strong{color:var(--navy)}
+em{color:var(--blue);font-style:normal;font-weight:700}
+
+/* CARDS */
+.card{background:var(--white);border:2px solid var(--gray3);border-radius:var(--r);padding:20px 24px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-blue{border-color:var(--blue);background:#f0f5ff}
+.card-green{border-color:var(--green);background:#f0fdf8}
+.card-orange{border-color:var(--orange);background:#fffbf0}
+.card-purple{border-color:var(--purple);background:#faf5ff}
+.card-teal{border-color:var(--teal);background:#f0fdfa}
+.card-red{border-color:var(--red);background:#fff5f5}
+.card-pink{border-color:var(--pink);background:#fff0f7}
+
+/* PART LABEL */
+.part-label{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.pl-blue{background:var(--blue-l);color:var(--blue)}
+.pl-green{background:var(--green-l);color:var(--green)}
+.pl-orange{background:var(--orange-l);color:var(--orange)}
+.pl-purple{background:var(--purple-l);color:var(--purple)}
+.pl-teal{background:var(--teal-l);color:var(--teal)}
+.pl-red{background:var(--red-l);color:var(--red)}
+
+/* RULE BOX */
+.rule-box{border-left:5px solid var(--blue);background:var(--blue-l);border-radius:0 var(--rsm) var(--rsm) 0;padding:12px 16px;margin:10px 0}
+.rule-box.green{border-color:var(--green);background:var(--green-l)}
+.rule-box.orange{border-color:var(--orange);background:var(--orange-l)}
+.rule-box.purple{border-color:var(--purple);background:var(--purple-l)}
+.rule-box.red{border-color:var(--red);background:var(--red-l)}
+.rule-box.teal{border-color:var(--teal);background:var(--teal-l)}
+.rule-label{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:3px}
+.rule-box.green .rule-label{color:var(--green)}
+.rule-box.orange .rule-label{color:var(--orange)}
+.rule-box.purple .rule-label{color:var(--purple)}
+.rule-box.red .rule-label{color:var(--red)}
+.rule-box.teal .rule-label{color:var(--teal)}
+.rule-box p{color:#1e3a8a;font-size:14px;font-weight:600}
+.rule-box.green p{color:#064e3b}
+.rule-box.orange p{color:#78350f}
+.rule-box.purple p{color:#3b0764}
+.rule-box.red p{color:#7f1d1d}
+.rule-box.teal p{color:#134e4a}
+
+/* SENTENCE DIAGRAM */
+.satz-wrap{margin:12px 0}
+.satz-row{display:flex;align-items:stretch;gap:0;margin-bottom:6px;border-radius:var(--rsm);overflow:hidden;box-shadow:var(--shadow)}
+.satz-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 12px;min-width:60px;text-align:center;flex:1}
+.satz-box .pos{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;opacity:.7}
+.satz-box .word{font-size:14px;font-weight:800}
+.satz-box.pos1{background:#1a2d6b;color:#fff}
+.satz-box.verb{background:#2563eb;color:#fff}
+.satz-box.subj{background:#059669;color:#fff}
+.satz-box.obj-a{background:#d97706;color:#fff}
+.satz-box.obj-d{background:#7c3aed;color:#fff}
+.satz-box.adv{background:#0d9488;color:#fff}
+.satz-box.inf{background:#db2777;color:#fff}
+.satz-box.neg{background:#dc2626;color:#fff}
+.satz-box.kon{background:#374151;color:#fff}
+.satz-box.part{background:#92400e;color:#fff}
+.satz-box.neu{background:#e5e7eb;color:#374151}
+
+.satz-note{font-size:12px;color:var(--gray2);margin-top:2px;font-style:italic}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700}
+.leg-dot{width:12px;height:12px;border-radius:3px}
+
+/* COMPARE TABLE */
+.cmp-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+.cmp-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:13px}
+.cmp-table td{padding:10px 14px;border-bottom:1px solid var(--gray3);line-height:1.5}
+.cmp-table tr:nth-child(even) td{background:var(--gray4)}
+.cmp-table tr:hover td{background:var(--blue-l)}
+.cmp-table .correct{color:var(--green);font-weight:800}
+.cmp-table .wrong{color:var(--red);font-weight:800;text-decoration:line-through}
+.cmp-table .rule-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px}
+.rt-blue{background:var(--blue-l);color:var(--blue)}
+.rt-orange{background:var(--orange-l);color:var(--orange)}
+.rt-green{background:var(--green-l);color:var(--green)}
+.rt-purple{background:var(--purple-l);color:var(--purple)}
+
+/* QUIZ */
+.quiz-q{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:14px;line-height:1.4}
+.quiz-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.qopt{background:var(--white);border:2px solid var(--border);border-radius:var(--rsm);padding:12px 18px;font-size:15px;font-family:var(--sans);font-weight:600;cursor:pointer;text-align:left;color:var(--gray);transition:all .2s}
+.qopt:hover:not([disabled]){border-color:var(--blue);background:var(--blue-l);color:var(--navy)}
+.qopt.correct{border-color:var(--green);background:var(--green-l);color:#064e3b}
+.qopt.wrong{border-color:var(--red);background:var(--red-l);color:#7f1d1d}
+.qopt[disabled]{cursor:default}
+.qfb{font-size:14px;padding:12px 16px;border-radius:var(--rsm);font-weight:700;display:none;line-height:1.6}
+.qfb.show{display:block}
+.qfb.ok{background:var(--green-l);color:#065f46;border:2px solid var(--green)}
+.qfb.no{background:var(--red-l);color:#7f1d1d;border:2px solid var(--red)}
+
+/* FILL */
+.fill-block{background:#f0f4ff;border:2px solid var(--blue);border-radius:var(--rsm);padding:20px 24px;margin:12px 0}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:14px;font-size:15px;font-weight:600;color:var(--navy)}
+.fill-num{font-size:13px;font-weight:900;color:var(--blue);min-width:24px}
+.fill-inp{display:inline-block;width:160px;padding:6px 10px;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--navy);background:#fff;border:2.5px solid var(--blue);border-radius:var(--rsm);outline:none;text-align:center;transition:all .2s;box-shadow:0 2px 5px rgba(37,99,235,.12)}
+.fill-inp:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.fill-inp.ok{border-color:var(--green);background:var(--green-l);color:#064e3b}
+.fill-inp.no{border-color:var(--red);background:var(--red-l);color:#7f1d1d}
+.fill-hint{font-size:12px;color:var(--gray2);font-style:italic;font-family:var(--sans)}
+
+/* DRAG */
+.drag-pool{display:flex;flex-wrap:wrap;gap:8px;padding:14px;min-height:56px;background:var(--gray4);border:2px solid var(--border);border-radius:var(--rsm);margin-bottom:8px}
+.drop-zone{min-height:56px;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f0f4ff;border:2.5px dashed var(--blue);border-radius:var(--rsm);margin-bottom:8px;transition:all .2s}
+.drop-zone.over{background:var(--blue-l);border-color:var(--navy)}
+.token{background:var(--white);border:2px solid var(--border);border-radius:20px;padding:6px 14px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .15s;user-select:none}
+.token:hover{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+.token.placed{background:var(--green-l);border-color:var(--green);color:#065f46}
+.token.bad{background:var(--red-l);border-color:var(--red);color:#7f1d1d}
+
+/* FEEDBACK */
+.fb{font-size:14px;padding:12px 16px;border-radius:var(--rsm);font-weight:700;display:none;margin-top:10px;line-height:1.6}
+.fb.show{display:block}
+.fb.ok{background:var(--green-l);color:#065f46;border:2px solid var(--green)}
+.fb.no{background:var(--red-l);color:#7f1d1d;border:2px solid var(--red)}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:20px;border:2px solid var(--border);background:var(--white);color:var(--gray);font-size:14px;font-family:var(--sans);font-weight:700;cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+.btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-l);transform:translateY(-1px)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-d);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+.btn.success{background:var(--green);border-color:var(--green);color:#fff}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* SCORE */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.score-card{background:var(--white);border:2px solid var(--gray3);border-radius:var(--rsm);padding:18px;text-align:center;box-shadow:var(--shadow)}
+.sc-label{font-size:12px;font-weight:800;text-transform:uppercase;color:var(--gray2);margin-bottom:6px}
+.sc-value{font-size:28px;font-weight:900;color:var(--navy)}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;margin:2px}
+.badge-blue{background:var(--blue-l);color:var(--blue)}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-orange{background:var(--orange-l);color:var(--orange)}
+.badge-purple{background:var(--purple-l);color:var(--purple)}
+
+/* TOPFELD TABLE */
+.tf-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+.tf-table th{background:var(--teal);color:#fff;padding:9px 14px;font-size:12px;font-weight:800;text-transform:uppercase}
+.tf-table td{padding:9px 14px;border-bottom:1px solid var(--gray3);vertical-align:top}
+.tf-table tr:nth-child(even) td{background:var(--teal-l)}
+.tf-table .tf-type{font-weight:800;color:var(--navy)}
+.tf-table .tf-ex{font-family:var(--mono);font-size:13px;color:var(--blue)}
+.tf-table .tf-note{font-size:12px;color:var(--gray2);font-style:italic}
+
+@media(max-width:620px){.two-col,.three-col,.score-grid{grid-template-columns:1fr}.tabs{display:none}.satz-box{min-width:40px;padding:7px 6px}.satz-box .word{font-size:12px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">🇩🇪 <span>Satz</span>stellung</div>
+  <div class="tabs" id="nav-tabs">
+    <button class="tab active" onclick="goTo(0)">Start</button>
+    <button class="tab" onclick="goTo(1)">Grundregel</button>
+    <button class="tab" onclick="goTo(2)">Vorfeld</button>
+    <button class="tab" onclick="goTo(3)">Objekte</button>
+    <button class="tab" onclick="goTo(4)">Negation</button>
+    <button class="tab" onclick="goTo(5)">Nebensatz</button>
+    <button class="tab" onclick="goTo(6)">Infinitiv</button>
+    <button class="tab" onclick="goTo(7)">Quiz</button>
+    <button class="tab" onclick="goTo(8)">Uebungen</button>
+    <button class="tab" onclick="goTo(9)">Ergebnis</button>
+  </div>
+  <button class="timer-btn" id="timer" onclick="toggleTimer()">60:00</button>
+</div>
+<div class="prog-wrap"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+
+<!-- ════════════ PAGE 0 START ════════════ -->
+<div class="page active" id="p0">
+  <div class="dots" id="dots"></div>
+  <div class="card card-blue">
+    <div class="part-label pl-blue">Deutschkurs — B2/C1</div>
+    <h1>Deutsche Satzstellung</h1>
+    <p>Die Wortstellung im Deutschen ist flexibler als im Englischen — aber <strong>nicht beliebig</strong>. Es gibt klare Regeln, warum ein Wort wo steht. Diese Lektion erklärt alle wichtigen Prinzipien.</p>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>📋 Inhalt dieser Lektion</h3>
+      <p style="font-size:14px;line-height:2">
+        1 · Die Grundregel: Verb an Pos. 2<br>
+        2 · Das Vorfeld: Was kann vorne stehen?<br>
+        3 · Objekte: Akkusativ &amp; Dativ<br>
+        4 · Negation mit "nicht"<br>
+        5 · Nebensatz: Verb ans Ende<br>
+        6 · Infinitiv &amp; Partizip<br>
+        7 · Quiz (10 Fragen)<br>
+        8 · Übungen (Lücken + Sätze bauen)
+      </p>
+    </div>
+    <div class="card">
+      <h3>💡 Das Wichtigste vorab</h3>
+      <p style="font-size:14px;line-height:1.9">Das Deutsche funktioniert nach dem <strong>Stellungsfeld-Prinzip</strong>: Der Satz ist in <em>Vorfeld → Verb → Mittelfeld → Nachfeld</em> aufgeteilt. Das Verb ist der <strong>Anker</strong> — es steht fast immer an Position 2.</p>
+    </div>
+  </div>
+  <div class="rule-box">
+    <div class="rule-label">Zentrale Eselsbrücke</div>
+    <p>Im Hauptsatz: <strong>VERB IMMER AN POSITION 2</strong> — egal was an Position 1 steht!</p>
+  </div>
+  <div class="btn-row" style="justify-content:center">
+    <button class="btn primary" onclick="goTo(1)" style="font-size:16px;padding:12px 32px">Los geht's →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 1 GRUNDREGEL ════════════ -->
+<div class="page" id="p1">
+  <div class="part-label pl-blue">Regel 1</div>
+  <h2>Die Grundregel: Verb an Position 2</h2>
+  <p>Im deutschen Hauptsatz steht das <strong>konjugierte Verb immer an zweiter Position</strong>. Was an Position 1 steht (das Vorfeld), kann variieren — das Verb bleibt auf Platz 2.</p>
+
+  <div class="card card-blue">
+    <h3>Das Stellungsfeld-Modell</h3>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#1a2d6b"></div> Vorfeld (Pos.1)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#2563eb"></div> Verb (Pos.2)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#059669"></div> Subjekt</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#d97706"></div> Akkusativ-Obj.</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#7c3aed"></div> Dativ-Obj.</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#0d9488"></div> Adverbial</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#db2777"></div> Infinitiv/Partizip</div>
+    </div>
+  </div>
+
+  <!-- Satz 1: normaler Aussagesatz -->
+  <div class="card">
+    <h3>Beispiel 1 — Subjekt vorne (normal)</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Pos.1 — Vorfeld</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Pos.2 — Verb</div><div class="word">kaufe</div></div>
+        <div class="satz-box adv"><div class="pos">Mittelfeld</div><div class="word">morgen</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ</div><div class="word">einen Computer</div></div>
+      </div>
+    </div>
+    <p class="satz-note">→ Subjekt "Ich" im Vorfeld — das ist die neutrale, unauffällige Stellung.</p>
+  </div>
+
+  <!-- Satz 2: Zeit vorne -->
+  <div class="card">
+    <h3>Beispiel 2 — Zeitangabe vorne (Inversion!)</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Pos.1 — Zeit</div><div class="word">Morgen</div></div>
+        <div class="satz-box verb"><div class="pos">Pos.2 — Verb</div><div class="word">kaufe</div></div>
+        <div class="satz-box subj"><div class="pos">Subjekt (Pos.3!)</div><div class="word">ich</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ</div><div class="word">einen Computer</div></div>
+      </div>
+    </div>
+    <div class="rule-box orange">
+      <div class="rule-label">Inversion</div>
+      <p>Wenn etwas anderes als das Subjekt an Pos.1 steht, rückt das Subjekt auf Pos.3. Das nennt man <strong>Inversion</strong>. Das Verb bleibt auf Pos.2!</p>
+    </div>
+  </div>
+
+  <!-- Satz 3: Ort vorne -->
+  <div class="card">
+    <h3>Beispiel 3 — Ortsangabe vorne</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Pos.1 — Ort</div><div class="word">In Berlin</div></div>
+        <div class="satz-box verb"><div class="pos">Pos.2 — Verb</div><div class="word">wohnt</div></div>
+        <div class="satz-box subj"><div class="pos">Subjekt</div><div class="word">mein Freund</div></div>
+        <div class="satz-box adv"><div class="pos">Mittelfeld</div><div class="word">seit Jahren</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Satz 4: Objekt vorne (Topikalisierung) -->
+  <div class="card">
+    <h3>Beispiel 4 — Objekt vorne (Topikalisierung / Betonung)</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box obj-a"><div class="pos">Pos.1 — Akkusativ</div><div class="word">Diesen Film</div></div>
+        <div class="satz-box verb"><div class="pos">Pos.2 — Verb</div><div class="word">habe</div></div>
+        <div class="satz-box subj"><div class="pos">Subjekt</div><div class="word">ich</div></div>
+        <div class="satz-box adv"><div class="pos">Adverbial</div><div class="word">noch nie</div></div>
+        <div class="satz-box inf"><div class="pos">Partizip</div><div class="word">gesehen</div></div>
+      </div>
+    </div>
+    <p class="satz-note">→ Das Objekt steht vorne um es zu <strong>betonen</strong>. Das Verb bleibt auf Pos.2!</p>
+  </div>
+
+  <div class="rule-box green">
+    <div class="rule-label">Warum funktioniert das so?</div>
+    <p>Deutsch ist eine <strong>Verb-Zweit-Sprache (V2)</strong>. Das konjugierte Verb markiert immer die Satzgrenze. Es ist der grammatische "Anker" des Satzes. Nur im Nebensatz und bei Fragen ändert sich das.</p>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(0)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(2)">Vorfeld →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 2 VORFELD ════════════ -->
+<div class="page" id="p2">
+  <div class="part-label pl-teal">Regel 2</div>
+  <h2>Das Vorfeld: Was kann an Position 1 stehen?</h2>
+  <p>An Position 1 kann fast alles stehen — aber <strong>immer nur ein Element</strong>. Das Vorfeld signalisiert, worüber der Satz spricht ("Thema") oder was betont werden soll.</p>
+
+  <div class="card">
+    <table class="tf-table">
+      <thead>
+        <tr><th>Was steht vorne?</th><th>Beispiel</th><th>Warum vorne?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="tf-type">Subjekt</td><td class="tf-ex">Ich wohne in Wien.</td><td class="tf-note">Neutral, unauffällig</td></tr>
+        <tr><td class="tf-type">Zeitangabe</td><td class="tf-ex">Gestern bin ich spät ins Bett gegangen.</td><td class="tf-note">Zeit betonen, Kontext setzen</td></tr>
+        <tr><td class="tf-type">Ortsangabe</td><td class="tf-ex">In Wien regnet es oft.</td><td class="tf-note">Ort betonen, Kontext setzen</td></tr>
+        <tr><td class="tf-type">Akkusativ-Objekt</td><td class="tf-ex">Diesen Mann kenne ich gut.</td><td class="tf-note">Starke Betonung / Kontrast</td></tr>
+        <tr><td class="tf-type">Dativ-Objekt</td><td class="tf-ex">Meiner Mutter hat das sehr gut gefallen.</td><td class="tf-note">Person betonen</td></tr>
+        <tr><td class="tf-type">Adverbial</td><td class="tf-ex">Trotzdem kommt er nicht.</td><td class="tf-note">Gegensatz, Verbindung</td></tr>
+        <tr><td class="tf-type">Konditionalsatz</td><td class="tf-ex">Wenn er kommt, fangen wir an.</td><td class="tf-note">Bedingung zuerst nennen</td></tr>
+        <tr><td class="tf-type">Infinitiv-Gruppe</td><td class="tf-ex">Deutsch zu lernen ist schwer.</td><td class="tf-note">Thema hervorheben</td></tr>
+        <tr><td class="tf-type">Wort "Es" (Platzhalter)</td><td class="tf-ex">Es regnet. / Es gibt viele Möglichkeiten.</td><td class="tf-note">Kein echtes Vorfeld-Element — Platzhalter</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-orange">
+    <h3>Was NICHT allein im Vorfeld stehen kann</h3>
+    <div class="two-col">
+      <div>
+        <p><strong>❌ Zwei Elemente gleichzeitig:</strong></p>
+        <p style="font-family:var(--mono);font-size:13px;color:var(--red)">Gestern ich kaufe... ✗<br>Gestern kaufe ich... ✓</p>
+      </div>
+      <div>
+        <p><strong>❌ Verb allein im Vorfeld (außer Fragen):</strong></p>
+        <p style="font-family:var(--mono);font-size:13px;color:var(--red)">Kaufe ich morgen... ✗ (kein Fragesatz)<br>Kaufe ich das? ✓ (Entscheidungsfrage)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <h3>Vorfeld bei Fragen</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box verb"><div class="pos">Pos.1 — Verb!</div><div class="word">Kommt</div></div>
+        <div class="satz-box subj"><div class="pos">Subjekt Pos.2</div><div class="word">er</div></div>
+        <div class="satz-box adv"><div class="pos">Adverbial</div><div class="word">morgen</div></div>
+        <div class="satz-box neu"><div class="pos">Ende</div><div class="word">?</div></div>
+      </div>
+      <div class="satz-row">
+        <div class="satz-box adv"><div class="pos">W-Wort Pos.1</div><div class="word">Wann</div></div>
+        <div class="satz-box verb"><div class="pos">Pos.2 — Verb</div><div class="word">kommt</div></div>
+        <div class="satz-box subj"><div class="pos">Subjekt</div><div class="word">er</div></div>
+        <div class="satz-box neu"><div class="pos">Ende</div><div class="word">?</div></div>
+      </div>
+    </div>
+    <div class="rule-box purple">
+      <div class="rule-label">Fragesätze</div>
+      <p>Entscheidungsfragen (Ja/Nein): <strong>Verb an Pos.1</strong>, Subjekt an Pos.2<br>
+      W-Fragen: W-Wort an Pos.1, <strong>Verb an Pos.2</strong>, Subjekt an Pos.3</p>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(1)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(3)">Objekte →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 3 OBJEKTE ════════════ -->
+<div class="page" id="p3">
+  <div class="part-label pl-orange">Regel 3</div>
+  <h2>Reihenfolge der Objekte im Mittelfeld</h2>
+  <p>Im <strong>Mittelfeld</strong> (nach dem Verb, vor dem Nachfeld) stehen Objekte, Pronomen und Adverbien. Ihre Reihenfolge folgt klaren Regeln.</p>
+
+  <div class="card card-blue">
+    <h3>Grundregel: Dativ vor Akkusativ (bei Nomen)</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Vorfeld</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Verb</div><div class="word">gebe</div></div>
+        <div class="satz-box obj-d"><div class="pos">Dativ (wem?)</div><div class="word">meinem Freund</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ (was?)</div><div class="word">das Buch</div></div>
+      </div>
+    </div>
+    <div class="rule-box">
+      <div class="rule-label">Regel: Nomen</div>
+      <p><strong>Dativ-Objekt → Akkusativ-Objekt</strong> (bei zwei Nomen)</p>
+    </div>
+  </div>
+
+  <div class="card card-orange">
+    <h3>Ausnahme: Pronomen kommen IMMER zuerst</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Vorfeld</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Verb</div><div class="word">gebe</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ-PRON.</div><div class="word">es</div></div>
+        <div class="satz-box obj-d"><div class="pos">Dativ</div><div class="word">meinem Freund</div></div>
+      </div>
+    </div>
+    <div class="rule-box orange">
+      <div class="rule-label">Regel: Pronomen vor Nomen</div>
+      <p>Pronomen wandern IMMER nach vorne — auch wenn es ein Akkusativ-Pronomen ist.<br>
+      <strong>Pronomen → Pronomen → Nomen → Nomen</strong><br>
+      Bei zwei Pronomen: <strong>Akkusativ vor Dativ</strong></p>
+    </div>
+    <div class="satz-wrap" style="margin-top:10px">
+      <div class="satz-row">
+        <div class="satz-box pos1"><div class="pos">Vorfeld</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Verb</div><div class="word">gebe</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akk-Pron.</div><div class="word">es</div></div>
+        <div class="satz-box obj-d"><div class="pos">Dat-Pron.</div><div class="word">ihm</div></div>
+      </div>
+      <p class="satz-note">→ Zwei Pronomen: Akkusativ (es) vor Dativ (ihm)</p>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <h3>Adverbien-Reihenfolge: TE-KA-MO-LO</h3>
+    <p>Bei mehreren Adverbien gilt die Reihenfolge:</p>
+    <div class="three-col" style="margin:12px 0">
+      <div style="background:var(--teal-l);border:2px solid var(--teal);border-radius:var(--rsm);padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--teal)">TE</div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">TEmporal</div>
+        <div style="font-size:12px;color:var(--gray2)">Wann?</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--teal);margin-top:4px">gestern, morgen, oft</div>
+      </div>
+      <div style="background:var(--orange-l);border:2px solid var(--orange);border-radius:var(--rsm);padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--orange)">KA</div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">KAusal</div>
+        <div style="font-size:12px;color:var(--gray2)">Warum?</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--orange);margin-top:4px">deshalb, wegen</div>
+      </div>
+      <div style="background:var(--purple-l);border:2px solid var(--purple);border-radius:var(--rsm);padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:var(--purple)">MO</div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">MOdal</div>
+        <div style="font-size:12px;color:var(--gray2)">Wie?</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--purple);margin-top:4px">schnell, gerne, allein</div>
+      </div>
+    </div>
+    <div style="background:var(--blue-l);border:2px solid var(--blue);border-radius:var(--rsm);padding:12px;text-align:center">
+      <div style="font-size:22px;font-weight:900;color:var(--blue)">LO</div>
+      <div style="font-size:13px;font-weight:700;color:var(--navy)">LOkal</div>
+      <div style="font-size:12px;color:var(--gray2)">Wo?</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--blue);margin-top:4px">in Berlin, hier, zu Hause</div>
+    </div>
+    <div class="satz-wrap" style="margin-top:12px">
+      <div class="satz-row">
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">Er</div></div>
+        <div class="satz-box verb"><div class="pos">Verb</div><div class="word">arbeitet</div></div>
+        <div class="satz-box adv"><div class="pos">TE — Wann?</div><div class="word">jeden Tag</div></div>
+        <div class="satz-box obj-a"><div class="pos">MO — Wie?</div><div class="word">fleißig</div></div>
+        <div class="satz-box obj-d"><div class="pos">LO — Wo?</div><div class="word">im Büro</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(2)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(4)">Negation →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 4 NEGATION ════════════ -->
+<div class="page" id="p4">
+  <div class="part-label pl-red">Regel 4</div>
+  <h2>Negation mit "nicht"</h2>
+  <p>Die Position von <strong>"nicht"</strong> im Satz ist eine der schwierigsten Regeln für Deutschlernende. "Nicht" negiert immer das Element, das <strong>nach</strong> ihm steht — oder es steht am Satzende.</p>
+
+  <div class="card card-red">
+    <h3>Regel 1 — Satz-Negation: "nicht" am Ende</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">Er</div></div>
+        <div class="satz-box verb"><div class="pos">Verb</div><div class="word">kommt</div></div>
+        <div class="satz-box neg"><div class="pos">Negation</div><div class="word">nicht</div></div>
+      </div>
+    </div>
+    <p class="satz-note">→ Der gesamte Satz wird negiert. "Nicht" steht am Ende (vor Partizip/Infinitiv).</p>
+  </div>
+
+  <div class="card">
+    <h3>Regel 2 — "nicht" vor dem negierten Element</h3>
+    <table class="cmp-table">
+      <thead><tr><th>Was negiert?</th><th>Satz</th><th>Erklärung</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Adjektiv/Adverb</td>
+          <td>Er ist <span class="correct">nicht schnell</span>.</td>
+          <td>"nicht" direkt vor dem Adjektiv</td>
+        </tr>
+        <tr>
+          <td>Präpositional-Gruppe</td>
+          <td>Er wohnt <span class="correct">nicht in Berlin</span>.</td>
+          <td>"nicht" vor der Präpositionalgruppe</td>
+        </tr>
+        <tr>
+          <td>Betonung auf Zeit</td>
+          <td>Er kommt <span class="correct">nicht morgen</span>, sondern heute.</td>
+          <td>"nicht" vor dem Element, das betont negiert wird</td>
+        </tr>
+        <tr>
+          <td>Akkusativ-Objekt</td>
+          <td>Ich kaufe <span class="correct">das Buch nicht</span>. ← "nicht" HINTER dem Objekt!</td>
+          <td>Bei Akkusativ: "nicht" steht NACH dem Objekt</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="rule-box red">
+      <div class="rule-label">Wichtige Ausnahme</div>
+      <p>Bei bestimmten Akkusativ-Objekten steht "nicht" NACH dem Objekt, NICHT davor.<br>
+      ✓ "Ich kenne <strong>ihn nicht</strong>." &nbsp;&nbsp; ✗ "Ich kenne nicht ihn."</p>
+    </div>
+  </div>
+
+  <div class="card card-orange">
+    <h3>kein vs. nicht</h3>
+    <table class="cmp-table">
+      <thead><tr><th>Situation</th><th>"kein"</th><th>"nicht"</th></tr></thead>
+      <tbody>
+        <tr><td>Nomen mit unbestimmtem Artikel</td><td class="correct">Ich habe keinen Hund.</td><td class="wrong">Ich habe nicht einen Hund.</td></tr>
+        <tr><td>Nomen ohne Artikel</td><td class="correct">Er trinkt keinen Kaffee.</td><td class="wrong">Er trinkt nicht Kaffee.</td></tr>
+        <tr><td>Verb negieren</td><td class="wrong">Er geht kein.</td><td class="correct">Er geht nicht.</td></tr>
+        <tr><td>Adjektiv negieren</td><td class="wrong">Er ist kein schnell.</td><td class="correct">Er ist nicht schnell.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(3)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(5)">Nebensatz →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 5 NEBENSATZ ════════════ -->
+<div class="page" id="p5">
+  <div class="part-label pl-purple">Regel 5</div>
+  <h2>Nebensatz: Verb ans Ende</h2>
+  <p>Im Nebensatz gilt eine komplett andere Regel: Das konjugierte Verb steht am <strong>Ende des Nebensatzes</strong>. Der Nebensatz wird durch eine Konjunktion eingeleitet.</p>
+
+  <div class="card card-purple">
+    <h3>Hauptsatz vs. Nebensatz im Vergleich</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Verb Pos.2</div><div class="word">weiß</div></div>
+        <div class="satz-box neu"><div class="pos">Mittelfeld</div><div class="word">es</div></div>
+      </div>
+      <p class="satz-note">→ Hauptsatz: Verb an Position 2</p>
+      <div class="satz-row" style="margin-top:8px">
+        <div class="satz-box kon"><div class="pos">Konj.</div><div class="word">dass</div></div>
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">er</div></div>
+        <div class="satz-box adv"><div class="pos">Adverbial</div><div class="word">morgen</div></div>
+        <div class="satz-box obj-a"><div class="pos">Objekt</div><div class="word">das Buch</div></div>
+        <div class="satz-box verb"><div class="pos">Verb ENDE</div><div class="word">kauft</div></div>
+      </div>
+      <p class="satz-note">→ Nebensatz: Verb am Ende!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Subordinierende Konjunktionen (Verb ans Ende)</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">
+      <span class="badge badge-purple">dass</span><span class="badge badge-purple">weil</span>
+      <span class="badge badge-purple">obwohl</span><span class="badge badge-purple">wenn</span>
+      <span class="badge badge-purple">als</span><span class="badge badge-purple">ob</span>
+      <span class="badge badge-purple">damit</span><span class="badge badge-purple">sodass</span>
+      <span class="badge badge-purple">bevor</span><span class="badge badge-purple">nachdem</span>
+      <span class="badge badge-purple">seitdem</span><span class="badge badge-purple">während</span>
+      <span class="badge badge-purple">falls</span><span class="badge badge-purple">sofern</span>
+      <span class="badge badge-purple">da</span><span class="badge badge-purple">indem</span>
+    </div>
+    <div class="rule-box purple">
+      <div class="rule-label">Merksatz</div>
+      <p>Diese Konjunktionen "saugen" das Verb ans Ende des Satzes.</p>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <h3>Modalverb + Infinitiv im Nebensatz</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box kon"><div class="pos">Konj.</div><div class="word">weil</div></div>
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">er</div></div>
+        <div class="satz-box obj-a"><div class="pos">Objekt</div><div class="word">das Auto</div></div>
+        <div class="satz-box inf"><div class="pos">Infinitiv</div><div class="word">kaufen</div></div>
+        <div class="satz-box verb"><div class="pos">Modal ENDE</div><div class="word">will</div></div>
+      </div>
+    </div>
+    <div class="rule-box teal">
+      <div class="rule-label">Reihenfolge im Nebensatz</div>
+      <p>Bei Modalverb: <strong>Infinitiv → Modalverb</strong> am Ende<br>
+      Bei Perfekt: <strong>Partizip II → haben/sein</strong> am Ende<br>
+      Beispiel: "...weil er das Buch <strong>gelesen hat</strong>."</p>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Nebensatz vor Hauptsatz</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box kon"><div class="pos">Konj.</div><div class="word">Weil</div></div>
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">es</div></div>
+        <div class="satz-box adv"><div class="pos">Adverbial</div><div class="word">stark</div></div>
+        <div class="satz-box verb"><div class="pos">Verb Ende NS</div><div class="word">regnet ,</div></div>
+        <div class="satz-box verb"><div class="pos">HS-Verb Pos.1!</div><div class="word">bleibe</div></div>
+        <div class="satz-box subj"><div class="pos">Subj. HS</div><div class="word">ich</div></div>
+        <div class="satz-box adv"><div class="pos">Ort</div><div class="word">zu Hause</div></div>
+      </div>
+    </div>
+    <div class="rule-box">
+      <div class="rule-label">Wenn Nebensatz vorne steht</div>
+      <p>Der Nebensatz = Pos.1 des Hauptsatzes. Dann kommt <strong>sofort das Hauptsatz-Verb</strong> (Inversion!) — Subjekt erst danach.</p>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(4)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(6)">Infinitiv & Partizip →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 6 INFINITIV ════════════ -->
+<div class="page" id="p6">
+  <div class="part-label pl-green">Regel 6</div>
+  <h2>Infinitiv, Partizip &amp; das Nachfeld</h2>
+  <p>Im Hauptsatz gibt es neben dem konjugierten Verb oft noch einen zweiten verbalen Teil — Infinitiv oder Partizip II. Diese stehen am <strong>Ende des Satzes</strong> — im sogenannten <strong>Nachfeld</strong>.</p>
+
+  <div class="card card-green">
+    <h3>Perfekt: konjugiertes Hilfsverb + Partizip II am Ende</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box adv"><div class="pos">Vorfeld</div><div class="word">Gestern</div></div>
+        <div class="satz-box verb"><div class="pos">Hilfsverb Pos.2</div><div class="word">hat</div></div>
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">er</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ</div><div class="word">das Buch</div></div>
+        <div class="satz-box inf"><div class="pos">Partizip II</div><div class="word">gelesen</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <h3>Modalverb: Modal + Infinitiv am Ende</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">Ich</div></div>
+        <div class="satz-box verb"><div class="pos">Modal Pos.2</div><div class="word">muss</div></div>
+        <div class="satz-box adv"><div class="pos">Adverbial</div><div class="word">heute noch</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ</div><div class="word">diesen Bericht</div></div>
+        <div class="satz-box inf"><div class="pos">Infinitiv</div><div class="word">schreiben</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-orange">
+    <h3>Doppelter Infinitiv (Modalverb + Infinitiv im Perfekt)</h3>
+    <div class="satz-wrap">
+      <div class="satz-row">
+        <div class="satz-box subj"><div class="pos">Subj.</div><div class="word">Er</div></div>
+        <div class="satz-box verb"><div class="pos">Hilfsverb</div><div class="word">hat</div></div>
+        <div class="satz-box obj-a"><div class="pos">Akkusativ</div><div class="word">das</div></div>
+        <div class="satz-box inf"><div class="pos">Infinitiv</div><div class="word">machen</div></div>
+        <div class="satz-box inf"><div class="pos">Modal-Infinitiv</div><div class="word">wollen</div></div>
+      </div>
+    </div>
+    <div class="rule-box orange">
+      <div class="rule-label">Doppelter Infinitiv</div>
+      <p>Bei Perfekt + Modalverb: kein Partizip II ("gemacht"), sondern Infinitiv ("machen")!<br>
+      ✓ Er hat das machen <strong>wollen</strong>. &nbsp;&nbsp; ✗ Er hat das gemacht wollen.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Zusammenfassung: Das Nachfeld</h3>
+    <table class="cmp-table">
+      <thead><tr><th>Konstruktion</th><th>Reihenfolge am Ende</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td>Perfekt</td><td>Partizip II</td><td>Er hat das Buch <span class="correct">gelesen</span>.</td></tr>
+        <tr><td>Futur I</td><td>Infinitiv</td><td>Sie wird morgen <span class="correct">kommen</span>.</td></tr>
+        <tr><td>Modalverb</td><td>Infinitiv</td><td>Du musst das <span class="correct">lernen</span>.</td></tr>
+        <tr><td>Trennbares Verb</td><td>Präfix ans Ende</td><td>Er ruft morgen <span class="correct">an</span>.</td></tr>
+        <tr><td>Doppelter Infinitiv</td><td>Infinitiv + Modalinfinitiv</td><td>Er hat das machen <span class="correct">wollen</span>.</td></tr>
+        <tr><td>Passiv</td><td>Partizip II</td><td>Das Buch wird <span class="correct">gelesen</span>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(5)">← Zurück</button>
+    <button class="btn primary" onclick="goTo(7); initQuiz()">Quiz starten →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 7 QUIZ ════════════ -->
+<div class="page" id="p7">
+  <div class="part-label pl-blue">Quiz</div>
+  <h2>Teste dein Wissen <span id="qcnt" style="font-size:15px;font-weight:600;color:var(--gray2)"></span></h2>
+  <p>10 Fragen zu allen Satzstellungsregeln.</p>
+  <div id="quiz-wrap"></div>
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(6)">← Zurück</button>
+    <button class="btn primary" id="qnext" onclick="nextQ()" style="display:none">Nächste Frage →</button>
+    <button class="btn success" id="qdone" onclick="goTo(8)" style="display:none">Zu den Übungen →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 8 UEBUNGEN ════════════ -->
+<div class="page" id="p8">
+  <div class="part-label pl-green">Übungen</div>
+  <h2>Übungen — Satzstellung</h2>
+
+  <div class="card card-blue">
+    <h3>Übung 1 — Lückentext: Richtige Wortform / Position</h3>
+    <p>Ergänze die korrekte Form oder das richtige Wort.</p>
+    <div id="fill-wrap"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn" onclick="resetFill()">Neu</button>
+      <button class="btn primary" onclick="checkFill()">Auswerten</button>
+    </div>
+    <div id="fill-fb" class="fb"></div>
+  </div>
+
+  <div class="card card-orange">
+    <h3>Übung 2 — Satz bauen: Bringe die Wörter in die richtige Reihenfolge</h3>
+    <div id="drag-wrap"></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="goTo(7)">← Zurück</button>
+    <button class="btn success" onclick="goTo(9)">Ergebnis ansehen →</button>
+  </div>
+</div>
+
+<!-- ════════════ PAGE 9 ERGEBNIS ════════════ -->
+<div class="page" id="p9">
+  <div style="text-align:center;padding:20px 0 10px">
+    <div style="font-size:56px">🏅</div>
+    <h1>Lektion abgeschlossen!</h1>
+    <p>Du hast alle Regeln der deutschen Satzstellung gelernt.</p>
+  </div>
+  <div class="score-grid">
+    <div class="score-card"><div class="sc-label">Quiz</div><div class="sc-value" id="sc-quiz">0/10</div></div>
+    <div class="score-card"><div class="sc-label">Regeln</div><div class="sc-value">6 ✓</div></div>
+    <div class="score-card"><div class="sc-label">Übungen</div><div class="sc-value" id="sc-ex">✓</div></div>
+  </div>
+  <div class="card card-green">
+    <h3>Was du heute gelernt hast</h3>
+    <div class="two-col" style="margin-top:10px;font-size:14px">
+      <div style="line-height:2">
+        ✓ Verb immer an Position 2<br>
+        ✓ Inversion bei Vorfeld-Elementen<br>
+        ✓ Fragesätze (V1 und V2)
+      </div>
+      <div style="line-height:2">
+        ✓ Objekt-Reihenfolge &amp; TE-KA-MO-LO<br>
+        ✓ Negation mit "nicht" und "kein"<br>
+        ✓ Nebensatz: Verb ans Ende
+      </div>
+    </div>
+  </div>
+  <div class="card" style="background:var(--orange-l);border-color:var(--orange)">
+    <h3>Zusammenfassung aller Regeln</h3>
+    <table class="cmp-table">
+      <thead><tr><th>Satztyp</th><th>Regel</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td>Hauptsatz</td><td><span class="rule-tag rt-blue">V2-Regel</span></td><td>Morgen <em>kaufe</em> ich das.</td></tr>
+        <tr><td>Frage (Ja/Nein)</td><td><span class="rule-tag rt-orange">V1-Regel</span></td><td><em>Kommt</em> er morgen?</td></tr>
+        <tr><td>W-Frage</td><td><span class="rule-tag rt-blue">W + V2</span></td><td>Wann <em>kommt</em> er?</td></tr>
+        <tr><td>Nebensatz</td><td><span class="rule-tag rt-purple">Verb ans Ende</span></td><td>...weil er morgen <em>kommt</em>.</td></tr>
+        <tr><td>Objekte</td><td><span class="rule-tag rt-orange">Dat vor Akk (Nomen)</span></td><td>gebe <em>ihm das Buch</em></td></tr>
+        <tr><td>Pronomen</td><td><span class="rule-tag rt-green">Pron. nach vorne</span></td><td>gebe <em>es ihm</em></td></tr>
+        <tr><td>Negation</td><td><span class="rule-tag rt-orange">nicht am Ende / vor Element</span></td><td>Er kommt <em>nicht</em>.</td></tr>
+        <tr><td>Nachfeld</td><td><span class="rule-tag rt-green">Infinitiv / Partizip ans Ende</span></td><td>hat das Buch <em>gelesen</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn-row" style="justify-content:center">
+    <button class="btn primary" onclick="goTo(0)" style="font-size:15px;padding:12px 28px">Nochmal von vorn</button>
+  </div>
+</div>
+
+<script>
+var cur=0, qIdx=0, qScore=0, qAnswered=false, dragCur=0;
+var timerSec=60*60, timerRun=false, timerInt=null;
+var TOTAL=9;
+
+// ── QUIZ DATA ──────────────────────────────────────────────────────────────────
+var questions=[
+  {q:"Welcher Satz ist grammatikalisch korrekt?",
+   opts:["Morgen ich kaufe ein Buch.","Morgen kaufe ich ein Buch.","Morgen kaufe ein Buch ich.","Ich morgen kaufe ein Buch."],
+   c:1,ex:"Verb an Position 2! 'Morgen' (Pos.1) + 'kaufe' (Pos.2) + 'ich' (Inversion). Das Subjekt rueckt auf Pos.3."},
+  {q:"Wo steht das konjugierte Verb im Nebensatz mit 'weil'?",
+   opts:["An Position 2","An Position 1","Am Ende des Nebensatzes","Direkt nach der Konjunktion"],
+   c:2,ex:"Im Nebensatz steht das Verb IMMER am Ende. Merksatz: 'weil' saugt das Verb ans Ende."},
+  {q:"Zwei Nomen als Objekte: Welche Reihenfolge ist korrekt?",
+   opts:["Ich gebe das Buch meinem Freund.","Ich gebe meinem Freund das Buch.","Ich gebe das Buch ihm.","Beides ist immer gleich."],
+   c:1,ex:"Bei zwei Nomen: DATIV vor AKKUSATIV. 'meinem Freund' (Dat.) kommt vor 'das Buch' (Akk.)."},
+  {q:"Welcher Satz hat die richtige Negation?",
+   opts:["Ich kaufe nicht das Buch.","Ich kaufe das Buch nicht.","Ich nicht kaufe das Buch.","Nicht ich kaufe das Buch."],
+   c:1,ex:"Bei Satz-Negation steht 'nicht' am Ende (vor Partizip/Infinitiv). Bei einem bestimmten Objekt steht 'nicht' NACH dem Objekt."},
+  {q:"Welche Reihenfolge ist bei Pronomen korrekt?",
+   opts:["Ich gebe ihm es.","Ich gebe es ihm.","Ich gebe ihn es.","Ich gebe es ihn."],
+   c:1,ex:"Bei zwei Pronomen: AKKUSATIV vor DATIV! 'es' (Akk.) kommt vor 'ihm' (Dat.). Das ist umgekehrt zur Nomen-Regel!"},
+  {q:"Wenn ein Nebensatz vor dem Hauptsatz steht, was passiert?",
+   opts:["Das Verb des Hauptsatzes steht an Pos.3","Das Verb des Hauptsatzes steht sofort nach dem Komma (Pos.1 des HS)","Das Subjekt des Hauptsatzes steht zuerst","Nichts aendert sich"],
+   c:1,ex:"Der Nebensatz ist Pos.1 des Hauptsatzes. Dann kommt sofort das HS-Verb (Inversion!). Z.B.: 'Weil es regnet, BLEIBE ich zu Hause.'"},
+  {q:"Richtige Reihenfolge: Adverbien im Mittelfeld?",
+   opts:["Er arbeitet im Buero jeden Tag fleissig.","Er arbeitet fleissig jeden Tag im Buero.","Er arbeitet jeden Tag fleissig im Buero.","Er arbeitet jeden Tag im Buero fleissig."],
+   c:2,ex:"TE-KA-MO-LO: TEmporal (jeden Tag) → MOdal (fleissig) → LOkal (im Buero). Zeit vor Art und Weise vor Ort."},
+  {q:"Was ist der Unterschied zwischen 'nicht' und 'kein'?",
+   opts:["Sie sind immer austauschbar","'kein' negiert Nomen mit unbestimmtem Artikel oder ohne Artikel; 'nicht' negiert Verben, Adjektive, Adverbien","'nicht' ist formeller als 'kein'","'kein' kommt immer ans Satzende"],
+   c:1,ex:"'kein' ersetzt 'ein/eine' bei der Negation von Nomen. 'Ich habe keinen Hund.' = 'Ich habe EINEN Hund.' negiert. 'Ich arbeite nicht.' = Verb negiert."},
+  {q:"Welcher Satz mit Modalverb ist korrekt?",
+   opts:["Ich muss schreiben den Bericht heute.","Ich muss den Bericht heute schreiben.","Ich schreiben muss den Bericht heute.","Den Bericht muss schreiben ich heute."],
+   c:1,ex:"Modal an Pos.2, Infinitiv ans Ende. Dazwischen: Objekte und Adverbien in TE-KA-MO-LO-Reihenfolge."},
+  {q:"Welcher Satz mit 'als' (Nebensatz) ist korrekt?",
+   opts:["Als er war jung, er viel gereist ist.","Als er jung war, ist er viel gereist.","Als er jung war, er ist viel gereist.","Er ist viel gereist, jung als er war."],
+   c:1,ex:"'als' leitet Nebensatz ein: Verb 'war' ans Ende des NS. Dann beginnt der HS: 'ist' sofort nach dem Komma (Inversion, weil NS = Pos.1)."}
+];
+
+// ── FILL DATA ──────────────────────────────────────────────────────────────────
+var fillItems=[
+  {pre:"Gestern ", ans:"hat", mid:" er das Buch gelesen.", hint:"Perfekt: Hilfsverb an Pos.2"},
+  {pre:"Weil er krank ", ans:"ist", mid:", kommt er nicht.", hint:"Nebensatz: Verb ans Ende"},
+  {pre:"Ich gebe ", ans:"ihm", mid:" das Buch.", hint:"Dativ vor Akkusativ bei Nomen"},
+  {pre:"Er kommt ", ans:"nicht", mid:".", hint:"Satz-Negation: nicht am Ende"},
+  {pre:"Ich gebe ", ans:"es", mid:" ihm.", hint:"Akkusativ-Pronomen vor Dativ-Pronomen"},
+  {pre:"Wann ", ans:"kommt", mid:" er?", hint:"W-Frage: Verb an Pos.2"},
+  {pre:"Er hat das machen ", ans:"wollen", mid:".", hint:"Doppelter Infinitiv: nicht 'gewollt'"},
+];
+
+// ── DRAG DATA ──────────────────────────────────────────────────────────────────
+var dragSentences=[
+  {tokens:["Morgen","fahre","ich","nach","Berlin","."], en:"Tomorrow I am going to Berlin."},
+  {tokens:["Weil","es","regnet",",","bleibe","ich","zu","Hause","."], en:"Because it is raining, I am staying at home."},
+  {tokens:["Ich","muss","den","Bericht","noch","schreiben","."], en:"I still have to write the report."},
+];
+
+// ── BUILD DOTS ─────────────────────────────────────────────────────────────────
+function buildDots(){
+  var d=document.getElementById('dots');
+  var html='';
+  for(var i=0;i<=TOTAL;i++){
+    html+='<div class="dot" id="dot'+i+'" onclick="goTo('+i+')" title="Seite '+i+'"></div>';
+  }
+  d.innerHTML=html;
+}
+buildDots();
+
+// ── NAV ─────────────────────────────────────────────────────────────────────────
+function goTo(n){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('p'+n).classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.remove('active','done');
+    if(i===n) t.classList.add('active');
+    else if(i<n) t.classList.add('done');
+  });
+  document.querySelectorAll('.dot').forEach(function(d,i){
+    d.className='dot'+(i===n?' active':i<n?' done':'');
+  });
+  document.getElementById('prog').style.width=Math.round(n/TOTAL*100)+'%';
+  cur=n;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===8) buildFill();
+}
+
+// ── QUIZ ───────────────────────────────────────────────────────────────────────
+function initQuiz(){qIdx=0;qScore=0;qAnswered=false;renderQ();}
+
+function renderQ(){
+  var q=questions[qIdx];
+  qAnswered=false;
+  document.getElementById('qcnt').textContent='Frage '+(qIdx+1)+' von '+questions.length;
+  document.getElementById('qnext').style.display='none';
+  document.getElementById('qdone').style.display='none';
+  var html='<div class="card"><div class="quiz-q">'+q.q+'</div><div class="quiz-opts">';
+  for(var i=0;i<q.opts.length;i++){
+    html+='<button class="qopt" onclick="ansQ('+i+')">'+q.opts[i]+'</button>';
+  }
+  html+='</div><div class="qfb" id="qfb"></div></div>';
+  document.getElementById('quiz-wrap').innerHTML=html;
+}
+
+function ansQ(i){
+  if(qAnswered) return;
+  qAnswered=true;
+  var q=questions[qIdx];
+  var opts=document.querySelectorAll('.qopt');
+  for(var j=0;j<opts.length;j++){
+    opts[j].disabled=true;
+    if(j===q.c) opts[j].classList.add('correct');
+    else if(j===i) opts[j].classList.add('wrong');
+  }
+  var fb=document.getElementById('qfb');
+  if(i===q.c){
+    qScore++;
+    fb.className='qfb show ok';
+    fb.innerHTML='Richtig! '+q.ex;
+  } else {
+    fb.className='qfb show no';
+    fb.innerHTML='Nicht ganz. '+q.ex;
+  }
+  if(qIdx<questions.length-1){
+    document.getElementById('qnext').style.display='inline-flex';
+  } else {
+    document.getElementById('qdone').style.display='inline-flex';
+    document.getElementById('sc-quiz').textContent=qScore+'/10';
+  }
+}
+
+function nextQ(){qIdx++;qAnswered=false;renderQ();}
+
+// ── FILL ───────────────────────────────────────────────────────────────────────
+function buildFill(){
+  var rows='';
+  for(var i=0;i<fillItems.length;i++){
+    var item=fillItems[i];
+    rows+='<div class="fill-row">'
+      +'<span class="fill-num">'+(i+1)+'.</span>'
+      +'<span>'+item.pre+'</span>'
+      +'<input class="fill-inp" id="fi'+i+'" placeholder="???" autocomplete="off">'
+      +'<span>'+item.mid+'</span>'
+      +'<span class="fill-hint">('+item.hint+')</span>'
+      +'</div>';
+  }
+  document.getElementById('fill-wrap').innerHTML='<div class="fill-block">'+rows+'</div>';
+
+  // build drag after fill
+  buildDrag();
+}
+
+function checkFill(){
+  var ok=0;
+  for(var i=0;i<fillItems.length;i++){
+    var inp=document.getElementById('fi'+i);
+    if(!inp) continue;
+    var val=(inp.value||'').trim().toLowerCase();
+    var ans=fillItems[i].ans.toLowerCase();
+    var isOk=val===ans;
+    inp.className='fill-inp '+(isOk?'ok':'no');
+    if(isOk) ok++;
+  }
+  var fb=document.getElementById('fill-fb');
+  if(ok===fillItems.length){
+    fb.className='fb show ok';
+    fb.innerHTML='Perfekt! Alle '+ok+' Luecken richtig!';
+    document.getElementById('sc-ex').textContent='Luecken: '+ok+'/'+fillItems.length;
+  } else {
+    fb.className='fb show no';
+    fb.innerHTML=ok+' von '+fillItems.length+' richtig. Nochmal versuchen!';
+  }
+}
+
+function resetFill(){
+  for(var i=0;i<fillItems.length;i++){
+    var inp=document.getElementById('fi'+i);
+    if(inp){inp.value='';inp.className='fill-inp';}
+  }
+  var fb=document.getElementById('fill-fb');
+  fb.className='fb';fb.innerHTML='';
+}
+
+// ── DRAG ───────────────────────────────────────────────────────────────────────
+function buildDrag(){
+  dragCur=0;
+  renderDrag();
+}
+
+function renderDrag(){
+  var s=dragSentences[dragCur];
+  var shuffled=s.tokens.slice().sort(function(){return Math.random()-.5});
+  var poolHtml='';
+  for(var i=0;i<shuffled.length;i++){
+    poolHtml+='<span class="token" onclick="moveToken(this,\'pool\',\'zone\')">'+shuffled[i]+'</span>';
+  }
+  var html='<div style="margin-top:4px">'
+    +'<p style="font-size:13px;font-weight:700;color:var(--gray2);margin-bottom:6px">Satz '+(dragCur+1)+' von '+dragSentences.length+': '+s.en+'</p>'
+    +'<p style="font-size:12px;color:var(--gray2);margin-bottom:5px">Woerter — klick zum Hinzufuegen:</p>'
+    +'<div class="drag-pool" id="pool">'+poolHtml+'</div>'
+    +'<p style="font-size:12px;color:var(--gray2);margin-bottom:5px">Dein Satz — klick zum Entfernen:</p>'
+    +'<div class="drop-zone" id="zone"></div>'
+    +'<div style="display:flex;gap:8px;margin-top:8px">'
+    +'<button class="btn primary" onclick="checkDrag()">Pruefen</button>'
+    +'<button class="btn" onclick="renderDrag()">Neu mischen</button>'
+    +'</div>'
+    +'<div class="fb" id="drag-fb"></div>'
+    +'</div>';
+  document.getElementById('drag-wrap').innerHTML=html;
+}
+
+function moveToken(el,from,to){
+  var dest=document.getElementById(to);
+  el.classList.toggle('placed',to==='zone');
+  dest.appendChild(el);
+  el.onclick=function(){moveToken(el,to,from);};
+}
+
+function checkDrag(){
+  var s=dragSentences[dragCur];
+  var placed=document.getElementById('zone').querySelectorAll('.token');
+  var words=[];
+  for(var i=0;i<placed.length;i++) words.push(placed[i].textContent);
+  var ok=words.join(' ')===s.tokens.join(' ');
+  var fb=document.getElementById('drag-fb');
+  if(ok){
+    fb.className='fb show ok';
+    fb.innerHTML='Richtig! "'+s.tokens.join(' ')+'"';
+    if(dragCur<dragSentences.length-1){
+      setTimeout(function(){dragCur++;renderDrag();},1100);
+    }
+  } else {
+    fb.className='fb show no';
+    fb.innerHTML='Nicht ganz — denk an die Grundregel: Verb an Position 2!';
+    var toks=document.getElementById('zone').querySelectorAll('.token');
+    for(var i=0;i<toks.length;i++){
+      toks[i].classList.add('bad');
+    }
+    setTimeout(function(){
+      var toks2=document.getElementById('zone').querySelectorAll('.token');
+      for(var i=0;i<toks2.length;i++) toks2[i].classList.remove('bad');
+      fb.className='fb';
+    },900);
+  }
+}
+
+// ── TIMER ──────────────────────────────────────────────────────────────────────
+function toggleTimer(){
+  if(timerRun){clearInterval(timerInt);timerRun=false;}
+  else{
+    timerRun=true;
+    timerInt=setInterval(function(){
+      if(timerSec>0) timerSec--;
+      var m=String(Math.floor(timerSec/60)).padStart(2,'0');
+      var s=String(timerSec%60).padStart(2,'0');
+      var el=document.getElementById('timer');
+      el.textContent=m+':'+s;
+      if(timerSec<=300) el.classList.add('urgent');
+      if(timerSec===0) clearInterval(timerInt);
+    },1000);
+  }
+}
+
+// ── KEYBOARD ───────────────────────────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if(e.key==='ArrowRight'&&cur<TOTAL) goTo(cur+1);
+  if(e.key==='ArrowLeft'&&cur>0) goTo(cur-1);
+});
+</script>
+</body>
+</html>

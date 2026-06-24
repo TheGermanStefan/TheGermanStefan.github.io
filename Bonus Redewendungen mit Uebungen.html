@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>💼 Redewendungen – Alltag & Arbeit</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue: #1d3557; --mid: #457b9d; --light: #a8dadc;
+  --cream: #f1faee; --red: #e63946; --gold: #f4a261;
+  --green: #52b788; --purple: #7b2d8b; --dark: #1a1a2e;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1d3557, #457b9d); min-height: 100vh; color: var(--dark); }
+
+header { background: rgba(0,0,0,0.35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 13px 18px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+header h1 { color: white; font-size: 1rem; font-weight: 800; }
+header h1 span { color: var(--gold); }
+.badge { background: var(--gold); color: var(--dark); border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; font-weight: 800; }
+
+nav { display: flex; background: rgba(0,0,0,0.25); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+nav::-webkit-scrollbar { display: none; }
+nav button { flex: 1; min-width: 130px; padding: 11px 14px; background: none; border: none; color: rgba(255,255,255,0.65); font-size: 0.82rem; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+.section { display: none; padding: 18px 15px 80px; }
+.section.active { display: block; }
+
+.intro-banner { background: linear-gradient(135deg, rgba(244,162,97,0.25), rgba(230,57,70,0.2)); border: 2px solid rgba(244,162,97,0.5); border-radius: 16px; padding: 15px 18px; margin-bottom: 18px; text-align: center; }
+.intro-banner h2 { color: white; font-size: 1.15rem; text-shadow: 0 1px 4px rgba(0,0,0,0.4); margin-bottom: 4px; }
+.intro-banner p { color: rgba(255,255,255,0.88); font-size: 0.82rem; }
+
+.card { background: white; border-radius: 16px; padding: 18px; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.card h2 { font-size: 1rem; color: var(--blue); margin-bottom: 12px; font-weight: 800; }
+
+/* ── BEISPIELTEXT ── */
+.story-text { font-size: 0.92rem; line-height: 2.1; color: #333; }
+.rw {
+  background: linear-gradient(120deg, rgba(244,162,97,0.3), rgba(244,162,97,0.15));
+  border-bottom: 2px solid var(--gold);
+  border-radius: 3px;
+  padding: 1px 3px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #7a4800;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+.rw:hover, .rw:active { background: rgba(244,162,97,0.5); }
+.rw-count { background: var(--blue); color: white; font-size: 0.7rem; border-radius: 10px; padding: 1px 6px; margin-left: 4px; vertical-align: middle; font-weight: 700; }
+
+/* ── TOOLTIP/POPUP ── */
+.popup-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; align-items: flex-end; justify-content: center; padding: 20px; }
+.popup-overlay.open { display: flex; }
+.popup-box { background: white; border-radius: 20px 20px 16px 16px; padding: 22px; max-width: 480px; width: 100%; position: relative; animation: slideUp 0.2s ease; }
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.popup-box .rw-title { font-size: 1.2rem; font-weight: 800; color: var(--blue); margin-bottom: 4px; }
+.popup-box .rw-meaning { font-size: 0.9rem; color: #444; margin-bottom: 8px; line-height: 1.6; }
+.popup-box .rw-example { background: var(--cream); border-left: 4px solid var(--gold); border-radius: 6px; padding: 10px 12px; font-size: 0.85rem; color: #333; font-style: italic; line-height: 1.6; }
+.popup-box .rw-cat { display: inline-block; background: var(--mid); color: white; font-size: 0.7rem; font-weight: 700; border-radius: 10px; padding: 2px 10px; margin-bottom: 10px; }
+.popup-close { position: absolute; top: 14px; right: 14px; background: #f0f0f0; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+/* ── ÜBUNGEN ── */
+.ex-block { background: white; border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.ex-block h3 { font-size: 0.95rem; color: var(--blue); margin-bottom: 12px; border-bottom: 2px dashed #e5e5e5; padding-bottom: 8px; font-weight: 800; }
+.tag { display: inline-block; color: white; font-size: 0.7rem; font-weight: 700; border-radius: 6px; padding: 2px 8px; margin-right: 5px; vertical-align: middle; }
+.tag.b1 { background: var(--green); }
+.tag.b2 { background: var(--red); }
+
+.mc-q { margin-bottom: 16px; }
+.mc-q p { font-size: 0.88rem; margin-bottom: 8px; color: #333; font-weight: 600; line-height: 1.5; }
+.mc-opts { display: flex; flex-direction: column; gap: 6px; }
+.mc-btn { background: #f4f6f9; border: 2px solid #dde3eb; border-radius: 10px; padding: 10px 13px; font-size: 0.84rem; text-align: left; cursor: pointer; transition: all 0.15s; color: #333; -webkit-tap-highlight-color: transparent; }
+.mc-btn.ok { background: #d4edda; border-color: var(--green); color: #155724; font-weight: 700; }
+.mc-btn.no { background: #f8d7da; border-color: var(--red); color: #721c24; }
+.mc-btn.show-ok { background: #d4edda; border-color: var(--green); }
+.mc-btn:disabled { cursor: default; }
+
+.sentence { font-size: 0.9rem; margin-bottom: 14px; line-height: 2.1; color: #333; }
+.sentence input[type=text] { border: none; border-bottom: 2px solid var(--mid); background: transparent; font-size: 0.9rem; color: var(--dark); outline: none; padding: 2px 4px; min-width: 130px; -webkit-appearance: none; }
+.sentence input.ok { border-bottom-color: var(--green); background: #e8f8f0; border-radius: 4px; }
+.sentence input.no { border-bottom-color: var(--red); background: #fff0f0; border-radius: 4px; }
+
+.check-btn { background: linear-gradient(135deg, var(--blue), var(--mid)); color: white; border: none; border-radius: 12px; padding: 11px 22px; font-size: 0.88rem; font-weight: 700; cursor: pointer; margin-top: 10px; -webkit-tap-highlight-color: transparent; }
+.check-btn:active { opacity: 0.85; }
+.feedback { margin-top: 10px; padding: 10px 13px; border-radius: 10px; font-size: 0.84rem; font-weight: 600; display: none; line-height: 1.6; }
+.feedback.show { display: block; }
+.feedback.great { background: #d4edda; color: #155724; }
+.feedback.almost { background: #fff3cd; color: #856404; }
+
+/* ── MATCHING ── */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+@media (max-width: 480px) { .match-grid { grid-template-columns: 1fr; } }
+.match-item { border: 2px solid #dde3eb; border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; background: #f4f6f9; color: #333; -webkit-tap-highlight-color: transparent; text-align: center; font-weight: 600; line-height: 1.4; }
+.match-item.selected { border-color: var(--mid); background: #ddeeff; color: var(--blue); }
+.match-item.matched { border-color: var(--green); background: #d4edda; color: #155724; cursor: default; }
+.match-item.wrong { border-color: var(--red); background: #f8d7da; }
+
+/* ── ÜBERSICHT / LISTE ── */
+#search-bar { width: 100%; padding: 12px 16px; border: 2px solid #dde3eb; border-radius: 12px; font-size: 0.9rem; outline: none; color: var(--dark); margin-bottom: 14px; -webkit-appearance: none; }
+#search-bar:focus { border-color: var(--mid); }
+
+.cat-section { margin-bottom: 20px; }
+.cat-title { background: linear-gradient(135deg, var(--blue), var(--mid)); color: white; border-radius: 10px; padding: 8px 14px; font-size: 0.88rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.rw-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 10px; background: white; margin-bottom: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); cursor: pointer; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+.rw-row:active { background: #f0f6ff; }
+.rw-num { background: var(--light); color: var(--blue); border-radius: 8px; padding: 2px 8px; font-size: 0.72rem; font-weight: 800; min-width: 34px; text-align: center; margin-top: 2px; }
+.rw-info { flex: 1; }
+.rw-info .phrase { font-size: 0.88rem; font-weight: 700; color: var(--blue); margin-bottom: 3px; }
+.rw-info .meaning { font-size: 0.8rem; color: #555; line-height: 1.5; }
+.rw-info .example-small { font-size: 0.76rem; color: #888; font-style: italic; margin-top: 3px; display: none; line-height: 1.5; }
+.rw-row.open .example-small { display: block; }
+.rw-arrow { color: #aaa; font-size: 0.85rem; margin-top: 2px; transition: transform 0.2s; }
+.rw-row.open .rw-arrow { transform: rotate(90deg); }
+
+.filter-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.filter-btn { border: 2px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 5px 13px; font-size: 0.78rem; font-weight: 700; cursor: pointer; color: white; background: rgba(255,255,255,0.15); transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+.filter-btn.active-filter { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+/* ── SCORE BAR ── */
+#score-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: white; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 9px 18px; font-size: 0.82rem; z-index: 99; }
+#score-bar span { font-weight: 700; color: var(--gold); font-size: 0.95rem; }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💼 <span>Redewendungen</span> – Alltag &amp; Arbeit</h1>
+  <div class="badge">B1 · 100+ Ausdrücke</div>
+</header>
+
+<nav>
+  <button class="active" onclick="showSection('text')">📖 Beispieltext</button>
+  <button onclick="showSection('uebungen')">✏️ Übungen</button>
+  <button onclick="showSection('liste')">📋 Alle 100+</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     TEIL 1 – BEISPIELTEXT
+══════════════════════════════════════ -->
+<div id="text" class="section active">
+
+  <div class="intro-banner">
+    <h2>📖 Ein Tag im Büro</h2>
+    <p>Der Text ist voll mit Redewendungen. Tippe auf einen <span style="background:rgba(244,162,97,0.5);padding:1px 5px;border-radius:3px;font-weight:700;color:#5a3000;">markierten Ausdruck</span>, um die Bedeutung zu sehen!</p>
+  </div>
+
+  <div class="card">
+    <h2>☀️ Morgens</h2>
+    <div class="story-text">
+      Sebastian ist heute <span class="rw" onclick="showRW(0)">mit dem falschen Fuß aufgestanden</span>. Der Wecker hat nicht geklingelt, der Kaffee ist kalt – und dann hat er auch noch den Bus verpasst. „<span class="rw" onclick="showRW(1)">Typisch, ich hab mal wieder Pech</span>", denkt er. Trotzdem macht er sich <span class="rw" onclick="showRW(2)">auf die Socken</span> und läuft schnell zur Arbeit. Er will nicht, dass sein Chef ihn <span class="rw" onclick="showRW(3)">auf dem Kieker hat</span>.
+      <br><br>
+      Im Büro angekommen, begrüßt ihn sein Kollege Jonas: „Na, du siehst aus, als ob du <span class="rw" onclick="showRW(4)">einen Zahn zulegen</span> müsstest! Das Meeting fängt in fünf Minuten an." Sebastian seufzt. Er hatte die Unterlagen noch nicht vorbereitet – er hatte sie <span class="rw" onclick="showRW(5)">auf die lange Bank geschoben</span>.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🤝 Das Meeting</h2>
+    <div class="story-text">
+      Im Besprechungsraum steht die Chefin, Frau Bauer, schon bereit. Sie ist ein Mensch, der <span class="rw" onclick="showRW(6)">kein Blatt vor den Mund nimmt</span>. „Guten Morgen! Kommen wir gleich <span class="rw" onclick="showRW(7)">auf den Punkt</span>. Das Projekt läuft nicht gut. Wir müssen <span class="rw" onclick="showRW(8)">die Ärmel hochkrempeln</span>."
+      <br><br>
+      Sebastians Kollege Peter flüstert ihm zu: „Sie ist heute wieder <span class="rw" onclick="showRW(9)">auf 180</span>." Sebastian nickt und <span class="rw" onclick="showRW(10)">beißt die Zähne zusammen</span>. Er weiß, dass Frau Bauer Recht hat – das Team hat <span class="rw" onclick="showRW(11)">die Flinte ins Korn geworfen</span>, als es schwierig wurde.
+      <br><br>
+      Frau Bauer fährt fort: „Wir haben alles <span class="rw" onclick="showRW(12)">schwarz auf weiß</span> – die Zahlen sprechen für sich. Es ist Zeit, <span class="rw" onclick="showRW(13)">das Ruder herumzureißen</span>. Ich brauche jemanden, der <span class="rw" onclick="showRW(14)">sich ins Zeug legt</span>." Sie schaut Sebastian direkt an. „Sebastian, haben Sie eine Idee?"
+      <br><br>
+      Sebastian <span class="rw" onclick="showRW(15)">trifft den Nagel auf den Kopf</span>: „Wir müssen <span class="rw" onclick="showRW(16)">über unseren Schatten springen</span> und neue Methoden ausprobieren. Das alte System läuft zwar, aber wir sind damit <span class="rw" onclick="showRW(17)">hinter dem Mond</span>." Frau Bauer nickt zufrieden. „Gut. Dann gebe ich Ihnen <span class="rw" onclick="showRW(18)">grünes Licht</span> für das neue Konzept."
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>☕ Die Mittagspause</h2>
+    <div class="story-text">
+      In der Kantine setzt sich Sebastian zu seiner Kollegin Laura. Sie ist <span class="rw" onclick="showRW(19)">gut drauf</span> heute – ganz im Gegensatz zu gestern, als sie <span class="rw" onclick="showRW(20)">die Nase voll hatte</span> vom Stress.
+      <br><br>
+      „Weißt du schon das Neueste?", fragt Laura. „Unser Kollege Markus bekommt eine Beförderung." Sebastian ist überrascht. „Wirklich? Wow, er hat sich wirklich <span class="rw" onclick="showRW(21)">einen Namen gemacht</span>." Laura lacht. „Ja, aber anfangs war er <span class="rw" onclick="showRW(22)">ins kalte Wasser geworfen worden</span> – er hatte keine Ahnung, wie das alles funktioniert."
+      <br><br>
+      Sebastian denkt laut nach: „Ich glaube, er hat immer <span class="rw" onclick="showRW(23)">einen kühlen Kopf bewahrt</span>, auch wenn es stressig wurde. Und er hat nie <span class="rw" onclick="showRW(24)">um den heißen Brei herumgeredet</span> – er hat immer direkt gesagt, was er denkt."
+      <br><br>
+      Laura stimmt zu: „Stimmt. Und er ist immer <span class="rw" onclick="showRW(25)">auf der gleichen Wellenlänge</span> wie die Chefin. Das hilft natürlich auch." Sie lachen beide. „<span class="rw" onclick="showRW(26)">Abwarten und Tee trinken</span>", sagt Sebastian, „ich mache einfach meine Arbeit und schaue, was passiert."
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>😤 Der Nachmittag</h2>
+    <div class="story-text">
+      Zurück am Schreibtisch muss Sebastian einen wichtigen Bericht schreiben. Sein Kollege Jonas kommt vorbei und fängt an, über sein Privatleben zu reden. Sebastian <span class="rw" onclick="showRW(27)">geht das auf den Keks</span> – er hat <span class="rw" onclick="showRW(28)">unter Zeitdruck</span>. „Jonas, ich muss <span class="rw" onclick="showRW(29)">Nägel mit Köpfen machen</span>. Können wir später reden?"
+      <br><br>
+      Jonas zieht ab, aber dann passiert das Nächste: Das System stürzt ab und Sebastian verliert eine Stunde Arbeit. Er <span class="rw" onclick="showRW(30)">ist außer sich</span> vor Ärger. Aber er weiß, er muss <span class="rw" onclick="showRW(31)">einen kühlen Kopf bewahren</span> und neu anfangen. Er <span class="rw" onclick="showRW(32)">setzt sich auf den Hosenboden</span> und arbeitet konzentriert bis zum Abend.
+      <br><br>
+      Kurz vor Feierabend ruft sein Freund Tobias an. „Kommst du heute Abend aus? Wir gehen in die neue Bar." Sebastian überlegt. Er ist zwar müde, aber er hat <span class="rw" onclick="showRW(33)">die Arbeit unter Dach und Fach gebracht</span>. „Ich drücke die Daumen, dass ich noch einen Parkplatz finde", lacht er, „aber ja – ich komme!"
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🌆 Feierabend</h2>
+    <div class="story-text">
+      In der Bar ist Tobias schon da und <span class="rw" onclick="showRW(34)">auf Wolke sieben</span> – er hat heute einen neuen Job bekommen. „Ich hab richtig <span class="rw" onclick="showRW(35)">Schwein gehabt</span>! Die hatten mich <span class="rw" onclick="showRW(36)">auf dem Kieker</span> für die Stelle, aber ich dachte schon, ich würde einen Korb bekommen."
+      <br><br>
+      Sebastian freut sich ehrlich. „Du hast dir das verdient! Du hast nie <span class="rw" onclick="showRW(37)">die Flinte ins Korn geworfen</span>, auch wenn es mal nicht lief." Tobias lächelt und sagt: „Danke. Und du? Wie war dein Tag?" Sebastian denkt kurz nach. „Ach, ich bin mit dem falschen Fuß aufgestanden und war kurz davor, <span class="rw" onclick="showRW(38)">den Kürzeren zu ziehen</span>. Aber am Ende lief es gut. Manchmal muss man einfach <span class="rw" onclick="showRW(39)">über seinen Schatten springen</span>."
+      <br><br>
+      Sie stoßen an. Ein langer Tag – aber Sebastian ist <span class="rw" onclick="showRW(40)">mit sich im Reinen</span>. Morgen ist ein neuer Tag.
+    </div>
+  </div>
+
+  <div class="card" style="background:#f0f6ff;border-left:4px solid var(--mid);">
+    <h2>📊 Redewendungen im Text</h2>
+    <p style="font-size:0.85rem;color:#555;line-height:1.7;">Der Text enthält <strong>41 markierte Redewendungen</strong>. Hast du alle Bedeutungen verstanden? Gehe jetzt zu den Übungen – oder direkt zur vollständigen Liste mit über 100 Ausdrücken!</p>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+      <button onclick="showSection('uebungen')" style="background:var(--blue);color:white;border:none;border-radius:10px;padding:10px 18px;font-size:0.85rem;font-weight:700;cursor:pointer;">✏️ Zu den Übungen</button>
+      <button onclick="showSection('liste')" style="background:var(--gold);color:var(--dark);border:none;border-radius:10px;padding:10px 18px;font-size:0.85rem;font-weight:700;cursor:pointer;">📋 Alle 100+ ansehen</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TEIL 2 – ÜBUNGEN
+══════════════════════════════════════ -->
+<div id="uebungen" class="section">
+
+  <div class="intro-banner">
+    <h2>✏️ Übungen – Redewendungen anwenden</h2>
+    <p>3 verschiedene Übungstypen · Tippe auf „Prüfen" nach jeder Aufgabe</p>
+  </div>
+
+  <!-- AUFGABE 1: Multiple Choice -->
+  <div class="ex-block">
+    <h3><span class="tag b1">B1</span> Aufgabe 1 – Was bedeutet das?</h3>
+    <p style="font-size:0.82rem;color:#666;margin-bottom:14px;">Wähle die richtige Bedeutung für jede Redewendung.</p>
+
+    <div class="mc-q" id="u1">
+      <p>1. „Er hat die Flinte ins Korn geworfen."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u1',false)">a) Er hat sehr hart gearbeitet.</button>
+        <button class="mc-btn" onclick="doMC(this,'u1',true)">b) Er hat aufgegeben.</button>
+        <button class="mc-btn" onclick="doMC(this,'u1',false)">c) Er ist sehr wütend geworden.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u2">
+      <p>2. „Sie hat kein Blatt vor den Mund genommen."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u2',false)">a) Sie hat sehr leise gesprochen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u2',false)">b) Sie hat nichts gesagt.</button>
+        <button class="mc-btn" onclick="doMC(this,'u2',true)">c) Sie hat offen und direkt gesprochen.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u3">
+      <p>3. „Das Projekt ist unter Dach und Fach."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u3',true)">a) Das Projekt ist abgeschlossen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u3',false)">b) Das Projekt hat Probleme.</button>
+        <button class="mc-btn" onclick="doMC(this,'u3',false)">c) Das Projekt beginnt gerade.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u4">
+      <p>4. „Er ist ins kalte Wasser geworfen worden."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u4',false)">a) Er ist ins Schwimmbad gefallen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u4',false)">b) Er wurde ungerechtfertigt bestraft.</button>
+        <button class="mc-btn" onclick="doMC(this,'u4',true)">c) Er musste ohne Vorbereitung eine schwierige Aufgabe übernehmen.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u5">
+      <p>5. „Sie hat endlich grünes Licht bekommen."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u5',true)">a) Sie hat die Erlaubnis bekommen, weiterzumachen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u5',false)">b) Sie hat einen neuen Computer bekommen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u5',false)">c) Sie ist bei einer Ampel stehen geblieben.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u6">
+      <p>6. „Er redet immer um den heißen Brei herum."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u6',false)">a) Er spricht sehr laut und direkt.</button>
+        <button class="mc-btn" onclick="doMC(this,'u6',true)">b) Er vermeidet es, das eigentliche Thema anzusprechen.</button>
+        <button class="mc-btn" onclick="doMC(this,'u6',false)">c) Er redet sehr viel über Essen.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u7">
+      <p>7. „Sie bewahrt immer einen kühlen Kopf."</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u7',false)">a) Sie trägt immer eine Mütze.</button>
+        <button class="mc-btn" onclick="doMC(this,'u7',false)">b) Sie ist immer schlecht gelaunt.</button>
+        <button class="mc-btn" onclick="doMC(this,'u7',true)">c) Sie bleibt ruhig und gelassen in Stresssituationen.</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUFGABE 2: Lückentext -->
+  <div class="ex-block">
+    <h3><span class="tag b1">B1</span> Aufgabe 2 – Ergänze die Redewendung</h3>
+    <p style="font-size:0.82rem;color:#666;margin-bottom:6px;">Wähle das richtige Wort aus dem Kasten und ergänze die Lücke.</p>
+    <div style="background:#eef4ff;border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:0.82rem;color:var(--blue);font-weight:600;line-height:1.8;">
+      Zahn · Socken · Nagel · Ärmel · Wolke · Daumen · Wellenlänge · Keks · Schatten · Rücken
+    </div>
+
+    <div class="sentence" id="l1">1. Jetzt müssen wir die <input type="text" data-answer="ärmel" placeholder="___"> hochkrempeln und richtig arbeiten.</div>
+    <div class="sentence" id="l2">2. Er trifft immer den <input type="text" data-answer="nagel" placeholder="___"> auf den Kopf – seine Ideen sind genial.</div>
+    <div class="sentence" id="l3">3. Ich drücke dir die <input type="text" data-answer="daumen" placeholder="___"> für das Vorstellungsgespräch!</div>
+    <div class="sentence" id="l4">4. Du musst einen <input type="text" data-answer="zahn" placeholder="___"> zulegen – wir haben keine Zeit mehr.</div>
+    <div class="sentence" id="l5">5. Seit der Beförderung ist sie auf <input type="text" data-answer="wolke" placeholder="___"> sieben.</div>
+    <div class="sentence" id="l6">6. Dieses ewige Gemecker geht mir auf den <input type="text" data-answer="keks" placeholder="___">.</div>
+    <div class="sentence" id="l7">7. Er muss über seinen <input type="text" data-answer="schatten" placeholder="___"> springen und die Präsentation halten.</div>
+    <div class="sentence" id="l8">8. Wir sind auf der gleichen <input type="text" data-answer="wellenlänge" placeholder="___"> – wir denken immer gleich.</div>
+
+    <button class="check-btn" onclick="checkLuecke('ex2',['l1','l2','l3','l4','l5','l6','l7','l8'])">✅ Prüfen</button>
+    <div class="feedback" id="fb-ex2"></div>
+  </div>
+
+  <!-- AUFGABE 3: Situation wählen -->
+  <div class="ex-block">
+    <h3><span class="tag b1">B1</span> Aufgabe 3 – In welcher Situation passt das?</h3>
+    <p style="font-size:0.82rem;color:#666;margin-bottom:14px;">Wähle die Situation, in der die Redewendung am besten passt.</p>
+
+    <div class="mc-q" id="u8">
+      <p>1. Wann sagt man: <em>„Abwarten und Tee trinken."</em></p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u8',false)">a) Wenn man jemanden dazu auffordert, schneller zu handeln.</button>
+        <button class="mc-btn" onclick="doMC(this,'u8',true)">b) Wenn man rät, geduldig zu sein und die Entwicklung abzuwarten.</button>
+        <button class="mc-btn" onclick="doMC(this,'u8',false)">c) Wenn man sagt, dass etwas unmöglich ist.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u9">
+      <p>2. Wann passt: <em>„Er hat Schwein gehabt."</em></p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u9',false)">a) Er hat sich sehr angestrengt und deshalb Erfolg gehabt.</button>
+        <button class="mc-btn" onclick="doMC(this,'u9',true)">b) Er hatte Glück, obwohl es auch anders hätte laufen können.</button>
+        <button class="mc-btn" onclick="doMC(this,'u9',false)">c) Er ist sehr fleißig und zuverlässig.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u10">
+      <p>3. Dein Chef gibt dir ein wichtiges Projekt, das du noch nie gemacht hast, ohne Erklärung. Was sagt dein Kollege?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u10',false)">a) „Du bist auf der gleichen Wellenlänge!"</button>
+        <button class="mc-btn" onclick="doMC(this,'u10',false)">b) „Du hast Schwein gehabt!"</button>
+        <button class="mc-btn" onclick="doMC(this,'u10',true)">c) „Du wurdest ins kalte Wasser geworfen!"</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u11">
+      <p>4. Dein Freund sagt immer fast, was er meint, aber nie direkt. Was tut er?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u11',true)">a) Er redet um den heißen Brei herum.</button>
+        <button class="mc-btn" onclick="doMC(this,'u11',false)">b) Er bewahrt einen kühlen Kopf.</button>
+        <button class="mc-btn" onclick="doMC(this,'u11',false)">c) Er legt die Ärmel hoch.</button>
+      </div>
+    </div>
+
+    <div class="mc-q" id="u12">
+      <p>5. Das Projekt soll erst nächstes Jahr angegangen werden. Was macht der Manager damit?</p>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="doMC(this,'u12',false)">a) Er bringt es unter Dach und Fach.</button>
+        <button class="mc-btn" onclick="doMC(this,'u12',true)">b) Er schiebt es auf die lange Bank.</button>
+        <button class="mc-btn" onclick="doMC(this,'u12',false)">c) Er reißt das Ruder herum.</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUFGABE 4: Sätze bauen -->
+  <div class="ex-block">
+    <h3><span class="tag b1">B1</span> Aufgabe 4 – Freies Schreiben</h3>
+    <p style="font-size:0.85rem;color:#555;line-height:1.7;margin-bottom:12px;">Schreibe für jede Redewendung einen eigenen Satz auf Deutsch. Beschreibe eine Situation aus deinem Alltag oder deiner Arbeit!</p>
+
+    <div style="margin-bottom:14px;">
+      <p style="font-size:0.85rem;font-weight:700;color:var(--blue);margin-bottom:6px;">1. „die Ärmel hochkrempeln"</p>
+      <textarea style="width:100%;border:2px solid #dde3eb;border-radius:10px;padding:10px;font-size:0.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;" placeholder="Schreibe hier deinen Satz…"></textarea>
+    </div>
+    <div style="margin-bottom:14px;">
+      <p style="font-size:0.85rem;font-weight:700;color:var(--blue);margin-bottom:6px;">2. „auf der gleichen Wellenlänge sein"</p>
+      <textarea style="width:100%;border:2px solid #dde3eb;border-radius:10px;padding:10px;font-size:0.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;" placeholder="Schreibe hier deinen Satz…"></textarea>
+    </div>
+    <div style="margin-bottom:14px;">
+      <p style="font-size:0.85rem;font-weight:700;color:var(--blue);margin-bottom:6px;">3. „unter Druck stehen"</p>
+      <textarea style="width:100%;border:2px solid #dde3eb;border-radius:10px;padding:10px;font-size:0.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;" placeholder="Schreibe hier deinen Satz…"></textarea>
+    </div>
+    <div style="margin-bottom:14px;">
+      <p style="font-size:0.85rem;font-weight:700;color:var(--blue);margin-bottom:6px;">4. „einen kühlen Kopf bewahren"</p>
+      <textarea style="width:100%;border:2px solid #dde3eb;border-radius:10px;padding:10px;font-size:0.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;" placeholder="Schreibe hier deinen Satz…"></textarea>
+    </div>
+    <div>
+      <p style="font-size:0.85rem;font-weight:700;color:var(--blue);margin-bottom:6px;">5. Wähle selbst eine Redewendung aus der Liste und schreibe einen Satz!</p>
+      <textarea style="width:100%;border:2px solid #dde3eb;border-radius:10px;padding:10px;font-size:0.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;" placeholder="Redewendung + Satz…"></textarea>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TEIL 3 – VOLLSTÄNDIGE LISTE
+══════════════════════════════════════ -->
+<div id="liste" class="section">
+
+  <div class="intro-banner">
+    <h2>📋 Alle 106 Redewendungen</h2>
+    <p>Durchsuchen, filtern, tippen für Beispiele · Zum eigenständigen Lernen!</p>
+  </div>
+
+  <input id="search-bar" type="search" placeholder="🔍 Suche nach Redewendung oder Bedeutung…" oninput="filterList()" autocomplete="off">
+
+  <div class="filter-row">
+    <button class="filter-btn active-filter" onclick="setFilter('alle',this)">Alle</button>
+    <button class="filter-btn" onclick="setFilter('arbeit',this)">💼 Arbeit</button>
+    <button class="filter-btn" onclick="setFilter('alltag',this)">🏠 Alltag</button>
+    <button class="filter-btn" onclick="setFilter('gefuehle',this)">❤️ Gefühle</button>
+    <button class="filter-btn" onclick="setFilter('kommunikation',this)">💬 Kommunikation</button>
+    <button class="filter-btn" onclick="setFilter('zeit',this)">⏰ Zeit</button>
+    <button class="filter-btn" onclick="setFilter('geld',this)">💶 Geld</button>
+  </div>
+
+  <div id="rw-list"></div>
+
+  <div id="no-results" class="hidden" style="text-align:center;color:white;padding:30px;font-size:0.9rem;opacity:0.8;">
+    Keine Redewendungen gefunden. Versuche einen anderen Suchbegriff.
+  </div>
+</div>
+
+
+<!-- POPUP für Redewendungen im Text -->
+<div class="popup-overlay" id="rw-popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="rw-cat" id="popup-cat"></div>
+    <div class="rw-title" id="popup-title"></div>
+    <div class="rw-meaning" id="popup-meaning"></div>
+    <div class="rw-example" id="popup-example"></div>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div id="score-bar">
+  ⭐ Übungen: <span id="score-display">0</span> / <span id="total-display">0</span>
+  &nbsp;|&nbsp; 🎯 Richtig: <span id="pct-display">–</span>
+</div>
+
+<script>
+// ══ DATEN: Alle Redewendungen ══
+const DATA = [
+  // Text-Redewendungen (0-40) + Vollständige Liste
+  // Kategorien: arbeit, alltag, gefuehle, kommunikation, zeit, geld
+
+  // 0
+  {p:"mit dem falschen Fuß aufstehen", b:"Bedeutung: Schlecht gelaunt in den Tag starten; den Tag schlecht beginnen.", e:"Er war heute morgen so unfreundlich – er muss mit dem falschen Fuß aufgestanden sein.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"Pech haben", b:"Bedeutung: Unglück haben; wenn etwas nicht klappt.", e:"Ich hab heute richtig Pech gehabt – zuerst der Bus, dann der Regen!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"sich auf die Socken machen", b:"Bedeutung: Aufbrechen, losgehen, sich beeilen.", e:"Es ist schon spät – wir müssen uns auf die Socken machen!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemanden auf dem Kieker haben", b:"Bedeutung: Jemanden besonders beobachten oder im Visier haben (oft negativ).", e:"Seit dem Fehler hat der Chef mich auf dem Kieker.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"einen Zahn zulegen", b:"Bedeutung: Schneller werden; mehr Leistung bringen.", e:"Wenn wir den Termin einhalten wollen, müssen wir einen Zahn zulegen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"etwas auf die lange Bank schieben", b:"Bedeutung: Etwas immer wieder verschieben; prokrastinieren.", e:"Ich habe die Steuererklärung schon seit Monaten auf die lange Bank geschoben.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"kein Blatt vor den Mund nehmen", b:"Bedeutung: Offen und direkt sagen, was man denkt.", e:"Meine Chefin nimmt kein Blatt vor den Mund – sie sagt immer klar, was sie denkt.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"auf den Punkt kommen", b:"Bedeutung: Direkt zum Thema kommen; das Wesentliche sagen.", e:"Können wir bitte auf den Punkt kommen? Wir haben nicht viel Zeit.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"die Ärmel hochkrempeln", b:"Bedeutung: Sich an die Arbeit machen; ernsthaft anfangen zu arbeiten.", e:"Jetzt ist keine Zeit für Diskussionen – wir müssen die Ärmel hochkrempeln.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"auf 180 sein", b:"Bedeutung: Sehr wütend sein; außer sich vor Wut.", e:"Als er das hörte, war er sofort auf 180.", k:"gefuehle", ki:"❤️ Gefühle"},
+  // 10
+  {p:"die Zähne zusammenbeißen", b:"Bedeutung: Trotz Schmerz oder Schwierigkeiten weitermachen; Durchhalten.", e:"Es war hart, aber sie hat die Zähne zusammengebissen und nicht aufgegeben.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"die Flinte ins Korn werfen", b:"Bedeutung: Aufgeben; kapitulieren.", e:"Nur weil es schwierig ist, darf man nicht die Flinte ins Korn werfen!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"schwarz auf weiß haben", b:"Bedeutung: Etwas schriftlich, offiziell bestätigt haben.", e:"Ich habe es schwarz auf weiß – der Vertrag wurde unterschrieben.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"das Ruder herumreißen", b:"Bedeutung: Eine schlechte Entwicklung schnell umkehren.", e:"Das Unternehmen muss das Ruder herumreißen, sonst gibt es Probleme.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"sich ins Zeug legen", b:"Bedeutung: Sich sehr anstrengen; alles geben.", e:"Wenn du dich ins Zeug legst, wirst du die Prüfung sicher bestehen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"den Nagel auf den Kopf treffen", b:"Bedeutung: Genau das Richtige sagen oder tun; präzise sein.", e:"Mit seiner Analyse hat er den Nagel auf den Kopf getroffen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"über seinen Schatten springen", b:"Bedeutung: Etwas tun, das man normalerweise nicht tun würde; sich überwinden.", e:"Ich musste wirklich über meinen Schatten springen und den Chef ansprechen.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"hinter dem Mond leben", b:"Bedeutung: Nicht auf dem neuesten Stand sein; altmodisch denken.", e:"Wer heute noch kein Smartphone hat, lebt hinter dem Mond.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"grünes Licht geben", b:"Bedeutung: Die Erlaubnis geben, weiterzumachen.", e:"Der Direktor hat grünes Licht für das neue Projekt gegeben.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"gut drauf sein", b:"Bedeutung: Gut gelaunt und in guter Stimmung sein.", e:"Sie ist heute super gut drauf – vielleicht hat sie gute Neuigkeiten.", k:"gefuehle", ki:"❤️ Gefühle"},
+  // 20
+  {p:"die Nase voll haben", b:"Bedeutung: Genug haben von etwas; genervt und erschöpft sein.", e:"Ich hab die Nase voll von diesem Stress – ich brauche einen Urlaub.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"sich einen Namen machen", b:"Bedeutung: Berühmt oder bekannt werden; eine gute Reputation aufbauen.", e:"Mit seiner innovativen Arbeit hat er sich schnell einen Namen gemacht.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"ins kalte Wasser geworfen werden", b:"Bedeutung: Ohne Vorbereitung in eine schwierige Situation geworfen werden.", e:"Am ersten Arbeitstag wurde ich direkt ins kalte Wasser geworfen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"einen kühlen Kopf bewahren", b:"Bedeutung: Ruhig und rational bleiben, auch in stressigen Situationen.", e:"In der Krise hat er einen kühlen Kopf bewahrt und die richtige Entscheidung getroffen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"um den heißen Brei herumreden", b:"Bedeutung: Das eigentliche Thema vermeiden; nicht direkt sein.", e:"Hör auf, um den heißen Brei herumzureden – sag mir einfach, was du denkst!", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"auf der gleichen Wellenlänge sein", b:"Bedeutung: Die gleichen Ansichten oder Interessen haben; gut harmonieren.", e:"Mit meiner Kollegin bin ich auf der gleichen Wellenlänge – wir arbeiten super zusammen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"abwarten und Tee trinken", b:"Bedeutung: Geduldig sein und die Entwicklung abwarten.", e:"Mach dir keine Sorgen – abwarten und Tee trinken, das klärt sich von selbst.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemandem auf den Keks gehen", b:"Bedeutung: Jemanden nerven; auf die Nerven gehen.", e:"Dieser Lärm geht mir wirklich auf den Keks – ich kann mich nicht konzentrieren.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"unter Zeitdruck stehen", b:"Bedeutung: Wenig Zeit haben; eine Deadline einhalten müssen.", e:"Ich stehe gerade unter extremem Zeitdruck – der Bericht muss bis morgen fertig sein.", k:"zeit", ki:"⏰ Zeit"},
+  {p:"Nägel mit Köpfen machen", b:"Bedeutung: Etwas richtig und gründlich erledigen; konsequent handeln.", e:"Wenn wir das angehen, dann machen wir Nägel mit Köpfen – kein halbherziger Plan!", k:"arbeit", ki:"💼 Arbeit"},
+  // 30
+  {p:"außer sich sein", b:"Bedeutung: Sehr aufgeregt, wütend oder erschüttert sein.", e:"Als sie die Nachricht hörte, war sie völlig außer sich.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"einen kühlen Kopf bewahren", b:"Bedeutung: Ruhig bleiben in schwierigen Situationen.", e:"Auch in der Krise hat er immer einen kühlen Kopf bewahrt.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"sich auf den Hosenboden setzen", b:"Bedeutung: Sich ernsthaft hinsetzen und konzentriert arbeiten.", e:"Es wird Zeit, dass du dich auf den Hosenboden setzt und die Hausarbeit schreibst.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"etwas unter Dach und Fach bringen", b:"Bedeutung: Etwas erfolgreich abschließen oder sichern.", e:"Heute haben wir den Vertrag unter Dach und Fach gebracht.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"auf Wolke sieben sein", b:"Bedeutung: Sehr glücklich und verliebt sein; im siebten Himmel.", e:"Seit er die neue Stelle bekommen hat, ist er auf Wolke sieben.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"Schwein haben", b:"Bedeutung: Großes Glück haben.", e:"Ich hab wirklich Schwein gehabt – der Zug hatte Verspätung und ich hab ihn noch erwischt!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemanden auf dem Kieker haben", b:"Bedeutung: Jemanden beobachten oder bevorzugt im Blick haben.", e:"Für die neue Führungsposition hat sie mich auf dem Kieker.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"die Flinte ins Korn werfen", b:"Bedeutung: Aufgeben; kapitulieren.", e:"Nur weil es einmal nicht klappt, muss man nicht die Flinte ins Korn werfen.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"den Kürzeren ziehen", b:"Bedeutung: In einer Auseinandersetzung verlieren; benachteiligt werden.", e:"In der Gehaltsverhandlung hat er leider den Kürzeren gezogen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"über seinen Schatten springen", b:"Bedeutung: Sich überwinden; etwas tun, das man eigentlich nicht mag.", e:"Ich musste über meinen Schatten springen und mich beim Chef entschuldigen.", k:"alltag", ki:"🏠 Alltag"},
+  // 40
+  {p:"mit sich im Reinen sein", b:"Bedeutung: Mit sich selbst zufrieden sein; ein reines Gewissen haben.", e:"Ich habe alles getan, was ich konnte – jetzt bin ich mit mir im Reinen.", k:"gefuehle", ki:"❤️ Gefühle"},
+
+  // WEITERE (41–105)
+  {p:"das ist nicht mein Bier", b:"Bedeutung: Das ist nicht meine Angelegenheit; das geht mich nichts an.", e:"Was er in seiner Freizeit macht? Das ist nicht mein Bier.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemandem auf den Arm nehmen", b:"Bedeutung: Jemanden verarschen oder zum Besten halten.", e:"Du hast gewonnen? Willst du mich auf den Arm nehmen?!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"tomaten auf den Augen haben", b:"Bedeutung: Etwas Offensichtliches nicht sehen.", e:"Hast du Tomaten auf den Augen? Der Fehler steht doch direkt im Bericht!", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"ins Fettnäpfchen treten", b:"Bedeutung: Unbeabsichtigt jemanden beleidigen oder eine peinliche Situation verursachen.", e:"Er hat ins Fettnäpfchen getreten, als er nach dem Alter der Chefin gefragt hat.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"einen Korb bekommen", b:"Bedeutung: Abgelehnt werden (bei einem romantischen Angebot oder einer Bewerbung).", e:"Er wollte sie zum Essen einladen, aber er hat einen Korb bekommen.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"auf großem Fuß leben", b:"Bedeutung: Sehr aufwendig und luxuriös leben.", e:"Mit seinem neuen Gehalt lebt er jetzt auf großem Fuß.", k:"geld", ki:"💶 Geld"},
+  {p:"Klartext reden", b:"Bedeutung: Direkt und ohne Umschweife sprechen.", e:"Ich rede jetzt Klartext: Das Projekt ist gescheitert.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"zwischen den Zeilen lesen", b:"Bedeutung: Den versteckten oder eigentlichen Sinn einer Aussage verstehen.", e:"Was er wirklich meinte, musste man zwischen den Zeilen lesen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"einen guten Eindruck machen", b:"Bedeutung: Positiv auf jemanden wirken.", e:"Beim Vorstellungsgespräch hat er einen sehr guten Eindruck gemacht.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"das Wort ergreifen", b:"Bedeutung: Anfangen zu sprechen; das Wort nehmen (oft in Meetings oder öffentlich).", e:"In der Konferenz hat sie als Erste das Wort ergriffen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  // 50
+  {p:"auf eigene Faust handeln", b:"Bedeutung: Ohne Erlaubnis oder Absprache selbstständig handeln.", e:"Er hat auf eigene Faust gehandelt und das Angebot akzeptiert.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"jemandem freie Hand lassen", b:"Bedeutung: Jemanden selbstständig entscheiden lassen.", e:"Die Chefin hat mir freie Hand gelassen – ich kann das Projekt selbst gestalten.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"über den Berg sein", b:"Bedeutung: Das Schlimmste überstanden haben.", e:"Der Patient ist über den Berg – es geht ihm jetzt besser.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"in aller Munde sein", b:"Bedeutung: Von allen besprochen werden; sehr bekannt sein.", e:"Der Skandal war in aller Munde – alle haben nur darüber geredet.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"die Zügel in der Hand halten", b:"Bedeutung: Die Kontrolle behalten; das Sagen haben.", e:"Auch in der Krise hält sie die Zügel fest in der Hand.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"einen Schritt voraus sein", b:"Bedeutung: Einen Vorteil haben; besser vorbereitet sein als andere.", e:"Dank unserer Marktanalyse sind wir der Konkurrenz einen Schritt voraus.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"Rückendeckung bekommen", b:"Bedeutung: Unterstützung von jemandem (oft Vorgesetzten) erhalten.", e:"Ohne Rückendeckung vom Chef hätte ich das nie durchgesetzt.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"jemandem auf die Füße treten", b:"Bedeutung: Jemanden unbeabsichtigt kränken oder stören.", e:"Mit seiner Kritik hat er dem Kollegen kräftig auf die Füße getreten.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"auf Hochtouren laufen", b:"Bedeutung: Mit voller Kapazität arbeiten; sehr beschäftigt sein.", e:"Die Fabrik läuft auf Hochtouren – wir haben riesige Aufträge.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"etwas auf Eis legen", b:"Bedeutung: Etwas vorläufig stoppen oder aussetzen.", e:"Das Projekt wurde wegen Budgetkürzungen auf Eis gelegt.", k:"arbeit", ki:"💼 Arbeit"},
+  // 60
+  {p:"den Gürtel enger schnallen", b:"Bedeutung: Sparen müssen; sich einschränken.", e:"In diesem Monat müssen wir den Gürtel enger schnallen.", k:"geld", ki:"💶 Geld"},
+  {p:"Geld zum Fenster rauswerfen", b:"Bedeutung: Geld verschwenden.", e:"Jeden Tag ein Taxi nehmen – das ist Geld zum Fenster rauswerfen!", k:"geld", ki:"💶 Geld"},
+  {p:"knappe Kasse haben", b:"Bedeutung: Wenig Geld haben.", e:"Diesen Monat habe ich knappe Kasse – ich warte auf das Gehalt.", k:"geld", ki:"💶 Geld"},
+  {p:"für einen Pappenstiel kaufen", b:"Bedeutung: Etwas sehr günstig kaufen.", e:"Ich habe das Auto für einen Pappenstiel gekauft – der Verkäufer wollte es schnell loswerden.", k:"geld", ki:"💶 Geld"},
+  {p:"über seine Verhältnisse leben", b:"Bedeutung: Mehr ausgeben als man sich leisten kann.", e:"Er lebt weit über seine Verhältnisse – mit dem Gehalt kann er sich das nicht erlauben.", k:"geld", ki:"💶 Geld"},
+  {p:"im Handumdrehen", b:"Bedeutung: Sehr schnell; in kurzer Zeit.", e:"Das Formular ist im Handumdrehen ausgefüllt.", k:"zeit", ki:"⏰ Zeit"},
+  {p:"in letzter Minute", b:"Bedeutung: Gerade noch rechtzeitig.", e:"Wir haben den Vertrag in letzter Minute noch abgeschlossen.", k:"zeit", ki:"⏰ Zeit"},
+  {p:"hals über Kopf", b:"Bedeutung: Sehr übereilt; in größter Eile.", e:"Er hat hals über Kopf das Land verlassen.", k:"zeit", ki:"⏰ Zeit"},
+  {p:"Zeit ist Geld", b:"Bedeutung: Zeit ist wertvoll und soll nicht verschwendet werden.", e:"Fang einfach an – Zeit ist Geld!", k:"zeit", ki:"⏰ Zeit"},
+  {p:"den Zug verpassen", b:"Bedeutung: Eine gute Gelegenheit verpassen.", e:"Wenn du jetzt nicht investierst, verpasst du den Zug.", k:"zeit", ki:"⏰ Zeit"},
+  // 70
+  {p:"jemanden im Dunkeln lassen", b:"Bedeutung: Jemanden nicht informieren; Informationen zurückhalten.", e:"Bitte lass mich nicht im Dunkeln – was ist passiert?", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"jemandem das Wort im Mund umdrehen", b:"Bedeutung: Das Gesagte falsch interpretieren oder verdrehen.", e:"Ich habe das nicht so gemeint – dreh mir nicht das Wort im Mund um!", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"jemandem auf der Seele brennen", b:"Bedeutung: Etwas sehr beschäftigt einen; man muss dringend darüber sprechen.", e:"Dieses Problem brennt mir schon lange auf der Seele.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"gut geschlafen haben", b:"Bedeutung: Keine Bedenken haben; unbesorgt sein.", e:"Wie kann er da gut schlafen? Das Projekt ist komplett im Chaos!", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"mit sich selbst im Reinen sein", b:"Bedeutung: Ein reines Gewissen haben; mit sich zufrieden sein.", e:"Nach dem Gespräch mit dem Chef bin ich jetzt mit mir im Reinen.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"einen Narren an jemandem gefressen haben", b:"Bedeutung: Jemanden sehr mögen; von jemandem begeistert sein.", e:"Die Chefin hat an dem neuen Praktikanten einen Narren gefressen.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"schlecht drauf sein", b:"Bedeutung: Schlecht gelaunt sein; in schlechter Stimmung sein.", e:"Er ist heute total schlecht drauf – besser nicht ansprechen.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"auf einen grünen Zweig kommen", b:"Bedeutung: Erfolgreich werden; Fortschritte machen.", e:"Mit dieser Strategie werden wir nie auf einen grünen Zweig kommen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"aus der Reihe tanzen", b:"Bedeutung: Anders sein als die anderen; nicht konformistisch.", e:"Er tanzt immer aus der Reihe – aber seine Ideen sind oft genial.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"nicht alle Tassen im Schrank haben", b:"Bedeutung: Nicht ganz bei Verstand sein; verrückt sein (humorvoll).", e:"Der will von der Brücke springen?! Der hat wohl nicht alle Tassen im Schrank.", k:"alltag", ki:"🏠 Alltag"},
+  // 80
+  {p:"das ist mir Wurst", b:"Bedeutung: Das ist mir egal; das ist mir gleichgültig.", e:"Ob wir ins Kino oder ins Restaurant gehen – das ist mir ehrlich gesagt Wurst.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemandem auf die Nerven gehen", b:"Bedeutung: Jemanden stören oder nerven.", e:"Dieses dauernde Handy-Klingeln geht mir wirklich auf die Nerven.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"auf dem Holzweg sein", b:"Bedeutung: Auf dem falschen Weg sein; sich irren.", e:"Wenn du denkst, ich helfe dir damit, bist du auf dem Holzweg.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"sich bewähren", b:"Bedeutung: Zeigen, dass man etwas kann; sich als geeignet erweisen.", e:"In der Probezeit hat er sich hervorragend bewährt.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"es zu etwas bringen", b:"Bedeutung: Erfolgreich sein; eine gute Position erreichen.", e:"Mit seiner Einstellung wird er es weit bringen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"auf der Überholspur sein", b:"Bedeutung: Sehr erfolgreich und schnell vorankommen.", e:"Seit der Beförderung ist sie auf der Überholspur.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"die Daumen drücken", b:"Bedeutung: Jemandem Glück wünschen (Geste des Daumendrückens).", e:"Ich drücke dir die Daumen für das Vorstellungsgespräch!", k:"alltag", ki:"🏠 Alltag"},
+  {p:"mit vollem Einsatz dabei sein", b:"Bedeutung: Sich voll engagieren; 100% geben.", e:"Wenn ich ein Projekt starte, bin ich immer mit vollem Einsatz dabei.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"etwas in die Wege leiten", b:"Bedeutung: Etwas vorbereiten und die ersten Schritte unternehmen.", e:"Wir müssen die Umstrukturierung jetzt in die Wege leiten.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"den Ball flachhalten", b:"Bedeutung: Ruhig bleiben; keine großen Erwartungen wecken; bescheiden auftreten.", e:"Nach dem Erfolg hat er den Ball flachgehalten und nichts großes versprochen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  // 90
+  {p:"auf der faulen Haut liegen", b:"Bedeutung: Faulenzen; nichts tun.", e:"Statt zu arbeiten liegt er den ganzen Tag auf der faulen Haut.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"eulen nach Athen tragen", b:"Bedeutung: Etwas tun, was unnötig oder überflüssig ist.", e:"Dem Experten Tipps zum Thema geben? Das wäre Eulen nach Athen tragen.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"das ist Jacke wie Hose", b:"Bedeutung: Es macht keinen Unterschied; alles gleich.", e:"Ob du mit Bus oder Bahn fährst – das ist doch Jacke wie Hose.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"jemandem in die Karten schauen", b:"Bedeutung: Jemandes Pläne oder Absichten erkennen.", e:"Er lässt sich nicht gerne in die Karten schauen – sehr verschlossen.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"Ruhe bewahren", b:"Bedeutung: Ruhig bleiben; nicht in Panik geraten.", e:"Auch in der Krise hat sie Ruhe bewahrt.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"sich in Luft auflösen", b:"Bedeutung: Verschwinden; plötzlich nicht mehr da sein.", e:"Die ganzen guten Vorsätze haben sich im Januar schon in Luft aufgelöst.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"das Handtuch werfen", b:"Bedeutung: Aufgeben; sich geschlagen geben.", e:"Nach drei Jahren im Startup hat er das Handtuch geworfen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"das Ruder übernehmen", b:"Bedeutung: Die Kontrolle oder Führung übernehmen.", e:"Als der Chef krank wurde, hat sie sofort das Ruder übernommen.", k:"arbeit", ki:"💼 Arbeit"},
+  {p:"auf eigenen Beinen stehen", b:"Bedeutung: Selbstständig und unabhängig sein.", e:"Nach dem Studium wollte er endlich auf eigenen Beinen stehen.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"sich die Zähne ausbeißen", b:"Bedeutung: Große Mühe haben; an etwas scheitern.", e:"An dieser Aufgabe hat sich das ganze Team die Zähne ausgebissen.", k:"arbeit", ki:"💼 Arbeit"},
+  // 100
+  {p:"jemandem auf Augenhöhe begegnen", b:"Bedeutung: Jemanden als gleichwertig behandeln.", e:"In diesem Unternehmen begegnet man jedem Mitarbeiter auf Augenhöhe.", k:"kommunikation", ki:"💬 Kommunikation"},
+  {p:"den Kopf hängen lassen", b:"Bedeutung: Mutlos sein; verzweifelt wirken.", e:"Nach der Absage hat er den Kopf hängen lassen – aber bald wieder aufgehört.", k:"gefuehle", ki:"❤️ Gefühle"},
+  {p:"Licht am Ende des Tunnels sehen", b:"Bedeutung: Eine Verbesserung der Situation erkennen; Hoffnung haben.", e:"Nach Monaten der Arbeit sehen wir endlich Licht am Ende des Tunnels.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"das Beste aus etwas machen", b:"Bedeutung: Trotz schwieriger Umstände das Mögliche rausholen.", e:"Die Situation ist nicht ideal, aber wir machen das Beste daraus.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"mit beiden Beinen im Leben stehen", b:"Bedeutung: Realistisch und praktisch denken; im Leben verwurzelt sein.", e:"Er steht mit beiden Beinen im Leben – kein Kopf in den Wolken.", k:"alltag", ki:"🏠 Alltag"},
+  {p:"einen langen Atem haben", b:"Bedeutung: Durchhaltevermögen haben; ausdauernd sein.", e:"Für dieses Projekt braucht man wirklich einen langen Atem.", k:"arbeit", ki:"💼 Arbeit"},
+];
+
+// ══ POPUP für den Text ══
+function showRW(i) {
+  const d = DATA[i];
+  document.getElementById('popup-cat').textContent = d.ki;
+  document.getElementById('popup-title').textContent = d.p.charAt(0).toUpperCase()+d.p.slice(1);
+  document.getElementById('popup-meaning').textContent = d.b;
+  document.getElementById('popup-example').textContent = '💬 ' + d.e;
+  document.getElementById('rw-popup').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePopup() {
+  document.getElementById('rw-popup').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('rw-popup').addEventListener('click', e => { if(e.target===document.getElementById('rw-popup')) closePopup(); });
+
+// ══ TABS ══
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  ['text','uebungen','liste'].forEach((s,i)=>{ if(s===id) document.querySelectorAll('nav button')[i].classList.add('active'); });
+  window.scrollTo(0,0);
+  if(id==='liste') renderList();
+}
+
+// ══ SCORE ══
+let score=0, total=0;
+function addScore(ok){ total++; if(ok) score++; updateBar(); }
+function updateBar(){
+  document.getElementById('score-display').textContent=score;
+  document.getElementById('total-display').textContent=total;
+  document.getElementById('pct-display').textContent=total?Math.round(score/total*100)+'%':'–';
+}
+
+// ══ MULTIPLE CHOICE ══
+const mcDone={};
+function doMC(btn,id,correct){
+  if(mcDone[id]) return; mcDone[id]=true;
+  document.querySelectorAll(`#${id} .mc-btn`).forEach(b=>{
+    b.disabled=true;
+    if(b.getAttribute('onclick').includes('true')) b.classList.add(b===btn?'ok':'show-ok');
+  });
+  if(!correct) btn.classList.replace('show-ok','no')||btn.classList.add('no');
+  addScore(correct);
+}
+
+// ══ LÜCKENTEXT ══
+const exDone={};
+function checkLuecke(exId,ids){
+  if(exDone[exId]){
+    ids.forEach(id=>{const i=document.querySelector('#'+id+' input');if(i){i.classList.remove('ok','no');i.value='';i.disabled=false;}});
+    document.getElementById('fb-'+exId).className='feedback'; delete exDone[exId]; return;
+  }
+  exDone[exId]=true;
+  let ok=0;
+  ids.forEach(id=>{
+    const inp=document.querySelector('#'+id+' input'); if(!inp)return;
+    const exp=inp.dataset.answer.toLowerCase().trim();
+    const giv=inp.value.toLowerCase().trim();
+    const correct=giv===exp||exp.startsWith(giv)&&giv.length>2;
+    inp.classList.add(correct?'ok':'no'); inp.disabled=true;
+    if(correct){ok++;addScore(true);}else addScore(false);
+  });
+  const fb=document.getElementById('fb-'+exId);
+  fb.className='feedback show '+(ok===ids.length?'great':'almost');
+  if(ok===ids.length){fb.textContent='🎉 Perfekt! Alle Lücken richtig!';}
+  else{
+    const hints=ids.map(id=>{const i=document.querySelector('#'+id+' input');return(!i||i.classList.contains('ok'))?null:'→ '+i.dataset.answer;}).filter(Boolean).join('  ');
+    fb.textContent=`✅ ${ok}/${ids.length} richtig. Lösungen: ${hints}`;
+  }
+}
+
+// ══ LISTE RENDERN ══
+let listRendered=false, activeFilter='alle';
+function renderList(){
+  if(listRendered) return; listRendered=true;
+  const container=document.getElementById('rw-list');
+  const cats=[
+    {id:'arbeit', label:'💼 Arbeit & Beruf'},
+    {id:'alltag', label:'🏠 Alltag & Leben'},
+    {id:'kommunikation', label:'💬 Kommunikation'},
+    {id:'gefuehle', label:'❤️ Gefühle & Stimmung'},
+    {id:'zeit', label:'⏰ Zeit & Tempo'},
+    {id:'geld', label:'💶 Geld & Finanzen'},
+  ];
+  // Dedupliziere DATA
+  const seen=new Set();
+  const unique=DATA.filter(d=>{ if(seen.has(d.p)) return false; seen.add(d.p); return true; });
+  let n=1;
+  cats.forEach(cat=>{
+    const items=unique.filter(d=>d.k===cat.id);
+    const sec=document.createElement('div');
+    sec.className='cat-section'; sec.dataset.cat=cat.id;
+    sec.innerHTML=`<div class="cat-title">${cat.label} <span style="font-size:0.75rem;opacity:0.8;">(${items.length})</span></div>`;
+    items.forEach(d=>{
+      const row=document.createElement('div');
+      row.className='rw-row'; row.dataset.phrase=d.p.toLowerCase(); row.dataset.meaning=d.b.toLowerCase(); row.dataset.cat=cat.id;
+      row.innerHTML=`<div class="rw-num">${n++}</div><div class="rw-info"><div class="phrase">${d.p.charAt(0).toUpperCase()+d.p.slice(1)}</div><div class="meaning">${d.b}</div><div class="example-small">💬 ${d.e}</div></div><div class="rw-arrow">›</div>`;
+      row.addEventListener('click',()=>{ row.classList.toggle('open'); });
+      sec.appendChild(row);
+    });
+    container.appendChild(sec);
+  });
+}
+
+function filterList(){
+  const q=document.getElementById('search-bar').value.toLowerCase();
+  const rows=document.querySelectorAll('.rw-row');
+  let found=0;
+  rows.forEach(r=>{
+    const matchSearch=!q||r.dataset.phrase.includes(q)||r.dataset.meaning.includes(q);
+    const matchCat=activeFilter==='alle'||r.dataset.cat===activeFilter;
+    const show=matchSearch&&matchCat;
+    r.style.display=show?'':'none';
+    if(show) found++;
+  });
+  document.querySelectorAll('.cat-section').forEach(s=>{
+    const visible=[...s.querySelectorAll('.rw-row')].some(r=>r.style.display!=='none');
+    s.style.display=visible?'':'none';
+  });
+  document.getElementById('no-results').classList.toggle('hidden', found>0);
+}
+
+function setFilter(cat, btn){
+  activeFilter=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active-filter'));
+  btn.classList.add('active-filter');
+  renderList();
+  filterList();
+}
+</script>
+</body>
+</html>

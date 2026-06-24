@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A0 Starter Hub – Learn German from Zero</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--teal:#00695c;
+  --purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;
+  --pink:#e91e63;--cyan:#0097a7;--lime:#558b2f;
+  --bg:#f0f4f8;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:15px;line-height:1.7;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#0b2545 0%,#1464b4 45%,#00695c 100%);color:#fff;padding:40px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:12px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:12px;letter-spacing:.5px}
+.hero h1{font-size:30px;font-weight:900;margin-bottom:6px;position:relative}
+.hero h1 .flag{font-size:28px}
+.hero .sub{font-size:16px;opacity:.85;margin-bottom:6px}
+.hero .free-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:20px}
+.progress-bar-wrap{max-width:500px;margin:0 auto}
+.pb-label{font-size:12px;opacity:.7;margin-bottom:6px;display:flex;justify-content:space-between}
+.pb{height:8px;background:rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
+.pb-fill{height:100%;background:var(--amber);border-radius:10px;transition:width .6s ease;width:0%}
+
+/* ── NAV ── */
+.module-nav{background:#fff;border-bottom:2px solid #e0e0e0;position:sticky;top:0;z-index:100;overflow-x:auto;white-space:nowrap;padding:0 12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.mnav-inner{display:inline-flex;gap:0}
+.mtab{display:inline-flex;align-items:center;gap:6px;padding:13px 16px;font-size:13px;font-weight:700;color:#666;cursor:pointer;border-bottom:3px solid transparent;transition:.2s;white-space:nowrap}
+.mtab:hover{color:var(--blue);background:#f5f9ff}
+.mtab.on{color:var(--blue);border-bottom-color:var(--blue)}
+.mtab .micon{font-size:16px}
+.mtab .mcheck{width:16px;height:16px;border-radius:50%;background:#e0e0e0;display:inline-flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.mtab.done .mcheck{background:var(--green);color:#fff}
+
+/* ── MAIN ── */
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+.module{display:none}.module.on{display:block}
+
+/* ── MODULE HEADER ── */
+.mod-hdr{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:22px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;align-items:center;gap:16px}
+.mod-icon{font-size:42px;flex-shrink:0}
+.mod-title{font-size:22px;font-weight:900;color:var(--navy)}
+.mod-desc{font-size:13px;color:#666;margin-top:3px}
+.mod-progress{margin-left:auto;text-align:right;flex-shrink:0}
+.mod-pts{font-size:22px;font-weight:900;color:var(--amber)}
+.mod-ptsl{font-size:11px;color:#aaa}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:18px}
+.sec-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee;display:flex;align-items:center;gap:8px}
+
+/* ── ALPHABET ── */
+.alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px}
+.alpha-card{background:#f0f7ff;border:2px solid #b0cef8;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;user-select:none}
+.alpha-card:hover{border-color:var(--blue);background:#dbeafe;transform:translateY(-2px)}
+.alpha-card.flip{background:var(--blue);border-color:var(--blue);color:#fff}
+.alpha-letter{font-size:22px;font-weight:900;color:var(--blue);display:block}
+.alpha-card.flip .alpha-letter{color:#fff}
+.alpha-pron{font-size:11px;color:#555;margin-top:3px;line-height:1.3}
+.alpha-card.flip .alpha-pron{color:rgba(255,255,255,.85)}
+.alpha-ex{font-size:11px;color:#888;font-style:italic;margin-top:2px}
+.alpha-card.flip .alpha-ex{color:rgba(255,255,255,.7)}
+.alpha-hint{font-size:12px;color:#aaa;text-align:center;margin-bottom:10px;font-style:italic}
+
+/* ── SPECIAL CHARS ── */
+.special-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.sc{background:#fff3e0;border:2px solid #ffcc80;border-radius:10px;padding:12px 10px;text-align:center}
+.sc .sl{font-size:24px;font-weight:900;color:var(--orange)}
+.sc .sp{font-size:12px;color:#666;margin-top:3px}
+
+/* ── FLASHCARDS ── */
+.fc-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.fc{perspective:600px;height:90px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;inset:0;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;padding:8px}
+.fc-front{border:2px solid #b0cef8;background:#f0f7ff}
+.fc-back{border:2px solid var(--green);background:#e8f5e9;transform:rotateY(180deg)}
+.fc-emoji{font-size:26px;margin-bottom:2px}
+.fc-de{font-size:14px;font-weight:800;color:var(--navy)}
+.fc-en{font-size:12px;color:#555}
+.fc-art{font-size:11px;color:var(--blue);font-weight:700}
+.fc-hint{font-size:11px;color:#aaa;text-align:center;margin-bottom:10px;font-style:italic}
+
+/* ── COLOR SWATCHES ── */
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.color-card{border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;border:3px solid transparent;transition:.2s}
+.color-card:hover{transform:scale(1.05)}
+.color-card.sel{border-color:var(--navy);transform:scale(1.08)}
+.color-de{font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.color-en{font-size:11px;color:rgba(255,255,255,.8)}
+.color-art{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);margin-top:2px}
+
+/* ── GREETINGS ── */
+.greet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.greet-card{border-radius:12px;padding:16px 18px;border-left:4px solid;cursor:pointer;transition:.2s}
+.greet-card:hover{transform:translateX(4px)}
+.greet-card.morning{background:#fff8e1;border-color:var(--amber)}
+.greet-card.day{background:#e3f2fd;border-color:var(--blue)}
+.greet-card.evening{background:#e8eaf6;border-color:#5c6bc0}
+.greet-card.goodbye{background:#fce4ec;border-color:var(--pink)}
+.greet-card.casual{background:#e8f5e9;border-color:var(--green)}
+.greet-card.thanks{background:#f3e5f5;border-color:var(--purple)}
+.greet-de{font-size:18px;font-weight:900;margin-bottom:3px}
+.greet-pron{font-size:12px;color:#666;font-style:italic;margin-bottom:2px}
+.greet-en{font-size:13px;color:#444}
+.greet-when{font-size:11px;font-weight:700;margin-top:4px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── QUIZ ── */
+.qcard{background:#f8faff;border:2px solid #b0cef8;border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;margin-bottom:6px}
+.qtext{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--navy)}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:8px 16px;border-radius:8px;border:2px solid #ccdcf0;background:#fff;font-size:14px;cursor:pointer;transition:all .15s;font-family:inherit;font-weight:600}
+.qopt:hover{border-color:var(--blue);background:#f0f7ff}
+.qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
+.qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
+.qopt.disabled{cursor:default;opacity:.6}
+.qfeedback{margin-top:10px;font-size:13px;padding:8px 12px;border-radius:8px;display:none}
+.qfeedback.ok{background:#e8f5e9;color:#1b5e20;display:block}
+.qfeedback.bad{background:#ffebee;color:#b71c1c;display:block}
+
+/* ── FILL-IN ── */
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:12px;padding:12px 14px;background:#f8faff;border-radius:10px;border:1.5px solid #dde}
+.finput{border:none;border-bottom:2.5px solid var(--purple);background:transparent;font-size:16px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:120px;outline:none;font-family:inherit}
+.finput.ok{border-color:var(--green);color:var(--green)}
+.finput.bad{border-color:var(--red);color:var(--red)}
+.chk-btn{padding:7px 20px;border-radius:8px;border:none;background:var(--blue);color:#fff;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px}
+.chk-btn:hover{background:#0d47a1}
+
+/* ── SENTENCE BUILDER ── */
+.sb-wrap{margin-bottom:14px}
+.sb-label{font-size:13px;font-weight:700;color:#555;margin-bottom:6px}
+.sb-input-wrap{background:#f8faff;border:2px solid #b0cef8;border-radius:10px;padding:12px 14px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:16px;font-weight:600;color:var(--navy);min-height:52px}
+.sb-static{color:var(--navy)}
+.sb-blank{border:none;border-bottom:2.5px solid var(--blue);background:transparent;font-size:16px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:100px;outline:none;font-family:inherit}
+.sb-hint{font-size:12px;color:#aaa;font-style:italic;margin-top:5px}
+.sb-result{margin-top:8px;padding:10px 14px;border-radius:8px;font-size:14px;display:none}
+.sb-result.show{display:block;background:#e8f5e9;color:#1b5e20;font-weight:700}
+
+/* ── NUMBERS ── */
+.num-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
+.num-card{background:#f9f0ff;border:2px solid #ce93d8;border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.2s}
+.num-card:hover,.num-card.flip{background:var(--purple);border-color:var(--purple);color:#fff}
+.num-card:hover .num-n,.num-card.flip .num-n{color:#fff}
+.num-n{font-size:26px;font-weight:900;color:var(--purple)}
+.num-de{font-size:13px;font-weight:700;margin-top:3px;color:#333}
+.num-card:hover .num-de,.num-card.flip .num-de{color:rgba(255,255,255,.9)}
+
+/* ── FAMILY ── */
+.family-tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.ft-row{display:flex;gap:14px;justify-content:center;margin-bottom:8px}
+.ft-connector{width:100%;height:30px;position:relative;display:flex;justify-content:center}
+.ft-connector::before{content:'';position:absolute;top:0;left:50%;width:2px;height:100%;background:#ccc}
+.fcard{background:#fff;border-radius:12px;padding:12px 14px;text-align:center;min-width:110px;border:2px solid #e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,.06);cursor:pointer;transition:.2s}
+.fcard:hover{border-color:var(--blue);transform:translateY(-3px)}
+.fcard .femoji{font-size:28px;margin-bottom:4px}
+.fcard .fde{font-size:13px;font-weight:800;color:var(--navy)}
+.fcard .fart{font-size:11px;color:var(--blue);font-weight:700}
+.fcard .fen{font-size:12px;color:#777;margin-top:2px}
+.fcard.show-en .fen{color:var(--green);font-weight:700}
+.fcard.show-en .fde{color:#aaa}
+
+/* ── FINAL QUIZ ── */
+.final-wrap{max-width:680px;margin:0 auto}
+.final-score-card{background:linear-gradient(135deg,#1464b4,#00695c);color:#fff;border-radius:16px;padding:32px;text-align:center;margin-top:20px}
+.final-score-card h2{font-size:28px;font-weight:900;margin-bottom:8px}
+.score-circle{width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.2);border:4px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;margin:14px auto;font-size:34px;font-weight:900}
+.cta-btn{display:inline-block;margin-top:20px;padding:14px 32px;border-radius:12px;background:var(--amber);color:var(--navy);font-weight:900;font-size:16px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+.cta-btn:hover{background:#ffc107}
+
+/* ── NAV BTNS ── */
+.nav-btns{display:flex;gap:10px;margin-top:24px;justify-content:space-between}
+.nav-btn{padding:10px 24px;border-radius:10px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nav-prev{background:#eee;color:#555}.nav-prev:hover{background:#ddd}
+.nav-next{background:var(--blue);color:#fff}.nav-next:hover{background:#0d47a1}
+.nav-next:disabled{background:#ccc;cursor:default}
+
+/* ── DAYS & MONTHS ── */
+.dm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dm-list{list-style:none}
+.dm-list li{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;margin-bottom:6px;cursor:pointer;transition:.15s}
+.dm-list li:nth-child(odd){background:#f0f7ff}
+.dm-list li:nth-child(even){background:#f8f8f8}
+.dm-list li:hover{background:#dbeafe}
+.dm-n{font-weight:800;min-width:30px;color:var(--blue);font-size:13px}
+.dm-de{font-weight:700;color:var(--navy);font-size:14px;flex:1}
+.dm-en{font-size:12px;color:#888}
+.dm-list li.flash{background:var(--blue);color:#fff}
+.dm-list li.flash .dm-n,.dm-list li.flash .dm-de,.dm-list li.flash .dm-en{color:#fff}
+
+/* ── WELCOME ── */
+.welcome-modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px}
+.wm{background:#fff;border-radius:12px;padding:16px;border:2px solid #eee;cursor:pointer;transition:.2s;text-align:center}
+.wm:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.wm-icon{font-size:36px;margin-bottom:8px}
+.wm-title{font-weight:800;font-size:15px;color:var(--navy);margin-bottom:4px}
+.wm-desc{font-size:12px;color:#777}
+.wm-free{font-size:10px;font-weight:800;background:#e8f5e9;color:var(--green);padding:2px 8px;border-radius:10px;display:inline-block;margin-top:6px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero h1{font-size:22px}
+  .greet-grid{grid-template-columns:1fr}
+  .dm-grid{grid-template-columns:1fr}
+  .ft-row{gap:8px}
+  .fcard{min-width:80px;padding:8px 8px}
+  .fcard .femoji{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🇩🇪 TheGermanStefan · FREE for Everyone</div>
+  <h1><span class="flag">🇩🇪</span> German from Zero — A0 Starter</h1>
+  <p class="sub">No German needed. Just curiosity. Let's go! 🚀</p>
+  <div class="free-tag">✨ 100% Free · No Account Required · 7 Interactive Modules</div>
+  <div class="progress-bar-wrap">
+    <div class="pb-label"><span id="pb-text">0 of 7 modules completed</span><span id="pb-pct">0%</span></div>
+    <div class="pb"><div class="pb-fill" id="pb-fill"></div></div>
+  </div>
+</div>
+
+<!-- MODULE NAV -->
+<div class="module-nav">
+  <div class="mnav-inner">
+    <div class="mtab on" onclick="goModule(0)"><span class="micon">👋</span> Welcome <span class="mcheck" id="chk0"></span></div>
+    <div class="mtab" onclick="goModule(1)"><span class="micon">🔤</span> Alphabet <span class="mcheck" id="chk1"></span></div>
+    <div class="mtab" onclick="goModule(2)"><span class="micon">🔢</span> Numbers <span class="mcheck" id="chk2"></span></div>
+    <div class="mtab" onclick="goModule(3)"><span class="micon">🎨</span> Colors <span class="mcheck" id="chk3"></span></div>
+    <div class="mtab" onclick="goModule(4)"><span class="micon">👋</span> Greetings <span class="mcheck" id="chk4"></span></div>
+    <div class="mtab" onclick="goModule(5)"><span class="micon">👨‍👩‍👧</span> Family <span class="mcheck" id="chk5"></span></div>
+    <div class="mtab" onclick="goModule(6)"><span class="micon">💬</span> First Sentences <span class="mcheck" id="chk6"></span></div>
+    <div class="mtab" onclick="goModule(7)"><span class="micon">🎯</span> Final Quiz <span class="mcheck" id="chk7"></span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════ MODULE 0: WELCOME -->
+<div class="module on" id="mod0">
+  <div class="mod-hdr">
+    <div class="mod-icon">👋</div>
+    <div>
+      <div class="mod-title">Welcome to German!</div>
+      <div class="mod-desc">7 modules · ~45 minutes · completely free · no experience needed</div>
+    </div>
+  </div>
+  <div class="card">
+    <p style="font-size:15px;margin-bottom:14px">Hello! I'm <strong>Stefan</strong> 🇩🇪 — and this is your <strong>starting point</strong> for learning German, the language of 100 million people across Europe and the world's 4th largest economy.</p>
+    <p style="font-size:14px;color:#555;margin-bottom:18px">In this free A0 hub you'll learn the absolute basics: the alphabet, numbers, colors, how to say hello and goodbye, family words, and your first full sentences in German. By the end, you'll be able to introduce yourself in German! 🎉</p>
+    <div class="welcome-modules">
+      <div class="wm" onclick="goModule(1)">
+        <div class="wm-icon">🔤</div>
+        <div class="wm-title">Alphabet</div>
+        <div class="wm-desc">All 26 letters + ä, ö, ü, ß — with pronunciation</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(2)">
+        <div class="wm-icon">🔢</div>
+        <div class="wm-title">Numbers 1–20</div>
+        <div class="wm-desc">Count in German — click the cards!</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(3)">
+        <div class="wm-icon">🎨</div>
+        <div class="wm-title">Colors</div>
+        <div class="wm-desc">12 essential colors with articles</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(4)">
+        <div class="wm-icon">🤝</div>
+        <div class="wm-title">Greetings</div>
+        <div class="wm-desc">Hello, goodbye, please, thank you</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(5)">
+        <div class="wm-icon">👨‍👩‍👧</div>
+        <div class="wm-title">Family</div>
+        <div class="wm-desc">Mother, father, sister, brother...</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(6)">
+        <div class="wm-icon">💬</div>
+        <div class="wm-title">First Sentences</div>
+        <div class="wm-desc">Introduce yourself in German!</div>
+        <div class="wm-free">FREE</div>
+      </div>
+      <div class="wm" onclick="goModule(7)">
+        <div class="wm-icon">🏆</div>
+        <div class="wm-title">Final Quiz</div>
+        <div class="wm-desc">Test everything you've learned</div>
+        <div class="wm-free">FREE</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="background:linear-gradient(135deg,#e8f5e9,#f0f7ff);border:none">
+    <p style="font-size:14px"><strong>💡 Quick tip:</strong> In German, all <strong>nouns are capitalized</strong> (e.g. <em>die Mutter</em>, <em>der Vater</em>) and every noun has a gender: <strong style="color:#1464b4">der</strong> (masculine), <strong style="color:#c62828">die</strong> (feminine), <strong style="color:#2e7d32">das</strong> (neuter). Don't worry — you'll get a feel for it as you go!</p>
+  </div>
+  <div class="nav-btns"><div></div><button class="nav-btn nav-next" onclick="goModule(1)">Start with Alphabet →</button></div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 1: ALPHABET -->
+<div class="module" id="mod1">
+  <div class="mod-hdr">
+    <div class="mod-icon">🔤</div>
+    <div>
+      <div class="mod-title">Das Alphabet</div>
+      <div class="mod-desc">Click each card to see pronunciation tips and an example word</div>
+    </div>
+    <div class="mod-progress"><div class="mod-pts" id="alpha-flipped">0</div><div class="mod-ptsl">/ 30 explored</div></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🔤 The German Alphabet (A–Z)</div>
+    <p class="alpha-hint">Click any letter to see how it sounds in German. German letters are pronounced more consistently than English!</p>
+    <div class="alpha-grid" id="alpha-grid"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">⭐ Special German Characters</div>
+    <p style="font-size:13px;color:#666;margin-bottom:12px">German has 4 extra characters not found in English. These are unique to German!</p>
+    <div class="special-grid">
+      <div class="sc"><div class="sl">Ä / ä</div><div class="sp">"ay" sound (like "air")<br><em>Ärger</em> (anger)</div></div>
+      <div class="sc"><div class="sl">Ö / ö</div><div class="sp">"ur" sound (round lips)<br><em>Öl</em> (oil)</div></div>
+      <div class="sc"><div class="sl">Ü / ü</div><div class="sp">"ee" + round lips<br><em>über</em> (over)</div></div>
+      <div class="sc"><div class="sl">ß</div><div class="sp">double "ss" sound<br><em>Straße</em> (street)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🎯 Quick Pronunciation Rules</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>ei</strong> = sounds like "eye" → <em>nein</em> (no)</div>
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>ie</strong> = sounds like "ee" → <em>viel</em> (much)</div>
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>eu</strong> = sounds like "oy" → <em>neu</em> (new)</div>
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>au</strong> = sounds like "ow" → <em>Haus</em> (house)</div>
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>ch</strong> = soft "h" or "k" → <em>ich</em> (I)</div>
+      <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px"><strong>w</strong> = sounds like "v" → <em>wie</em> (how)</div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(0)">← Welcome</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(1,2)">Numbers →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 2: NUMBERS -->
+<div class="module" id="mod2">
+  <div class="mod-hdr">
+    <div class="mod-icon">🔢</div>
+    <div>
+      <div class="mod-title">Zahlen – Numbers</div>
+      <div class="mod-desc">Click each number to flip and see the German word</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🔢 1–20 — Click to flip!</div>
+    <p class="fc-hint">Click a card to reveal the German word. Click again to flip back.</p>
+    <div class="num-grid" id="num-grid"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🔑 Key patterns</div>
+    <div style="font-size:13px;display:flex;flex-direction:column;gap:8px">
+      <div style="background:#f9f0ff;border-radius:8px;padding:9px 13px"><strong>13–19:</strong> Add <strong>-zehn</strong> (ten) → drei<strong>zehn</strong> (13), vier<strong>zehn</strong> (14)...</div>
+      <div style="background:#f9f0ff;border-radius:8px;padding:9px 13px"><strong>Exceptions:</strong> sechszehn → <strong>sechzehn</strong> (16), siebzehn → <strong>siebzehn</strong> (17)</div>
+      <div style="background:#f9f0ff;border-radius:8px;padding:9px 13px"><strong>20:</strong> <strong>zwanzig</strong> — from here: einundzwanzig (21), zweiundzwanzig (22)...</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">✏️ Fill in the German number</div>
+    <div id="num-fill"></div>
+    <button class="chk-btn" onclick="checkNumFill()">Check Answers ✓</button>
+    <div id="num-fill-result" style="margin-top:8px;font-size:13px"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(1)">← Alphabet</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(2,3)">Colors →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 3: COLORS -->
+<div class="module" id="mod3">
+  <div class="mod-hdr">
+    <div class="mod-icon">🎨</div>
+    <div>
+      <div class="mod-title">Farben – Colors</div>
+      <div class="mod-desc">Learn 12 essential colors with their articles</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🎨 Click a color to select it</div>
+    <div class="color-grid" id="color-grid"></div>
+    <div id="color-info" style="margin-top:14px;padding:12px 16px;background:#f0f7ff;border-radius:10px;font-size:13px;display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🎯 Color Quiz — What color is it?</div>
+    <div id="color-quiz"></div>
+    <button class="chk-btn" onclick="checkColorQuiz()">Check ✓</button>
+    <div id="color-result" style="margin-top:8px;font-size:13px"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(2)">← Numbers</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(3,4)">Greetings →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 4: GREETINGS -->
+<div class="module" id="mod4">
+  <div class="mod-hdr">
+    <div class="mod-icon">🤝</div>
+    <div>
+      <div class="mod-title">Begrüßungen – Greetings</div>
+      <div class="mod-desc">Everything you need to say hello, goodbye, please and thank you</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">👋 Essential Greetings — click any card</div>
+    <div class="greet-grid">
+      <div class="greet-card morning" onclick="playGreet(this)">
+        <div class="greet-de">Guten Morgen!</div>
+        <div class="greet-pron">GOO-ten MOR-gen</div>
+        <div class="greet-en">Good morning!</div>
+        <div class="greet-when">☀️ morning</div>
+      </div>
+      <div class="greet-card day" onclick="playGreet(this)">
+        <div class="greet-de">Guten Tag!</div>
+        <div class="greet-pron">GOO-ten TAHG</div>
+        <div class="greet-en">Good day / Hello!</div>
+        <div class="greet-when">🌤 daytime (formal)</div>
+      </div>
+      <div class="greet-card evening" onclick="playGreet(this)">
+        <div class="greet-de">Guten Abend!</div>
+        <div class="greet-pron">GOO-ten AH-bent</div>
+        <div class="greet-en">Good evening!</div>
+        <div class="greet-when">🌙 evening</div>
+      </div>
+      <div class="greet-card casual" onclick="playGreet(this)">
+        <div class="greet-de">Hallo! / Hi!</div>
+        <div class="greet-pron">HA-lo / hi</div>
+        <div class="greet-en">Hello! / Hi!</div>
+        <div class="greet-when">😊 anytime (informal)</div>
+      </div>
+      <div class="greet-card goodbye" onclick="playGreet(this)">
+        <div class="greet-de">Auf Wiedersehen!</div>
+        <div class="greet-pron">owf VEE-der-zayn</div>
+        <div class="greet-en">Goodbye! (formal)</div>
+        <div class="greet-when">👋 formal farewell</div>
+      </div>
+      <div class="greet-card casual" onclick="playGreet(this)">
+        <div class="greet-de">Tschüss! / Ciao!</div>
+        <div class="greet-pron">CHEWS / CHOW</div>
+        <div class="greet-en">Bye! (informal)</div>
+        <div class="greet-when">😎 informal farewell</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🙏 Please, Thank You & You're Welcome</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#e8f5e9;border-radius:10px">
+        <span style="font-size:24px">🙏</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Bitte</div><div style="font-size:12px;color:#555">BIT-te · Please / You're welcome</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#e3f2fd;border-radius:10px">
+        <span style="font-size:24px">😊</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Danke / Danke schön</div><div style="font-size:12px;color:#555">DANK-eh / DANK-eh SHURN · Thank you / Thank you very much</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#f3e5f5;border-radius:10px">
+        <span style="font-size:24px">😄</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Entschuldigung</div><div style="font-size:12px;color:#555">ent-SHOOL-di-goong · Excuse me / Sorry</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:#fff3e0;border-radius:10px">
+        <span style="font-size:24px">👍</span>
+        <div><div style="font-size:17px;font-weight:800;color:var(--navy)">Ja / Nein / Vielleicht</div><div class="greet-pron" style="font-size:12px;color:#555">ya / nine / fee-LYSHT · Yes / No / Maybe</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">💬 Asking "How are you?"</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:14px">
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--navy)">Wie geht es Ihnen?</span><span style="color:#666">How are you? (formal)</span></div>
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--navy)">Wie geht's?</span><span style="color:#666">How are you? / How's it going? (informal)</span></div>
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--green)">Gut, danke!</span><span style="color:#666">Good, thank you!</span></div>
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--green)">Sehr gut!</span><span style="color:#666">Very good!</span></div>
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--orange)">Es geht so.</span><span style="color:#666">So-so. / Not bad.</span></div>
+      <div style="display:flex;gap:10px;align-items:baseline"><span style="font-weight:800;min-width:200px;color:var(--red)">Nicht so gut.</span><span style="color:#666">Not so good.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🎯 Greeting Quiz</div>
+    <div id="greet-quiz"></div>
+    <button class="chk-btn" onclick="checkGreetQuiz()">Check ✓</button>
+    <div id="greet-result" style="margin-top:8px;font-size:13px"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(3)">← Colors</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(4,5)">Family →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 5: FAMILY -->
+<div class="module" id="mod5">
+  <div class="mod-hdr">
+    <div class="mod-icon">👨‍👩‍👧</div>
+    <div>
+      <div class="mod-title">Familie – Family</div>
+      <div class="mod-desc">Learn family vocabulary with articles — click cards to toggle German/English</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">👨‍👩‍👧 The Family Tree — click any card to toggle</div>
+    <div class="family-tree" id="family-tree"></div>
+    <p style="text-align:center;font-size:12px;color:#aaa;margin-top:12px;font-style:italic">Click a card to reveal the English translation</p>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">📋 Extended Family Vocabulary</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px">
+      <div style="padding:7px 12px;background:#f0f7ff;border-radius:8px"><strong style="color:var(--blue)">der</strong> Onkel — uncle</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tante — aunt</div>
+      <div style="padding:7px 12px;background:#f0f7ff;border-radius:8px"><strong style="color:var(--blue)">der</strong> Cousin — (male) cousin</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Cousine — (female) cousin</div>
+      <div style="padding:7px 12px;background:#f0f7ff;border-radius:8px"><strong style="color:var(--blue)">der</strong> Mann — husband / man</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Frau — wife / woman</div>
+      <div style="padding:7px 12px;background:#f0f7ff;border-radius:8px"><strong style="color:var(--blue)">der</strong> Sohn — son</div>
+      <div style="padding:7px 12px;background:#fff3f0;border-radius:8px"><strong style="color:var(--red)">die</strong> Tochter — daughter</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">✏️ Fill in the article (der / die / das)</div>
+    <div id="family-fill"></div>
+    <button class="chk-btn" onclick="checkFamilyFill()">Check ✓</button>
+    <div id="family-fill-result" style="margin-top:8px;font-size:13px"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(4)">← Greetings</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(5,6)">First Sentences →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 6: FIRST SENTENCES -->
+<div class="module" id="mod6">
+  <div class="mod-hdr">
+    <div class="mod-icon">💬</div>
+    <div>
+      <div class="mod-title">Erste Sätze – First Sentences</div>
+      <div class="mod-desc">Build your first sentences in German. Introduce yourself!</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🧩 Key Verbs First</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+      <div>
+        <div style="font-weight:800;color:var(--blue);margin-bottom:6px">sein — to be</div>
+        <div style="background:#f0f7ff;border-radius:8px;padding:10px 12px;line-height:2.2">
+          ich <strong>bin</strong> — I am<br>
+          du <strong>bist</strong> — you are<br>
+          er/sie/es <strong>ist</strong> — he/she/it is<br>
+          wir <strong>sind</strong> — we are
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--green);margin-bottom:6px">heißen — to be called</div>
+        <div style="background:#e8f5e9;border-radius:8px;padding:10px 12px;line-height:2.2">
+          ich <strong>heiße</strong> — my name is<br>
+          du <strong>heißt</strong> — your name is<br>
+          er/sie <strong>heißt</strong> — his/her name is<br>
+          wir <strong>heißen</strong> — we are called
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--purple);margin-bottom:6px">kommen — to come from</div>
+        <div style="background:#f3e5f5;border-radius:8px;padding:10px 12px;line-height:2.2">
+          ich <strong>komme</strong> aus — I come from<br>
+          du <strong>kommst</strong> aus — you come from<br>
+          er/sie <strong>kommt</strong> aus — he/she comes from
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--orange);margin-bottom:6px">wohnen — to live</div>
+        <div style="background:#fff3e0;border-radius:8px;padding:10px 12px;line-height:2.2">
+          ich <strong>wohne</strong> in — I live in<br>
+          du <strong>wohnst</strong> in — you live in<br>
+          er/sie <strong>wohnt</strong> in — he/she lives in
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">✏️ Build Your Introduction</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px">Fill in the blanks to create your personal introduction in German. Use your real information!</p>
+    <div class="sb-wrap">
+      <div class="sb-label">1. My name is…</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich heiße</span><input class="sb-blank" id="sb1" type="text" placeholder="your name"></div>
+      <div class="sb-hint">e.g. Ich heiße Maria</div>
+    </div>
+    <div class="sb-wrap">
+      <div class="sb-label">2. I am … years old</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich bin</span><input class="sb-blank" id="sb2" type="text" placeholder="age" style="min-width:60px"><span class="sb-static">Jahre alt.</span></div>
+      <div class="sb-hint">e.g. Ich bin 28 Jahre alt.</div>
+    </div>
+    <div class="sb-wrap">
+      <div class="sb-label">3. I come from…</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich komme aus</span><input class="sb-blank" id="sb3" type="text" placeholder="country/city"><span class="sb-static">.</span></div>
+      <div class="sb-hint">e.g. Ich komme aus Spanien. / Ich komme aus Madrid.</div>
+    </div>
+    <div class="sb-wrap">
+      <div class="sb-label">4. I live in…</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich wohne in</span><input class="sb-blank" id="sb4" type="text" placeholder="city/country"><span class="sb-static">.</span></div>
+      <div class="sb-hint">e.g. Ich wohne in Berlin.</div>
+    </div>
+    <div class="sb-wrap">
+      <div class="sb-label">5. I speak a little German!</div>
+      <div class="sb-input-wrap"><span class="sb-static">Ich spreche</span><input class="sb-blank" id="sb5" type="text" placeholder="???"><span class="sb-static">Deutsch.</span></div>
+      <div class="sb-hint">Hint: "a little" in German → <em>ein bisschen</em></div>
+    </div>
+    <button class="chk-btn" onclick="buildIntro()">Build my introduction! 🎉</button>
+    <div class="sb-result" id="sb-result"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">🗣️ More Useful First Phrases</div>
+    <div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#f0f7ff;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--navy);min-width:210px">Ich lerne Deutsch.</span><span style="color:#666">I am learning German.</span>
+      </div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#f0f7ff;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--navy);min-width:210px">Ich verstehe nicht.</span><span style="color:#666">I don't understand.</span>
+      </div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#f0f7ff;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--navy);min-width:210px">Können Sie langsamer sprechen?</span><span style="color:#666">Can you speak more slowly?</span>
+      </div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#f0f7ff;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--navy);min-width:210px">Was bedeutet das?</span><span style="color:#666">What does that mean?</span>
+      </div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#f0f7ff;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--navy);min-width:210px">Ich mag Deutsch!</span><span style="color:#666">I like German!</span>
+      </div>
+      <div style="display:flex;gap:12px;padding:8px 12px;background:#e8f5e9;border-radius:8px;align-items:baseline">
+        <span style="font-weight:800;color:var(--green);min-width:210px">Deutsch macht Spaß!</span><span style="color:#666">German is fun! 🎉</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">📅 Days of the Week & Months</div>
+    <div class="dm-grid">
+      <div>
+        <p style="font-weight:800;font-size:13px;margin-bottom:8px;color:var(--blue)">Wochentage (Days)</p>
+        <ul class="dm-list" id="days-list"></ul>
+      </div>
+      <div>
+        <p style="font-weight:800;font-size:13px;margin-bottom:8px;color:var(--green)">Monate (Months)</p>
+        <ul class="dm-list" id="months-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(5)">← Family</button>
+    <button class="nav-btn nav-next" onclick="completeAndGo(6,7)">Final Quiz →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ MODULE 7: FINAL QUIZ -->
+<div class="module" id="mod7">
+  <div class="mod-hdr">
+    <div class="mod-icon">🏆</div>
+    <div>
+      <div class="mod-title">Final Quiz — Test Everything!</div>
+      <div class="mod-desc">10 questions covering all 6 modules</div>
+    </div>
+    <div class="mod-progress"><div class="mod-pts" id="q-score-display">0</div><div class="mod-ptsl">/ 10 correct</div></div>
+  </div>
+
+  <div class="final-wrap">
+    <div id="final-quiz-container"></div>
+    <div style="margin-top:16px;text-align:center">
+      <button class="chk-btn" id="final-check-btn" onclick="checkFinalQuiz()" style="font-size:16px;padding:12px 36px">Check All Answers 🎯</button>
+    </div>
+    <div id="final-score-area"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="nav-btn nav-prev" onclick="goModule(6)">← First Sentences</button>
+    <div></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────
+const ALPHA=[
+  {l:'A',p:'"ah"',ex:'Apfel (apple)'},{l:'B',p:'"bay"',ex:'Buch (book)'},
+  {l:'C',p:'"tsay"',ex:'Computer'},{l:'D',p:'"day"',ex:'Deutsch (German)'},
+  {l:'E',p:'"ay"',ex:'Essen (food)'},{l:'F',p:'"eff"',ex:'Frau (woman)'},
+  {l:'G',p:'"gay"',ex:'Gut (good)'},{l:'H',p:'"hah"',ex:'Hallo (hello)'},
+  {l:'I',p:'"ee"',ex:'Ich (I)'},{l:'J',p:'"yot"',ex:'Ja (yes)'},
+  {l:'K',p:'"kah"',ex:'Kind (child)'},{l:'L',p:'"el"',ex:'Lernen (to learn)'},
+  {l:'M',p:'"em"',ex:'Mutter (mother)'},{l:'N',p:'"en"',ex:'Nein (no)'},
+  {l:'O',p:'"oh"',ex:'Oma (grandma)'},{l:'P',p:'"pay"',ex:'Papa (dad)'},
+  {l:'Q',p:'"koo"',ex:'Quelle (source)'},{l:'R',p:'rolled "r"',ex:'Rot (red)'},
+  {l:'S',p:'"ess"',ex:'Schule (school)'},{l:'T',p:'"tay"',ex:'Tag (day)'},
+  {l:'U',p:'"oo"',ex:'Und (and)'},{l:'V',p:'"fow"',ex:'Vater (father)'},
+  {l:'W',p:'"vay"',ex:'Wie (how)'},{l:'X',p:'"iks"',ex:'Xylophon'},
+  {l:'Y',p:'"ypsilon"',ex:'Yoga'},{l:'Z',p:'"tsett"',ex:'Zehn (ten)'}
+];
+const NUMS=[
+  {n:1,de:'eins'},{n:2,de:'zwei'},{n:3,de:'drei'},{n:4,de:'vier'},{n:5,de:'fünf'},
+  {n:6,de:'sechs'},{n:7,de:'sieben'},{n:8,de:'acht'},{n:9,de:'neun'},{n:10,de:'zehn'},
+  {n:11,de:'elf'},{n:12,de:'zwölf'},{n:13,de:'dreizehn'},{n:14,de:'vierzehn'},{n:15,de:'fünfzehn'},
+  {n:16,de:'sechzehn'},{n:17,de:'siebzehn'},{n:18,de:'achtzehn'},{n:19,de:'neunzehn'},{n:20,de:'zwanzig'}
+];
+const COLORS=[
+  {de:'rot',en:'red',art:'—',hex:'#e53935'},{de:'blau',en:'blue',art:'—',hex:'#1e88e5'},
+  {de:'grün',en:'green',art:'—',hex:'#43a047'},{de:'gelb',en:'yellow',art:'—',hex:'#fdd835',textDark:true},
+  {de:'schwarz',en:'black',art:'—',hex:'#212121'},{de:'weiß',en:'white',art:'—',hex:'#bdbdbd',textDark:true},
+  {de:'orange',en:'orange',art:'—',hex:'#fb8c00'},{de:'lila',en:'purple',art:'—',hex:'#8e24aa'},
+  {de:'rosa',en:'pink',art:'—',hex:'#e91e63'},{de:'braun',en:'brown',art:'—',hex:'#6d4c41'},
+  {de:'grau',en:'grey',art:'—',hex:'#757575'},{de:'beige',en:'beige',art:'—',hex:'#c8a96e',textDark:true}
+];
+const FAMILY_TREE=[
+  [{emoji:'👴',de:'der Opa',en:'grandfather'},{emoji:'👵',de:'die Oma',en:'grandmother'}],
+  [{emoji:'👨',de:'der Vater',en:'father'},{emoji:'👩',de:'die Mutter',en:'mother'}],
+  [{emoji:'👦',de:'der Bruder',en:'brother'},{emoji:'🧒',de:'das Kind',en:'the child'},{emoji:'👧',de:'die Schwester',en:'sister'}]
+];
+const DAYS=['Montag (Mon)','Dienstag (Tue)','Mittwoch (Wed)','Donnerstag (Thu)','Freitag (Fri)','Samstag (Sat)','Sonntag (Sun)'];
+const MONTHS=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+
+// ─── MODULE NAV ────────────────────────────────────────────────
+let completed=new Set();
+function goModule(i){
+  document.querySelectorAll('.module').forEach((m,idx)=>m.classList.toggle('on',idx===i));
+  document.querySelectorAll('.mtab').forEach((t,idx)=>t.classList.toggle('on',idx===i));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function completeAndGo(from,to){
+  completed.add(from);
+  const chk=document.getElementById('chk'+from);
+  if(chk){chk.textContent='✓';chk.style.background='var(--green)';chk.style.color='#fff';}
+  document.querySelectorAll('.mtab')[from].classList.add('done');
+  updateProgress();
+  goModule(to);
+}
+function updateProgress(){
+  const pct=Math.round(completed.size/7*100);
+  document.getElementById('pb-fill').style.width=pct+'%';
+  document.getElementById('pb-pct').textContent=pct+'%';
+  document.getElementById('pb-text').textContent=completed.size+' of 7 modules completed';
+}
+
+// ─── ALPHABET ──────────────────────────────────────────────────
+let alphaFlipped=0;
+(function buildAlpha(){
+  const g=document.getElementById('alpha-grid');
+  ALPHA.forEach(a=>{
+    const d=document.createElement('div');
+    d.className='alpha-card';
+    d.innerHTML=`<span class="alpha-letter">${a.l}</span><div class="alpha-pron">${a.p}</div><div class="alpha-ex">${a.ex}</div>`;
+    d.onclick=function(){
+      this.classList.toggle('flip');
+      alphaFlipped+=this.classList.contains('flip')?1:-1;
+      document.getElementById('alpha-flipped').textContent=alphaFlipped;
+    };
+    g.appendChild(d);
+  });
+})();
+
+// ─── NUMBERS ───────────────────────────────────────────────────
+(function buildNums(){
+  const g=document.getElementById('num-grid');
+  NUMS.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='num-card';
+    d.innerHTML=`<div class="num-n">${n.n}</div><div class="num-de">${n.de}</div>`;
+    d.onclick=function(){this.classList.toggle('flip');};
+    g.appendChild(d);
+  });
+  // fill exercise
+  const pairs=[[3,'drei'],[7,'sieben'],[12,'zwölf'],[15,'fünfzehn'],[20,'zwanzig']];
+  const f=document.getElementById('num-fill');
+  pairs.forEach((p,i)=>{
+    const row=document.createElement('div');
+    row.className='fill-row';
+    row.innerHTML=`<span>The number <strong>${p[0]}</strong> in German is:</span><input class="finput" id="nf${i}" type="text" placeholder="...">`;
+    f.appendChild(row);
+    window['_nfans'+i]=p[1];
+  });
+})();
+function checkNumFill(){
+  let ok=0;
+  for(let i=0;i<5;i++){
+    const inp=document.getElementById('nf'+i);
+    const val=inp.value.trim().toLowerCase();
+    const ans=window['_nfans'+i];
+    inp.classList.remove('ok','bad');
+    if(val===ans){inp.classList.add('ok');ok++;}
+    else{inp.classList.add('bad');inp.placeholder=ans;}
+  }
+  document.getElementById('num-fill-result').innerHTML=`<div style="padding:8px 12px;border-radius:8px;background:${ok>=4?'#e8f5e9':'#fff3e0'};color:${ok>=4?'var(--green)':'var(--orange)'};font-weight:700">${ok>=4?'🎉 '+ok+'/5 correct! Excellent!':'✏️ '+ok+'/5 — try again! Correct answers shown in red fields.'}</div>`;
+}
+
+// ─── COLORS ────────────────────────────────────────────────────
+(function buildColors(){
+  const g=document.getElementById('color-grid');
+  COLORS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='color-card';
+    d.style.background=c.hex;
+    d.innerHTML=`<div class="color-de">${c.de}</div><div class="color-en">${c.en}</div>`;
+    d.onclick=function(){
+      document.querySelectorAll('.color-card').forEach(x=>x.classList.remove('sel'));
+      this.classList.add('sel');
+      const info=document.getElementById('color-info');
+      info.style.display='block';
+      info.innerHTML=`<strong>${c.de}</strong> = ${c.en} · <span style="display:inline-block;width:18px;height:18px;background:${c.hex};border-radius:4px;vertical-align:middle;border:1px solid #ccc"></span> · In a sentence: <em>Der Himmel ist <strong>${c.de}</strong>.</em> (The sky is ${c.en}.)`;
+    };
+    g.appendChild(d);
+  });
+  // color quiz
+  const quizData=[{q:'🍅 What color is a tomato?',a:'rot'},{q:'🌿 What color is grass?',a:'grün'},{q:'☁️ What color is a cloud?',a:'weiß'},{q:'🌙 What color is the night sky?',a:'schwarz'},{q:'🌻 What color is a sunflower?',a:'gelb'}];
+  const qz=document.getElementById('color-quiz');
+  quizData.forEach((q,i)=>{
+    const row=document.createElement('div');
+    row.className='fill-row';
+    row.innerHTML=`<span>${q.q}</span><input class="finput" id="cq${i}" type="text" placeholder="auf Deutsch...">`;
+    qz.appendChild(row);
+    window['_cqans'+i]=q.a;
+  });
+})();
+function checkColorQuiz(){
+  let ok=0;
+  for(let i=0;i<5;i++){
+    const inp=document.getElementById('cq'+i);
+    const val=inp.value.trim().toLowerCase();
+    inp.classList.remove('ok','bad');
+    if(val===window['_cqans'+i]){inp.classList.add('ok');ok++;}
+    else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+window['_cqans'+i];}
+  }
+  document.getElementById('color-result').innerHTML=`<div style="padding:8px 12px;border-radius:8px;background:${ok>=4?'#e8f5e9':'#fff3e0'};color:${ok>=4?'var(--green)':'var(--orange)'};font-weight:700">${ok>=4?'🌈 '+ok+'/5 — Perfekt!':'🎨 '+ok+'/5 — Correct answers shown above. Try again!'}</div>`;
+}
+
+// ─── GREETINGS ─────────────────────────────────────────────────
+function playGreet(el){
+  el.style.transform='scale(1.04)';
+  setTimeout(()=>el.style.transform='',300);
+}
+(function buildGreetQuiz(){
+  const data=[
+    {q:'How do you say "Good morning" in German?',opts:['Guten Abend','Guten Morgen','Auf Wiedersehen','Tschüss'],a:1},
+    {q:'What does "Danke schön" mean?',opts:['Please','Excuse me','Thank you very much','Goodbye'],a:2},
+    {q:'How do you say "goodbye" informally?',opts:['Guten Tag','Bitte','Entschuldigung','Tschüss'],a:3},
+    {q:'"Wie geht\'s?" means…',opts:['What is your name?','How old are you?','How are you?','Where do you live?'],a:2}
+  ];
+  const c=document.getElementById('greet-quiz');
+  data.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qcard';
+    d.innerHTML=`<div class="qnum">Question ${i+1}</div><div class="qtext">${q.q}</div><div class="qopts">${q.opts.map((o,j)=>`<button class="qopt" onclick="selectGQ(this,${i},${j},${q.a})">${o}</button>`).join('')}</div><div class="qfeedback" id="gqf${i}"></div>`;
+    c.appendChild(d);
+  });
+})();
+function selectGQ(btn,q,choice,ans){
+  const wrap=btn.closest('.qopts');
+  wrap.querySelectorAll('.qopt').forEach(b=>{b.classList.add('disabled');b.onclick=null;});
+  const fb=document.getElementById('gqf'+q);
+  if(choice===ans){btn.classList.add('correct');fb.className='qfeedback ok';fb.textContent='✓ Correct! Well done!';}
+  else{btn.classList.add('wrong');wrap.querySelectorAll('.qopt')[ans].classList.add('correct');fb.className='qfeedback bad';fb.textContent='✗ Not quite — the correct answer is highlighted.';}
+}
+function checkGreetQuiz(){
+  const score=document.querySelectorAll('#greet-quiz .qopt.correct').length;
+  document.getElementById('greet-result').innerHTML=`<div style="padding:8px 12px;border-radius:8px;background:${score>=3?'#e8f5e9':'#fff3e0'};color:${score>=3?'var(--green)':'var(--orange)'};font-weight:700">${score>=3?'🎉 '+score+'/4 — Super! You know your greetings!':'💪 '+score+'/4 — Almost there! Review the cards above.'}</div>`;
+}
+
+// ─── FAMILY ────────────────────────────────────────────────────
+(function buildFamily(){
+  const tree=document.getElementById('family-tree');
+  FAMILY_TREE.forEach((row,ri)=>{
+    const rowDiv=document.createElement('div');
+    rowDiv.className='ft-row';
+    row.forEach(m=>{
+      const card=document.createElement('div');
+      card.className='fcard';
+      card.innerHTML=`<div class="femoji">${m.emoji}</div><div class="fde">${m.de}</div><div class="fart" style="color:${m.de.startsWith('der')?'var(--blue)':m.de.startsWith('die')?'var(--red)':'var(--green)'}"></div><div class="fen">${m.en}</div>`;
+      card.onclick=function(){this.classList.toggle('show-en');};
+      rowDiv.appendChild(card);
+    });
+    tree.appendChild(rowDiv);
+    if(ri<FAMILY_TREE.length-1){const conn=document.createElement('div');conn.className='ft-connector';tree.appendChild(conn);}
+  });
+  // family fill
+  const pairs=[['Mutter','die'],['Vater','der'],['Bruder','der'],['Schwester','die'],['Kind','das']];
+  const f=document.getElementById('family-fill');
+  pairs.forEach((p,i)=>{
+    const row=document.createElement('div');
+    row.className='fill-row';
+    row.innerHTML=`<input class="finput" id="ff${i}" type="text" placeholder="der/die/das" style="min-width:90px"> <strong>${p[0]}</strong>`;
+    f.appendChild(row);
+    window['_ffans'+i]=p[1];
+  });
+})();
+function checkFamilyFill(){
+  let ok=0;
+  for(let i=0;i<5;i++){
+    const inp=document.getElementById('ff'+i);
+    const val=inp.value.trim().toLowerCase();
+    inp.classList.remove('ok','bad');
+    if(val===window['_ffans'+i]){inp.classList.add('ok');ok++;}
+    else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+window['_ffans'+i];}
+  }
+  document.getElementById('family-fill-result').innerHTML=`<div style="padding:8px 12px;border-radius:8px;background:${ok>=4?'#e8f5e9':'#fff3e0'};color:${ok>=4?'var(--green)':'var(--orange)'};font-weight:700">${ok>=4?'👨‍👩‍👧 '+ok+'/5 — Wunderbar! You know your articles!':'📝 '+ok+'/5 — Check the answers above and try again!'}</div>`;
+}
+
+// ─── DAYS & MONTHS ─────────────────────────────────────────────
+(function buildDaysMonths(){
+  const dl=document.getElementById('days-list');
+  DAYS.forEach((d,i)=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<span class="dm-n">${i+1}.</span><span class="dm-de">${d.split(' ')[0]}</span><span class="dm-en">${d.includes('(')?d.match(/\((.+)\)/)[1]:''}</span>`;
+    li.onclick=function(){this.classList.add('flash');setTimeout(()=>this.classList.remove('flash'),400);};
+    dl.appendChild(li);
+  });
+  const ml=document.getElementById('months-list');
+  MONTHS.forEach((m,i)=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<span class="dm-n">${i+1}.</span><span class="dm-de">${m}</span>`;
+    li.onclick=function(){this.classList.add('flash');setTimeout(()=>this.classList.remove('flash'),400);};
+    ml.appendChild(li);
+  });
+})();
+
+// ─── SENTENCE BUILDER ──────────────────────────────────────────
+function buildIntro(){
+  const n=document.getElementById('sb1').value.trim()||'___';
+  const a=document.getElementById('sb2').value.trim()||'___';
+  const f=document.getElementById('sb3').value.trim()||'___';
+  const w=document.getElementById('sb4').value.trim()||'___';
+  const s=document.getElementById('sb5').value.trim()||'ein bisschen';
+  const res=document.getElementById('sb-result');
+  res.className='sb-result show';
+  res.innerHTML=`🎉 <strong>Your introduction in German:</strong><br><br>
+    „Hallo! Ich heiße <strong>${n}</strong>. Ich bin <strong>${a}</strong> Jahre alt. Ich komme aus <strong>${f}</strong>. Ich wohne in <strong>${w}</strong>. Ich spreche <strong>${s}</strong> Deutsch."<br><br>
+    <span style="font-size:12px;opacity:.75">Copy this and use it in the Stammtisch or community chat! 🚀</span>`;
+}
+
+// ─── FINAL QUIZ ────────────────────────────────────────────────
+const FINAL_Q=[
+  {q:'What does "Guten Morgen" mean?',opts:['Good evening','Good night','Good morning','Good afternoon'],a:2},
+  {q:'How do you say "three" in German?',opts:['zwei','vier','drei','fünf'],a:2},
+  {q:'What is the German word for "mother"?',opts:['der Bruder','die Mutter','der Vater','die Schwester'],a:1},
+  {q:'Which article goes with "Vater" (father)?',opts:['die','das','der','ein'],a:2},
+  {q:'What color is "rot"?',opts:['blue','green','yellow','red'],a:3},
+  {q:'"Ich heiße Stefan" means…',opts:['I am from Stefan','My name is Stefan','I live in Stefan','I like Stefan'],a:1},
+  {q:'How do you say 12 in German?',opts:['zehn','zwölf','elf','zwanzig'],a:1},
+  {q:'What does "Tschüss" mean?',opts:['Hello','Please','Bye!','Thank you'],a:2},
+  {q:'"Ich komme aus Spanien" means…',opts:['I live in Spain','I am learning Spanish','I come from Spain','I speak Spanish'],a:2},
+  {q:'What is the German word for "green"?',opts:['blau','rot','gelb','grün'],a:3}
+];
+(function buildFinalQuiz(){
+  const c=document.getElementById('final-quiz-container');
+  FINAL_Q.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qcard';
+    d.setAttribute('data-ans',q.a);
+    d.innerHTML=`<div class="qnum">Question ${i+1} of 10</div><div class="qtext">${q.q}</div><div class="qopts" id="fq${i}">${q.opts.map((o,j)=>`<button class="qopt" onclick="selectFQ(this,${i},${j})">${o}</button>`).join('')}</div>`;
+    c.appendChild(d);
+  });
+})();
+let fqSelections={};
+function selectFQ(btn,q,choice){
+  const wrap=document.getElementById('fq'+q);
+  wrap.querySelectorAll('.qopt').forEach(b=>{b.classList.remove('sel');b.style.fontWeight='';});
+  btn.classList.add('sel');
+  btn.style.fontWeight='900';
+  fqSelections[q]=choice;
+  document.getElementById('q-score-display').textContent=Object.keys(fqSelections).length;
+}
+function checkFinalQuiz(){
+  let score=0;
+  FINAL_Q.forEach((q,i)=>{
+    const wrap=document.getElementById('fq'+i);
+    const btns=wrap.querySelectorAll('.qopt');
+    btns.forEach(b=>{b.classList.remove('sel');b.onclick=null;b.classList.add('disabled');});
+    btns[q.a].classList.add('correct');
+    if(fqSelections[i]===q.a){score++;}
+    else if(fqSelections[i]!==undefined){btns[fqSelections[i]].classList.add('wrong');}
+  });
+  document.getElementById('q-score-display').textContent=score;
+  document.getElementById('final-check-btn').style.display='none';
+  const msg=score>=8?'🏆 Outstanding! You\'re ready for A1!':score>=6?'🎉 Great job! You know the basics!':score>=4?'👍 Good start! Review and try again!':'💪 Keep practicing — you\'ve got this!';
+  const area=document.getElementById('final-score-area');
+  area.innerHTML=`<div class="final-score-card">
+    <h2>${msg}</h2>
+    <div class="score-circle">${score}/10</div>
+    <p style="opacity:.85;font-size:14px;margin-bottom:6px">You answered <strong>${score} out of 10</strong> questions correctly.</p>
+    ${score>=6?`<p style="opacity:.8;font-size:13px">You've completed the A0 Hub! 🎉<br>You're ready to start your A1 journey.</p>
+    <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,.15);border-radius:12px">
+      <p style="font-weight:800;margin-bottom:6px">🚀 Ready for the next step?</p>
+      <p style="font-size:13px;opacity:.85;margin-bottom:12px">Join <strong>TheGermanStefan Community</strong> — free access to A1 content, weekly Stammtisch chat, and thousands of learners just like you.</p>
+      <button class="cta-btn" onclick="alert('Visit TheGermanStefan community to continue your German journey! 🇩🇪')">Join the Community — Free! 🇩🇪</button>
+    </div>`:`<p style="opacity:.8;font-size:13px">Review the modules and try the quiz again — you'll get there! 💪</p>
+    <button class="cta-btn" onclick="resetFinal()">Try Again 🔄</button>`}
+  </div>`;
+  completed.add(7);
+  const chk=document.getElementById('chk7');
+  if(chk){chk.textContent='✓';chk.style.background='var(--green)';chk.style.color='#fff';}
+  document.querySelectorAll('.mtab')[7].classList.add('done');
+  updateProgress();
+}
+function resetFinal(){
+  fqSelections={};
+  FINAL_Q.forEach((q,i)=>{
+    const wrap=document.getElementById('fq'+i);
+    wrap.querySelectorAll('.qopt').forEach((b,j)=>{
+      b.className='qopt';
+      b.onclick=function(){selectFQ(this,i,j);};
+    });
+  });
+  document.getElementById('q-score-display').textContent='0';
+  document.getElementById('final-check-btn').style.display='';
+  document.getElementById('final-score-area').innerHTML='';
+}
+</script>
+</body>
+</html>

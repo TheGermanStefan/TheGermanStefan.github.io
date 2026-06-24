@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch B2+ | Bewerbungsgespräch – Vorbereitung</title>
+<style>
+:root {
+  --black: #1a1a2e;
+  --gold: #e8b84b;
+  --navy: #1e3a5f;
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --border: #e0e4ea;
+  --muted: #7a8090;
+  --red: #c0392b;
+  --green: #1a7a4a;
+  --blue: #1d5fa8;
+  --orange: #c45c0a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; background: var(--bg); color: var(--black); line-height: 1.7; }
+
+header {
+  background: var(--navy); color: white;
+  padding: 2.8rem 2rem 2.2rem; position: relative; overflow: hidden;
+}
+header::before { content:''; position:absolute; left:0;top:0;bottom:0;width:6px; background:linear-gradient(to bottom,var(--gold),#c8960a); }
+header::after { content:''; position:absolute; right:-80px;top:-80px; width:300px;height:300px; border-radius:50%; background:rgba(255,255,255,0.03); }
+.header-inner { max-width:960px; margin:0 auto; padding-left:1.2rem; position:relative; z-index:1; }
+.series-label { font-family:sans-serif; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; }
+header h1 { font-size:2rem; font-weight:700; line-height:1.2; }
+header h1 span { color:var(--gold); }
+.header-sub { margin-top:0.6rem; font-size:0.95rem; color:rgba(255,255,255,0.7); font-style:italic; }
+.header-meta { margin-top:1rem; font-family:sans-serif; font-size:0.82rem; color:rgba(255,255,255,0.5); display:flex; gap:1.4rem; flex-wrap:wrap; }
+.level-badge { display:inline-block; background:var(--gold); color:var(--navy); font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.08em; padding:0.2rem 0.7rem; border-radius:3px; margin-right:0.4rem; }
+
+main { max-width:960px; margin:2rem auto; padding:0 1.5rem 5rem; }
+section { margin-bottom:3.5rem; }
+.section-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.6rem; padding-bottom:0.7rem; border-bottom:2px solid var(--border); }
+.section-icon { width:38px;height:38px; background:var(--navy); color:var(--gold); border-radius:9px; display:flex;align-items:center;justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.section-header h2 { font-size:1.2rem; font-weight:700; }
+.section-header h2 small { display:block; font-size:0.78rem; font-weight:400; color:var(--muted); margin-top:0.1rem; }
+.hinweis { font-family:sans-serif; font-size:0.82rem; color:#5a4a00; background:#fffbea; border-left:3px solid var(--gold); padding:0.6rem 1rem; border-radius:0 7px 7px 0; margin-bottom:1.2rem; }
+.hinweis strong { color:var(--navy); }
+
+/* STAR */
+.star-box { background:var(--navy); color:white; border-radius:14px; padding:2rem; margin-bottom:2rem; }
+.star-box h3 { color:var(--gold); font-size:1rem; font-family:sans-serif; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1.2rem; }
+.star-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; }
+.star-item { background:rgba(255,255,255,0.07); border-radius:10px; padding:1rem; text-align:center; }
+.star-letter { font-size:2.2rem; font-weight:700; color:var(--gold); line-height:1; }
+.star-word { font-size:0.88rem; font-weight:700; margin:0.3rem 0 0.15rem; }
+.star-desc { font-size:0.78rem; color:rgba(255,255,255,0.65); line-height:1.4; }
+.star-beispiel { margin-top:1.2rem; background:rgba(255,255,255,0.06); border-radius:8px; padding:1rem; font-size:0.87rem; color:rgba(255,255,255,0.8); }
+.star-beispiel strong { color:var(--gold); }
+
+/* FRAGEN-KARTEN */
+.q-card { background:var(--card); border:1px solid var(--border); border-radius:14px; margin-bottom:1rem; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition:box-shadow 0.2s; }
+.q-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.q-header { display:flex; align-items:center; gap:1rem; padding:1.2rem 1.5rem; cursor:pointer; user-select:none; }
+.q-num { width:34px;height:34px; background:var(--navy); color:var(--gold); border-radius:7px; display:flex;align-items:center;justify-content:center; font-weight:700; font-family:sans-serif; font-size:0.9rem; flex-shrink:0; }
+.q-text { flex:1; }
+.q-german { font-size:1.02rem; font-weight:700; line-height:1.3; }
+.q-tags { display:flex; gap:0.35rem; flex-wrap:wrap; margin-top:0.35rem; }
+.q-tag { font-family:sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.05em; padding:0.12rem 0.5rem; border-radius:20px; text-transform:uppercase; }
+.tag-verhalten { background:#e8f0ff; color:var(--blue); }
+.tag-strategie { background:#fff0e0; color:var(--orange); }
+.tag-persoenlich { background:#e8fff0; color:var(--green); }
+.tag-heikel { background:#ffe8e8; color:var(--red); }
+.q-toggle { font-size:1.2rem; color:var(--muted); transition:transform 0.25s; flex-shrink:0; }
+.q-card.open .q-toggle { transform:rotate(180deg); }
+.q-body { display:none; border-top:1px solid var(--border); }
+.q-card.open .q-body { display:block; }
+
+.q-sections { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.q-section { padding:1.2rem 1.5rem; }
+.q-section:first-child { border-right:1px solid var(--border); }
+.q-section h4 { font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; margin-bottom:0.7rem; }
+.q-section.warum h4 { color:var(--blue); }
+.q-section.wie h4 { color:var(--green); }
+.q-section p, .q-section li { font-size:0.88rem; line-height:1.6; }
+.q-section ul { list-style:none; }
+.q-section ul li::before { content:'→ '; color:var(--muted); }
+.q-section ul li { margin-bottom:0.25rem; }
+
+.q-vermeiden { padding:0.9rem 1.5rem; background:#fff5f5; border-top:1px solid #fdd; }
+.q-vermeiden h4 { font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:var(--red); margin-bottom:0.5rem; }
+.q-vermeiden ul { list-style:none; font-size:0.86rem; }
+.q-vermeiden ul li::before { content:'✗ '; color:var(--red); font-weight:700; }
+.q-vermeiden ul li { margin-bottom:0.2rem; }
+
+.q-einstieg { padding:1rem 1.5rem; background:linear-gradient(135deg,#f0f5ff,#e8f0ff); border-top:1px solid #d0dff0; }
+.q-einstieg h4 { font-family:sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:var(--blue); margin-bottom:0.4rem; }
+.q-einstieg p { font-size:0.9rem; font-style:italic; color:var(--navy); line-height:1.5; }
+.q-einstieg em { font-style:normal; font-weight:700; color:var(--blue); }
+
+/* GEHALT */
+.gehalt-box { background:var(--card); border:2px solid var(--gold); border-radius:14px; padding:1.8rem; margin-bottom:1.5rem; }
+
+/* RÜCKFRAGEN */
+.rf-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:0.7rem; }
+.rf-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.9rem 1.1rem; }
+.rf-card .rf-frage { font-size:0.9rem; font-weight:600; margin-bottom:0.25rem; font-style:italic; }
+.rf-card .rf-warum { font-family:sans-serif; font-size:0.78rem; color:var(--green); }
+
+/* ROLLENSPIELE */
+.rp-card { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+.rp-top { background:linear-gradient(135deg,var(--navy),#2d4a6e); color:white; padding:1.4rem 1.8rem; }
+.rp-top h3 { font-size:1.05rem; font-weight:700; margin-bottom:0.3rem; }
+.rp-top p { font-size:0.83rem; opacity:0.8; font-family:sans-serif; }
+.rp-body { padding:1.5rem 1.8rem; }
+.rp-kontext { background:#fffbea; border-left:3px solid var(--gold); border-radius:0 8px 8px 0; padding:0.9rem 1.1rem; margin-bottom:1.3rem; font-size:0.9rem; }
+.rp-kontext strong { color:var(--navy); }
+.rp-rollen { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.3rem; }
+.rp-rolle { border-radius:10px; padding:1.1rem; }
+.rp-rolle.bewerberin { background:#f0f5ff; border:1.5px solid #a8c0e8; }
+.rp-rolle.interviewer { background:#f0fff5; border:1.5px solid #a8d8b0; }
+.rp-rolle h4 { font-family:sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:0.6rem; }
+.rp-rolle.bewerberin h4 { color:var(--blue); }
+.rp-rolle.interviewer h4 { color:var(--green); }
+.rp-rolle ul { list-style:none; font-size:0.86rem; }
+.rp-rolle ul li { margin-bottom:0.3rem; padding-left:1rem; position:relative; }
+.rp-rolle ul li::before { content:'·'; position:absolute; left:0; color:var(--muted); }
+.rp-skript { background:var(--bg); border-radius:10px; padding:1.2rem; }
+.rp-skript h4 { font-family:sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--muted); margin-bottom:0.8rem; }
+.skript-zeile { display:flex; gap:0.8rem; margin-bottom:0.6rem; font-size:0.88rem; }
+.skript-wer { font-weight:700; font-family:sans-serif; font-size:0.8rem; min-width:90px; color:var(--muted); flex-shrink:0; }
+.skript-wer.b { color:var(--blue); }
+.skript-wer.i { color:var(--green); }
+.skript-text { color:var(--black); flex:1; }
+.skript-luecke { border-bottom:2px dashed var(--border); display:inline-block; min-width:160px; }
+.rp-nachbesprechung { margin-top:1.3rem; padding-top:1.1rem; border-top:1px solid var(--border); }
+.rp-nachbesprechung h4 { font-family:sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem; }
+.nb-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
+.nb-item { font-family:sans-serif; font-size:0.82rem; background:var(--bg); border-radius:7px; padding:0.5rem 0.7rem; }
+.nb-item.gut { border-left:3px solid var(--green); }
+.nb-item.acht { border-left:3px solid var(--orange); }
+
+/* CHECKLISTE */
+.checkliste { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.6rem 1.8rem; }
+.checkliste h3 { font-size:0.95rem; font-weight:700; margin-bottom:1rem; font-family:sans-serif; }
+.cl-punkt { display:flex; align-items:flex-start; gap:0.8rem; padding:0.5rem 0; border-bottom:1px dashed var(--border); font-size:0.9rem; cursor:pointer; user-select:none; }
+.cl-punkt:last-child { border-bottom:none; }
+.cl-box { width:20px;height:20px; border:2px solid var(--border); border-radius:4px; flex-shrink:0; margin-top:0.1rem; transition:all 0.15s; display:flex;align-items:center;justify-content:center; font-size:0.75rem; }
+.cl-punkt.erledigt .cl-box { background:var(--green); border-color:var(--green); color:white; }
+.cl-punkt.erledigt span { text-decoration:line-through; color:var(--muted); }
+
+footer { text-align:center; font-family:sans-serif; font-size:0.78rem; color:var(--muted); padding:2.5rem 1rem; border-top:1px solid var(--border); }
+@media(max-width:640px){
+  header h1{font-size:1.4rem;}
+  .q-sections{grid-template-columns:1fr;}
+  .q-section:first-child{border-right:none;border-bottom:1px solid var(--border);}
+  .star-grid{grid-template-columns:1fr 1fr;}
+  .rp-rollen,.nb-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Beruf &amp; Karriere</div>
+    <h1>Das <span>Bewerbungsgespräch</span></h1>
+    <div class="header-sub">Strategie, Psychologie und Praxis — vollständig auf Deutsch</div>
+    <div class="header-meta">
+      <span><span class="level-badge">B2+</span><span class="level-badge">C1</span> Fortgeschrittene</span>
+      <span>💼 15 Fragen · Strategie · Rollenspiele · Gehaltsverhandlung</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="hinweis" style="margin-top:1.5rem;font-size:0.88rem;padding:0.8rem 1.1rem;">
+  <strong>👩‍🏫 So arbeitet man mit dieser Datei:</strong> Jede Fragenkarte ist zunächst geschlossen. Die Teilnehmerin antwortet zuerst frei — dann klappt die Lehrkraft die Karte auf und bespricht gemeinsam: Was wurde wirklich geprüft? Was war gut? Was würde sie beim nächsten Mal anders machen?
+</div>
+
+<!-- ══════════════════════════════════
+  DIE STAR-METHODE
+══════════════════════════════════ -->
+<section id="star">
+  <div class="section-header">
+    <div class="section-icon">⭐</div>
+    <h2>Die STAR-Methode <small>Das universelle Antwortgerüst für Verhaltensfragen</small></h2>
+  </div>
+
+  <div class="star-box">
+    <h3>⭐ STAR — Struktur für überzeugende Antworten</h3>
+    <div class="star-grid">
+      <div class="star-item">
+        <div class="star-letter">S</div>
+        <div class="star-word">Situation</div>
+        <div class="star-desc">Den Rahmen kurz setzen. Wann, wo, welcher Kontext?</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">T</div>
+        <div class="star-word">Task / Aufgabe</div>
+        <div class="star-desc">Was war meine konkrete Verantwortung oder Herausforderung?</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">A</div>
+        <div class="star-word">Action / Aktion</div>
+        <div class="star-desc">Was habe ICH getan? (Ich, nicht wir!) — das ist der Hauptteil.</div>
+      </div>
+      <div class="star-item">
+        <div class="star-letter">R</div>
+        <div class="star-word">Result / Ergebnis</div>
+        <div class="star-desc">Was war das Resultat? Möglichst mit Zahlen. Was habe ich gelernt?</div>
+      </div>
+    </div>
+    <div class="star-beispiel">
+      <strong>Beispiel</strong> für die Frage „Erzählen Sie von einem Konflikt mit einem Kollegen": &nbsp;
+      <strong>S:</strong> „In meinem letzten Job gab es Spannungen über die Zuständigkeiten im Projekt…" &nbsp;
+      <strong>T:</strong> „Ich war verantwortlich für die Kundenkommunikation, aber mein Kollege hat…" &nbsp;
+      <strong>A:</strong> „Ich habe ein direktes Gespräch gesucht und vorgeschlagen, dass wir…" &nbsp;
+      <strong>R:</strong> „Das Ergebnis war, dass wir das Projekt zwei Wochen früher abgeschlossen haben und seitdem…"
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  DIE 15 KERNFRAGEN
+══════════════════════════════════ -->
+<section id="fragen">
+  <div class="section-header">
+    <div class="section-icon">❓</div>
+    <h2>Die 15 Kernfragen <small>Erst antworten — dann aufklappen und gemeinsam besprechen</small></h2>
+  </div>
+  <div class="hinweis">
+    <strong>👩‍🏫 Hinweis:</strong> Jede Frage zuerst spontan beantworten lassen (1–2 Min.). Dann Karte öffnen und gemeinsam auswerten: Hat sie das eigentliche Ziel der Frage getroffen? Was war überzeugend? Was würde sie anders formulieren?
+  </div>
+
+  <!-- F1 -->
+  <div class="q-card" id="qcard1">
+    <div class="q-header" onclick="toggleCard('qcard1')">
+      <div class="q-num">1</div>
+      <div class="q-text">
+        <div class="q-german">„Erzählen Sie mir etwas über sich."</div>
+        <div class="q-tags"><span class="q-tag tag-strategie">Strategisch</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Das ist keine Einladung zur Lebensgeschichte. Geprüft wird: <strong>Kann sie klar und prägnant kommunizieren? Weiß sie, was für diese Stelle relevant ist?</strong> Kann sie sich überzeugend präsentieren, ohne arrogant zu wirken? Der Einstieg setzt den Ton für das gesamte Gespräch — ein selbstsicherer Opener signalisiert Selbstsicherheit durchgehend.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Formel <strong>Gegenwart – Vergangenheit – Zukunft</strong> nutzen</li>
+            <li>Mit der aktuellen Tätigkeit beginnen</li>
+            <li>1–2 relevante Erfahrungen aus der Vergangenheit einbauen</li>
+            <li>Mit dem Bezug zu genau dieser Stelle abschließen</li>
+            <li>Maximal <strong>90 Sekunden</strong> — nicht kürzer, nicht länger</li>
+            <li>Jeden Satz auf die Stellenbeschreibung zuschneiden</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Chronologischer Lebenslauf von der Schulzeit bis heute</li>
+          <li>Beginnen mit: „Ich bin 1988 in … geboren"</li>
+          <li>Den Lebenslauf wortwörtlich vorlesen</li>
+          <li>Zu bescheiden: „Ich bin eigentlich nur …"</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Aktuell arbeite ich als <em>[Position]</em> bei <em>[Unternehmen]</em>, wo ich hauptsächlich für <em>[Kernaufgabe]</em> zuständig bin. Davor habe ich <em>[relevante Erfahrung]</em> gesammelt, was mir besonders geholfen hat, <em>[Fähigkeit]</em> zu entwickeln. Diese Stelle interessiert mich, weil <em>[konkreter Bezug zum Job]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F2 -->
+  <div class="q-card" id="qcard2">
+    <div class="q-header" onclick="toggleCard('qcard2')">
+      <div class="q-num">2</div>
+      <div class="q-text">
+        <div class="q-german">„Warum möchten Sie bei uns arbeiten?"</div>
+        <div class="q-tags"><span class="q-tag tag-strategie">Strategisch</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Sie wollen wissen: <strong>Hat sie sich wirklich mit uns befasst — oder bewirbt sie sich überall?</strong> Geprüft werden echte Motivation und kulturelle Passung. Eine vage Antwort wie „tolles Unternehmen, guter Ruf" ist ein sofortiges Warnsignal — sie beweist, dass keine Recherche stattgefunden hat.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Vor dem Gespräch drei spezifische Dinge über das Unternehmen recherchieren</li>
+            <li>Etwas <em>Konkretes</em> nennen: ein Produkt, ein Projekt, einen Wert, eine Marktposition</li>
+            <li>Eigene Stärke mit dem verbinden, was das Unternehmen bietet</li>
+            <li>Zeigen, dass man die Mission versteht — nicht nur das Logo kennt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Ich habe gehört, Sie zahlen gut." (Gehalt nie hier erwähnen)</li>
+          <li>Allgemeines Lob: „Sie sind ja ein sehr bekanntes Unternehmen …"</li>
+          <li>Nur darüber sprechen, was man selbst bekommt — nicht was man einbringt</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Was mich besonders an <em>[Unternehmen]</em> begeistert, ist <em>[spezifisches Detail — Produkt / Strategie / Wert]</em>. Ich habe gelesen, dass Sie gerade <em>[aktuelles Projekt oder Thema]</em> vorantreiben, und genau in diesem Bereich möchte ich meine Erfahrung in <em>[relevante Stärke]</em> einbringen."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F3 -->
+  <div class="q-card" id="qcard3">
+    <div class="q-header" onclick="toggleCard('qcard3')">
+      <div class="q-num">3</div>
+      <div class="q-text">
+        <div class="q-german">„Was sind Ihre größten Stärken?"</div>
+        <div class="q-tags"><span class="q-tag tag-persoenlich">Persönlich</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Gleichzeitig drei Dinge werden geprüft: <strong>Selbstreflexion</strong> (kennt sie sich selbst?), <strong>Relevanz</strong> (sind ihre Stärken für uns nützlich?) und <strong>Glaubwürdigkeit</strong> (kann sie Behauptungen belegen?). Jede/r kann sagen „Ich bin teamfähig." Gesucht wird der Beweis.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>2–3 Stärken wählen, die <em>direkt zur Stellenbeschreibung passen</em></li>
+            <li>Für jede: benennen → mit kurzem Beispiel belegen → Nutzen für das Unternehmen ableiten</li>
+            <li>Formel: <em>„Eine meiner Stärken ist X. Das zeigte sich z.B., als … Das bedeutet für Sie, dass …"</em></li>
+            <li>Nicht sieben Stärken auflisten — Tiefe schlägt Breite</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Leere Klischees ohne Beleg: „Ich bin sehr teamfähig und kommunikativ"</li>
+          <li>Stärken, die nichts mit der Stelle zu tun haben</li>
+          <li>Falsche Bescheidenheit: „Na ja, ich versuche halt, meine Arbeit ordentlich zu machen"</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Eine meiner größten Stärken ist <em>[Stärke]</em>. Das hat sich besonders gezeigt, als ich bei <em>[Unternehmen / Situation]</em> <em>[konkrete Handlung]</em>. Das Ergebnis war <em>[messbares Resultat]</em> — und ich denke, das ist genau das, was in dieser Rolle gefragt ist."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F4 -->
+  <div class="q-card" id="qcard4">
+    <div class="q-header" onclick="toggleCard('qcard4')">
+      <div class="q-num">4</div>
+      <div class="q-text">
+        <div class="q-german">„Was ist Ihre größte Schwäche?"</div>
+        <div class="q-tags"><span class="q-tag tag-heikel">⚠️ Heikel</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Das ist eine <strong>Fangfrage</strong> — aber auch eine goldene Gelegenheit. Es geht nicht wirklich um die Schwäche selbst. Geprüft werden: <strong>Ehrlichkeit, Selbstreflexion und Lernbereitschaft.</strong> Kann sie verletzlich sein, ohne sich zu schaden? Wächst sie über sich hinaus?</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Eine <strong>echte</strong> Schwäche nennen — keine verkleidete Stärke („Ich arbeite zu viel")</li>
+            <li>Etwas wählen, das <em>nicht entscheidend</em> für den Kern der Stelle ist</li>
+            <li>Immer ergänzen: Was wurde konkret getan, um sich zu verbessern?</li>
+            <li>Formel: Schwäche → Kontext → Maßnahme → aktueller Stand</li>
+            <li>Positiv abschließen: „Seitdem hat sich das deutlich verbessert"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Ich bin ein Perfektionist." (Abgedroschen, durchschaubar, unehrlich)</li>
+          <li>„Ich habe eigentlich keine wirklichen Schwächen."</li>
+          <li>Eine Schwäche nennen, die für die Stelle zentral ist</li>
+          <li>Zu ausführlich werden — maximal 45 Sekunden</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Früher hatte ich manchmal Schwierigkeiten mit <em>[echte, unkritische Schwäche]</em>. Mir ist das aufgefallen, als <em>[kurze Situation]</em>. Seitdem habe ich aktiv daran gearbeitet, indem ich <em>[konkrete Maßnahme]</em>. Das hat sich deutlich verbessert, auch wenn ich weiterhin darauf achte."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F5 -->
+  <div class="q-card" id="qcard5">
+    <div class="q-header" onclick="toggleCard('qcard5')">
+      <div class="q-num">5</div>
+      <div class="q-text">
+        <div class="q-german">„Wo sehen Sie sich in fünf Jahren?"</div>
+        <div class="q-tags"><span class="q-tag tag-strategie">Strategisch</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Geprüft wird: <strong>Bleibt sie? Ist sie ehrgeizig auf eine Art, die uns nützt? Ist diese Stelle ein Sprungbrett oder ein Ziel?</strong> Das Unternehmen will wissen, ob ihre Karriereziele zu dem passen, was es ihr bieten kann.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Realistisch bleiben — nicht „Ich will CEO sein"</li>
+            <li>Ehrgeiz zeigen, der <em>dem Unternehmen nutzt</em>: mehr Verantwortung, Führung, Expertise</li>
+            <li>Antwort an dieser Stelle verankern: „Ich sehe diese Stelle als Grundlage, um …"</li>
+            <li>Deutlich machen, dass man <em>innerhalb</em> des Unternehmens wachsen möchte</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Ich weiß es ehrlich gesagt nicht genau." (Kein Ehrgeiz erkennbar)</li>
+          <li>Ziele beschreiben, die nichts mit der Stelle zu tun haben: „Dann möchte ich eigentlich selbstständig sein"</li>
+          <li>In zwei Jahren den Job des Chefs anstreben</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„In fünf Jahren möchte ich meine Expertise in <em>[Bereich]</em> deutlich vertieft haben und idealerweise <em>[nächste Stufe — mehr Verantwortung / Teamleitung / Spezialisierung]</em> übernehmen. Diese Stelle ist für mich ein wichtiger Schritt in diese Richtung, weil <em>[konkreter Bezug]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F6 -->
+  <div class="q-card" id="qcard6">
+    <div class="q-header" onclick="toggleCard('qcard6')">
+      <div class="q-num">6</div>
+      <div class="q-text">
+        <div class="q-german">„Warum verlassen Sie Ihren aktuellen Job?"</div>
+        <div class="q-tags"><span class="q-tag tag-heikel">⚠️ Heikel</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Man hört auf <strong>Warnsignale</strong>: Flüchtet sie vor einem Desaster? Spricht sie schlecht über frühere Arbeitgeber? Ist sie schwierig? Diese Frage verrät mehr über Charakter und Professionalität als die meisten anderen. Gesucht wird jemand, der zu diesem Unternehmen <em>hingezogen</em> wird — nicht jemand, der anderswo <em>flieht</em>.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li><strong>Niemals</strong> über den aktuellen Arbeitgeber, Chef oder Kollegen schimpfen</li>
+            <li>Als Bewegung <em>hin zu</em> etwas formulieren — nicht <em>weg von</em> etwas</li>
+            <li>Gute Gründe: neue Herausforderung, Entwicklungsdecke erreicht, Neuausrichtung, Umstrukturierung</li>
+            <li>Bei Konflikten: „kulturelle Unterschiede" sagen und schnell weiterführen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Über Chef, Team, Gehalt oder Kultur klagen</li>
+          <li>„Die Firma läuft nicht gut" — wirkt wie eine Ratte, die das sinkende Schiff verlässt</li>
+          <li>Zu vage: „Ich suche einfach was Neues" — keine Richtung erkennbar</li>
+          <li>Zu viele Details über interne Konflikte</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Ich habe in meiner aktuellen Stelle viel gelernt und bin dem Unternehmen dankbar für diese Zeit. Allerdings merke ich, dass ich nach <em>[X Jahren]</em> die dortigen Möglichkeiten weitgehend ausgeschöpft habe und nach einer neuen Herausforderung suche — insbesondere in <em>[Bereich]</em>, der mich schon länger interessiert."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F7 -->
+  <div class="q-card" id="qcard7">
+    <div class="q-header" onclick="toggleCard('qcard7')">
+      <div class="q-num">7</div>
+      <div class="q-text">
+        <div class="q-german">„Beschreiben Sie eine schwierige Situation und wie Sie sie gelöst haben."</div>
+        <div class="q-tags"><span class="q-tag tag-verhalten">Verhaltensfrage</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Verhaltensfragen basieren auf dem Prinzip: <strong>Vergangenes Verhalten sagt künftiges Verhalten vorher.</strong> Geprüft werden Problemlösung unter Druck, Resilienz und wie man tatsächlich funktioniert, wenn es schwierig wird — nicht wie man sich vorstellt, dass man es täte. → STAR nutzen.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Vor dem Gespräch 3–4 starke STAR-Geschichten vorbereiten (Erfolg, Konflikt, Fehler, Druck)</li>
+            <li>Eine Situation wählen, in der man <em>selbst</em> einen Unterschied gemacht hat</li>
+            <li>Den Abschnitt „Aktion" am ausführlichsten gestalten — das interessiert am meisten</li>
+            <li>Wenn möglich messbares Ergebnis nennen: „um 20 % schneller", „ein Team von 8 Personen"</li>
+            <li>Mit einer Lernerkenntnis abschließen: „Das hat mir gezeigt, dass …"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Eine Situation wählen, bei der man selbst das Problem verursacht hat (außer Wachstum ist der Punkt)</li>
+          <li>Durchgehend „wir" statt „ich" — sie wollen wissen, was SIE getan hat</li>
+          <li>Kein klares Ergebnis: „Es hat sich dann irgendwie gelöst"</li>
+          <li>Eine triviale Situation: kleines Büroproblem, Bagatelle</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg (STAR)</h4>
+        <p>„<strong>S:</strong> In meinem letzten Job war ich mit der Situation konfrontiert, dass … <strong>T:</strong> Meine Aufgabe war es, sicherzustellen, dass … <strong>A:</strong> Ich habe mich entschieden, zunächst … und dann … <strong>R:</strong> Das Ergebnis war, dass … — und ich habe daraus gelernt, dass …"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F8 -->
+  <div class="q-card" id="qcard8">
+    <div class="q-header" onclick="toggleCard('qcard8')">
+      <div class="q-num">8</div>
+      <div class="q-text">
+        <div class="q-german">„Wie gehen Sie mit Druck und Stress um?"</div>
+        <div class="q-tags"><span class="q-tag tag-verhalten">Verhaltensfrage</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Geprüft wird, ob man <strong>unter Druck zusammenbricht</strong> — oder ob man funktioniert, Prioritäten setzt und liefert. Besonders wichtig für dynamische Rollen. Personen, die behaupten, sich „nie zu stressen", werden nicht geglaubt.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Ehrlich zugeben, dass Druck existiert — nicht so tun, als wäre man unberührt</li>
+            <li>Eine <em>konkrete Methode</em> beschreiben (Priorisierung, Timeboxing, frühzeitige Kommunikation)</li>
+            <li>Ein kurzes Beispiel nennen, in dem man gut unter Druck gearbeitet hat</li>
+            <li>Selbstregulation zeigen: man erkennt Stress frühzeitig und handelt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Das kenne ich eigentlich nicht — ich stresse mich nie." (Unglaubwürdig)</li>
+          <li>Zusammenbruch beschreiben: „Ich schlafe dann schlecht und …"</li>
+          <li>Abstrakte Antwort ohne konkretes Beispiel</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Drucksituationen kenne ich gut und habe im Laufe der Zeit gelernt, strukturiert damit umzugehen. Wenn viel auf einmal kommt, priorisiere ich nach <em>[Methode]</em> und kommuniziere frühzeitig, wenn Deadlines gefährdet sind. Ein konkretes Beispiel: <em>[kurze STAR-Situation]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F9 -->
+  <div class="q-card" id="qcard9">
+    <div class="q-header" onclick="toggleCard('qcard9')">
+      <div class="q-num">9</div>
+      <div class="q-text">
+        <div class="q-german">„Wie würden Ihre Kollegen oder Ihr Chef Sie beschreiben?"</div>
+        <div class="q-tags"><span class="q-tag tag-persoenlich">Persönlich</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Das ist eine <strong>Fremdperspektive-Prüfung.</strong> Wenn man sich selbst beschreibt, ist das Marketing. Wenn „andere" es tun, wirkt es objektiver. Gesucht wird Konsistenz zwischen Selbstbild und Außenwirkung sowie die <strong>kulturelle Passung</strong> — ist das jemand, den wir im Team wollen?</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>2–3 Eigenschaften wählen, die man wirklich hat UND die zur Stelle passen</li>
+            <li>Jede mit einem echten Beispiel belegen: „Meine Kollegin hat mir mal gesagt, dass …"</li>
+            <li>Wenn ein Arbeitszeugnis vorhanden ist — die Formulierungen daraus nutzen: vorgeprüft und glaubwürdig</li>
+            <li>Eine Eigenschaft zur Zusammenarbeit / Wirkung im Team einbauen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Etwas erfinden — Referenzen könnten befragt werden</li>
+          <li>Zu vage: „Ich glaube, sie finden mich nett und zuverlässig"</li>
+          <li>Nur fachliche Qualitäten beschreiben und zwischenmenschliche vergessen</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Ich denke, meine Kolleginnen würden sagen, dass ich <em>[Eigenschaft]</em> bin. Mein letzter Vorgesetzter hat mir im Arbeitszeugnis bescheinigt, dass ich <em>[Formulierung aus Zeugnis]</em>. Und im Team bin ich bekannt dafür, <em>[Teamqualität mit kurzem Beispiel]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F10 -->
+  <div class="q-card" id="qcard10">
+    <div class="q-header" onclick="toggleCard('qcard10')">
+      <div class="q-num">10</div>
+      <div class="q-text">
+        <div class="q-german">„Was war Ihre größte berufliche Leistung?"</div>
+        <div class="q-tags"><span class="q-tag tag-verhalten">Verhaltensfrage</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Das enthüllt <strong>Maßstäbe und Ambitionen.</strong> Was gilt als echte Leistung? Ist sie gemessen an der Stelle beeindruckend? Geprüft wird auch, ob man Wirkung beziffern kann — nicht nur Tätigkeiten beschreibt. Jede/r kann „an einem Projekt mitgearbeitet haben." Hat sie den Zeiger bewegt?</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Etwas mit messbarem, eindrucksvollem Ergebnis wählen</li>
+            <li>Relevant für <em>diese</em> Stelle — nicht den schönsten persönlichen Moment</li>
+            <li>Zahlen nutzen: Umsatz, eingesparte Zeit, Teamgröße, Wachstum in Prozent</li>
+            <li>STAR anwenden — Aktion und Ergebnis den größten Raum geben</li>
+            <li>Abschließen mit: was das über einen als Fachkraft aussagt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Teamleistung als eigene ausgeben — nur „wir" verwenden</li>
+          <li>Keine Zahlen oder vage Wirkung: „Das Projekt lief dann sehr gut"</li>
+          <li>Etwas, das nichts mit der Stelle zu tun hat</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Eine Leistung, auf die ich besonders stolz bin, war <em>[kurze Beschreibung]</em>. Die Ausgangssituation war, dass <em>[Problem / Kontext]</em>. Ich habe dann <em>[konkrete Schritte]</em> unternommen, was dazu geführt hat, dass <em>[messbares Ergebnis — Zahlen!]</em>. Das hat mir gezeigt, dass ich auch in komplexen Situationen <em>[Qualität]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F11 -->
+  <div class="q-card" id="qcard11">
+    <div class="q-header" onclick="toggleCard('qcard11')">
+      <div class="q-num">11</div>
+      <div class="q-text">
+        <div class="q-german">„Wie arbeiten Sie im Team?"</div>
+        <div class="q-tags"><span class="q-tag tag-verhalten">Verhaltensfrage</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Geprüft werden <strong>kulturelle Passung und Konfliktverhalten.</strong> Kann sie zusammenarbeiten? Wie geht sie mit Meinungsverschiedenheiten um? Führt, folgt oder passt sie sich an? Man will sie sich im bestehenden Team vorstellen können. „Ich bin ein großer Teamplayer" ist der nutzloseste Satz in jedem Gespräch.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Natürliche Rolle im Team beschreiben — und Flexibilität zeigen</li>
+            <li>Ein konkretes Beispiel gelungener Zusammenarbeit nennen</li>
+            <li>Erwähnen, wie man konstruktiv mit Meinungsverschiedenheiten umgeht</li>
+            <li>Sowohl Führen als auch Folgen zeigen — je nach Bedarf des Teams</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Ich arbeite sowohl gut alleine als auch im Team." (Bedeutungslos)</li>
+          <li>Nur das ideale Team beschreiben, nicht die eigene Rolle darin</li>
+          <li>Andeuten, dass man bei Konflikten immer recht hat</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Im Team übernehme ich je nach Bedarf unterschiedliche Rollen — mal koordiniere ich, mal treibe ich inhaltlich voran. Was mir besonders wichtig ist: offene Kommunikation bei Konflikten. Ein Beispiel: <em>[kurze STAR-Situation mit Teamkonflikt]</em>."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F12 -->
+  <div class="q-card" id="qcard12">
+    <div class="q-header" onclick="toggleCard('qcard12')">
+      <div class="q-num">12</div>
+      <div class="q-text">
+        <div class="q-german">„Was motiviert Sie?"</div>
+        <div class="q-tags"><span class="q-tag tag-persoenlich">Persönlich</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Sie wollen wissen, ob diese Stelle sie langfristig <strong>wirklich engagiert halten kann</strong> — und ob die Motivation nachhaltig ist. Eine Person, die durch „Gehalt und Urlaub" motiviert wird, geht beim nächsten besseren Angebot. Gesucht wird jemand, dem die Arbeit selbst etwas bedeutet.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Intrinsische Motivatoren wählen: Probleme lösen, Wirkung erzielen, lernen, gestalten, Verantwortung tragen</li>
+            <li>Motivation direkt mit Elementen <em>dieser Stelle</em> verknüpfen</li>
+            <li>Konkret sein — „Ich liebe Herausforderungen" reicht nicht</li>
+            <li>Ein Beispiel nennen, wann man im Job am lebendigsten war</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Geld" oder „Sicherheit" sagen (auch wenn es stimmt — das gehört in die Gehaltsverhandlung)</li>
+          <li>Zu allgemein: „Ich möchte wachsen und lernen" ohne Konkretes</li>
+          <li>Motivation nennen, die nichts mit der Stelle zu tun hat</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Am meisten motiviert mich <em>[konkrete intrinsische Motivation]</em>. Das merke ich besonders, wenn ich <em>[Situation im Job]</em> — dann verliere ich das Zeitgefühl. In dieser Stelle reizt mich vor allem, dass <em>[spezifisches Element der Stelle]</em>, weil das genau das ist, was ich als bedeutungsvoll erlebe."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F13 -->
+  <div class="q-card" id="qcard13">
+    <div class="q-header" onclick="toggleCard('qcard13')">
+      <div class="q-num">13</div>
+      <div class="q-text">
+        <div class="q-german">„Was wissen Sie über unser Unternehmen?"</div>
+        <div class="q-tags"><span class="q-tag tag-strategie">Strategisch</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Reine <strong>Hausaufgabenkontrolle.</strong> Wer diese Frage nicht beantworten kann, hat die Zeit des Gesprächspartners nicht respektiert. Die Qualität der Antwort zeigt, wie ernst man die Bewerbung nimmt. Je konkreter und durchdachter die Antwort, desto mehr sticht man aus der Masse heraus.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Recherchieren: Website, LinkedIn, aktuelle Pressemitteilungen, Jahresbericht, Kununu/Glassdoor</li>
+            <li>Wissen: Was tun sie? Wer sind ihre Kunden? Was sind aktuelle Entwicklungen? Was sind ihre Werte?</li>
+            <li>Über das Offensichtliche hinausgehen: etwas Konkretes nennen, das wirklich interessiert</li>
+            <li>Mit einem Bezug zur eigenen Erfahrung abschließen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>Nur den ersten Satz der Website wiederholen</li>
+          <li>Falsche Fakten nennen — lieber weniger sagen als korrigiert werden</li>
+          <li>Gar nicht recherchiert haben: „Ich kenne Ihre Website, aber nicht so sehr …"</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Ich habe mich intensiv vorbereitet. <em>[Unternehmen]</em> ist bekannt für <em>[Kernprodukt / Service]</em> und bedient hauptsächlich <em>[Zielmarkt]</em>. Besonders beeindruckt hat mich <em>[spezifische Information aus der Recherche]</em>. Ich habe auch gelesen, dass Sie gerade <em>[aktuelles Thema / Projekt]</em> vorantreiben — das hat mein Interesse an dieser Stelle noch verstärkt."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F14 -->
+  <div class="q-card" id="qcard14">
+    <div class="q-header" onclick="toggleCard('qcard14')">
+      <div class="q-num">14</div>
+      <div class="q-text">
+        <div class="q-german">„Haben Sie Fragen an uns?"</div>
+        <div class="q-tags"><span class="q-tag tag-strategie">Strategisch</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Das ist das eigene Vorstellungsgespräch — <em>von ihr mit dem Unternehmen.</em> Die Qualität der Fragen zeigt, wie gründlich man nachgedacht hat, wie neugierig man ist, und ob man die Passung genauso aktiv prüft wie das Unternehmen. „Nein, ich habe keine Fragen" ist die schlechteste mögliche Antwort.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>5–6 Fragen vorbereiten — manche werden im Gespräch schon beantwortet</li>
+            <li>Nach der Rolle, dem Team, den Herausforderungen, den Erfolgskriterien fragen</li>
+            <li>Eine persönliche Frage stellen: „Was schätzen Sie persönlich an der Arbeit hier?"</li>
+            <li>Nichts fragen, das man in 30 Sekunden ergoogeln könnte</li>
+            <li>In der ersten Runde nicht nach Gehalt, Urlaub oder Krankenstand fragen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Nein, ich glaube, alles wurde geklärt." (Fatal)</li>
+          <li>In der ersten Runde nach Gehalt und Benefits fragen</li>
+          <li>Fragen, die zeigen, dass man nicht recherchiert hat: „Was machen Sie eigentlich genau?"</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Ja, ich habe einige Fragen vorbereitet. Mich würde zunächst interessieren: <em>[substantielle Frage zur Rolle / zum Team / zu Herausforderungen]</em>. Außerdem: Woran würde man nach dem ersten Jahr erkennen, dass ich in dieser Rolle erfolgreich war? Und noch eine persönliche Frage — was schätzen Sie selbst am meisten an der Arbeit hier?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- F15 -->
+  <div class="q-card" id="qcard15">
+    <div class="q-header" onclick="toggleCard('qcard15')">
+      <div class="q-num">15</div>
+      <div class="q-text">
+        <div class="q-german">„Was sind Ihre Gehaltsvorstellungen?"</div>
+        <div class="q-tags"><span class="q-tag tag-heikel">⚠️ Heikel</span></div>
+      </div>
+      <div class="q-toggle">▾</div>
+    </div>
+    <div class="q-body">
+      <div class="q-sections">
+        <div class="q-section warum">
+          <h4>🔍 Was dahintersteckt</h4>
+          <p>Geprüft wird, ob man <strong>realistisch und leistbar</strong> ist. Gleichzeitig ist das eine Verhandlung — wer zuerst eine Zahl nennt, verliert oft. Geprüft wird auch, ob man den eigenen Marktwert kennt und ob man selbstsicher verhandelt oder unter Druck nachgibt.</p>
+        </div>
+        <div class="q-section wie">
+          <h4>✅ Die beste Strategie</h4>
+          <ul>
+            <li>Marktgehalt für diese Stelle in dieser Stadt <em>vor</em> dem Gespräch recherchieren</li>
+            <li>Eine Spanne nennen, bei der das Zielgehalt am <em>unteren Ende</em> liegt: „zwischen X und Y"</li>
+            <li>Hoch verankern — es ist leichter, runterzugehen als hochzukommen</li>
+            <li>Bei frühem Druck: „Das hängt vom Gesamtpaket ab — können Sie mir erst mehr über die Stelle erzählen?"</li>
+            <li>In Deutschland ist das <strong>Jahresbruttogehalt</strong> der Standard</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-vermeiden">
+        <h4>✗ Häufige Fehler</h4>
+        <ul>
+          <li>„Ich bin flexibel" sagen — dann bekommt man das Minimum</li>
+          <li>Eine Zahl ohne Marktrecherche nennen</li>
+          <li>Sich für die eigene Zahl entschuldigen: „Ich weiß, das ist vielleicht etwas viel, aber …"</li>
+          <li>In der ersten Runde ohne Hebel verhandeln</li>
+        </ul>
+      </div>
+      <div class="q-einstieg">
+        <h4>💬 Muster-Einstieg</h4>
+        <p>„Auf Basis meiner Recherche und meiner <em>[X Jahre]</em> Erfahrung in <em>[Bereich]</em> orientiere ich mich an einem Jahresgehalt zwischen <em>[Betrag]</em> und <em>[Betrag]</em> brutto. Das ist natürlich abhängig vom Gesamtpaket und dem Entwicklungspotenzial — ich bin offen für ein Gespräch darüber."</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════
+  KLUGE RÜCKFRAGEN
+══════════════════════════════════ -->
+<section id="rueckfragen">
+  <div class="section-header">
+    <div class="section-icon">🙋</div>
+    <h2>Fragen, die man stellen sollte <small>Rückfragen, die Intelligenz und Vorbereitung signalisieren</small></h2>
+  </div>
+  <div class="rf-grid">
+    <div class="rf-card"><div class="rf-frage">„Wie sieht ein typischer Arbeitstag in dieser Rolle aus?"</div><div class="rf-warum">✅ Zeigt echtes Interesse an der Rolle, nicht nur am Titel</div></div>
+    <div class="rf-card"><div class="rf-frage">„Welche Herausforderungen muss die Person in dieser Stelle in den ersten sechs Monaten meistern?"</div><div class="rf-warum">✅ Zeigt, dass man über Wirkung nachdenkt, nicht nur über Aufgaben</div></div>
+    <div class="rf-card"><div class="rf-frage">„Woran würde man nach einem Jahr erkennen, dass ich in dieser Rolle erfolgreich war?"</div><div class="rf-warum">✅ Legt ihre Erfolgskriterien offen — und zeigt Ambitionen</div></div>
+    <div class="rf-card"><div class="rf-frage">„Wie würden Sie die Teamkultur beschreiben?"</div><div class="rf-warum">✅ Man prüft selbst die Passung — das zeigt Selbstbewusstsein</div></div>
+    <div class="rf-card"><div class="rf-frage">„Was schätzen Sie persönlich am meisten an der Arbeit hier?"</div><div class="rf-warum">✅ Persönliche Frage — baut Vertrauen auf, enthüllt die echte Kultur</div></div>
+    <div class="rf-card"><div class="rf-frage">„Warum ist diese Stelle vakant? Handelt es sich um eine Neuschaffung oder eine Nachbesetzung?"</div><div class="rf-warum">✅ Kluge Due Diligence — kann auf Fluktuationsmuster hinweisen</div></div>
+    <div class="rf-card"><div class="rf-frage">„Wie fördern Sie die Weiterentwicklung Ihrer Mitarbeiterinnen und Mitarbeiter?"</div><div class="rf-warum">✅ Zeigt langfristiges Denken — man plant zu bleiben und zu wachsen</div></div>
+    <div class="rf-card"><div class="rf-frage">„Was sind die nächsten Schritte im Bewerbungsprozess?"</div><div class="rf-warum">✅ Zeigt Initiative — am Ende immer stellen</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  ROLLENSPIELE
+══════════════════════════════════ -->
+<section id="rollenspiele">
+  <div class="section-header">
+    <div class="section-icon">🎭</div>
+    <h2>Rollenspiele <small>Vollständige Gesprächssimulationen — so realistisch wie möglich</small></h2>
+  </div>
+  <div class="hinweis">
+    <strong>👩‍🏫 Hinweis:</strong> Das Gespräch zunächst ohne Unterbrechung durchführen. Danach gemeinsam anhand der Nachbesprechungs-Checkliste auswerten. In der zweiten Runde den Druck erhöhen: schwache Antworten herausfordern, unerwartete Rückfragen stellen, die Gehaltsverhandlung testen.
+  </div>
+
+  <!-- ROLLENSPIEL 1 -->
+  <div class="rp-card">
+    <div class="rp-top">
+      <h3>🎭 Rollenspiel 1 — Marketing Managerin, Tech-Startup Berlin</h3>
+      <p>Mittlere Führungsebene · Moderne Unternehmenskultur · Halbformeller Stil</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-kontext">
+        <strong>Kontext:</strong> Die Teilnehmerin bewirbt sich als Marketing Managerin bei einem Berliner SaaS-Startup (~150 Mitarbeiter). Das Unternehmen entwickelt Projektmanagement-Software für KMU, wächst um 40 % pro Jahr und hat gerade eine Series-B-Finanzierung erhalten. Das Gespräch führt die Head of Marketing (Lehrkraft). Halbformell — per Du erwartet. Dauer: 15–20 Minuten.
+      </div>
+      <div class="rp-rollen">
+        <div class="rp-rolle bewerberin">
+          <h4>🧑‍💼 Bewerberin (Teilnehmerin)</h4>
+          <ul>
+            <li>3 Jahre Erfahrung in digitalem Marketing (Agentur + inhouse)</li>
+            <li>Schwerpunkte: Content, SEO, Paid Social</li>
+            <li>Letzter Job wegen Umstrukturierung verlassen</li>
+            <li>Gehaltsvorstellung: 58.000–65.000 € brutto/Jahr</li>
+            <li>Ziel: in 3–4 Jahren Head of Marketing werden</li>
+            <li>Eine STAR-Geschichte über einen Kampagnenerfolg vorbereiten</li>
+          </ul>
+        </div>
+        <div class="rp-rolle interviewer">
+          <h4>🎤 Interviewerin (Lehrkraft)</h4>
+          <ul>
+            <li>Einstieg: „Erzähl mir kurz von dir."</li>
+            <li>Nach einem gescheiterten Projekt fragen</li>
+            <li>Herausfordern: „Du hast keine B2B-Erfahrung. Warum sollten wir dich nehmen?"</li>
+            <li>Gehalt mitten im Gespräch ansprechen (nicht am Ende)</li>
+            <li>Am Ende vagen Zeitplan nennen — prüfen, ob sie nachfragt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-skript">
+        <h4>💬 Gesprächseinstieg</h4>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Hi, schön, dass du da bist. Ich bin [Name], Head of Marketing. Magst du kurz erzählen, wer du bist und was dich zu uns gebracht hat?"</span></div>
+        <div class="skript-zeile"><span class="skript-wer b">Bewerberin:</span><span class="skript-text"><span class="skript-luecke">[Selbstpräsentation — 60–90 Sek., gegenwart–vergangenheit–zukunft]</span></span></div>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Interessant. Kannst du mir von einer Kampagne erzählen, auf die du besonders stolz bist?"</span></div>
+        <div class="skript-zeile"><span class="skript-wer b">Bewerberin:</span><span class="skript-text"><span class="skript-luecke">[STAR-Antwort — 2–3 Min.]</span></span></div>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Und jetzt die schwierige Frage: Was war mal ein Projekt, das nicht gut gelaufen ist? Was hast du daraus gelernt?"</span></div>
+      </div>
+      <div class="rp-nachbesprechung">
+        <h4>📋 Nachbesprechung</h4>
+        <div class="nb-grid">
+          <div class="nb-item gut">✅ Einstieg: klar, prägnant, relevant?</div>
+          <div class="nb-item gut">✅ STAR-Struktur erkennbar?</div>
+          <div class="nb-item gut">✅ Messbare Ergebnisse genannt?</div>
+          <div class="nb-item gut">✅ Schwierige Frage souverän beantwortet?</div>
+          <div class="nb-item acht">👁 Zu viel „wir" statt „ich"?</div>
+          <div class="nb-item acht">👁 Bei Provokation ruhig geblieben?</div>
+          <div class="nb-item acht">👁 Gehalt selbstbewusst genannt?</div>
+          <div class="nb-item acht">👁 Starke Rückfragen gestellt?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLLENSPIEL 2 -->
+  <div class="rp-card">
+    <div class="rp-top">
+      <h3>🎭 Rollenspiel 2 — Projektleiterin, Unternehmensberatung München</h3>
+      <p>Senior-Position · Formelle Unternehmenskultur · Druckvoller Gesprächsstil</p>
+    </div>
+    <div class="rp-body">
+      <div class="rp-kontext">
+        <strong>Kontext:</strong> Die Teilnehmerin bewirbt sich als Projektleiterin bei einer mittelgroßen Unternehmensberatung in München. Formelle Kultur, durchgehend Sie-Form. Das Gespräch führt eine Partnerin (Lehrkraft), die Verhaltens- und Druckfragen stellt. Das Unternehmen berät DAX-Konzerne bei der digitalen Transformation. Dauer: 15 Minuten.
+      </div>
+      <div class="rp-rollen">
+        <div class="rp-rolle bewerberin">
+          <h4>🧑‍💼 Bewerberin (Teilnehmerin)</h4>
+          <ul>
+            <li>5 Jahre Erfahrung im Projektmanagement, PMP-zertifiziert</li>
+            <li>Hat funktionsübergreifende Teams von 10+ Personen geführt</li>
+            <li>Wechselmotivation: mehr strategische Verantwortung</li>
+            <li>Gehaltsvorstellung: 80.000–90.000 € brutto/Jahr</li>
+            <li>Eine Geschichte vorbereiten: Projekt, das zu scheitern drohte — und wie man es gerettet hat</li>
+            <li>Am Ende 2 durchdachte Rückfragen stellen</li>
+          </ul>
+        </div>
+        <div class="rp-rolle interviewer">
+          <h4>🎤 Interviewerin (Lehrkraft)</h4>
+          <ul>
+            <li>Formeller, leicht einschüchternder Ton</li>
+            <li>Vage Antworten unterbrechen: „Das ist mir zu allgemein — ein konkretes Beispiel bitte."</li>
+            <li>Ehrgeiz herausfordern: „Warum sollten wir eine externe Person nehmen?"</li>
+            <li>Gehaltsdruck: „Das liegt über unserem Budget. Wie flexibel sind Sie?"</li>
+            <li>Zeitdruck: „Wir haben noch fünf Minuten."</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rp-skript">
+        <h4>💬 Gesprächseinstieg</h4>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Guten Tag. Ich habe Ihren Lebenslauf gelesen. Fassen Sie bitte in zwei Minuten zusammen, warum Sie die richtige Person für diese Stelle sind."</span></div>
+        <div class="skript-zeile"><span class="skript-wer b">Bewerberin:</span><span class="skript-text"><span class="skript-luecke">[Überzeugender, prägnanter Einstieg — kein Lebenslauf, sondern Mehrwert]</span></span></div>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Beschreiben Sie mir eine Situation, in der ein Projekt zu scheitern drohte. Was haben Sie konkret getan?"</span></div>
+        <div class="skript-zeile"><span class="skript-wer b">Bewerberin:</span><span class="skript-text"><span class="skript-luecke">[STAR — Fokus auf eigene Handlungen und messbares Ergebnis]</span></span></div>
+        <div class="skript-zeile"><span class="skript-wer i">Interviewerin:</span><span class="skript-text">„Was würden Sie sagen, war Ihr größter Fehler als Führungskraft?"</span></div>
+      </div>
+      <div class="rp-nachbesprechung">
+        <h4>📋 Nachbesprechung</h4>
+        <div class="nb-grid">
+          <div class="nb-item gut">✅ Einstieg: strategisch, nicht biografisch?</div>
+          <div class="nb-item gut">✅ Unterbrechungen souverän aufgenommen?</div>
+          <div class="nb-item gut">✅ Fehlerfrage ehrlich ohne Übertreibung beantwortet?</div>
+          <div class="nb-item gut">✅ Beim Gehalt standhaft geblieben oder klug nachgegeben?</div>
+          <div class="nb-item acht">👁 Register: durchgehend Sie-Form?</div>
+          <div class="nb-item acht">👁 Belastbarkeit unter Druck gezeigt?</div>
+          <div class="nb-item acht">👁 Füllwörter und lange Pausen vermieden?</div>
+          <div class="nb-item acht">👁 Rückfragen: substanziell, nicht generisch?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  VORBEREITUNGS-CHECKLISTE
+══════════════════════════════════ -->
+<section id="checkliste">
+  <div class="section-header">
+    <div class="section-icon">✅</div>
+    <h2>Vor dem Gespräch <small>Abhaken, sobald man vorbereitet ist</small></h2>
+  </div>
+  <div class="checkliste">
+    <h3>VORBEREITUNGS-CHECKLISTE</h3>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Ich habe 3–4 STAR-Geschichten vorbereitet (Erfolg, Konflikt, Fehler, Druck)</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Meine 90-Sekunden-Selbstpräsentation sitzt auswendig</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Das Unternehmen wurde recherchiert (Website, Neuigkeiten, LinkedIn, Kununu)</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Der Marktgehalt für diese Stelle in dieser Stadt ist bekannt</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>5–6 Rückfragen für den Interviewer sind vorbereitet</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Die Stellenbeschreibung wurde mit dem eigenen Lebenslauf abgeglichen</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Ich weiß, was mich an genau dieser Stelle und diesem Unternehmen wirklich interessiert</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Die Gehaltsvorstellung ist als begründete Spanne vorbereitet</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Das Rollenspiel wurde mindestens einmal vollständig durchgeführt</span></div>
+    <div class="cl-punkt" onclick="this.classList.toggle('erledigt')"><div class="cl-box">✓</div><span>Ich weiß, wie ich die Schwächefrage ohne Klischees beantworte</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; Bewerbungsgespräch B2+ &nbsp;·&nbsp; Viel Erfolg! 💼🇩🇪</footer>
+
+<script>
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.q-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+</script>
+</body>
+</html>

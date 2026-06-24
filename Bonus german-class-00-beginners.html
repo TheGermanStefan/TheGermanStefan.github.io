@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A0–A1 | Lektion 0: Absolute Beginner</title>
+<style>
+:root {
+  --black: #1a1a2e;
+  --gold: #e8b84b;
+  --red: #c0392b;
+  --green: #27ae60;
+  --blue: #2980b9;
+  --purple: #8e44ad;
+  --orange: #e67e22;
+  --bg: #f9f7f3;
+  --card: #ffffff;
+  --border: #e0dbd0;
+  --muted: #7a7165;
+  --success: #27ae60;
+  --error: #e74c3c;
+  --nom: #2980b9;
+  --akk: #c0392b;
+  --dat: #27ae60;
+  --gen: #8e44ad;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Georgia', serif; background: var(--bg); color: var(--black); line-height: 1.7; }
+
+/* HEADER */
+header {
+  background: var(--black);
+  color: white;
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+  background: linear-gradient(to bottom, #000, var(--gold), var(--red));
+}
+.header-inner { max-width: 900px; margin: 0 auto; padding-left: 1rem; }
+.series-label { font-family: sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+header h1 span { color: var(--gold); }
+.header-meta { margin-top: 0.75rem; font-family: sans-serif; font-size: 0.82rem; color: #aaa; display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.level-badge { display: inline-block; background: var(--gold); color: var(--black); font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 3px; margin-right: 0.4rem; }
+
+/* LAYOUT */
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+section { margin-bottom: 3rem; }
+.section-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.4rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--border); }
+.section-icon { width: 36px; height: 36px; background: var(--black); color: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.section-header h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.section-header h2 small { display: block; font-size: 0.78rem; font-weight: 400; color: var(--muted); letter-spacing: 0; margin-top: 0.1rem; }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem 1.8rem; margin-bottom: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.card h3 { font-size: 0.95rem; font-weight: 700; font-family: sans-serif; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+.ex-num { background: var(--black); color: white; font-size: 0.72rem; padding: 0.15rem 0.45rem; border-radius: 4px; }
+.grammar-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; padding: 0.15rem 0.5rem; border-radius: 20px; text-transform: uppercase; }
+.tag-a0 { background: #fef3c7; color: #92400e; }
+.tag-a1 { background: #dbeafe; color: var(--blue); }
+.instruction { font-size: 0.83rem; color: var(--muted); font-style: italic; margin-bottom: 1rem; font-family: sans-serif; }
+
+/* PHRASE GRID */
+.phrase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.6rem; }
+.phrase-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 1rem; }
+.phrase-card .de { font-weight: 700; font-size: 0.96rem; }
+.phrase-card .en { color: var(--muted); font-size: 0.82rem; font-style: italic; }
+.phrase-card .note { color: var(--orange); font-size: 0.76rem; margin-top: 0.2rem; font-family: sans-serif; }
+
+/* DIALOGUE BOX */
+.dialogue { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%); border-radius: 12px; padding: 1.5rem 1.8rem; color: white; margin-bottom: 1.2rem; }
+.dialogue h3 { font-size: 0.88rem; font-family: sans-serif; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+.dlg-line { display: flex; gap: 0.7rem; margin-bottom: 0.5rem; font-size: 0.93rem; }
+.dlg-speaker { font-weight: 700; color: var(--gold); min-width: 30px; }
+.dlg-text { color: #e0e0e0; }
+.dlg-trans { color: #888; font-style: italic; font-size: 0.8rem; }
+
+/* QUESTION WORDS TABLE */
+.qword-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
+.qword-card { background: var(--card); border: 2px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; text-align: center; }
+.qword-card .qw { font-size: 1.5rem; font-weight: 700; color: var(--black); }
+.qword-card .qen { font-size: 0.82rem; color: var(--muted); font-style: italic; margin: 0.2rem 0; }
+.qword-card .qex { font-size: 0.78rem; color: var(--blue); font-family: sans-serif; }
+
+/* CASE BOXES */
+.case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1.2rem; }
+.case-box { border-radius: 10px; padding: 1rem 1.2rem; }
+.case-box.nom { background: #dbeafe; border: 2px solid var(--nom); }
+.case-box.akk { background: #fee2e2; border: 2px solid var(--akk); }
+.case-box.dat { background: #d1fae5; border: 2px solid var(--dat); }
+.case-box.gen { background: #ede9fe; border: 2px solid var(--gen); }
+.case-box h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.case-box.nom h4 { color: var(--nom); }
+.case-box.akk h4 { color: var(--akk); }
+.case-box.dat h4 { color: var(--dat); }
+.case-box.gen h4 { color: var(--gen); }
+.case-box .qlabel { font-family: sans-serif; font-size: 0.78rem; font-weight: 700; opacity: 0.7; margin-bottom: 0.3rem; }
+.case-box p { font-size: 0.88rem; line-height: 1.5; }
+.case-box em { font-style: normal; font-weight: 700; }
+
+/* ARTICLE TABLE */
+.art-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.art-table th { background: var(--black); color: white; padding: 0.5rem 0.8rem; text-align: center; font-family: sans-serif; font-size: 0.8rem; letter-spacing: 0.05em; }
+.art-table td { padding: 0.5rem 0.8rem; text-align: center; border: 1px solid var(--border); }
+.art-table tr:nth-child(even) td { background: #f5f3ee; }
+.art-table td.highlight { font-weight: 700; color: var(--red); }
+.art-table td.m { color: var(--blue); font-weight: 600; }
+.art-table td.f { color: #e91e8c; font-weight: 600; }
+.art-table td.n { color: var(--orange); font-weight: 600; }
+.art-table td.pl { color: var(--green); font-weight: 600; }
+
+/* NUMBERS */
+.numbers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem; }
+.num-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.88rem; display: flex; justify-content: space-between; align-items: center; }
+.num-card .num { font-weight: 700; font-size: 1rem; color: var(--black); }
+.num-card .word { color: var(--muted); font-size: 0.82rem; }
+.num-section-title { font-family: sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 1rem 0 0.5rem; }
+
+/* VERB TABLE */
+.verb-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.verb-tab { font-family: sans-serif; font-size: 0.8rem; font-weight: 700; border: 1.5px solid var(--border); background: white; border-radius: 6px; padding: 0.3rem 0.8rem; cursor: pointer; transition: all 0.15s; }
+.verb-tab.active { background: var(--black); color: white; border-color: var(--black); }
+.verb-conjugation { display: none; }
+.verb-conjugation.active { display: block; }
+.conj-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.conj-table th { background: var(--bg); padding: 0.4rem 0.8rem; text-align: left; font-family: sans-serif; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; border-bottom: 2px solid var(--border); }
+.conj-table td { padding: 0.4rem 0.8rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.conj-table td:first-child { color: var(--muted); font-weight: 600; font-family: sans-serif; }
+.conj-table td:nth-child(2) { font-weight: 700; }
+.conj-table td:last-child { color: var(--muted); font-style: italic; font-size: 0.82rem; }
+
+/* PRONOUN TABLE */
+.pron-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.pron-table th { background: var(--black); color: white; padding: 0.45rem 0.8rem; font-family: sans-serif; font-size: 0.78rem; letter-spacing: 0.04em; text-align: left; }
+.pron-table td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); }
+.pron-table tr:nth-child(even) td { background: #f5f3ee; }
+.pron-table td:nth-child(2) { font-weight: 700; color: var(--blue); }
+
+/* COLOUR SWATCHES */
+.colour-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.6rem; }
+.colour-card { border-radius: 8px; padding: 0.7rem 0.9rem; color: white; text-align: center; font-size: 0.9rem; font-weight: 700; border: 2px solid rgba(0,0,0,0.1); }
+.colour-card .en { font-size: 0.75rem; font-weight: 400; opacity: 0.85; margin-top: 0.2rem; }
+
+/* DAYS / MONTHS */
+.dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.5rem; }
+.dm-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.88rem; display: flex; justify-content: space-between; }
+.dm-card .de { font-weight: 700; }
+.dm-card .en { color: var(--muted); font-style: italic; }
+
+/* ADJECTIVE PAIRS */
+.adj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.6rem; }
+.adj-pair { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.88rem; display: flex; gap: 0.5rem; align-items: center; }
+.adj-pair .a1 { font-weight: 700; color: var(--blue); }
+.adj-pair .sep { color: var(--muted); }
+.adj-pair .a2 { font-weight: 700; color: var(--red); }
+.adj-pair .en { color: var(--muted); font-size: 0.78rem; font-style: italic; margin-left: auto; }
+
+/* EXERCISES */
+.fill-sentence { font-size: 0.93rem; margin-bottom: 0.8rem; line-height: 2.2; }
+.fill-sentence input[type="text"] { border: none; border-bottom: 2px solid var(--black); background: transparent; font-family: Georgia, serif; font-size: 0.93rem; width: 120px; text-align: center; outline: none; padding: 0 0.2rem; transition: border-color 0.2s; }
+.fill-sentence input.correct { border-color: var(--success); color: #155724; }
+.fill-sentence input.wrong { border-color: var(--error); color: #721c24; }
+select.inline-select { border: none; border-bottom: 2px solid var(--black); background: transparent; font-family: Georgia, serif; font-size: 0.93rem; padding: 0 0.2rem; cursor: pointer; outline: none; }
+select.inline-select.correct { border-color: var(--success); color: #155724; }
+select.inline-select.wrong { border-color: var(--error); color: #721c24; }
+
+.mc-item { margin-bottom: 1.1rem; }
+.mc-question { font-size: 0.93rem; margin-bottom: 0.45rem; font-weight: 600; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-opt { font-family: sans-serif; font-size: 0.86rem; border: 1.5px solid var(--border); background: white; border-radius: 7px; padding: 0.4rem 0.85rem; cursor: pointer; text-align: left; transition: all 0.15s; }
+.mc-opt:hover:not(.locked) { border-color: var(--black); background: #f5f3ee; }
+.mc-opt.correct { background: #d4edda; border-color: var(--success); color: #155724; }
+.mc-opt.wrong { background: #f8d7da; border-color: var(--error); color: #721c24; }
+
+.tf-list { list-style: none; }
+.tf-list li { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--border); font-size: 0.92rem; }
+.tf-list li:last-child { border-bottom: none; }
+.tf-list li span { flex: 1; }
+.tf-options { display: flex; gap: 0.4rem; }
+.tf-btn { font-family: sans-serif; font-size: 0.75rem; font-weight: 700; border: 1.5px solid var(--border); background: white; border-radius: 5px; padding: 0.2rem 0.55rem; cursor: pointer; transition: all 0.15s; }
+.tf-btn.correct { background: #d4edda; border-color: var(--success); color: #155724; }
+.tf-btn.wrong { background: #f8d7da; border-color: var(--error); color: #721c24; }
+
+/* NUMBER QUIZ */
+.num-quiz { }
+.num-quiz-q { font-size: 1.6rem; font-weight: 700; text-align: center; color: var(--black); margin-bottom: 0.5rem; }
+.num-quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.num-quiz-opt { font-family: sans-serif; font-size: 0.92rem; border: 1.5px solid var(--border); background: white; border-radius: 8px; padding: 0.6rem; cursor: pointer; text-align: center; transition: all 0.15s; }
+.num-quiz-opt:hover:not(.locked) { border-color: var(--black); background: #f5f3ee; }
+.num-quiz-opt.correct { background: #d4edda; border-color: var(--success); color: #155724; }
+.num-quiz-opt.wrong { background: #f8d7da; border-color: var(--error); color: #721c24; }
+.num-quiz-score { text-align: center; font-family: sans-serif; font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+#nextNumBtn { display: block; margin: 0.8rem auto 0; font-family: sans-serif; font-size: 0.82rem; font-weight: 700; background: var(--black); color: white; border: none; border-radius: 7px; padding: 0.5rem 1.4rem; cursor: pointer; }
+
+/* WORD ORDER DISPLAY */
+.word-order-demo { background: var(--bg); border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 0.8rem; font-size: 0.93rem; }
+.wo-box { display: inline-block; border: 2px solid var(--border); border-radius: 6px; padding: 0.2rem 0.6rem; margin: 0.15rem; font-family: sans-serif; font-size: 0.88rem; }
+.wo-box.pos1 { border-color: var(--blue); background: #dbeafe; color: var(--blue); font-weight: 700; }
+.wo-box.pos2 { border-color: var(--red); background: #fee2e2; color: var(--red); font-weight: 700; }
+.wo-box.rest { border-color: var(--border); color: var(--muted); }
+.wo-label { font-family: sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+
+/* REFERENCE STRIP */
+.ref-strip { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%); color: white; border-radius: 12px; padding: 1.4rem 1.8rem; margin-bottom: 1.2rem; }
+.ref-strip h3 { font-size: 0.88rem; font-family: sans-serif; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; }
+.ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.ref-table th { text-align: left; color: var(--gold); font-family: sans-serif; font-size: 0.75rem; letter-spacing: 0.06em; padding-bottom: 0.35rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+.ref-table td { padding: 0.28rem 0.5rem 0.28rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #e0e0e0; }
+.ref-table tr:last-child td { border-bottom: none; }
+.ref-table td:first-child { color: white; font-weight: 600; }
+
+/* PROGRESS */
+.progress-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.8rem; }
+.progress-section h3 { font-family: sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: 0.04em; }
+.progress-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.55rem; font-size: 0.84rem; font-family: sans-serif; }
+.progress-row .label { min-width: 200px; color: var(--muted); }
+.progress-row .bar { flex: 1; background: #eee; border-radius: 20px; height: 7px; overflow: hidden; }
+.progress-row .bar-fill { height: 100%; border-radius: 20px; background: var(--black); transition: width 0.5s; }
+.progress-row .count { min-width: 40px; text-align: right; font-weight: 700; }
+
+/* MATCH */
+.match-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.match-col { display: flex; flex-direction: column; gap: 0.35rem; }
+.match-item { border: 1.5px solid var(--border); background: white; border-radius: 7px; padding: 0.4rem 0.8rem; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; user-select: none; }
+.match-item:hover { border-color: var(--black); }
+.match-item.selected { border-color: var(--gold); background: #fff8e1; }
+.match-item.matched { border-color: var(--success); background: #d4edda; color: #155724; cursor: default; }
+.match-item.wrong-match { border-color: var(--error); background: #f8d7da; color: #721c24; }
+
+footer { text-align: center; font-family: sans-serif; font-size: 0.78rem; color: var(--muted); padding: 2rem 1rem; border-top: 1px solid var(--border); }
+@media (max-width: 600px) {
+  header h1 { font-size: 1.4rem; }
+  .card, .dialogue, .ref-strip { padding: 1.1rem; }
+  .case-grid { grid-template-columns: 1fr; }
+  .match-2col { grid-template-columns: 1fr; }
+  .num-quiz-options { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Lektion 0</div>
+    <h1>Absolute Beginner – <span>Deutsch von Null</span></h1>
+    <div class="header-meta">
+      <span><span class="level-badge">A0</span><span class="level-badge">A1</span> Einsteiger</span>
+      <span>👋 Begrüßung · Grammatik · Zahlen · Verben · Vokabeln</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════
+  1. GREETINGS
+══════════════════════════════ -->
+<section id="greetings">
+  <div class="section-header">
+    <div class="section-icon">👋</div>
+    <h2>Begrüßung <small>Greetings — the first things you say in German</small></h2>
+  </div>
+
+  <div class="phrase-grid" style="margin-bottom:1.2rem;">
+    <div class="phrase-card"><div class="de">Hallo!</div><div class="en">Hello! (informal)</div></div>
+    <div class="phrase-card"><div class="de">Guten Morgen!</div><div class="en">Good morning!</div><div class="note">until ~10am</div></div>
+    <div class="phrase-card"><div class="de">Guten Tag!</div><div class="en">Good day / Hello!</div><div class="note">formal, daytime</div></div>
+    <div class="phrase-card"><div class="de">Guten Abend!</div><div class="en">Good evening!</div></div>
+    <div class="phrase-card"><div class="de">Gute Nacht!</div><div class="en">Good night!</div><div class="note">when going to bed</div></div>
+    <div class="phrase-card"><div class="de">Tschüss! / Ciao!</div><div class="en">Bye! (informal)</div></div>
+    <div class="phrase-card"><div class="de">Auf Wiedersehen!</div><div class="en">Goodbye! (formal)</div></div>
+    <div class="phrase-card"><div class="de">Bis bald! / Bis später!</div><div class="en">See you soon / later!</div></div>
+    <div class="phrase-card"><div class="de">Wie geht es Ihnen?</div><div class="en">How are you? (formal)</div></div>
+    <div class="phrase-card"><div class="de">Wie geht's?</div><div class="en">How's it going? (informal)</div></div>
+    <div class="phrase-card"><div class="de">Gut, danke! Und Ihnen?</div><div class="en">Good, thanks! And you?</div></div>
+    <div class="phrase-card"><div class="de">Nicht so gut.</div><div class="en">Not so good.</div></div>
+  </div>
+
+  <!-- Sample Dialogue -->
+  <div class="dialogue">
+    <h3>📢 Beispieldialog — Sample Dialogue</h3>
+    <div class="dlg-line"><span class="dlg-speaker">A:</span><div><div class="dlg-text">Guten Tag! Wie heißen Sie?</div><div class="dlg-trans">Good day! What's your name? (formal)</div></div></div>
+    <div class="dlg-line"><span class="dlg-speaker">B:</span><div><div class="dlg-text">Ich heiße Maria. Und Sie?</div><div class="dlg-trans">My name is Maria. And you?</div></div></div>
+    <div class="dlg-line"><span class="dlg-speaker">A:</span><div><div class="dlg-text">Ich bin Thomas. Woher kommen Sie?</div><div class="dlg-trans">I'm Thomas. Where are you from?</div></div></div>
+    <div class="dlg-line"><span class="dlg-speaker">B:</span><div><div class="dlg-text">Ich komme aus Spanien. Und Sie?</div><div class="dlg-trans">I come from Spain. And you?</div></div></div>
+    <div class="dlg-line"><span class="dlg-speaker">A:</span><div><div class="dlg-text">Ich komme aus Deutschland. Schön, Sie kennenzulernen!</div><div class="dlg-trans">I come from Germany. Nice to meet you!</div></div></div>
+    <div class="dlg-line"><span class="dlg-speaker">B:</span><div><div class="dlg-text">Ebenfalls! Auf Wiedersehen!</div><div class="dlg-trans">Likewise! Goodbye!</div></div></div>
+  </div>
+
+  <!-- Exercise: Greetings -->
+  <div class="card">
+    <h3><span class="ex-num">Ü1</span> Was passt? <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Choose the correct greeting or response.</p>
+    <div class="mc-item">
+      <div class="mc-question">1. It is 8am. You meet your teacher. You say:</div>
+      <div class="mc-options" id="mc-g1">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g1')">Gute Nacht!</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-g1')">Guten Morgen!</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g1')">Auf Wiedersehen!</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">2. Your friend asks "Wie geht's?" You answer:</div>
+      <div class="mc-options" id="mc-g2">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g2')">Ich heiße Anna.</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g2')">Tschüss!</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-g2')">Gut, danke!</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">3. You want to say goodbye formally:</div>
+      <div class="mc-options" id="mc-g3">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g3')">Tschüss!</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-g3')">Auf Wiedersehen!</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-g3')">Hallo!</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  2. INTRODUCTIONS
+══════════════════════════════ -->
+<section id="introductions">
+  <div class="section-header">
+    <div class="section-icon">🙋</div>
+    <h2>Vorstellung <small>Introducing yourself</small></h2>
+  </div>
+
+  <div class="phrase-grid" style="margin-bottom:1.2rem;">
+    <div class="phrase-card"><div class="de">Ich heiße …</div><div class="en">My name is …</div></div>
+    <div class="phrase-card"><div class="de">Ich bin …</div><div class="en">I am …</div></div>
+    <div class="phrase-card"><div class="de">Wie heißt du?</div><div class="en">What's your name? (informal)</div></div>
+    <div class="phrase-card"><div class="de">Wie heißen Sie?</div><div class="en">What's your name? (formal)</div></div>
+    <div class="phrase-card"><div class="de">Ich komme aus …</div><div class="en">I come from …</div></div>
+    <div class="phrase-card"><div class="de">Woher kommst du?</div><div class="en">Where are you from?</div></div>
+    <div class="phrase-card"><div class="de">Ich wohne in …</div><div class="en">I live in …</div></div>
+    <div class="phrase-card"><div class="de">Ich bin … Jahre alt.</div><div class="en">I am … years old.</div></div>
+    <div class="phrase-card"><div class="de">Ich spreche Englisch.</div><div class="en">I speak English.</div></div>
+    <div class="phrase-card"><div class="de">Ich lerne Deutsch.</div><div class="en">I'm learning German.</div></div>
+    <div class="phrase-card"><div class="de">Ich bin Lehrer/in.</div><div class="en">I am a teacher.</div></div>
+    <div class="phrase-card"><div class="de">Schön, dich/Sie kennenzulernen!</div><div class="en">Nice to meet you!</div></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü2</span> Ergänze den Dialog <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Fill in the gaps to complete the introduction.</p>
+    <p class="fill-sentence">A: Hallo! Wie <input type="text" data-correct="heißt" placeholder="…" oninput="liveCheck(this)"> du?</p>
+    <p class="fill-sentence">B: Ich <input type="text" data-correct="heiße" placeholder="…" oninput="liveCheck(this)"> Lena. Woher <input type="text" data-correct="kommst" placeholder="…" oninput="liveCheck(this)"> du?</p>
+    <p class="fill-sentence">A: Ich komme <input type="text" data-correct="aus" placeholder="…" oninput="liveCheck(this)"> Italien. Und du?</p>
+    <p class="fill-sentence">B: Ich <input type="text" data-correct="wohne" placeholder="…" oninput="liveCheck(this)"> in Berlin. Ich bin 25 Jahre <input type="text" data-correct="alt" placeholder="…" oninput="liveCheck(this)">.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  3. QUESTION WORDS
+══════════════════════════════ -->
+<section id="questions">
+  <div class="section-header">
+    <div class="section-icon">❓</div>
+    <h2>Fragewörter <small>Question words — the "W-Wörter"</small></h2>
+  </div>
+
+  <div class="qword-grid" style="margin-bottom:1.2rem;">
+    <div class="qword-card"><div class="qw">Wer?</div><div class="qen">Who?</div><div class="qex">Wer ist das?</div></div>
+    <div class="qword-card"><div class="qw">Was?</div><div class="qen">What?</div><div class="qex">Was ist das?</div></div>
+    <div class="qword-card"><div class="qw">Wo?</div><div class="qen">Where?</div><div class="qex">Wo wohnst du?</div></div>
+    <div class="qword-card"><div class="qw">Woher?</div><div class="qen">Where from?</div><div class="qex">Woher kommst du?</div></div>
+    <div class="qword-card"><div class="qw">Wohin?</div><div class="qen">Where to?</div><div class="qex">Wohin gehst du?</div></div>
+    <div class="qword-card"><div class="qw">Wie?</div><div class="qen">How?</div><div class="qex">Wie heißt du?</div></div>
+    <div class="qword-card"><div class="qw">Wann?</div><div class="qen">When?</div><div class="qex">Wann kommst du?</div></div>
+    <div class="qword-card"><div class="qw">Warum?</div><div class="qen">Why?</div><div class="qex">Warum lernst du Deutsch?</div></div>
+    <div class="qword-card"><div class="qw">Wie viel?</div><div class="qen">How much?</div><div class="qex">Wie viel kostet das?</div></div>
+    <div class="qword-card"><div class="qw">Wie viele?</div><div class="qen">How many?</div><div class="qex">Wie viele Personen?</div></div>
+    <div class="qword-card"><div class="qw">Welche/r/s?</div><div class="qen">Which?</div><div class="qex">Welche Sprache?</div></div>
+    <div class="qword-card"><div class="qw">Wessen?</div><div class="qen">Whose?</div><div class="qex">Wessen Buch ist das?</div></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü3</span> Welches Fragewort? <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Choose the correct question word for each answer.</p>
+    <div class="mc-item">
+      <div class="mc-question">1. "_____ heißt du?" — "Ich heiße Marco."</div>
+      <div class="mc-options" id="mc-q1">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q1')">Wann</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-q1')">Wie</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q1')">Wo</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">2. "_____ kommst du?" — "Aus Frankreich."</div>
+      <div class="mc-options" id="mc-q2">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q2')">Wohin</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q2')">Wo</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-q2')">Woher</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">3. "_____ gehst du?" — "In die Schule."</div>
+      <div class="mc-options" id="mc-q3">
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-q3')">Wohin</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q3')">Wann</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q3')">Warum</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">4. "_____ kostet das?" — "Fünf Euro."</div>
+      <div class="mc-options" id="mc-q4">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q4')">Wie viele</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-q4')">Wie viel</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-q4')">Was</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  4. DIRECTIONS
+══════════════════════════════ -->
+<section id="directions">
+  <div class="section-header">
+    <div class="section-icon">🗺️</div>
+    <h2>Wegbeschreibung <small>Directions</small></h2>
+  </div>
+  <div class="phrase-grid" style="margin-bottom:1.2rem;">
+    <div class="phrase-card"><div class="de">links</div><div class="en">left</div></div>
+    <div class="phrase-card"><div class="de">rechts</div><div class="en">right</div></div>
+    <div class="phrase-card"><div class="de">geradeaus</div><div class="en">straight ahead</div></div>
+    <div class="phrase-card"><div class="de">zurück</div><div class="en">back</div></div>
+    <div class="phrase-card"><div class="de">hier</div><div class="en">here</div></div>
+    <div class="phrase-card"><div class="de">dort / da</div><div class="en">there</div></div>
+    <div class="phrase-card"><div class="de">nah / neben</div><div class="en">near / next to</div></div>
+    <div class="phrase-card"><div class="de">weit (von hier)</div><div class="en">far (from here)</div></div>
+    <div class="phrase-card"><div class="de">die Straße</div><div class="en">the street</div></div>
+    <div class="phrase-card"><div class="de">die Kreuzung</div><div class="en">the intersection</div></div>
+    <div class="phrase-card"><div class="de">der Bahnhof</div><div class="en">the train station</div></div>
+    <div class="phrase-card"><div class="de">Wie komme ich zu …?</div><div class="en">How do I get to …?</div></div>
+    <div class="phrase-card"><div class="de">Biegen Sie links ab.</div><div class="en">Turn left.</div></div>
+    <div class="phrase-card"><div class="de">Gehen Sie geradeaus.</div><div class="en">Go straight ahead.</div></div>
+    <div class="phrase-card"><div class="de">Es ist auf der linken/rechten Seite.</div><div class="en">It's on the left/right side.</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  5. PERSONAL PRONOUNS
+══════════════════════════════ -->
+<section id="pronouns">
+  <div class="section-header">
+    <div class="section-icon">🧑</div>
+    <h2>Personalpronomen <small>Personal pronouns — the building blocks of every sentence</small></h2>
+  </div>
+  <div class="card">
+    <table class="pron-table">
+      <tr><th>Person</th><th>Deutsch</th><th>English</th><th>Beispiel</th></tr>
+      <tr><td>1st sing.</td><td>ich</td><td>I</td><td>Ich bin Maria.</td></tr>
+      <tr><td>2nd sing. (informal)</td><td>du</td><td>you</td><td>Du bist nett.</td></tr>
+      <tr><td>3rd sing. (m)</td><td>er</td><td>he</td><td>Er kommt aus Berlin.</td></tr>
+      <tr><td>3rd sing. (f)</td><td>sie</td><td>she</td><td>Sie heißt Anna.</td></tr>
+      <tr><td>3rd sing. (n)</td><td>es</td><td>it</td><td>Es ist kalt.</td></tr>
+      <tr><td>1st plur.</td><td>wir</td><td>we</td><td>Wir lernen Deutsch.</td></tr>
+      <tr><td>2nd plur.</td><td>ihr</td><td>you all</td><td>Ihr seid toll!</td></tr>
+      <tr><td>3rd plur. / formal</td><td>sie / Sie</td><td>they / You (formal)</td><td>Sie sprechen Deutsch.</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3><span class="ex-num">Ü4</span> Pronomen einsetzen <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Wähle das richtige Pronomen.</p>
+    <p class="fill-sentence">1. _____ bin Thomas. <select class="inline-select" data-correct="Ich" onchange="checkSelect(this)"><option value="">—</option><option>Er</option><option>Ich</option><option>Sie</option><option>Wir</option></select></p>
+    <p class="fill-sentence">2. Marco und Lisa? _____ kommen aus Rom. <select class="inline-select" data-correct="Sie" onchange="checkSelect(this)"><option value="">—</option><option>Er</option><option>Wir</option><option>Sie</option><option>Ihr</option></select></p>
+    <p class="fill-sentence">3. _____ (you, informal) lernst Deutsch, oder? <select class="inline-select" data-correct="Du" onchange="checkSelect(this)"><option value="">—</option><option>Du</option><option>Sie</option><option>Wir</option><option>Ihr</option></select></p>
+    <p class="fill-sentence">4. Das Buch? _____ ist interessant. <select class="inline-select" data-correct="Es" onchange="checkSelect(this)"><option value="">—</option><option>Er</option><option>Sie</option><option>Es</option><option>Wir</option></select></p>
+    <p class="fill-sentence">5. _____ wohnen in Berlin. (we) <select class="inline-select" data-correct="Wir" onchange="checkSelect(this)"><option value="">—</option><option>Ich</option><option>Wir</option><option>Ihr</option><option>Sie</option></select></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  6. THE 4 CASES
+══════════════════════════════ -->
+<section id="cases">
+  <div class="section-header">
+    <div class="section-icon">⚖️</div>
+    <h2>Die 4 Fälle (Kasus) <small>The 4 cases — what they are and why they exist</small></h2>
+  </div>
+
+  <div class="card" style="background:#fffbf0;border-color:var(--gold);">
+    <h3 style="color:var(--orange);">💡 Was ist ein Kasus? — What is a case?</h3>
+    <p style="font-size:0.93rem;margin-bottom:0.8rem;">In German, nouns and articles <strong>change their form</strong> depending on their <em>role</em> in the sentence. Think of it as a label that tells you: <em>"Is this word the actor? The thing being acted on? The recipient?"</em></p>
+    <p style="font-size:0.93rem;">Don't worry — at A0/A1 you only need to <strong>recognise</strong> them and use Nominativ + Akkusativ actively. Dativ comes at A2, Genitiv at B1.</p>
+  </div>
+
+  <div class="case-grid">
+    <div class="case-box nom">
+      <div class="qlabel">Fragt: WER? WAS?</div>
+      <h4>1. Nominativ</h4>
+      <p>The <em>subject</em> — the person or thing doing the action.<br><br>
+      <em>Der Mann</em> kauft Brot.<br><small>(The man buys bread.)</small></p>
+    </div>
+    <div class="case-box akk">
+      <div class="qlabel">Fragt: WEN? WAS?</div>
+      <h4>2. Akkusativ</h4>
+      <p>The <em>direct object</em> — what or who receives the action directly.<br><br>
+      Der Mann kauft <em>den Apfel</em>.<br><small>(The man buys the apple.)</small></p>
+    </div>
+    <div class="case-box dat">
+      <div class="qlabel">Fragt: WEM?</div>
+      <h4>3. Dativ</h4>
+      <p>The <em>indirect object</em> — to whom or for whom something is done.<br><br>
+      Ich gebe <em>dem Kind</em> ein Buch.<br><small>(I give the child a book.)</small></p>
+    </div>
+    <div class="case-box gen">
+      <div class="qlabel">Fragt: WESSEN?</div>
+      <h4>4. Genitiv</h4>
+      <p>Shows <em>possession</em> — whose something is.<br><br>
+      Das ist das Buch <em>des Mannes</em>.<br><small>(That is the man's book.)</small></p>
+    </div>
+  </div>
+
+  <!-- Visual sentence diagram -->
+  <div class="card">
+    <h3>🔍 Ein Satz — vier Rollen</h3>
+    <p class="instruction">See how the same sentence parts fit into the case system.</p>
+    <div class="word-order-demo">
+      <div class="wo-label">Nominativ (Wer?) → Verb → Akkusativ (Was?)</div>
+      <span class="wo-box pos1">Der Hund</span>
+      <span class="wo-box pos2">frisst</span>
+      <span class="wo-box rest">den Kuchen.</span>
+      <div style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;font-family:sans-serif;">The dog <em>(NOM)</em> eats the cake <em>(AKK)</em>.</div>
+    </div>
+    <div class="word-order-demo">
+      <div class="wo-label">Nominativ → Verb → Dativ (Wem?) → Akkusativ</div>
+      <span class="wo-box pos1">Die Lehrerin</span>
+      <span class="wo-box pos2">gibt</span>
+      <span class="wo-box rest" style="border-color:var(--dat);background:#d1fae5;color:var(--dat);">dem Kind</span>
+      <span class="wo-box rest">ein Buch.</span>
+      <div style="font-size:0.8rem;color:var(--muted);margin-top:0.4rem;font-family:sans-serif;">The teacher <em>(NOM)</em> gives the child <em>(DAT)</em> a book <em>(AKK)</em>.</div>
+    </div>
+  </div>
+
+  <!-- Exercise: Nom vs Akk -->
+  <div class="card">
+    <h3><span class="ex-num">Ü5</span> Nominativ oder Akkusativ? <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Identify the role of the highlighted word. Choose NOM or AKK.</p>
+    <ul class="tf-list" id="caseList">
+      <li><span>1. <strong>Der Mann</strong> trinkt Kaffee. → "Der Mann" is …</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">NOM</button>
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">AKK</button>
+        </div>
+      </li>
+      <li><span>2. Sie kauft <strong>den Apfel</strong>. → "den Apfel" is …</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="AKK" onclick="checkTF2(this)">NOM</button>
+          <button class="tf-btn" data-correct="AKK" onclick="checkTF2(this)">AKK</button>
+        </div>
+      </li>
+      <li><span>3. <strong>Die Kinder</strong> spielen im Park. → "Die Kinder" is …</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">NOM</button>
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">AKK</button>
+        </div>
+      </li>
+      <li><span>4. Ich sehe <strong>die Stadt</strong>. → "die Stadt" is …</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="AKK" onclick="checkTF2(this)">NOM</button>
+          <button class="tf-btn" data-correct="AKK" onclick="checkTF2(this)">AKK</button>
+        </div>
+      </li>
+      <li><span>5. <strong>Das Buch</strong> ist interessant. → "Das Buch" is …</span>
+        <div class="tf-options">
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">NOM</button>
+          <button class="tf-btn" data-correct="NOM" onclick="checkTF2(this)">AKK</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  7. ARTICLES
+══════════════════════════════ -->
+<section id="articles">
+  <div class="section-header">
+    <div class="section-icon">📋</div>
+    <h2>Artikel <small>Definite (der/die/das) and indefinite (ein/eine) articles</small></h2>
+  </div>
+
+  <div class="card">
+    <h3>Bestimmte Artikel (Definite: "the")</h3>
+    <p class="instruction" style="margin-bottom:0.8rem;">German has <strong>3 genders</strong>: Maskulin (m) · Feminin (f) · Neutrum (n). The article tells you the gender.</p>
+    <table class="art-table">
+      <tr><th>Fall (Case)</th><th class="m">Maskulin (m)</th><th class="f">Feminin (f)</th><th class="n">Neutrum (n)</th><th class="pl">Plural</th></tr>
+      <tr><td><strong>Nominativ</strong> (subject)</td><td class="m">der</td><td class="f">die</td><td class="n">das</td><td class="pl">die</td></tr>
+      <tr><td><strong>Akkusativ</strong> (direct obj.)</td><td class="m highlight">den ⚠️</td><td class="f">die</td><td class="n">das</td><td class="pl">die</td></tr>
+      <tr><td><strong>Dativ</strong> (indirect obj.)</td><td class="m">dem</td><td class="f">der</td><td class="n">dem</td><td class="pl">den (+n)</td></tr>
+      <tr><td><strong>Genitiv</strong> (possession)</td><td class="m">des (+s)</td><td class="f">der</td><td class="n">des (+s)</td><td class="pl">der</td></tr>
+    </table>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:0.6rem;font-family:sans-serif;">⚠️ Only <strong>maskulin accusativ</strong> changes: <em>der → den</em>. All others stay the same in NOM/AKK.</p>
+  </div>
+
+  <div class="card">
+    <h3>Unbestimmte Artikel (Indefinite: "a/an")</h3>
+    <table class="art-table">
+      <tr><th>Fall</th><th class="m">Maskulin</th><th class="f">Feminin</th><th class="n">Neutrum</th><th class="pl">Plural</th></tr>
+      <tr><td><strong>Nominativ</strong></td><td class="m">ein</td><td class="f">eine</td><td class="n">ein</td><td class="pl">— (no article)</td></tr>
+      <tr><td><strong>Akkusativ</strong></td><td class="m highlight">einen ⚠️</td><td class="f">eine</td><td class="n">ein</td><td class="pl">—</td></tr>
+      <tr><td><strong>Dativ</strong></td><td class="m">einem</td><td class="f">einer</td><td class="n">einem</td><td class="pl">—</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Negativartikel: kein / keine</h3>
+    <p style="font-size:0.9rem;margin-bottom:0.7rem;">Used to negate a noun. Follows the <em>same pattern</em> as ein/eine.</p>
+    <div class="phrase-grid">
+      <div class="phrase-card"><div class="de">Ich habe kein Auto.</div><div class="en">I have no car. (Neutrum)</div></div>
+      <div class="phrase-card"><div class="de">Das ist kein Problem.</div><div class="en">That's not a problem.</div></div>
+      <div class="phrase-card"><div class="de">Ich habe keine Zeit.</div><div class="en">I have no time. (Feminin)</div></div>
+      <div class="phrase-card"><div class="de">Er hat keinen Bruder.</div><div class="en">He has no brother. (Mask. AKK)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü6</span> Der, Die oder Das? <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Wähle den richtigen Artikel (Nominativ).</p>
+    <p class="fill-sentence">1. <select class="inline-select" data-correct="der" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Mann (m)</p>
+    <p class="fill-sentence">2. <select class="inline-select" data-correct="die" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Frau (f)</p>
+    <p class="fill-sentence">3. <select class="inline-select" data-correct="das" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Kind (n)</p>
+    <p class="fill-sentence">4. <select class="inline-select" data-correct="die" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Schule (f)</p>
+    <p class="fill-sentence">5. <select class="inline-select" data-correct="der" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Bahnhof (m)</p>
+    <p class="fill-sentence">6. <select class="inline-select" data-correct="das" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>die</option><option>das</option></select> Buch (n)</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü7</span> Nominativ → Akkusativ <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Complete with the correct akkusativ article.</p>
+    <p class="fill-sentence">1. Ich sehe <select class="inline-select" data-correct="den" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>den</option><option>die</option><option>das</option></select> Mann. (m)</p>
+    <p class="fill-sentence">2. Er kauft <select class="inline-select" data-correct="eine" onchange="checkSelect(this)"><option value="">—</option><option>ein</option><option>eine</option><option>einen</option></select> Zeitung. (f)</p>
+    <p class="fill-sentence">3. Sie liest <select class="inline-select" data-correct="das" onchange="checkSelect(this)"><option value="">—</option><option>der</option><option>den</option><option>das</option></select> Buch. (n)</p>
+    <p class="fill-sentence">4. Wir besuchen <select class="inline-select" data-correct="einen" onchange="checkSelect(this)"><option value="">—</option><option>ein</option><option>eine</option><option>einen</option></select> Freund. (m)</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  8. NUMBERS
+══════════════════════════════ -->
+<section id="numbers">
+  <div class="section-header">
+    <div class="section-icon">🔢</div>
+    <h2>Zahlen <small>Numbers 1–1000</small></h2>
+  </div>
+
+  <div class="card">
+    <div class="num-section-title">1 – 20</div>
+    <div class="numbers-grid">
+      <div class="num-card"><span class="num">1</span><span class="word">eins</span></div>
+      <div class="num-card"><span class="num">2</span><span class="word">zwei</span></div>
+      <div class="num-card"><span class="num">3</span><span class="word">drei</span></div>
+      <div class="num-card"><span class="num">4</span><span class="word">vier</span></div>
+      <div class="num-card"><span class="num">5</span><span class="word">fünf</span></div>
+      <div class="num-card"><span class="num">6</span><span class="word">sechs</span></div>
+      <div class="num-card"><span class="num">7</span><span class="word">sieben</span></div>
+      <div class="num-card"><span class="num">8</span><span class="word">acht</span></div>
+      <div class="num-card"><span class="num">9</span><span class="word">neun</span></div>
+      <div class="num-card"><span class="num">10</span><span class="word">zehn</span></div>
+      <div class="num-card"><span class="num">11</span><span class="word">elf</span></div>
+      <div class="num-card"><span class="num">12</span><span class="word">zwölf</span></div>
+      <div class="num-card"><span class="num">13</span><span class="word">dreizehn</span></div>
+      <div class="num-card"><span class="num">14</span><span class="word">vierzehn</span></div>
+      <div class="num-card"><span class="num">15</span><span class="word">fünfzehn</span></div>
+      <div class="num-card"><span class="num">16</span><span class="word">sechzehn</span></div>
+      <div class="num-card"><span class="num">17</span><span class="word">siebzehn</span></div>
+      <div class="num-card"><span class="num">18</span><span class="word">achtzehn</span></div>
+      <div class="num-card"><span class="num">19</span><span class="word">neunzehn</span></div>
+      <div class="num-card"><span class="num">20</span><span class="word">zwanzig</span></div>
+    </div>
+
+    <div class="num-section-title">Tens — 30 to 90</div>
+    <div class="numbers-grid">
+      <div class="num-card"><span class="num">30</span><span class="word">dreißig</span></div>
+      <div class="num-card"><span class="num">40</span><span class="word">vierzig</span></div>
+      <div class="num-card"><span class="num">50</span><span class="word">fünfzig</span></div>
+      <div class="num-card"><span class="num">60</span><span class="word">sechzig</span></div>
+      <div class="num-card"><span class="num">70</span><span class="word">siebzig</span></div>
+      <div class="num-card"><span class="num">80</span><span class="word">achtzig</span></div>
+      <div class="num-card"><span class="num">90</span><span class="word">neunzig</span></div>
+    </div>
+
+    <div class="ref-strip" style="margin-top:1rem;">
+      <h3>📌 The Pattern: 21–99</h3>
+      <p style="color:#e0e0e0;font-size:0.9rem;margin-bottom:0.5rem;"><strong style="color:var(--gold);">ones + und + tens</strong> (ones come FIRST in German!)</p>
+      <table class="ref-table">
+        <tr><th>Number</th><th>Formula</th><th>German</th></tr>
+        <tr><td>21</td><td>ein + und + zwanzig</td><td>einundzwanzig</td></tr>
+        <tr><td>35</td><td>fünf + und + dreißig</td><td>fünfunddreißig</td></tr>
+        <tr><td>47</td><td>sieben + und + vierzig</td><td>siebenundvierzig</td></tr>
+        <tr><td>99</td><td>neun + und + neunzig</td><td>neunundneunzig</td></tr>
+      </table>
+    </div>
+
+    <div class="num-section-title">Hundreds &amp; Thousands</div>
+    <div class="numbers-grid">
+      <div class="num-card"><span class="num">100</span><span class="word">hundert</span></div>
+      <div class="num-card"><span class="num">200</span><span class="word">zweihundert</span></div>
+      <div class="num-card"><span class="num">300</span><span class="word">dreihundert</span></div>
+      <div class="num-card"><span class="num">500</span><span class="word">fünfhundert</span></div>
+      <div class="num-card"><span class="num">1000</span><span class="word">tausend</span></div>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:0.6rem;font-family:sans-serif;">
+      145 = <strong>hundertfünfundvierzig</strong> &nbsp;·&nbsp;
+      237 = <strong>zweihundertsiebunddreißig</strong> &nbsp;·&nbsp;
+      1990 = <strong>neunzehnhundertneunzig</strong>
+    </p>
+  </div>
+
+  <!-- Number Quiz -->
+  <div class="card">
+    <h3><span class="ex-num">Ü8</span> Zahlen-Quiz <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">What is the German word for this number? Click the correct answer!</p>
+    <div class="num-quiz">
+      <div class="num-quiz-q" id="quizNum">—</div>
+      <div class="num-quiz-options" id="quizOptions"></div>
+      <div class="num-quiz-score" id="quizScore">Score: 0 / 0</div>
+    </div>
+    <button id="nextNumBtn" onclick="nextNumQuestion()">Start Quiz →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  9. ESSENTIAL VERBS
+══════════════════════════════ -->
+<section id="verbs">
+  <div class="section-header">
+    <div class="section-icon">🏃</div>
+    <h2>Die wichtigsten Verben <small>10 essential verbs — fully conjugated</small></h2>
+  </div>
+
+  <div class="card">
+    <h3>Click a verb to see its conjugation</h3>
+    <div class="verb-tabs" id="verbTabs">
+      <button class="verb-tab active" onclick="showVerb('sein')">sein (to be)</button>
+      <button class="verb-tab" onclick="showVerb('haben')">haben (to have)</button>
+      <button class="verb-tab" onclick="showVerb('gehen')">gehen (to go)</button>
+      <button class="verb-tab" onclick="showVerb('kommen')">kommen (to come)</button>
+      <button class="verb-tab" onclick="showVerb('fragen')">fragen (to ask)</button>
+      <button class="verb-tab" onclick="showVerb('nehmen')">nehmen (to take)</button>
+      <button class="verb-tab" onclick="showVerb('arbeiten')">arbeiten (to work)</button>
+      <button class="verb-tab" onclick="showVerb('gehen2')">spazieren gehen (to walk)</button>
+      <button class="verb-tab" onclick="showVerb('machen')">machen (to do/make)</button>
+      <button class="verb-tab" onclick="showVerb('sprechen')">sprechen (to speak)</button>
+    </div>
+
+    <div id="verbSein" class="verb-conjugation active">
+      <table class="conj-table"><tr><th>Person</th><th>sein</th><th>Example</th></tr>
+      <tr><td>ich</td><td>bin</td><td>Ich bin Lehrer.</td></tr>
+      <tr><td>du</td><td>bist</td><td>Du bist nett.</td></tr>
+      <tr><td>er/sie/es</td><td>ist</td><td>Er ist müde.</td></tr>
+      <tr><td>wir</td><td>sind</td><td>Wir sind hier.</td></tr>
+      <tr><td>ihr</td><td>seid</td><td>Ihr seid toll.</td></tr>
+      <tr><td>sie/Sie</td><td>sind</td><td>Sie sind Studenten.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--orange);margin-top:0.6rem;font-family:sans-serif;">⚠️ Highly irregular — must be memorised!</p>
+    </div>
+
+    <div id="verbHaben" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>haben</th><th>Example</th></tr>
+      <tr><td>ich</td><td>habe</td><td>Ich habe ein Buch.</td></tr>
+      <tr><td>du</td><td>hast</td><td>Du hast Hunger.</td></tr>
+      <tr><td>er/sie/es</td><td>hat</td><td>Sie hat einen Hund.</td></tr>
+      <tr><td>wir</td><td>haben</td><td>Wir haben Zeit.</td></tr>
+      <tr><td>ihr</td><td>habt</td><td>Ihr habt Glück.</td></tr>
+      <tr><td>sie/Sie</td><td>haben</td><td>Sie haben Kinder.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--orange);margin-top:0.6rem;font-family:sans-serif;">⚠️ Also irregular — memorise du hast / er hat!</p>
+    </div>
+
+    <div id="verbGehen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>gehen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>gehe</td><td>Ich gehe nach Hause.</td></tr>
+      <tr><td>du</td><td>gehst</td><td>Du gehst in die Schule.</td></tr>
+      <tr><td>er/sie/es</td><td>geht</td><td>Er geht einkaufen.</td></tr>
+      <tr><td>wir</td><td>gehen</td><td>Wir gehen ins Kino.</td></tr>
+      <tr><td>ihr</td><td>geht</td><td>Geht ihr mit?</td></tr>
+      <tr><td>sie/Sie</td><td>gehen</td><td>Sie gehen spazieren.</td></tr></table>
+    </div>
+
+    <div id="verbKommen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>kommen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>komme</td><td>Ich komme aus Italien.</td></tr>
+      <tr><td>du</td><td>kommst</td><td>Woher kommst du?</td></tr>
+      <tr><td>er/sie/es</td><td>kommt</td><td>Er kommt morgen.</td></tr>
+      <tr><td>wir</td><td>kommen</td><td>Wir kommen um 8 Uhr.</td></tr>
+      <tr><td>ihr</td><td>kommt</td><td>Ihr kommt zu spät!</td></tr>
+      <tr><td>sie/Sie</td><td>kommen</td><td>Sie kommen mit.</td></tr></table>
+    </div>
+
+    <div id="verbFragen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>fragen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>frage</td><td>Ich frage den Lehrer.</td></tr>
+      <tr><td>du</td><td>fragst</td><td>Du fragst immer!</td></tr>
+      <tr><td>er/sie/es</td><td>fragt</td><td>Sie fragt nach dem Weg.</td></tr>
+      <tr><td>wir</td><td>fragen</td><td>Wir fragen zusammen.</td></tr>
+      <tr><td>ihr</td><td>fragt</td><td>Ihr fragt zu viel.</td></tr>
+      <tr><td>sie/Sie</td><td>fragen</td><td>Sie fragen höflich.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--blue);margin-top:0.6rem;font-family:sans-serif;">✅ Regular verb — pattern: stem + e/st/t/en/t/en</p>
+    </div>
+
+    <div id="verbNehmen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>nehmen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>nehme</td><td>Ich nehme den Bus.</td></tr>
+      <tr><td>du</td><td>nimmst</td><td>Du nimmst das Taxi.</td></tr>
+      <tr><td>er/sie/es</td><td>nimmt</td><td>Er nimmt ein Buch.</td></tr>
+      <tr><td>wir</td><td>nehmen</td><td>Wir nehmen Kaffee.</td></tr>
+      <tr><td>ihr</td><td>nehmt</td><td>Ihr nehmt die U-Bahn.</td></tr>
+      <tr><td>sie/Sie</td><td>nehmen</td><td>Sie nehmen Platz.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--orange);margin-top:0.6rem;font-family:sans-serif;">⚠️ Stem vowel change: nehmen → nimmst / nimmt</p>
+    </div>
+
+    <div id="verbArbeiten" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>arbeiten</th><th>Example</th></tr>
+      <tr><td>ich</td><td>arbeite</td><td>Ich arbeite viel.</td></tr>
+      <tr><td>du</td><td>arbeitest</td><td>Du arbeitest zu Hause.</td></tr>
+      <tr><td>er/sie/es</td><td>arbeitet</td><td>Er arbeitet im Büro.</td></tr>
+      <tr><td>wir</td><td>arbeiten</td><td>Wir arbeiten zusammen.</td></tr>
+      <tr><td>ihr</td><td>arbeitet</td><td>Ihr arbeitet fleißig.</td></tr>
+      <tr><td>sie/Sie</td><td>arbeiten</td><td>Sie arbeiten gern.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--blue);margin-top:0.6rem;font-family:sans-serif;">✅ Regular — but adds -e- before -st/-t when stem ends in -t/-d</p>
+    </div>
+
+    <div id="verbGehen2" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>spazieren gehen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>gehe spazieren</td><td>Ich gehe im Park spazieren.</td></tr>
+      <tr><td>du</td><td>gehst spazieren</td><td>Gehst du mit?</td></tr>
+      <tr><td>er/sie/es</td><td>geht spazieren</td><td>Er geht jeden Tag spazieren.</td></tr>
+      <tr><td>wir</td><td>gehen spazieren</td><td>Wir gehen spazieren!</td></tr>
+      <tr><td>ihr</td><td>geht spazieren</td><td>Geht ihr spazieren?</td></tr>
+      <tr><td>sie/Sie</td><td>gehen spazieren</td><td>Sie gehen gerne spazieren.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--blue);margin-top:0.6rem;font-family:sans-serif;">ℹ️ Separable-like phrase — <em>spazieren</em> goes to the end of the sentence</p>
+    </div>
+
+    <div id="verbMachen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>machen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>mache</td><td>Ich mache Hausaufgaben.</td></tr>
+      <tr><td>du</td><td>machst</td><td>Was machst du?</td></tr>
+      <tr><td>er/sie/es</td><td>macht</td><td>Er macht Pause.</td></tr>
+      <tr><td>wir</td><td>machen</td><td>Wir machen Sport.</td></tr>
+      <tr><td>ihr</td><td>macht</td><td>Ihr macht Lärm!</td></tr>
+      <tr><td>sie/Sie</td><td>machen</td><td>Sie machen Urlaub.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--blue);margin-top:0.6rem;font-family:sans-serif;">✅ Perfectly regular — great model verb for the -en pattern!</p>
+    </div>
+
+    <div id="verbSprechen" class="verb-conjugation">
+      <table class="conj-table"><tr><th>Person</th><th>sprechen</th><th>Example</th></tr>
+      <tr><td>ich</td><td>spreche</td><td>Ich spreche Deutsch.</td></tr>
+      <tr><td>du</td><td>sprichst</td><td>Sprichst du Englisch?</td></tr>
+      <tr><td>er/sie/es</td><td>spricht</td><td>Er spricht langsam.</td></tr>
+      <tr><td>wir</td><td>sprechen</td><td>Wir sprechen zusammen.</td></tr>
+      <tr><td>ihr</td><td>sprecht</td><td>Ihr sprecht zu laut!</td></tr>
+      <tr><td>sie/Sie</td><td>sprechen</td><td>Sie sprechen Französisch.</td></tr></table>
+      <p style="font-size:0.8rem;color:var(--orange);margin-top:0.6rem;font-family:sans-serif;">⚠️ Stem vowel change: sprechen → sprichst / spricht</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü9</span> Verb konjugieren <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Fill in the correct verb form.</p>
+    <p class="fill-sentence">1. Ich _____ (sein) Lehrerin. <input type="text" data-correct="bin" placeholder="…" oninput="liveCheck(this)"></p>
+    <p class="fill-sentence">2. Du _____ (haben) ein Fahrrad. <input type="text" data-correct="hast" placeholder="…" oninput="liveCheck(this)"></p>
+    <p class="fill-sentence">3. Er _____ (kommen) aus Deutschland. <input type="text" data-correct="kommt" placeholder="…" oninput="liveCheck(this)"></p>
+    <p class="fill-sentence">4. Wir _____ (machen) Hausaufgaben. <input type="text" data-correct="machen" placeholder="…" oninput="liveCheck(this)"></p>
+    <p class="fill-sentence">5. Sie (she) _____ (sprechen) drei Sprachen. <input type="text" data-correct="spricht" placeholder="…" oninput="liveCheck(this)"></p>
+    <p class="fill-sentence">6. Ihr _____ (arbeiten) heute nicht. <input type="text" data-correct="arbeitet" placeholder="…" oninput="liveCheck(this)"></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  10. WORD ORDER
+══════════════════════════════ -->
+<section id="wordorder">
+  <div class="section-header">
+    <div class="section-icon">📐</div>
+    <h2>Satzstellung <small>Word order — the #1 rule in German</small></h2>
+  </div>
+  <div class="card" style="background:#fffbf0;border-color:var(--gold);">
+    <h3 style="color:var(--orange);">🔑 The Golden Rule: The verb is ALWAYS in position 2</h3>
+    <p style="font-size:0.9rem;margin-bottom:1rem;">No matter what comes first in the sentence, the <strong>verb stays in second place</strong>.</p>
+    <div class="word-order-demo">
+      <div class="wo-label">Normal order</div>
+      <span class="wo-box pos1">Ich</span><span class="wo-box pos2">gehe</span><span class="wo-box rest">heute nach Berlin.</span>
+    </div>
+    <div class="word-order-demo">
+      <div class="wo-label">Time word first (verb still 2nd!)</div>
+      <span class="wo-box pos1">Heute</span><span class="wo-box pos2">gehe</span><span class="wo-box rest">ich nach Berlin.</span>
+    </div>
+    <div class="word-order-demo">
+      <div class="wo-label">Yes/No question → verb comes FIRST</div>
+      <span class="wo-box pos2">Gehst</span><span class="wo-box rest">du nach Berlin?</span>
+    </div>
+    <div class="word-order-demo">
+      <div class="wo-label">W-Question → question word + verb + subject</div>
+      <span class="wo-box pos1">Wohin</span><span class="wo-box pos2">gehst</span><span class="wo-box rest">du?</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="ex-num">Ü10</span> Satzstellung <span class="grammar-tag tag-a1">A1</span></h3>
+    <p class="instruction">Select the word that correctly fills position 2 (the verb slot).</p>
+    <div class="mc-item">
+      <div class="mc-question">1. Morgen _____ wir ins Kino.</div>
+      <div class="mc-options" id="mc-wo1">
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-wo1')">gehen</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo1')">wir</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo1')">Kino</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">2. In Berlin _____ viele Touristen.</div>
+      <div class="mc-options" id="mc-wo2">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo2')">viele</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-wo2')">wohnen</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo2')">Berlin</button>
+      </div>
+    </div>
+    <div class="mc-item">
+      <div class="mc-question">3. _____ du Deutsch? (Yes/No question)</div>
+      <div class="mc-options" id="mc-wo3">
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo3')">Du</button>
+        <button class="mc-opt" data-correct="false" onclick="checkMC(this,'mc-wo3')">Warum</button>
+        <button class="mc-opt" data-correct="true" onclick="checkMC(this,'mc-wo3')">Sprichst</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  11. DAYS, MONTHS & TIME
+══════════════════════════════ -->
+<section id="time">
+  <div class="section-header">
+    <div class="section-icon">📅</div>
+    <h2>Zeit &amp; Kalender <small>Days, months and time words</small></h2>
+  </div>
+  <div class="card">
+    <h3>Wochentage (Days of the Week)</h3>
+    <div class="dm-grid">
+      <div class="dm-card"><span class="de">Montag</span><span class="en">Monday</span></div>
+      <div class="dm-card"><span class="de">Dienstag</span><span class="en">Tuesday</span></div>
+      <div class="dm-card"><span class="de">Mittwoch</span><span class="en">Wednesday</span></div>
+      <div class="dm-card"><span class="de">Donnerstag</span><span class="en">Thursday</span></div>
+      <div class="dm-card"><span class="de">Freitag</span><span class="en">Friday</span></div>
+      <div class="dm-card"><span class="de">Samstag</span><span class="en">Saturday</span></div>
+      <div class="dm-card"><span class="de">Sonntag</span><span class="en">Sunday</span></div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:0.6rem;font-family:sans-serif;">Usage: <em>am Montag</em> (on Monday) · <em>jeden Dienstag</em> (every Tuesday)</p>
+  </div>
+
+  <div class="card">
+    <h3>Monate (Months)</h3>
+    <div class="dm-grid">
+      <div class="dm-card"><span class="de">Januar</span><span class="en">January</span></div>
+      <div class="dm-card"><span class="de">Februar</span><span class="en">February</span></div>
+      <div class="dm-card"><span class="de">März</span><span class="en">March</span></div>
+      <div class="dm-card"><span class="de">April</span><span class="en">April</span></div>
+      <div class="dm-card"><span class="de">Mai</span><span class="en">May</span></div>
+      <div class="dm-card"><span class="de">Juni</span><span class="en">June</span></div>
+      <div class="dm-card"><span class="de">Juli</span><span class="en">July</span></div>
+      <div class="dm-card"><span class="de">August</span><span class="en">August</span></div>
+      <div class="dm-card"><span class="de">September</span><span class="en">September</span></div>
+      <div class="dm-card"><span class="de">Oktober</span><span class="en">October</span></div>
+      <div class="dm-card"><span class="de">November</span><span class="en">November</span></div>
+      <div class="dm-card"><span class="de">Dezember</span><span class="en">December</span></div>
+    </div>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:0.6rem;font-family:sans-serif;">Usage: <em>im März</em> (in March) · <em>im Sommer</em> (in summer)</p>
+  </div>
+
+  <div class="card">
+    <h3>Zeitwörter (Time Words)</h3>
+    <div class="phrase-grid">
+      <div class="phrase-card"><div class="de">heute</div><div class="en">today</div></div>
+      <div class="phrase-card"><div class="de">morgen</div><div class="en">tomorrow</div></div>
+      <div class="phrase-card"><div class="de">gestern</div><div class="en">yesterday</div></div>
+      <div class="phrase-card"><div class="de">jetzt / gerade</div><div class="en">now / at the moment</div></div>
+      <div class="phrase-card"><div class="de">bald</div><div class="en">soon</div></div>
+      <div class="phrase-card"><div class="de">immer</div><div class="en">always</div></div>
+      <div class="phrase-card"><div class="de">manchmal</div><div class="en">sometimes</div></div>
+      <div class="phrase-card"><div class="de">nie / niemals</div><div class="en">never</div></div>
+      <div class="phrase-card"><div class="de">früh / morgens</div><div class="en">early / in the morning</div></div>
+      <div class="phrase-card"><div class="de">abends</div><div class="en">in the evening</div></div>
+      <div class="phrase-card"><div class="de">am Wochenende</div><div class="en">at the weekend</div></div>
+      <div class="phrase-card"><div class="de">nächste Woche</div><div class="en">next week</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  12. COLOURS
+══════════════════════════════ -->
+<section id="colours">
+  <div class="section-header">
+    <div class="section-icon">🎨</div>
+    <h2>Farben <small>Colours</small></h2>
+  </div>
+  <div class="colour-grid">
+    <div class="colour-card" style="background:#e74c3c;"><div>rot</div><div class="en">red</div></div>
+    <div class="colour-card" style="background:#3498db;"><div>blau</div><div class="en">blue</div></div>
+    <div class="colour-card" style="background:#27ae60;"><div>grün</div><div class="en">green</div></div>
+    <div class="colour-card" style="background:#f39c12;"><div>gelb</div><div class="en">yellow</div></div>
+    <div class="colour-card" style="background:#e67e22;"><div>orange</div><div class="en">orange</div></div>
+    <div class="colour-card" style="background:#8e44ad;"><div>lila / violett</div><div class="en">purple</div></div>
+    <div class="colour-card" style="background:#e91e8c;"><div>rosa</div><div class="en">pink</div></div>
+    <div class="colour-card" style="background:#795548;"><div>braun</div><div class="en">brown</div></div>
+    <div class="colour-card" style="background:#1a1a2e;"><div>schwarz</div><div class="en">black</div></div>
+    <div class="colour-card" style="background:#bdc3c7;color:#333;"><div>grau</div><div class="en">grey</div></div>
+    <div class="colour-card" style="background:#ecf0f1;color:#333;border:1px solid #ddd;"><div>weiß</div><div class="en">white</div></div>
+    <div class="colour-card" style="background:#a29bfe;"><div>hellblau</div><div class="en">light blue</div></div>
+  </div>
+  <p style="font-size:0.82rem;color:var(--muted);margin-top:0.7rem;font-family:sans-serif;">Usage: <em>Das Auto ist rot.</em> (The car is red.) · <em>ein rotes Auto</em> (a red car — adjective takes ending)</p>
+</section>
+
+<!-- ══════════════════════════════
+  13. COMMON ADJECTIVES
+══════════════════════════════ -->
+<section id="adjectives">
+  <div class="section-header">
+    <div class="section-icon">⚡</div>
+    <h2>Wichtige Adjektive <small>Essential adjective pairs</small></h2>
+  </div>
+  <div class="adj-grid">
+    <div class="adj-pair"><span class="a1">groß</span><span class="sep">/</span><span class="a2">klein</span><span class="en">big / small</span></div>
+    <div class="adj-pair"><span class="a1">alt</span><span class="sep">/</span><span class="a2">jung</span><span class="en">old / young</span></div>
+    <div class="adj-pair"><span class="a1">gut</span><span class="sep">/</span><span class="a2">schlecht</span><span class="en">good / bad</span></div>
+    <div class="adj-pair"><span class="a1">schön</span><span class="sep">/</span><span class="a2">hässlich</span><span class="en">beautiful / ugly</span></div>
+    <div class="adj-pair"><span class="a1">neu</span><span class="sep">/</span><span class="a2">alt</span><span class="en">new / old</span></div>
+    <div class="adj-pair"><span class="a1">schnell</span><span class="sep">/</span><span class="a2">langsam</span><span class="en">fast / slow</span></div>
+    <div class="adj-pair"><span class="a1">warm</span><span class="sep">/</span><span class="a2">kalt</span><span class="en">warm / cold</span></div>
+    <div class="adj-pair"><span class="a1">laut</span><span class="sep">/</span><span class="a2">leise</span><span class="en">loud / quiet</span></div>
+    <div class="adj-pair"><span class="a1">teuer</span><span class="sep">/</span><span class="a2">günstig</span><span class="en">expensive / cheap</span></div>
+    <div class="adj-pair"><span class="a1">einfach</span><span class="sep">/</span><span class="a2">schwer</span><span class="en">easy / difficult</span></div>
+    <div class="adj-pair"><span class="a1">interessant</span><span class="sep">/</span><span class="a2">langweilig</span><span class="en">interesting / boring</span></div>
+    <div class="adj-pair"><span class="a1">nett</span><span class="sep">/</span><span class="a2">unfreundlich</span><span class="en">nice / unfriendly</span></div>
+  </div>
+
+  <div class="card" style="margin-top:1.2rem;">
+    <h3><span class="ex-num">Ü11</span> Gegensätze (Opposites) <span class="grammar-tag tag-a0">A0</span></h3>
+    <p class="instruction">Match each word with its opposite — click left, then right.</p>
+    <div class="match-2col" id="adjMatchGrid">
+      <div class="match-col" id="adjDE">
+        <div class="match-item" data-pair="1">groß</div>
+        <div class="match-item" data-pair="2">warm</div>
+        <div class="match-item" data-pair="3">schnell</div>
+        <div class="match-item" data-pair="4">gut</div>
+        <div class="match-item" data-pair="5">neu</div>
+      </div>
+      <div class="match-col" id="adjEN">
+        <div class="match-item" data-pair="3">langsam</div>
+        <div class="match-item" data-pair="5">alt</div>
+        <div class="match-item" data-pair="1">klein</div>
+        <div class="match-item" data-pair="4">schlecht</div>
+        <div class="match-item" data-pair="2">kalt</div>
+      </div>
+    </div>
+    <div id="adjMatchFeedback" class="feedback-msg" style="display:none;margin-top:0.7rem;font-family:sans-serif;font-size:0.85rem;"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+  PROGRESS
+══════════════════════════════ -->
+<section id="progress">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <h2>Fortschritt <small>Your progress today</small></h2>
+  </div>
+  <div class="progress-section">
+    <h3>ÜBUNGSFORTSCHRITT</h3>
+    <div class="progress-row"><span class="label">Ü1 · Begrüßungen</span><div class="bar"><div class="bar-fill" id="bar-g1a" style="width:0%"></div></div><span class="count" id="cnt-g1a">0/3</span></div>
+    <div class="progress-row"><span class="label">Ü2 · Dialog</span><div class="bar"><div class="bar-fill" id="bar-u2" style="width:0%"></div></div><span class="count" id="cnt-u2">0/5</span></div>
+    <div class="progress-row"><span class="label">Ü3 · Fragewörter</span><div class="bar"><div class="bar-fill" id="bar-u3" style="width:0%"></div></div><span class="count" id="cnt-u3">0/4</span></div>
+    <div class="progress-row"><span class="label">Ü4 · Pronomen</span><div class="bar"><div class="bar-fill" id="bar-u4" style="width:0%"></div></div><span class="count" id="cnt-u4">0/5</span></div>
+    <div class="progress-row"><span class="label">Ü5 · Kasus NOM/AKK</span><div class="bar"><div class="bar-fill" id="bar-u5" style="width:0%"></div></div><span class="count" id="cnt-u5">0/5</span></div>
+    <div class="progress-row"><span class="label">Ü6 · Artikel</span><div class="bar"><div class="bar-fill" id="bar-u6" style="width:0%"></div></div><span class="count" id="cnt-u6">0/6</span></div>
+    <div class="progress-row"><span class="label">Ü7 · Akkusativ</span><div class="bar"><div class="bar-fill" id="bar-u7" style="width:0%"></div></div><span class="count" id="cnt-u7">0/4</span></div>
+    <div class="progress-row"><span class="label">Ü8 · Zahlen-Quiz</span><div class="bar"><div class="bar-fill" id="bar-u8" style="width:0%"></div></div><span class="count" id="cnt-u8">0/10</span></div>
+    <div class="progress-row"><span class="label">Ü9 · Verben</span><div class="bar"><div class="bar-fill" id="bar-u9" style="width:0%"></div></div><span class="count" id="cnt-u9">0/6</span></div>
+    <div class="progress-row"><span class="label">Ü10 · Satzstellung</span><div class="bar"><div class="bar-fill" id="bar-u10" style="width:0%"></div></div><span class="count" id="cnt-u10">0/3</span></div>
+    <div class="progress-row"><span class="label">Ü11 · Adjektive</span><div class="bar"><div class="bar-fill" id="bar-u11" style="width:0%"></div></div><span class="count" id="cnt-u11">0/5</span></div>
+  </div>
+</section>
+
+</main>
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; Lektion 0: Absolute Beginner &nbsp;·&nbsp; Niveau A0–A1 &nbsp;·&nbsp; Herzlich willkommen! 🇩🇪</footer>
+
+<script>
+/* ─── PROGRESS HELPERS ─── */
+function updateProgress(barId, cntId, correct, total) {
+  const bar = document.getElementById('bar-' + barId);
+  const cnt = document.getElementById('cnt-' + cntId);
+  if (bar) bar.style.width = Math.round(correct/total*100) + '%';
+  if (cnt) cnt.textContent = correct + '/' + total;
+}
+
+/* ─── MULTIPLE CHOICE ─── */
+const mcScores = {};
+function checkMC(btn, groupId) {
+  const group = document.getElementById(groupId);
+  if (group.dataset.done) return;
+  group.dataset.done = '1';
+  group.querySelectorAll('.mc-opt').forEach(o => {
+    o.classList.add('locked');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === btn) o.classList.add('wrong');
+  });
+  // Update relevant progress bar
+  const prefix = groupId.replace(/-\d+$/,'');
+  updateMCGroup(prefix);
+}
+function updateMCGroup(prefix) {
+  const groups = document.querySelectorAll(`[id^="${prefix}-"]`);
+  let right = 0;
+  groups.forEach(g => {
+    if (g.dataset.done && !g.querySelector('.mc-opt.wrong')) right++;
+  });
+  const barMap = {
+    'mc-g': ['g1a','g1a', groups.length],
+    'mc-q': ['u3','u3', groups.length],
+    'mc-wo': ['u10','u10', groups.length]
+  };
+  for (const [k,v] of Object.entries(barMap)) {
+    if (prefix.startsWith(k)) { updateProgress(v[0],v[1], right, v[2]); break; }
+  }
+}
+
+/* ─── TRUE/FALSE (NOM/AKK) ─── */
+function checkTF2(btn) {
+  const group = btn.closest('.tf-options');
+  if (group.dataset.done) return;
+  group.dataset.done = '1';
+  const correct = group.querySelectorAll('.tf-btn')[0].dataset.correct;
+  btn.classList.add(btn.textContent.trim() === correct ? 'correct' : 'wrong');
+  // mark the correct one too
+  group.querySelectorAll('.tf-btn').forEach(b => {
+    if (b.textContent.trim() === correct) b.classList.add('correct');
+  });
+  updateCaseScore();
+}
+function updateCaseScore() {
+  const all = document.querySelectorAll('#caseList .tf-options[data-done]');
+  let right = 0;
+  all.forEach(g => { if (!g.querySelector('.tf-btn.wrong')) right++; });
+  updateProgress('u5','u5', right, 5);
+}
+
+/* ─── LIVE CHECK inputs ─── */
+function liveCheck(input) {
+  const val = input.value.trim().toLowerCase();
+  const correct = (input.dataset.correct||'').toLowerCase();
+  input.classList.remove('correct','wrong');
+  if (val === correct) input.classList.add('correct');
+  else if (val.length >= correct.length) input.classList.add('wrong');
+  recalcInputGroup(input);
+}
+function recalcInputGroup(input) {
+  const section = input.closest('section');
+  if (!section) return;
+  const sId = section.id;
+  const barMap = {
+    introductions: ['u2','u2',5],
+    pronouns: ['u4','u4',5],
+    verbs: ['u9','u9',6],
+  };
+  if (barMap[sId]) {
+    const inputs = section.querySelectorAll('input[data-correct]');
+    let right = 0;
+    inputs.forEach(i => { if (i.classList.contains('correct')) right++; });
+    updateProgress(barMap[sId][0], barMap[sId][1], right, barMap[sId][2]);
+  }
+}
+
+/* ─── SELECT CHECK ─── */
+function checkSelect(sel) {
+  sel.classList.remove('correct','wrong');
+  if (sel.value === sel.dataset.correct) sel.classList.add('correct');
+  else if (sel.value) sel.classList.add('wrong');
+  recalcSelectGroup(sel);
+}
+function recalcSelectGroup(sel) {
+  const section = sel.closest('section');
+  const card = sel.closest('.card');
+  if (!section) return;
+  const sId = section.id;
+  const sels = card ? card.querySelectorAll('select[data-correct]') : section.querySelectorAll('select[data-correct]');
+  let right = 0;
+  sels.forEach(s => { if (s.classList.contains('correct')) right++; });
+  const total = sels.length;
+  const barMap = {
+    pronouns: ['u4','u4'],
+    articles: ['u6','u6'],
+  };
+  // Differentiate by card exercise number
+  const h3 = card && card.querySelector('.ex-num');
+  if (h3) {
+    const exId = h3.textContent.trim();
+    if (exId === 'Ü4') updateProgress('u4','u4', right, total);
+    else if (exId === 'Ü6') updateProgress('u6','u6', right, total);
+    else if (exId === 'Ü7') updateProgress('u7','u7', right, total);
+  }
+}
+
+/* ─── VERB TABS ─── */
+const verbMap = {
+  sein: 'verbSein', haben: 'verbHaben', gehen: 'verbGehen',
+  kommen: 'verbKommen', fragen: 'verbFragen', nehmen: 'verbNehmen',
+  arbeiten: 'verbArbeiten', gehen2: 'verbGehen2', machen: 'verbMachen',
+  sprechen: 'verbSprechen'
+};
+function showVerb(key) {
+  Object.values(verbMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  const target = document.getElementById(verbMap[key]);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.verb-tab').forEach((t,i) => {
+    t.classList.toggle('active', Object.keys(verbMap)[i] === key);
+  });
+}
+
+/* ─── NUMBER QUIZ ─── */
+const numData = [
+  [1,'eins'],[2,'zwei'],[3,'drei'],[4,'vier'],[5,'fünf'],
+  [6,'sechs'],[7,'sieben'],[8,'acht'],[9,'neun'],[10,'zehn'],
+  [11,'elf'],[12,'zwölf'],[13,'dreizehn'],[15,'fünfzehn'],
+  [20,'zwanzig'],[30,'dreißig'],[40,'vierzig'],[50,'fünfzig'],
+  [21,'einundzwanzig'],[35,'fünfunddreißig'],[47,'siebenundvierzig'],
+  [100,'hundert'],[200,'zweihundert'],[1000,'tausend']
+];
+let quizScore = 0, quizTotal = 0, quizAsked = [];
+
+function shuffle(a) { return a.sort(()=>Math.random()-0.5); }
+function getDistractors(correct, all) {
+  return shuffle(all.filter(x=>x[1]!==correct[1])).slice(0,3).map(x=>x[1]);
+}
+
+function nextNumQuestion() {
+  const remaining = numData.filter((_,i)=>!quizAsked.includes(i));
+  if (remaining.length === 0) {
+    document.getElementById('quizNum').textContent = '🎉 Fertig!';
+    document.getElementById('quizOptions').innerHTML = '';
+    return;
+  }
+  const idx = Math.floor(Math.random()*remaining.length);
+  const item = remaining[idx];
+  quizAsked.push(numData.indexOf(item));
+  const opts = shuffle([item[1], ...getDistractors(item, numData)]);
+
+  document.getElementById('quizNum').textContent = item[0];
+  const cont = document.getElementById('quizOptions');
+  cont.innerHTML = '';
+  opts.forEach(word => {
+    const btn = document.createElement('button');
+    btn.className = 'num-quiz-opt';
+    btn.textContent = word;
+    btn.onclick = function() {
+      if (cont.dataset.done) return;
+      cont.dataset.done = '1';
+      quizTotal++;
+      if (word === item[1]) {
+        btn.classList.add('correct');
+        quizScore++;
+      } else {
+        btn.classList.add('wrong');
+        cont.querySelectorAll('.num-quiz-opt').forEach(b=>{
+          if (b.textContent===item[1]) b.classList.add('correct');
+        });
+      }
+      cont.querySelectorAll('.num-quiz-opt').forEach(b=>b.classList.add('locked'));
+      document.getElementById('quizScore').textContent = `Score: ${quizScore} / ${quizTotal}`;
+      updateProgress('u8','u8', quizScore, Math.max(quizTotal, 10));
+      document.getElementById('nextNumBtn').textContent = remaining.length > 1 ? 'Weiter →' : 'Ergebnis →';
+    };
+    cont.appendChild(btn);
+  });
+  delete cont.dataset.done;
+  document.getElementById('nextNumBtn').textContent = remaining.length > 1 ? 'Überspringen →' : 'Fertig';
+}
+
+/* ─── ADJECTIVE MATCHING ─── */
+let adjSelected = null, adjCorrect = 0;
+document.querySelectorAll('#adjMatchGrid .match-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    if(this.classList.contains('matched')) return;
+    if(!adjSelected){
+      adjSelected=this; this.classList.add('selected');
+    } else {
+      if(adjSelected===this){ adjSelected.classList.remove('selected'); adjSelected=null; return; }
+      const a=adjSelected, b=this; a.classList.remove('selected');
+      if(a.dataset.pair===b.dataset.pair && a.closest('#adjDE')!==b.closest('#adjDE')){
+        a.classList.add('matched'); b.classList.add('matched');
+        adjCorrect++;
+        if(adjCorrect===5){
+          const fb=document.getElementById('adjMatchFeedback');
+          fb.textContent='🎉 Ausgezeichnet! Alle Paare richtig!';
+          fb.style.color='var(--success)'; fb.style.display='inline-block';
+        }
+        updateProgress('u11','u11',adjCorrect,5);
+      } else {
+        a.classList.add('wrong-match'); b.classList.add('wrong-match');
+        setTimeout(()=>{ a.classList.remove('wrong-match'); b.classList.remove('wrong-match'); },700);
+      }
+      adjSelected=null;
+    }
+  });
+});
+
+// Greeting MC progress wiring
+function updateGreetingScore(){
+  const groups=['mc-g1','mc-g2','mc-g3'];
+  let right=0;
+  groups.forEach(id=>{
+    const g=document.getElementById(id);
+    if(g&&g.dataset.done&&!g.querySelector('.mc-opt.wrong')) right++;
+  });
+  updateProgress('g1a','g1a',right,3);
+}
+// Patch checkMC to also update greetings
+const _origCheckMC=window.checkMC;
+// Already wired above via updateMCGroup
+
+// Question words MC
+function updateQWordScore(){
+  const groups=['mc-q1','mc-q2','mc-q3','mc-q4'];
+  let right=0;
+  groups.forEach(id=>{
+    const g=document.getElementById(id);
+    if(g&&g.dataset.done&&!g.querySelector('.mc-opt.wrong')) right++;
+  });
+  updateProgress('u3','u3',right,4);
+}
+
+// Word order MC
+function updateWOScore(){
+  const groups=['mc-wo1','mc-wo2','mc-wo3'];
+  let right=0;
+  groups.forEach(id=>{
+    const g=document.getElementById(id);
+    if(g&&g.dataset.done&&!g.querySelector('.mc-opt.wrong')) right++;
+  });
+  updateProgress('u10','u10',right,3);
+}
+
+// Re-wire checkMC to handle all groups properly
+window.checkMC = function(btn, groupId) {
+  const group = document.getElementById(groupId);
+  if (group.dataset.done) return;
+  group.dataset.done = '1';
+  group.querySelectorAll('.mc-opt').forEach(o => {
+    o.classList.add('locked');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === btn) o.classList.add('wrong');
+  });
+  if (groupId.startsWith('mc-g')) updateGreetingScore();
+  else if (groupId.startsWith('mc-q')) updateQWordScore();
+  else if (groupId.startsWith('mc-wo')) updateWOScore();
+};
+</script>
+</body>
+</html>

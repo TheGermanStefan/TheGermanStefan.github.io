@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Aussprache | R · Ö · Ä · Ü — 50 Minuten</title>
+<style>
+:root {
+  --black:#1a1a2e; --gold:#e8b84b; --navy:#1e3a5f; --bg:#f4f5f8;
+  --card:#ffffff; --border:#e0e4ea; --muted:#7a8090;
+  --r:#c8390a; --r-light:#fff0eb; --r-mid:#fdddd0;
+  --oe:#1d5fa8; --oe-light:#e8f0ff; --oe-mid:#c8d8f8;
+  --ae:#1a7a4a; --ae-light:#e8fff0; --ae-mid:#b8ecd0;
+  --ue:#7b2d8b; --ue-light:#f5e8ff; --ue-mid:#ddc0f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--black);line-height:1.7;}
+
+/* HEADER */
+header{background:var(--navy);color:white;padding:2.4rem 2rem 1.8rem;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,var(--gold),#c8960a);}
+.header-inner{max-width:960px;margin:0 auto;padding-left:1.2rem;position:relative;z-index:1;}
+.series-label{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+header h1{font-size:1.9rem;font-weight:700;line-height:1.2;}
+.sound-tags{display:flex;gap:0.5rem;margin:0.7rem 0 0.3rem;flex-wrap:wrap;}
+.stag{font-family:sans-serif;font-size:1.1rem;font-weight:900;padding:0.3rem 0.9rem;border-radius:6px;letter-spacing:0.04em;}
+.stag-r{background:var(--r);color:white;}
+.stag-oe{background:var(--oe);color:white;}
+.stag-ae{background:var(--ae);color:white;}
+.stag-ue{background:var(--ue);color:white;}
+.header-sub{font-size:0.88rem;color:rgba(255,255,255,0.65);font-style:italic;margin-top:0.4rem;}
+
+/* TIMER BAR */
+.timer-bar{background:var(--black);padding:0.7rem 2rem;position:sticky;top:0;z-index:200;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.timer-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;width:100%;flex-wrap:wrap;}
+#clock{font-family:'Courier New',monospace;font-size:1.5rem;font-weight:700;color:var(--gold);min-width:70px;letter-spacing:0.05em;}
+#clock.urgent{color:#ff6b6b;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.timer-btns{display:flex;gap:0.4rem;}
+.tbtn{font-family:sans-serif;font-size:0.78rem;font-weight:700;border:none;border-radius:6px;padding:0.35rem 0.85rem;cursor:pointer;transition:all 0.15s;}
+.tbtn-start{background:var(--gold);color:var(--navy);}
+.tbtn-reset{background:#333;color:white;}
+.tbtn-start:hover{background:#d4a630;}
+.tbtn-reset:hover{background:#555;}
+.section-tracker{flex:1;min-width:200px;}
+.st-label{font-family:sans-serif;font-size:0.7rem;color:rgba(255,255,255,0.5);margin-bottom:0.25rem;}
+.st-bar{background:#333;border-radius:10px;height:6px;overflow:hidden;}
+.st-fill{height:100%;border-radius:10px;background:linear-gradient(to right,var(--gold),#1a7a4a);transition:width 0.5s;}
+.section-chips{display:flex;gap:0.3rem;flex-wrap:wrap;}
+.schip{font-family:sans-serif;font-size:0.65rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:3px;color:white;opacity:0.4;transition:opacity 0.3s;}
+.schip.done{opacity:1;}
+
+/* NAV */
+nav{background:#16284a;padding:0.6rem 2rem;overflow-x:auto;white-space:nowrap;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;gap:0.3rem;}
+nav a{font-family:sans-serif;font-size:0.77rem;color:rgba(255,255,255,0.6);text-decoration:none;padding:0.3rem 0.7rem;border-radius:5px;transition:all 0.15s;}
+nav a:hover{color:white;background:rgba(255,255,255,0.1);}
+nav a.r{color:#ff9a7a;} nav a.r:hover{background:rgba(200,57,10,0.3);}
+nav a.oe{color:#90b8ff;} nav a.oe:hover{background:rgba(29,95,168,0.3);}
+nav a.ae{color:#7addb0;} nav a.ae:hover{background:rgba(26,122,74,0.3);}
+nav a.ue{color:#d4a0f0;} nav a.ue:hover{background:rgba(123,45,139,0.3);}
+
+/* MAIN */
+main{max-width:960px;margin:2rem auto;padding:0 1.5rem 5rem;}
+section{margin-bottom:4rem;scroll-margin-top:90px;}
+
+/* SECTION HEADERS */
+.sec-head{border-radius:14px;padding:1.6rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;}
+.sec-head::after{content:attr(data-letter);position:absolute;right:1.5rem;top:-0.5rem;font-size:6rem;font-weight:900;opacity:0.08;line-height:1;}
+.sh-r{background:linear-gradient(135deg,var(--r) 0%,#a02008 100%);color:white;}
+.sh-oe{background:linear-gradient(135deg,var(--oe) 0%,#0f3a80 100%);color:white;}
+.sh-ae{background:linear-gradient(135deg,var(--ae) 0%,#0d5030 100%);color:white;}
+.sh-ue{background:linear-gradient(135deg,var(--ue) 0%,#501a60 100%);color:white;}
+.sh-combo{background:linear-gradient(135deg,#2a2a4a 0%,#1a3a5a 100%);color:white;}
+.sec-head h2{font-size:1.4rem;font-weight:700;position:relative;z-index:1;}
+.sec-head p{font-size:0.88rem;opacity:0.85;margin-top:0.3rem;position:relative;z-index:1;}
+.sec-time{font-family:sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.07em;opacity:0.7;text-transform:uppercase;position:relative;z-index:1;margin-top:0.5rem;}
+
+/* MOUTH DIAGRAM */
+.mouth-box{display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:1.2rem;flex-wrap:wrap;}
+.mouth-svg{flex-shrink:0;}
+.mouth-desc{flex:1;min-width:200px;}
+.mouth-desc h4{font-family:sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;}
+.step-list{list-style:none;font-size:0.88rem;}
+.step-list li{padding:0.25rem 0;padding-left:1.4rem;position:relative;}
+.step-list li::before{content:counter(step);counter-increment:step;position:absolute;left:0;font-family:sans-serif;font-size:0.72rem;font-weight:700;color:white;background:var(--navy);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;top:0.3rem;}
+.step-list{counter-reset:step;}
+
+/* IPA */
+.ipa{font-family:'Courier New',monospace;font-size:1.1rem;color:var(--muted);background:#f0f2f5;padding:0.1rem 0.5rem;border-radius:4px;letter-spacing:0.05em;}
+
+/* WORD CARDS */
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.55rem;margin:0.8rem 0;}
+.word-card{border-radius:10px;padding:0.75rem 1rem;cursor:pointer;user-select:none;transition:all 0.15s;position:relative;}
+.word-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.wc-word{font-size:1.05rem;font-weight:700;display:block;}
+.wc-ipa{font-family:'Courier New',monospace;font-size:0.78rem;color:var(--muted);display:block;margin-top:0.1rem;}
+.wc-en{font-size:0.82rem;margin-top:0.15rem;opacity:0.7;}
+.word-card.done-card{opacity:0.4;}
+.done-mark{position:absolute;top:0.4rem;right:0.5rem;font-size:0.8rem;}
+/* color variants */
+.wc-r{background:var(--r-light);border:1.5px solid var(--r-mid);}
+.wc-r .wc-word{color:var(--r);}
+.wc-oe{background:var(--oe-light);border:1.5px solid var(--oe-mid);}
+.wc-oe .wc-word{color:var(--oe);}
+.wc-ae{background:var(--ae-light);border:1.5px solid var(--ae-mid);}
+.wc-ae .wc-word{color:var(--ae);}
+.wc-ue{background:var(--ue-light);border:1.5px solid var(--ue-mid);}
+.wc-ue .wc-word{color:var(--ue);}
+
+.done-hint{font-family:sans-serif;font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;}
+
+/* MINIMAL PAIRS */
+.pairs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.7rem;margin:0.8rem 0;}
+.pair-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;display:flex;gap:1rem;align-items:center;}
+.pair-a,.pair-b{flex:1;text-align:center;}
+.pair-a .pw{font-size:1.1rem;font-weight:700;}
+.pair-b .pw{font-size:1.1rem;font-weight:700;color:var(--navy);}
+.pair-a .pt{font-size:0.78rem;color:var(--muted);}
+.pair-b .pt{font-size:0.78rem;color:var(--muted);}
+.pair-sep{font-size:1.3rem;color:var(--border);font-weight:300;}
+.highlight-sound{background:#ffff80;border-radius:2px;padding:0 1px;}
+
+/* SENTENCES */
+.sent-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:0.7rem;}
+.sent-de{font-size:1.05rem;font-weight:700;line-height:1.5;}
+.sent-en{font-size:0.85rem;color:var(--muted);margin-top:0.2rem;font-style:italic;}
+.sent-note{font-family:sans-serif;font-size:0.78rem;margin-top:0.5rem;padding-top:0.5rem;border-top:1px dashed var(--border);color:var(--navy);}
+span.sr{color:var(--r);font-weight:700;}
+span.soe{color:var(--oe);font-weight:700;}
+span.sae{color:var(--ae);font-weight:700;}
+span.sue{color:var(--ue);font-weight:700;}
+
+/* FLIP CARDS */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.7rem;margin:0.8rem 0;}
+.flip-outer{height:100px;perspective:600px;cursor:pointer;}
+.flip-inner{width:100%;height:100%;transition:transform 0.45s;transform-style:preserve-3d;position:relative;}
+.flip-outer.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.8rem;}
+.flip-front{background:var(--card);border:1.5px solid var(--border);}
+.flip-back{transform:rotateY(180deg);}
+.flip-word{font-size:1.15rem;font-weight:700;}
+.flip-hint{font-size:0.72rem;font-family:sans-serif;color:var(--muted);margin-top:0.2rem;}
+.flip-tip{font-size:0.75rem;text-align:center;line-height:1.4;}
+
+/* TONGUE TWISTERS */
+.zt-card{border-radius:14px;margin-bottom:1rem;overflow:hidden;}
+.zt-top{padding:1rem 1.4rem;color:white;}
+.zt-top.r{background:var(--r);}
+.zt-top.oe{background:var(--oe);}
+.zt-top.ae{background:var(--ae);}
+.zt-top.ue{background:var(--ue);}
+.zt-top.mix{background:linear-gradient(135deg,var(--r),var(--ue));}
+.zt-label{font-family:sans-serif;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.8;margin-bottom:0.3rem;}
+.zt-text{font-size:1.1rem;font-weight:700;line-height:1.5;}
+.zt-body{background:var(--card);border:1px solid var(--border);border-top:none;padding:0.9rem 1.4rem;}
+.zt-en{font-size:0.85rem;color:var(--muted);font-style:italic;}
+.zt-tip{font-family:sans-serif;font-size:0.8rem;color:var(--navy);margin-top:0.4rem;}
+.speed-btns{display:flex;gap:0.4rem;margin-top:0.6rem;flex-wrap:wrap;}
+.speed-btn{font-family:sans-serif;font-size:0.75rem;font-weight:700;border:2px solid var(--border);border-radius:6px;padding:0.25rem 0.7rem;background:white;cursor:pointer;transition:all 0.15s;}
+.speed-btn:hover{border-color:var(--navy);background:#f0f4ff;}
+.speed-btn.active-speed{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* RULE / TIP BOXES */
+.rule{background:#fffbea;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.9rem;}
+.rule strong{color:var(--navy);}
+.tip-box{background:#f0f5ff;border-left:4px solid var(--oe);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.88rem;}
+.subsection-title{font-family:sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin:1.4rem 0 0.6rem;}
+
+/* WARM-UP CHALLENGE */
+.warmup-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:0.8rem 0;}
+.wu-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;}
+.wu-sound{font-family:sans-serif;font-size:2rem;font-weight:900;margin-bottom:0.4rem;}
+.wu-desc{font-size:0.85rem;line-height:1.5;}
+
+/* PROGRESS TRACKER */
+.progress-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.8rem;margin-top:2rem;}
+.progress-section h3{font-size:1rem;font-weight:700;margin-bottom:1rem;font-family:sans-serif;}
+.prog-rows{display:flex;flex-direction:column;gap:0.6rem;}
+.prog-row{display:flex;align-items:center;gap:0.8rem;font-size:0.88rem;}
+.prog-label{width:120px;font-family:sans-serif;font-size:0.8rem;font-weight:700;}
+.prog-bar-wrap{flex:1;background:#e0e4ea;border-radius:10px;height:10px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:10px;transition:width 0.4s;}
+.pf-r{background:var(--r);}
+.pf-oe{background:var(--oe);}
+.pf-ae{background:var(--ae);}
+.pf-ue{background:var(--ue);}
+.prog-count{font-family:sans-serif;font-size:0.8rem;color:var(--muted);min-width:50px;text-align:right;}
+
+footer{text-align:center;font-family:sans-serif;font-size:0.78rem;color:var(--muted);padding:2.5rem 1rem;border-top:1px solid var(--border);}
+@media(max-width:640px){
+  .warmup-grid{grid-template-columns:1fr;}
+  header h1{font-size:1.4rem;}
+  .word-grid{grid-template-columns:repeat(2,1fr);}
+  .pairs-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Aussprache</div>
+    <h1>Aussprache-Training</h1>
+    <div class="sound-tags">
+      <span class="stag stag-r">R</span>
+      <span class="stag stag-oe">Ö</span>
+      <span class="stag stag-ae">Ä</span>
+      <span class="stag stag-ue">Ü</span>
+    </div>
+    <div class="header-sub">50-Minuten-Stunde · Wörter · Minimale Paare · Sätze · Zungenbrecher</div>
+  </div>
+</header>
+
+<!-- TIMER BAR -->
+<div class="timer-bar">
+  <div class="timer-inner">
+    <div id="clock">50:00</div>
+    <div class="timer-btns">
+      <button class="tbtn tbtn-start" onclick="toggleTimer()">▶ Start</button>
+      <button class="tbtn tbtn-reset" onclick="resetTimer()">↺ Reset</button>
+    </div>
+    <div class="section-tracker">
+      <div class="st-label">Lektionsfortschritt</div>
+      <div class="st-bar"><div class="st-fill" id="lesson-progress" style="width:0%"></div></div>
+    </div>
+    <div class="section-chips">
+      <span class="schip" style="background:var(--muted);" id="chip0">Warm-up</span>
+      <span class="schip" style="background:var(--r);" id="chip1">R</span>
+      <span class="schip" style="background:var(--oe);" id="chip2">Ö</span>
+      <span class="schip" style="background:var(--ae);" id="chip3">Ä</span>
+      <span class="schip" style="background:var(--ue);" id="chip4">Ü</span>
+      <span class="schip" style="background:#555;" id="chip5">Mix</span>
+      <span class="schip" style="background:#333;" id="chip6">Zungenbrecher</span>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#warmup">🔥 Warm-up</a>
+    <a href="#r-section" class="r">🔴 Das R</a>
+    <a href="#oe-section" class="oe">🔵 Das Ö</a>
+    <a href="#ae-section" class="ae">🟢 Das Ä</a>
+    <a href="#ue-section" class="ue">🟣 Das Ü</a>
+    <a href="#combo">⭐ Mix-Sätze</a>
+    <a href="#zungenbrecher">👅 Zungenbrecher</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════
+  WARM-UP
+══════════════════════════════════ -->
+<section id="warmup" data-section="0" data-start="0" data-end="5">
+  <div class="sec-head sh-combo" data-letter="!">
+    <h2>🔥 Warm-up — Mund aufwärmen</h2>
+    <p>Lippen, Zunge und Kiefer aktivieren — bevor wir loslegen</p>
+    <div class="sec-time">⏱ Minuten 0–5 (5 Min.)</div>
+  </div>
+
+  <div class="warmup-grid">
+    <div class="wu-card">
+      <div class="wu-sound" style="color:var(--r);">R</div>
+      <div class="wu-desc">Nicht wie im Englischen! Das deutsche R entsteht <strong>im Hals</strong> (uvular) oder wird <strong>gerollt</strong> (geschwungen). Kein Zungen-R wie im Englischen.</div>
+    </div>
+    <div class="wu-card">
+      <div class="wu-sound" style="color:var(--oe);">Ö</div>
+      <div class="wu-desc">Es gibt Ö nicht im Englischen. Sage „E" (wie in „Bee"), halte die Zungenposition — und <strong>runde die Lippen</strong> wie beim Pfeifen.</div>
+    </div>
+    <div class="wu-card">
+      <div class="wu-sound" style="color:var(--ae);">Ä</div>
+      <div class="wu-desc">Ähnlich wie „e" in englisch „bed" — aber manchmal offener und länger. Ä ist der <strong>offenste</strong> der drei Umlaute.</div>
+    </div>
+    <div class="wu-card">
+      <div class="wu-sound" style="color:var(--ue);">Ü</div>
+      <div class="wu-desc">Sage „I" (wie in „Biene"), halte die Zungenposition — und <strong>runde die Lippen</strong> wie beim Pfeifen. Noch runder als Ö!</div>
+    </div>
+  </div>
+
+  <div class="rule">
+    <strong>Aufwärm-Übung:</strong> Spreche diese Kette langsam, dann schneller:<br>
+    <span style="font-size:1.1rem;font-weight:700;letter-spacing:0.05em;">
+      &nbsp;A – E – I – O – U &nbsp;→&nbsp;
+      <span style="color:var(--ae);">Ä</span> –
+      <span style="color:var(--oe);">Ö</span> –
+      <span style="color:var(--ue);">Ü</span> &nbsp;→&nbsp;
+      <span style="color:var(--r);">RA – RO – RE – RU</span>
+    </span><br>
+    <span style="font-size:0.85rem;color:var(--muted);">3× langsam · 3× normal · 3× schnell</span>
+  </div>
+
+  <div class="tip-box">
+    <strong>Lippenmassage:</strong> Lippen zusammenpressen und vibrieren lassen (wie „Brrr" bei Kälte). Das entspannt den Mundbereich für das Rollen des R.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  DAS R
+══════════════════════════════════ -->
+<section id="r-section" data-section="1" data-start="5" data-end="17">
+  <div class="sec-head sh-r" data-letter="R">
+    <h2>🔴 Das deutsche R</h2>
+    <p>Uvulares R (Rachen-R) · Vokalisches R · Vokale + R</p>
+    <div class="sec-time">⏱ Minuten 5–17 (12 Min.)</div>
+  </div>
+
+  <div class="mouth-box">
+    <svg class="mouth-svg" width="110" height="100" viewBox="0 0 110 100">
+      <ellipse cx="55" cy="65" rx="42" ry="30" fill="#fce8e0" stroke="#c8390a" stroke-width="2"/>
+      <path d="M 20 65 Q 55 40 90 65" fill="none" stroke="#333" stroke-width="2"/>
+      <ellipse cx="55" cy="72" rx="28" ry="12" fill="#ff9090" opacity="0.5"/>
+      <circle cx="55" cy="45" r="8" fill="#c8390a" opacity="0.7"/>
+      <text x="55" y="49" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Uvula</text>
+      <path d="M 30 75 Q 55 62 78 75" fill="none" stroke="#a00" stroke-width="2.5" stroke-dasharray="3,2"/>
+    </svg>
+    <div class="mouth-desc">
+      <h4 style="color:var(--r);">Wie macht man das deutsche R?</h4>
+      <ol class="step-list">
+        <li>Mund leicht öffnen, Unterkiefer entspannen</li>
+        <li>Zunge liegt flach — <strong>nicht</strong> nach oben gebogen</li>
+        <li>Zungenrücken hebt sich leicht hinten</li>
+        <li>Luft am <strong>Zäpfchen</strong> (Uvula) entlang streichen lassen</li>
+        <li>Klingt wie ein leises „Gh" tief im Hals</li>
+      </ol>
+      <div style="margin-top:0.6rem;font-size:0.85rem;">IPA: <span class="ipa">/ʁ/</span> (uvular) oder <span class="ipa">/r/</span> (gerollt)</div>
+    </div>
+  </div>
+
+  <div class="rule">
+    <strong>Trick:</strong> Gurgele kurz mit Wasser und merke dir, wo diese Vibration entsteht. Das ist genau die Stelle, wo das deutsche R klingt. Jetzt gurgele ohne Wasser — das ist das R!
+  </div>
+
+  <p class="subsection-title">R am Wortanfang und in Konsonantengruppen</p>
+  <div class="done-hint">👆 Wörter anklicken zum Markieren (geübt)</div>
+  <div class="word-grid" id="grid-r1">
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">rot</span><span class="wc-ipa">/ʁoːt/</span><span class="wc-en">red</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Regen</span><span class="wc-ipa">/ˈʁeːɡən/</span><span class="wc-en">rain</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">reden</span><span class="wc-ipa">/ˈʁeːdn/</span><span class="wc-en">to speak</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">reisen</span><span class="wc-ipa">/ˈʁaɪzn/</span><span class="wc-en">to travel</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">rufen</span><span class="wc-ipa">/ˈʁuːfn/</span><span class="wc-en">to call</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">richtig</span><span class="wc-ipa">/ˈʁɪçtɪç/</span><span class="wc-en">correct</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Brille</span><span class="wc-ipa">/ˈbʁɪlə/</span><span class="wc-en">glasses</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Straße</span><span class="wc-ipa">/ˈʃtʁaːsə/</span><span class="wc-en">street</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">sprechen</span><span class="wc-ipa">/ˈʃpʁɛçn/</span><span class="wc-en">to speak</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Frühling</span><span class="wc-ipa">/ˈfʁyːlɪŋ/</span><span class="wc-en">spring</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">drei</span><span class="wc-ipa">/dʁaɪ/</span><span class="wc-en">three</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Schreiben</span><span class="wc-ipa">/ˈʃʁaɪbn/</span><span class="wc-en">writing</span></div>
+  </div>
+
+  <p class="subsection-title">Vokalisches R — am Wortende klingt R wie „a"</p>
+  <div class="tip-box">
+    <strong>Wichtig!</strong> Nach einem langen Vokal oder am Wortende wird R zum <strong>Vokal</strong> — es klingt wie ein dunkles „a". Man nennt das <em>vokalisiertes R</em>. <span class="ipa">/ɐ/</span>
+  </div>
+  <div class="word-grid" id="grid-r2">
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Vater</span><span class="wc-ipa">/ˈfaːtɐ/</span><span class="wc-en">father — „-er" = „a"</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Lehrer</span><span class="wc-ipa">/ˈleːʁɐ/</span><span class="wc-en">teacher</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Wasser</span><span class="wc-ipa">/ˈvasɐ/</span><span class="wc-en">water</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Zimmer</span><span class="wc-ipa">/ˈtsɪmɐ/</span><span class="wc-en">room</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">wir</span><span class="wc-ipa">/viːɐ̯/</span><span class="wc-en">we — R vokalisiert</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">ihr</span><span class="wc-ipa">/iːɐ̯/</span><span class="wc-en">you (pl.) — R vokalisiert</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">mehr</span><span class="wc-ipa">/meːɐ̯/</span><span class="wc-en">more</span></div>
+    <div class="word-card wc-r" onclick="markDone(this,'r')"><span class="wc-word">Uhr</span><span class="wc-ipa">/uːɐ̯/</span><span class="wc-en">clock</span></div>
+  </div>
+
+  <p class="subsection-title">Minimale Paare — R vs. L</p>
+  <div class="pairs-grid">
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw"><span class="highlight-sound" style="background:#fdd;">R</span>and</span><span class="pt">edge</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">Land</span><span class="pt">country</span></div>
+    </div>
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw"><span class="highlight-sound" style="background:#fdd;">R</span>ose</span><span class="pt">rose</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">Lose</span><span class="pt">lottery ticket</span></div>
+    </div>
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw"><span class="highlight-sound" style="background:#fdd;">R</span>aus</span><span class="pt">out</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">Laus</span><span class="pt">louse</span></div>
+    </div>
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw"><span class="highlight-sound" style="background:#fdd;">r</span>eiten</span><span class="pt">to ride</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">leiten</span><span class="pt">to lead / guide</span></div>
+    </div>
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw">B<span class="highlight-sound" style="background:#fdd;">r</span>ot</span><span class="pt">bread</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">Blot</span><span class="pt">(nonsense)</span></div>
+    </div>
+    <div class="pair-card">
+      <div class="pair-a"><span class="pw">g<span class="highlight-sound" style="background:#fdd;">r</span>ün</span><span class="pt">green</span></div>
+      <div class="pair-sep">≠</div>
+      <div class="pair-b"><span class="pw">glün</span><span class="pt">(nonsense)</span></div>
+    </div>
+  </div>
+
+  <p class="subsection-title">Sätze mit R</p>
+  <div class="sent-card"><div class="sent-de"><span class="sr">R</span>osa <span class="sr">r</span>eist <span class="sr">r</span>egelmäßig nach <span class="sr">R</span>om.</div><div class="sent-en">Rosa regularly travels to Rome.</div><div class="sent-note">🎯 Fokus: R am Satzanfang und in der Mitte — uvulares R, nicht vokalisiert</div></div>
+  <div class="sent-card"><div class="sent-de">De<span class="sr">r</span> Leh<span class="sr">r</span>e<span class="sr">r</span> e<span class="sr">r</span>klä<span class="sr">r</span>t die Regel.</div><div class="sent-en">The teacher explains the rule.</div><div class="sent-note">🎯 Fokus: -er am Wortende → vokalisiertes R (klingt wie „-a"): Leh-ra, e-raa, e-klä-ra</div></div>
+  <div class="sent-card"><div class="sent-de">Wi<span class="sr">r</span> fah<span class="sr">r</span>en mit dem Zug du<span class="sr">r</span>ch Deutschland.</div><div class="sent-en">We travel through Germany by train.</div><div class="sent-note">🎯 Fokus: „wir" = /viːɐ̯/ · „fahren" = /faːʁən/ · „durch" = /dʊʁç/ · Deutschland hat kein R!</div></div>
+</section>
+
+<!-- ══════════════════════════════════
+  DAS Ö
+══════════════════════════════════ -->
+<section id="oe-section" data-section="2" data-start="17" data-end="28">
+  <div class="sec-head sh-oe" data-letter="Ö">
+    <h2>🔵 Das Ö</h2>
+    <p>Langes Ö · Kurzes Ö · Minimale Paare · Sätze</p>
+    <div class="sec-time">⏱ Minuten 17–28 (11 Min.)</div>
+  </div>
+
+  <div class="mouth-box">
+    <svg class="mouth-svg" width="110" height="100" viewBox="0 0 110 100">
+      <ellipse cx="55" cy="65" rx="42" ry="28" fill="#dce9ff" stroke="#1d5fa8" stroke-width="2"/>
+      <ellipse cx="55" cy="68" rx="20" ry="14" fill="#90b8ff" opacity="0.5"/>
+      <path d="M 35 65 Q 55 52 75 65" fill="none" stroke="#1d5fa8" stroke-width="2.5"/>
+      <text x="55" y="55" text-anchor="middle" fill="#1d5fa8" font-size="9" font-weight="bold">E-Position</text>
+      <path d="M 38 72 Q 55 80 72 72" fill="none" stroke="#0a3060" stroke-width="2" stroke-dasharray="3,2"/>
+      <text x="55" y="90" text-anchor="middle" fill="#0a3060" font-size="8">Lippen: rund</text>
+    </svg>
+    <div class="mouth-desc">
+      <h4 style="color:var(--oe);">Wie macht man das Ö?</h4>
+      <ol class="step-list">
+        <li>Sage „E" — wie in „See"</li>
+        <li>Halte die Zunge genau in dieser Position</li>
+        <li>Runde jetzt die Lippen nach vorne — wie beim Pfeifen</li>
+        <li>Das Ergebnis ist <strong>Ö</strong>! Zunge bleibt oben vorne</li>
+      </ol>
+      <div style="margin-top:0.6rem;font-size:0.85rem;">
+        Langes Ö: <span class="ipa">/øː/</span> &nbsp;|&nbsp; Kurzes Ö: <span class="ipa">/œ/</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="subsection-title">Langes Ö — <span class="ipa">/øː/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">schön</span><span class="wc-ipa">/ʃøːn/</span><span class="wc-en">beautiful</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">hören</span><span class="wc-ipa">/ˈhøːʁən/</span><span class="wc-en">to hear</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Öl</span><span class="wc-ipa">/øːl/</span><span class="wc-en">oil</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">König</span><span class="wc-ipa">/ˈkøːnɪç/</span><span class="wc-en">king</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Möbel</span><span class="wc-ipa">/ˈmøːbl/</span><span class="wc-en">furniture</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Lösung</span><span class="wc-ipa">/ˈløːzʊŋ/</span><span class="wc-en">solution</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">stören</span><span class="wc-ipa">/ˈʃtøːʁən/</span><span class="wc-en">to disturb</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Flöte</span><span class="wc-ipa">/ˈfløːtə/</span><span class="wc-en">flute</span></div>
+  </div>
+
+  <p class="subsection-title">Kurzes Ö — <span class="ipa">/œ/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">können</span><span class="wc-ipa">/ˈkœnən/</span><span class="wc-en">to be able to</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">möchten</span><span class="wc-ipa">/ˈmœçtən/</span><span class="wc-en">would like</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">öffnen</span><span class="wc-ipa">/ˈœfnən/</span><span class="wc-en">to open</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Wörter</span><span class="wc-ipa">/ˈvœʁtɐ/</span><span class="wc-en">words</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Körper</span><span class="wc-ipa">/ˈkœʁpɐ/</span><span class="wc-en">body</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Hölle</span><span class="wc-ipa">/ˈhœlə/</span><span class="wc-en">hell</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">nördlich</span><span class="wc-ipa">/ˈnœʁdlɪç/</span><span class="wc-en">northern</span></div>
+    <div class="word-card wc-oe" onclick="markDone(this,'oe')"><span class="wc-word">Töchter</span><span class="wc-ipa">/ˈtœçtɐ/</span><span class="wc-en">daughters</span></div>
+  </div>
+
+  <p class="subsection-title">Ö vs. O — Flip-Karten (umdrehen!)</p>
+  <div class="flip-grid">
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--oe);">schön</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--oe-light);border:1.5px solid var(--oe-mid);">
+          <span class="flip-word" style="color:var(--oe);">schön</span>
+          <span class="flip-tip" style="color:var(--oe);">schön /øː/<br>≠ schon /oː/ (already)</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--oe);">Söhne</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--oe-light);border:1.5px solid var(--oe-mid);">
+          <span class="flip-word" style="color:var(--oe);">Söhne</span>
+          <span class="flip-tip" style="color:var(--oe);">Söhne /øː/ sons (Plural)<br>≠ Sohn /oː/ son (Singular)<br>Umlaut-Plural!</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--oe);">Brötchen</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--oe-light);border:1.5px solid var(--oe-mid);">
+          <span class="flip-word" style="color:var(--oe);">Brötchen</span>
+          <span class="flip-tip" style="color:var(--oe);">Brötchen /øː/ bread roll<br>≠ Brot /oː/ bread<br>Gleiche Wurzel!</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--oe);">können</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--oe-light);border:1.5px solid var(--oe-mid);">
+          <span class="flip-word" style="color:var(--oe);">können</span>
+          <span class="flip-tip" style="color:var(--oe);">können /œ/ to be able to<br>≠ kommen /ɔ/ to come<br>Lippen runden für Ö!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="subsection-title">Sätze mit Ö</p>
+  <div class="sent-card"><div class="sent-de">Der K<span class="soe">ö</span>nig h<span class="soe">ö</span>rt eine sch<span class="soe">ö</span>ne Fl<span class="soe">ö</span>te.</div><div class="sent-en">The king hears a beautiful flute.</div><div class="sent-note">🎯 Alle 4 Ö-Laute sind lang /øː/ — Lippen immer gerundet halten!</div></div>
+  <div class="sent-card"><div class="sent-de">Ich m<span class="soe">ö</span>chte die L<span class="soe">ö</span>sung erkl<span class="soe">ä</span>ren k<span class="soe">ö</span>nnen.</div><div class="sent-en">I would like to be able to explain the solution.</div><div class="sent-note">🎯 möchten /œ/ + Lösung /øː/ + können /œ/ — drei Ö-Laute: erst lang, dann kurz!</div></div>
+</section>
+
+<!-- ══════════════════════════════════
+  DAS Ä
+══════════════════════════════════ -->
+<section id="ae-section" data-section="3" data-start="28" data-end="38">
+  <div class="sec-head sh-ae" data-letter="Ä">
+    <h2>🟢 Das Ä</h2>
+    <p>Langes Ä · Kurzes Ä · Vergleich mit E</p>
+    <div class="sec-time">⏱ Minuten 28–38 (10 Min.)</div>
+  </div>
+
+  <div class="mouth-box">
+    <svg class="mouth-svg" width="110" height="100" viewBox="0 0 110 100">
+      <ellipse cx="55" cy="65" rx="42" ry="32" fill="#e8fff0" stroke="#1a7a4a" stroke-width="2"/>
+      <ellipse cx="55" cy="70" rx="25" ry="18" fill="#7addb0" opacity="0.4"/>
+      <path d="M 25 62 Q 55 45 85 62" fill="none" stroke="#1a7a4a" stroke-width="2.5"/>
+      <text x="55" y="55" text-anchor="middle" fill="#1a7a4a" font-size="8">Mund offen</text>
+      <path d="M 30 75 Q 55 85 80 75" fill="none" stroke="#0d5030" stroke-width="2" stroke-dasharray="3,2"/>
+      <text x="55" y="92" text-anchor="middle" fill="#0d5030" font-size="8">Lippen: entspannt</text>
+    </svg>
+    <div class="mouth-desc">
+      <h4 style="color:var(--ae);">Wie macht man das Ä?</h4>
+      <ol class="step-list">
+        <li>Mund etwas weiter öffnen als beim E</li>
+        <li>Zunge liegt vorne und leicht flach</li>
+        <li>Lippen entspannt — <strong>nicht</strong> gerundet wie bei Ö/Ü</li>
+        <li>Klingt wie „e" in engl. „bed" — oft sehr ähnlich</li>
+      </ol>
+      <div style="margin-top:0.6rem;font-size:0.85rem;">
+        Langes Ä: <span class="ipa">/ɛː/</span> &nbsp;|&nbsp; Kurzes Ä: <span class="ipa">/ɛ/</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule">
+    <strong>Kurz oder lang?</strong> Ä vor einem einzelnen Konsonanten ist lang (<em>spät, Käse</em>). Vor zwei oder mehr Konsonanten ist es kurz (<em>Männer, hätte</em>). Ausnahmen immer mit dem Wort lernen!
+  </div>
+
+  <p class="subsection-title">Langes Ä — <span class="ipa">/ɛː/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Käse</span><span class="wc-ipa">/ˈkɛːzə/</span><span class="wc-en">cheese</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">spät</span><span class="wc-ipa">/ʃpɛːt/</span><span class="wc-en">late</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Mädchen</span><span class="wc-ipa">/ˈmɛːtçən/</span><span class="wc-en">girl</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">zählen</span><span class="wc-ipa">/ˈtsɛːlən/</span><span class="wc-en">to count</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">während</span><span class="wc-ipa">/ˈvɛːʁənd/</span><span class="wc-en">while / during</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">erklären</span><span class="wc-ipa">/ɛʁˈklɛːʁən/</span><span class="wc-en">to explain</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Nähe</span><span class="wc-ipa">/ˈnɛːə/</span><span class="wc-en">closeness</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Märchen</span><span class="wc-ipa">/ˈmɛːʁçən/</span><span class="wc-en">fairy tale</span></div>
+  </div>
+
+  <p class="subsection-title">Kurzes Ä — <span class="ipa">/ɛ/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Männer</span><span class="wc-ipa">/ˈmɛnɐ/</span><span class="wc-en">men</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Länder</span><span class="wc-ipa">/ˈlɛndɐ/</span><span class="wc-en">countries</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Bäcker</span><span class="wc-ipa">/ˈbɛkɐ/</span><span class="wc-en">baker</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">hätte</span><span class="wc-ipa">/ˈhɛtə/</span><span class="wc-en">would have</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Wäsche</span><span class="wc-ipa">/ˈvɛʃə/</span><span class="wc-en">laundry</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">älter</span><span class="wc-ipa">/ˈɛltɐ/</span><span class="wc-en">older</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Kälte</span><span class="wc-ipa">/ˈkɛltə/</span><span class="wc-en">cold (noun)</span></div>
+    <div class="word-card wc-ae" onclick="markDone(this,'ae')"><span class="wc-word">Gäste</span><span class="wc-ipa">/ˈɡɛstə/</span><span class="wc-en">guests</span></div>
+  </div>
+
+  <p class="subsection-title">Ä vs. E — hörst du den Unterschied?</p>
+  <div class="pairs-grid">
+    <div class="pair-card"><div class="pair-a"><span class="pw" style="color:var(--ae);">B<span style="text-decoration:underline;">ä</span>ren</span><span class="pt">bears /ɛːʁən/</span></div><div class="pair-sep">≠</div><div class="pair-b"><span class="pw">B<span style="text-decoration:underline;">ee</span>ren</span><span class="pt">berries /eːʁən/</span></div></div>
+    <div class="pair-card"><div class="pair-a"><span class="pw" style="color:var(--ae);">Männer</span><span class="pt">men /ɛ/</span></div><div class="pair-sep">≠</div><div class="pair-b"><span class="pw">Menner*</span><span class="pt">(common mistake!)</span></div></div>
+    <div class="pair-card"><div class="pair-a"><span class="pw" style="color:var(--ae);">spät</span><span class="pt">late /ɛː/</span></div><div class="pair-sep">≠</div><div class="pair-b"><span class="pw">spet*</span><span class="pt">(incorrect)</span></div></div>
+    <div class="pair-card"><div class="pair-a"><span class="pw" style="color:var(--ae);">wählen</span><span class="pt">to choose /ɛː/</span></div><div class="pair-sep">≠</div><div class="pair-b"><span class="pw">wellen</span><span class="pt">waves /ɛ/</span></div></div>
+  </div>
+
+  <p class="subsection-title">Sätze mit Ä</p>
+  <div class="sent-card"><div class="sent-de">Das M<span class="sae">ä</span>dchen tr<span class="sae">ä</span>gt ein gr<span class="sue">ü</span>nes Kleid und erkl<span class="sae">ä</span>rt die W<span class="soe">ö</span>rter.</div><div class="sent-en">The girl is wearing a green dress and explains the words.</div><div class="sent-note">🎯 Ä + Ü + Ö in einem Satz — Lippen-Gym!</div></div>
+  <div class="sent-card"><div class="sent-de">Die G<span class="sae">ä</span>ste aus l<span class="sae">ä</span>ndlichen Gebieten kamen sp<span class="sae">ä</span>ter an.</div><div class="sent-en">The guests from rural areas arrived later.</div><div class="sent-note">🎯 Kurzes Ä (Gäste, ländlichen) + langes Ä (später)</div></div>
+</section>
+
+<!-- ══════════════════════════════════
+  DAS Ü
+══════════════════════════════════ -->
+<section id="ue-section" data-section="4" data-start="38" data-end="48">
+  <div class="sec-head sh-ue" data-letter="Ü">
+    <h2>🟣 Das Ü</h2>
+    <p>Langes Ü · Kurzes Ü · Minimale Paare · Sätze</p>
+    <div class="sec-time">⏱ Minuten 38–48 (10 Min.)</div>
+  </div>
+
+  <div class="mouth-box">
+    <svg class="mouth-svg" width="110" height="100" viewBox="0 0 110 100">
+      <ellipse cx="55" cy="65" rx="40" ry="26" fill="#f5e8ff" stroke="#7b2d8b" stroke-width="2"/>
+      <ellipse cx="55" cy="65" rx="14" ry="12" fill="#d4a0f0" opacity="0.6"/>
+      <path d="M 42 60 Q 55 50 68 60" fill="none" stroke="#7b2d8b" stroke-width="2.5"/>
+      <text x="55" y="53" text-anchor="middle" fill="#7b2d8b" font-size="8">I-Position</text>
+      <ellipse cx="55" cy="70" rx="12" ry="8" fill="none" stroke="#501a60" stroke-width="2" stroke-dasharray="3,2"/>
+      <text x="55" y="90" text-anchor="middle" fill="#501a60" font-size="8">Lippen: sehr rund</text>
+    </svg>
+    <div class="mouth-desc">
+      <h4 style="color:var(--ue);">Wie macht man das Ü?</h4>
+      <ol class="step-list">
+        <li>Sage „I" — wie in „Biene"</li>
+        <li>Halte die Zunge vorne und hoch</li>
+        <li>Runde jetzt die Lippen <strong>stark nach vorne</strong> — stärker als bei Ö!</li>
+        <li>Lippen wie ein kleines „O" formen, Zunge bleibt bei „I"</li>
+      </ol>
+      <div style="margin-top:0.6rem;font-size:0.85rem;">
+        Langes Ü: <span class="ipa">/yː/</span> &nbsp;|&nbsp; Kurzes Ü: <span class="ipa">/ʏ/</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>Ö vs. Ü:</strong> Beide brauchen gerundete Lippen. Der Unterschied ist die Zungenposition — bei Ö liegt die Zunge bei <strong>E</strong> (mittel), bei Ü liegt sie bei <strong>I</strong> (hoch vorne). Ü klingt heller!
+  </div>
+
+  <p class="subsection-title">Langes Ü — <span class="ipa">/yː/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Tür</span><span class="wc-ipa">/tyːɐ̯/</span><span class="wc-en">door</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Füße</span><span class="wc-ipa">/ˈfyːsə/</span><span class="wc-en">feet</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">grün</span><span class="wc-ipa">/ɡʁyːn/</span><span class="wc-en">green</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Bücher</span><span class="wc-ipa">/ˈbyːçɐ/</span><span class="wc-en">books</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">über</span><span class="wc-ipa">/ˈyːbɐ/</span><span class="wc-en">over / about</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">müde</span><span class="wc-ipa">/ˈmyːdə/</span><span class="wc-en">tired</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Stühle</span><span class="wc-ipa">/ˈʃtyːlə/</span><span class="wc-en">chairs</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Frühling</span><span class="wc-ipa">/ˈfʁyːlɪŋ/</span><span class="wc-en">spring</span></div>
+  </div>
+
+  <p class="subsection-title">Kurzes Ü — <span class="ipa">/ʏ/</span></p>
+  <div class="word-grid">
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Glück</span><span class="wc-ipa">/ɡlʏk/</span><span class="wc-en">luck</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Küche</span><span class="wc-ipa">/ˈkʏçə/</span><span class="wc-en">kitchen</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Mütter</span><span class="wc-ipa">/ˈmʏtɐ/</span><span class="wc-en">mothers</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Stück</span><span class="wc-ipa">/ʃtʏk/</span><span class="wc-en">piece</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Brücke</span><span class="wc-ipa">/ˈbʁʏkə/</span><span class="wc-en">bridge</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">Nüsse</span><span class="wc-ipa">/ˈnʏsə/</span><span class="wc-en">nuts</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">fünf</span><span class="wc-ipa">/fʏnf/</span><span class="wc-en">five</span></div>
+    <div class="word-card wc-ue" onclick="markDone(this,'ue')"><span class="wc-word">hübsch</span><span class="wc-ipa">/hʏbʃ/</span><span class="wc-en">pretty</span></div>
+  </div>
+
+  <p class="subsection-title">Ü vs. U — Flip-Karten</p>
+  <div class="flip-grid">
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--ue);">Bücher</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--ue-light);border:1.5px solid var(--ue-mid);">
+          <span class="flip-word" style="color:var(--ue);">Bücher</span>
+          <span class="flip-tip" style="color:var(--ue);">Bücher /yː/ books<br>≠ Bucher* (wrong!)</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--ue);">Mütter</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--ue-light);border:1.5px solid var(--ue-mid);">
+          <span class="flip-word" style="color:var(--ue);">Mütter</span>
+          <span class="flip-tip" style="color:var(--ue);">Mütter /ʏ/ mothers<br>≠ Mutter /ʊ/ mother</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--ue);">grün</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--ue-light);border:1.5px solid var(--ue-mid);">
+          <span class="flip-word" style="color:var(--ue);">grün</span>
+          <span class="flip-tip" style="color:var(--ue);">grün /yː/ green<br>≠ Grund /ʊ/ reason</span>
+        </div>
+      </div>
+    </div>
+    <div class="flip-outer" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><span class="flip-word" style="color:var(--ue);">Füße</span><span class="flip-hint">👆 umdrehen</span></div>
+        <div class="flip-back" style="background:var(--ue-light);border:1.5px solid var(--ue-mid);">
+          <span class="flip-word" style="color:var(--ue);">Füße</span>
+          <span class="flip-tip" style="color:var(--ue);">Füße /yː/ feet<br>≠ Fuß /uː/ foot</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="subsection-title">Sätze mit Ü</p>
+  <div class="sent-card"><div class="sent-de"><span class="sue">Ü</span>ber die Br<span class="sue">ü</span>cke fl<span class="sue">ü</span>stern gr<span class="sue">ü</span>ne V<span class="soe">ö</span>gel.</div><div class="sent-en">Green birds whisper over the bridge.</div><div class="sent-note">🎯 Vier Ü-Laute + ein Ö — Lippen runden, dann ein bisschen lockerer für das Ö</div></div>
+  <div class="sent-card"><div class="sent-de">Die M<span class="sue">ü</span>tter k<span class="soe">ö</span>nnen das Gl<span class="sue">ü</span>ck f<span class="sue">ü</span>hlen.</div><div class="sent-en">The mothers can feel the happiness.</div><div class="sent-note">🎯 Ü (Mütter, Glück, fühlen) + Ö (können) — immer Zungenposition beachten!</div></div>
+</section>
+
+<!-- ══════════════════════════════════
+  MIX-SÄTZE
+══════════════════════════════════ -->
+<section id="combo" data-section="5" data-start="43" data-end="47">
+  <div class="sec-head sh-combo" data-letter="★">
+    <h2>⭐ Kombinations-Sätze</h2>
+    <p>Alle vier Laute zusammen — R + Ö + Ä + Ü</p>
+    <div class="sec-time">⏱ Minuten 43–47 (4 Min.)</div>
+  </div>
+
+  <div class="sent-card">
+    <div class="sent-de">Die <span class="sae">Ä</span>rzte <span class="sr">r</span>eden <span class="sue">ü</span>be<span class="sr">r</span> die sch<span class="soe">ö</span>nen W<span class="soe">ö</span>rte<span class="sr">r</span>.</div>
+    <div class="sent-en">The doctors talk about the beautiful words.</div>
+    <div class="sent-note">🎯 Ä + R + Ü + R + Ö + Ö + R — alle vier Ziellaute!</div>
+  </div>
+  <div class="sent-card">
+    <div class="sent-de">Das M<span class="sae">ä</span>dchen t<span class="sr">r</span><span class="sae">ä</span>gt g<span class="sr">r</span><span class="sue">ü</span>ne Schuhe und h<span class="soe">ö</span><span class="sr">r</span>t Musik.</div>
+    <div class="sent-en">The girl wears green shoes and listens to music.</div>
+    <div class="sent-note">🎯 Ä + R + Ä + R + Ü + Ö + R — Tempo steigern: erst langsam, dann normal</div>
+  </div>
+  <div class="sent-card">
+    <div class="sent-de">De<span class="sr">r</span> Leh<span class="sr">r</span>e<span class="sr">r</span> e<span class="sr">r</span>kl<span class="sae">ä</span><span class="sr">r</span>t die W<span class="soe">ö</span>rte<span class="sr">r</span> f<span class="sue">ü</span>nf Mal.</div>
+    <div class="sent-en">The teacher explains the words five times.</div>
+    <div class="sent-note">🎯 Viele R (teils vokalisiert) + Ä + Ö + Ü — der ultimative Aussprache-Test!</div>
+  </div>
+  <div class="sent-card">
+    <div class="sent-de">W<span class="sae">ä</span>h<span class="sr">r</span>end des F<span class="sr">r</span><span class="sue">ü</span>hlings bl<span class="sue">ü</span>hen die sch<span class="soe">ö</span>nen B<span class="sae">ä</span>ume.</div>
+    <div class="sent-en">During spring the beautiful trees bloom.</div>
+    <div class="sent-note">🎯 Ä + R + R + Ü + Ü + Ö + Ä — Spitzenübung zum Abschluss!</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+  ZUNGENBRECHER
+══════════════════════════════════ -->
+<section id="zungenbrecher" data-section="6" data-start="47" data-end="50">
+  <div class="sec-head sh-combo" data-letter="👅">
+    <h2>👅 Zungenbrecher</h2>
+    <p>Langsam → Normal → Schnell — 3 Runden!</p>
+    <div class="sec-time">⏱ Minuten 47–50 (3 Min.)</div>
+  </div>
+
+  <div class="rule"><strong>So geht's:</strong> Jeden Zungenbrecher zunächst <strong>langsam und deutlich</strong> sprechen. Dann normales Tempo. Dann so schnell wie möglich — ohne Fehler. Wer einen Fehler macht, fängt von vorne an!</div>
+
+  <div class="zt-card">
+    <div class="zt-top r">
+      <div class="zt-label">🔴 Klassiker — F &amp; R</div>
+      <div class="zt-text">Fischers Fritze fischt frische Fische. Frische Fische fischt Fischers Fritze.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Fisher Fritz fishes fresh fish. Fresh fish fishes Fisher Fritz.</div>
+      <div class="zt-tip">🎯 F + R-Cluster: <em>fr-</em> in „Fritze", „frische", „Fische" — F und R kommen direkt zusammen, dann weich auf das R loslassen</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zt-card">
+    <div class="zt-top r">
+      <div class="zt-label">🔴 R-Fokus</div>
+      <div class="zt-text">Rote Rosen, rote Rosen, rote Rosen blühen.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Red roses, red roses, red roses bloom.</div>
+      <div class="zt-tip">🎯 Das R muss jedes Mal gleich klingen — uvular und klar, nicht vokalisiert</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zt-card">
+    <div class="zt-top oe">
+      <div class="zt-label">🔵 Ö-Fokus</div>
+      <div class="zt-text">Köche kochen köstliche Klöße. Klöße kochen Köche köstlich.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Cooks cook delicious dumplings. Dumplings cook cooks deliciously.</div>
+      <div class="zt-tip">🎯 Ö in: köstliche, Klöße — Lippen immer gerundet halten!</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zt-card">
+    <div class="zt-top ae">
+      <div class="zt-label">🟢 Ä-Fokus</div>
+      <div class="zt-text">Bäcker Braun backt braune Brötchen. Braune Brötchen backt Bäcker Braun.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Baker Braun bakes brown rolls. Brown rolls bakes Baker Braun.</div>
+      <div class="zt-tip">🎯 Ä in: Bäcker, Brötchen — Mund öffnen, Lippen entspannt lassen</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zt-card">
+    <div class="zt-top ue">
+      <div class="zt-label">🟣 Ü-Fokus</div>
+      <div class="zt-text">Fünf flinke Füße fühlen feuchtes Frühlingsgras.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Five nimble feet feel damp spring grass.</div>
+      <div class="zt-tip">🎯 Ü in: fünf, Füße, fühlen, Früh- — Lippen stark runden, Zunge vorne oben</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="zt-card">
+    <div class="zt-top mix">
+      <div class="zt-label">🌈 ALLES — Meister-Übung</div>
+      <div class="zt-text">Römer, Römer, würden gerne würdige Römer werden, wenn würdige Römer würden.</div>
+    </div>
+    <div class="zt-body">
+      <div class="zt-en">Romans would gladly become dignified Romans, if dignified Romans would become.</div>
+      <div class="zt-tip">🎯 R + Ö + Ü zusammen — der ultimative Test. Langsam beginnen! Ö in: Römer; Ü in: würden, würdige, würden</div>
+      <div class="speed-btns">
+        <button class="speed-btn" onclick="setSpeed(this)">🐢 Langsam</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🚶 Normal</button>
+        <button class="speed-btn" onclick="setSpeed(this)">🏃 Schnell</button>
+        <button class="speed-btn" onclick="setSpeed(this)">⚡ Sehr schnell</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <h3>📊 Geübte Wörter — Fortschritt</h3>
+  <div class="prog-rows">
+    <div class="prog-row">
+      <div class="prog-label" style="color:var(--r);">🔴 R-Laute</div>
+      <div class="prog-bar-wrap"><div class="prog-fill pf-r" id="prog-r" style="width:0%"></div></div>
+      <div class="prog-count" id="cnt-r">0 / 20</div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label" style="color:var(--oe);">🔵 Ö-Laute</div>
+      <div class="prog-bar-wrap"><div class="prog-fill pf-oe" id="prog-oe" style="width:0%"></div></div>
+      <div class="prog-count" id="cnt-oe">0 / 16</div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label" style="color:var(--ae);">🟢 Ä-Laute</div>
+      <div class="prog-bar-wrap"><div class="prog-fill pf-ae" id="prog-ae" style="width:0%"></div></div>
+      <div class="prog-count" id="cnt-ae">0 / 16</div>
+    </div>
+    <div class="prog-row">
+      <div class="prog-label" style="color:var(--ue);">🟣 Ü-Laute</div>
+      <div class="prog-bar-wrap"><div class="prog-fill pf-ue" id="prog-ue" style="width:0%"></div></div>
+      <div class="prog-count" id="cnt-ue">0 / 16</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>Allgemeine Deutschklasse &nbsp;·&nbsp; Aussprache R · Ö · Ä · Ü &nbsp;·&nbsp; Viel Spaß! 🗣️🇩🇪</footer>
+
+<script>
+// ── TIMER ────────────────────────────────────
+let totalSeconds = 50 * 60;
+let remaining = totalSeconds;
+let interval = null;
+let running = false;
+
+const SECTIONS = [
+  { id:'chip0', end:5*60, label:'Warm-up' },
+  { id:'chip1', end:17*60, label:'R' },
+  { id:'chip2', end:28*60, label:'Ö' },
+  { id:'chip3', end:38*60, label:'Ä' },
+  { id:'chip4', end:48*60, label:'Ü' },
+  { id:'chip5', end:47*60, label:'Mix' },  // already covered in ue section
+  { id:'chip6', end:50*60, label:'Zungenbrecher' }
+];
+
+function updateClock() {
+  const m = Math.floor(remaining / 60);
+  const s = remaining % 60;
+  const el = document.getElementById('clock');
+  el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  if(remaining <= 120) el.classList.add('urgent');
+  else el.classList.remove('urgent');
+
+  // progress bar
+  const elapsed = totalSeconds - remaining;
+  const pct = Math.round(elapsed / totalSeconds * 100);
+  document.getElementById('lesson-progress').style.width = pct + '%';
+
+  // section chips
+  const elapsedMin = elapsed / 60;
+  const boundaries = [5,17,28,38,43,47,50];
+  const chipIds = ['chip0','chip1','chip2','chip3','chip4','chip5','chip6'];
+  let prev = 0;
+  chipIds.forEach((id,i) => {
+    if(elapsedMin >= prev) document.getElementById(id).classList.add('done');
+    prev = boundaries[i];
+  });
+}
+
+function toggleTimer() {
+  if(running) {
+    clearInterval(interval);
+    running = false;
+    document.querySelector('.tbtn-start').textContent = '▶ Weiter';
+  } else {
+    if(remaining <= 0) return;
+    interval = setInterval(() => {
+      remaining--;
+      updateClock();
+      if(remaining <= 0) { clearInterval(interval); running = false; }
+    }, 1000);
+    running = true;
+    document.querySelector('.tbtn-start').textContent = '⏸ Pause';
+  }
+}
+
+function resetTimer() {
+  clearInterval(interval);
+  running = false;
+  remaining = totalSeconds;
+  document.querySelector('.tbtn-start').textContent = '▶ Start';
+  document.getElementById('lesson-progress').style.width = '0%';
+  document.querySelectorAll('.schip').forEach(c => c.classList.remove('done'));
+  updateClock();
+}
+
+updateClock();
+
+// ── WORD MARKING ────────────────────────────
+const counts = { r:0, oe:0, ae:0, ue:0 };
+const totals  = { r:20, oe:16, ae:16, ue:16 };
+
+function markDone(card, type) {
+  if(card.classList.contains('done-card')) {
+    card.classList.remove('done-card');
+    card.querySelector('.done-mark')?.remove();
+    counts[type] = Math.max(0, counts[type]-1);
+  } else {
+    card.classList.add('done-card');
+    const mark = document.createElement('span');
+    mark.className = 'done-mark';
+    mark.textContent = '✓';
+    card.appendChild(mark);
+    counts[type]++;
+  }
+  updateProgress(type);
+}
+
+function updateProgress(type) {
+  const pct = Math.min(100, Math.round(counts[type] / totals[type] * 100));
+  document.getElementById('prog-' + type).style.width = pct + '%';
+  document.getElementById('cnt-' + type).textContent = counts[type] + ' / ' + totals[type];
+}
+
+// ── SPEED BUTTONS ────────────────────────────
+function setSpeed(btn) {
+  const parent = btn.closest('.speed-btns');
+  parent.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active-speed'));
+  btn.classList.add('active-speed');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch B2/C1 | Die Wahlen in Kolumbien 2026</title>
+<style>
+:root {
+  --black:#1a1a2e; --gold:#e8b84b; --navy:#1e3a5f; --bg:#f5f6f8;
+  --card:#ffffff; --border:#e0e4ea; --muted:#7a8090;
+  --red:#c0392b; --green:#1a7a4a; --blue:#1d5fa8; --orange:#c45c0a;
+  --col-yellow:#ffd700; --col-blue:#003087; --col-red:#ce1126;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--black);line-height:1.75;}
+
+/* HEADER */
+header{background:var(--navy);color:white;padding:2.6rem 2rem 2rem;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,var(--col-yellow),var(--col-blue),var(--col-red));}
+header::after{content:'🇨🇴';position:absolute;right:2rem;top:1.5rem;font-size:5rem;opacity:0.15;}
+.header-inner{max-width:960px;margin:0 auto;padding-left:1.2rem;position:relative;z-index:1;}
+.series-label{font-family:sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+header h1{font-size:1.9rem;font-weight:700;line-height:1.25;}
+header h1 span{color:var(--gold);}
+.header-sub{margin-top:0.5rem;font-size:0.92rem;color:rgba(255,255,255,0.7);font-style:italic;}
+.header-meta{margin-top:1rem;font-family:sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.5);display:flex;gap:1.4rem;flex-wrap:wrap;}
+.badge{display:inline-block;background:var(--gold);color:var(--navy);font-family:sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.7rem;border-radius:3px;margin-right:0.3rem;}
+
+/* NAV */
+nav{background:var(--black);padding:0.6rem 2rem;overflow-x:auto;white-space:nowrap;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;gap:0.3rem;}
+nav a{font-family:sans-serif;font-size:0.77rem;color:rgba(255,255,255,0.6);text-decoration:none;padding:0.3rem 0.7rem;border-radius:5px;transition:all 0.15s;}
+nav a:hover{background:rgba(232,184,75,0.2);color:var(--gold);}
+
+/* MAIN */
+main{max-width:960px;margin:2rem auto;padding:0 1.5rem 5rem;}
+section{margin-bottom:3.5rem;scroll-margin-top:55px;}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem;padding-bottom:0.7rem;border-bottom:2px solid var(--border);}
+.section-icon{width:38px;height:38px;background:var(--navy);color:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.section-header h2{font-size:1.15rem;font-weight:700;}
+.section-header h2 small{display:block;font-size:0.78rem;font-weight:400;color:var(--muted);margin-top:0.1rem;}
+
+/* ARTICLE TEXT */
+.article-text{font-size:0.97rem;line-height:1.85;margin-bottom:0.9rem;}
+.article-text strong{color:var(--navy);}
+.lead{font-size:1.08rem;font-weight:600;line-height:1.7;color:var(--navy);margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:2px solid var(--border);}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.8rem;margin:1rem 0;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.stat-num{font-size:2rem;font-weight:700;line-height:1;display:block;}
+.stat-label{font-family:sans-serif;font-size:0.78rem;color:var(--muted);margin-top:0.35rem;display:block;}
+.stat-sub{font-family:sans-serif;font-size:0.72rem;color:var(--muted);display:block;margin-top:0.15rem;}
+
+/* CANDIDATE CARDS */
+.cand-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+.cand-card{border-radius:14px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.07);}
+.cand-header{padding:1.2rem 1.4rem;color:white;}
+.cand-header h3{font-size:1.1rem;font-weight:700;}
+.cand-header .cand-party{font-family:sans-serif;font-size:0.78rem;opacity:0.8;margin-top:0.2rem;}
+.cand-header .cand-pct{font-size:2.2rem;font-weight:700;float:right;line-height:1;}
+.ch-right{background:linear-gradient(135deg,#a02008,#c0390a);}
+.ch-left{background:linear-gradient(135deg,#1a3a6e,#1d5fa8);}
+.cand-body{background:var(--card);border:1px solid var(--border);border-top:none;padding:1.1rem 1.4rem;}
+.cand-body ul{list-style:none;font-size:0.88rem;}
+.cand-body ul li{padding:0.25rem 0;padding-left:1.2rem;position:relative;}
+.cand-body ul li::before{content:'▸';position:absolute;left:0;color:var(--muted);}
+
+/* RESULT BAR */
+.result-bar-wrap{margin:1.2rem 0;}
+.rb-label{font-family:sans-serif;font-size:0.8rem;font-weight:700;margin-bottom:0.4rem;display:flex;justify-content:space-between;}
+.rb-track{background:#e0e4ea;border-radius:10px;height:28px;overflow:hidden;display:flex;}
+.rb-fill-r{background:linear-gradient(to right,#c0390a,#a02008);display:flex;align-items:center;padding-left:0.7rem;color:white;font-family:sans-serif;font-size:0.8rem;font-weight:700;transition:width 0.6s;}
+.rb-fill-l{background:linear-gradient(to right,#1d5fa8,#0f3a80);display:flex;align-items:center;justify-content:flex-end;padding-right:0.7rem;color:white;font-family:sans-serif;font-size:0.8rem;font-weight:700;transition:width 0.6s;}
+.round-label{font-family:sans-serif;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:0.3rem;margin-top:0.8rem;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.5rem;margin-bottom:0.8rem;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.card h4{font-size:0.95rem;font-weight:700;margin-bottom:0.5rem;}
+.card-grid{display:grid;gap:0.8rem;}
+.two-col{grid-template-columns:1fr 1fr;}
+.three-col{grid-template-columns:1fr 1fr 1fr;}
+
+/* COUNTRY CARDS */
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.9rem;margin:0.8rem 0;}
+.country-card{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.cc-head{padding:0.85rem 1.1rem;color:white;display:flex;align-items:center;gap:0.7rem;}
+.cc-flag{font-size:1.8rem;}
+.cc-name{font-size:0.95rem;font-weight:700;}
+.cc-orient{font-family:sans-serif;font-size:0.7rem;opacity:0.85;margin-top:0.1rem;}
+.cc-body{padding:0.9rem 1.1rem;font-size:0.87rem;line-height:1.6;}
+.cc-body strong{color:var(--navy);}
+.orient-right{background:linear-gradient(135deg,#a02008,#c8390a);}
+.orient-left{background:linear-gradient(135deg,#1d5fa8,#0f3a80);}
+.orient-mixed{background:linear-gradient(135deg,#5a2080,#1d5fa8);}
+.orient-auto{background:linear-gradient(135deg,#2a6a2a,#1a7a4a);}
+
+/* RULE / TIP BOXES */
+.rule{background:#fffbea;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.9rem;}
+.rule strong{color:var(--navy);}
+.tip{background:#e8f0ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.88rem;}
+.warning{background:#fff0f0;border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:0.9rem 1.2rem;margin:0.8rem 0;font-size:0.88rem;}
+
+/* VOKABELN */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.5rem;margin:0.8rem 0;}
+.vocab-item{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:0.65rem 0.9rem;display:flex;gap:0.6rem;align-items:flex-start;}
+.vocab-de{font-weight:700;min-width:160px;flex-shrink:0;color:var(--navy);}
+.vocab-en{font-size:0.85rem;color:var(--muted);}
+
+/* DISCUSSION */
+.disc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:0.7rem;display:flex;gap:1rem;align-items:flex-start;}
+.disc-num{font-family:sans-serif;font-size:0.85rem;font-weight:700;color:white;background:var(--navy);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.disc-q{font-size:0.93rem;}
+.disc-hint{font-family:sans-serif;font-size:0.78rem;color:var(--muted);margin-top:0.3rem;}
+
+/* TIMELINE */
+.timeline{margin:0.8rem 0;}
+.tl-item{display:flex;gap:1rem;margin-bottom:0.9rem;align-items:flex-start;}
+.tl-date{font-family:sans-serif;font-size:0.78rem;font-weight:700;background:var(--navy);color:white;padding:0.2rem 0.6rem;border-radius:5px;white-space:nowrap;flex-shrink:0;margin-top:0.1rem;}
+.tl-text{font-size:0.9rem;line-height:1.6;}
+
+/* REGIONAL SHIFT */
+.shift-bar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.5rem;margin:0.8rem 0;}
+.shift-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.7rem;font-size:0.88rem;}
+.shift-country{width:90px;font-weight:700;font-family:sans-serif;font-size:0.8rem;}
+.shift-track{flex:1;height:22px;background:#e0e4ea;border-radius:6px;overflow:hidden;position:relative;}
+.shift-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 0.5rem;color:white;font-family:sans-serif;font-size:0.75rem;font-weight:700;}
+.s-right{background:linear-gradient(to right,#c0390a,#a02008);}
+.s-left{background:linear-gradient(to right,#1d5fa8,#0f3a80);}
+.s-center{background:linear-gradient(to right,#555,#333);}
+
+.map-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;overflow-x:auto;margin:0.8rem 0;}
+.map-legend{display:flex;gap:0.8rem;flex-wrap:wrap;font-family:sans-serif;font-size:0.77rem;margin:0.8rem 0;}
+.map-legend span{display:flex;align-items:center;gap:0.3rem;}
+.legend-dot{width:13px;height:13px;border-radius:3px;display:inline-block;}
+/* ── CLICK-TO-TRANSLATE ── */
+.de-word{cursor:pointer;border-radius:2px;transition:background 0.1s;}
+.de-word:hover{background:rgba(232,184,75,0.22);}
+.de-word.translated{border-bottom:1px dotted rgba(232,184,75,0.55);}
+#word-tip{position:fixed;background:#1a2f50;color:#fff;padding:9px 15px;border-radius:10px;font-family:sans-serif;font-size:0.83rem;pointer-events:none;z-index:9999;max-width:240px;box-shadow:0 6px 28px rgba(0,0,0,0.45);opacity:0;transform:translateY(5px);transition:opacity 0.15s,transform 0.15s;}
+#word-tip.show{opacity:1;transform:translateY(0);}
+#word-tip .wt-lang{font-size:0.67rem;font-weight:700;color:#e8b84b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px;}
+#word-tip .wt-de{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
+#word-tip .wt-en{color:rgba(255,255,255,0.88);font-size:0.85rem;line-height:1.35;}
+#word-tip .wt-en.loading{opacity:0.55;font-style:italic;}
+.translate-hint{display:inline-block;background:rgba(232,184,75,0.12);border:1px solid rgba(232,184,75,0.3);border-radius:20px;padding:3px 12px;font-family:sans-serif;font-size:0.75rem;color:var(--gold);margin-left:0.5rem;vertical-align:middle;}
+footer{text-align:center;font-family:sans-serif;font-size:0.78rem;color:var(--muted);padding:2.5rem 1rem;border-top:1px solid var(--border);}
+footer a{color:var(--blue);}
+@media(max-width:640px){
+  .cand-grid{grid-template-columns:1fr;}
+  .two-col,.three-col{grid-template-columns:1fr;}
+  header h1{font-size:1.4rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Aktuelles Weltgeschehen</div>
+    <h1>Die <span>Wahlen in Kolumbien</span> 2026</h1>
+    <div class="header-sub">Ergebnisse · Statistiken · Analyse · Nachbarländer</div>
+    <div class="header-meta">
+      <span><span class="badge">B2</span><span class="badge">C1</span> Fortgeschrittene</span>
+      <span>🗳️ Präsidentschaftswahl · Juni 2026 · Politische Geographie</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#ueberblick">Überblick</a>
+    <a href="#ergebnisse">Ergebnisse</a>
+    <a href="#kandidaten">Kandidaten</a>
+    <a href="#petro">Regierung Petro</a>
+    <a href="#analyse">Analyse</a>
+    <a href="#politische-karte">🗺️ Karte</a>
+    <a href="#nachbarn">Nachbarländer</a>
+    <a href="#vokabeln">Vokabeln</a>
+    <a href="#diskussion">Diskussion</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════
+  ÜBERBLICK
+════════════════════════════ -->
+<section id="ueberblick">
+  <div class="section-header">
+    <div class="section-icon">📰</div>
+    <h2>Überblick <small>Was ist passiert?</small></h2>
+  </div>
+
+  <p class="lead">Am 21. Juni 2026 hat Kolumbien seinen nächsten Präsidenten gewählt. Der rechtsextreme Anwalt und Geschäftsmann <strong>Abelardo de la Espriella</strong> gewann die Stichwahl knapp gegen den linken Senator <strong>Iván Cepeda</strong> und löst damit Gustavo Petro als Präsident ab.</p>
+
+  <p class="article-text">Die Wahl war <strong>historisch knapp</strong> und spiegelt eine tief gespaltene Gesellschaft wider. Nur etwa eine Viertelmillion Stimmen trennten die beiden Kandidaten — bei über 25 Millionen abgegebenen Stimmen. Internationale Beobachter bezeichneten den Prozess als <strong>geordnet und transparent</strong>.</p>
+
+  <p class="article-text">Das Ergebnis bedeutet einen <strong>politischen Kurswechsel</strong>: Kolumbien wechselt von einer linken Regierung unter Gustavo Petro (2022–2026) zu einer rechtsgerichteten unter De la Espriella. Sein Amtsantritt ist für den <strong>7. August 2026</strong> geplant.</p>
+
+  <div class="timeline">
+    <div class="tl-item"><span class="tl-date">März 2026</span><div class="tl-text"><strong>Parlamentswahlen</strong> — De la Esprilelas Bewegung „Verteidiger des Vaterlandes" gewinnt Sitze im Kongress.</div></div>
+    <div class="tl-item"><span class="tl-date">31. Mai 2026</span><div class="tl-text"><strong>1. Wahlrunde</strong> — 13 Kandidaten, keiner erreicht 50 % → Stichwahl zwischen den zwei Führenden.</div></div>
+    <div class="tl-item"><span class="tl-date">21. Juni 2026</span><div class="tl-text"><strong>Stichwahl</strong> — De la Espriella gewinnt mit 49,66 % gegen Cepedas 48,70 %. Vorsprung: rund 250.000 Stimmen.</div></div>
+    <div class="tl-item"><span class="tl-date">7. August 2026</span><div class="tl-text"><strong>Amtsantritt</strong> — De la Espriella wird als neuer Präsident Kolumbiens vereidigt.</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+  ERGEBNISSE & STATISTIKEN
+════════════════════════════ -->
+<section id="ergebnisse">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <h2>Ergebnisse &amp; Statistiken</h2>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-num" style="color:var(--red);">49,66 %</span><span class="stat-label">De la Espriella (Stichwahl)</span><span class="stat-sub">~12,9 Mio. Stimmen · Rekord</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--blue);">48,70 %</span><span class="stat-label">Cepeda (Stichwahl)</span><span class="stat-sub">~12,65 Mio. Stimmen</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">63,6 %</span><span class="stat-label">Wahlbeteiligung</span><span class="stat-sub">Stichwahl — historisch hoch</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">~250.000</span><span class="stat-label">Vorsprung (Stimmen)</span><span class="stat-sub">Hauchdünner Sieg</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">13</span><span class="stat-label">Kandidaten (1. Runde)</span><span class="stat-sub">Keiner mit > 50 %</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">84,6 %</span><span class="stat-label">Stimmen für die Top 2</span><span class="stat-sub">Starke Polarisierung</span></div>
+  </div>
+
+  <div class="result-bar-wrap">
+    <div class="round-label">1. Runde — 31. Mai 2026</div>
+    <div class="rb-label"><span style="color:var(--red);">🔴 De la Espriella (rechts)</span><span style="color:var(--blue);">Cepeda (links) 🔵</span></div>
+    <div class="rb-track">
+      <div class="rb-fill-r" style="width:43.7%;">43,7 %</div>
+      <div class="rb-fill-l" style="width:40.9%;">40,9 %</div>
+    </div>
+
+    <div class="round-label">Stichwahl — 21. Juni 2026</div>
+    <div class="rb-label"><span style="color:var(--red);">🔴 De la Espriella (rechts)</span><span style="color:var(--blue);">Cepeda (links) 🔵</span></div>
+    <div class="rb-track">
+      <div class="rb-fill-r" style="width:49.66%;">49,66 %</div>
+      <div class="rb-fill-l" style="width:48.70%;">48,70 %</div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Zum Vergleich:</strong> 12,9 Millionen Stimmen für De la Espriella bedeuten die <strong>meisten Stimmen, die je ein Präsidentschaftskandidat in Kolumbien erhalten hat</strong> — trotz des knappen Vorsprungs. Die Gesamtbeteiligung zeigt: beide Lager haben ihre Wähler mobilisiert wie nie zuvor.</div>
+</section>
+
+<!-- ════════════════════════════
+  KANDIDATEN
+════════════════════════════ -->
+<section id="kandidaten">
+  <div class="section-header">
+    <div class="section-icon">🧑‍💼</div>
+    <h2>Die Kandidaten <small>Wer sind sie — was wollen sie?</small></h2>
+  </div>
+
+  <div class="cand-grid">
+    <div class="cand-card">
+      <div class="cand-header ch-right">
+        <span class="cand-pct">49,7 %</span>
+        <h3>Abelardo de la Espriella</h3>
+        <div class="cand-party">„Verteidiger des Vaterlandes" · Rechtsaußen · 47 Jahre</div>
+      </div>
+      <div class="cand-body">
+        <ul>
+          <li>Millionär, Strafverteidiger, Unternehmer — Spitzname: <em>„El Tigre"</em></li>
+          <li>Politischer Outsider — keine Erfahrung im Staatsamt</li>
+          <li>Unterstützt von US-Präsident Donald Trump</li>
+          <li>Dreifacher Staatsbürger (Kolumbien, USA, Italien)</li>
+          <li>Verspricht militärische Offensive gegen Guerillagruppen</li>
+          <li>Will Moratorium auf Öl- und Gasbohrungen aufheben</li>
+          <li>Plant Öffnung für Fracking und neue Bergbauverträge</li>
+          <li>Bekannt für Luxuslebensstil: Rolls-Royce, Privatjet, Modemarke</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cand-card">
+      <div class="cand-header ch-left">
+        <span class="cand-pct">48,7 %</span>
+        <h3>Iván Cepeda</h3>
+        <div class="cand-party">Historischer Pakt (Petros Partei) · Links · Senator</div>
+      </div>
+      <div class="cand-body">
+        <ul>
+          <li>Erfahrener linker Senator und Menschenrechtsanwalt</li>
+          <li>Kandidat der Regierungspartei von Gustavo Petro</li>
+          <li>Befürworter der sozialen Reformen Petros</li>
+          <li>Wollte Friedensprozess mit bewaffneten Gruppen fortsetzen</li>
+          <li>Plädierte für Beibehaltung des Ölbohrungsmoratoriums</li>
+          <li>Wollte Sozialprogramme ausbauen und Armut weiter senken</li>
+          <li>Außenpolitisch: Nähe zu Lula (Brasilien) und Venezuela-Dialog</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"><strong>Sprachnotiz:</strong> Im Deutschen sagt man „der Kandidat" / „die Kandidatin". Für Positionen: „Er ist <em>zum</em> Präsidenten gewählt worden." · „Sie kandidiert <em>für</em> das Amt." · „Er tritt sein Amt <em>am</em> 7. August an."</div>
+</section>
+
+<!-- ════════════════════════════
+  REGIERUNG PETRO (2022–2026)
+════════════════════════════ -->
+<section id="petro">
+  <div class="section-header">
+    <div class="section-icon">⚖️</div>
+    <h2>Die Regierung Petro <small>Was hat sich 2022–2026 verändert?</small></h2>
+  </div>
+
+  <p class="article-text">Gustavo Petro war Kolumbiens <strong>erster linker Präsident</strong> in der Geschichte des Landes. Seine vier Jahre hinterließen ein gemischtes Erbe: soziale Fortschritte auf der einen, wirtschaftliche und sicherheitspolitische Probleme auf der anderen Seite.</p>
+
+  <div class="card-grid two-col" style="margin:1rem 0;">
+    <div class="card" style="border-left:4px solid var(--green);">
+      <h4 style="color:var(--green);">✅ Erfolge</h4>
+      <ul style="list-style:none;font-size:0.88rem;line-height:1.9;">
+        <li>▸ 2,1 Millionen Menschen aus der Armut geführt (2022–2024)</li>
+        <li>▸ Arbeitslosigkeit auf historisch niedrige 9 % gesunken</li>
+        <li>▸ Mindestlohn real um ~9 % pro Jahr erhöht</li>
+        <li>▸ Mehr Landumverteilung als alle Vorgänger</li>
+        <li>▸ Investitionen in 1.036 statt früher 210 Gemeinden</li>
+        <li>▸ Größte Umsetzung des Friedensabkommens von 2016</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid var(--red);">
+      <h4 style="color:var(--red);">❌ Probleme</h4>
+      <ul style="list-style:none;font-size:0.88rem;line-height:1.9;">
+        <li>▸ Haushaltsdefizit stieg auf 7,5 % (2025) — Rekord</li>
+        <li>▸ Staatsverschuldung deutlich gewachsen</li>
+        <li>▸ Kokaanbau auf Rekordhoch — USA entzogen Zertifizierung</li>
+        <li>▸ „Gesamtfrieden"-Politik weitgehend gescheitert</li>
+        <li>▸ Guerillagruppen expandierten, Gewalt stieg</li>
+        <li>▸ Neues Öl- und Gasmoratorium ohne Ersatz</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Kontext:</strong> Petro war ehemaliger Guerillakämpfer (M-19) und Bürgermeister von Bogotá. Sein Sieg 2022 war historisch — erstmals regierte ein Kandidat der Linken. Die Wahl 2026 zeigt, dass <strong>viele Kolumbianer</strong> nach vier Jahren eine andere Richtung wollten.</div>
+</section>
+
+<!-- ════════════════════════════
+  ANALYSE
+════════════════════════════ -->
+<section id="analyse">
+  <div class="section-header">
+    <div class="section-icon">🔍</div>
+    <h2>Politische Einblicke &amp; Analyse</h2>
+  </div>
+
+  <div class="card" style="margin-bottom:0.9rem;">
+    <h4>1. Ein gespaltenes Land</h4>
+    <p class="article-text" style="margin-bottom:0;">Nur knapp 1 % Prozentpunkte trennte die beiden Kandidaten — fast die Hälfte der Kolumbianer wollte eine Fortsetzung der linken Politik, die andere Hälfte einen Rechtsruck. Diese Polarisierung zeigt sich auch im Kongress, wo keine Seite eine klare Mehrheit hat.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:0.9rem;">
+    <h4>2. Der Faktor Trump</h4>
+    <p class="article-text" style="margin-bottom:0;">De la Espriella wurde öffentlich von US-Präsident Donald Trump unterstützt — ein ungewöhnlicher Schritt in der lateinamerikanischen Politik. Kritiker sehen darin eine Einmischung von außen; Befürworter erwarten eine bessere Zusammenarbeit mit den USA im Drogenkrieg.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:0.9rem;">
+    <h4>3. Der Outsider-Effekt</h4>
+    <p class="article-text" style="margin-bottom:0;">De la Espriella hatte keinerlei politisches Amt bekleidet — ähnlich wie Trump in den USA war er ein Unternehmer-Kandidat, der das „System" herausforderte. Dieser Outsider-Effekt mobilisierte viele Wähler, die den etablierten Politikern misstrauen.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:0.9rem;">
+    <h4>4. Sicherheit als Wahlkampfthema Nr. 1</h4>
+    <p class="article-text" style="margin-bottom:0;">Die Verschlechterung der Sicherheitslage unter Petro — trotz des „Gesamtfriedens" — trieb viele Wähler in das rechte Lager. De la Espriella versprach eine harte militärische Offensive gegen Guerillagruppen wie die ELN und FARC-Dissidenten.</p>
+  </div>
+
+  <div class="warning"><strong>Herausforderungen für die neue Regierung:</strong> De la Espriella übernimmt ein Land mit einem Rekorddefizit, Rekord-Kokaproduktion, aktiven Guerillagruppen und über 2,9 Millionen venezolanischen Flüchtlingen. Dazu kommt ein Kongress ohne klare Mehrheit für seine Partei.</div>
+</section>
+
+<!-- ════════════════════════════
+  POLITISCHE KARTE
+════════════════════════════ -->
+<section id="politische-karte">
+  <div class="section-header">
+    <div class="section-icon">🗺️</div>
+    <h2>Politische Karte der Region <small>Von Mexiko bis Argentinien — Regierungsfarben 2026</small></h2>
+  </div>
+
+  <div class="map-legend">
+    <span><span class="legend-dot" style="background:#2563eb;"></span>Links / Sozialdemokratisch</span>
+    <span><span class="legend-dot" style="background:#dc2626;"></span>Rechts / Mitte-rechts</span>
+    <span><span class="legend-dot" style="background:#991b1b;"></span>Weit rechts (Milei)</span>
+    <span><span class="legend-dot" style="background:#7c3aed;"></span>Autoritär (Maduro / Ortega)</span>
+    <span><span class="legend-dot" style="background:#d97706;"></span>Im Wandel (Kolumbien)</span>
+    <span><span class="legend-dot" style="background:#6b7280;"></span>Zentrum / Sonderfall</span>
+  </div>
+
+  <div class="map-wrap">
+    <svg viewBox="0 0 540 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Politische Karte Lateinamerikas 2026" style="width:100%;display:block;max-height:88vh;">
+      <style>
+        .country{stroke:#fff;stroke-width:0.7;transition:opacity 0.15s;}
+        .country:hover{opacity:0.82;}
+        .ctitle{font-family:sans-serif;font-weight:700;text-anchor:middle;pointer-events:none;}
+        .cpres{font-family:sans-serif;text-anchor:middle;pointer-events:none;fill:rgba(255,255,255,0.88);}
+        .ext-line{stroke:rgba(255,255,255,0.6);stroke-width:0.6;}
+      </style>
+
+      <!-- Ocean background -->
+      <rect width="540" height="720" fill="#7ab3d4" rx="4"/>
+
+      <!-- ── BRAZIL (drawn first — big base) ── -->
+      <polygon class="country" fill="#2563eb"
+        points="286,252 360,252 360,236 378,236 396,220 414,236 458,252 514,324 512,348 494,428 458,452 434,476 406,532 374,492 372,428 362,388 302,340"/>
+      <text class="ctitle" x="432" y="388" fill="white" font-size="14">BRASILIEN</text>
+      <text class="cpres" x="432" y="404" font-size="9">Lula da Silva</text>
+
+      <!-- ── SOUTH AMERICA — on top of Brazil ── -->
+
+      <!-- Colombia (Transitioning) -->
+      <polygon class="country" fill="#d97706"
+        points="240,212 252,196 258,176 270,176 284,172 290,172 290,212 320,252 302,284 260,272 254,260 240,214"/>
+      <text class="ctitle" x="274" y="228" fill="white" font-size="8">KOLUMBIEN</text>
+      <text class="cpres" x="274" y="238" font-size="6">Petro → De la Espriella</text>
+
+      <!-- Venezuela (Authoritarian) -->
+      <polygon class="country" fill="#7c3aed"
+        points="290,172 314,172 356,180 362,180 362,212 362,240 326,252 290,252 290,212"/>
+      <text class="ctitle" x="328" y="214" fill="white" font-size="8">VENEZUELA</text>
+      <text class="cpres" x="328" y="224" font-size="6">Maduro (autoritär)</text>
+
+      <!-- Guyana (Centre) -->
+      <polygon class="country" fill="#6b7280"
+        points="362,212 362,204 378,204 378,252 362,252 362,240"/>
+      <text class="ctitle" x="370" y="230" fill="white" font-size="5.5">GUY</text>
+
+      <!-- Suriname (Right) -->
+      <polygon class="country" fill="#ef4444"
+        points="378,204 396,220 396,252 378,252"/>
+      <text class="ctitle" x="387" y="236" fill="white" font-size="5">SUR</text>
+
+      <!-- French Guiana (France/special) -->
+      <polygon class="country" fill="#9ca3af"
+        points="396,220 414,236 414,252 396,252"/>
+      <text class="ctitle" x="405" y="240" fill="white" font-size="4.5">GUF</text>
+
+      <!-- Ecuador (Right) -->
+      <polygon class="country" fill="#dc2626"
+        points="254,260 266,264 272,272 248,308 236,292 248,260"/>
+      <text class="ctitle" x="255" y="284" fill="white" font-size="7.5">ECU</text>
+      <text class="cpres" x="255" y="293" font-size="5.5">Noboa</text>
+
+      <!-- Peru (Right — Fujimori elect) -->
+      <polygon class="country" fill="#dc2626"
+        points="236,284 278,268 278,284 302,348 302,408 266,380 236,316"/>
+      <text class="ctitle" x="268" y="344" fill="white" font-size="8">PERU</text>
+      <text class="cpres" x="268" y="354" font-size="6">Fujimori (ab Juli)</text>
+
+      <!-- Bolivia (Left) -->
+      <polygon class="country" fill="#2563eb"
+        points="302,340 374,340 374,444 314,444 302,404"/>
+      <text class="ctitle" x="338" y="396" fill="white" font-size="8">BOLIVIEN</text>
+      <text class="cpres" x="338" y="406" font-size="6">Arce</text>
+
+      <!-- Paraguay (Right) -->
+      <polygon class="country" fill="#dc2626"
+        points="350,420 392,420 392,460 374,488 350,488"/>
+      <text class="ctitle" x="372" y="456" fill="white" font-size="6.5">PRY</text>
+      <text class="cpres" x="372" y="465" font-size="5">Peña</text>
+
+      <!-- Uruguay (Left) -->
+      <polygon class="country" fill="#2563eb"
+        points="374,508 404,532 404,540 398,548 374,540"/>
+      <text class="ctitle" x="388" y="531" fill="white" font-size="5.5">URY</text>
+      <text class="cpres" x="388" y="539" font-size="5">Orsi</text>
+
+      <!-- Chile (Left) -->
+      <polygon class="country" fill="#2563eb"
+        points="302,404 314,444 302,508 296,572 290,668 302,708 284,708 284,588 290,508 296,412"/>
+      <text class="ctitle" x="295" y="572" fill="white" font-size="7">CHILE</text>
+      <text class="cpres" x="295" y="582" font-size="5.5">Boric</text>
+
+      <!-- Argentina (Far-Right) -->
+      <polygon class="country" fill="#991b1b"
+        points="314,444 376,444 404,532 380,572 380,676 314,700 290,668 296,572 302,508"/>
+      <text class="ctitle" x="348" y="578" fill="white" font-size="9">ARGENTINIEN</text>
+      <text class="cpres" x="348" y="590" font-size="7">Milei (weit rechts)</text>
+
+      <!-- ── CENTRAL AMERICA ── -->
+
+      <!-- Baja California (Mexico) -->
+      <polygon class="country" fill="#2563eb"
+        points="18,8 28,28 38,48 50,66 58,80 64,82 58,76 50,64 42,50 34,34 24,16"/>
+
+      <!-- Mexico Mainland (Left) -->
+      <polygon class="country" fill="#2563eb"
+        points="30,8 140,58 140,90 152,114 178,98 200,98 195,139 170,146 152,138 122,130 92,100 86,82 62,74 36,40"/>
+      <text class="ctitle" x="112" y="88" fill="white" font-size="10">MEXIKO</text>
+      <text class="cpres" x="112" y="99" font-size="7">Sheinbaum (links)</text>
+
+      <!-- Guatemala (Left) -->
+      <polygon class="country" fill="#2563eb"
+        points="170,146 195,139 197,154 188,162 180,160 170,156"/>
+
+      <!-- Belize (Centre-left) -->
+      <polygon class="country" fill="#3b82f6"
+        points="195,139 200,140 199,155 197,154"/>
+
+      <!-- Honduras (Right) -->
+      <polygon class="country" fill="#dc2626"
+        points="188,162 222,148 226,150 224,167 198,169 194,164"/>
+
+      <!-- El Salvador (Right) -->
+      <polygon class="country" fill="#dc2626"
+        points="170,156 188,162 192,169 176,172 170,164"/>
+
+      <!-- Nicaragua (Authoritarian) -->
+      <polygon class="country" fill="#7c3aed"
+        points="194,164 224,167 224,175 219,190 207,190 195,184"/>
+
+      <!-- Costa Rica (Right) -->
+      <polygon class="country" fill="#dc2626"
+        points="195,184 207,190 216,190 214,198 209,202 198,200"/>
+
+      <!-- Panama (Centre-right) -->
+      <polygon class="country" fill="#ef4444"
+        points="209,202 214,198 222,195 236,200 242,206 240,210 228,208"/>
+
+      <!-- ── EXTERNAL LABELS for small countries ── -->
+      <!-- Guatemala -->
+      <line class="ext-line" x1="183" y1="152" x2="163" y2="140"/>
+      <text class="ctitle" x="148" y="139" fill="white" font-size="6.5">Guatemala</text>
+      <text class="cpres" x="148" y="147" font-size="5">Arévalo</text>
+
+      <!-- Belize -->
+      <line class="ext-line" x1="198" y1="148" x2="214" y2="136"/>
+      <text class="ctitle" x="226" y="134" fill="white" font-size="6">Belize</text>
+      <text class="cpres" x="226" y="142" font-size="5">Briceño</text>
+
+      <!-- Honduras -->
+      <line class="ext-line" x1="215" y1="158" x2="238" y2="150"/>
+      <text class="ctitle" x="252" y="149" fill="white" font-size="6">Honduras</text>
+      <text class="cpres" x="252" y="157" font-size="5">Asfura</text>
+
+      <!-- El Salvador -->
+      <line class="ext-line" x1="182" y1="165" x2="162" y2="163"/>
+      <text class="ctitle" x="146" y="162" fill="white" font-size="6">El Salvador</text>
+      <text class="cpres" x="146" y="170" font-size="5">Bukele</text>
+
+      <!-- Nicaragua -->
+      <line class="ext-line" x1="217" y1="178" x2="238" y2="168"/>
+      <text class="ctitle" x="252" y="167" fill="white" font-size="6">Nicaragua</text>
+      <text class="cpres" x="252" y="175" font-size="5">Ortega (autoritär)</text>
+
+      <!-- Costa Rica -->
+      <line class="ext-line" x1="207" y1="195" x2="232" y2="188"/>
+      <text class="ctitle" x="248" y="187" fill="white" font-size="6">Costa Rica</text>
+      <text class="cpres" x="248" y="195" font-size="5">Fernández</text>
+
+      <!-- Panama -->
+      <line class="ext-line" x1="228" y1="205" x2="250" y2="196"/>
+      <text class="ctitle" x="264" y="195" fill="white" font-size="6">Panama</text>
+      <text class="cpres" x="264" y="203" font-size="5">Mulino</text>
+
+      <!-- Guyana detail -->
+      <line class="ext-line" x1="370" y1="228" x2="390" y2="218"/>
+      <text class="ctitle" x="403" y="217" fill="white" font-size="5.5">Guyana</text>
+      <text class="cpres" x="403" y="225" font-size="5">Ali (Zentrum)</text>
+
+      <!-- Suriname detail -->
+      <line class="ext-line" x1="388" y1="232" x2="406" y2="224"/>
+      <text class="ctitle" x="420" y="223" fill="white" font-size="5">Suriname</text>
+      <text class="cpres" x="420" y="231" font-size="5">Santokhi</text>
+
+    </svg>
+  </div>
+
+  <div class="note" style="margin-top:0.8rem;">
+    <strong>Legende:</strong> Kolumbien (gelb) ist im Wandel: Bis 7. Aug. 2026 regiert Petro (links) — danach De la Espriella (rechts). · Peru: Amtierende Präsidentin ist Dina Boluarte; Keiko Fujimori (rechts) tritt das Amt am 28. Juli 2026 an. · Argentinien (dunkelrot): Präsident Javier Milei gilt als libertärer Rechtspopulist. · <em>GTM = Guatemala · NIC = Nicaragua · CRI = Costa Rica · PAN = Panama · ECU = Ecuador · PRY = Paraguay · URY = Uruguay · GUY = Guyana · SUR = Suriname · GUF = Französisch-Guayana</em>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+  NACHBARLÄNDER
+════════════════════════════ -->
+<section id="nachbarn">
+  <div class="section-header">
+    <div class="section-icon">🌎</div>
+    <h2>Kolumbiens Nachbarländer <small>Die politische Lage in der Region</small></h2>
+  </div>
+
+  <p class="article-text">Kolumbien grenzt an fünf Länder. Die politische Lage dieser Nachbarn beeinflusst direkt die kolumbianische Innen- und Außenpolitik — von Migration über Drogenschmuggel bis zu Guerillabewegungen.</p>
+
+  <div class="shift-bar" style="margin-bottom:1.2rem;">
+    <p style="font-family:sans-serif;font-size:0.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:0.8rem;">Politische Ausrichtung der Nachbarstaaten (2026)</p>
+    <div class="shift-row"><span class="shift-country">🇻🇪 Venezuela</span><div class="shift-track"><div class="shift-fill s-left" style="width:80%;">Autoritär-links (Maduro)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇧🇷 Brasilien</span><div class="shift-track"><div class="shift-fill s-left" style="width:55%;">Links (Lula)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇪🇨 Ecuador</span><div class="shift-track"><div class="shift-fill s-right" style="width:60%;">Mitte-rechts (Noboa)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇵🇪 Peru</span><div class="shift-track"><div class="shift-fill s-right" style="width:60%;">Rechts (Fujimori, ab 28. Juli)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇵🇦 Panama</span><div class="shift-track"><div class="shift-fill s-center" style="width:45%;">Mitte (Mulino)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇭🇳 Honduras</span><div class="shift-track"><div class="shift-fill s-right" style="width:62%;">Rechts (Asfura, seit Jan. 2026)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇸🇻 El Salvador</span><div class="shift-track"><div class="shift-fill s-right" style="width:70%;">Rechts (Bukele)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇳🇮 Nicaragua</span><div class="shift-track"><div class="shift-fill s-center" style="width:80%;background:linear-gradient(to right,#5a1090,#7c3aed);">Autoritär (Ortega)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇨🇷 Costa Rica</span><div class="shift-track"><div class="shift-fill s-right" style="width:55%;">Rechts (Fernández, seit Feb. 2026)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇬🇹 Guatemala</span><div class="shift-track"><div class="shift-fill s-left" style="width:52%;">Links (Arévalo)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇦🇷 Argentinien</span><div class="shift-track"><div class="shift-fill s-right" style="width:80%;background:linear-gradient(to right,#991b1b,#7f1515);">Weit rechts (Milei)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇨🇱 Chile</span><div class="shift-track"><div class="shift-fill s-left" style="width:58%;">Links (Boric)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇧🇴 Bolivien</span><div class="shift-track"><div class="shift-fill s-left" style="width:56%;">Links (Arce)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇺🇾 Uruguay</span><div class="shift-track"><div class="shift-fill s-left" style="width:54%;">Links (Orsi)</div></div></div>
+    <div class="shift-row"><span class="shift-country">🇨🇴 Kolumbien</span><div class="shift-track"><div class="shift-fill s-right" style="width:65%;">Rechts (De la Espriella, ab Aug.)</div></div></div>
+  </div>
+
+  <div class="country-grid">
+    <div class="country-card">
+      <div class="cc-head orient-left">
+        <span class="cc-flag">🇻🇪</span>
+        <div><div class="cc-name">Venezuela</div><div class="cc-orient">Autoritar · Nicolás Maduro</div></div>
+      </div>
+      <div class="cc-body">
+        <strong>Situation:</strong> Maduro regiert Venezuela seit 2013 autoritär. Die Wirtschaft ist kollabiert, demokratische Institutionen geschwächt. Trotz umstrittener Wahlen 2024 hält er an der Macht fest.<br><br>
+        <strong>Bezug zu Kolumbien:</strong> Über <strong>2,9 Millionen Venezolaner</strong> leben in Kolumbien — die größte Migrationskrise Südamerikas. Guerillagruppen (ELN, FARC-Dissidenten) operieren auch auf venezolanischem Boden. Petro hatte die diplomatischen Beziehungen normalisiert; De la Espriella wird eine härtere Linie verfolgen.
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="cc-head orient-left">
+        <span class="cc-flag">🇧🇷</span>
+        <div><div class="cc-name">Brasilien</div><div class="cc-orient">Links · Luiz Inácio Lula da Silva</div></div>
+      </div>
+      <div class="cc-body">
+        <strong>Situation:</strong> Lula gewann 2022 knapp gegen Bolsonaro und wurde 2026 der wichtigste Gegenpol zum Rechtsruck in Lateinamerika. Brasilien gilt als Anker der linken Kräfte in der Region.<br><br>
+        <strong>Bezug zu Kolumbien:</strong> Brasilien und Kolumbien teilen eine lange Grenze im Amazonasgebiet. Unter Petro arbeiteten sie bei Umweltschutz und Amazonienpolitik eng zusammen. Mit De la Espriella wird die Beziehung kühler, da Lula und Trump-nahe Regierungen selten gut kooperieren.
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="cc-head orient-right">
+        <span class="cc-flag">🇪🇨</span>
+        <div><div class="cc-name">Ecuador</div><div class="cc-orient">Mitte-rechts · Daniel Noboa</div></div>
+      </div>
+      <div class="cc-body">
+        <strong>Situation:</strong> Der junge Unternehmer Daniel Noboa gewann 2024 die Wahl und verfolgt eine harte Sicherheitspolitik. Ecuador kämpft gegen eine massive Ausbreitung des organisierten Verbrechens, das auch mit kolumbianischen Gruppen vernetzt ist.<br><br>
+        <strong>Bezug zu Kolumbien:</strong> Beide Länder teilen das Problem grenzüberschreitender Guerilla- und Drogenorganisationen. Mit De la Espriella wird eine engere Sicherheitskooperation erwartet — ideologisch liegen beide nun auf ähnlicher Linie.
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="cc-head orient-right">
+        <span class="cc-flag">🇵🇪</span>
+        <div><div class="cc-name">Peru</div><div class="cc-orient">Rechts (gewählt) · Keiko Fujimori ab 28. Juli 2026</div></div>
+      </div>
+      <div class="cc-body">
+        <strong>Situation:</strong> Amtierende Präsidentin ist <strong>Dina Boluarte</strong>, die seit Dezember 2022 regiert — nach der Amtsenthebung von Pedro Castillo. Bei der Stichwahl am <strong>7. Juni 2026</strong> gewann die rechtsgerichtete <strong>Keiko Fujimori</strong> (Tochter des Ex-Präsidenten Alberto Fujimori) gegen Roberto Sánchez mit einem Vorsprung von nur ~42.000 Stimmen (unter 1 %). Sie übernimmt das Amt am 28. Juli 2026 und wird Perus erste gewählte Präsidentin. Peru hatte in den letzten zehn Jahren neun Präsidenten — ein Zeichen chronischer politischer Instabilität.<br><br>
+        <strong>Bezug zu Kolumbien:</strong> Peru und Kolumbien teilen eine Grenze im Amazonasgebiet und kooperieren im Kampf gegen Drogenhandel. Mit Fujimori und De la Espriella stehen nun in beiden Ländern rechtsgerichtete Regierungen — eine engere Sicherheitskooperation gilt als wahrscheinlich.
+      </div>
+    </div>
+
+    <div class="country-card">
+      <div class="cc-head orient-auto">
+        <span class="cc-flag">🇵🇦</span>
+        <div><div class="cc-name">Panama</div><div class="cc-orient">Mitte · José Raúl Mulino</div></div>
+      </div>
+      <div class="cc-body">
+        <strong>Situation:</strong> Präsident José Raúl Mulino regiert seit 2024. Panama ist bekannt für den strategisch wichtigen Kanal und kämpft mit Migration durch den <em>Darién Gap</em> — dem gefährlichen Dschungel an der Grenze zu Kolumbien.<br><br>
+        <strong>Bezug zu Kolumbien:</strong> Jeden Tag überqueren Tausende Migranten aus aller Welt die kolumbianisch-panamaische Grenze durch den Darién-Dschungel — ein humanitäres Drama. De la Espriella wird unter Druck stehen, diese Route zu kontrollieren.
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"><strong>Regionaler Rechtsruck:</strong> Kolumbiens Wahl reiht sich in einen breiteren Trend ein. Seit 2024/2025 ist der Anteil der Lateinamerikaner, die sich politisch rechts verorten, auf dem höchsten Stand seit über zwei Jahrzehnten. Ecuador, Argentinien (Milei seit 2023) und nun Kolumbien zeigen diesen Wandel deutlich.</div>
+</section>
+
+<!-- ════════════════════════════
+  VOKABELN
+════════════════════════════ -->
+<section id="vokabeln">
+  <div class="section-header">
+    <div class="section-icon">📚</div>
+    <h2>Schlüssel-Vokabeln <small>Politik &amp; Wahlen auf Deutsch</small></h2>
+  </div>
+
+  <div class="vocab-grid">
+    <div class="vocab-item"><span class="vocab-de">die Wahl, -en</span><span class="vocab-en">election</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Stichwahl</span><span class="vocab-en">runoff election</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Wahlbeteiligung</span><span class="vocab-en">voter turnout</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Kandidat / die Kandidatin</span><span class="vocab-en">candidate</span></div>
+    <div class="vocab-item"><span class="vocab-de">rechtsgerichtet / linksgerichtet</span><span class="vocab-en">right-wing / left-wing</span></div>
+    <div class="vocab-item"><span class="vocab-de">rechtsextrem / linksextrem</span><span class="vocab-en">far-right / far-left</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Amtsantritt</span><span class="vocab-en">inauguration / taking office</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Haushaltsdefizit</span><span class="vocab-en">budget deficit</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Guerilla, -s</span><span class="vocab-en">guerrilla (group)</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Drogenbekämpfung</span><span class="vocab-en">drug control / war on drugs</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Rechtsruck</span><span class="vocab-en">shift to the right</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Polarisierung</span><span class="vocab-en">polarization</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Friedensprozess</span><span class="vocab-en">peace process</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Außenpolitik</span><span class="vocab-en">foreign policy</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Outsider</span><span class="vocab-en">political outsider</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Moratorium</span><span class="vocab-en">moratorium</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Migration / die Flüchtlinge</span><span class="vocab-en">migration / refugees</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Kooperation</span><span class="vocab-en">cooperation</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Staatsschulden (Pl.)</span><span class="vocab-en">national debt</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Menschenrechtsanwalt</span><span class="vocab-en">human rights lawyer</span></div>
+    <div class="vocab-item"><span class="vocab-de">jdn. ablösen</span><span class="vocab-en">to replace sb. (in office)</span></div>
+    <div class="vocab-item"><span class="vocab-de">sein Amt antreten</span><span class="vocab-en">to take office</span></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+  DISKUSSION
+════════════════════════════ -->
+<section id="diskussion">
+  <div class="section-header">
+    <div class="section-icon">💬</div>
+    <h2>Diskussionsfragen <small>Für die Stunde — eigene Meinung auf Deutsch</small></h2>
+  </div>
+
+  <div class="disc-card">
+    <div class="disc-num">1</div>
+    <div><div class="disc-q">Warum haben so viele Kolumbianer nach vier Jahren linker Regierung wieder für rechts gestimmt? Was könnten die Hauptgründe sein?</div><div class="disc-hint">Hinweis: Sicherheit · Wirtschaft · Enttäuschung · Drogenbekämpfung</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">2</div>
+    <div><div class="disc-q">Was bedeutet es, dass US-Präsident Trump einen Kandidaten in einem anderen Land öffentlich unterstützt? Ist das normal? Ist das problematisch?</div><div class="disc-hint">Hinweis: Einmischung in innere Angelegenheiten · Geopolitik · Soft Power</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">3</div>
+    <div><div class="disc-q">Kolumbien hat einen Rechtsruck erlebt, Brasilien regiert links — wie erklären Sie sich diese unterschiedlichen Tendenzen in der Region?</div><div class="disc-hint">Hinweis: Lokale Krisen · Wirtschaftslage · historische Erfahrungen</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">4</div>
+    <div><div class="disc-q">Über 2,9 Millionen Venezolaner leben in Kolumbien. Welche Herausforderungen entstehen dadurch — und welche Chancen?</div><div class="disc-hint">Hinweis: Arbeitsmarkt · Sozialsysteme · kulturelle Integration · Fachkräfte</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">5</div>
+    <div><div class="disc-q">De la Espriella ist ein politischer Outsider — Anwalt, Unternehmer, Influencer. Sind solche Kandidaten gut für die Demokratie oder gefährlich?</div><div class="disc-hint">Hinweis: Erfahrung vs. Erneuerung · Populismus · Demokratieglaube</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">6</div>
+    <div><div class="disc-q">Kolumbien hat eines der größten Drogenprobleme der Welt. Welche Strategie halten Sie für wirksamer — Militäroffensiven oder Sozialpolitik?</div><div class="disc-hint">Hinweis: Ursachen der Drogenproduktion · Sicherheit vs. Entwicklung</div></div>
+  </div>
+
+  <div class="rule" style="margin-top:1.2rem;"><strong>Nützliche Redemittel für die Diskussion:</strong><br>
+  <em>„Meiner Meinung nach …"</em> · <em>„Ich bin der Ansicht, dass …"</em> · <em>„Einerseits … andererseits …"</em> · <em>„Das lässt sich damit erklären, dass …"</em> · <em>„Man muss dabei bedenken, dass …"</em> · <em>„Das halte ich für problematisch, weil …"</em></div>
+</section>
+
+</main>
+
+<footer>
+  Allgemeine Deutschklasse &nbsp;·&nbsp; Aktuelles Weltgeschehen &nbsp;·&nbsp; Kolumbien-Wahlen 2026<br>
+  Quellen: <a href="https://abcnews.com/International/trump-backed-wing-lawyer-appears-win-colombias-presidential/story?id=134082409" target="_blank">ABC News</a> · <a href="https://www.cnn.com/2026/06/21/americas/colombia-trump-abelardo-de-la-espriella-intl-latam" target="_blank">CNN</a> · <a href="https://www.aljazeera.com/news/2026/6/22/colombian-right-wing-candidate-de-la-espriella-wins-tight-presidential-race" target="_blank">Al Jazeera</a> · <a href="https://www.npr.org/2026/06/21/nx-s1-5865676/delaespriella-colombia-election" target="_blank">NPR</a> · <a href="https://cepr.net/publications/colombia-under-petro-social-gains-amid-monetary-and-fiscal-constraints/" target="_blank">CEPR</a> · <a href="https://americasquarterly.org/article/reaction-de-la-espriella-wins-colombias-election-by-narrow-margin/" target="_blank">Americas Quarterly</a>
+</footer>
+
+<!-- ════ CLICK-TO-TRANSLATE ════ -->
+<div id="word-tip">
+  <div class="wt-lang">🇩🇪 Deutsch → 🇬🇧 English</div>
+  <div class="wt-de"></div>
+  <div class="wt-en loading">…</div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ── Tooltip element ──
+  const tip = document.getElementById('word-tip');
+  const tipDe = tip.querySelector('.wt-de');
+  const tipEn = tip.querySelector('.wt-en');
+
+  // ── Translation cache ──
+  const cache = {};
+
+  // ── Which containers to make translatable ──
+  const SELECTORS = [
+    'p', 'li',
+    '.cc-body', '.cand-body',
+    '.note', '.rule', '.tip', '.warning',
+    '.vok-def', '.disc-q',
+    '.timeline-text', '.stat-label',
+    '.analysis-point', '.shift-fill'
+  ].join(',');
+
+  // ── Wrap text nodes in containers ──
+  function wrapWords(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, node => {
+      const p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      const tag = p.tagName;
+      // Skip non-content elements
+      if (['SCRIPT','STYLE','A','BUTTON'].includes(tag)) return NodeFilter.FILTER_REJECT;
+      if (p.closest('nav, header, footer, svg')) return NodeFilter.FILTER_REJECT;
+      if (p.classList.contains('de-word')) return NodeFilter.FILTER_REJECT;
+      return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    });
+
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+      const frag = document.createDocumentFragment();
+      // Split keeping surrounding punctuation with the word
+      const parts = node.textContent.split(/(\s+)/);
+      parts.forEach(part => {
+        if (/^\s+$/.test(part) || part === '') {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'de-word';
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  // Run wrapping on matching containers
+  document.querySelectorAll(SELECTORS).forEach(el => {
+    // Don't double-wrap
+    if (!el.querySelector('.de-word')) wrapWords(el);
+  });
+
+  // ── Fetch translation via MyMemory API ──
+  async function translate(raw) {
+    const word = raw.replace(/[^a-zA-ZäöüÄÖÜßéàáèùâêôûî\-]/g, '').toLowerCase();
+    if (word.length < 2) return null;
+    if (word in cache) return cache[word];
+
+    cache[word] = null; // mark in-flight
+    try {
+      const res = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=de|en`,
+        { signal: AbortSignal.timeout(5000) }
+      );
+      const data = await res.json();
+      const tr = data.responseData?.translatedText || '';
+      // Discard if same as input (untranslated)
+      const result = (tr && tr.toLowerCase() !== word) ? tr : '—';
+      cache[word] = result;
+      return result;
+    } catch {
+      cache[word] = '⚠ no connection';
+      return cache[word];
+    }
+  }
+
+  // ── Position tooltip near clicked word ──
+  function positionTip(rect) {
+    const margin = 8;
+    let left = rect.left + window.scrollX;
+    let top = rect.bottom + window.scrollY + margin;
+
+    // Don't overflow right
+    const tipW = 240;
+    if (left + tipW > window.innerWidth - margin) {
+      left = window.innerWidth - tipW - margin;
+    }
+    // Don't overflow bottom — flip above if needed
+    if (rect.bottom + 120 > window.innerHeight) {
+      top = rect.top + window.scrollY - 80;
+    }
+
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+
+  // ── Click handler ──
+  let activeEl = null;
+
+  document.addEventListener('click', async e => {
+    const w = e.target.closest('.de-word');
+
+    // Click outside word → hide
+    if (!w) {
+      tip.classList.remove('show');
+      activeEl = null;
+      return;
+    }
+
+    // Click same word again → toggle off
+    if (w === activeEl && tip.classList.contains('show')) {
+      tip.classList.remove('show');
+      activeEl = null;
+      return;
+    }
+
+    activeEl = w;
+    const rawWord = w.textContent.trim();
+    const cleanWord = rawWord.replace(/[^a-zA-ZäöüÄÖÜßéàáèùâêôûî\-]/g, '');
+
+    // Show immediately with loading state
+    tipDe.textContent = rawWord;
+    tipEn.textContent = '…';
+    tipEn.classList.add('loading');
+    positionTip(w.getBoundingClientRect());
+    tip.classList.add('show');
+
+    const result = await translate(rawWord);
+
+    // Only update if still the active word
+    if (activeEl === w) {
+      tipEn.textContent = result || '—';
+      tipEn.classList.remove('loading');
+      if (result && result !== '—') w.classList.add('translated');
+    }
+  });
+
+  // Hide on scroll
+  document.addEventListener('scroll', () => {
+    if (activeEl) {
+      positionTip(activeEl.getBoundingClientRect());
+    }
+  }, { passive: true });
+
+  // Add a subtle hint badge next to the first section heading
+  const firstH2 = document.querySelector('section h2');
+  if (firstH2) {
+    const badge = document.createElement('span');
+    badge.className = 'translate-hint';
+    badge.title = 'Klicke auf jedes deutsche Wort für die englische Übersetzung';
+    badge.textContent = '💬 Wörter anklicken → Übersetzung';
+    firstH2.appendChild(badge);
+  }
+})();
+</script>
+
+</body>
+</html>

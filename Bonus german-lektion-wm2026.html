@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch | FIFA Weltmeisterschaft 2026 – Alle Ergebnisse & Analyse</title>
+<style>
+:root{
+  --black:#1a1a2e; --gold:#e8b84b; --navy:#1e3a5f; --bg:#f5f6f8;
+  --card:#ffffff; --border:#e0e4ea; --muted:#7a8090;
+  --red:#c0392b; --green:#1a7a4a; --blue:#1d5fa8; --orange:#c45c0a;
+  --wm-red:#e8002d; --wm-blue:#003da5; --wm-green:#009845;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--black);line-height:1.75;}
+
+/* HEADER */
+header{background:var(--navy);color:white;padding:2.4rem 2rem 2rem;position:relative;overflow:hidden;}
+header::after{content:'⚽';position:absolute;right:2rem;top:1rem;font-size:5.5rem;opacity:0.12;}
+.header-inner{max-width:1040px;margin:0 auto;position:relative;z-index:1;}
+.series-label{font-family:sans-serif;font-size:0.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+header h1{font-size:1.9rem;font-weight:700;line-height:1.25;}
+header h1 span{color:var(--gold);}
+.header-sub{margin-top:.4rem;font-size:.92rem;color:rgba(255,255,255,.65);font-style:italic;}
+.header-meta{margin-top:.9rem;font-family:sans-serif;font-size:.8rem;color:rgba(255,255,255,.5);display:flex;gap:1.4rem;flex-wrap:wrap;}
+.badge{display:inline-block;background:var(--gold);color:var(--navy);font-family:sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;padding:.2rem .65rem;border-radius:3px;margin-right:.3rem;}
+.live-badge{background:var(--wm-red);color:white;font-family:sans-serif;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:3px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+
+/* NAV */
+nav{background:var(--black);padding:.5rem 2rem;overflow-x:auto;white-space:nowrap;}
+.nav-inner{max-width:1040px;margin:0 auto;display:flex;gap:.25rem;}
+nav a{font-family:sans-serif;font-size:.76rem;color:rgba(255,255,255,.6);text-decoration:none;padding:.3rem .65rem;border-radius:5px;transition:all .15s;}
+nav a:hover{background:rgba(232,184,75,.2);color:var(--gold);}
+
+/* MAIN */
+main{max-width:1040px;margin:2rem auto;padding:0 1.5rem 5rem;}
+section{margin-bottom:3rem;scroll-margin-top:50px;}
+.section-header{display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem;padding-bottom:.65rem;border-bottom:2px solid var(--border);}
+.section-icon{width:36px;height:36px;background:var(--navy);color:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.section-header h2{font-size:1.1rem;font-weight:700;}
+.section-header h2 small{display:block;font-size:.77rem;font-weight:400;color:var(--muted);margin-top:.1rem;}
+
+/* OVERVIEW STATS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.7rem;margin:1rem 0;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1rem;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,.04);}
+.stat-num{font-size:1.9rem;font-weight:700;display:block;line-height:1;}
+.stat-label{font-family:sans-serif;font-size:.77rem;color:var(--muted);display:block;margin-top:.3rem;}
+
+/* GROUP TABLES */
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;margin:.8rem 0;}
+.group-card{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.05);}
+.group-head{background:var(--navy);color:white;padding:.5rem .9rem;font-family:sans-serif;font-size:.8rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+.group-head span{font-size:.68rem;font-weight:400;opacity:.7;}
+.group-table{width:100%;font-size:.82rem;border-collapse:collapse;}
+.group-table th{font-family:sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);padding:.3rem .6rem;text-align:left;border-bottom:1px solid var(--border);background:#fafbfc;}
+.group-table td{padding:.35rem .6rem;border-bottom:1px solid #f0f2f5;}
+.group-table tr:last-child td{border-bottom:none;}
+.group-table tr.qualified{background:#eef8f0;}
+.group-table tr.eliminated{background:#fff5f5;}
+.group-table tr.today{background:#fffaeb;}
+.pts{font-weight:700;color:var(--navy);}
+.flag{margin-right:.3rem;}
+.q-mark{font-family:sans-serif;font-size:.68rem;font-weight:700;background:var(--green);color:white;padding:.1rem .3rem;border-radius:3px;margin-left:.3rem;}
+.e-mark{font-family:sans-serif;font-size:.68rem;font-weight:700;background:var(--red);color:white;padding:.1rem .3rem;border-radius:3px;margin-left:.3rem;}
+.t-mark{font-family:sans-serif;font-size:.68rem;font-weight:700;background:var(--orange);color:white;padding:.1rem .3rem;border-radius:3px;margin-left:.3rem;}
+
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.7rem;margin:.8rem 0;}
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.8rem;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.result-teams{flex:1;}
+.result-match{font-size:.88rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+.result-score{font-family:sans-serif;font-size:1.2rem;font-weight:700;background:var(--navy);color:white;padding:.1rem .5rem;border-radius:5px;min-width:50px;text-align:center;}
+.result-team1,.result-team2{flex:1;}
+.result-team2{text-align:right;}
+.result-meta{font-family:sans-serif;font-size:.72rem;color:var(--muted);margin-top:.2rem;}
+.result-today{border-color:var(--orange);background:#fffaeb;}
+.result-today .result-score{background:var(--orange);}
+
+/* QUALIFIED */
+.qualified-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin:.8rem 0;}
+.q-card{background:var(--card);border:2px solid var(--green);border-radius:10px;padding:.8rem .9rem;text-align:center;box-shadow:0 2px 6px rgba(26,122,74,.1);}
+.q-flag{font-size:1.6rem;display:block;}
+.q-name{font-weight:700;font-size:.9rem;margin:.2rem 0 .1rem;}
+.q-group{font-family:sans-serif;font-size:.72rem;color:var(--muted);}
+
+/* TOP SCORERS */
+.scorer-list{list-style:none;margin:.8rem 0;}
+.scorer-item{display:flex;align-items:center;gap:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:.5rem;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.scorer-rank{font-family:sans-serif;font-size:1.1rem;font-weight:700;color:var(--muted);width:24px;text-align:center;flex-shrink:0;}
+.scorer-rank.gold{color:var(--gold);}
+.scorer-info{flex:1;}
+.scorer-name{font-weight:700;font-size:.92rem;}
+.scorer-team{font-family:sans-serif;font-size:.76rem;color:var(--muted);}
+.scorer-goals{font-family:sans-serif;font-size:1.4rem;font-weight:700;color:var(--navy);}
+.scorer-bar{height:6px;background:#e0e4ea;border-radius:3px;margin-top:.3rem;overflow:hidden;}
+.scorer-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--orange));border-radius:3px;}
+
+/* RECORDS */
+.record-card{background:linear-gradient(135deg,var(--navy),#0f2a50);color:white;border-radius:13px;padding:1.3rem 1.5rem;margin-bottom:.7rem;}
+.record-card h4{font-size:1rem;color:var(--gold);margin-bottom:.4rem;}
+.record-card p{font-size:.88rem;line-height:1.65;opacity:.9;}
+.record-card strong{color:var(--gold);}
+
+/* SCHEDULE TODAY */
+.schedule-today{margin:.8rem 0;}
+.sched-item{background:var(--card);border:2px solid var(--orange);border-radius:11px;padding:1rem 1.2rem;margin-bottom:.6rem;display:flex;align-items:center;gap:1rem;}
+.sched-time{font-family:sans-serif;font-size:.8rem;font-weight:700;background:var(--orange);color:white;padding:.25rem .6rem;border-radius:5px;white-space:nowrap;flex-shrink:0;}
+.sched-match{flex:1;font-size:.92rem;font-weight:700;}
+.sched-group{font-family:sans-serif;font-size:.75rem;color:var(--muted);}
+.sched-venue{font-family:sans-serif;font-size:.74rem;color:var(--muted);}
+
+/* TIPS */
+.rule{background:#fffbea;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin:.8rem 0;font-size:.89rem;}
+.tip{background:#e8f0ff;border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin:.8rem 0;font-size:.88rem;}
+.record-box{background:linear-gradient(135deg,#fff8e1,#fff3c0);border:2px solid var(--gold);border-radius:11px;padding:1rem 1.2rem;margin:.8rem 0;font-size:.9rem;}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.5rem;margin:.8rem 0;}
+.vocab-item{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.6rem .85rem;display:flex;gap:.6rem;align-items:flex-start;}
+.vocab-de{font-weight:700;min-width:160px;flex-shrink:0;color:var(--navy);font-size:.87rem;}
+.vocab-en{font-size:.82rem;color:var(--muted);}
+
+/* DISC */
+.disc-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:1rem 1.3rem;margin-bottom:.65rem;display:flex;gap:.9rem;align-items:flex-start;}
+.disc-num{font-family:sans-serif;font-size:.82rem;font-weight:700;color:white;background:var(--navy);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.disc-q{font-size:.9rem;}
+.disc-hint{font-family:sans-serif;font-size:.76rem;color:var(--muted);margin-top:.25rem;}
+
+/* NOTE */
+.note{background:#f0f4ff;border:1px solid #c8d5f0;border-radius:9px;padding:.8rem 1rem;font-family:sans-serif;font-size:.8rem;color:#3a4a80;margin:.8rem 0;}
+
+footer{text-align:center;font-family:sans-serif;font-size:.77rem;color:var(--muted);padding:2rem 1rem;border-top:1px solid var(--border);}
+footer a{color:var(--blue);}
+
+@media(max-width:640px){
+  header h1{font-size:1.4rem;}
+  .groups-grid{grid-template-columns:1fr 1fr;}
+  .results-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="series-label">🇩🇪 Allgemeine Deutschklasse &nbsp;·&nbsp; Aktuelles Weltgeschehen &nbsp;·&nbsp; Sport</div>
+    <h1>FIFA <span>Weltmeisterschaft 2026</span></h1>
+    <div class="header-sub">Alle Ergebnisse · Tabellen · Statistiken · Rekorde · Stand: 23. Juni 2026</div>
+    <div class="header-meta">
+      <span><span class="badge">B1</span><span class="badge">B2</span><span class="badge">C1</span> Alle Niveaus</span>
+      <span><span class="live-badge">⚽ LIVE-TURNIER</span></span>
+      <span>🇺🇸🇨🇦🇲🇽 USA · Kanada · Mexiko &nbsp;·&nbsp; 11. Juni – 19. Juli 2026</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#ueberblick">Überblick</a>
+    <a href="#tabellen">Tabellen</a>
+    <a href="#ergebnisse">Ergebnisse</a>
+    <a href="#qualifiziert">Qualifiziert</a>
+    <a href="#torjaeger">Torjäger</a>
+    <a href="#rekorde">Rekorde</a>
+    <a href="#heute">Heute</a>
+    <a href="#vokabeln">Vokabeln</a>
+    <a href="#diskussion">Diskussion</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════
+  ÜBERBLICK
+═══════════════════════════ -->
+<section id="ueberblick">
+  <div class="section-header">
+    <div class="section-icon">🌍</div>
+    <h2>Turnier-Überblick <small>Das Wichtigste auf einen Blick</small></h2>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">48</span><span class="stat-label">Mannschaften — historischer Rekord</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">12</span><span class="stat-label">Gruppen à 4 Teams</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">104</span><span class="stat-label">Spiele gesamt</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">3</span><span class="stat-label">Gastgeberländer (USA, Kanada, Mexiko)</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">16</span><span class="stat-label">Spielorte / Stadien</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--navy);">32</span><span class="stat-label">Teams im K.o.-Runde (ab 28. Juni)</span></div>
+  </div>
+
+  <div class="rule"><strong>Neues Format 2026:</strong> Erstmals nehmen <strong>48 statt 32 Mannschaften</strong> teil. Die <strong>2 Gruppenerstplatzierten</strong> qualifizieren sich direkt für die Achtelfinale (Round of 32). Dazu kommen die <strong>8 besten Dritten</strong> aus allen 12 Gruppen. Das K.o.-System beginnt am 28. Juni mit dem Achtelfinale.</div>
+
+  <div class="tip"><strong>Gastgeberstädte:</strong> New York/New Jersey · Los Angeles · Dallas · San Francisco · Seattle · Miami · Boston · Houston · Atlanta · Kansas City · Philadelphia · Toronto · Vancouver · Guadalajara · Mexiko-Stadt · Monterrey</div>
+</section>
+
+<!-- ═══════════════════════════
+  GRUPPENSTAND
+═══════════════════════════ -->
+<section id="tabellen">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <h2>Gruppenstand nach Runde 2 <small>Stand: 23. Juni 2026, vor den Abendspielen</small></h2>
+  </div>
+
+  <div class="note">🟢 = qualifiziert &nbsp; 🔴 = ausgeschieden &nbsp; 🟠 = spielt heute noch &nbsp; — Alle Tabellen nach 2 Spielen pro Team, sofern gespielt.</div>
+
+  <div class="groups-grid">
+
+    <!-- GROUP A -->
+    <div class="group-card">
+      <div class="group-head">Gruppe A <span>🇺🇸 Los Angeles · Dallas</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>Tore</th></tr>
+        <tr class="qualified"><td>🇲🇽 Mexiko<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>3:0</td></tr>
+        <tr><td>🇰🇷 Südkorea</td><td>2</td><td class="pts">3</td><td>2:1</td></tr>
+        <tr><td>🇨🇿 Tschechien</td><td>2</td><td class="pts">1</td><td>2:3</td></tr>
+        <tr><td>🇿🇦 Südafrika</td><td>2</td><td class="pts">1</td><td>1:3</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP B -->
+    <div class="group-card">
+      <div class="group-head">Gruppe B <span>🇨🇦 Toronto · Vancouver</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇨🇦 Kanada</td><td>2</td><td class="pts">4</td><td>+6</td></tr>
+        <tr><td>🇨🇭 Schweiz</td><td>2</td><td class="pts">4</td><td>+3</td></tr>
+        <tr><td>🇧🇦 Bosnien</td><td>2</td><td class="pts">1</td><td>-3</td></tr>
+        <tr><td>🇶🇦 Katar</td><td>2</td><td class="pts">1</td><td>-6</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP C -->
+    <div class="group-card">
+      <div class="group-head">Gruppe C <span>🇺🇸 San Francisco · Seattle</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇧🇷 Brasilien</td><td>2</td><td class="pts">4</td><td>+3</td></tr>
+        <tr><td>🇲🇦 Marokko</td><td>2</td><td class="pts">4</td><td>+1</td></tr>
+        <tr><td>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Schottland</td><td>2</td><td class="pts">3</td><td>0</td></tr>
+        <tr class="eliminated"><td>🇭🇹 Haiti<span class="e-mark">✗</span></td><td>2</td><td class="pts">0</td><td>-4</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP D -->
+    <div class="group-card">
+      <div class="group-head">Gruppe D <span>🇺🇸 New York · Kansas City</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr class="qualified"><td>🇺🇸 USA<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>+5</td></tr>
+        <tr><td>🇦🇺 Australien</td><td>2</td><td class="pts">3</td><td>0</td></tr>
+        <tr><td>🇵🇾 Paraguay</td><td>2</td><td class="pts">3</td><td>-2</td></tr>
+        <tr class="eliminated"><td>🇹🇷 Türkei<span class="e-mark">✗</span></td><td>2</td><td class="pts">0</td><td>-3</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP E -->
+    <div class="group-card">
+      <div class="group-head">Gruppe E <span>🇺🇸 Miami · Atlanta</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr class="qualified"><td>🇩🇪 Deutschland<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>+7</td></tr>
+        <tr><td>🇨🇮 Elfenbeinküste</td><td>2</td><td class="pts">3</td><td>0</td></tr>
+        <tr><td>🇪🇨 Ecuador</td><td>2</td><td class="pts">1</td><td>-1</td></tr>
+        <tr><td>🇨🇼 Curaçao</td><td>2</td><td class="pts">1</td><td>-6</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP F -->
+    <div class="group-card">
+      <div class="group-head">Gruppe F <span>🇺🇸 Boston · Philadelphia</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇳🇱 Niederlande</td><td>2</td><td class="pts">4</td><td>+4</td></tr>
+        <tr><td>🇯🇵 Japan</td><td>2</td><td class="pts">4</td><td>+4</td></tr>
+        <tr><td>🇸🇪 Schweden</td><td>2</td><td class="pts">3</td><td>0</td></tr>
+        <tr class="eliminated"><td>🇹🇳 Tunesien<span class="e-mark">✗</span></td><td>2</td><td class="pts">0</td><td>-8</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP G -->
+    <div class="group-card">
+      <div class="group-head">Gruppe G <span>🇲🇽 Guadalajara · Monterrey</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇪🇬 Ägypten</td><td>2</td><td class="pts">4</td><td>+2</td></tr>
+        <tr><td>🇮🇷 Iran</td><td>2</td><td class="pts">2</td><td>0</td></tr>
+        <tr><td>🇧🇪 Belgien</td><td>2</td><td class="pts">2</td><td>0</td></tr>
+        <tr><td>🇳🇿 Neuseeland</td><td>2</td><td class="pts">1</td><td>-2</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP H -->
+    <div class="group-card">
+      <div class="group-head">Gruppe H <span>🇺🇸 Houston · Los Angeles</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇪🇸 Spanien</td><td>2</td><td class="pts">4</td><td>+4</td></tr>
+        <tr><td>🇺🇾 Uruguay</td><td>2</td><td class="pts">2</td><td>0</td></tr>
+        <tr><td>🇨🇻 Kap Verde</td><td>2</td><td class="pts">2</td><td>0</td></tr>
+        <tr><td>🇸🇦 Saudi-Arabien</td><td>2</td><td class="pts">1</td><td>-4</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP I -->
+    <div class="group-card">
+      <div class="group-head">Gruppe I <span>🇺🇸 Seattle · San Francisco</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr class="qualified"><td>🇫🇷 Frankreich<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>+5</td></tr>
+        <tr class="qualified"><td>🇳🇴 Norwegen<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>+4</td></tr>
+        <tr><td>🇸🇳 Senegal</td><td>2</td><td class="pts">0</td><td>-3</td></tr>
+        <tr><td>🇮🇶 Irak</td><td>2</td><td class="pts">0</td><td>-6</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP J -->
+    <div class="group-card">
+      <div class="group-head">Gruppe J <span>🇺🇸 New York · Miami</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr class="qualified"><td>🇦🇷 Argentinien<span class="q-mark">✓</span></td><td>2</td><td class="pts">6</td><td>+5</td></tr>
+        <tr><td>🇦🇹 Österreich</td><td>2</td><td class="pts">3</td><td>+2</td></tr>
+        <tr><td>🇯🇴 Jordanien</td><td>2</td><td class="pts">0</td><td>-2</td></tr>
+        <tr><td>🇩🇿 Algerien</td><td>2</td><td class="pts">0</td><td>-3</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP K -->
+    <div class="group-card">
+      <div class="group-head">Gruppe K <span>🇺🇸 Atlanta · Dallas</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr><td>🇨🇴 Kolumbien</td><td>1</td><td class="pts">3</td><td>+2</td></tr>
+        <tr class="today"><td>🇨🇩 DR Kongo<span class="t-mark">▶</span></td><td>1</td><td class="pts">1</td><td>0</td></tr>
+        <tr class="today"><td>🇵🇹 Portugal<span class="t-mark">▶</span></td><td>1</td><td class="pts">1</td><td>0</td></tr>
+        <tr><td>🇺🇿 Usbekistan</td><td>1</td><td class="pts">0</td><td>-2</td></tr>
+      </table>
+    </div>
+
+    <!-- GROUP L -->
+    <div class="group-card">
+      <div class="group-head">Gruppe L <span>🇺🇸 Dallas · Kansas City</span></div>
+      <table class="group-table">
+        <tr><th>Team</th><th>Sp</th><th>Pts</th><th>TD</th></tr>
+        <tr class="today"><td>🇬🇧 England<span class="t-mark">▶</span></td><td>1</td><td class="pts">3</td><td>+2</td></tr>
+        <tr class="today"><td>🇬🇭 Ghana<span class="t-mark">▶</span></td><td>1</td><td class="pts">3</td><td>+1</td></tr>
+        <tr class="today"><td>🇵🇦 Panama<span class="t-mark">▶</span></td><td>1</td><td class="pts">0</td><td>-1</td></tr>
+        <tr class="today"><td>🇭🇷 Kroatien<span class="t-mark">▶</span></td><td>1</td><td class="pts">0</td><td>-2</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+  ERGEBNISSE
+═══════════════════════════ -->
+<section id="ergebnisse">
+  <div class="section-header">
+    <div class="section-icon">⚽</div>
+    <h2>Spielergebnisse <small>Runde 1 &amp; 2 — alle bestätigten Spiele</small></h2>
+  </div>
+
+  <p style="font-family:sans-serif;font-size:0.8rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;">Runde 1 &nbsp;·&nbsp; 11.–18. Juni</p>
+  <div class="results-grid">
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇲🇽 Mexiko</span><span class="result-score">2 – 0</span><span class="result-team2">Südafrika 🇿🇦</span></div><div class="result-meta">Gruppe A · Estadio Azteca, Mexiko-Stadt</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇰🇷 Südkorea</span><span class="result-score">2 – 1</span><span class="result-team2">Tschechien 🇨🇿</span></div><div class="result-meta">Gruppe A</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇨🇦 Kanada</span><span class="result-score">1 – 1</span><span class="result-team2">Bosnien 🇧🇦</span></div><div class="result-meta">Gruppe B</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇸🇪 Schweden</span><span class="result-score">5 – 1</span><span class="result-team2">Tunesien 🇹🇳</span></div><div class="result-meta">Gruppe F · Niederlande/Japan spielten ebenfalls</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇪🇸 Spanien</span><span class="result-score">0 – 0</span><span class="result-team2">Kap Verde 🇨🇻</span></div><div class="result-meta">Gruppe H</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇸🇦 Saudi-Arabien</span><span class="result-score">1 – 1</span><span class="result-team2">Uruguay 🇺🇾</span></div><div class="result-meta">Gruppe H</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇪🇬 Ägypten</span><span class="result-score">1 – 1</span><span class="result-team2">Belgien 🇧🇪</span></div><div class="result-meta">Gruppe G</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇮🇷 Iran</span><span class="result-score">2 – 2</span><span class="result-team2">Neuseeland 🇳🇿</span></div><div class="result-meta">Gruppe G</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇩🇪 Deutschland</span><span class="result-score">2 – 1</span><span class="result-team2">Elfenbeinküste 🇨🇮</span></div><div class="result-meta">Gruppe E</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇫🇷 Frankreich</span><span class="result-score">3 – 1</span><span class="result-team2">Senegal 🇸🇳</span></div><div class="result-meta">Gruppe I · Mbappé-Gala</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇳🇴 Norwegen</span><span class="result-score">4 – 1</span><span class="result-team2">Irak 🇮🇶</span></div><div class="result-meta">Gruppe I · Haaland-Rekord</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇦🇷 Argentinien</span><span class="result-score">3 – 0</span><span class="result-team2">Algerien 🇩🇿</span></div><div class="result-meta">Gruppe J · Messi-Tor</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇦🇹 Österreich</span><span class="result-score">3 – 1</span><span class="result-team2">Jordanien 🇯🇴</span></div><div class="result-meta">Gruppe J</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇨🇴 Kolumbien</span><span class="result-score">3 – 1</span><span class="result-team2">Usbekistan 🇺🇿</span></div><div class="result-meta">Gruppe K</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇵🇹 Portugal</span><span class="result-score">1 – 1</span><span class="result-team2">DR Kongo 🇨🇩</span></div><div class="result-meta">Gruppe K · Ronaldo ohne Tor</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="result-score">4 – 2</span><span class="result-team2">Kroatien 🇭🇷</span></div><div class="result-meta">Gruppe L · Kane doppelt</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇬🇭 Ghana</span><span class="result-score">1 – 0</span><span class="result-team2">Panama 🇵🇦</span></div><div class="result-meta">Gruppe L</div></div></div>
+  </div>
+
+  <p style="font-family:sans-serif;font-size:0.8rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin:1.2rem 0 0.6rem;">Runde 2 &nbsp;·&nbsp; 19.–22. Juni (ausgewählt)</p>
+  <div class="results-grid">
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇲🇽 Mexiko</span><span class="result-score">1 – 0</span><span class="result-team2">Südkorea 🇰🇷</span></div><div class="result-meta">Gruppe A · Mexiko qualifiziert ✓</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇨🇿 Tschechien</span><span class="result-score">1 – 1</span><span class="result-team2">Südafrika 🇿🇦</span></div><div class="result-meta">Gruppe A</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇨🇦 Kanada</span><span class="result-score">6 – 0</span><span class="result-team2">Katar 🇶🇦</span></div><div class="result-meta">Gruppe B · Kanada überragend!</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇺🇸 USA</span><span class="result-score">2 – 0</span><span class="result-team2">Australien 🇦🇺</span></div><div class="result-meta">Gruppe D · USA qualifiziert ✓</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇩🇪 Deutschland</span><span class="result-score">gg.</span><span class="result-team2">Curaçao 🇨🇼</span></div><div class="result-meta">Gruppe E · Klarer Sieg; Deutschland qualifiziert ✓ (+7 TD)</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇪🇸 Spanien</span><span class="result-score">4 – 0</span><span class="result-team2">Saudi-Arabien 🇸🇦</span></div><div class="result-meta">Gruppe H</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇺🇾 Uruguay</span><span class="result-score">2 – 2</span><span class="result-team2">Kap Verde 🇨🇻</span></div><div class="result-meta">Gruppe H</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇫🇷 Frankreich</span><span class="result-score">3 – 0</span><span class="result-team2">Irak 🇮🇶</span></div><div class="result-meta">Gruppe I · Mbappé 2× · Frankreich qualifiziert ✓</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇳🇴 Norwegen</span><span class="result-score">3 – 2</span><span class="result-team2">Senegal 🇸🇳</span></div><div class="result-meta">Gruppe I · Norwegen qualifiziert ✓</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇦🇷 Argentinien</span><span class="result-score">2 – 0</span><span class="result-team2">Österreich 🇦🇹</span></div><div class="result-meta">Gruppe J · Messi bricht WM-Torrekord! ARG qualifiziert ✓</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇪🇬 Ägypten</span><span class="result-score">3 – 1</span><span class="result-team2">Neuseeland 🇳🇿</span></div><div class="result-meta">Gruppe G</div></div></div>
+    <div class="result-card"><div class="result-teams"><div class="result-match"><span class="result-team1">🇧🇪 Belgien</span><span class="result-score">0 – 0</span><span class="result-team2">Iran 🇮🇷</span></div><div class="result-meta">Gruppe G · Torloses Remis</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+  QUALIFIZIERT
+═══════════════════════════ -->
+<section id="qualifiziert">
+  <div class="section-header">
+    <div class="section-icon">🎟️</div>
+    <h2>Bereits qualifiziert <small>Für die K.o.-Runde (Round of 32) — Stand: 23. Juni</small></h2>
+  </div>
+
+  <div class="qualified-grid">
+    <div class="q-card"><span class="q-flag">🇲🇽</span><div class="q-name">Mexiko</div><div class="q-group">Gruppe A · Platz 1</div></div>
+    <div class="q-card"><span class="q-flag">🇺🇸</span><div class="q-name">USA</div><div class="q-group">Gruppe D · Platz 1</div></div>
+    <div class="q-card"><span class="q-flag">🇩🇪</span><div class="q-name">Deutschland</div><div class="q-group">Gruppe E · Platz 1</div></div>
+    <div class="q-card"><span class="q-flag">🇫🇷</span><div class="q-name">Frankreich</div><div class="q-group">Gruppe I · qualifiziert</div></div>
+    <div class="q-card"><span class="q-flag">🇳🇴</span><div class="q-name">Norwegen</div><div class="q-group">Gruppe I · qualifiziert</div></div>
+    <div class="q-card"><span class="q-flag">🇦🇷</span><div class="q-name">Argentinien</div><div class="q-group">Gruppe J · Platz 1</div></div>
+  </div>
+
+  <div class="tip">Noch <strong>26 weitere Plätze</strong> in der K.o.-Runde zu vergeben. Viele Gruppen (B, C, F, G, H, K, L) sind nach Runde 2 noch vollkommen offen. Das K.o.-Turnier beginnt am <strong>28. Juni 2026</strong>.</div>
+</section>
+
+<!-- ═══════════════════════════
+  TORJÄGER
+═══════════════════════════ -->
+<section id="torjaeger">
+  <div class="section-header">
+    <div class="section-icon">🥇</div>
+    <h2>Torjäger-Rangliste <small>Kampf um den Goldenen Schuh</small></h2>
+  </div>
+
+  <ul class="scorer-list">
+    <li class="scorer-item">
+      <span class="scorer-rank gold">1</span>
+      <div class="scorer-info"><div class="scorer-name">🇦🇷 Lionel Messi</div><div class="scorer-team">Argentinien · Gruppe J</div><div class="scorer-bar"><div class="scorer-fill" style="width:100%;"></div></div></div>
+      <span class="scorer-goals">5</span>
+    </li>
+    <li class="scorer-item">
+      <span class="scorer-rank" style="color:#888;">2</span>
+      <div class="scorer-info"><div class="scorer-name">🇫🇷 Kylian Mbappé</div><div class="scorer-team">Frankreich · Gruppe I</div><div class="scorer-bar"><div class="scorer-fill" style="width:80%;"></div></div></div>
+      <span class="scorer-goals">4</span>
+    </li>
+    <li class="scorer-item">
+      <span class="scorer-rank" style="color:#a07850;">3</span>
+      <div class="scorer-info"><div class="scorer-name">🇳🇴 Erling Haaland</div><div class="scorer-team">Norwegen · Gruppe I</div><div class="scorer-bar"><div class="scorer-fill" style="width:60%;"></div></div></div>
+      <span class="scorer-goals">3</span>
+    </li>
+    <li class="scorer-item">
+      <span class="scorer-rank">—</span>
+      <div class="scorer-info"><div class="scorer-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Harry Kane</div><div class="scorer-team">England · Gruppe L</div><div class="scorer-bar"><div class="scorer-fill" style="width:40%;"></div></div></div>
+      <span class="scorer-goals">2+</span>
+    </li>
+    <li class="scorer-item">
+      <span class="scorer-rank">—</span>
+      <div class="scorer-info"><div class="scorer-name">🇸🇪 Viele weitere</div><div class="scorer-team">Mehrere Mannschaften</div><div class="scorer-bar"><div class="scorer-fill" style="width:30%;"></div></div></div>
+      <span class="scorer-goals">2</span>
+    </li>
+  </ul>
+
+  <div class="rule"><strong>Goldener Schuh / Goldener Ball:</strong> Der Torschützenkönig erhält den <em>Goldenen Schuh (adidas Golden Boot)</em>. Der beste Spieler des Turniers erhält den <em>Goldenen Ball (Golden Ball)</em> — Messi hat diesen Preis 2022 gewonnen. Wer holt ihn 2026?</div>
+</section>
+
+<!-- ═══════════════════════════
+  REKORDE
+═══════════════════════════ -->
+<section id="rekorde">
+  <div class="section-header">
+    <div class="section-icon">🏆</div>
+    <h2>Historische Rekorde <small>Was diese WM einzigartig macht</small></h2>
+  </div>
+
+  <div class="record-box">
+    ⭐ <strong>Messi ist jetzt der größte WM-Torschütze aller Zeiten.</strong> Mit seinem Doppelpack gegen Österreich (22. Juni) erzielte er Tor 17 und 18 seiner WM-Karriere — mehr als jeder Spieler der Geschichte. Er übertraf Miroslav Kloses Männerrekord (16) und Martas Gesamtrekord (17).
+  </div>
+
+  <div class="record-card">
+    <h4>🐐 Lionel Messi — WM-Rekorde 2026</h4>
+    <p>
+      ▸ <strong>18 WM-Tore</strong> — alleiniger Rekord in der Geschichte (Männer + Frauen)<br>
+      ▸ 3. Spieler überhaupt, der in <strong>6 aufeinanderfolgenden WM-Spielen</strong> trifft (nach Fontaine 1958 und Jairzinho 1970)<br>
+      ▸ 2. Spieler, der bei <strong>3 verschiedenen WM-Turnieren 4+ Tore</strong> erzielt (nach Klose)<br>
+      ▸ Mit 39 Jahren der älteste WM-Torschütze in Argentiniens Geschichte
+    </p>
+  </div>
+
+  <div class="record-card">
+    <h4>⚡ Kylian Mbappé — Auf dem Weg zu Klose</h4>
+    <p>
+      ▸ Mit 4 Toren hat Mbappé nun <strong>16 WM-Karrieretore</strong> — gleichauf mit Miroslav Kloses langjährigem Männerrekord (bevor Messi ihn brach)<br>
+      ▸ Sein Doppelpack gegen den Irak (3:0 am 22. Juni) war bereits seine <strong>4. WM mit Toren</strong><br>
+      ▸ Mit 27 Jahren hat er noch mindestens eine weitere WM vor sich
+    </p>
+  </div>
+
+  <div class="record-card">
+    <h4>🇨🇦 Kanada — Historisches Debüt</h4>
+    <p>
+      ▸ Kanada spielt <strong>erstmals seit 40 Jahren</strong> (seit 1986) wieder eine WM — und das als Gastgeber<br>
+      ▸ Das 6:0 gegen Katar war Kanadas höchster WM-Sieg der Geschichte<br>
+      ▸ Als Gastgeber besteht enormer Druck, weit zu kommen
+    </p>
+  </div>
+
+  <div class="record-card">
+    <h4>🇳🇴 Erling Haaland — Norwegens WM-Geschichte</h4>
+    <p>
+      ▸ Haalands <strong>4 WM-Karrieretore</strong> sind die meisten, die je ein norwegischer Spieler bei einer WM erzielt hat<br>
+      ▸ Norwegen hatte sich 28 Jahre lang nicht qualifiziert (letzte WM 1998)<br>
+      ▸ Das Duell Haaland vs. Mbappé im Gruppenfinale (Frankreich–Norwegen, 27. Juni) wird eines der größten Spiele des Turniers
+    </p>
+  </div>
+
+  <div class="record-card">
+    <h4>🌍 Das neue WM-Format — Zahlen &amp; Fakten</h4>
+    <p>
+      ▸ <strong>48 Teams</strong> aus 6 Kontinenten — 50 % mehr als früher<br>
+      ▸ <strong>104 Spiele</strong> in 39 Tagen — das meiste Fußball einer WM aller Zeiten<br>
+      ▸ Erstmals spielen <strong>3 Gastgeberländer</strong> gleichzeitig<br>
+      ▸ Kanada und Mexiko nehmen erstmals als Mitgastgeber teil; USA war zuletzt 1994 Gastgeber
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+  HEUTE
+═══════════════════════════ -->
+<section id="heute">
+  <div class="section-header">
+    <div class="section-icon">📅</div>
+    <h2>Spiele heute — 23. Juni 2026 <small>Runde 2 in Gruppen K &amp; L</small></h2>
+  </div>
+
+  <div class="schedule-today">
+    <div class="sched-item">
+      <span class="sched-time">19:00 Uhr MEZ</span>
+      <div>
+        <div class="sched-match">🇵🇹 Portugal vs. Usbekistan 🇺🇿</div>
+        <div class="sched-group">Gruppe K · AT&amp;T Stadium, Dallas</div>
+      </div>
+    </div>
+    <div class="sched-item">
+      <span class="sched-time">22:00 Uhr MEZ</span>
+      <div>
+        <div class="sched-match">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs. Ghana 🇬🇭</div>
+        <div class="sched-group">Gruppe L · Children's Mercy Park, Kansas City</div>
+      </div>
+    </div>
+    <div class="sched-item">
+      <span class="sched-time">01:00 Uhr MEZ (24.6.)</span>
+      <div>
+        <div class="sched-match">🇵🇦 Panama vs. Kroatien 🇭🇷</div>
+        <div class="sched-group">Gruppe L · AT&amp;T Stadium, Dallas</div>
+      </div>
+    </div>
+    <div class="sched-item">
+      <span class="sched-time">04:00 Uhr MEZ (24.6.)</span>
+      <div>
+        <div class="sched-match">🇨🇴 Kolumbien vs. DR Kongo 🇨🇩</div>
+        <div class="sched-group">Gruppe K · Mercedes-Benz Stadium, Atlanta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Was steht auf dem Spiel?</strong><br>
+    In <strong>Gruppe K</strong>: Portugal braucht einen Sieg gegen Usbekistan, um sich zu qualifizieren. Ronaldo will sein erstes Tor dieser WM — nach dem Unentschieden 1:1 gegen DR Kongo stand er ohne Treffer da. Ein Sieg Kolumbiens gegen DR Kongo würde Kolumbien als Gruppensieger qualifizieren.<br><br>
+    In <strong>Gruppe L</strong>: England gegen Ghana ist ein direktes Duell um Platz 1. Beide haben je 3 Punkte. Panama und Kroatien brauchen einen Sieg, um nicht ausgeschieden zu sein.
+  </div>
+</section>
+
+<!-- ═══════════════════════════
+  VOKABELN
+═══════════════════════════ -->
+<section id="vokabeln">
+  <div class="section-header">
+    <div class="section-icon">📚</div>
+    <h2>Fußball-Vokabeln auf Deutsch</h2>
+  </div>
+
+  <div class="vocab-grid">
+    <div class="vocab-item"><span class="vocab-de">die Weltmeisterschaft (WM)</span><span class="vocab-en">FIFA World Cup</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Turnier, -e</span><span class="vocab-en">tournament</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Gruppenphase</span><span class="vocab-en">group stage</span></div>
+    <div class="vocab-item"><span class="vocab-de">das K.o.-Runde / Achtelfinale</span><span class="vocab-en">round of 32 / knockout stage</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Viertelfinale</span><span class="vocab-en">quarterfinal</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Halbfinale</span><span class="vocab-en">semifinal</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Endspiel / Finale</span><span class="vocab-en">final</span></div>
+    <div class="vocab-item"><span class="vocab-de">sich qualifizieren für</span><span class="vocab-en">to qualify for</span></div>
+    <div class="vocab-item"><span class="vocab-de">ausscheiden aus</span><span class="vocab-en">to be eliminated from</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Torschütze, -n</span><span class="vocab-en">goalscorer</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Torjäger, -</span><span class="vocab-en">top scorer / striker</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Goldene Schuh</span><span class="vocab-en">Golden Boot (top scorer award)</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Tor schießen / erzielen</span><span class="vocab-en">to score a goal</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Unentschieden</span><span class="vocab-en">draw / tie</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Gastgeber, -</span><span class="vocab-en">host (country)</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Tabelle, -n</span><span class="vocab-en">standings table</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Torunterschied (TD)</span><span class="vocab-en">goal difference (GD)</span></div>
+    <div class="vocab-item"><span class="vocab-de">die Verlängerung</span><span class="vocab-en">extra time</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Elfmeterschießen</span><span class="vocab-en">penalty shootout</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Rekord brechen</span><span class="vocab-en">to break a record</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Hattrick</span><span class="vocab-en">hat trick (3 goals in one game)</span></div>
+    <div class="vocab-item"><span class="vocab-de">jmdn. schlagen / besiegen</span><span class="vocab-en">to beat / defeat someone</span></div>
+    <div class="vocab-item"><span class="vocab-de">das Vorrundenaus</span><span class="vocab-en">eliminated in group stage</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Außenseiter</span><span class="vocab-en">underdog</span></div>
+    <div class="vocab-item"><span class="vocab-de">der Titelverteidiger</span><span class="vocab-en">defending champion</span></div>
+    <div class="vocab-item"><span class="vocab-de">überragend / beeindruckend</span><span class="vocab-en">dominant / impressive</span></div>
+  </div>
+
+  <div class="rule"><strong>Nützliche Sätze für die WM:</strong><br>
+  <em>„Argentinien hat Österreich <strong>mit</strong> 2:0 geschlagen."</em> · <em>„Deutschland steht <strong>im</strong> Achtelfinale."</em> · <em>„Messi hat den WM-Torrekord <strong>gebrochen</strong>."</em> · <em>„Das Spiel endet <strong>unentschieden</strong>."</em> · <em>„Portugal scheidet aus."</em></div>
+</section>
+
+<!-- ═══════════════════════════
+  DISKUSSION
+═══════════════════════════ -->
+<section id="diskussion">
+  <div class="section-header">
+    <div class="section-icon">💬</div>
+    <h2>Diskussionsfragen <small>Deine Meinung auf Deutsch</small></h2>
+  </div>
+
+  <div class="disc-card">
+    <div class="disc-num">1</div>
+    <div><div class="disc-q">Lionel Messi ist jetzt der größte WM-Torschütze aller Zeiten. Ist er deiner Meinung nach der beste Fußballer der Geschichte — und warum (nicht)?</div><div class="disc-hint">Ronaldo · Maradona · Pelé · Statistiken vs. Einfluss</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">2</div>
+    <div><div class="disc-q">Was hältst du vom neuen WM-Format mit 48 Teams? Mehr Fußball für alle — oder verwässert das die Qualität des Turniers?</div><div class="disc-hint">Kleine Länder · Qualitätsniveau · Spannung vs. Quantität</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">3</div>
+    <div><div class="disc-q">Deutschland, Frankreich, Argentinien — wer wird Weltmeister? Begründe deine Antwort.</div><div class="disc-hint">Kader · Form · Gegner · Glück</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">4</div>
+    <div><div class="disc-q">Norgewegen schlägt Frankreich in der Gruppenphase — und beide stehen trotzdem in der K.o.-Runde. Macht das das Gruppenspiel weniger spannend?</div><div class="disc-hint">Format-Vor- und Nachteile · Gastgeberländer · Zuschauer</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">5</div>
+    <div><div class="disc-q">Kanada spielt zum ersten Mal seit 40 Jahren eine WM — und gewinnt 6:0. Was bedeutet das für den Fußball in Nordamerika?</div><div class="disc-hint">MLS · Nachwuchsförderung · USA 1994 · WM-Effekt</div></div>
+  </div>
+  <div class="disc-card">
+    <div class="disc-num">6</div>
+    <div><div class="disc-q">Verfolgst du die WM? Welche Mannschaft feuert du an — und warum?</div><div class="disc-hint">Persönliche Verbindung · Spielstil · Lieblingsspieler</div></div>
+  </div>
+
+  <div class="rule" style="margin-top:1.2rem;"><strong>Redemittel für die Diskussion:</strong><br>
+  <em>„Ich tippe auf …"</em> · <em>„Meiner Einschätzung nach …"</em> · <em>„Das ist natürlich schwer zu sagen, aber …"</em> · <em>„Mich überrascht, dass …"</em> · <em>„Ich finde es bemerkenswert, dass …"</em> · <em>„Wenn man die Form der letzten Wochen betrachtet …"</em></div>
+</section>
+
+</main>
+
+<footer>
+  Allgemeine Deutschklasse &nbsp;·&nbsp; FIFA WM 2026 &nbsp;·&nbsp; Stand: 23. Juni 2026 (morgens)<br>
+  Quellen: <a href="https://www.nbcsports.com/soccer/news/2026-world-cup-group-stage-table-full-standings-for-all-12-groups" target="_blank">NBC Sports Standings</a> · <a href="https://www.aljazeera.com/sports/2026/6/23/which-teams-have-qualified-for-the-world-cup-2026-knockouts-round-of-32" target="_blank">Al Jazeera</a> · <a href="https://www.espn.com/soccer/story/_/id/49145571/fifa-world-cup-2026-stats-lionel-messi-all-goalscorer-18-kylian-mbappe-miroslav-klose-16-record-100-haaland" target="_blank">ESPN Records</a> · <a href="https://www.nbcnews.com/sports/soccer/live-blog/fifa-world-cup-games-2026-june-22-live-updates-rcna351129" target="_blank">NBC News · 22. Juni</a> · <a href="https://sports.yahoo.com/soccer/article/2026-world-cup-results-standings-and-schedule-live-scores-group-stage-updates-and-how-to-watch-050724193.html" target="_blank">Yahoo Sports</a>
+</footer>
+
+</body>
+</html>
