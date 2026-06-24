@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TheGermanStefan Â· B2 Hub</title>
+<title>TheGermanStefan · B2 Hub</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#0b2545;--lc:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--green:#2e7d32;--red:#c62828}
@@ -48,7 +48,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .card{background:#fff;border:2px solid #e0e6f0;border-radius:12px;padding:16px 18px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
 .card:hover{border-color:var(--lc);box-shadow:0 4px 18px rgba(198,40,40,.15);transform:translateY(-2px)}
 .card.done{border-color:var(--green);background:linear-gradient(135deg,#f1f8f1,#fff)}
-.card.done::after{content:'â';position:absolute;top:10px;right:12px;font-size:16px;font-weight:900;color:var(--green)}
+.card.done::after{content:'✓';position:absolute;top:10px;right:12px;font-size:16px;font-weight:900;color:var(--green)}
 .card-num{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;margin-bottom:4px}
 .card.done .card-num{color:var(--green)}
 .card-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3}
@@ -78,9 +78,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
 
 <div class="hero">
-  <div class="hero-badge">B2 Â· Upper Intermediate</div>
+  <div class="hero-badge">B2 · Upper Intermediate</div>
   <h1>B2 Learning Hub</h1>
-  <p class="sub" data-t="hero_sub">Grammar Â· Reading Â· Vocabulary Â· Speaking</p>
+  <p class="sub" data-t="hero_sub">Grammar · Reading · Vocabulary · Speaking</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-n">10</div><div class="hero-stat-l" data-t="stat_grammar">Grammar</div></div>
     <div class="hero-stat"><div class="hero-stat-n">5</div><div class="hero-stat-l" data-t="stat_reading">Reading</div></div>
@@ -102,47 +102,47 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <a class="lnav-btn active">B2</a>
   </div>
 
-  <div class="section-hdr"><span class="section-icon">ð</span><span class="section-title" data-t="sec_grammar">Grammar</span><span class="section-count">10 lessons</span></div>
+  <div class="section-hdr"><span class="section-icon">📐</span><span class="section-title" data-t="sec_grammar">Grammar</span><span class="section-count">10 lessons</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_g"></div></div>
   <div class="grid" id="grid_g"></div>
 
-  <div class="section-hdr"><span class="section-icon">ð</span><span class="section-title" data-t="sec_reading">Reading Room</span><span class="section-count">5 texts</span></div>
+  <div class="section-hdr"><span class="section-icon">📖</span><span class="section-title" data-t="sec_reading">Reading Room</span><span class="section-count">5 texts</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_r"></div></div>
   <div class="grid" id="grid_r"></div>
 
-  <div class="section-hdr"><span class="section-icon">ð¤</span><span class="section-title" data-t="sec_vocab">Vocabulary</span><span class="section-count">5 sets</span></div>
+  <div class="section-hdr"><span class="section-icon">🔤</span><span class="section-title" data-t="sec_vocab">Vocabulary</span><span class="section-count">5 sets</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_v"></div></div>
   <div class="grid" id="grid_v"></div>
 
-  <div class="section-hdr"><span class="section-icon">ð¤</span><span class="section-title" data-t="sec_speaking">Speaking Cards</span><span class="section-count">10 cards</span></div>
+  <div class="section-hdr"><span class="section-icon">🎤</span><span class="section-title" data-t="sec_speaking">Speaking Cards</span><span class="section-count">10 cards</span></div>
   <div class="section-bar"><div class="section-bar-fill" id="bar_s"></div></div>
   <div class="grid" id="grid_s"></div>
 </div>
 
 <script>
-const LANG={en:{hero_sub:'Grammar Â· Reading Â· Vocabulary Â· Speaking',stat_grammar:'Grammar',stat_reading:'Reading',stat_vocab:'Vocab',stat_speaking:'Speaking',completed_label:'completed',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocabulary',sec_speaking:'Speaking Cards'},fr:{hero_sub:'Grammaire Â· Lecture Â· Vocabulaire Â· Expression',stat_grammar:'Grammaire',stat_reading:'Lecture',stat_vocab:'Vocab',stat_speaking:'Expression',completed_label:'terminÃ©s',sec_grammar:'Grammaire',sec_reading:'Salle de lecture',sec_vocab:'Vocabulaire',sec_speaking:'Cartes de parole'},es:{hero_sub:'GramÃ¡tica Â· Lectura Â· Vocabulario Â· ConversaciÃ³n',stat_grammar:'GramÃ¡tica',stat_reading:'Lectura',stat_vocab:'Vocab',stat_speaking:'ConversaciÃ³n',completed_label:'completados',sec_grammar:'GramÃ¡tica',sec_reading:'Sala de lectura',sec_vocab:'Vocabulario',sec_speaking:'Tarjetas de habla'},it:{hero_sub:'Grammatica Â· Lettura Â· Vocabolario Â· Parlato',stat_grammar:'Grammatica',stat_reading:'Lettura',stat_vocab:'Vocab',stat_speaking:'Parlato',completed_label:'completati',sec_grammar:'Grammatica',sec_reading:'Sala di lettura',sec_vocab:'Vocabolario',sec_speaking:'Schede di conversazione'},pt:{hero_sub:'GramÃ¡tica Â· Leitura Â· VocabulÃ¡rio Â· ConversaÃ§Ã£o',stat_grammar:'GramÃ¡tica',stat_reading:'Leitura',stat_vocab:'Vocab',stat_speaking:'ConversaÃ§Ã£o',completed_label:'concluÃ­dos',sec_grammar:'GramÃ¡tica',sec_reading:'Sala de leitura',sec_vocab:'VocabulÃ¡rio',sec_speaking:'CartÃµes de fala'}};
+const LANG={en:{hero_sub:'Grammar · Reading · Vocabulary · Speaking',stat_grammar:'Grammar',stat_reading:'Reading',stat_vocab:'Vocab',stat_speaking:'Speaking',completed_label:'completed',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocabulary',sec_speaking:'Speaking Cards'},fr:{hero_sub:'Grammaire · Lecture · Vocabulaire · Expression',stat_grammar:'Grammaire',stat_reading:'Lecture',stat_vocab:'Vocab',stat_speaking:'Expression',completed_label:'terminés',sec_grammar:'Grammaire',sec_reading:'Salle de lecture',sec_vocab:'Vocabulaire',sec_speaking:'Cartes de parole'},es:{hero_sub:'Gramática · Lectura · Vocabulario · Conversación',stat_grammar:'Gramática',stat_reading:'Lectura',stat_vocab:'Vocab',stat_speaking:'Conversación',completed_label:'completados',sec_grammar:'Gramática',sec_reading:'Sala de lectura',sec_vocab:'Vocabulario',sec_speaking:'Tarjetas de habla'},it:{hero_sub:'Grammatica · Lettura · Vocabolario · Parlato',stat_grammar:'Grammatica',stat_reading:'Lettura',stat_vocab:'Vocab',stat_speaking:'Parlato',completed_label:'completati',sec_grammar:'Grammatica',sec_reading:'Sala di lettura',sec_vocab:'Vocabolario',sec_speaking:'Schede di conversazione'},pt:{hero_sub:'Gramática · Leitura · Vocabulário · Conversação',stat_grammar:'Gramática',stat_reading:'Leitura',stat_vocab:'Vocab',stat_speaking:'Conversação',completed_label:'concluídos',sec_grammar:'Gramática',sec_reading:'Sala de leitura',sec_vocab:'Vocabulário',sec_speaking:'Cartões de fala'}};
 let CL=localStorage.getItem('tgs_lang')||'en';
 function t(k){return(LANG[CL]||LANG.en)[k]||k}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 
 const GRAMMAR=[
-  {n:'01',title:'Zustandspassiv',sub:'Das Fenster ist geÃ¶ffnet vs. wird geÃ¶ffnet',file:'B2_Grammar_01_Zustandspassiv.html'},
+  {n:'01',title:'Zustandspassiv',sub:'Das Fenster ist geöffnet vs. wird geöffnet',file:'B2_Grammar_01_Zustandspassiv.html'},
   {n:'02',title:'Konjunktiv I vertieft',sub:'Indirekte Rede in Texten & Medien',file:'B2_Grammar_02_Konjunktiv1.html'},
-  {n:'03',title:'Partizipialkonstruktionen',sub:'Erweiterte PartizipialsÃ¤tze',file:'B2_Grammar_03_Partizipialkonstruktionen.html'},
-  {n:'04',title:'Konzessive Konnektoren',sub:'obwohl Â· trotzdem Â· dennoch Â· wenngleich',file:'B2_Grammar_04_Konzessiv.html'},
-  {n:'05',title:'Kausale & konsekutive SÃ¤tze',sub:'da Â· weil Â· sodass Â· so â¦ dass',file:'B2_Grammar_05_Kausal_Konsekutiv.html'},
-  {n:'06',title:'Nominalisierung',sub:'das Lesen Â· die Verwendung Â· Substantivierung',file:'B2_Grammar_06_Nominalisierung.html'},
-  {n:'07',title:'Modalpartikeln',sub:'doch Â· ja Â· mal Â· eigentlich Â· wohl Â· halt',file:'B2_Grammar_07_Modalpartikeln.html'},
-  {n:'08',title:'Irrealis der Vergangenheit',sub:'HÃ¤tte ich â¦ wÃ¤re ich â¦ geworden',file:'B2_Grammar_08_Irrealis.html'},
-  {n:'09',title:'GenitivprÃ¤positionen',sub:'bezÃ¼glich Â· hinsichtlich Â· angesichts Â· infolge',file:'B2_Grammar_09_Genitivpraepositionen.html'},
-  {n:'10',title:'Textgrammatik',sub:'KohÃ¤renz Â· Referenz Â· TextverknÃ¼pfung',file:'B2_Grammar_10_Textgrammatik.html'},
+  {n:'03',title:'Partizipialkonstruktionen',sub:'Erweiterte Partizipialsätze',file:'B2_Grammar_03_Partizipialkonstruktionen.html'},
+  {n:'04',title:'Konzessive Konnektoren',sub:'obwohl · trotzdem · dennoch · wenngleich',file:'B2_Grammar_04_Konzessiv.html'},
+  {n:'05',title:'Kausale & konsekutive Sätze',sub:'da · weil · sodass · so … dass',file:'B2_Grammar_05_Kausal_Konsekutiv.html'},
+  {n:'06',title:'Nominalisierung',sub:'das Lesen · die Verwendung · Substantivierung',file:'B2_Grammar_06_Nominalisierung.html'},
+  {n:'07',title:'Modalpartikeln',sub:'doch · ja · mal · eigentlich · wohl · halt',file:'B2_Grammar_07_Modalpartikeln.html'},
+  {n:'08',title:'Irrealis der Vergangenheit',sub:'Hätte ich … wäre ich … geworden',file:'B2_Grammar_08_Irrealis.html'},
+  {n:'09',title:'Genitivpräpositionen',sub:'bezüglich · hinsichtlich · angesichts · infolge',file:'B2_Grammar_09_Genitivpraepositionen.html'},
+  {n:'10',title:'Textgrammatik',sub:'Kohärenz · Referenz · Textverknüpfung',file:'B2_Grammar_10_Textgrammatik.html'},
 ];
 const READING=[
   {n:'01',title:'Gesellschaftlicher Wandel',sub:'Social change in modern Germany',file:'B2_Reading_01_Gesellschaft.html'},
   {n:'02',title:'Wissenschaft & Forschung',sub:'Science, research and innovation',file:'B2_Reading_02_Wissenschaft.html'},
   {n:'03',title:'Globalisierung',sub:'Globalisation: opportunities and risks',file:'B2_Reading_03_Globalisierung.html'},
-  {n:'04',title:'Kultur & IdentitÃ¤t',sub:'Cultural identity in a diverse world',file:'B2_Reading_04_Kultur.html'},
+  {n:'04',title:'Kultur & Identität',sub:'Cultural identity in a diverse world',file:'B2_Reading_04_Kultur.html'},
   {n:'05',title:'Wirtschaft & Finanzen',sub:'Economy, finance and social inequality',file:'B2_Reading_05_Wirtschaft.html'},
 ];
 const VOCAB=[
@@ -154,12 +154,12 @@ const VOCAB=[
 ];
 const SPEAKING=[
   {n:'01',title:'Argumentation',sub:'Building and defending an argument',file:'B2_Sprechen_01_Argumentation.html'},
-  {n:'02',title:'Debatte',sub:'Pro & Kontra â structured discussion',file:'B2_Sprechen_02_Debatte.html'},
-  {n:'03',title:'PrÃ¤sentation',sub:'Presenting information clearly',file:'B2_Sprechen_03_Praesentation.html'},
+  {n:'02',title:'Debatte',sub:'Pro & Kontra — structured discussion',file:'B2_Sprechen_02_Debatte.html'},
+  {n:'03',title:'Präsentation',sub:'Presenting information clearly',file:'B2_Sprechen_03_Praesentation.html'},
   {n:'04',title:'Verhandlung',sub:'Negotiating interests and compromise',file:'B2_Sprechen_04_Verhandlung.html'},
   {n:'05',title:'Beschwerde',sub:'Making a formal complaint',file:'B2_Sprechen_05_Beschwerde.html'},
-  {n:'06',title:'Meinung Ã¤uÃern',sub:'Expressing nuanced opinions',file:'B2_Sprechen_06_Meinung.html'},
-  {n:'07',title:'VorstellungsgesprÃ¤ch',sub:'Job interview â professional self-presentation',file:'B2_Sprechen_07_Interview.html'},
+  {n:'06',title:'Meinung äußern',sub:'Expressing nuanced opinions',file:'B2_Sprechen_06_Meinung.html'},
+  {n:'07',title:'Vorstellungsgespräch',sub:'Job interview — professional self-presentation',file:'B2_Sprechen_07_Interview.html'},
   {n:'08',title:'Mediation',sub:'Mediating between different positions',file:'B2_Sprechen_08_Mediation.html'},
   {n:'09',title:'Kulturvergleich',sub:'Describing cultural differences',file:'B2_Sprechen_09_Kulturvergleich.html'},
   {n:'10',title:'Stegreifrede',sub:'Impromptu speech on any topic',file:'B2_Sprechen_10_Stegreifrede.html'},
