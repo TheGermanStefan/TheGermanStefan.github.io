@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business E-Mail Deutsch — TheGermanStefan</title>
+<style>
+:root{--lc:#2e7d32;--lc2:#1b5e20;--lv:#388e3c;--navy:#0d1b2a;--gold:#f4c430;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:1.1rem;font-weight:800;color:var(--gold);letter-spacing:-.3px;text-decoration:none}
+.back-link{color:#8a9bb0;font-size:.85rem;text-decoration:none}
+.back-link:hover{color:var(--gold)}
+.lang-sel{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:.82rem;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+.hero{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:#fff;padding:36px 24px 28px;text-align:center}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;letter-spacing:.5px;margin-bottom:14px}
+.hero h1{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+.hero p{font-size:1rem;opacity:.9;max-width:560px;margin:0 auto}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#fff;padding:0 24px;overflow-x:auto;position:sticky;top:56px;z-index:90}
+.tab{padding:14px 20px;font-size:.87rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.tab:hover:not(.active){color:var(--text)}
+.content{max-width:900px;margin:0 auto;padding:24px 16px}
+.section{display:none}
+.section.active{display:block}
+.browse-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.search-box{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none}
+.search-box:focus{border-color:var(--lc)}
+.filter-sel{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:#fff;cursor:pointer}
+.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;min-width:80px}
+.stat-val{font-size:1.3rem;font-weight:800;color:var(--lc)}
+.stat-lbl{font-size:.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.idiom-grid{display:grid;gap:12px}
+.idiom-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .2s}
+.idiom-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.idiom-card.expanded .card-body{display:block}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.idiom-phrase{font-size:1.05rem;font-weight:800;color:var(--text)}
+.card-cat{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
+.card-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.level-badge{padding:3px 8px;border-radius:12px;font-size:.7rem;font-weight:700}
+.lvl-b1{background:#e8f5e9;color:#2e7d32}
+.lvl-b2{background:#fff3e0;color:#e65100}
+.lvl-c1{background:#fce4ec;color:#c62828}
+.fav-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:2px;border-radius:4px;transition:transform .2s}
+.fav-btn:hover{transform:scale(1.2)}
+.card-body{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.card-row{margin-bottom:10px}
+.card-row-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:3px}
+.card-row-val{font-size:.88rem;color:var(--text);line-height:1.5}
+.example-box{background:#f0fdf4;border-left:3px solid var(--lv);padding:8px 12px;border-radius:4px;font-size:.85rem;line-height:1.5;font-family:'Courier New',monospace}
+.usage-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:700;margin-right:4px}
+.use-formal{background:#e8f5e9;color:#2e7d32}
+.use-semiformal{background:#fff3e0;color:#e65100}
+.use-standard{background:#e3f2fd;color:#1565c0}
+/* TEMPLATE VIEW */
+.template-section{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden}
+.template-header{background:#f8fafc;border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.template-header h3{font-size:.95rem;font-weight:700;color:var(--text)}
+.template-header .tpl-badge{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:8px;background:#e8f5e9;color:#2e7d32}
+.template-body{display:none;padding:18px}
+.template-section.open .template-body{display:block}
+.tpl-email{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:16px;font-size:.88rem;line-height:2;white-space:pre-wrap;font-family:'Courier New',monospace;color:var(--text)}
+.tpl-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);display:block;margin-bottom:8px}
+.tpl-highlight{background:#fff9c4;border-radius:3px;padding:0 2px}
+.tpl-note{font-size:.8rem;color:var(--muted);margin-top:12px;line-height:1.5;font-style:italic}
+/* FLASHCARD */
+.fc-wrap{max-width:600px;margin:0 auto;text-align:center}
+.fc-cat-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.fc-cat-btn{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:#fff;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.fc-cat-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.fc-prog-lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.fc-prog{background:var(--border);border-radius:4px;height:6px;margin-bottom:20px}
+.fc-prog-bar{background:var(--lc);height:100%;border-radius:4px;transition:width .3s}
+.flashcard{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:44px 32px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow);margin-bottom:18px;position:relative}
+.flashcard.flipped{border-color:var(--lc);background:#f0fdf4}
+.fc-front{width:100%}
+.fc-back{display:none;width:100%}
+.flashcard.flipped .fc-front{display:none}
+.flashcard.flipped .fc-back{display:block}
+.fc-phrase{font-size:1.25rem;font-weight:900;color:var(--text);margin-bottom:10px;line-height:1.4}
+.fc-tap{font-size:.82rem;color:var(--muted)}
+.fc-meaning{font-size:.95rem;font-weight:800;color:var(--lc);margin-bottom:12px}
+.fc-ex{font-size:.82rem;color:var(--text);background:rgba(46,125,50,.08);padding:10px;border-radius:8px;text-align:left;font-family:'Courier New',monospace;line-height:1.5}
+.fc-flip-hint{position:absolute;bottom:12px;right:16px;font-size:.7rem;color:var(--muted)}
+.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.fc-btn{padding:9px 22px;border-radius:10px;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.fc-btn:hover{opacity:.85;transform:translateY(-1px)}
+.fc-skip{background:#f0f2f5;color:var(--muted)}
+.fc-again{background:#fff3e0;color:#e65100}
+.fc-know{background:#e8f5e9;color:#2e7d32}
+.fc-known-lbl{font-size:.78rem;color:var(--muted);text-align:center}
+/* QUIZ */
+.quiz-wrap{max-width:640px;margin:0 auto}
+.quiz-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:16px}
+.quiz-q{font-size:1rem;font-weight:800;margin-bottom:6px;font-family:'Courier New',monospace;background:#f0fdf4;padding:10px;border-radius:8px;border-left:3px solid var(--lv)}
+.quiz-sub{font-size:.83rem;color:var(--muted);margin-bottom:18px;margin-top:10px}
+.quiz-opts{display:grid;gap:9px}
+.quiz-opt{padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;text-align:left;transition:all .2s}
+.quiz-opt:hover:not(:disabled){border-color:var(--lc);background:#f0fdf4}
+.quiz-opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32}
+.quiz-opt.wrong{border-color:#c62828;background:#fce4ec;color:#c62828}
+.quiz-score{text-align:center;padding:28px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+.quiz-score-big{font-size:3.5rem;font-weight:900;color:var(--lc)}
+.quiz-score-lbl{color:var(--muted);margin-top:4px}
+.btn-primary{display:inline-block;padding:11px 26px;background:var(--lc);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:16px;transition:all .2s}
+.btn-primary:hover{background:var(--lc2);transform:translateY(-1px)}
+.empty{text-align:center;padding:48px 16px;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:12px}
+.quiz-prog{text-align:center;font-size:.8rem;color:var(--muted);margin-top:8px}
+.tip-box{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:.85rem;color:#2e7d32;line-height:1.6}
+.tip-box strong{font-weight:700}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="TheGermanStefan_Special_Skills_Hub.html" class="back-link">← Special Skills</a>
+  <a href="TheGermanStefan_Special_Skills_Hub.html" class="logo">TheGermanStefan</a>
+  <select class="lang-sel" id="langSel">
+    <option value="en">🇬🇧 EN</option>
+    <option value="fr">🇫🇷 FR</option>
+    <option value="es">🇪🇸 ES</option>
+    <option value="it">🇮🇹 IT</option>
+    <option value="pt">🇵🇹 PT</option>
+  </select>
+</div>
+<div class="hero">
+  <div class="hero-badge">Business Deutsch · B1–C1 · Premium</div>
+  <h1>📧 Business E-Mail Deutsch</h1>
+  <p>Master professional German email writing — the formulas, phrases, and structures that Germans actually use in formal and business correspondence</p>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('browse')">📚 Phrases</div>
+  <div class="tab" onclick="switchTab('templates')">📄 Templates</div>
+  <div class="tab" onclick="switchTab('flash')">🎴 Flashcards</div>
+  <div class="tab" onclick="switchTab('quiz')">🧠 Quiz</div>
+  <div class="tab" onclick="switchTab('favs')">⭐ Favourites</div>
+</div>
+<div class="content">
+
+<!-- BROWSE / PHRASES -->
+<div id="sec-browse" class="section active">
+  <div class="tip-box">📬 <strong>Key rule:</strong> German business emails are more formal than English ones. Always use <em>Sehr geehrte/r…</em> for strangers, and close with <em>Mit freundlichen Grüßen</em> — never "Tschüss" in a professional email. Use <em>Sie</em> (not <em>du</em>) unless explicitly agreed otherwise.</div>
+  <div class="browse-controls">
+    <input class="search-box" id="searchBox" placeholder="Search phrases…" oninput="filterCards()">
+    <select class="filter-sel" id="catFilter" onchange="filterCards()">
+      <option value="all">All Categories</option>
+      <option value="anrede">🎩 Anrede</option>
+      <option value="einleitung">📝 Einleitung</option>
+      <option value="bitten">🙏 Bitten & Anfragen</option>
+      <option value="info">📋 Informationen</option>
+      <option value="termine">📅 Termine</option>
+      <option value="beschwerde">⚠️ Beschwerden</option>
+      <option value="entschuldigung">🤝 Entschuldigung</option>
+      <option value="schluss">✍️ Schlussformeln</option>
+    </select>
+    <select class="filter-sel" id="lvlFilter" onchange="filterCards()">
+      <option value="all">All Levels</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+    </select>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val" id="statTotal">65</span><span class="stat-lbl">Total</span></div>
+    <div class="stat"><span class="stat-val" id="statShown">65</span><span class="stat-lbl">Shown</span></div>
+    <div class="stat"><span class="stat-val" id="statFavs">0</span><span class="stat-lbl">Saved</span></div>
+  </div>
+  <div class="idiom-grid" id="idiomGrid"></div>
+  <div class="empty" id="emptyBrowse" style="display:none"><div class="empty-icon">🔍</div><p>No phrases match your search</p></div>
+</div>
+
+<!-- TEMPLATES -->
+<div id="sec-templates" class="section">
+  <div class="tip-box">💡 <strong>How to use:</strong> Click any template to expand it. Highlighted parts in <span style="background:#fff9c4;padding:0 3px;border-radius:3px;font-weight:600">yellow</span> are placeholders — replace them with your actual content.</div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>🎩</div><h3>Formal Request — Anfrage an eine unbekannte Person</h3><span class="tpl-badge">B1+</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte/r Frau/Herr <span class="tpl-highlight">[Nachname]</span>,
+
+ich wende mich an Sie im Zusammenhang mit <span class="tpl-highlight">[Thema / Ihr Produkt / Ihre Dienstleistung]</span>.
+
+Ich interessiere mich für <span class="tpl-highlight">[Einzelheit]</span> und würde mich freuen, wenn Sie mir weitere Informationen dazu zukommen lassen könnten.
+
+Könnten Sie mir bitte mitteilen, ob <span class="tpl-highlight">[konkrete Frage]</span>? Für Rückfragen stehe ich jederzeit zur Verfügung.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span>
+<span class="tpl-highlight">[Position, Firma]</span>
+<span class="tpl-highlight">[Telefon / E-Mail]</span></div>
+      <p class="tpl-note">✏️ Note: Use "Sehr geehrte Frau…" (for women) or "Sehr geehrter Herr…" (for men). If you don't know the name, use "Sehr geehrte Damen und Herren,"</p>
+    </div>
+  </div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>📅</div><h3>Appointment Request — Terminanfrage</h3><span class="tpl-badge">B1+</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte/r Frau/Herr <span class="tpl-highlight">[Nachname]</span>,
+
+ich schreibe Ihnen bezüglich eines möglichen <span class="tpl-highlight">[Meetings / Gesprächs / Beratungstermins]</span>.
+
+Ich würde gerne einen Termin mit Ihnen vereinbaren, um <span class="tpl-highlight">[Thema des Gesprächs]</span> zu besprechen.
+
+Ich stehe Ihnen an folgenden Terminen zur Verfügung:
+- <span class="tpl-highlight">[Datum 1, Uhrzeit]</span>
+- <span class="tpl-highlight">[Datum 2, Uhrzeit]</span>
+- <span class="tpl-highlight">[Datum 3, Uhrzeit]</span>
+
+Falls keiner dieser Termine für Sie passt, nenne ich Ihnen gerne weitere Alternativen. Ich freue mich auf Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span></div>
+      <p class="tpl-note">✏️ Note: Always offer 2–3 time options. "Ich stehe zur Verfügung" is softer and more professional than "Ich bin frei".</p>
+    </div>
+  </div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>📎</div><h3>Sending Documents — Unterlagen übermitteln</h3><span class="tpl-badge">B2+</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte/r Frau/Herr <span class="tpl-highlight">[Nachname]</span>,
+
+vielen Dank für Ihre Nachricht vom <span class="tpl-highlight">[Datum]</span>.
+
+Wie vereinbart, übersende ich Ihnen anbei die folgenden Unterlagen:
+- <span class="tpl-highlight">[Dokument 1]</span>
+- <span class="tpl-highlight">[Dokument 2]</span>
+
+Bitte nehmen Sie zur Kenntnis, dass <span class="tpl-highlight">[wichtiger Hinweis / Frist / Bedingung]</span>.
+
+Sollten Sie Fragen zu den beigefügten Unterlagen haben, stehe ich Ihnen gerne zur Verfügung.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span></div>
+      <p class="tpl-note">✏️ Note: "anbei" (attached) is more formal than "im Anhang". Both are correct. Never write "attached you will find" — that's an English calque Germans sometimes laugh at.</p>
+    </div>
+  </div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>⚠️</div><h3>Formal Complaint — Beschwerde</h3><span class="tpl-badge">C1</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte Damen und Herren,
+
+leider muss ich Sie auf ein Problem aufmerksam machen, das im Zusammenhang mit <span class="tpl-highlight">[Produkt / Dienstleistung / Bestellung Nr. …]</span> aufgetreten ist.
+
+Am <span class="tpl-highlight">[Datum]</span> habe ich <span class="tpl-highlight">[was bestellt / was vereinbart wurde]</span>. Zu meinem Bedauern musste ich feststellen, dass <span class="tpl-highlight">[genaue Beschreibung des Problems]</span>.
+
+Ich erwarte eine zufriedenstellende Lösung und bitte Sie, den Mangel unverzüglich zu beheben bzw. eine Stellungnahme bis spätestens <span class="tpl-highlight">[Datum]</span> abzugeben.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span>
+<span class="tpl-highlight">[Kundennummer, falls vorhanden]</span></div>
+      <p class="tpl-note">✏️ Note: Be firm but never aggressive. "Ich erwarte" (I expect) is strong and appropriate in a formal complaint. Avoid exclamation marks — they signal emotional tone, which undermines your professional position.</p>
+    </div>
+  </div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>🤝</div><h3>Apology — Entschuldigung für einen Fehler</h3><span class="tpl-badge">B2+</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte/r Frau/Herr <span class="tpl-highlight">[Nachname]</span>,
+
+ich wende mich heute an Sie, um mich aufrichtig für <span class="tpl-highlight">[das entstandene Missverständnis / den Fehler / die Verzögerung]</span> zu entschuldigen.
+
+Bedauerlicherweise ist es zu <span class="tpl-highlight">[kurze Erklärung was passiert ist]</span> gekommen. Das war ein Versehen unsererseits, für das ich vollständig die Verantwortung übernehme.
+
+Ich versichere Ihnen, dass sich dies nicht wiederholen wird. Als Wiedergutmachung möchten wir Ihnen <span class="tpl-highlight">[Angebot / Lösung]</span> anbieten.
+
+Ich bitte Sie, unsere aufrichtige Entschuldigung anzunehmen.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span></div>
+      <p class="tpl-note">✏️ Note: "Entschuldigen Sie bitte" is less formal than "Ich entschuldige mich aufrichtig". In serious business contexts, always name the problem explicitly and offer a solution.</p>
+    </div>
+  </div>
+
+  <div class="template-section" onclick="toggleTpl(this)">
+    <div class="template-header"><div>✅</div><h3>Confirmation — Bestätigung</h3><span class="tpl-badge">B1+</span></div>
+    <div class="template-body">
+      <span class="tpl-label">Complete email template</span>
+      <div class="tpl-email">Sehr geehrte/r Frau/Herr <span class="tpl-highlight">[Nachname]</span>,
+
+vielen Dank für Ihre Nachricht / Ihr Interesse.
+
+Hiermit bestätige ich <span class="tpl-highlight">[was bestätigt wird: den Termin / den Eingang / die Bestellung]</span> am <span class="tpl-highlight">[Datum]</span> um <span class="tpl-highlight">[Uhrzeit]</span>.
+
+<span class="tpl-highlight">[Ggf. weitere Details: Ort, was mitgebracht werden soll etc.]</span>
+
+Ich freue mich auf <span class="tpl-highlight">[unser Gespräch / unsere Zusammenarbeit]</span>.
+
+Mit freundlichen Grüßen
+<span class="tpl-highlight">[Ihr Name]</span></div>
+      <p class="tpl-note">✏️ Note: "Hiermit bestätige ich…" is the standard confirmation opener. It's formal and clear. Always state the date and time explicitly to avoid misunderstandings.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARD -->
+<div id="sec-flash" class="section">
+  <div class="fc-wrap">
+    <div class="fc-cat-filter">
+      <button class="fc-cat-btn active" onclick="setFCFilter('all',this)">All</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('anrede',this)">🎩 Anrede</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('einleitung',this)">📝 Einl.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('bitten',this)">🙏 Bitten</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('info',this)">📋 Info</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('termine',this)">📅 Termine</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('beschwerde',this)">⚠️ Beschw.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('entschuldigung',this)">🤝 Entsch.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('schluss',this)">✍️ Schluss</button>
+    </div>
+    <div class="fc-prog-lbl" id="fcLbl">1 / 65</div>
+    <div class="fc-prog"><div class="fc-prog-bar" id="fcBar" style="width:1%"></div></div>
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front"><div class="fc-phrase" id="fcPhrase">—</div><div class="fc-tap">Tap to reveal English equivalent</div></div>
+      <div class="fc-back"><div class="fc-meaning" id="fcMeaning">—</div><div class="fc-ex" id="fcEx">—</div></div>
+      <div class="fc-flip-hint">tap to flip</div>
+    </div>
+    <div class="fc-btns">
+      <button class="fc-btn fc-skip" onclick="nextCard(false)">↩ Skip</button>
+      <button class="fc-btn fc-again" onclick="nextCard(false)">🔄 Again</button>
+      <button class="fc-btn fc-know" onclick="nextCard(true)">✓ Got it</button>
+    </div>
+    <div class="fc-known-lbl" id="fcKnownLbl">0 known</div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="sec-quiz" class="section">
+  <div class="quiz-wrap">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-q" id="quizQ">—</div>
+      <div class="quiz-sub">What does this German business phrase mean?</div>
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+    <div class="quiz-score" id="quizScore" style="display:none">
+      <div class="quiz-score-big" id="quizScoreVal">0/10</div>
+      <div class="quiz-score-lbl">Quiz complete!</div>
+      <button class="btn-primary" onclick="startQuiz()">Try Again</button>
+    </div>
+    <div class="quiz-prog" id="quizProg"></div>
+  </div>
+</div>
+
+<!-- FAVOURITES -->
+<div id="sec-favs" class="section">
+  <div class="idiom-grid" id="favsGrid"></div>
+  <div class="empty" id="emptyFavs" style="display:none"><div class="empty-icon">⭐</div><p>Star phrases in Browse mode to save them here</p></div>
+</div>
+
+</div>
+<script>
+const PHRASES=[
+// ANREDE (Salutations)
+{id:1,phrase:"Sehr geehrte/r Frau/Herr [Nachname],",usage:"formal",meaning:"Dear Ms./Mr. [Surname], — Standard formal opener for strangers",example:"Sehr geehrte Frau Müller,\nSehr geehrter Herr Schmidt,",cat:"anrede",level:"B1"},
+{id:2,phrase:"Sehr geehrte Damen und Herren,",usage:"formal",meaning:"Dear Sir or Madam, — When you don't know the name",example:"Sehr geehrte Damen und Herren,\nwir wenden uns an Sie mit folgendem Anliegen...",cat:"anrede",level:"B1"},
+{id:3,phrase:"Guten Tag, Frau/Herr [Nachname],",usage:"semiformal",meaning:"Good day, Ms./Mr. [Surname], — Semi-formal, for known contacts",example:"Guten Tag, Herr Bauer,\nes freut mich, von Ihnen zu hören.",cat:"anrede",level:"B1"},
+{id:4,phrase:"Sehr geehrte/r Frau/Herr Dr. [Nachname],",usage:"formal",meaning:"Dear Dr. [Surname], — Use when the person holds a doctorate",example:"Sehr geehrte Frau Dr. Wagner,\n",cat:"anrede",level:"B1"},
+{id:5,phrase:"Liebes Team, / Liebes [Team-Name]-Team,",usage:"semiformal",meaning:"Dear Team, — Internal email to a team or group",example:"Liebes Marketing-Team,\nanbei findet ihr die aktuellen Zahlen.",cat:"anrede",level:"B1"},
+// EINLEITUNG (Opening sentences)
+{id:6,phrase:"Ich schreibe Ihnen bezüglich…",usage:"formal",meaning:"I am writing to you regarding… / concerning…",example:"Ich schreibe Ihnen bezüglich Ihrer Stellenausschreibung vom 12. Juni.",cat:"einleitung",level:"B1"},
+{id:7,phrase:"Ich beziehe mich auf Ihre E-Mail vom [Datum].",usage:"formal",meaning:"I am referring to your email of [date].",example:"Ich beziehe mich auf Ihre E-Mail vom 5. Mai und möchte folgendes ergänzen.",cat:"einleitung",level:"B1"},
+{id:8,phrase:"Vielen Dank für Ihre Nachricht vom…",usage:"formal",meaning:"Thank you very much for your message of… / Thank you for your email of…",example:"Vielen Dank für Ihre Nachricht vom 20. Juni.",cat:"einleitung",level:"B1"},
+{id:9,phrase:"Ich freue mich, Ihnen mitteilen zu können, dass…",usage:"formal",meaning:"I am pleased to be able to inform you that… / I am delighted to let you know that…",example:"Ich freue mich, Ihnen mitteilen zu können, dass Ihre Bewerbung erfolgreich war.",cat:"einleitung",level:"B2"},
+{id:10,phrase:"Ich wende mich an Sie, um…",usage:"formal",meaning:"I am contacting you in order to… / I am reaching out to…",example:"Ich wende mich an Sie, um weitere Informationen zu Ihrem Angebot zu erfragen.",cat:"einleitung",level:"B1"},
+{id:11,phrase:"In Bezug auf unser Telefonat möchte ich…",usage:"formal",meaning:"With reference to our phone call, I would like to…",example:"In Bezug auf unser Telefonat von gestern möchte ich die besprochenen Punkte kurz zusammenfassen.",cat:"einleitung",level:"B2"},
+{id:12,phrase:"Hiermit bestätige ich…",usage:"formal",meaning:"I hereby confirm… / This is to confirm that…",example:"Hiermit bestätige ich den Eingang Ihrer Unterlagen.",cat:"einleitung",level:"B2"},
+{id:13,phrase:"Wie bereits besprochen…",usage:"semiformal",meaning:"As already discussed… / As per our discussion…",example:"Wie bereits besprochen, sende ich Ihnen anbei den überarbeiteten Entwurf.",cat:"einleitung",level:"B1"},
+{id:14,phrase:"Ich melde mich im Hinblick auf…",usage:"formal",meaning:"I am getting in touch with regard to… / I am contacting you about…",example:"Ich melde mich im Hinblick auf das geplante Projekt ab dem 1. Juli.",cat:"einleitung",level:"B2"},
+{id:15,phrase:"Bezugnehmend auf Ihr Schreiben vom…",usage:"formal",meaning:"With reference to your letter/email of… — Very formal, written correspondence",example:"Bezugnehmend auf Ihr Schreiben vom 3. Juni erlauben wir uns folgende Stellungnahme.",cat:"einleitung",level:"C1"},
+// BITTEN & ANFRAGEN (Requests)
+{id:16,phrase:"Könnten Sie bitte…",usage:"semiformal",meaning:"Could you please… — Polite and natural request",example:"Könnten Sie bitte die Rechnung bis Freitag zusenden?",cat:"bitten",level:"B1"},
+{id:17,phrase:"Ich würde mich freuen, wenn Sie…",usage:"formal",meaning:"I would be pleased if you… / I would appreciate it if you…",example:"Ich würde mich freuen, wenn Sie mir bis Montag eine Rückmeldung geben könnten.",cat:"bitten",level:"B2"},
+{id:18,phrase:"Ich bitte Sie höflich,…",usage:"formal",meaning:"I kindly ask you to… / I respectfully request that you…",example:"Ich bitte Sie höflich, das beigefügte Formular ausgefüllt zurückzusenden.",cat:"bitten",level:"B2"},
+{id:19,phrase:"Ich wäre Ihnen sehr dankbar, wenn Sie…",usage:"formal",meaning:"I would be very grateful if you… / I would greatly appreciate it if…",example:"Ich wäre Ihnen sehr dankbar, wenn Sie mir eine Kopie des Berichts zukommen lassen könnten.",cat:"bitten",level:"B2"},
+{id:20,phrase:"Wäre es Ihnen möglich,…?",usage:"formal",meaning:"Would it be possible for you to…? / Would you be able to…?",example:"Wäre es Ihnen möglich, den Termin auf Donnerstag zu verschieben?",cat:"bitten",level:"B2"},
+{id:21,phrase:"Ich bitte um kurzfristige Rückmeldung.",usage:"formal",meaning:"I ask for a prompt response. / Please reply as soon as possible.",example:"Da wir zeitlich gebunden sind, bitte ich um kurzfristige Rückmeldung.",cat:"bitten",level:"B2"},
+{id:22,phrase:"Dürfte ich Sie bitten,…",usage:"formal",meaning:"May I ask / request that you… — Very polite",example:"Dürfte ich Sie bitten, dieses Dokument zu unterzeichnen?",cat:"bitten",level:"C1"},
+{id:23,phrase:"Könnten Sie mir bitte mitteilen, ob…",usage:"formal",meaning:"Could you please let me know whether… / Could you advise me as to…",example:"Könnten Sie mir bitte mitteilen, ob der Termin noch aktuell ist?",cat:"bitten",level:"B1"},
+// INFORMATIONEN ÜBERMITTELN (Sharing information)
+{id:24,phrase:"Anbei erhalten Sie…",usage:"formal",meaning:"Please find attached… / Enclosed please find…",example:"Anbei erhalten Sie die angeforderten Unterlagen.",cat:"info",level:"B1"},
+{id:25,phrase:"Im Anhang finden Sie…",usage:"formal",meaning:"In the attachment you will find…",example:"Im Anhang finden Sie die ausgefüllten Formulare.",cat:"info",level:"B1"},
+{id:26,phrase:"Ich möchte Sie darüber informieren, dass…",usage:"formal",meaning:"I would like to inform you that…",example:"Ich möchte Sie darüber informieren, dass unser Büro ab dem 15. Juli umgezogen ist.",cat:"info",level:"B2"},
+{id:27,phrase:"Bitte nehmen Sie zur Kenntnis, dass…",usage:"formal",meaning:"Please note that… / Please be advised that…",example:"Bitte nehmen Sie zur Kenntnis, dass die Frist am 30. Juni abläuft.",cat:"info",level:"B2"},
+{id:28,phrase:"Ich darf Ihnen mitteilen, dass…",usage:"formal",meaning:"I am pleased to inform you that… / I may inform you that…",example:"Ich darf Ihnen mitteilen, dass Ihr Antrag genehmigt wurde.",cat:"info",level:"C1"},
+{id:29,phrase:"Wir erlauben uns, Sie darauf hinzuweisen, dass…",usage:"formal",meaning:"We take the liberty of pointing out to you that… — Very formal",example:"Wir erlauben uns, Sie darauf hinzuweisen, dass die Zahlung noch aussteht.",cat:"info",level:"C1"},
+{id:30,phrase:"Zu Ihrer Information möchte ich ergänzen,…",usage:"formal",meaning:"For your information I would like to add… / FYI…",example:"Zu Ihrer Information möchte ich ergänzen, dass das Team bereits unterrichtet wurde.",cat:"info",level:"B2"},
+// TERMINE & MEETINGS (Scheduling)
+{id:31,phrase:"Ich würde gerne einen Termin vereinbaren.",usage:"formal",meaning:"I would like to arrange an appointment. / I'd like to schedule a meeting.",example:"Ich würde gerne einen Termin vereinbaren, um das Projekt zu besprechen.",cat:"termine",level:"B1"},
+{id:32,phrase:"Passt Ihnen der [Datum] um [Uhrzeit] Uhr?",usage:"semiformal",meaning:"Does [date] at [time] suit you? / Would [date] at [time] work for you?",example:"Passt Ihnen der Dienstag, 10. Juli, um 14:00 Uhr?",cat:"termine",level:"B1"},
+{id:33,phrase:"Ich stehe Ihnen von [Uhrzeit] bis [Uhrzeit] zur Verfügung.",usage:"formal",meaning:"I am available to you from [time] to [time].",example:"Ich stehe Ihnen am Mittwoch von 10:00 bis 15:00 Uhr zur Verfügung.",cat:"termine",level:"B2"},
+{id:34,phrase:"Könnten wir den Termin auf [Datum] verschieben?",usage:"formal",meaning:"Could we move / reschedule the appointment to [date]?",example:"Könnten wir den Termin auf nächste Woche verschieben?",cat:"termine",level:"B2"},
+{id:35,phrase:"Leider muss ich unseren Termin absagen.",usage:"formal",meaning:"Unfortunately I have to cancel our appointment.",example:"Leider muss ich unseren Termin am Freitag kurzfristig absagen.",cat:"termine",level:"B1"},
+{id:36,phrase:"Ich schlage vor, uns am [Datum] zu treffen.",usage:"formal",meaning:"I propose that we meet on [date].",example:"Ich schlage vor, uns am Donnerstag, dem 8. August, zu treffen.",cat:"termine",level:"B2"},
+{id:37,phrase:"Wäre ein Gespräch per Videokonferenz möglich?",usage:"semiformal",meaning:"Would a video conference call be possible? / Could we meet by video call?",example:"Wäre ein Gespräch per Videokonferenz nächste Woche möglich?",cat:"termine",level:"B1"},
+{id:38,phrase:"Ich freue mich auf unser Gespräch.",usage:"formal",meaning:"I look forward to our conversation / meeting.",example:"Vielen Dank für die Terminbestätigung — ich freue mich auf unser Gespräch.",cat:"termine",level:"B1"},
+// BESCHWERDEN (Complaints)
+{id:39,phrase:"Leider muss ich Sie auf ein Problem aufmerksam machen.",usage:"formal",meaning:"Unfortunately I have to draw your attention to a problem.",example:"Leider muss ich Sie auf ein Problem mit der gelieferten Ware aufmerksam machen.",cat:"beschwerde",level:"B2"},
+{id:40,phrase:"Zu meinem Bedauern muss ich feststellen, dass…",usage:"formal",meaning:"To my regret I have to note that… / I am sorry to observe that…",example:"Zu meinem Bedauern muss ich feststellen, dass die Lieferung unvollständig war.",cat:"beschwerde",level:"C1"},
+{id:41,phrase:"Ich erwarte eine zufriedenstellende Lösung.",usage:"formal",meaning:"I expect a satisfactory solution / resolution.",example:"Ich erwarte eine zufriedenstellende Lösung bis zum 15. dieses Monats.",cat:"beschwerde",level:"B2"},
+{id:42,phrase:"Ich bitte Sie, diesen Mangel unverzüglich zu beheben.",usage:"formal",meaning:"I ask you to remedy this defect / issue immediately.",example:"Ich bitte Sie, den festgestellten Mangel unverzüglich zu beheben.",cat:"beschwerde",level:"C1"},
+{id:43,phrase:"Das entspricht nicht dem vereinbarten Standard.",usage:"formal",meaning:"That does not correspond to the agreed standard. / That is not what was agreed.",example:"Die gelieferte Qualität entspricht leider nicht dem vereinbarten Standard.",cat:"beschwerde",level:"C1"},
+// ENTSCHULDIGUNGEN (Apologies)
+{id:44,phrase:"Ich entschuldige mich aufrichtig für…",usage:"formal",meaning:"I sincerely apologize for… / I offer my sincere apologies for…",example:"Ich entschuldige mich aufrichtig für die entstandenen Unannehmlichkeiten.",cat:"entschuldigung",level:"B2"},
+{id:45,phrase:"Es tut mir sehr leid, dass…",usage:"semiformal",meaning:"I am very sorry that… / I deeply regret that…",example:"Es tut mir sehr leid, dass es zu dieser Verzögerung gekommen ist.",cat:"entschuldigung",level:"B1"},
+{id:46,phrase:"Das war ein Versehen unsererseits.",usage:"formal",meaning:"That was an oversight / mistake on our part.",example:"Das war leider ein Versehen unsererseits.",cat:"entschuldigung",level:"B2"},
+{id:47,phrase:"Ich versichere Ihnen, dass sich dies nicht wiederholen wird.",usage:"formal",meaning:"I assure you that this will not happen again.",example:"Ich versichere Ihnen, dass sich ein solcher Fehler nicht wiederholen wird.",cat:"entschuldigung",level:"C1"},
+{id:48,phrase:"Wir bedauern den entstandenen Fehler zutiefst.",usage:"formal",meaning:"We deeply regret the error that has occurred.",example:"Wir bedauern den entstandenen Fehler zutiefst und danken Ihnen für Ihr Verständnis.",cat:"entschuldigung",level:"C1"},
+// SCHLUSSFORMELN (Closing phrases)
+{id:49,phrase:"Mit freundlichen Grüßen",usage:"standard",meaning:"With kind regards / Yours sincerely — Standard closing for all formal emails",example:"Mit freundlichen Grüßen\nAnna Schmidt",cat:"schluss",level:"B1"},
+{id:50,phrase:"Hochachtungsvoll",usage:"formal",meaning:"Respectfully / Yours faithfully — Very formal, for official institutions",example:"Hochachtungsvoll\nDr. Thomas Berger",cat:"schluss",level:"C1"},
+{id:51,phrase:"Freundliche Grüße",usage:"semiformal",meaning:"Kind regards — Slightly less formal than 'Mit freundlichen Grüßen'",example:"Freundliche Grüße\nMarkus Hoffmann",cat:"schluss",level:"B1"},
+{id:52,phrase:"Mit freundlichem Gruß",usage:"formal",meaning:"With kind regards — Formal variation (singular Gruß)",example:"Mit freundlichem Gruß\nKlaus Weber",cat:"schluss",level:"B1"},
+{id:53,phrase:"Ich freue mich auf Ihre Rückmeldung.",usage:"formal",meaning:"I look forward to your feedback / response.",example:"Ich freue mich auf Ihre Rückmeldung und stehe für Rückfragen bereit.",cat:"schluss",level:"B1"},
+{id:54,phrase:"Für Rückfragen stehe ich jederzeit zur Verfügung.",usage:"formal",meaning:"I am available at any time for questions. / Please don't hesitate to contact me.",example:"Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.",cat:"schluss",level:"B2"},
+{id:55,phrase:"Ich bitte um baldige Antwort.",usage:"formal",meaning:"I ask for a prompt / early reply.",example:"Da wir unter Zeitdruck stehen, bitte ich um baldige Antwort.",cat:"schluss",level:"B2"},
+{id:56,phrase:"Vielen Dank im Voraus für Ihre Bemühungen.",usage:"formal",meaning:"Many thanks in advance for your efforts / assistance.",example:"Vielen Dank im Voraus für Ihre Bemühungen.",cat:"schluss",level:"B2"},
+{id:57,phrase:"Bei weiteren Fragen stehe ich gerne zur Verfügung.",usage:"formal",meaning:"For further questions I am happy to be of assistance.",example:"Bei weiteren Fragen stehe ich Ihnen selbstverständlich gerne zur Verfügung.",cat:"schluss",level:"B2"},
+{id:58,phrase:"Ich verbleibe mit freundlichen Grüßen",usage:"formal",meaning:"I remain with kind regards — Old-fashioned but still used in formal letters",example:"Ich verbleibe mit freundlichen Grüßen\nProf. Hans-Jürgen Müller",cat:"schluss",level:"C1"},
+{id:59,phrase:"Mit der Bitte um Ihr Verständnis",usage:"formal",meaning:"Requesting your understanding / With a request for your patience",example:"Mit der Bitte um Ihr Verständnis verbleibe ich mit freundlichen Grüßen.",cat:"schluss",level:"C1"},
+{id:60,phrase:"Über eine positive Rückmeldung würde ich mich freuen.",usage:"formal",meaning:"I would be pleased to receive a positive response.",example:"Über eine positive Rückmeldung würde ich mich sehr freuen.",cat:"schluss",level:"B2"},
+{id:61,phrase:"Sollten Sie Fragen haben, melden Sie sich gerne.",usage:"semiformal",meaning:"If you have any questions, feel free to get in touch.",example:"Sollten Sie Fragen haben, melden Sie sich gerne bei mir.",cat:"schluss",level:"B1"},
+{id:62,phrase:"Ich freue mich auf eine gute Zusammenarbeit.",usage:"semiformal",meaning:"I look forward to working together / to our cooperation.",example:"Ich freue mich auf eine gute und produktive Zusammenarbeit.",cat:"schluss",level:"B1"},
+{id:63,phrase:"Mit besten Grüßen",usage:"semiformal",meaning:"With best regards — Used for contacts you know well",example:"Mit besten Grüßen\nLena Fischer",cat:"schluss",level:"B1"},
+{id:64,phrase:"Wir danken Ihnen für Ihr Vertrauen.",usage:"formal",meaning:"We thank you for your trust / confidence in us.",example:"Wir danken Ihnen für Ihr Vertrauen und Ihre Treue als Kunde.",cat:"schluss",level:"C1"},
+{id:65,phrase:"Mit vorzüglicher Hochachtung",usage:"formal",meaning:"With the highest respect — Extremely formal, diplomatic contexts",example:"Mit vorzüglicher Hochachtung\nBottschafter Dr. Hans Meier",cat:"schluss",level:"C1"}
+];
+
+let currentTab='browse';
+let favs=new Set(JSON.parse(localStorage.getItem('be_favs')||'[]'));
+let fcFilter='all', fcQueue=[], fcIdx=0, fcKnown=0;
+let quizQuestions=[], quizQ=0, quizCorrect=0, quizAnswered=false;
+const QUIZ_TOTAL=10;
+
+function saveFavs(){localStorage.setItem('be_favs',JSON.stringify([...favs]));}
+function toggleFav(id,e){
+  if(e)e.stopPropagation();
+  if(favs.has(id))favs.delete(id);else favs.add(id);
+  saveFavs();filterCards();
+  if(currentTab==='favs')renderFavs();
+  document.getElementById('statFavs').textContent=favs.size;
+}
+function levelClass(l){return{B1:'lvl-b1',B2:'lvl-b2',C1:'lvl-c1'}[l]||'lvl-b1';}
+function catIcon(c){return{anrede:'🎩',einleitung:'📝',bitten:'🙏',info:'📋',termine:'📅',beschwerde:'⚠️',entschuldigung:'🤝',schluss:'✍️'}[c]||'';}
+function catLabel(c){return{anrede:'Anrede',einleitung:'Einleitung',bitten:'Bitten & Anfragen',info:'Informationen',termine:'Termine',beschwerde:'Beschwerden',entschuldigung:'Entschuldigung',schluss:'Schlussformeln'}[c]||c;}
+function usageTag(u){const map={formal:['use-formal','Formal'],semiformal:['use-semiformal','Semi-formal'],standard:['use-standard','Standard']};const[cls,lbl]=map[u]||['use-standard','Standard'];return`<span class="usage-tag ${cls}">${lbl}</span>`;}
+
+function buildCard(i){
+  const isFav=favs.has(i.id);
+  return`<div class="idiom-card" id="card-${i.id}" onclick="toggleCard(${i.id})">
+    <div class="card-head">
+      <div><div class="idiom-phrase">${i.phrase}</div><div class="card-cat">${catIcon(i.cat)} ${catLabel(i.cat)}</div></div>
+      <div class="card-meta">
+        <span class="level-badge ${levelClass(i.level)}">${i.level}</span>
+        <button class="fav-btn" onclick="toggleFav(${i.id},event)">${isFav?'⭐':'☆'}</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-row"><div class="card-row-lbl">Register</div><div class="card-row-val">${usageTag(i.usage)}</div></div>
+      <div class="card-row"><div class="card-row-lbl">English equivalent</div><div class="card-row-val">${i.meaning}</div></div>
+      <div class="card-row"><div class="card-row-lbl">Example in email</div><div class="example-box">${i.example}</div></div>
+    </div>
+  </div>`;
+}
+function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('expanded');}
+function toggleTpl(el){el.classList.toggle('open');}
+
+function getFiltered(){
+  const q=(document.getElementById('searchBox')?.value||'').toLowerCase();
+  const cat=document.getElementById('catFilter')?.value||'all';
+  const lvl=document.getElementById('lvlFilter')?.value||'all';
+  return PHRASES.filter(i=>{
+    if(cat!=='all'&&i.cat!==cat)return false;
+    if(lvl!=='all'&&i.level!==lvl)return false;
+    if(q&&!i.phrase.toLowerCase().includes(q)&&!i.meaning.toLowerCase().includes(q)&&!i.example.toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+function filterCards(){
+  const list=getFiltered();
+  document.getElementById('idiomGrid').innerHTML=list.map(buildCard).join('');
+  document.getElementById('emptyBrowse').style.display=list.length?'none':'block';
+  document.getElementById('statTotal').textContent=PHRASES.length;
+  document.getElementById('statShown').textContent=list.length;
+  document.getElementById('statFavs').textContent=favs.size;
+}
+function renderFavs(){
+  const list=PHRASES.filter(i=>favs.has(i.id));
+  document.getElementById('favsGrid').innerHTML=list.map(buildCard).join('');
+  document.getElementById('emptyFavs').style.display=list.length?'none':'block';
+}
+
+function setFCFilter(f,btn){
+  fcFilter=f;
+  document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  initFC();
+}
+function initFC(){
+  fcQueue=[...PHRASES.filter(i=>fcFilter==='all'||i.cat===fcFilter)].sort(()=>Math.random()-.5);
+  fcIdx=0;fcKnown=0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  renderFlash();
+}
+function renderFlash(){
+  if(!fcQueue.length)return;
+  const i=fcQueue[fcIdx%fcQueue.length];
+  document.getElementById('fcPhrase').textContent=i.phrase;
+  document.getElementById('fcMeaning').textContent=i.meaning;
+  document.getElementById('fcEx').textContent=i.example;
+  document.getElementById('fcLbl').textContent=(fcIdx%fcQueue.length+1)+' / '+fcQueue.length;
+  document.getElementById('fcBar').style.width=(((fcIdx%fcQueue.length+1)/fcQueue.length)*100)+'%';
+  document.getElementById('fcKnownLbl').textContent=fcKnown+' known';
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(known){if(known)fcKnown++;fcIdx++;if(fcIdx>=fcQueue.length)fcIdx=0;renderFlash();}
+
+function startQuiz(){
+  quizQuestions=[...PHRASES].sort(()=>Math.random()-.5).slice(0,QUIZ_TOTAL);
+  quizQ=0;quizCorrect=0;quizAnswered=false;
+  document.getElementById('quizScore').style.display='none';
+  document.getElementById('quizCard').style.display='block';
+  renderQuiz();
+}
+function renderQuiz(){
+  if(quizQ>=quizQuestions.length){
+    document.getElementById('quizCard').style.display='none';
+    document.getElementById('quizScore').style.display='block';
+    document.getElementById('quizScoreVal').textContent=quizCorrect+'/'+QUIZ_TOTAL;
+    return;
+  }
+  const q=quizQuestions[quizQ];
+  const wrong=PHRASES.filter(i=>i.id!==q.id).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[q,...wrong].sort(()=>Math.random()-.5);
+  document.getElementById('quizQ').textContent=q.phrase;
+  document.getElementById('quizProg').textContent=(quizQ+1)+' / '+QUIZ_TOTAL;
+  document.getElementById('quizOpts').innerHTML=opts.map(o=>`<button class="quiz-opt" onclick="answerQuiz(${o.id},${q.id})">${o.meaning.split(' — ')[0]}</button>`).join('');
+  quizAnswered=false;
+}
+function answerQuiz(chosen,correct){
+  if(quizAnswered)return;quizAnswered=true;
+  document.querySelectorAll('.quiz-opt').forEach(b=>{
+    const id=parseInt(b.getAttribute('onclick').split('(')[1]);
+    if(id===correct)b.classList.add('correct');
+    else if(id===chosen&&chosen!==correct)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  if(chosen===correct)quizCorrect++;
+  setTimeout(()=>{quizQ++;renderQuiz();},1300);
+}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['browse','templates','flash','quiz','favs'][i]===tab);});
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  if(tab==='flash')initFC();
+  if(tab==='quiz')startQuiz();
+  if(tab==='favs')renderFavs();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{filterCards();initFC();startQuiz();});
+</script>
+</body>
+</html>
