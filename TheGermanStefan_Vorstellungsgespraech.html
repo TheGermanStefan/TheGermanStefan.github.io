@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · Bewerbung & Vorstellungsgespräch</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #f0b429;
+    --accent2: #ffd166; --green: #3fb950; --blue: #58a6ff;
+    --red: #f85149; --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #161b22 0%, #0d1117 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block; background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #000; font-size: 0.7rem; font-weight: 800; padding: 4px 14px;
+    border-radius: 20px; letter-spacing: 1px; margin-bottom: 1rem;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: var(--text); margin-bottom: 0.5rem; }
+  .hero h1 span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { color: var(--muted); max-width: 560px; margin: 0 auto; font-size: 1rem; line-height: 1.6; }
+  .hero-meta { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.2rem; flex-wrap: wrap; }
+  .hero-meta span { color: var(--muted); font-size: 0.82rem; }
+  .hero-meta span b { color: var(--accent); }
+
+  /* TABS */
+  .tabs-wrap { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .tabs { display: flex; overflow-x: auto; max-width: 900px; margin: 0 auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 1rem 1.2rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* SECTION HEADERS */
+  .section-title { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem; }
+  .section-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+  /* VOCAB GRID */
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.8rem; margin-bottom: 2rem; }
+  .vocab-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 0.9rem 1rem; cursor: pointer; transition: all 0.2s;
+  }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card .de { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .vocab-card .en { font-size: 0.82rem; color: var(--muted); margin-top: 2px; display: none; }
+  .vocab-card .ex { font-size: 0.78rem; color: var(--blue); margin-top: 4px; font-style: italic; display: none; }
+  .vocab-card.revealed .en, .vocab-card.revealed .ex { display: block; }
+  .vocab-hint { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+  .cat-label {
+    display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 8px;
+    border-radius: 8px; margin-bottom: 0.5rem; letter-spacing: 0.5px;
+  }
+  .cat-bewerbung { background: rgba(240,180,41,0.15); color: var(--accent); }
+  .cat-interview { background: rgba(63,185,80,0.15); color: var(--green); }
+  .cat-anschreiben { background: rgba(88,166,255,0.15); color: var(--blue); }
+  .cat-absage { background: rgba(248,81,73,0.15); color: var(--red); }
+  .reveal-all-btn {
+    background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+    padding: 0.5rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 0.82rem; margin-bottom: 1.2rem;
+    transition: all 0.2s;
+  }
+  .reveal-all-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PHRASE BLOCKS */
+  .phrase-section { margin-bottom: 2rem; }
+  .phrase-section h3 { font-size: 1rem; font-weight: 700; color: var(--accent); margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .phrase-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 0.5rem; }
+  .phrase-de { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+  .phrase-en { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+  .phrase-note { font-size: 0.75rem; color: var(--blue); margin-top: 4px; font-style: italic; }
+
+  /* DIALOGUE */
+  .dialogue { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem; }
+  .dialogue h3 { font-size: 0.95rem; font-weight: 700; color: var(--accent); margin-bottom: 1rem; }
+  .dialogue-line { display: flex; gap: 0.8rem; margin-bottom: 0.7rem; align-items: flex-start; }
+  .speaker { font-size: 0.72rem; font-weight: 800; min-width: 70px; padding: 3px 8px; border-radius: 6px; text-align: center; margin-top: 2px; }
+  .speaker.interviewer { background: rgba(240,180,41,0.15); color: var(--accent); }
+  .speaker.bewerber { background: rgba(63,185,80,0.15); color: var(--green); }
+  .line-text { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+  .line-trans { font-size: 0.78rem; color: var(--muted); margin-top: 2px; font-style: italic; }
+
+  /* FLASHCARDS */
+  .fc-progress { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .fc-counter { font-size: 0.85rem; color: var(--muted); }
+  .fc-score-wrap { display: flex; gap: 0.8rem; }
+  .fc-score { font-size: 0.82rem; font-weight: 700; }
+  .fc-score.good { color: var(--green); }
+  .fc-score.bad { color: var(--red); }
+  .flashcard-wrap { perspective: 1000px; margin-bottom: 1.2rem; cursor: pointer; }
+  .flashcard { width: 100%; min-height: 180px; position: relative; transform-style: preserve-3d; transition: transform 0.5s; border-radius: 16px; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute; width: 100%; min-height: 180px; backface-visibility: hidden;
+    border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1.5rem; text-align: center;
+  }
+  .fc-front { background: linear-gradient(135deg, #1a2233, #161b22); border: 1px solid var(--border); }
+  .fc-back { background: linear-gradient(135deg, #1a2d1a, #161b22); border: 1px solid var(--green); transform: rotateY(180deg); }
+  .fc-front .word { font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; }
+  .fc-front .hint { font-size: 0.8rem; color: var(--muted); }
+  .fc-back .translation { font-size: 1.2rem; font-weight: 700; color: var(--green); margin-bottom: 0.5rem; }
+  .fc-back .example { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+  .fc-tap { font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem; }
+  .fc-btns { display: flex; gap: 0.8rem; justify-content: center; }
+  .fc-btn {
+    padding: 0.6rem 1.5rem; border-radius: 8px; border: none; font-weight: 700;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+  }
+  .fc-btn.wrong { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid var(--red); }
+  .fc-btn.wrong:hover { background: var(--red); color: white; }
+  .fc-btn.right { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid var(--green); }
+  .fc-btn.right:hover { background: var(--green); color: white; }
+  .fc-btn.next { background: var(--accent); color: #000; }
+  .fc-btn.next:hover { background: var(--accent2); }
+  .fc-done { text-align: center; padding: 2rem; }
+  .fc-done h3 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+  .fc-done .final-score { font-size: 2rem; font-weight: 900; color: var(--accent); margin: 0.5rem 0; }
+  .fc-done p { color: var(--muted); margin-bottom: 1rem; }
+  .restart-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.8rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.9rem; }
+
+  /* QUIZ */
+  .quiz-q { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.2rem; }
+  .quiz-q .q-num { font-size: 0.72rem; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .quiz-q .q-text { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; line-height: 1.4; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  @media (max-width: 500px) { .quiz-options { grid-template-columns: 1fr; } }
+  .quiz-opt {
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    padding: 0.6rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+    text-align: left; transition: all 0.2s;
+  }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--accent); }
+  .quiz-opt.correct { background: rgba(63,185,80,0.15); border-color: var(--green); color: var(--green); font-weight: 700; }
+  .quiz-opt.wrong { background: rgba(248,81,73,0.1); border-color: var(--red); color: var(--red); }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-explain { font-size: 0.8rem; color: var(--blue); margin-top: 0.6rem; font-style: italic; display: none; }
+  .quiz-explain.show { display: block; }
+  .quiz-submit { background: var(--accent); color: #000; border: none; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 800; font-size: 0.95rem; cursor: pointer; margin-top: 1.5rem; display: block; width: 100%; }
+  .quiz-result { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; margin-top: 1.5rem; display: none; }
+  .quiz-result h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .quiz-result .score { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+  .quiz-result p { color: var(--muted); margin-top: 0.5rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1rem 2rem; }
+    .content { padding: 1.5rem 1rem; }
+    .tab { padding: 0.8rem 0.9rem; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">💼 SPECIAL SKILLS · PREMIUM</div>
+  <h1>Bewerbung &amp; <span>Vorstellungsgespräch</span></h1>
+  <p>Master German job applications — cover letter phrases, interview vocabulary, and authentic dialogue practice for the German-speaking job market.</p>
+  <div class="hero-meta">
+    <span>🗂️ <b>50+</b> vocabulary items</span>
+    <span>💬 <b>4</b> interview dialogues</span>
+    <span>🃏 <b>20</b> flashcards</span>
+    <span>🎯 <b>10</b> quiz questions</span>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('vocab')">📖 Vokabular</div>
+    <div class="tab" onclick="showTab('anschreiben')">✍️ Anschreiben</div>
+    <div class="tab" onclick="showTab('interview')">🎤 Interview</div>
+    <div class="tab" onclick="showTab('flashcards')">🃏 Flashcards</div>
+    <div class="tab" onclick="showTab('quiz')">🎯 Quiz</div>
+  </div>
+</div>
+
+<!-- ═══ VOCAB ═══ -->
+<div class="content">
+<div class="section active" id="tab-vocab">
+  <div class="section-title">Bewerbungsvokabular</div>
+  <div class="section-sub">Click any card to reveal the translation and example. Click again to hide.</div>
+  <button class="reveal-all-btn" onclick="revealAll('tab-vocab')">👁 Alle aufdecken</button>
+
+  <p style="color:var(--accent);font-size:0.8rem;font-weight:700;margin-bottom:0.5rem;">BEWERBUNGSUNTERLAGEN</p>
+  <div class="vocab-grid" id="vocab-bewerbung"></div>
+
+  <p style="color:var(--green);font-size:0.8rem;font-weight:700;margin-bottom:0.5rem;margin-top:1rem;">IM GESPRÄCH</p>
+  <div class="vocab-grid" id="vocab-interview"></div>
+
+  <p style="color:var(--blue);font-size:0.8rem;font-weight:700;margin-bottom:0.5rem;margin-top:1rem;">EIGENSCHAFTEN & KOMPETENZEN</p>
+  <div class="vocab-grid" id="vocab-skills"></div>
+
+  <p style="color:var(--red);font-size:0.8rem;font-weight:700;margin-bottom:0.5rem;margin-top:1rem;">NACH DEM GESPRÄCH</p>
+  <div class="vocab-grid" id="vocab-after"></div>
+</div>
+
+<!-- ═══ ANSCHREIBEN ═══ -->
+<div class="section" id="tab-anschreiben">
+  <div class="section-title">Das Anschreiben</div>
+  <div class="section-sub">Key phrases for every part of a German cover letter — from opening to closing.</div>
+
+  <div class="phrase-section">
+    <h3>📌 Einstieg & Betreff</h3>
+    <div class="phrase-item">
+      <div class="phrase-de">Betreff: Bewerbung als [Stelle] – [Ihr Name]</div>
+      <div class="phrase-en">Subject: Application for [position] – [your name]</div>
+      <div class="phrase-note">Always put this as the subject line, before the salutation.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Sehr geehrte Damen und Herren,</div>
+      <div class="phrase-en">Dear Sir or Madam,</div>
+      <div class="phrase-note">Use when you don't know the name of the contact person.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Sehr geehrte Frau [Nachname], / Sehr geehrter Herr [Nachname],</div>
+      <div class="phrase-en">Dear Ms [surname], / Dear Mr [surname],</div>
+      <div class="phrase-note">Always preferred when you know the name — shows attention to detail.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">mit großem Interesse habe ich Ihre Stellenanzeige auf [Plattform] gelesen.</div>
+      <div class="phrase-en">I read your job advertisement on [platform] with great interest.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Hiermit bewerbe ich mich um die ausgeschriebene Stelle als [Berufsbezeichnung].</div>
+      <div class="phrase-en">I hereby apply for the advertised position as [job title].</div>
+    </div>
+  </div>
+
+  <div class="phrase-section">
+    <h3>🙋 Selbstvorstellung & Motivation</h3>
+    <div class="phrase-item">
+      <div class="phrase-de">Ich verfüge über [X] Jahre Erfahrung im Bereich [Fachgebiet].</div>
+      <div class="phrase-en">I have [X] years of experience in the field of [area].</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Meine Stärken liegen in den Bereichen [A], [B] und [C].</div>
+      <div class="phrase-en">My strengths lie in the areas of [A], [B] and [C].</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Besonders reizt mich an dieser Position, dass …</div>
+      <div class="phrase-en">What particularly attracts me to this position is that …</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Ich bin überzeugt, dass ich mit meinen Kenntnissen und Erfahrungen einen wertvollen Beitrag leisten kann.</div>
+      <div class="phrase-en">I am convinced that I can make a valuable contribution with my knowledge and experience.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Ihr Unternehmen hat mich durch [Grund] besonders angesprochen.</div>
+      <div class="phrase-en">Your company particularly appealed to me because of [reason].</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">In meiner bisherigen Tätigkeit bei [Firma] konnte ich Erfahrungen in [Bereich] sammeln.</div>
+      <div class="phrase-en">In my previous role at [company] I was able to gain experience in [area].</div>
+    </div>
+  </div>
+
+  <div class="phrase-section">
+    <h3>🏆 Erfolge & Leistungen</h3>
+    <div class="phrase-item">
+      <div class="phrase-de">In meiner Rolle als [Position] habe ich erfolgreich [Projekt/Ergebnis] umgesetzt.</div>
+      <div class="phrase-en">In my role as [position] I successfully implemented [project/result].</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Durch meine Initiative konnte [Ziel/Ergebnis] erreicht werden.</div>
+      <div class="phrase-en">Thanks to my initiative, [goal/result] could be achieved.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Ich habe maßgeblich dazu beigetragen, [Prozess] zu verbessern.</div>
+      <div class="phrase-en">I made a significant contribution to improving [process].</div>
+    </div>
+  </div>
+
+  <div class="phrase-section">
+    <h3>✅ Abschluss & Gesprächswunsch</h3>
+    <div class="phrase-item">
+      <div class="phrase-de">Über eine Einladung zu einem persönlichen Gespräch würde ich mich sehr freuen.</div>
+      <div class="phrase-en">I would be very pleased to receive an invitation for a personal interview.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Gerne stehe ich Ihnen für Rückfragen zur Verfügung.</div>
+      <div class="phrase-en">I am happy to be available for any questions.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Mit freundlichen Grüßen</div>
+      <div class="phrase-en">Kind regards / Yours sincerely</div>
+      <div class="phrase-note">Standard closing — always use this, never "Mit besten Grüßen" in formal letters.</div>
+    </div>
+    <div class="phrase-item">
+      <div class="phrase-de">Anbei finden Sie meine vollständigen Bewerbungsunterlagen.</div>
+      <div class="phrase-en">Please find my complete application documents enclosed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ INTERVIEW ═══ -->
+<div class="section" id="tab-interview">
+  <div class="section-title">Im Vorstellungsgespräch</div>
+  <div class="section-sub">Authentic interview dialogues with common questions, strong answers, and key phrases.</div>
+
+  <div class="dialogue">
+    <h3>🎬 Dialog 1: Einstieg & Selbstvorstellung</h3>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Herzlich willkommen, Frau Müller. Bitte stellen Sie sich kurz vor.</div><div class="line-trans">Welcome, Ms Müller. Please briefly introduce yourself.</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Vielen Dank für die Einladung. Mein Name ist Anna Müller. Ich habe Wirtschaftsinformatik studiert und arbeite seit fünf Jahren im Bereich Projektmanagement. Zuletzt war ich bei der Firma TechGroup tätig, wo ich internationale Teams geleitet habe.</div><div class="line-trans">Thank you for the invitation. My name is Anna Müller. I studied business informatics and have been working in project management for five years. Most recently I worked at TechGroup, where I led international teams.</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Warum möchten Sie unser Unternehmen wechseln?</div><div class="line-trans">Why do you want to change to our company?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Ich schätze meine bisherige Stelle sehr, suche jedoch nach neuen Herausforderungen und möchte in einem innovativeren Umfeld tätig sein. Ihr Unternehmen ist für seine agilen Arbeitsmethoden bekannt, was mich sehr anspricht.</div><div class="line-trans">I value my current job very much, but I am looking for new challenges and want to work in a more innovative environment. Your company is known for its agile working methods, which appeals to me greatly.</div></div>
+    </div>
+  </div>
+
+  <div class="dialogue">
+    <h3>🎬 Dialog 2: Stärken & Schwächen</h3>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Was sind Ihre größten Stärken?</div><div class="line-trans">What are your greatest strengths?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Ich bin sehr strukturiert und arbeite gerne in einem Team. Außerdem bringe ich analytisches Denkvermögen mit und kann auch unter Druck ruhig und zielorientiert arbeiten. Meine Kollegen schätzen besonders meine Kommunikationsfähigkeit.</div><div class="line-trans">I am very structured and enjoy working in a team. I also have analytical thinking skills and can work calmly and in a goal-oriented way even under pressure. My colleagues particularly appreciate my communication skills.</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Und welche Schwächen haben Sie?</div><div class="line-trans">And what are your weaknesses?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Manchmal neige ich dazu, Aufgaben zu perfektionieren, was Zeit kostet. Ich habe aber gelernt, Prioritäten zu setzen und den richtigen Moment zu erkennen, wann „gut genug" ausreicht. Ich arbeite aktiv daran, effizienter zu werden.</div><div class="line-trans">Sometimes I tend to perfect tasks, which takes time. But I have learned to set priorities and recognise the right moment when "good enough" is sufficient. I am actively working on becoming more efficient.</div></div>
+    </div>
+  </div>
+
+  <div class="dialogue">
+    <h3>🎬 Dialog 3: Gehaltsverhandlung</h3>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Was sind Ihre Gehaltsvorstellungen?</div><div class="line-trans">What are your salary expectations?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Basierend auf meiner Erfahrung und den Marktdaten für diese Position stelle ich mir ein Jahresbruttogehalt von 65.000 bis 70.000 Euro vor. Ich bin jedoch offen für ein Gespräch über das Gesamtpaket, einschließlich der Benefits.</div><div class="line-trans">Based on my experience and market data for this position, I am thinking of an annual gross salary of 65,000 to 70,000 euros. However, I am open to discussing the overall package, including benefits.</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Das übersteigt etwas unser Budget. Können wir uns in der Mitte treffen?</div><div class="line-trans">That slightly exceeds our budget. Can we meet in the middle?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Das kann ich verstehen. Wenn das Grundgehalt etwas niedriger ist, wäre ich an zusätzlichen Leistungen interessiert — zum Beispiel flexible Arbeitszeiten, Homeoffice-Möglichkeiten oder ein Weiterbildungsbudget.</div><div class="line-trans">I can understand that. If the base salary is somewhat lower, I would be interested in additional benefits — for example flexible working hours, remote work options, or a training budget.</div></div>
+    </div>
+  </div>
+
+  <div class="dialogue">
+    <h3>🎬 Dialog 4: Fragen an den Arbeitgeber</h3>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Haben Sie noch Fragen an uns?</div><div class="line-trans">Do you have any questions for us?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Ja, sehr gerne. Wie sieht der typische Einstieg für neue Mitarbeiter aus? Gibt es ein strukturiertes Onboarding-Programm?</div><div class="line-trans">Yes, gladly. What does the typical entry look like for new employees? Is there a structured onboarding programme?</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker interviewer">Interviewer</span>
+      <div><div class="line-text">Ja, wir haben ein dreimonatiges Einarbeitungsprogramm mit einem festen Ansprechpartner.</div><div class="line-trans">Yes, we have a three-month induction programme with a dedicated contact person.</div></div>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker bewerber">Bewerber</span>
+      <div><div class="line-text">Das klingt sehr gut. Eine letzte Frage: Wie würden Sie die Unternehmenskultur hier beschreiben?</div><div class="line-trans">That sounds very good. One last question: how would you describe the company culture here?</div></div>
+    </div>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem;">
+    <div style="font-size:0.9rem;font-weight:700;color:var(--accent);margin-bottom:0.8rem;">💡 Wichtige Fragen, die Sie stellen können</div>
+    <div style="display:grid;gap:0.5rem;">
+      <div class="phrase-item"><div class="phrase-de">Wie sieht die Teamstruktur aus?</div><div class="phrase-en">What does the team structure look like?</div></div>
+      <div class="phrase-item"><div class="phrase-de">Welche Entwicklungsmöglichkeiten gibt es?</div><div class="phrase-en">What development opportunities are there?</div></div>
+      <div class="phrase-item"><div class="phrase-de">Wie gestaltet sich die Work-Life-Balance im Unternehmen?</div><div class="phrase-en">How is work-life balance structured in the company?</div></div>
+      <div class="phrase-item"><div class="phrase-de">Was sind die größten Herausforderungen in dieser Rolle?</div><div class="phrase-en">What are the biggest challenges in this role?</div></div>
+      <div class="phrase-item"><div class="phrase-de">Wann kann ich mit einer Rückmeldung rechnen?</div><div class="phrase-en">When can I expect to hear back from you?</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FLASHCARDS ═══ -->
+<div class="section" id="tab-flashcards">
+  <div class="section-title">Flashcards</div>
+  <div class="section-sub">Click the card to flip it. Mark each as known or still learning.</div>
+  <div class="fc-progress">
+    <div class="fc-counter">Card <span id="fc-current">1</span> of <span id="fc-total">20</span></div>
+    <div class="fc-score-wrap">
+      <div class="fc-score good">✓ <span id="fc-right">0</span></div>
+      <div class="fc-score bad">✗ <span id="fc-wrong">0</span></div>
+    </div>
+  </div>
+  <div class="flashcard-wrap" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="fc-front">
+        <div class="word" id="fc-word"></div>
+        <div class="hint" id="fc-hint"></div>
+      </div>
+      <div class="fc-back">
+        <div class="translation" id="fc-translation"></div>
+        <div class="example" id="fc-example"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-tap">👆 Tap to flip</div>
+  <div class="fc-btns" id="fc-btns">
+    <button class="fc-btn wrong" onclick="markCard(false)">✗ Noch üben</button>
+    <button class="fc-btn right" onclick="markCard(true)">✓ Kenne ich</button>
+  </div>
+  <div class="fc-done" id="fc-done" style="display:none;">
+    <h3>Fertig! 🎉</h3>
+    <div class="final-score"><span id="fc-final-right">0</span> / <span id="fc-final-total">20</span></div>
+    <p id="fc-message"></p>
+    <button class="restart-btn" onclick="initFlashcards()">🔄 Nochmal</button>
+  </div>
+</div>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="section" id="tab-quiz">
+  <div class="section-title">Quiz: Vorstellungsgespräch</div>
+  <div class="section-sub">Test your knowledge of German job application language. 10 questions.</div>
+  <div id="quiz-container"></div>
+  <button class="quiz-submit" onclick="submitQuiz()">Auswerten →</button>
+  <div class="quiz-result" id="quiz-result">
+    <h3>Ergebnis</h3>
+    <div class="score" id="quiz-score-display"></div>
+    <p id="quiz-feedback"></p>
+    <button class="restart-btn" onclick="resetQuiz()" style="margin-top:1rem;">🔄 Nochmal</button>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// ═══ DATA ═══
+const vocabData = {
+  'vocab-bewerbung': [
+    { de: 'die Bewerbung, -en', en: 'job application', ex: 'Ich habe eine Bewerbung abgeschickt.' },
+    { de: 'der Lebenslauf, -läufe', en: 'CV / résumé', ex: 'Mein Lebenslauf ist auf zwei Seiten.' },
+    { de: 'das Anschreiben, -', en: 'cover letter', ex: 'Das Anschreiben sollte nicht zu lang sein.' },
+    { de: 'die Stellenanzeige, -n', en: 'job advertisement', ex: 'Ich habe die Stellenanzeige online gefunden.' },
+    { de: 'die Bewerbungsmappe, -n', en: 'application folder/portfolio', ex: 'Die Bewerbungsmappe enthält alle Unterlagen.' },
+    { de: 'das Zeugnis, -se', en: 'certificate / reference', ex: 'Bitte legen Sie alle Zeugnisse bei.' },
+    { de: 'die Referenz, -en', en: 'reference', ex: 'Ich kann zwei Referenzen angeben.' },
+    { de: 'die Probezeit, -en', en: 'probationary period', ex: 'Die Probezeit beträgt drei Monate.' },
+    { de: 'der Arbeitgeber, -', en: 'employer', ex: 'Der Arbeitgeber bietet viele Benefits an.' },
+    { de: 'der Arbeitnehmer, -', en: 'employee', ex: 'Als Arbeitnehmer hat man bestimmte Rechte.' },
+    { de: 'die Fachkenntnisse (Pl.)', en: 'specialist knowledge / expertise', ex: 'Meine Fachkenntnisse im IT-Bereich sind aktuell.' },
+    { de: 'die Qualifikation, -en', en: 'qualification', ex: 'Welche Qualifikationen sind gefordert?' },
+  ],
+  'vocab-interview': [
+    { de: 'das Vorstellungsgespräch, -e', en: 'job interview', ex: 'Das Vorstellungsgespräch dauerte eine Stunde.' },
+    { de: 'die Gehaltsvorstellung, -en', en: 'salary expectation', ex: 'Meine Gehaltsvorstellung liegt bei 60.000 Euro.' },
+    { de: 'die Herausforderung, -en', en: 'challenge', ex: 'Ich suche neue Herausforderungen.' },
+    { de: 'die Berufserfahrung (Sg.)', en: 'professional experience', ex: 'Ich habe fünf Jahre Berufserfahrung.' },
+    { de: 'die Einarbeitung, -en', en: 'onboarding / induction', ex: 'Die Einarbeitung dauert einen Monat.' },
+    { de: 'die Stärke, -n', en: 'strength', ex: 'Meine größte Stärke ist Teamfähigkeit.' },
+    { de: 'die Schwäche, -n', en: 'weakness', ex: 'Ich arbeite an meiner Schwäche: Perfektionismus.' },
+    { de: 'die Unternehmenskultur (Sg.)', en: 'company culture', ex: 'Die Unternehmenskultur ist mir wichtig.' },
+    { de: 'das Onboarding', en: 'onboarding', ex: 'Das Onboarding-Programm dauert drei Monate.' },
+    { de: 'die Weiterbildung, -en', en: 'further training / professional development', ex: 'Ich investiere gerne in Weiterbildung.' },
+  ],
+  'vocab-skills': [
+    { de: 'teamfähig', en: 'able to work in a team', ex: 'Ich bin sehr teamfähig.' },
+    { de: 'belastbar', en: 'resilient / able to handle pressure', ex: 'In stressigen Situationen bin ich sehr belastbar.' },
+    { de: 'zuverlässig', en: 'reliable', ex: 'Meine Kollegen schätzen mich als zuverlässige Person.' },
+    { de: 'kommunikationsstark', en: 'strong communicator', ex: 'Ich bin kommunikationsstark und präsentiere gerne.' },
+    { de: 'eigenverantwortlich', en: 'self-responsible / autonomous', ex: 'Ich arbeite gerne eigenverantwortlich.' },
+    { de: 'lösungsorientiert', en: 'solution-oriented', ex: 'Ich denke lösungsorientiert.' },
+    { de: 'analytisch', en: 'analytical', ex: 'Ich habe ein analytisches Denkvermögen.' },
+    { de: 'flexibel', en: 'flexible', ex: 'Ich bin zeitlich und örtlich flexibel.' },
+    { de: 'die Sozialkompetenz (Sg.)', en: 'social skills / interpersonal skills', ex: 'Hohe Sozialkompetenz ist in diesem Job wichtig.' },
+    { de: 'die Eigeninitiative (Sg.)', en: 'own initiative', ex: 'Ich zeige gerne Eigeninitiative.' },
+  ],
+  'vocab-after': [
+    { de: 'die Zusage, -n', en: 'job offer / acceptance', ex: 'Ich habe eine Zusage bekommen!' },
+    { de: 'die Absage, -n', en: 'rejection', ex: 'Leider habe ich eine Absage erhalten.' },
+    { de: 'das Angebot, -e', en: 'offer', ex: 'Das Angebot ist sehr attraktiv.' },
+    { de: 'verhandeln', en: 'to negotiate', ex: 'Ich möchte das Gehalt noch verhandeln.' },
+    { de: 'annehmen', en: 'to accept', ex: 'Ich nehme das Angebot gerne an.' },
+    { de: 'absagen', en: 'to decline / cancel', ex: 'Ich muss leider absagen.' },
+    { de: 'das Feedback (Sg.)', en: 'feedback', ex: 'Ich bitte um konstruktives Feedback.' },
+    { de: 'der Arbeitsvertrag, -verträge', en: 'employment contract', ex: 'Ich unterschreibe den Arbeitsvertrag nächste Woche.' },
+  ]
+};
+
+const flashcardData = [
+  { word: 'die Bewerbung', hint: '(noun)', translation: 'job application', example: 'Ich habe meine Bewerbung abgeschickt.' },
+  { word: 'der Lebenslauf', hint: '(noun)', translation: 'CV / résumé', example: 'Mein Lebenslauf ist sehr übersichtlich.' },
+  { word: 'das Anschreiben', hint: '(noun)', translation: 'cover letter', example: 'Das Anschreiben ist der erste Eindruck.' },
+  { word: 'teamfähig', hint: '(adjective)', translation: 'able to work in a team', example: 'Ich bin sehr teamfähig.' },
+  { word: 'die Gehaltsvorstellung', hint: '(noun)', translation: 'salary expectation', example: 'Meine Gehaltsvorstellung ist 60.000 €.' },
+  { word: 'belastbar', hint: '(adjective)', translation: 'resilient / able to handle pressure', example: 'Ich bin auch unter Druck belastbar.' },
+  { word: 'die Probezeit', hint: '(noun)', translation: 'probationary period', example: 'Die Probezeit beträgt sechs Monate.' },
+  { word: 'eigenverantwortlich', hint: '(adjective)', translation: 'autonomous / self-responsible', example: 'Ich arbeite gerne eigenverantwortlich.' },
+  { word: 'die Weiterbildung', hint: '(noun)', translation: 'further training / professional development', example: 'Das Unternehmen bietet viele Weiterbildungen an.' },
+  { word: 'die Zusage', hint: '(noun)', translation: 'job offer / positive reply', example: 'Ich habe eine Zusage erhalten!' },
+  { word: 'die Absage', hint: '(noun)', translation: 'rejection', example: 'Die Absage war enttäuschend.' },
+  { word: 'verhandeln', hint: '(verb)', translation: 'to negotiate', example: 'Kann ich das Gehalt noch verhandeln?' },
+  { word: 'lösungsorientiert', hint: '(adjective)', translation: 'solution-oriented', example: 'Ich denke immer lösungsorientiert.' },
+  { word: 'die Unternehmenskultur', hint: '(noun)', translation: 'company culture', example: 'Die Unternehmenskultur ist sehr offen.' },
+  { word: 'die Einarbeitung', hint: '(noun)', translation: 'onboarding / induction', example: 'Die Einarbeitung dauert einen Monat.' },
+  { word: 'die Berufserfahrung', hint: '(noun)', translation: 'professional experience', example: 'Ich habe drei Jahre Berufserfahrung.' },
+  { word: 'die Sozialkompetenz', hint: '(noun)', translation: 'social / interpersonal skills', example: 'Hohe Sozialkompetenz ist wichtig.' },
+  { word: 'Sehr geehrte Damen und Herren', hint: '(salutation)', translation: 'Dear Sir or Madam', example: 'Used in formal letters when name is unknown.' },
+  { word: 'Mit freundlichen Grüßen', hint: '(closing)', translation: 'Kind regards / Yours sincerely', example: 'Standard letter closing in German.' },
+  { word: 'die Fachkenntnisse', hint: '(noun, plural)', translation: 'specialist knowledge / expertise', example: 'Meine Fachkenntnisse sind sehr gefragt.' },
+];
+
+const quizData = [
+  {
+    q: 'How do you say "job application" in German?',
+    opts: ['die Bewerbung', 'der Arbeitsvertrag', 'die Einarbeitung', 'die Zusage'],
+    correct: 0, explain: '"die Bewerbung" is the application. "der Arbeitsvertrag" is the contract.'
+  },
+  {
+    q: 'Which closing is standard in a formal German letter?',
+    opts: ['Tschüss!', 'Liebe Grüße', 'Mit freundlichen Grüßen', 'Bis bald'],
+    correct: 2, explain: '"Mit freundlichen Grüßen" is always used in formal business correspondence.'
+  },
+  {
+    q: 'What does "belastbar" mean?',
+    opts: ['flexible', 'reliable', 'resilient / able to handle pressure', 'creative'],
+    correct: 2, explain: '"belastbar" literally means able to bear load — used for stress tolerance.'
+  },
+  {
+    q: 'You want to say your salary expectation is 65,000€. What word do you use?',
+    opts: ['Gehaltserhöhung', 'Gehaltsvorstellung', 'Jahresbonus', 'Grundgehalt'],
+    correct: 1, explain: '"Gehaltsvorstellung" = salary expectation. "Gehaltserhöhung" = salary increase.'
+  },
+  {
+    q: 'Complete the phrase: "Ich verfüge über drei Jahre ___ im Bereich Marketing."',
+    opts: ['Ausbildung', 'Berufserfahrung', 'Zeugnis', 'Probezeit'],
+    correct: 1, explain: '"Berufserfahrung" = professional experience. This is a very common phrase in interviews.'
+  },
+  {
+    q: 'Which adjective means "able to work in a team"?',
+    opts: ['lösungsorientiert', 'teamfähig', 'eigenverantwortlich', 'kommunikationsstark'],
+    correct: 1, explain: '"teamfähig" directly translates as team-capable.'
+  },
+  {
+    q: 'What is "die Probezeit"?',
+    opts: ['probationary period', 'working hours', 'overtime', 'annual leave'],
+    correct: 0, explain: '"Probezeit" = trial/probationary period, typically 3–6 months in Germany.'
+  },
+  {
+    q: 'Which phrase asks the interviewer about next steps?',
+    opts: [
+      'Wann kann ich mit einer Rückmeldung rechnen?',
+      'Wie hoch ist das Gehalt?',
+      'Warum haben Sie mich eingeladen?',
+      'Ist die Stelle noch frei?'
+    ],
+    correct: 0, explain: '"Wann kann ich mit einer Rückmeldung rechnen?" = When can I expect to hear back?'
+  },
+  {
+    q: 'What does a "Zusage" mean?',
+    opts: ['rejection', 'job offer / positive reply', 'resignation', 'probation notice'],
+    correct: 1, explain: '"Zusage" = positive reply/acceptance. "Absage" = rejection. Easy to confuse!'
+  },
+  {
+    q: 'Which opening is correct when you know the contact\'s name?',
+    opts: [
+      'Hallo Frau Schmidt,',
+      'Sehr geehrte Damen und Herren,',
+      'Sehr geehrte Frau Schmidt,',
+      'Liebe Frau Schmidt,'
+    ],
+    correct: 2, explain: '"Sehr geehrte/r + Nachname" is always the correct formal salutation when you know the name.'
+  },
+];
+
+// ═══ INIT VOCAB ═══
+function buildVocab() {
+  Object.entries(vocabData).forEach(([id, items]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = items.map(item => `
+      <div class="vocab-card" onclick="this.classList.toggle('revealed')">
+        <div class="de">${item.de}</div>
+        <div class="en">🇬🇧 ${item.en}</div>
+        ${item.ex ? `<div class="ex">„${item.ex}"</div>` : ''}
+        <div class="vocab-hint">Tap to reveal</div>
+      </div>`).join('');
+  });
+}
+
+function revealAll(sectionId) {
+  document.querySelectorAll(`#${sectionId} .vocab-card`).forEach(c => c.classList.add('revealed'));
+}
+
+// ═══ TABS ═══
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'flashcards') initFlashcards();
+  if (name === 'quiz') buildQuiz();
+}
+
+// ═══ FLASHCARDS ═══
+let fcIndex = 0, fcRight = 0, fcWrong = 0;
+function initFlashcards() {
+  fcIndex = 0; fcRight = 0; fcWrong = 0;
+  document.getElementById('fc-right').textContent = 0;
+  document.getElementById('fc-wrong').textContent = 0;
+  document.getElementById('fc-done').style.display = 'none';
+  document.getElementById('fc-btns').style.display = 'flex';
+  document.querySelector('.flashcard-wrap').style.display = 'block';
+  document.querySelector('.fc-tap').style.display = 'block';
+  document.getElementById('fc-total').textContent = flashcardData.length;
+  loadCard();
+}
+
+function loadCard() {
+  if (fcIndex >= flashcardData.length) { showFcDone(); return; }
+  const card = flashcardData[fcIndex];
+  document.getElementById('fc-current').textContent = fcIndex + 1;
+  document.getElementById('fc-word').textContent = card.word;
+  document.getElementById('fc-hint').textContent = card.hint;
+  document.getElementById('fc-translation').textContent = card.translation;
+  document.getElementById('fc-example').textContent = card.example;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+
+function markCard(known) {
+  if (known) { fcRight++; document.getElementById('fc-right').textContent = fcRight; }
+  else { fcWrong++; document.getElementById('fc-wrong').textContent = fcWrong; }
+  fcIndex++;
+  loadCard();
+}
+
+function showFcDone() {
+  document.getElementById('fc-done').style.display = 'block';
+  document.getElementById('fc-btns').style.display = 'none';
+  document.querySelector('.flashcard-wrap').style.display = 'none';
+  document.querySelector('.fc-tap').style.display = 'none';
+  document.getElementById('fc-final-right').textContent = fcRight;
+  document.getElementById('fc-final-total').textContent = flashcardData.length;
+  const pct = Math.round((fcRight / flashcardData.length) * 100);
+  const msg = pct >= 90 ? 'Ausgezeichnet! Bereit für das Gespräch! 🎉' : pct >= 70 ? 'Sehr gut! Noch ein bisschen üben. 💪' : 'Weiter üben — du schaffst es! 🔄';
+  document.getElementById('fc-message').textContent = msg;
+}
+
+// ═══ QUIZ ═══
+let quizAnswers = {};
+function buildQuiz() {
+  quizAnswers = {};
+  const container = document.getElementById('quiz-container');
+  document.getElementById('quiz-result').style.display = 'none';
+  container.innerHTML = quizData.map((q, qi) => `
+    <div class="quiz-q" id="qq-${qi}">
+      <div class="q-num">FRAGE ${qi + 1} / ${quizData.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((opt, oi) => `<button class="quiz-opt" data-qi="${qi}" data-oi="${oi}" onclick="selectOpt(${qi},${oi})">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-explain" id="explain-${qi}">${q.explain}</div>
+    </div>`).join('');
+}
+
+function selectOpt(qi, oi) {
+  if (quizAnswers[qi] !== undefined) return;
+  quizAnswers[qi] = oi;
+  const qq = document.getElementById(`qq-${qi}`);
+  qq.querySelectorAll('.quiz-opt').forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === quizData[qi].correct) btn.classList.add('correct');
+    else if (i === oi && oi !== quizData[qi].correct) btn.classList.add('wrong');
+  });
+  document.getElementById(`explain-${qi}`).classList.add('show');
+}
+
+function submitQuiz() {
+  let score = 0;
+  quizData.forEach((q, qi) => {
+    if (quizAnswers[qi] === undefined) { selectOpt(qi, -1); }
+    if (quizAnswers[qi] === q.correct) score++;
+  });
+  const result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+  document.getElementById('quiz-score-display').textContent = `${score} / ${quizData.length}`;
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('quiz-feedback').textContent =
+    pct === 100 ? 'Perfekt! Du bist bereit für jedes Vorstellungsgespräch! 🏆' :
+    pct >= 80 ? 'Sehr gut! Noch ein paar Details üben. 💪' :
+    pct >= 60 ? 'Gut gemacht! Wiederhole die Vokabeln und versuche es nochmal. 📚' :
+    'Übe weiter — jedes Gespräch macht dich besser! 🔄';
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() { buildQuiz(); }
+
+// ═══ START ═══
+buildVocab();
+initFlashcards();
+</script>
+
+<script src="/level-nav.js"></script>
+</body>
+</html>
