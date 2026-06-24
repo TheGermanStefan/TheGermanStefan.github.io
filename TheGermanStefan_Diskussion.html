@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diskussion & Argumentation — TheGermanStefan</title>
+<style>
+:root{--lc:#1565c0;--lc2:#0d47a1;--lv:#1976d2;--navy:#0d1b2a;--gold:#f4c430;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:1.1rem;font-weight:800;color:var(--gold);letter-spacing:-.3px;text-decoration:none}
+.back-link{color:#8a9bb0;font-size:.85rem;text-decoration:none}
+.back-link:hover{color:var(--gold)}
+.lang-sel{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:8px;font-size:.82rem;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+.hero{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:36px 24px 28px;text-align:center}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;letter-spacing:.5px;margin-bottom:14px}
+.hero h1{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
+.hero p{font-size:1rem;opacity:.9;max-width:560px;margin:0 auto}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#fff;padding:0 24px;overflow-x:auto;position:sticky;top:56px;z-index:90}
+.tab{padding:14px 20px;font-size:.87rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.tab:hover:not(.active){color:var(--text)}
+.content{max-width:900px;margin:0 auto;padding:24px 16px}
+.section{display:none}
+.section.active{display:block}
+.browse-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.search-box{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none}
+.search-box:focus{border-color:var(--lc)}
+.filter-sel{padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:#fff;cursor:pointer}
+.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;min-width:80px}
+.stat-val{font-size:1.3rem;font-weight:800;color:var(--lc)}
+.stat-lbl{font-size:.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.idiom-grid{display:grid;gap:12px}
+.idiom-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .2s}
+.idiom-card:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.idiom-card.expanded .card-body{display:block}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.idiom-phrase{font-size:1.05rem;font-weight:800;color:var(--text)}
+.card-cat{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
+.card-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.level-badge{padding:3px 8px;border-radius:12px;font-size:.7rem;font-weight:700}
+.lvl-a2{background:#e3f2fd;color:#1565c0}
+.lvl-b1{background:#e8f5e9;color:#2e7d32}
+.lvl-b2{background:#fff3e0;color:#e65100}
+.lvl-c1{background:#fce4ec;color:#c62828}
+.fav-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:2px;border-radius:4px;transition:transform .2s}
+.fav-btn:hover{transform:scale(1.2)}
+.card-body{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.card-row{margin-bottom:10px}
+.card-row-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:3px}
+.card-row-val{font-size:.88rem;color:var(--text);line-height:1.5}
+.register-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:700;margin-right:4px}
+.reg-formal{background:#e3f2fd;color:#1565c0}
+.reg-neutral{background:#f3e5f5;color:#6a1b9a}
+.reg-informal{background:#fff9c4;color:#f57f17}
+.example-box{background:#f0f4ff;border-left:3px solid var(--lv);padding:8px 12px;border-radius:4px;font-size:.85rem;line-height:1.5}
+/* FLASHCARD */
+.fc-wrap{max-width:600px;margin:0 auto;text-align:center}
+.fc-cat-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.fc-cat-btn{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:#fff;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.fc-cat-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.fc-prog-lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.fc-prog{background:var(--border);border-radius:4px;height:6px;margin-bottom:20px}
+.fc-prog-bar{background:var(--lc);height:100%;border-radius:4px;transition:width .3s=
+.flashcard{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:44px 32px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow);margin-bottom:18px;position:relative}
+.flashcard.flipped{border-color:var(--lc);background:#f0f4ff}
+.fc-front{width:100%}
+.fc-back{display:none;width:100%}
+.flashcard.flipped .fc-front{display:none}
+.flashcard.flipped .fc-back{display:block}
+.fc-phrase{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:10px;line-height:1.3}
+.fc-tap{font-size:.82rem;color:var(--muted)}
+.fc-meaning{font-size:1rem;font-weight:800;color:var(--lc);margin-bottom:12px}
+.fc-ex{font-size:.85rem;color:var(--text);background:rgba(21,101,192,.08);padding:10px;border-radius:8px;text-align:left}
+.fc-flip-hint{position:absolute;bottom:12px;right:16px;font-size:.7rem;color:var(--muted)}
+.fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.fc-btn{padding:9px 22px;border-radius:10px;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.fc-btn:hover{opacity:.85;transform:translateY(-1px)}
+.fc-skip{background:#f0f2f5;color:var(--muted)}
+.fc-again{background:#fff3e0;color:#e65100}
+.fc-know{background:#e8f5e9;color:#2e7d32}
+.fc-known-lbl{font-size:.78rem;color:var(--muted);text-align:center}
+/* QUIZ */
+.quiz-wrap{max-width:640px;margin:0 auto}
+.quiz-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:16px}
+.quiz-q{font-size:1.1rem;font-weight:800;margin-bottom:6px}
+.quiz-sub{font-size:.83rem;color:var(--muted);margin-bottom:18px}
+.quiz-opts{display:grid;gap:9px}
+.quiz-opt{padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;text-align:left;transition:all .2s}
+.quiz-opt:hover:not(:disabled){border-color:var(--lc);background:#f0f4ff}
+.quiz-opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32}
+.quiz-opt.wrong{border-color:#c62828;background:#fce4ec;color:#c62828}
+.quiz-score{text-align:center;padding:28px;background:var(--card);border-radius:var(--radius);border:1px solid var(--border)}
+.quiz-score-big{font-size:3.5rem;font-weight:900;color:var(--lc)}
+.quiz-score-lbl{color:var(--muted);margin-top:4px}
+.btn-primary{display:inline-block;padding:11px 26px;background:var(--lc);color:#fff;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:16px;transition:all .2s}
+.btn-primary:hover{background:var(--lc2);transform:translateY(-1px)}
+.empty{text-align:center;padding:48px 16px;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:12px}
+.quiz-prog{text-align:center;font-size:.8rem;color:var(--muted);margin-top:8px}
+/* TIP BOX */
+.tip-box{background:#e3f2fd;border:1px solid #90caf9;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:.85rem;color:#1565c0;line-height:1.6}
+.tip-box strong{font-weight:700}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="TheGermanStefan_Special_Skills_Hub.html" class="back-link">← Special Skills</a>
+  <a href="TheGermanStefan_Special_Skills_Hub.html" class="logo">TheGermanStefan</a>
+  <select class="lang-sel" id="langSel" onchange="setLang(this.value)">
+    <option value="en">🇬🇧 EN</option>
+    <option value="fr">🇫🇷 FR</option>
+    <option value="es">🇪🇸 ES</option>
+    <option value="it">🇮🇹 IT</option>
+    <option value="pt">🇵🇹 PT</option>
+  </select>
+</div>
+<div class="hero">
+  <div class="hero-badge">Special Skills · A2–C1 · Premium</div>
+  <h1>💬 Diskussion & Argumentation</h1>
+  <p>Express opinions, agree, disagree, and argue persuasively in German — the phrases that make you sound truly fluent in any conversation or debate</p>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('browse')">📚 Browse</div>
+  <div class="tab" onclick="switchTab('flash')">🎴 Flashcards</div>
+  <div class="tab" onclick="switchTab('quiz')">🧠 Quiz</div>
+  <div class="tab" onclick="switchTab('favs')">⭐ Favourites</div>
+</div>
+<div class="content">
+
+<!-- BROWSE -->
+<div id="sec-browse" class="section active">
+  <div class="tip-box">💡 <strong>Pro tip:</strong> In formal discussions (university seminars, professional meetings), use <em>Meines Erachtens</em> or <em>Ich vertrete den Standpunkt, dass…</em>. In everyday conversation, <em>Ich finde, dass…</em> or <em>Ich sehe das anders</em> sound more natural.</div>
+  <div class="browse-controls">
+    <input class="search-box" id="searchBox" placeholder="Search phrases…" oninput="filterCards()">
+    <select class="filter-sel" id="catFilter" onchange="filterCards()">
+      <option value="all">All Categories</option>
+      <option value="meinung">🗣️ Meinung äußern</option>
+      <option value="zustimmung">✅ Zustimmung</option>
+      <option value="ablehnung">❌ Ablehnung</option>
+      <option value="teilweise">⚖️ Teilweise Zust.</option>
+      <option value="nachfragen">❓ Nachfragen</option>
+      <option value="hinzufuegen">➕ Hinzufügen</option>
+      <option value="einschraenkung">🔶 Einschränkung</option>
+      <option value="fazit">🎯 Fazit</option>
+    </select>
+    <select class="filter-sel" id="lvlFilter" onchange="filterCards()">
+      <option value="all">All Levels</option>
+      <option value="A2">A2</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+      <option value="C1">C1</option>
+    </select>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val" id="statTotal">80</span><span class="stat-lbl">Total</span></div>
+    <div class="stat"><span class="stat-val" id="statShown">80</span><span class="stat-lbl">Shown</span></div>
+    <div class="stat"><span class="stat-val" id="statFavs">0</span><span class="stat-lbl">Saved</span></div>
+  </div>
+  <div class="idiom-grid" id="idiomGrid"></div>
+  <div class="empty" id="emptyBrowse" style="display:none"><div class="empty-icon">🔍</div><p>No phrases match your search</p></div>
+</div>
+
+<!-- FLASHCARD -->
+<div id="sec-flash" class="section">
+  <div class="fc-wrap">
+    <div class="fc-cat-filter">
+      <button class="fc-cat-btn active" onclick="setFCFilter('all',this)">All</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('meinung',this)">🗣️ Meinung</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('zustimmung',this)">✅ Zust.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('ablehnung',this)">❌ Abln.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('teilweise',this)">⚖️ Teilw.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('nachfragen',this)">❓ Nachfr.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('hinzufuegen',this)">➕ Hinzuf.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('einschraenkung',this)">🔶 Einschr.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('fazit',this)">🎯 Fazit</button>
+    </div>
+    <div class="fc-prog-lbl" id="fcLbl">1 / 80</div>
+    <div class="fc-prog"><div class="fc-prog-bar" id="fcBar" style="width:1%"></div></div>
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front"><div class="fc-phrase" id="fcPhrase">—</div><div class="fc-tap">Tap to reveal meaning</div></div>
+      <div class="fc-back"><div class="fc-meaning" id="fcMeaning">—</div><div class="fc-ex" id="fcEx">—</div></div>
+      <div class="fc-flip-hint">tap to flip</div>
+    </div>
+    <div class="fc-btns">
+      <button class="fc-btn fc-skip" onclick="nextCard(false)">↩ Skip</button>
+      <button class="fc-btn fc-again" onclick="nextCard(false)">🔄 Again</button>
+      <button class="fc-btn fc-know" onclick="nextCard(true)">✓ Got it</button>
+    </div>
+    <div class="fc-known-lbl" id="fcKnownLbl">0 known</div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="sec-quiz" class="section">
+  <div class="quiz-wrap">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-q" id="quizQ">—</div>
+      <div class="quiz-sub">Choose the correct English equivalent:</div>
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+    <div class="quiz-score" id="quizScore" style="display:none">
+      <div class="quiz-score-big" id="quizScoreVal">0/10</div>
+      <div class="quiz-score-lbl">Quiz complete!</div>
+      <button class="btn-primary" onclick="startQuiz()">Try Again</button>
+    </div>
+    <div class="quiz-prog" id="quizProg"></div>
+  </div>
+</div>
+
+<!-- FAVOURITES -->
+<div id="sec-favs" class="section">
+  <div class="idiom-grid" id="favsGrid"></div>
+  <div class="empty" id="emptyFavs" style="display:none"><div class="empty-icon">⭐</div><p>Star phrases in Browse mode to save them here</p></div>
+</div>
+
+</div>
+<script>
+const PHRASES=[
+// MEINUNG ÄUSSERN (Expressing opinions)
+{id:1,phrase:"Ich bin der Meinung, dass…",register:"neutral",meaning:"I am of the opinion that…",example:"Ich bin der Meinung, dass wir mehr in Bildung investieren sollten.",cat:"meinung",level:"B1"},
+{id:2,phrase:"Meiner Ansicht nach…",register:"formal",meaning:"In my view / In my opinion…",example:"Meiner Ansicht nach ist das die falsche Entscheidung.",cat:"meinung",level:"B1"},
+{id:3,phrase:"Ich finde, dass…",register:"neutral",meaning:"I think / find that…",example:"Ich finde, dass wir das Problem unterschätzen.",cat:"meinung",level:"A2"},
+{id:4,phrase:"Meines Erachtens…",register:"formal",meaning:"In my estimation / In my view…",example:"Meines Erachtens bietet dieser Plan keine nachhaltige Lösung.",cat:"meinung",level:"C1"},
+{id:5,phrase:"Es scheint mir, dass…",register:"formal",meaning:"It seems to me that…",example:"Es scheint mir, dass wir aneinander vorbeigeredet haben.",cat:"meinung",level:"B2"},
+{id:6,phrase:"Ich bin davon überzeugt, dass…",register:"neutral",meaning:"I am convinced that…",example:"Ich bin davon überzeugt, dass Teamarbeit entscheidend ist.",cat:"meinung",level:"B2"},
+{id:7,phrase:"Ich vertrete den Standpunkt, dass…",register:"formal",meaning:"I take the position / I hold the view that…",example:"Ich vertrete den Standpunkt, dass Klimapolitik Vorrang haben muss.",cat:"meinung",level:"C1"},
+{id:8,phrase:"Wenn ich ehrlich bin…",register:"informal",meaning:"If I'm honest… / To be honest…",example:"Wenn ich ehrlich bin, finde ich das Projekt wenig überzeugend.",cat:"meinung",level:"A2"},
+{id:9,phrase:"Ich muss sagen, dass…",register:"neutral",meaning:"I have to say that… / I must say that…",example:"Ich muss sagen, dass mich das Ergebnis überrascht hat.",cat:"meinung",level:"B1"},
+{id:10,phrase:"Aus meiner Sicht…",register:"neutral",meaning:"From my perspective / From my point of view…",example:"Aus meiner Sicht ist das Risiko zu groß.",cat:"meinung",level:"B1"},
+
+// ZUSTIMMUNG (Agreeing)
+{id:11,phrase:"Ich stimme (Ihnen) vollkommen zu.",register:"formal",meaning:"I completely agree (with you).",example:"Ich stimme Ihnen vollkommen zu — das ist der richtige Weg.",cat:"zustimmung",level:"B1"},
+{id:12,phrase:"Da haben Sie vollkommen recht.",register:"formal",meaning:"You are absolutely right about that.",example:"Da haben Sie vollkommen recht, das sollten wir berücksichtigen.",cat:"zustimmung",level:"B1"},
+{id:13,phrase:"Das sehe ich genauso.",register:"neutral",meaning:"I see it exactly the same way.",example:"Das sehe ich genauso — wir brauchen mehr Zeit.",cat:"zustimmung",level:"B1"},
+{id:14,phrase:"Genau das meine ich auch.",register:"informal",meaning:"That's exactly what I mean too. / Exactly!",example:"Genau das meine ich auch! Endlich sagt das jemand.",cat:"zustimmung",level:"A2"},
+{id:15,phrase:"Ich bin völlig Ihrer Meinung.",register:"formal",meaning:"I am entirely of your opinion. / I completely agree.",example:"In diesem Punkt bin ich völlig Ihrer Meinung.",cat:"zustimmung",level:"B2"},
+{id:16,phrase:"Das trifft den Nagel auf den Kopf.",register:"neutral",meaning:"That hits the nail on the head. / That's exactly right.",example:"Mit dieser Analyse treffen Sie den Nagel auf den Kopf.",cat:"zustimmung",level:"B2"},
+{id:17,phrase:"Das ist ein sehr guter Punkt.",register:"neutral",meaning:"That is a very good point.",example:"Das ist ein sehr guter Punkt — daran hatte ich nicht gedacht.",cat:"zustimmung",level:"A2"},
+{id:18,phrase:"Dem stimme ich voll und ganz zu.",register:"formal",meaning:"I fully and completely agree with that.",example:"Dem Vorschlag des Kollegen stimme ich voll und ganz zu.",cat:"zustimmung",level:"B2"},
+{id:19,phrase:"Das kann ich nur bestätigen.",register:"formal",meaning:"I can only confirm that. / That accords with my experience.",example:"Das kann ich aus eigener Erfahrung nur bestätigen.",cat:"zustimmung",level:"B2"},
+{id:20,phrase:"Da bin ich ganz bei Ihnen.",register:"neutral",meaning:"I'm completely with you on that. / I fully agree.",example:"In der Frage der Nachhaltigkeit bin ich ganz bei Ihnen.",cat:"zustimmung",level:"B1"},
+
+// ABLEHNUNG / WIDERSPRUCH (Disagreeing)
+{id:21,phrase:"Ich sehe das anders.",register:"neutral",meaning:"I see it differently. / I disagree.",example:"Ich sehe das anders — die Zahlen belegen das nicht.",cat:"ablehnung",level:"A2"},
+{id:22,phrase:"Da bin ich anderer Meinung.",register:"neutral",meaning:"I disagree / I beg to differ.",example:"Da bin ich anderer Meinung — das ist zu vereinfacht gedacht.",cat:"ablehnung",level:"B1"},
+{id:23,phrase:"Das stimmt so nicht.",register:"neutral",meaning:"That's not quite right. / That's not accurate.",example:"Das stimmt so nicht — die Studie zeigt ein anderes Bild.",cat:"ablehnung",level:"B1"},
+{id:24,phrase:"Ich muss Ihnen hier widersprechen.",register:"formal",meaning:"I have to contradict you here. / I must disagree.",example:"Ich muss Ihnen hier klar widersprechen.",cat:"ablehnung",level:"B2"},
+{id:25,phrase:"Das überzeugt mich nicht.",register:"neutral",meaning:"That doesn't convince me. / I'm not persuaded.",example:"Dieses Argument überzeugt mich nicht.",cat:"ablehnung",level:"B1"},
+{id:26,phrase:"Leider kann ich dem nicht zustimmen.",register:"formal",meaning:"Unfortunately I cannot agree with that.",example:"Leider kann ich dem Vorschlag nicht zustimmen.",cat:"ablehnung",level:"B2"},
+{id:27,phrase:"Das halte ich für falsch.",register:"neutral",meaning:"I consider that to be wrong. / I think that's incorrect.",example:"Diese Einschätzung halte ich für grundlegend falsch.",cat:"ablehnung",level:"B2"},
+{id:28,phrase:"Mit Verlaub, aber das sehe ich völlig anders.",register:"formal",meaning:"With all due respect, I see that completely differently.",example:"Mit Verlaub, aber das sehe ich völlig anders als Sie.",cat:"ablehnung",level:"C1"},
+{id:29,phrase:"Ich bezweifle, dass…",register:"neutral",meaning:"I doubt that… / I question whether…",example:"Ich bezweifle, dass dieser Ansatz die gewünschten Ergebnisse bringt.",cat:"ablehnung",level:"B2"},
+{id:30,phrase:"Das ist doch etwas zu kurz gedacht.",register:"neutral",meaning:"That is rather short-sighted. / That's oversimplifying things.",example:"Mit Verlaub, aber das ist doch etwas zu kurz gedacht.",cat:"ablehnung",level:"C1"},
+
+// TEILWEISE ZUSTIMMUNG (Partially agreeing)
+{id:31,phrase:"Einerseits… andererseits…",register:"neutral",meaning:"On one hand… on the other hand…",example:"Einerseits verstehe ich das Argument, andererseits sehe ich die Risiken.",cat:"teilweise",level:"B1"},
+{id:32,phrase:"Das stimmt zwar, aber…",register:"neutral",meaning:"That may be true, but… / That's true, however…",example:"Das stimmt zwar, aber wir sollten auch die Kosten bedenken.",cat:"teilweise",level:"B1"},
+{id:33,phrase:"Ich sehe Ihren Punkt, jedoch…",register:"formal",meaning:"I see your point, however… / I take your point, but…",example:"Ich sehe Ihren Punkt, jedoch überwiegen die Nachteile.",cat:"teilweise",level:"B2"},
+{id:34,phrase:"Da ist etwas dran, aber…",register:"informal",meaning:"There's something to that, but… / You have a point, but…",example:"Da ist etwas dran, aber so einfach ist das nicht.",cat:"teilweise",level:"B1"},
+{id:35,phrase:"Das mag sein, dennoch…",register:"formal",meaning:"That may be, nevertheless… / That may well be, but…",example:"Das mag sein, dennoch halte ich an meiner Position fest.",cat:"teilweise",level:"B2"},
+{id:36,phrase:"Prinzipiell stimme ich zu, aber…",register:"neutral",meaning:"In principle I agree, but… / Broadly speaking I agree, however…",example:"Prinzipiell stimme ich zu, aber die Details müssen überarbeitet werden.",cat:"teilweise",level:"B2"},
+{id:37,phrase:"Ich teile Ihre Ansicht zum Teil.",register:"formal",meaning:"I share your view in part. / I partly agree with your view.",example:"Ich teile Ihre Ansicht zum Teil, nicht aber in allen Punkten.",cat:"teilweise",level:"C1"},
+{id:38,phrase:"Sie haben in gewisser Hinsicht recht, aber…",register:"formal",meaning:"You are right in some respects, but…",example:"Sie haben in gewisser Hinsicht recht, aber die Folgen sind komplexer.",cat:"teilweise",level:"C1"},
+{id:39,phrase:"Das sehe ich ähnlich, aber nicht ganz so.",register:"neutral",meaning:"I see it similarly, but not quite that way.",example:"Das sehe ich ähnlich, aber nicht ganz so wie Sie es formuliert haben.",cat:"teilweise",level:"B2"},
+{id:40,phrase:"In diesem Punkt gebe ich Ihnen recht, aber…",register:"formal",meaning:"On this point I concede to you, but…",example:"In diesem Punkt gebe ich Ihnen recht, aber die Gesamtbilanz sieht anders aus.",cat:"teilweise",level:"C1"},
+
+// NACHFRAGEN / KLARSTELLUNG (Asking for clarification)
+{id:41,phrase:"Könnten Sie das näher erläutern?",register:"formal",meaning:"Could you elaborate on that? / Could you explain that in more detail?",example:"Könnten Sie diesen Aspekt bitte etwas näher erläutern?",cat:"nachfragen",level:"B1"},
+{id:42,phrase:"Was meinen Sie genau damit?",register:"neutral",meaning:"What exactly do you mean by that?",example:"Was meinen Sie genau damit, wenn Sie von 'Flexibilität' sprechen?",cat:"nachfragen",level:"A2"},
+{id:43,phrase:"Wenn ich Sie richtig verstehe…",register:"formal",meaning:"If I understand you correctly… / If I'm reading you right…",example:"Wenn ich Sie richtig verstehe, plädieren Sie für eine komplette Reform.",cat:"nachfragen",level:"B2"},
+{id:44,phrase:"Könnten Sie ein Beispiel nennen?",register:"neutral",meaning:"Could you give an example?",example:"Das klingt interessant — könnten Sie ein Beispiel nennen?",cat:"nachfragen",level:"B1"},
+{id:45,phrase:"Was führt Sie zu dieser Schlussfolgerung?",register:"formal",meaning:"What leads you to this conclusion? / What is your basis for this conclusion?",example:"Was genau führt Sie zu dieser Schlussfolgerung?",cat:"nachfragen",level:"C1"},
+{id:46,phrase:"Darf ich kurz nachfragen?",register:"neutral",meaning:"May I briefly ask? / Could I just ask…?",example:"Darf ich kurz nachfragen, was Sie mit 'kurzfristig' meinen?",cat:"nachfragen",level:"B1"},
+{id:47,phrase:"Ich habe Sie nicht ganz verstanden.",register:"neutral",meaning:"I didn't quite understand you. / Could you repeat that?",example:"Entschuldigung, ich habe Sie nicht ganz verstanden.",cat:"nachfragen",level:"A2"},
+{id:48,phrase:"Mit anderen Worten…",register:"neutral",meaning:"In other words… / To put it another way…",example:"Mit anderen Worten: Sie sind der Meinung, dass wir zu spät handeln.",cat:"nachfragen",level:"B1"},
+{id:49,phrase:"Was ist Ihre Argumentation dazu?",register:"formal",meaning:"What is your reasoning / argument on that?",example:"Das ist eine interessante These — was ist Ihre Argumentation dazu?",cat:"nachfragen",level:"C1"},
+{id:50,phrase:"Wie meinen Sie das genau?",register:"neutral",meaning:"What exactly do you mean by that? / How do you mean?",example:"Wie meinen Sie das genau — sprechen Sie von allen Fällen oder nur manchen?",cat:"nachfragen",level:"B1"},
+
+// PUNKTE HINZUFÜGEN (Adding points)
+{id:51,phrase:"Außerdem möchte ich hinzufügen, dass…",register:"neutral",meaning:"Moreover / In addition I would like to add that…",example:"Außerdem möchte ich hinzuføgen, dass die Kosten noch nicht berücksichtigt wurden.",cat:"hinzufuegen",level:"B1"},
+{id:52,phrase:"Darüber hinaus…",register:"formal",meaning:"Furthermore / Beyond that… / Moreover…",example:"Darüber hinaus ist zu beachten, dass die Frist abläuft.",cat:"hinzufuegen",level:"B2"},
+{id:53,phrase:"Hinzu kommt, dass…",register:"neutral",meaning:"Added to this is the fact that… / On top of that…",example:"Hinzu kommt, dass wir keine Erfahrung in diesem Bereich haben.",cat:"hinzufuegen",level:"B2"},
+{id:54,phrase:"Nicht zu vergessen…",register:"neutral",meaning:"Not to forget… / And also worth mentioning…",example:"Nicht zu vergessen: der Zeitaufwand für die Implementierung.",cat:"hinzufuegen",level:"B1"},
+{id:55,phrase:"Ein weiterer wichtiger Aspekt ist…",register:"neutral",meaning:"Another important aspect is…",example:"Ein weiterer wichtiger Aspekt ist die rechtliche Lage.",cat:"hinzufuegen",level:"B1"},
+{id:56,phrase:"Ich möchte noch ergänzen, dass…",register:"neutral",meaning:"I would like to add that… / Additionally…",example:"Ich möchte noch ergänzen, dass es bereits vergleichbare Projekte gibt.",cat:"hinzufuegen",level:"B2"},
+{id:57,phrase:"In diesem Zusammenhang ist es erwähnenswert, dass…",register:"formal",meaning:"In this context it is worth mentioning that… / Relatedly…",example:"In diesem Zusammenhang ist es erwähnenswert, dass die Zahlen steigen.",cat:"hinzufuegen",level:"C1"},
+{id:58,phrase:"Zu berücksichtigen ist auch, dass…",register:"formal",meaning:"It should also be taken into account that…",example:"Zu berücksichtigen ist auch, dass die Regelung nicht überall gilt.",cat:"hinzufuegen",level:"C1"},
+{id:59,phrase:"Das gilt auch für…",register:"neutral",meaning:"This also applies to… / The same is true for…",example:"Das gilt auch für die anderen Abteilungen, die betroffen sind.",cat:"hinzufuegen",level:"B1"},
+{id:60,phrase:"Was auch zu bedenken ist:",register:"neutral",meaning:"What should also be considered: / Another thing to bear in mind:",example:"Was auch zu bedenken ist: die langfristigen Auswirkungen auf die Umwelt.",cat:"hinzufuegen",level:"B2"},
+
+// EINSCHRÄNKUNGEN / ABSCHWÄCHEN (Hedging)
+{id:61,phrase:"Es könnte sein, dass…",register:"neutral",meaning:"It could be that… / It may be that…",example:"Es könnte sein, dass wir die Auswirkungen øberschätzen.",cat:"einschraenkung",level:"B1"},
+{id:62,phrase:"Unter Umständen…",register:"formal",meaning:"Under certain circumstances… / Possibly… / Depending on the situation…",example:"Unter Umständen wäre auch ein anderer Ansatz denkbar.",cat:"einschraenkung",level:"B2"},
+{id:63,phrase:"Das lässt sich schwer sagen.",register:"neutral",meaning:"That's hard to say. / It's difficult to say.",example:"Ob das funktioniert? Das lässt sich schwer sagen.",cat:"einschraenkung",level:"B1"},
+{id:64,phrase:"Ich bin mir nicht sicher, ob…",register:"neutral",meaning:"I'm not sure whether / if…",example:"Ich bin mir nicht sicher, ob das die richtige Interpretation ist.",cat:"einschraenkung",level:"B1"},
+{id:65,phrase:"Tendenziell würde ich sagen…",register:"neutral",meaning:"I would tend to say… / My inclination is to say…",example:"Tendenziell würde ich sagen, dass der zweite Ansatz besser ist.",cat:"einschraenkung",level:"C1"},
+{id:66,phrase:"Das ist eine komplexe Frage.",register:"neutral",meaning:"That is a complex question. / It's a complicated issue.",example:"Das ist eine komplexe Frage — es gibt nicht die eine Antwort.",cat:"einschraenkung",level:"B1"},
+{id:67,phrase:"Es hängt davon ab, wie man es betrachtet.",register:"neutral",meaning:"It depends on how you look at it. / It depends on your perspective.",example:"Ob das ein Fortschritt ist, hängt davon ab, wie man es betrachtet.",cat:"einschraenkung",level:"B2"},
+{id:68,phrase:"Das mag in manchen Fällen stimmen.",register:"formal",meaning:"That may be true in some cases. / That could be true in certain situations.",example:"Das mag in manchen Fällen stimmen, ist aber nicht verallgemeinerbar.",cat:"einschraenkung",level:"B2"},
+{id:69,phrase:"Ich wørde das nicht verallgemeinern.",register:"neutral",meaning:"I wouldn't generalize that. / That can't be generalized.",example:"Ich würde das nicht verallgemeinern — die Situation ist je nach Region sehr unterschiedlich.",cat:"einschraenkung",level:"B2"},
+{id:70,phrase:"Soweit ich informiert bin…",register:"formal",meaning:"As far as I am informed… / To the best of my knowledge…",example:"Soweit ich informiert bin, gibt es dazu noch keine abschließende Studie.",cat:"einschraenkung",level:"C1"},
+
+// FAZIT / ZUSAMMENFASSUNG (Concluding)
+{id:71,phrase:"Zusammenfassend lässt sich sagen, dass…",register:"formal",meaning:"In summary, it can be said that… / To sum up…",example:"Zusammenfassend lässt sich sagen, dass weitere Forschung notwendig ist.",cat:"fazit",level:"B2"},
+{id:72,phrase:"Abschließend möchte ich festhalten, dass…",register:"formal",meaning:"In conclusion, I would like to state that…",example:"Abschließend möchte ich festhalten, dass wir handeln müssen.",cat:"fazit",level:"C1"},
+{id:73,phrase:"Alles in allem…",register:"neutral",meaning:"All in all… / All things considered…",example:"Alles in allem bin ich von dem Konzept überzeugt.",cat:"fazit",level:"B1"},
+{id:74,phrase:"Letztendlich…",register:"neutral",meaning:"Ultimately… / In the end…",example:"Letztendlich liegt die Entscheidung bei uns allen.",cat:"fazit",level:"B1"},
+{id:75,phrase:"Kurz gesagt…",register:"neutral",meaning:"In short… / To put it briefly…",example:"Kurz gesagt: das Projekt lohnt sich.",cat:"fazit",level:"B1"},
+{id:76,phrase:"Unter dem Strich…",register:"informal",meaning:"At the end of the day… / When all is said and done…",example:"Unter dem Strich überwiegen die Vorteile.",cat:"fazit",level:"B2"},
+{id:77,phrase:"Das Fazit lautet:",register:"neutral",meaning:"The conclusion / bottom line is:",example:"Das Fazit lautet: ohne mehr Investitionen wird es nicht funktionieren.",cat:"fazit",level:"B2"},
+{id:78,phrase:"Daraus folgt, dass…",register:"formal",meaning:"From this it follows that… / This means that…",example:"Daraus folgt, dass wir unsere Strategie überdenken müssen.",cat:"fazit",level:"C1"},
+{id:79,phrase:"Im Großen und Ganzen…",register:"neutral",meaning:"On the whole… / By and large…",example:"Im Großen und Ganzen war der Versuch erfolgreich.",cat:"fazit",level:"B1"},
+{id:80,phrase:"Ich komme zu dem Schluss, dass…",register:"formal",meaning:"I come to / arrive at the conclusion that…",example:"Ich komme zu dem Schluss, dass ein Kompromiss unumgänglich ist.",cat:"fazit",level:"C1"}
+];
+
+let currentTab='browse';
+let favs=new Set(JSON.parse(localStorage.getItem('dis_favs')||'[]'));
+let fcFilter='all', fcQueue=[], fcIdx=0, fcKnown=0;
+let quizQuestions=[], quizQ=0, quizCorrect=0, quizAnswered=false;
+const QUIZ_TOTAL=10;
+
+function saveFavs(){localStorage.setItem('dis_favs',JSON.stringify([...favs]));}
+function toggleFav(id,e){
+  if(e)e.stopPropagation();
+  if(favs.has(id))favs.delete(id);else favs.add(id);
+  saveFavs();filterCards();
+  if(currentTab==='favs')renderFavs();
+  document.getElementById('statFavs').textContent=favs.size;
+}
+function levelClass(l){return{A2:'lvl-a2',B1:'lvl-b1',B2:'lvl-b2',C1:'lvl-c1'}[l]||'lvl-b1';}
+function catIcon(c){return{meinung:'🗣️',zustimmung:'✅',ablehnung:'❌',teilweise:'⚖️',nachfragen:'❓',hinzufuegen:'➕',einschraenkung:'🔶',fazit:'🎯'}[c]||'';}
+function catLabel(c){return{meinung:'Meinung äußern',zustimmung:'Zustimmung',ablehnung:'Ablehnung',teilweise:'Teilw. Zustimmung',nachfragen:'Nachfragen',hinzufuegen:'Hinzufügen',einschraenkung:'Einschränkung',fazit:'Fazit'}[c]||c;}
+function regTag(r){const cls={formal:'reg-formal',neutral:'reg-neutral',informal:'reg-informal'}[r]||'reg-neutral';return`<span class="register-tag ${cls}">${r}</span>`;}
+
+function buildCard(i){
+  const isFav=favs.has(i.id);
+  return`<div class="idiom-card" id="card-${i.id}" onclick="toggleCard(${i.id})">
+    <div class="card-head">
+      <div><div class="idiom-phrase">${i.phrase}</div><div class="card-cat">${catIcon(i.cat)} ${catLabel(i.cat)}</div></div>
+      <div class="card-meta">
+        <span class="level-badge ${levelClass(i.level)}">${i.level}</span>
+        <button class="fav-btn" onclick="toggleFav(${i.id},event)">${isFav?'⭐':'☆'}</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-row"><div class="card-row-lbl">Register</div><div class="card-row-val">${regTag(i.register)}</div></div>
+      <div class="card-row"><div class="card-row-lbl">English equivalent</div><div class="card-row-val">${i.meaning}</div></div>
+      <div class="card-row"><div class="card-row-lbl">Example in context</div><div class="example-box">${i.example}</div></div>
+    </div>
+  </div>`;
+}
+function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('expanded');}
+
+function getFiltered(){
+  const q=(document.getElementById('searchBox')?.value||'').toLowerCase();
+  const cat=document.getElementById('catFilter')?.value||'all';
+  const lvl=document.getElementById('lvlFilter')?.value||'all';
+  return PHRASES.filter(i=>{
+    if(cat!=='all'&&i.cat!==cat)return false;
+    if(lvl!=='all'&&i.level!==lvl)return false;
+    if(q&&!i.phrase.toLowerCase().includes(q)&&!i.meaning.toLowerCase().includes(q)&&!i.example.toLowerCase().includes(q))return false;
+    return true;
+  });
+}
+function filterCards(){
+  const list=getFiltered();
+  document.getElementById('idiomGrid').innerHTML=list.map(buildCard).join('');
+  document.getElementById('emptyBrowse').style.display=list.length?'none':'block';
+  document.getElementById('statTotal').textContent=PHRASES.length;
+  document.getElementById('statShown').textContent=list.length;
+  document.getElementById('statFavs').textContent=favs.size;
+}
+function renderFavs(){
+  const list=PHRASES.filter(i=>favs.has(i.id));
+  document.getElementById('favsGrid').innerHTML=list.map(buildCard).join('');
+  document.getElementById('emptyFavs').style.display=list.length?'none':'block';
+}
+
+function setFCFilter(f,btn){
+  fcFilter=f;
+  document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  initFC();
+}
+function initFC(){
+  fcQueue=[...PHRASES.filter(i=>fcFilter==='all'||i.cat===fcFilter)].sort(()=>Math.random()-.5);
+  fcIdx=0;fcKnown=0;
+  document.getElementById('flashcard').classList.remove('flipped');
+  renderFlash();
+}
+function renderFlash(){
+  if(!fcQueue.length)return;
+  const i=fcQueue[fcIdx%fcQueue.length];
+  document.getElementById('fcPhrase').textContent=i.phrase;
+  document.getElementById('fcMeaning').textContent=i.meaning;
+  document.getElementById('fcEx').textContent=i.example;
+  document.getElementById('fcLbl').textContent=(fcIdx%fcQueue.length+1)+' / '+fcQueue.length;
+  document.getElementById('fcBar').style.width=(((fcIdx%fcQueue.length+1)/fcQueue.length)*100)+'%';
+  document.getElementById('fcKnownLbl').textContent=fcKnown+' known';
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(known){if(known)fcKnown++;fcIdx++;if(fcIdx>=fcQueue.length)fcIdx=0;renderFlash();}
+
+function startQuiz(){
+  quizQuestions=[...PHRASES].sort(()=>Math.random()-.5).slice(0,QUIZ_TOTAL);
+  quizQ=0;quizCorrect=0;quizAnswered=false;
+  document.getElementById('quizScore').style.display='none';
+  document.getElementById('quizCard').style.display='block';
+  renderQuiz();
+}
+function renderQuiz(){
+  if(quizQ>=quizQuestions.length){
+    document.getElementById('quizCard').style.display='none';
+    document.getElementById('quizScore').style.display='block';
+    document.getElementById('quizScoreVal').textContent=quizCorrect+'/'+QUIZ_TOTAL;
+    return;
+  }
+  const q=quizQuestions[quizQ];
+  const wrong=PHRASES.filter(i=>i.id!==q.id).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[q,...wrong].sort(()=>Math.random()-.5);
+  document.getElementById('quizQ').textContent='💬 "'+q.phrase+'"';
+  document.getElementById('quizProg').textContent=(quizQ+1)+' / '+QUIZ_TOTAL;
+  document.getElementById('quizOpts').innerHTML=opts.map(o=>`<button class="quiz-opt" onclick="answerQuiz(${o.id},${q.id})">${o.meaning}</button>`).join('');
+  quizAnswered=false;
+}
+function answerQuiz(chosen,correct){
+  if(quizAnswered)return;quizAnswered=true;
+  document.querySelectorAll('.quiz-opt').forEach(b=>{
+    const id=parseInt(b.getAttribute('onclick').split('(')[1]);
+    if(id===correct)b.classList.add('correct');
+    else if(id===chosen&&chosen!==correct)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  if(chosen===correct)quizCorrect++;
+  setTimeout(()=>{quizQ++;renderQuiz();},1300);
+}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['browse','flash','quiz','favs'][i]===tab);});
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  if(tab==='flash')initFC();
+  if(tab==='quiz')startQuiz();
+  if(tab==='favs')renderFavs();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{filterCards();initFC();startQuiz();});
+</script>
+</body>
+</html>
