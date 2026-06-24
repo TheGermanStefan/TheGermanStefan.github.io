@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A1 Hub</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--lc:#1464b4;--green:#2e7d32;--red:#c62828;--amber:#f9a825;
+  --gray:#f0f4f8;--card:#fff;--border:#e0e6f0;--txt:#1a1a1a;--txt2:#555;--txt3:#888;
+  --purple:#6a1b9a;--orange:#e65100;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.7;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;white-space:nowrap;color:#fff}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap;text-decoration:none}
+.tb-crumb:hover{color:#fff}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px;white-space:nowrap}
+.tb-mod-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.tb-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;transition:.15s;font-family:inherit}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+
+/* ── PROGRESS STRIP ── */
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s ease}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#0b2545 0%,#1464b4 55%,#0d47a1 100%);color:#fff;padding:36px 24px 28px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:12px;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:12px;letter-spacing:.5px;position:relative}
+.hero h1{font-size:28px;font-weight:900;margin-bottom:6px;position:relative}
+.hero .sub{font-size:15px;opacity:.85;margin-bottom:16px;position:relative}
+.hero-stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;position:relative}
+.hstat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 20px;text-align:center}
+.hstat-n{font-size:22px;font-weight:900;color:var(--amber)}
+.hstat-l{font-size:11px;opacity:.8;margin-top:2px}
+
+/* ── PROGRESS BAR ── */
+.hub-progress{background:#fff;padding:16px 24px;border-bottom:1px solid var(--border)}
+.hub-progress-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.hp-label{font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap}
+.hp-bar{flex:1;height:8px;background:#e0e6f0;border-radius:10px;overflow:hidden}
+.hp-fill{height:100%;background:var(--lc);border-radius:10px;transition:width .5s}
+.hp-pct{font-size:13px;font-weight:800;color:var(--lc);white-space:nowrap;min-width:36px;text-align:right}
+
+/* ── SECTION ── */
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 80px}
+.section{margin-bottom:36px}
+.sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-icon{font-size:28px}
+.sec-title{font-size:19px;font-weight:900;color:var(--navy)}
+.sec-sub{font-size:13px;color:var(--txt2);margin-top:1px}
+.sec-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-left:auto}
+
+/* ── CONTENT CARDS GRID ── */
+.content-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.cc{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);border:2px solid transparent;cursor:pointer;transition:all .2s;text-decoration:none;display:block;position:relative}
+.cc:hover{border-color:var(--lc);transform:translateY(-3px);box-shadow:0 8px 24px rgba(20,100,180,.15)}
+.cc-num{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.cc-title{font-size:15px;font-weight:900;color:var(--navy);margin-bottom:4px;line-height:1.3}
+.cc-sub{font-size:12px;color:var(--txt2);line-height:1.4}
+.cc-foot{display:flex;align-items:center;gap:6px;margin-top:10px}
+.cc-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;background:#e3f0ff;color:var(--lc)}
+.cc-tag.green{background:#e8f5e9;color:var(--green)}
+.cc-tag.amber{background:#fff8e1;color:#e65100}
+.cc-done{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s}
+.cc.done .cc-done{opacity:1}
+.cc.done{border-color:#a5d6a7}
+
+/* ── GRAMMAR MINI GRID (2 cols of 5) ── */
+.grammar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gc{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.05);border:2px solid transparent;cursor:pointer;transition:all .18s;text-decoration:none;display:flex;align-items:center;gap:14px}
+.gc:hover{border-color:var(--lc);transform:translateX(4px);box-shadow:0 4px 16px rgba(20,100,180,.12)}
+.gc-num{font-size:20px;font-weight:900;color:var(--lc);min-width:28px;text-align:center}
+.gc-body{flex:1}
+.gc-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:2px}
+.gc-sub{font-size:12px;color:var(--txt2)}
+.gc-arrow{font-size:16px;color:var(--lc);opacity:.5}
+.gc:hover .gc-arrow{opacity:1}
+.gc-done{width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0}
+.gc.done .gc-done{opacity:1}
+.gc.done{border-color:#a5d6a7}
+
+/* ── PROGRESS OVERVIEW ── */
+.overview{background:#fff;border-radius:16px;padding:22px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:28px}
+.ov-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ov-item{text-align:center;background:var(--gray);border-radius:10px;padding:14px 8px}
+.ov-n{font-size:24px;font-weight:900;color:var(--lc)}
+.ov-total{font-size:13px;color:var(--txt3);font-weight:700}
+.ov-label{font-size:11px;color:var(--txt2);margin-top:3px}
+.ov-bar{height:4px;background:#e0e6f0;border-radius:4px;margin-top:8px;overflow:hidden}
+.ov-bar-fill{height:100%;background:var(--lc);border-radius:4px;transition:width .5s}
+
+/* ── CTA BLOCK ── */
+.cta{background:linear-gradient(135deg,#0b2545,var(--lc));border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-top:32px}
+.cta h3{font-size:20px;font-weight:900;margin-bottom:8px}
+.cta p{font-size:14px;opacity:.85;margin-bottom:16px}
+.cta-btn{display:inline-block;padding:12px 28px;border-radius:10px;background:var(--amber);color:var(--navy);font-weight:900;font-size:15px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
+.cta-btn:hover{background:#ffc107}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero h1{font-size:22px}
+  .ov-grid{grid-template-columns:repeat(2,1fr)}
+  .tb-crumb,.tb-sep{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <span class="tb-logo">🇩🇪 TGS</span>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb" data-t="home">Home</span>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb" data-t="a1_label">A1 Beginner</span>
+    <span class="tb-badge">A1</span>
+    <span class="tb-mod-badge" data-t="hub_badge">Learning Hub</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🇩🇪 TheGermanStefan · <span data-t="level_label">A1 Beginner Level</span></div>
+  <h1>🇩🇪 <span data-t="hub_title">A1 German — Learning Hub</span></h1>
+  <p class="sub" data-t="hub_sub">Your complete A1 journey: Grammar · Reading · Vocabulary · Speaking</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n">10</div><div class="hstat-l" data-t="stat_grammar">Grammar Topics</div></div>
+    <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" data-t="stat_reading">Reading Texts</div></div>
+    <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" data-t="stat_vocab">Vocab Sets</div></div>
+    <div class="hstat"><div class="hstat-n">10</div><div class="hstat-l" data-t="stat_speaking">Speaking Cards</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PROGRESS OVERVIEW -->
+  <div class="overview">
+    <div class="ov-title">📊 <span data-t="progress_title">Your A1 Progress</span></div>
+    <div class="ov-grid">
+      <div class="ov-item">
+        <div class="ov-n"><span id="g-done">0</span></div>
+        <div class="ov-total">/ 10</div>
+        <div class="ov-label" data-t="stat_grammar">Grammar</div>
+        <div class="ov-bar"><div class="ov-bar-fill" id="g-bar" style="width:0%"></div></div>
+      </div>
+      <div class="ov-item">
+        <div class="ov-n"><span id="r-done">0</span></div>
+        <div class="ov-total">/ 5</div>
+        <div class="ov-label" data-t="stat_reading">Reading</div>
+        <div class="ov-bar"><div class="ov-bar-fill" id="r-bar" style="width:0%"></div></div>
+      </div>
+      <div class="ov-item">
+        <div class="ov-n"><span id="v-done">0</span></div>
+        <div class="ov-total">/ 5</div>
+        <div class="ov-label" data-t="stat_vocab">Vocab</div>
+        <div class="ov-bar"><div class="ov-bar-fill" id="v-bar" style="width:0%"></div></div>
+      </div>
+      <div class="ov-item">
+        <div class="ov-n"><span id="s-done">0</span></div>
+        <div class="ov-total">/ 10</div>
+        <div class="ov-label" data-t="stat_speaking">Speaking</div>
+        <div class="ov-bar"><div class="ov-bar-fill" id="s-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAMMAR SECTION -->
+  <div class="section">
+    <div class="sec-hdr">
+      <div class="sec-icon">📖</div>
+      <div>
+        <div class="sec-title" data-t="grammar_title">Grammar</div>
+        <div class="sec-sub" data-t="grammar_sub">10 topics — from pronouns to the accusative case</div>
+      </div>
+      <div class="sec-badge">10 <span data-t="files">files</span></div>
+    </div>
+    <div class="grammar-grid" id="grammar-grid"></div>
+  </div>
+
+  <!-- READING SECTION -->
+  <div class="section">
+    <div class="sec-hdr">
+      <div class="sec-icon">📚</div>
+      <div>
+        <div class="sec-title" data-t="reading_title">Reading Room</div>
+        <div class="sec-sub" data-t="reading_sub">5 texts — read, understand, answer comprehension questions</div>
+      </div>
+      <div class="sec-badge">5 <span data-t="files">files</span></div>
+    </div>
+    <div class="content-grid" id="reading-grid"></div>
+  </div>
+
+  <!-- VOCABULARY SECTION -->
+  <div class="section">
+    <div class="sec-hdr">
+      <div class="sec-icon">🗂️</div>
+      <div>
+        <div class="sec-title" data-t="vocab_title">Vocabulary Sets</div>
+        <div class="sec-sub" data-t="vocab_sub">5 themed sets — flashcards, fill-in exercises, word lists</div>
+      </div>
+      <div class="sec-badge">5 <span data-t="files">files</span></div>
+    </div>
+    <div class="content-grid" id="vocab-grid"></div>
+  </div>
+
+  <!-- SPEAKING SECTION -->
+  <div class="section">
+    <div class="sec-hdr">
+      <div class="sec-icon">🗣️</div>
+      <div>
+        <div class="sec-title" data-t="speaking_title">Sprechen — Speaking Cards</div>
+        <div class="sec-sub" data-t="speaking_sub">10 speaking prompts — practice talking about yourself and everyday topics</div>
+      </div>
+      <div class="sec-badge">10 <span data-t="files">files</span></div>
+    </div>
+    <div class="grammar-grid" id="speaking-grid"></div>
+  </div>
+
+  <!-- CTA -->
+  <!-- NEXT LEVEL CTA -->
+<style>
+.next-lvl-wrap{margin:40px 0 0;padding:0}
+.next-lvl-link{display:block;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:transform .2s,box-shadow .2s}
+.next-lvl-link:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.65)}
+.next-lvl-inner{position:relative;background:linear-gradient(135deg,#062a33,#0d4a5a,#062a33);aspect-ratio:1460/750;display:flex;align-items:center;justify-content:space-between;padding:32px 40px}
+.next-lvl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.next-lvl-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.25) 60%,rgba(0,0,0,.6) 100%)}
+.next-lvl-text{position:relative;z-index:2}
+.next-lvl-badge{display:inline-block;background:#00bcd4;color:#000;font-weight:900;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+.next-lvl-title{color:#fff;font-size:2rem;font-weight:900;margin:0 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.next-lvl-sub{color:rgba(255,255,255,.85);font-size:1rem;margin:0}
+.next-lvl-arrow{position:relative;z-index:2;color:#00bcd4;font-size:3rem;font-weight:900;line-height:1}
+</style>
+<div class="next-lvl-wrap">
+  <a class="next-lvl-link" href="TheGermanStefan_A2_Hub.html">
+    <div class="next-lvl-inner">
+      <img class="next-lvl-img" src="banner_a2.jpg" alt="A2 German — Elementary" onerror="this.style.display='none'">
+      <div class="next-lvl-overlay"></div>
+      <div class="next-lvl-text">
+        <div class="next-lvl-badge">🚀 Level Up — A2</div>
+        <h2 class="next-lvl-title">A2 German — Elementary</h2>
+        <p class="next-lvl-sub">Build Real Conversations</p>
+      </div>
+      <div class="next-lvl-arrow">→</div>
+    </div>
+  </a>
+</div>
+</div><!-- /wrap -->
+
+<script>
+// ── LANG ─────────────────────────────────────────────────────────
+const LANG={
+en:{
+  home:'Home',a1_label:'A1 Beginner',hub_badge:'Learning Hub',
+  level_label:'A1 Beginner Level',
+  hub_title:'A1 German — Learning Hub',
+  hub_sub:'Your complete A1 journey: Grammar · Reading · Vocabulary · Speaking',
+  stat_grammar:'Grammar Topics',stat_reading:'Reading Texts',
+  stat_vocab:'Vocab Sets',stat_speaking:'Speaking Cards',
+  progress_title:'Your A1 Progress',
+  grammar_title:'Grammar',grammar_sub:'10 topics — from pronouns to the accusative case',
+  reading_title:'Reading Room',reading_sub:'5 texts — read, understand, answer comprehension questions',
+  vocab_title:'Vocabulary Sets',vocab_sub:'5 themed sets — flashcards, fill-in exercises, word lists',
+  speaking_title:'Sprechen — Speaking Cards',speaking_sub:'10 speaking prompts — practice talking about yourself and everyday topics',
+  files:'files',tag_grammar:'Grammar',tag_reading:'Reading',tag_vocab:'Vocab',tag_speaking:'Speaking',
+  completed:'Completed',
+  cta_title:'Ready for A2? 🚀',
+  cta_sub:'Complete all A1 content above, then level up to A2 — intermediate German awaits!',
+  cta_btn:'Coming Soon — A2 Hub',
+},
+fr:{
+  home:'Accueil',a1_label:'A1 Débutant',hub_badge:'Hub d\'apprentissage',
+  level_label:'Niveau A1 Débutant',
+  hub_title:'Allemand A1 — Hub d\'apprentissage',
+  hub_sub:'Votre parcours A1 complet : Grammaire · Lecture · Vocabulaire · Expression orale',
+  stat_grammar:'Sujets de grammaire',stat_reading:'Textes de lecture',
+  stat_vocab:'Sets de vocabulaire',stat_speaking:'Cartes de conversation',
+  progress_title:'Votre progression A1',
+  grammar_title:'Grammaire',grammar_sub:'10 sujets — des pronoms au cas accusatif',
+  reading_title:'Salle de lecture',reading_sub:'5 textes — lisez, comprenez, répondez aux questions',
+  vocab_title:'Sets de vocabulaire',vocab_sub:'5 sets thématiques — flashcards, exercices, listes de mots',
+  speaking_title:'Sprechen — Cartes d\'expression orale',speaking_sub:'10 sujets de conversation — pratiquez parler de vous et de la vie quotidienne',
+  files:'fichiers',tag_grammar:'Grammaire',tag_reading:'Lecture',tag_vocab:'Vocab',tag_speaking:'Expression',
+  completed:'Complété',
+  cta_title:'Prêt pour A2 ? 🚀',
+  cta_sub:'Terminez tout le contenu A1, puis passez au niveau A2 !',
+  cta_btn:'Bientôt disponible — Hub A2',
+},
+es:{
+  home:'Inicio',a1_label:'A1 Principiante',hub_badge:'Hub de aprendizaje',
+  level_label:'Nivel A1 Principiante',
+  hub_title:'Alemán A1 — Hub de aprendizaje',
+  hub_sub:'Tu recorrido completo por A1: Gramática · Lectura · Vocabulario · Conversación',
+  stat_grammar:'Temas de gramática',stat_reading:'Textos de lectura',
+  stat_vocab:'Sets de vocabulario',stat_speaking:'Tarjetas de conversación',
+  progress_title:'Tu progreso en A1',
+  grammar_title:'Gramática',grammar_sub:'10 temas — desde los pronombres hasta el caso acusativo',
+  reading_title:'Sala de lectura',reading_sub:'5 textos — lee, comprende, responde las preguntas',
+  vocab_title:'Sets de vocabulario',vocab_sub:'5 sets temáticos — flashcards, ejercicios, listas de palabras',
+  speaking_title:'Sprechen — Tarjetas de conversación',speaking_sub:'10 temas de conversación — practica hablar de ti y de la vida cotidiana',
+  files:'archivos',tag_grammar:'Gramática',tag_reading:'Lectura',tag_vocab:'Vocab',tag_speaking:'Conversación',
+  completed:'Completado',
+  cta_title:'¿Listo para A2? 🚀',
+  cta_sub:'Completa todo el contenido A1, luego pasa al nivel A2.',
+  cta_btn:'Próximamente — Hub A2',
+},
+it:{
+  home:'Home',a1_label:'A1 Principiante',hub_badge:'Hub di apprendimento',
+  level_label:'Livello A1 Principiante',
+  hub_title:'Tedesco A1 — Hub di apprendimento',
+  hub_sub:'Il tuo percorso A1 completo: Grammatica · Lettura · Vocabolario · Parlato',
+  stat_grammar:'Argomenti di grammatica',stat_reading:'Testi di lettura',
+  stat_vocab:'Set di vocabolario',stat_speaking:'Carte di conversazione',
+  progress_title:'Il tuo progresso A1',
+  grammar_title:'Grammatica',grammar_sub:'10 argomenti — dai pronomi al caso accusativo',
+  reading_title:'Sala di lettura',reading_sub:'5 testi — leggi, comprendi, rispondi alle domande',
+  vocab_title:'Set di vocabolario',vocab_sub:'5 set tematici — flashcard, esercizi, liste di parole',
+  speaking_title:'Sprechen — Carte di conversazione',speaking_sub:'10 argomenti di conversazione — pratica a parlare di te e della vita quotidiana',
+  files:'file',tag_grammar:'Grammatica',tag_reading:'Lettura',tag_vocab:'Vocab',tag_speaking:'Parlato',
+  completed:'Completato',
+  cta_title:'Pronto per A2? 🚀',
+  cta_sub:'Completa tutti i contenuti A1, poi passa al livello A2!',
+  cta_btn:'Prossimamente — Hub A2',
+},
+pt:{
+  home:'Início',a1_label:'A1 Iniciante',hub_badge:'Hub de aprendizagem',
+  level_label:'Nível A1 Iniciante',
+  hub_title:'Alemão A1 — Hub de aprendizagem',
+  hub_sub:'Sua jornada A1 completa: Gramática · Leitura · Vocabulário · Fala',
+  stat_grammar:'Tópicos de gramática',stat_reading:'Textos de leitura',
+  stat_vocab:'Sets de vocabulário',stat_speaking:'Cartões de conversação',
+  progress_title:'Seu progresso no A1',
+  grammar_title:'Gramática',grammar_sub:'10 tópicos — dos pronomes ao caso acusativo',
+  reading_title:'Sala de leitura',reading_sub:'5 textos — leia, entenda, responda às perguntas',
+  vocab_title:'Sets de vocabulário',vocab_sub:'5 sets temáticos — flashcards, exercícios, listas de palavras',
+  speaking_title:'Sprechen — Cartões de conversação',speaking_sub:'10 temas de conversação — pratique falar sobre si mesmo e a vida cotidiana',
+  files:'arquivos',tag_grammar:'Gramática',tag_reading:'Leitura',tag_vocab:'Vocab',tag_speaking:'Fala',
+  completed:'Concluído',
+  cta_title:'Pronto para A2? 🚀',
+  cta_sub:'Conclua todo o conteúdo A1 e avance para o A2!',
+  cta_btn:'Em breve — Hub A2',
+}
+};
+
+let CL=localStorage.getItem('tgs_lang')||'en';
+function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang();buildGrids();}
+function applyLang(){
+  document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
+}
+
+// ── CONTENT DATA ─────────────────────────────────────────────────
+const GRAMMAR=[
+  {n:'01',title:'Personalpronomen',sub:'ich · du · er/sie/es · wir · ihr · sie/Sie',file:'A1_Grammar_01_Personalpronomen.html'},
+  {n:'02',title:'Sein & Haben',sub:'bin/bist/ist · habe/hast/hat',file:'A1_Grammar_02_Sein_Haben.html'},
+  {n:'03',title:'Präsens',sub:'Regular verb conjugation: -e/-st/-t/-en/-t/-en',file:'A1_Grammar_03_Praesens.html'},
+  {n:'04',title:'Artikel',sub:'der / die / das · ein / eine / ein',file:'A1_Grammar_04_Artikel.html'},
+  {n:'05',title:'Negation',sub:'nicht vs. kein/keine/kein',file:'A1_Grammar_05_Negation.html'},
+  {n:'06',title:'Zahlen',sub:'Numbers 0–100 · einundzwanzig pattern',file:'A1_Grammar_06_Zahlen.html'},
+  {n:'07',title:'Wortstellung',sub:'V2 rule · yes/no questions · W-questions',file:'A1_Grammar_07_Wortstellung.html'},
+  {n:'08',title:'Trennbare Verben',sub:'aufstehen · anrufen · einkaufen · abfahren...',file:'A1_Grammar_08_Trennbare_Verben.html'},
+  {n:'09',title:'Adjektive',sub:'Predicative adjectives — groß · klein · schön...',file:'A1_Grammar_09_Adjektive.html'},
+  {n:'10',title:'Akkusativ',sub:'Direct object · der→den · ein→einen',file:'A1_Grammar_10_Akkusativ.html'},
+];
+const READING=[
+  {n:'01',emoji:'🏠',title:'Mein Zuhause',sub:'Describing your home — rooms, furniture, location',file:'A1_Reading_01_Mein_Zuhause.html'},
+  {n:'02',emoji:'🛒',title:'Im Supermarkt',sub:'Shopping dialogue — food, quantities, prices',file:'A1_Reading_02_Im_Supermarkt.html'},
+  {n:'03',emoji:'🚂',title:'Eine Reise',sub:'Travel story — trains, tickets, destinations',file:'A1_Reading_03_Eine_Reise.html'},
+  {n:'04',emoji:'👩‍⚕️',title:'Beim Arzt',sub:'Doctor visit — body parts, symptoms, appointments',file:'A1_Reading_04_Beim_Arzt.html'},
+  {n:'05',emoji:'📅',title:'Mein Alltag',sub:'Daily routine — times, activities, weekdays',file:'A1_Reading_05_Mein_Alltag.html'},
+];
+const VOCAB=[
+  {n:'01',emoji:'🏠',title:'Wohnen',sub:'Rooms · furniture · household objects',file:'A1_Vocab_01_Wohnen.html'},
+  {n:'02',emoji:'🍎',title:'Essen & Trinken',sub:'Food, drinks, meals, quantities',file:'A1_Vocab_02_Essen.html'},
+  {n:'03',emoji:'👗',title:'Kleidung',sub:'Clothing items · colours · getting dressed',file:'A1_Vocab_03_Kleidung.html'},
+  {n:'04',emoji:'🏙️',title:'Stadt & Orte',sub:'City places · directions · transport',file:'A1_Vocab_04_Stadt.html'},
+  {n:'05',emoji:'💼',title:'Arbeit & Berufe',sub:'Jobs · workplace · daily work vocabulary',file:'A1_Vocab_05_Arbeit.html'},
+];
+const SPEAKING=[
+  {n:'01',title:'Sich vorstellen',sub:'Introduce yourself — name, age, origin, job',file:'A1_Sprechen_01_Vorstellen.html'},
+  {n:'02',title:'Familie beschreiben',sub:'Talk about your family members',file:'A1_Sprechen_02_Familie.html'},
+  {n:'03',title:'Wohnen',sub:'Describe where and how you live',file:'A1_Sprechen_03_Wohnen.html'},
+  {n:'04',title:'Einkaufen',sub:'Shopping dialogue at a market or store',file:'A1_Sprechen_04_Einkaufen.html'},
+  {n:'05',title:'Tagesablauf',sub:'Describe your daily routine',file:'A1_Sprechen_05_Tagesablauf.html'},
+  {n:'06',title:'Hobbys & Freizeit',sub:'Talk about your hobbies and free time',file:'A1_Sprechen_06_Hobbys.html'},
+  {n:'07',title:'Im Restaurant',sub:'Order food and drinks in a restaurant',file:'A1_Sprechen_07_Restaurant.html'},
+  {n:'08',title:'Weg beschreiben',sub:'Give and understand directions',file:'A1_Sprechen_08_Weg.html'},
+  {n:'09',title:'Termine & Pläne',sub:'Make appointments and talk about plans',file:'A1_Sprechen_09_Termine.html'},
+  {n:'10',title:'Reisen',sub:'Talk about travel, transport and destinations',file:'A1_Sprechen_10_Reisen.html'},
+];
+
+// ── PROGRESS TRACKING ─────────────────────────────────────────────
+const DONE=JSON.parse(localStorage.getItem('tgs_a1_done')||'{}');
+function markDone(key){DONE[key]=true;localStorage.setItem('tgs_a1_done',JSON.stringify(DONE));updateProgress();}
+function updateProgress(){
+  const gd=GRAMMAR.filter((_,i)=>DONE['g'+i]).length;
+  const rd=READING.filter((_,i)=>DONE['r'+i]).length;
+  const vd=VOCAB.filter((_,i)=>DONE['v'+i]).length;
+  const sd=SPEAKING.filter((_,i)=>DONE['s'+i]).length;
+  document.getElementById('g-done').textContent=gd;
+  document.getElementById('r-done').textContent=rd;
+  document.getElementById('v-done').textContent=vd;
+  document.getElementById('s-done').textContent=sd;
+  document.getElementById('g-bar').style.width=(gd/10*100)+'%';
+  document.getElementById('r-bar').style.width=(rd/5*100)+'%';
+  document.getElementById('v-bar').style.width=(vd/5*100)+'%';
+  document.getElementById('s-bar').style.width=(sd/10*100)+'%';
+  const total=gd+rd+vd+sd;
+  document.getElementById('pgf').style.width=(total/30*100)+'%';
+}
+
+// ── BUILD GRIDS ───────────────────────────────────────────────────
+function buildGrids(){
+  // Grammar
+  const gg=document.getElementById('grammar-grid');gg.innerHTML='';
+  GRAMMAR.forEach((item,i)=>{
+    const isDone=DONE['g'+i];
+    const el=document.createElement('a');
+    el.className='gc'+(isDone?' done':'');
+    el.href=item.file;
+    el.innerHTML=
+      '<div class="gc-num">'+item.n+'</div>'
+      +'<div class="gc-body"><div class="gc-title">'+item.title+'</div><div class="gc-sub">'+item.sub+'</div></div>'
+      +'<div class="gc-arrow">→</div>'
+      +'<div class="gc-done">✓</div>';
+    el.addEventListener('click',()=>markDone('g'+i));
+    gg.appendChild(el);
+  });
+
+  // Reading
+  const rg=document.getElementById('reading-grid');rg.innerHTML='';
+  READING.forEach((item,i)=>{
+    const isDone=DONE['r'+i];
+    const el=document.createElement('a');
+    el.className='cc'+(isDone?' done':'');
+    el.href=item.file;
+    el.innerHTML=
+      '<div class="cc-done">✓</div>'
+      +'<div class="cc-num">'+t('tag_reading')+' '+item.n+'</div>'
+      +'<div class="cc-title">'+item.emoji+' '+item.title+'</div>'
+      +'<div class="cc-sub">'+item.sub+'</div>'
+      +'<div class="cc-foot"><span class="cc-tag">A1</span><span class="cc-tag green">'+t('tag_reading')+'</span></div>';
+    el.addEventListener('click',()=>markDone('r'+i));
+    rg.appendChild(el);
+  });
+
+  // Vocab
+  const vg=document.getElementById('vocab-grid');vg.innerHTML='';
+  VOCAB.forEach((item,i)=>{
+    const isDone=DONE['v'+i];
+    const el=document.createElement('a');
+    el.className='cc'+(isDone?' done':'');
+    el.href=item.file;
+    el.innerHTML=
+      '<div class="cc-done">✓</div>'
+      +'<div class="cc-num">'+t('tag_vocab')+' '+item.n+'</div>'
+      +'<div class="cc-title">'+item.emoji+' '+item.title+'</div>'
+      +'<div class="cc-sub">'+item.sub+'</div>'
+      +'<div class="cc-foot"><span class="cc-tag">A1</span><span class="cc-tag amber">'+t('tag_vocab')+'</span></div>';
+    el.addEventListener('click',()=>markDone('v'+i));
+    vg.appendChild(el);
+  });
+
+  // Speaking
+  const sg=document.getElementById('speaking-grid');sg.innerHTML='';
+  SPEAKING.forEach((item,i)=>{
+    const isDone=DONE['s'+i];
+    const el=document.createElement('a');
+    el.className='gc'+(isDone?' done':'');
+    el.href=item.file;
+    el.innerHTML=
+      '<div class="gc-num">'+item.n+'</div>'
+      +'<div class="gc-body"><div class="gc-title">'+item.title+'</div><div class="gc-sub">'+item.sub+'</div></div>'
+      +'<div class="gc-arrow">→</div>'
+      +'<div class="gc-done">✓</div>';
+    el.addEventListener('click',()=>markDone('s'+i));
+    sg.appendChild(el);
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
+  applyLang();
+  buildGrids();
+  updateProgress();
+});
+</script>
+<script src="level-nav.js"></script>
+</body>
+</html>
