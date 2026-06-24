@@ -1,18 +1,19 @@
 /* TheGermanStefan — Level Navigation Bar
-   Add to any hub page: <script src="level-nav.js"></script> before </body>
+   Add to any hub page: <script src="level-nav.js"></script>
+   Always-visible sticky nav — no top-bar needed on pages using this script.
 */
 (function(){
   var BASE = 'https://thegermanstefan.github.io/';
   var pages = [
-    { id:'a0',  emoji:'🌱', label:'A0', badge:'FREE',    cls:'free',    file:'TheGermanStefan_A0_Beginner_Hub.html' },
-    { id:'a1',  emoji:'🇩🇪', label:'A1', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A1_Hub.html' },
-    { id:'a2',  emoji:'📗',  label:'A2', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A2_Hub.html' },
-    { id:'b1',  emoji:'📘',  label:'B1', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_B1_Hub.html' },
-    { id:'b2',  emoji:'📕',  label:'B2', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_B2_Hub.html' },
-    { id:'c1',  emoji:'🏆',  label:'C1', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_C1_Hub.html' },
-    { id:'c2',  emoji:'🎓',  label:'C2', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_C2_Hub.html' },
-    { id:'vocab', emoji:'📚', label:'Vocab', badge:'FREE', cls:'free',   file:'TheGermanStefan_Vocab_Hub.html' },
-    { id:'skills', emoji:'🎯', label:'Special', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_Special_Skills_Hub.html' },
+    { id:'a0',    emoji:'🎉️',  label:'A0',      badge:'FREE',    cls:'~ree',    file:'TheGermanStefan_A0_Beginner_Hub.html' },
+    { id:'a1',    emoji:'🆬🇧', label:'A1',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A1_Hub.html' },
+    { id:'a2',    emoji:'🐗',  label:'A2',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A2_Hub.html' },
+    { id:'b1',    emoji:'🐘',  label:'B1',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_B1_Hub.html' },
+    { id:'b2',    emoji:'🐕',  label:'B2',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_B2_Hub.html' },
+    { id:'c1',    emoji:'🎆',  label:'C1',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_C1_Hub.html' },
+    { id:'c2',    emoji:'🎓',  label:'C2',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_C2_Hub.html' },
+    { id:'vocab', emoji:'🐜',  label:'Vocab',   badge:'FREE',    cls:'~ree',    file:'TheGermanStefan_Vocab_Hub.html' },
+    { id:'skills',emoji:'🎣',  label:'Special', badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_Special_Skills_Hub.html' },
     { id:'exam',  emoji:'🎖️', label:'Exams',   badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_Exam_Room.html' }
   ];
 
@@ -27,8 +28,8 @@
       overflow-x: auto;
       scrollbar-width: none;
       position: sticky;
-      top: 52px;
-      z-index: 198;
+      top: 0;
+      z-index: 1000;
       border-bottom: 2px solid rgba(255,255,255,.12);
     }
     .tgs-level-nav::-webkit-scrollbar { display: none; }
@@ -90,10 +91,6 @@
     nav.appendChild(a);
   });
 
-  var topbar = document.querySelector('.topbar');
-  if (topbar && topbar.nextSibling) {
-    topbar.parentNode.insertBefore(nav, topbar.nextSibling);
-  } else {
-    document.body.insertBefore(nav, document.body.firstChild);
-  }
+  // Always insert at the very top of body so sticky top:0 works correctly
+  document.body.insertBefore(nav, document.body.firstChild);
 })();
