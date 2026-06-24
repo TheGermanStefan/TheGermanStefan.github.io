@@ -43,8 +43,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .card-title{font-weight:800;font-size:14px;color:var(--navy);margin-bottom:2px}
 .card-sub{font-size:12px;color:var(--txt2);line-height:1.4}
 .card-arrow{font-size:16px;color:var(--lc);flex-shrink:0}
-.card.done .card-arrow::before{content:"â";color:var(--green)}
-.card:not(.done) .card-arrow::before{content:"â"}
+.card.done .card-arrow::before{content:"✓";color:var(--green)}
+.card:not(.done) .card-arrow::before{content:"→"}
 .overview{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:24px}
 .ov-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eee}
 .ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
@@ -152,45 +152,45 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 </div>
 
 <script>
-const LANG={en:{home:'Home',hero_title:'A2 â Elementary German',hero_sub:'Build on your foundations. Master past tenses, subordinate clauses, comparatives and more.',prog_label:'Overall Progress',prog_done:'modules done',ov_title:'Section Overview',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocab Sets',sec_speaking:'Sprechen Cards'},fr:{home:'Accueil',hero_title:'A2 â Allemand Ã©lÃ©mentaire',hero_sub:'Consolidez vos bases.',prog_label:'Progression globale',prog_done:'modules terminÃ©s',ov_title:'AperÃ§u',sec_grammar:'Grammaire',sec_reading:'Lecture',sec_vocab:'Vocabulaire',sec_speaking:'Cartes de parole'},es:{home:'Inicio',hero_title:'A2 â AlemÃ¡n elemental',hero_sub:'Consolida tus bases.',prog_label:'Progreso total',prog_done:'mÃ³dulos completados',ov_title:'Resumen',sec_grammar:'GramÃ¡tica',sec_reading:'Lectura',sec_vocab:'Vocabulario',sec_speaking:'Tarjetas de conversaciÃ³n'},it:{home:'Home',hero_title:'A2 â Tedesco elementare',hero_sub:'Consolida le basi.',prog_label:'Progresso totale',prog_done:'moduli completati',ov_title:'Panoramica',sec_grammar:'Grammatica',sec_reading:'Lettura',sec_vocab:'Vocabolario',sec_speaking:'Carte di conversazione'},pt:{home:'InÃ­cio',hero_title:'A2 â AlemÃ£o elementar',hero_sub:'Consolide suas bases.',prog_label:'Progresso geral',prog_done:'mÃ³dulos concluÃ­dos',ov_title:'VisÃ£o geral',sec_grammar:'GramÃ¡tica',sec_reading:'Leitura',sec_vocab:'VocabulÃ¡rio',sec_speaking:'CartÃµes de conversaÃ§Ã£o'}};
+const LANG={en:{home:'Home',hero_title:'A2 — Elementary German',hero_sub:'Build on your foundations. Master past tenses, subordinate clauses, comparatives and more.',prog_label:'Overall Progress',prog_done:'modules done',ov_title:'Section Overview',sec_grammar:'Grammar',sec_reading:'Reading Room',sec_vocab:'Vocab Sets',sec_speaking:'Sprechen Cards'},fr:{home:'Accueil',hero_title:'A2 — Allemand élémentaire',hero_sub:'Consolidez vos bases.',prog_label:'Progression globale',prog_done:'modules terminés',ov_title:'Aperçu',sec_grammar:'Grammaire',sec_reading:'Lecture',sec_vocab:'Vocabulaire',sec_speaking:'Cartes de parole'},es:{home:'Inicio',hero_title:'A2 — Alemán elemental',hero_sub:'Consolida tus bases.',prog_label:'Progreso total',prog_done:'módulos completados',ov_title:'Resumen',sec_grammar:'Gramática',sec_reading:'Lectura',sec_vocab:'Vocabulario',sec_speaking:'Tarjetas de conversación'},it:{home:'Home',hero_title:'A2 — Tedesco elementare',hero_sub:'Consolida le basi.',prog_label:'Progresso totale',prog_done:'moduli completati',ov_title:'Panoramica',sec_grammar:'Grammatica',sec_reading:'Lettura',sec_vocab:'Vocabolario',sec_speaking:'Carte di conversazione'},pt:{home:'Início',hero_title:'A2 — Alemão elementar',hero_sub:'Consolide suas bases.',prog_label:'Progresso geral',prog_done:'módulos concluídos',ov_title:'Visão geral',sec_grammar:'Gramática',sec_reading:'Leitura',sec_vocab:'Vocabulário',sec_speaking:'Cartões de conversação'}};
 
 const GRAMMAR=[
   {n:'01',title:'Perfekt',sub:'haben/sein + Partizip II',f:'A2_Grammar_01_Perfekt.html'},
-  {n:'02',title:'Modalverben',sub:'kÃ¶nnen, mÃ¼ssen, wollen & co.',f:'A2_Grammar_02_Modalverben.html'},
-  {n:'03',title:'Der Dativ',sub:'dem/der Â· dative prepositions',f:'A2_Grammar_03_Dativ.html'},
-  {n:'04',title:'WechselprÃ¤positionen',sub:'Accusative vs. dative (Wohin?/Wo?)',f:'A2_Grammar_04_Wechselpraepositionen.html'},
-  {n:'05',title:'Komparativ & Superlativ',sub:'schneller Â· am schnellsten',f:'A2_Grammar_05_Komparativ.html'},
-  {n:'06',title:'Das PrÃ¤teritum',sub:'war, hatte, konnte â simple past',f:'A2_Grammar_06_Praeteritum.html'},
-  {n:'07',title:'NebensÃ¤tze',sub:'weil, dass, wenn, ob',f:'A2_Grammar_07_Nebensaetze.html'},
-  {n:'08',title:'RelativsÃ¤tze',sub:'der/die/das as relative pronouns',f:'A2_Grammar_08_Relativsaetze.html'},
+  {n:'02',title:'Modalverben',sub:'können, müssen, wollen & co.',f:'A2_Grammar_02_Modalverben.html'},
+  {n:'03',title:'Der Dativ',sub:'dem/der · dative prepositions',f:'A2_Grammar_03_Dativ.html'},
+  {n:'04',title:'Wechselpräpositionen',sub:'Accusative vs. dative (Wohin?/Wo?)',f:'A2_Grammar_04_Wechselpraepositionen.html'},
+  {n:'05',title:'Komparativ & Superlativ',sub:'schneller · am schnellsten',f:'A2_Grammar_05_Komparativ.html'},
+  {n:'06',title:'Das Präteritum',sub:'war, hatte, konnte — simple past',f:'A2_Grammar_06_Praeteritum.html'},
+  {n:'07',title:'Nebensätze',sub:'weil, dass, wenn, ob',f:'A2_Grammar_07_Nebensaetze.html'},
+  {n:'08',title:'Relativsätze',sub:'der/die/das as relative pronouns',f:'A2_Grammar_08_Relativsaetze.html'},
   {n:'09',title:'Futur I',sub:'werden + Infinitiv',f:'A2_Grammar_09_Futur1.html'},
-  {n:'10',title:'Konjunktiv II',sub:'wÃ¼rde, wÃ¤re, hÃ¤tte',f:'A2_Grammar_10_Konjunktiv2.html'},
+  {n:'10',title:'Konjunktiv II',sub:'würde, wäre, hätte',f:'A2_Grammar_10_Konjunktiv2.html'},
 ];
 const READING=[
   {n:'01',title:'Am Bahnhof',sub:'Train travel vocabulary in context',f:'A2_Reading_01.html'},
   {n:'02',title:'Ein Stadtspaziergang',sub:'Exploring a German city',f:'A2_Reading_02.html'},
-  {n:'03',title:'Das VorstellungsgesprÃ¤ch',sub:'A job interview story',f:'A2_Reading_03.html'},
+  {n:'03',title:'Das Vorstellungsgespräch',sub:'A job interview story',f:'A2_Reading_03.html'},
   {n:'04',title:'Im Restaurant',sub:'Ordering food & German customs',f:'A2_Reading_04.html'},
-  {n:'05',title:'Urlaub in Ãsterreich',sub:'A holiday in Austria',f:'A2_Reading_05.html'},
+  {n:'05',title:'Urlaub in Österreich',sub:'A holiday in Austria',f:'A2_Reading_05.html'},
 ];
 const VOCAB=[
   {n:'01',title:'Berufe & Arbeit',sub:'Jobs and the workplace',f:'A2_Vocab_01.html'},
   {n:'02',title:'Reisen & Verkehr',sub:'Travel and transport',f:'A2_Vocab_02.html'},
-  {n:'03',title:'KÃ¶rper & Gesundheit',sub:'Body and health',f:'A2_Vocab_03.html'},
+  {n:'03',title:'Körper & Gesundheit',sub:'Body and health',f:'A2_Vocab_03.html'},
   {n:'04',title:'Wohnen & Zuhause',sub:'Home and living',f:'A2_Vocab_04.html'},
   {n:'05',title:'Freizeit & Hobbys',sub:'Free time and hobbies',f:'A2_Vocab_05.html'},
 ];
 const SPEAKING=[
   {n:'01',title:'Sich vorstellen',sub:'Introducing yourself',f:'A2_Sprechen_01.html'},
-  {n:'02',title:'PlÃ¤ne machen',sub:'Making plans with modals',f:'A2_Sprechen_02.html'},
-  {n:'03',title:'Vergangenheit erzÃ¤hlen',sub:'Talking about the past',f:'A2_Sprechen_03.html'},
-  {n:'04',title:'StadtgespreÃ¤ch',sub:'Giving directions in a city',f:'A2_Sprechen_04.html'},
+  {n:'02',title:'Pläne machen',sub:'Making plans with modals',f:'A2_Sprechen_02.html'},
+  {n:'03',title:'Vergangenheit erzählen',sub:'Talking about the past',f:'A2_Sprechen_03.html'},
+  {n:'04',title:'Stadtgespreäch',sub:'Giving directions in a city',f:'A2_Sprechen_04.html'},
   {n:'05',title:'Beim Arzt',sub:'At the doctor',f:'A2_Sprechen_05.html'},
   {n:'06',title:'Einkaufen gehen',sub:'Shopping conversation',f:'A2_Sprechen_06.html'},
   {n:'07',title:'Am Telefon',sub:'Telephone conversations',f:'A2_Sprechen_07.html'},
-  {n:'08',title:'Meinungen Ã¤uÃern',sub:'Expressing opinions',f:'A2_Sprechen_08.html'},
+  {n:'08',title:'Meinungen äußern',sub:'Expressing opinions',f:'A2_Sprechen_08.html'},
   {n:'09',title:'Vergleiche ziehen',sub:'Making comparisons',f:'A2_Sprechen_09.html'},
-  {n:'10',title:'WÃ¼nsche & TrÃ¤ume',sub:'Wishes and dreams (Konjunktiv)',f:'A2_Sprechen_10.html'},
+  {n:'10',title:'Wünsche & Träume',sub:'Wishes and dreams (Konjunktiv)',f:'A2_Sprechen_10.html'},
 ];
 
 let CL=localStorage.getItem('tgs_lang')||'en';
