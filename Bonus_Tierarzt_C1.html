@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deutsch für Tierärzte · C1 · TheGermanStefan</title>
+  <style>
+    :root {
+      --dark: #0d1117;
+      --card: #161b22;
+      --card2: #1c2333;
+      --border: #30363d;
+      --gold: #f0b429;
+      --gold2: #ffd166;
+      --green: #3fb950;
+      --blue: #58a6ff;
+      --purple: #bc8cff;
+      --red: #f85149;
+      --teal: #39d353;
+      --text: #e6edf3;
+      --muted: #8b949e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--dark); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+
+    /* NAV */
+    .top-nav { background: #010409; border-bottom: 1px solid var(--border); padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .top-nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    .top-nav a:hover { color: var(--text); }
+    .top-nav .sep { color: var(--border); }
+    .nav-badge { background: var(--gold); color: #000; font-size: 0.7rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #0d1117 0%, #1a1a2e 50%, #16213e 100%); padding: 4rem 2rem 3rem; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero::before { content: '🐾'; font-size: 8rem; position: absolute; opacity: 0.04; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .level-pill { display: inline-block; background: linear-gradient(135deg, var(--purple), #7c3aed); color: white; font-size: 0.75rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: var(--muted); max-width: 600px; margin: 0 auto 1.5rem; font-size: 1.05rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .hero-tag { background: var(--card); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--muted); }
+
+    /* TABS */
+    .tabs { background: var(--card); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; }
+    .tab-btn { padding: 1rem 1.4rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.9rem; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+
+    /* CONTENT */
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* SECTION TITLE */
+    .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-title span { color: var(--gold); }
+
+    /* VOCAB GRID */
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; transition: border-color 0.2s; }
+    .vocab-card:hover { border-color: var(--gold); }
+    .vocab-de { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .vocab-en { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+    .vocab-ex { font-size: 0.82rem; color: var(--blue); margin-top: 6px; font-style: italic; border-top: 1px solid var(--border); padding-top: 6px; }
+
+    /* CATEGORY LABEL */
+    .cat-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--purple); margin-bottom: 0.75rem; margin-top: 1.5rem; }
+
+    /* DIALOGUE */
+    .dialogue-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; }
+    .dialogue-header { background: var(--card2); padding: 0.8rem 1.2rem; font-weight: 700; font-size: 0.9rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+    .dialogue-header .badge { background: var(--purple); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; }
+    .dialogue-body { padding: 1.2rem; }
+    .line { display: flex; gap: 0.8rem; margin-bottom: 0.9rem; align-items: flex-start; }
+    .line:last-child { margin-bottom: 0; }
+    .speaker { font-weight: 700; font-size: 0.8rem; min-width: 80px; padding-top: 2px; }
+    .speaker.arzt { color: var(--blue); }
+    .speaker.kunde { color: var(--green); }
+    .speaker.helfer { color: var(--gold); }
+    .line-text { flex: 1; }
+    .line-de { font-size: 0.95rem; }
+    .line-en { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+
+    /* PHRASE BLOCK */
+    .phrase-section { margin-bottom: 2rem; }
+    .phrase-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .phrase-item:hover { border-color: var(--purple); }
+    .phrase-de { font-weight: 600; font-size: 0.95rem; flex: 1; }
+    .phrase-en { font-size: 0.82rem; color: var(--muted); min-width: 200px; }
+
+    /* FLASHCARDS */
+    .flashcard-area { text-align: center; margin-bottom: 2rem; }
+    .flashcard { background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 2.5rem 2rem; cursor: pointer; max-width: 500px; margin: 0 auto 1rem; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s; user-select: none; }
+    .flashcard:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .flashcard.flipped { border-color: var(--green); }
+    .flashcard .front { font-size: 1.4rem; font-weight: 700; }
+    .flashcard .back { display: none; }
+    .flashcard.flipped .front { display: none; }
+    .flashcard.flipped .back { display: block; }
+    .flashcard .back .answer { font-size: 1.3rem; font-weight: 700; color: var(--green); }
+    .flashcard .back .example { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; font-style: italic; }
+    .fc-controls { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .fc-btn { padding: 0.6rem 1.4rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .fc-btn.prev { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+    .fc-btn.flip { background: var(--gold); color: #000; }
+    .fc-btn.next { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+    .fc-counter { color: var(--muted); font-size: 0.85rem; margin-top: 0.75rem; }
+
+    /* QUIZ */
+    .quiz-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .quiz-q { font-weight: 700; margin-bottom: 1rem; font-size: 1rem; }
+    .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .quiz-opt { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 1rem; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; text-align: left; color: var(--text); }
+    .quiz-opt:hover { border-color: var(--blue); }
+    .quiz-opt.correct { background: rgba(63,185,80,0.15); border-color: var(--green); color: var(--green); }
+    .quiz-opt.wrong { background: rgba(248,81,73,0.15); border-color: var(--red); color: var(--red); }
+    .quiz-feedback { margin-top: 0.8rem; font-size: 0.9rem; min-height: 1.2em; }
+    .quiz-score { text-align: center; font-size: 1.5rem; font-weight: 800; color: var(--gold); margin: 1rem 0; }
+    .quiz-reset { display: block; margin: 0 auto; padding: 0.7rem 2rem; background: var(--gold); color: #000; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
+
+    /* INFO BOX */
+    .info-box { background: rgba(88,166,255,0.08); border: 1px solid rgba(88,166,255,0.3); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--muted); }
+    .info-box strong { color: var(--blue); }
+
+    /* GRAMMAR TIP */
+    .grammar-tip { background: rgba(188,140,255,0.08); border-left: 4px solid var(--purple); border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem; margin-bottom: 1.2rem; }
+    .grammar-tip .tip-label { font-size: 0.75rem; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .phrase-item { flex-direction: column; gap: 0.3rem; }
+      .phrase-en { min-width: unset; }
+      .line { flex-direction: column; gap: 0.3rem; }
+      .speaker { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="https://thegermanstefan.github.io">🏠 TheGermanStefan</a>
+  <span class="sep">›</span>
+  <a href="TheGermanStefan_Special_Skills_Hub.html">Special Skills</a>
+  <span class="sep">›</span>
+  <span style="color:var(--text)">Tierarzt C1</span>
+  <span class="nav-badge">C1</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="level-pill">🐾 C1 · FACHSPRACHE</div>
+  <h1>Deutsch für <span>Tierärzte</span></h1>
+  <p>Professionelle Sprache für den tierärztlichen Alltag — Terminologie, Dialoge, Ausdrücke & Übungen</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🔬 Medizinische Terminologie</span>
+    <span class="hero-tag">📞 Telefongespräche</span>
+    <span class="hero-tag">🤝 Patientenempfang</span>
+    <span class="hero-tag">💊 Verschreibungen</span>
+    <span class="hero-tag">🩺 Untersuchung</span>
+    <span class="hero-tag">📋 Diagnose & Behandlung</span>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab('vocab')">📚 Vokabular</button>
+  <button class="tab-btn" onclick="switchTab('dialogues')">💬 Dialoge</button>
+  <button class="tab-btn" onclick="switchTab('phrases')">🗣️ Ausdrücke</button>
+  <button class="tab-btn" onclick="switchTab('flashcards')">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="switchTab('quiz')">✅ Quiz</button>
+</div>
+
+<!-- ===== TAB 1: VOCABULARY ===== -->
+<div class="container">
+<div class="tab-content active" id="tab-vocab">
+
+  <div class="info-box"><strong>Niveau C1</strong> — Diese Terminologie wird in deutschsprachigen Tierarztpraxen täglich verwendet. Lerne die Fachbegriffe und ihre Verwendung im Kontext.</div>
+
+  <div class="cat-label">🐕 Tierkörper & Anatomie</div>
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="vocab-de">die Pfote / die Kralle</div><div class="vocab-en">paw / claw</div><div class="vocab-ex">„Die Pfote ist geschwollen und druckempfindlich."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Fell / das Gefieder</div><div class="vocab-en">fur / plumage</div><div class="vocab-ex">„Das Fell ist stumpf und struppig — ein Hinweis auf Mangelernährung."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Schnauze / der Schnabel</div><div class="vocab-en">snout / beak</div><div class="vocab-ex">„Der Schnabel ist verfärbt und brüchig."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Maul / der Rachen</div><div class="vocab-en">mouth / throat (animal)</div><div class="vocab-ex">„Ich schaue jetzt ins Maul — bitte halten Sie ihn fest."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Flanke / der Bauchraum</div><div class="vocab-en">flank / abdominal cavity</div><div class="vocab-ex">„Die Flanke ist gespannt — das deutet auf Gasansammlungen hin."</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Lymphknoten</div><div class="vocab-en">lymph node</div><div class="vocab-ex">„Die Lymphknoten sind vergrößert und tastbar."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Schleimhaut</div><div class="vocab-en">mucous membrane</div><div class="vocab-ex">„Die Schleimhäute sind blass — möglicherweise Anämie."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Skelet / die Wirbelsäule</div><div class="vocab-en">skeleton / spine</div><div class="vocab-ex">„Die Wirbelsäule zeigt degenerative Veränderungen."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Niere / die Leber / die Milz</div><div class="vocab-en">kidney / liver / spleen</div><div class="vocab-ex">„Die Leber ist palpatorisch vergrößert."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Trommelfell / der Gehörgang</div><div class="vocab-en">eardrum / ear canal</div><div class="vocab-ex">„Der Gehörgang ist entzündet und zeigt Ausfluss."</div></div>
+  </div>
+
+  <div class="cat-label">🦠 Krankheiten & Symptome</div>
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="vocab-de">die Entzündung / entzündet sein</div><div class="vocab-en">inflammation / to be inflamed</div><div class="vocab-ex">„Das Zahnfleisch ist stark entzündet."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Schwellung / angeschwollen</div><div class="vocab-en">swelling / swollen</div><div class="vocab-ex">„Die Schwellung am Kniegelenk ist besorgniserregend."</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Ausfluss / die Sekretion</div><div class="vocab-en">discharge / secretion</div><div class="vocab-ex">„Es gibt eitrigen Ausfluss aus beiden Augen."</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Durchfall / die Diarrhöe</div><div class="vocab-en">diarrhoea</div><div class="vocab-ex">„Seit wann hat das Tier Durchfall?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Erbrechen / sich übergeben</div><div class="vocab-en">vomiting</div><div class="vocab-ex">„Wie oft hat er sich heute übergeben?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Appetitlosigkeit / Anorexie</div><div class="vocab-en">loss of appetite / anorexia</div><div class="vocab-ex">„Besteht seit gestern Appetitlosigkeit?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Lahmheit / lahm gehen</div><div class="vocab-en">lameness / to limp</div><div class="vocab-ex">„Das Tier lahmt auf dem rechten Vorderbein."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Atemnot / die Dyspnoe</div><div class="vocab-en">shortness of breath / dyspnoea</div><div class="vocab-ex">„Das Tier zeigt deutliche Atemnot bei Belastung."</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Krampf / die Epilepsie</div><div class="vocab-en">seizure / epilepsy</div><div class="vocab-ex">„Hat der Hund schon früher Krämpfe gehabt?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Zecke / der Floh / die Milbe</div><div class="vocab-en">tick / flea / mite</div><div class="vocab-ex">„Ich habe zwei Zecken gefunden — ich entferne sie jetzt."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Vergiftung / vergiftet sein</div><div class="vocab-en">poisoning / to be poisoned</div><div class="vocab-ex">„Es besteht der Verdacht auf eine Vergiftung."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Wunde / die Bissverletzung</div><div class="vocab-en">wound / bite injury</div><div class="vocab-ex">„Die Bissverletzung muss sofort gereinigt werden."</div></div>
+  </div>
+
+  <div class="cat-label">💊 Behandlung & Medikamente</div>
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="vocab-de">das Antibiotikum / die Antibiotika</div><div class="vocab-en">antibiotic(s)</div><div class="vocab-ex">„Ich verschreibe ein Breitbandantibiotikum für 10 Tage."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Schmerzmittel / das Analgetikum</div><div class="vocab-en">painkiller / analgesic</div><div class="vocab-ex">„Geben Sie das Schmerzmittel zweimal täglich mit dem Futter."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Impfung / impfen</div><div class="vocab-en">vaccination / to vaccinate</div><div class="vocab-ex">„Die nächste Impfung ist in einem Jahr fällig."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Narkose / die Anästhesie</div><div class="vocab-en">anaesthesia</div><div class="vocab-ex">„Das Tier muss vor dem Eingriff in Narkose gelegt werden."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Operation / der Eingriff</div><div class="vocab-en">operation / procedure</div><div class="vocab-ex">„Der Eingriff dauert etwa 45 Minuten."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Infusion / der Tropf</div><div class="vocab-en">IV drip / infusion</div><div class="vocab-ex">„Wir legen eine Infusion zur Flüssigkeitsversorgung."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Tablette / die Kapsel / die Spritze</div><div class="vocab-en">tablet / capsule / injection</div><div class="vocab-ex">„Ich gebe jetzt eine Spritze gegen den Schmerz."</div></div>
+    <div class="vocab-card"><div class="vocab-de">das Röntgenbild / die Ultraschalluntersuchung</div><div class="vocab-en">X-ray / ultrasound exam</div><div class="vocab-ex">„Wir machen zunächst ein Röntgenbild der Hüfte."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Blutuntersuchung / das Blutbild</div><div class="vocab-en">blood test / blood panel</div><div class="vocab-ex">„Das Blutbild zeigt erhöhte Leberwerte."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Kastration / die Sterilisation</div><div class="vocab-en">castration / sterilisation</div><div class="vocab-ex">„Wann planen Sie die Kastration des Rüden?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Verband / die Wundauflage</div><div class="vocab-en">bandage / wound dressing</div><div class="vocab-ex">„Den Verband bitte täglich wechseln."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Nachsorge / die Kontrolluntersuchung</div><div class="vocab-en">aftercare / check-up</div><div class="vocab-ex">„Bitte kommen Sie in einer Woche zur Kontrolluntersuchung."</div></div>
+  </div>
+
+  <div class="cat-label">📋 Praxisalltag</div>
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="vocab-de">der Tierhalter / die Tierbesitzerin</div><div class="vocab-en">pet owner (m/f)</div><div class="vocab-ex">„Der Tierhalter ist seit Jahren Stammkunde bei uns."</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Impfpass / der Heimtierausweis</div><div class="vocab-en">vaccination record / pet passport</div><div class="vocab-ex">„Haben Sie den Impfpass dabei?"</div></div>
+    <div class="vocab-card"><div class="vocab-de">der Mikrochip / die Tätowierung</div><div class="vocab-en">microchip / tattoo (ID)</div><div class="vocab-ex">„Das Tier ist mit einem Mikrochip registriert."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Krankenakte / die Patientenakte</div><div class="vocab-en">medical file / patient record</div><div class="vocab-ex">„Laut Krankenakte wurde er 2022 kastriert."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Kostenaufstellung / der Kostenvoranschlag</div><div class="vocab-en">invoice / cost estimate</div><div class="vocab-ex">„Ich erkläre Ihnen die Kostenaufstellung im Detail."</div></div>
+    <div class="vocab-card"><div class="vocab-de">die Überweisung / der Facharzt</div><div class="vocab-en">referral / specialist</div><div class="vocab-ex">„Ich stelle eine Überweisung zum Kardiologen aus."</div></div>
+  </div>
+
+</div>
+
+<!-- ===== TAB 2: DIALOGUES ===== -->
+<div class="tab-content" id="tab-dialogues">
+
+  <div class="section-title">💬 Praxisdialoge</div>
+
+  <!-- Dialogue 1 -->
+  <div class="dialogue-box">
+    <div class="dialogue-header">📞 Telefonanruf — Terminvereinbarung <span class="badge">Telefon</span></div>
+    <div class="dialogue-body">
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Tierarztpraxis Dr. Müller, guten Morgen — wie kann ich Ihnen helfen?</div><div class="line-en">Veterinary practice Dr. Müller, good morning — how can I help you?</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Guten Morgen, mein Name ist Braun. Ich würde gerne einen Termin für meine Katze vereinbaren. Sie frisst seit zwei Tagen kaum und wirkt sehr apathisch.</div><div class="line-en">Good morning, my name is Braun. I'd like to make an appointment for my cat. She's barely been eating for two days and seems very lethargic.</div></div></div>
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Das klingt besorgniserregend. Wie alt ist die Katze und hat sie Vorerkrankungen?</div><div class="line-en">That sounds worrying. How old is the cat and does she have any pre-existing conditions?</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Sie ist sieben Jahre alt, und soweit ich weiß keine Vorerkrankungen. Impfungen sind aktuell.</div><div class="line-en">She's seven years old, and no pre-existing conditions as far as I know. Vaccinations are up to date.</div></div></div>
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Gut. Ich kann Ihnen heute Nachmittag um 14:30 Uhr einen Termin anbieten. Würde das passen?</div><div class="line-en">Good. I can offer you an appointment this afternoon at 2:30 pm. Would that work?</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Ja, das passt wunderbar. Muss ich etwas mitbringen?</div><div class="line-en">Yes, that works perfectly. Do I need to bring anything?</div></div></div>
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Bitte bringen Sie den Impfpass mit und wenn möglich eine Kotprobe in einem kleinen Behälter. Bis dann, auf Wiederhören!</div><div class="line-en">Please bring the vaccination record and if possible a stool sample in a small container. See you then, goodbye!</div></div></div>
+    </div>
+  </div>
+
+  <!-- Dialogue 2 -->
+  <div class="dialogue-box">
+    <div class="dialogue-header">🤝 Empfang in der Praxis <span class="badge">Empfang</span></div>
+    <div class="dialogue-body">
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Guten Tag, Frau Braun! Und das ist also Mimi. Kommen Sie bitte herein und legen Sie sie auf den Untersuchungstisch.</div><div class="line-en">Good day, Ms Braun! And this is Mimi. Please come in and place her on the examination table.</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Guten Tag, Frau Doktor. Sie ist die letzten Tage wirklich nicht sie selbst — schläft ständig, trinkt kaum.</div><div class="line-en">Good day, doctor. She's really not herself the last few days — sleeping constantly, barely drinking.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Ich verstehe. Haben Sie Veränderungen im Stuhlgang bemerkt — Farbe, Konsistenz, Häufigkeit?</div><div class="line-en">I understand. Have you noticed any changes in her bowel movements — colour, consistency, frequency?</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Ja, gestern war der Kot eher dunkel und sehr weich.</div><div class="line-en">Yes, yesterday the stool was rather dark and very soft.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Das ist ein wichtiger Hinweis. War sie in letzter Zeit draußen oder hatte Kontakt zu anderen Tieren?</div><div class="line-en">That's an important clue. Has she been outside recently or had contact with other animals?</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Nein, sie ist eine reine Wohnungskatze.</div><div class="line-en">No, she's a strictly indoor cat.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Gut, dann führe ich jetzt eine gründliche Untersuchung durch. Bitte halten Sie sie ruhig.</div><div class="line-en">Good, I'll now carry out a thorough examination. Please keep her still.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Dialogue 3 -->
+  <div class="dialogue-box">
+    <div class="dialogue-header">🩺 Untersuchung & Diagnose <span class="badge">Untersuchung</span></div>
+    <div class="dialogue-body">
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Die Schleimhäute sind etwas blass und die Leber fühlt sich vergrößert an. Das Abdomen ist leicht gespannt. Ich möchte eine Blutuntersuchung und einen Ultraschall machen, um das genauer abklären zu können.</div><div class="line-en">The mucous membranes are slightly pale and the liver feels enlarged. The abdomen is mildly tense. I'd like to do a blood test and ultrasound to clarify this more precisely.</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Ist das etwas Ernstes? Ich mache mir große Sorgen.</div><div class="line-en">Is it something serious? I'm very worried.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Ich möchte keine voreiligen Schlüsse ziehen. Die Symptome können auf verschiedene Ursachen hinweisen — von einer Magenreizung bis hin zu einem Leberproblем. Die Untersuchungsergebnisse werden Klarheit bringen.</div><div class="line-en">I don't want to jump to conclusions. The symptoms can indicate various causes — from gastric irritation to a liver problem. The test results will bring clarity.</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Wie lange dauert das?</div><div class="line-en">How long will that take?</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Das Blutbild haben wir in etwa 20 Minuten. Der Ultraschall dauert nur wenige Minuten. Mimi bleibt in der Zwischenzeit hier bei uns.</div><div class="line-en">We'll have the blood count in about 20 minutes. The ultrasound only takes a few minutes. Mimi will stay here with us in the meantime.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Dialogue 4 -->
+  <div class="dialogue-box">
+    <div class="dialogue-header">💊 Verschreibung & Anweisungen <span class="badge">Rezept</span></div>
+    <div class="dialogue-body">
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Das Blutbild zeigt erhöhte Leberwerte. Wir beginnen mit einer Schonkost und einem leberschützenden Präparat. Ich verschreibe außerdem ein leichtes Antibiotikum zur Vorbeugung einer Sekundärinfektion.</div><div class="line-en">The blood count shows elevated liver values. We'll start with a bland diet and a liver-protecting supplement. I'm also prescribing a mild antibiotic to prevent a secondary infection.</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Wie gebe ich die Tabletten? Sie ist sehr schwierig beim Fressen.</div><div class="line-en">How do I give the tablets? She's very fussy about eating.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Am einfachsten verstecken Sie die Tablette in einem kleinen Stück Thunfisch oder verwenden eine Pillentasche. Die Tablette muss morgens und abends gegeben werden — immer zur gleichen Zeit und mit Wasser nachgespritzt, damit sie in den Magen gelangt.</div><div class="line-en">The easiest way is to hide the tablet in a small piece of tuna or use a pill pocket. The tablet must be given morning and evening — always at the same time and followed by water so it reaches the stomach.</div></div></div>
+      <div class="line"><span class="speaker kunde">Kundin:</span><div class="line-text"><div class="line-de">Und die Diät — was darf sie essen?</div><div class="line-en">And the diet — what is she allowed to eat?</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Kein fettreiches Futter, kein Trockenfutter für die nächsten 5 Tage. Am besten ein spezielles Schonkostfutter aus der Apotheke oder hier aus der Praxis. Frisches Wasser immer zur Verfügung stellen.</div><div class="line-en">No fatty food, no dry food for the next 5 days. Best is a special bland diet food from the pharmacy or here at the practice. Always make fresh water available.</div></div></div>
+      <div class="line"><span class="speaker arzt">Ärztin:</span><div class="line-text"><div class="line-de">Ich sehe Sie in 5 Tagen zur Kontrolluntersuchung. Wenn sich die Symptome verschlechtern — Erbrechen, starke Apathie oder kein Trinken — rufen Sie bitte sofort an.</div><div class="line-en">I'll see you in 5 days for a follow-up. If symptoms worsen — vomiting, severe lethargy, or not drinking — please call immediately.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Dialogue 5 -->
+  <div class="dialogue-box">
+    <div class="dialogue-header">📞 Terminbestätigung / Absage <span class="badge">Telefon</span></div>
+    <div class="dialogue-body">
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Tierarztpraxis Dr. Schneider, guten Tag!</div><div class="line-en">Veterinary practice Dr. Schneider, good day!</div></div></div>
+      <div class="line"><span class="speaker kunde">Kunde:</span><div class="line-text"><div class="line-de">Guten Tag, ich wollte meinen Termin für morgen um 10 Uhr bestätigen — Meier, für den Labrador Bruno.</div><div class="line-en">Good day, I wanted to confirm my appointment for tomorrow at 10 o'clock — Meier, for the Labrador Bruno.</div></div></div>
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Ja, ich sehe den Termin — Bruno Meier, Mittwoch 10 Uhr, Jahresimpfung und Routinecheck. Alles bestätigt!</div><div class="line-en">Yes, I can see the appointment — Bruno Meier, Wednesday 10 o'clock, annual vaccination and routine check. All confirmed!</div></div></div>
+      <div class="line"><span class="speaker kunde">Kunde:</span><div class="line-text"><div class="line-de">Perfekt. Noch eine Frage: Bruno hat seit heute Morgen leichten Juckreiz. Sollte ich das gleich ansprechen?</div><div class="line-en">Perfect. One more question: Bruno has had mild itching since this morning. Should I mention that straight away?</div></div></div>
+      <div class="line"><span class="speaker helfer">Praxis:</span><div class="line-text"><div class="line-de">Ja, unbedingt! Sagen Sie es bitte gleich bei der Anmeldung, damit die Ärztin etwas mehr Zeit einplanen kann.</div><div class="line-en">Yes, absolutely! Please mention it when you check in, so the vet can allow a little more time.</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== TAB 3: PHRASES ===== -->
+<div class="tab-content" id="tab-phrases">
+
+  <div class="section-title">🗣️ Wichtige Ausdrücke & Redewendungen</div>
+
+  <div class="grammar-tip">
+    <div class="tip-label">💡 C1 Tipp — Höfliche Formulierungen</div>
+    Im professionellen Umfeld verwendet man oft den Konjunktiv II für Höflichkeit: „Ich würde empfehlen..." statt „Ich empfehle..." — oder Passivkonstruktionen: „Es wird eine Blutprobe entnommen."
+  </div>
+
+  <div class="cat-label">📞 Am Telefon</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Tierarztpraxis [Name], was kann ich für Sie tun?</div><div class="phrase-en">Veterinary practice [Name], how can I help you?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich würde gerne einen dringenden Termin vereinbaren.</div><div class="phrase-en">I'd like to make an urgent appointment.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Können Sie mir Ihren Namen und den Namen des Tieres nennen?</div><div class="phrase-en">Can you tell me your name and the animal's name?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Wann haben die Symptome begonnen?</div><div class="phrase-en">When did the symptoms begin?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich muss leider meinen Termin absagen / verschieben.</div><div class="phrase-en">Unfortunately I need to cancel / reschedule my appointment.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Hätten Sie einen früheren Termin frei?</div><div class="phrase-en">Would you have an earlier appointment available?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Im Notfall erreichen Sie uns unter folgender Nummer…</div><div class="phrase-en">In an emergency you can reach us at the following number…</div></div>
+  </div>
+
+  <div class="cat-label">🤝 Empfang & Begrüßung</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Guten Tag! Haben Sie einen Termin?</div><div class="phrase-en">Good day! Do you have an appointment?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Nehmen Sie bitte im Wartezimmer Platz. Sie werden gleich aufgerufen.</div><div class="phrase-en">Please take a seat in the waiting room. You'll be called shortly.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Haben Sie den Impfpass und die Patientenakte dabei?</div><div class="phrase-en">Do you have the vaccination record and patient file with you?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Kommen Sie bitte mit in das Untersuchungszimmer.</div><div class="phrase-en">Please come with me into the examination room.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Wie geht es [Tiername]? Was hat sich verändert?</div><div class="phrase-en">How is [pet name]? What has changed?</div></div>
+  </div>
+
+  <div class="cat-label">🩺 Während der Untersuchung</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Bitte halten Sie das Tier ruhig — ich untersuche jetzt die…</div><div class="phrase-en">Please keep the animal still — I'm now examining the…</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich messe jetzt die Körpertemperatur / den Herzschlag / den Puls.</div><div class="phrase-en">I'm now measuring the body temperature / heartbeat / pulse.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Das Tier zeigt Schmerzen beim Abtasten des Bauches.</div><div class="phrase-en">The animal shows pain when the abdomen is palpated.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich nehme eine Blutprobe / einen Abstrich.</div><div class="phrase-en">I'm taking a blood sample / swab.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Reagiert das Tier auf Druck an dieser Stelle?</div><div class="phrase-en">Does the animal react to pressure at this point?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich höre die Lunge / das Herz ab — bitte kurz still halten.</div><div class="phrase-de" style="display:none"></div><div class="phrase-en">I'm listening to the lungs / heart — please stay still for a moment.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Die Reflexe sind normal / verlangsamt / nicht vorhanden.</div><div class="phrase-en">The reflexes are normal / slowed / absent.</div></div>
+  </div>
+
+  <div class="cat-label">📋 Diagnose & Erklärung</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Der Befund deutet auf eine… hin.</div><div class="phrase-en">The findings indicate a…</div></div>
+    <div class="phrase-item"><div class="phrase-de">Wir haben den Verdacht auf… — das muss noch abgeklärt werden.</div><div class="phrase-en">We suspect… — this still needs to be clarified.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Die gute Nachricht ist, dass… / Leider zeigt das Ergebnis, dass…</div><div class="phrase-en">The good news is that… / Unfortunately the result shows that…</div></div>
+    <div class="phrase-item"><div class="phrase-de">Es handelt sich wahrscheinlich um eine Entzündung / Infektion / Allergie.</div><div class="phrase-en">It is likely an inflammation / infection / allergy.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich möchte keine voreiligen Schlüsse ziehen, bevor wir die Ergebnisse haben.</div><div class="phrase-en">I don't want to jump to conclusions before we have the results.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Es gibt mehrere Behandlungsmöglichkeiten — lassen Sie mich diese erläutern.</div><div class="phrase-en">There are several treatment options — let me explain these.</div></div>
+  </div>
+
+  <div class="cat-label">💊 Verschreibung & Anweisungen</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Ich verschreibe [Medikament] — 1 Tablette, zweimal täglich, 10 Tage lang.</div><div class="phrase-en">I'm prescribing [medication] — 1 tablet, twice daily, for 10 days.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Das Medikament immer zur gleichen Zeit und mit dem Futter geben.</div><div class="phrase-en">Always give the medication at the same time and with food.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Die Kur darf nicht vorzeitig abgebrochen werden, auch wenn das Tier sich besser fühlt.</div><div class="phrase-en">The course of treatment must not be stopped early, even if the animal feels better.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Bitte beobachten Sie, ob Nebenwirkungen auftreten — zum Beispiel Erbrechen oder Durchfall.</div><div class="phrase-en">Please observe whether side effects occur — for example vomiting or diarrhoea.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Die Wunde muss täglich gereinigt und desinfiziert werden.</div><div class="phrase-en">The wound must be cleaned and disinfected daily.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich überweise Sie an einen Spezialisten / eine Tierklinik.</div><div class="phrase-en">I'm referring you to a specialist / an animal clinic.</div></div>
+  </div>
+
+  <div class="cat-label">💬 Bei der Beratung</div>
+  <div class="phrase-list">
+    <div class="phrase-item"><div class="phrase-de">Haben Sie noch Fragen zur Behandlung?</div><div class="phrase-en">Do you have any questions about the treatment?</div></div>
+    <div class="phrase-item"><div class="phrase-de">Es ist wichtig, dass Sie bei Verschlimmerung sofort Kontakt aufnehmen.</div><div class="phrase-en">It's important that you contact us immediately if things get worse.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich empfehle dringend eine Kastration / eine Zahnsteinentfernung / eine Gewichtsreduktion.</div><div class="phrase-en">I strongly recommend castration / scale removal / weight reduction.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Für das Alter des Tieres ist dieser Befund leider nicht ungewöhnlich.</div><div class="phrase-en">For the animal's age, unfortunately this finding is not unusual.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Wir werden alles tun, was in unserer Macht steht.</div><div class="phrase-en">We will do everything in our power.</div></div>
+    <div class="phrase-item"><div class="phrase-de">Ich erkläre Ihnen jetzt die Kostenaufstellung.</div><div class="phrase-en">I'll now explain the cost breakdown to you.</div></div>
+  </div>
+
+</div>
+
+<!-- ===== TAB 4: FLASHCARDS ===== -->
+<div class="tab-content" id="tab-flashcards">
+  <div class="section-title">🃏 Flashcards — <span>Tierarzt-Vokabular</span></div>
+  <div class="info-box"><strong>Anleitung:</strong> Klicken Sie auf die Karte, um die Antwort zu sehen. Nutzen Sie die Pfeiltasten oder die Knöpfe zum Navigieren.</div>
+
+  <div class="flashcard-area">
+    <div class="flashcard" id="fc" onclick="flipCard()">
+      <div class="front" id="fc-front"></div>
+      <div class="back" id="fc-back"></div>
+    </div>
+    <div class="fc-counter" id="fc-counter"></div>
+    <div class="fc-controls">
+      <button class="fc-btn prev" onclick="fcNav(-1)">← Zurück</button>
+      <button class="fc-btn flip" onclick="flipCard()">Umdrehen</button>
+      <button class="fc-btn next" onclick="fcNav(1)">Weiter →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 5: QUIZ ===== -->
+<div class="tab-content" id="tab-quiz">
+  <div class="section-title">✅ Quiz — <span>Teste dein Wissen</span></div>
+  <div id="quiz-container"></div>
+  <div class="quiz-score" id="quiz-score" style="display:none"></div>
+  <button class="quiz-reset" id="quiz-reset" style="display:none" onclick="resetQuiz()">🔄 Nochmal versuchen</button>
+</div>
+
+</div><!-- end container -->
+
+<footer>
+  <p>© 2025 TheGermanStefan · <a href="TheGermanStefan_Special_Skills_Hub.html">Special Skills</a> · Deutsch für Tierärzte C1</p>
+</footer>
+
+<script>
+// === TAB SWITCHING ===
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// === FLASHCARDS DATA ===
+const cards = [
+  { de: 'die Schleimhaut', en: 'mucous membrane', ex: '„Die Schleimhäute sind blass."' },
+  { de: 'die Lahmheit', en: 'lameness / limping', ex: '„Das Tier lahmt auf dem rechten Vorderbein."' },
+  { de: 'die Narkose', en: 'anaesthesia', ex: '„Wir legen das Tier in Narkose."' },
+  { de: 'die Vorerkrankung', en: 'pre-existing condition', ex: '„Hat das Tier Vorerkrankungen?"' },
+  { de: 'die Kontrolluntersuchung', en: 'follow-up check-up', ex: '„Bitte kommen Sie in einer Woche zur Kontrolluntersuchung."' },
+  { de: 'der Ausfluss', en: 'discharge (medical)', ex: '„Es gibt eitrigen Ausfluss aus dem Auge."' },
+  { de: 'die Atemnot', en: 'shortness of breath / dyspnoea', ex: '„Das Tier zeigt Atemnot bei Belastung."' },
+  { de: 'verschreiben / verordnen', en: 'to prescribe', ex: '„Ich verschreibe ein Antibiotikum."' },
+  { de: 'der Kostenvoranschlag', en: 'cost estimate', ex: '„Darf ich Ihnen den Kostenvoranschlag erklären?"' },
+  { de: 'die Kastration', en: 'castration / neutering', ex: '„Eine Kastration wird empfohlen."' },
+  { de: 'der Lymphknoten', en: 'lymph node', ex: '„Die Lymphknoten sind vergrößert."' },
+  { de: 'die Bissverletzung', en: 'bite wound / bite injury', ex: '„Die Bissverletzung muss sofort behandelt werden."' },
+  { de: 'abtasten / palpieren', en: 'to palpate', ex: '„Ich taste jetzt den Bauch ab."' },
+  { de: 'die Schonkost', en: 'bland diet / light diet', ex: '„Bitte nur Schonkost für 5 Tage."' },
+  { de: 'die Überweisung', en: 'referral (to a specialist)', ex: '„Ich stelle eine Überweisung aus."' },
+  { de: 'der Impfpass', en: 'vaccination record / pet passport', ex: '„Haben Sie den Impfpass dabei?"' },
+  { de: 'die Sekretion', en: 'secretion', ex: '„Pathologische Sekretion aus dem Ohr."' },
+  { de: 'der Mikrochip', en: 'microchip', ex: '„Das Tier ist mit einem Mikrochip registriert."' },
+  { de: 'voreilige Schlüsse ziehen', en: 'to jump to conclusions', ex: '„Ich möchte keine voreiligen Schlüsse ziehen."' },
+  { de: 'die Nebenwirkung', en: 'side effect', ex: '„Bitte auf Nebenwirkungen achten."' },
+];
+
+let fcIndex = 0;
+let fcFlipped = false;
+
+function renderCard() {
+  const card = cards[fcIndex];
+  const fc = document.getElementById('fc');
+  fc.classList.remove('flipped');
+  fcFlipped = false;
+  document.getElementById('fc-front').innerHTML = `<span>${card.de}</span>`;
+  document.getElementById('fc-back').innerHTML = `<div class="answer">${card.en}</div><div class="example">${card.ex}</div>`;
+  document.getElementById('fc-counter').textContent = `${fcIndex + 1} / ${cards.length}`;
+}
+
+function flipCard() {
+  const fc = document.getElementById('fc');
+  fcFlipped = !fcFlipped;
+  fc.classList.toggle('flipped', fcFlipped);
+}
+
+function fcNav(dir) {
+  fcIndex = (fcIndex + dir + cards.length) % cards.length;
+  renderCard();
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('tab-flashcards').classList.contains('active')) {
+    if (e.key === 'ArrowLeft') fcNav(-1);
+    if (e.key === 'ArrowRight') fcNav(1);
+    if (e.key === ' ') { e.preventDefault(); flipCard(); }
+  }
+});
+
+renderCard();
+
+// === QUIZ ===
+const quizData = [
+  { q: 'Was bedeutet „die Schleimhaut"?', opts: ['mucous membrane', 'skin rash', 'lymph node', 'mucus plug'], correct: 0 },
+  { q: 'Welcher Ausdruck passt? „Das Tier ___ auf dem rechten Vorderbein."', opts: ['lahmt', 'hustet', 'bellt', 'atmet'], correct: 0 },
+  { q: 'Was bedeutet „voreilige Schlüsse ziehen"?', opts: ['to jump to conclusions', 'to give a conclusion', 'to draw blood', 'to prescribe medicine'], correct: 0 },
+  { q: 'Wie sagt man „follow-up appointment" auf Deutsch?', opts: ['Kontrolluntersuchung', 'Erstuntersuchung', 'Laboruntersuchung', 'Blutuntersuchung'], correct: 0 },
+  { q: 'Was bedeutet „verschreiben" im medizinischen Kontext?', opts: ['to prescribe', 'to describe', 'to write down', 'to cancel'], correct: 0 },
+  { q: 'Welcher Satz ist korrekt für eine Überweisung?', opts: ['Ich stelle eine Überweisung zum Spezialisten aus.', 'Ich gebe eine Überweisung kaufen.', 'Ich mache eine Überweisung essen.', 'Ich nehme eine Überweisung mit.'], correct: 0 },
+  { q: '„Die Kur darf nicht vorzeitig _____ werden." Welches Wort fehlt?', opts: ['abgebrochen', 'begonnen', 'verlängert', 'erklärt'], correct: 0 },
+  { q: 'Was ist „die Atemnot"?', opts: ['shortness of breath', 'stomach ache', 'skin irritation', 'loss of appetite'], correct: 0 },
+  { q: 'Welche Frage stellt man beim Empfang?', opts: ['Haben Sie den Impfpass dabei?', 'Können Sie das Tier kaufen?', 'Was kostet das Tier?', 'Haben Sie das Tier gegessen?'], correct: 0 },
+  { q: 'Was bedeutet „palpieren"?', opts: ['to palpate / feel by touch', 'to operate', 'to vaccinate', 'to prescribe'], correct: 0 },
+];
+
+// Shuffle options for quiz
+const shuffledQuiz = quizData.map(q => {
+  const opts = [...q.opts];
+  const correct = opts[q.correct];
+  const shuffled = opts.sort(() => Math.random() - 0.5);
+  return { ...q, opts: shuffled, correct: shuffled.indexOf(correct) };
+});
+
+let quizAnswered = [];
+let quizScore = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  quizAnswered = new Array(shuffledQuiz.length).fill(false);
+  quizScore = 0;
+  document.getElementById('quiz-score').style.display = 'none';
+  document.getElementById('quiz-reset').style.display = 'none';
+
+  shuffledQuiz.forEach((q, qi) => {
+    const box = document.createElement('div');
+    box.className = 'quiz-box';
+    box.innerHTML = `<div class="quiz-q">${qi + 1}. ${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((opt, oi) => `<button class="quiz-opt" onclick="checkAnswer(${qi},${oi},this)">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="qf-${qi}"></div>`;
+    container.appendChild(box);
+  });
+}
+
+function checkAnswer(qi, oi, btn) {
+  if (quizAnswered[qi]) return;
+  quizAnswered[qi] = true;
+  const q = shuffledQuiz[qi];
+  const feedback = document.getElementById('qf-' + qi);
+  const allBtns = btn.parentElement.querySelectorAll('.quiz-opt');
+  allBtns.forEach(b => b.style.cursor = 'default');
+  if (oi === q.correct) {
+    btn.classList.add('correct');
+    feedback.innerHTML = '<span style="color:var(--green)">✓ Richtig!</span>';
+    quizScore++;
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.correct].classList.add('correct');
+    feedback.innerHTML = `<span style="color:var(--red)">✗ Falsch. Richtig: „${q.opts[q.correct]}"</span>`;
+  }
+  if (quizAnswered.every(Boolean)) {
+    const scoreEl = document.getElementById('quiz-score');
+    scoreEl.textContent = `Ergebnis: ${quizScore} / ${shuffledQuiz.length} ${quizScore >= 8 ? '🏆 Ausgezeichnet!' : quizScore >= 5 ? '👍 Gut gemacht!' : '📚 Weiterüben!'}`;
+    scoreEl.style.display = 'block';
+    document.getElementById('quiz-reset').style.display = 'block';
+  }
+}
+
+function resetQuiz() {
+  buildQuiz();
+  window.scrollTo({ top: document.getElementById('tab-quiz').offsetTop, behavior: 'smooth' });
+}
+
+buildQuiz();
+</script>
+
+</body>
+</html>
