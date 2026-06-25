@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ethics: Responsibility to Future Generations | TheGermanStefan</title>
+<style>
+
+:root{--navy:#0a1628;--gold:#c8a84b;--teal:#00bcd4;--green:#2ecc71;--red:#e74c3c;--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+#topbar{background:#090e1a;border-bottom:2px solid var(--gold);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
+.nav-pills{display:flex;gap:4px;flex-wrap:wrap}
+.np{display:inline-flex;flex-direction:column;align-items:center;padding:4px 8px;border-radius:8px;text-decoration:none;font-size:.65rem;font-weight:700;color:var(--muted);background:#1a1f2e;border:1px solid #2a3040;transition:.2s;line-height:1.2}
+.np:hover,.np.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.np .tier{font-size:.5rem;opacity:.7;font-weight:400}
+.lang-btns{display:flex;gap:4px}
+.lb{padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#1a1f2e;color:var(--muted);font-size:.75rem;cursor:pointer;font-weight:700}
+.lb.on{background:var(--teal);color:#000;border-color:var(--teal)}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;border:1px solid var(--gold);font-weight:600;font-size:.9rem;transition:.2s}
+.back-hub:hover{background:var(--gold);color:#000}
+[data-lang]{display:none}[data-lang="en"]{display:block}
+.main{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.8rem;color:var(--gold);margin-bottom:8px}
+.subtitle{color:var(--muted);margin-bottom:24px;font-size:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h2{color:var(--teal);font-size:1.1rem;margin-bottom:12px}
+.card h3{color:var(--gold);font-size:1rem;margin:12px 0 8px}
+.explain{background:#0d1f0d;border-left:4px solid var(--green);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.95rem;line-height:1.6}
+.example{background:#1a1f2e;border-radius:8px;padding:10px 14px;margin:6px 0;font-style:italic;color:#a8c8ff;font-size:.95rem}
+.qblock{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:14px;margin:12px 0}
+.qnum{color:var(--gold);font-weight:700;font-size:.85rem;margin-bottom:6px}
+.qtext{color:var(--text);margin-bottom:10px;font-size:.95rem;line-height:1.5}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:#1a1f2e;color:var(--text);cursor:pointer;font-size:.9rem;transition:.2s}
+.qopt:hover:not(.disabled){background:var(--teal);color:#000;border-color:var(--teal)}
+.qopt.correct{background:var(--green)!important;color:#000!important;border-color:var(--green)!important}
+.qopt.wrong{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+.qopt.disabled{cursor:not-allowed;opacity:.7}
+.qfb{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.85rem;font-weight:600;min-height:0}
+.qfb.ok{background:#0d2b1a;color:var(--green);border:1px solid var(--green)}
+.qfb.err{background:#2b0d0d;color:var(--red);border:1px solid var(--red)}
+.word-card{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:14px;margin:10px 0}
+.word-de{font-size:1.3rem;font-weight:700;color:var(--gold)}
+.word-en{color:var(--muted);font-size:.9rem;margin:4px 0}
+.word-ex{color:var(--text);font-size:.9rem;font-style:italic;border-left:3px solid var(--teal);padding-left:10px;margin-top:8px}
+.speak-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.speak-num{color:var(--teal);font-weight:700;font-size:.85rem;margin-bottom:8px}
+.speak-q{font-size:1.1rem;color:var(--text);margin-bottom:12px;line-height:1.5}
+.speak-hints{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.speak-hint{background:#0d2b1a;color:var(--green);padding:4px 10px;border-radius:16px;font-size:.8rem;border:1px solid var(--green)}
+
+</style>
+</head>
+<body>
+<div id="topbar">
+  <nav class="nav-pills">
+    <a href="TheGermanStefan_A0_Beginner_Hub.html" class="np" data-tier="FREE">🎉️<span>A0</span><span class="tier">FREE</span></a>
+    <a href="TheGermanStefan_A1_Hub.html" class="np" data-tier="PREMIUM">🇩🇪<span>A1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_A2_Hub.html" class="np" data-tier="PREMIUM">📗<span>A2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_B1_Hub.html" class="np" data-tier="PREMIUM">📘<span>B1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_B2_Hub.html" class="np" data-tier="PREMIUM">📕<span>B2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_C1_Hub.html" class="np" data-tier="PREMIUM">🎆<span>C1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_C2_Hub.html" class="np" data-tier="PREMIUM">🎓<span>C2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_Vocab_Hub.html" class="np" data-tier="FREE">🐜<span>Vocab</span><span class="tier">FREE</span></a>
+    <a href="TheGermanStefan_Special_Skills_Hub.html" class="np" data-tier="PREMIUM">🎣<span>Special</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_Exam_Room.html" class="np" data-tier="PREMIUM">🎖️<span>Exams</span><span class="tier">PREMIUM</span></a>
+  </nav>
+  <div class="lang-btns">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<a href="TheGermanStefan_C2_Hub.html" class="back-hub" data-t="back_hub">← Back to C2 Hub</a>
+<div class="main">
+
+<h1>🎓 Ethik: Verantwortung gegenüber zukünftigen Generationen</h1>
+<p class="subtitle">Ethics: Responsibility to Future Generations — C2 Leseverstehen</p>
+<div class="card">
+  <h2>📄 Text</h2>
+  <div style="line-height:1.8;font-size:.97rem;color:var(--text)">Die Frage, ob und in welchem Ausmaß wir gegenüber zukünftigen Generationen moralische Verpflichtungen haben, ist eine der dringlichsten Herausforderungen zeitgenössischer Ethik. Der Klimawandel hat diese Debatte in den Mittelpunkt politischer und philosophischer Diskussionen gerückt.</p><p style="margin-top:14px">Hans Jonas formulierte in seinem Werk „Das Prinzip Verantwortung" (1979) einen „Imperativ der Verantwortung": Handele so, dass die Wirkungen deiner Handlung mit der Permanenz echten menschlichen Lebens auf Erden vereinbar sind. Jonas argumentiert, dass die technologische Macht des modernen Menschen eine neue Dimension von Verantwortung erzeugt: Wir können erstmals durch kollektives Handeln das Überleben der Menschheit gefährden.</p><p style="margin-top:14px">Utilitaristen wie Peter Singer argumentieren, dass die Interessen zukünftiger Menschen gleich zu gewichten seien wie die der Gegenwärtigen – was radikale Konsequenzen für Klimapolitik und Ressourcennutzung hätte. Kontraktualistische Ansätze stehen dagegen vor dem Problem, dass zukünftige Generationen an keinem gesellschaftlichen Vertrag teilnehmen können.</div>
+</div>
+<div class="card">
+  <h2>🧠 Verständnisfragen / Comprehension Questions</h2>
+<div class="qblock">
+  <div class="qnum">Frage 1</div>
+  <div class="qtext">What is the central ethical question the text addresses?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'r1',true)">Whether and to what extent we have moral obligations to future generations</button>
+<button class="qopt" onclick="mc(this,'r1',false)">Whether climate change is real</button>
+<button class="qopt" onclick="mc(this,'r1',false)">How to divide resources fairly today</button>
+<button class="qopt" onclick="mc(this,'r1',false)">Whether utilitarianism is correct</button>
+</div>
+  <div id="qfbr1" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 2</div>
+  <div class="qtext">What is Hans Jonas's 'imperative of responsibility'?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'r2',true)">Act so that the effects of your actions are compatible with the permanence of human life on Earth</button>
+<button class="qopt" onclick="mc(this,'r2',false)">Maximise present happiness</button>
+<button class="qopt" onclick="mc(this,'r2',false)">Do no harm to any living being</button>
+<button class="qopt" onclick="mc(this,'r2',false)">Prioritise individual freedom</button>
+</div>
+  <div id="qfbr2" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 3</div>
+  <div class="qtext">What new dimension of responsibility does Jonas say modern technology creates?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'r3',true)">Humans can now collectively endanger the survival of humanity</button>
+<button class="qopt" onclick="mc(this,'r3',false)">Technology eliminates moral problems</button>
+<button class="qopt" onclick="mc(this,'r3',false)">Individual choices no longer matter</button>
+<button class="qopt" onclick="mc(this,'r3',false)">Future generations will solve problems themselves</button>
+</div>
+  <div id="qfbr3" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 4</div>
+  <div class="qtext">What do utilitarian philosophers like Peter Singer argue about future people's interests?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'r4',true)">They should be weighted equally to those of present people</button>
+<button class="qopt" onclick="mc(this,'r4',false)">They count for less than present people's interests</button>
+<button class="qopt" onclick="mc(this,'r4',false)">They are impossible to calculate</button>
+<button class="qopt" onclick="mc(this,'r4',false)">They do not exist yet so cannot count</button>
+</div>
+  <div id="qfbr4" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 5</div>
+  <div class="qtext">What is the contractualist problem with obligations to future generations?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'r5',true)">Future generations cannot participate in any social contract</button>
+<button class="qopt" onclick="mc(this,'r5',false)">Contracts are not morally binding</button>
+<button class="qopt" onclick="mc(this,'r5',false)">Future people have no interests</button>
+<button class="qopt" onclick="mc(this,'r5',false)">Contractualism only works in small communities</button>
+</div>
+  <div id="qfbr5" class="qfb"></div>
+</div>
+</div>
+</div>
+<div style="text-align:center;padding:24px 16px 40px;color:var(--muted);font-size:.85rem">
+  <a href="TheGermanStefan_C2_Hub.html" style="color:var(--gold);text-decoration:none;font-weight:700">← Back to C2 Hub</a>
+</div>
+<script>
+
+const CL='en';
+function setLang(l){
+  document.querySelectorAll('[data-lang]').forEach(e=>e.style.display=e.getAttribute('data-lang')===l?'block':'none');
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===l));
+}
+const mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){
+    btn.classList.add('correct');
+    if(fb){fb.className='qfb ok';fb.textContent='✓ Richtig!';}
+    mcs[qid]=1;
+  }else{
+    btn.classList.add('wrong');
+    w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes('true'))b.classList.add('correct');});
+    if(fb){fb.className='qfb err';fb.textContent='✗ Nicht ganz — die richtige Antwort ist markiert.';}
+    mcs[qid]=0;
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
+  setLang(CL);
+});
+
+</script>
+</body>
+</html>

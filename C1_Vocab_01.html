@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Science and Research | TheGermanStefan</title>
+<style>
+
+:root{--navy:#0a1628;--gold:#c8a84b;--teal:#00bcd4;--green:#2ecc71;--red:#e74c3c;--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+#topbar{background:#090e1a;border-bottom:2px solid var(--gold);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
+.nav-pills{display:flex;gap:4px;flex-wrap:wrap}
+.np{display:inline-flex;flex-direction:column;align-items:center;padding:4px 8px;border-radius:8px;text-decoration:none;font-size:.65rem;font-weight:700;color:var(--muted);background:#1a1f2e;border:1px solid #2a3040;transition:.2s;line-height:1.2}
+.np:hover,.np.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.np .tier{font-size:.5rem;opacity:.7;font-weight:400}
+.lang-btns{display:flex;gap:4px}
+.lb{padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#1a1f2e;color:var(--muted);font-size:.75rem;cursor:pointer;font-weight:700}
+.lb.on{background:var(--teal);color:#000;border-color:var(--teal)}
+.back-hub{display:inline-block;margin:16px;padding:8px 16px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;border:1px solid var(--gold);font-weight:600;font-size:.9rem;transition:.2s}
+.back-hub:hover{background:var(--gold);color:#000}
+[data-lang]{display:none}[data-lang="en"]{display:block}
+.main{max-width:900px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.8rem;color:var(--gold);margin-bottom:8px}
+.subtitle{color:var(--muted);margin-bottom:24px;font-size:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h2{color:var(--teal);font-size:1.1rem;margin-bottom:12px}
+.card h3{color:var(--gold);font-size:1rem;margin:12px 0 8px}
+.explain{background:#0d1f0d;border-left:4px solid var(--green);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.95rem;line-height:1.6}
+.example{background:#1a1f2e;border-radius:8px;padding:10px 14px;margin:6px 0;font-style:italic;color:#a8c8ff;font-size:.95rem}
+.qblock{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:14px;margin:12px 0}
+.qnum{color:var(--gold);font-weight:700;font-size:.85rem;margin-bottom:6px}
+.qtext{color:var(--text);margin-bottom:10px;font-size:.95rem;line-height:1.5}
+.qopts{display:flex;flex-wrap:wrap;gap:8px}
+.qopt{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:#1a1f2e;color:var(--text);cursor:pointer;font-size:.9rem;transition:.2s}
+.qopt:hover:not(.disabled){background:var(--teal);color:#000;border-color:var(--teal)}
+.qopt.correct{background:var(--green)!important;color:#000!important;border-color:var(--green)!important}
+.qopt.wrong{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+.qopt.disabled{cursor:not-allowed;opacity:.7}
+.qfb{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.85rem;font-weight:600;min-height:0}
+.qfb.ok{background:#0d2b1a;color:var(--green);border:1px solid var(--green)}
+.qfb.err{background:#2b0d0d;color:var(--red);border:1px solid var(--red)}
+.word-card{background:#0d1117;border:1px solid var(--border);border-radius:10px;padding:14px;margin:10px 0}
+.word-de{font-size:1.3rem;font-weight:700;color:var(--gold)}
+.word-en{color:var(--muted);font-size:.9rem;margin:4px 0}
+.word-ex{color:var(--text);font-size:.9rem;font-style:italic;border-left:3px solid var(--teal);padding-left:10px;margin-top:8px}
+.speak-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.speak-num{color:var(--teal);font-weight:700;font-size:.85rem;margin-bottom:8px}
+.speak-q{font-size:1.1rem;color:var(--text);margin-bottom:12px;line-height:1.5}
+.speak-hints{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.speak-hint{background:#0d2b1a;color:var(--green);padding:4px 10px;border-radius:16px;font-size:.8rem;border:1px solid var(--green)}
+
+</style>
+</head>
+<body>
+<div id="topbar">
+  <nav class="nav-pills">
+    <a href="TheGermanStefan_A0_Beginner_Hub.html" class="np" data-tier="FREE">🎉️<span>A0</span><span class="tier">FREE</span></a>
+    <a href="TheGermanStefan_A1_Hub.html" class="np" data-tier="PREMIUM">🇩🇪<span>A1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_A2_Hub.html" class="np" data-tier="PREMIUM">📗<span>A2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_B1_Hub.html" class="np" data-tier="PREMIUM">📘<span>B1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_B2_Hub.html" class="np" data-tier="PREMIUM">📕<span>B2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_C1_Hub.html" class="np" data-tier="PREMIUM">🎆<span>C1</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_C2_Hub.html" class="np" data-tier="PREMIUM">🎓<span>C2</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_Vocab_Hub.html" class="np" data-tier="FREE">🐜<span>Vocab</span><span class="tier">FREE</span></a>
+    <a href="TheGermanStefan_Special_Skills_Hub.html" class="np" data-tier="PREMIUM">🎣<span>Special</span><span class="tier">PREMIUM</span></a>
+    <a href="TheGermanStefan_Exam_Room.html" class="np" data-tier="PREMIUM">🎖️<span>Exams</span><span class="tier">PREMIUM</span></a>
+  </nav>
+  <div class="lang-btns">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="it" onclick="setLang('it')">IT</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<a href="TheGermanStefan_C1_Hub.html" class="back-hub" data-t="back_hub">← Back to C1 Hub</a>
+<div class="main">
+
+<h1>🎆 Wissenschaft und Forschung</h1>
+<p class="subtitle">Science and Research — C1 Wortschatz</p>
+<div class="card">
+  <h2>📚 Vokabeln / Vocabulary</h2>
+<div class="word-card">
+  <div class="word-de">die Hypothese, -n</div>
+  <div class="word-en">🇬🇧 hypothesis</div>
+  <div class="word-ex">🗣️ Die Forscher stellten eine Hypothese über den Ursprung des Virus auf.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">das Paradigma, -men</div>
+  <div class="word-en">🇬🇧 paradigm</div>
+  <div class="word-ex">🗣️ Ein neues wissenschaftliches Paradigma verdrängte die alte Theorie.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">die Erkenntnis, -se</div>
+  <div class="word-en">🇬🇧 insight / finding</div>
+  <div class="word-ex">🗣️ Die neuesten Erkenntnisse der Forschung sind vielversprechend.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">belegen (belegte, belegt)</div>
+  <div class="word-en">🇬🇧 to prove / substantiate</div>
+  <div class="word-ex">🗣️ Die Studie belegt einen klaren Zusammenhang zwischen den Variablen.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">die Stichprobe, -n</div>
+  <div class="word-en">🇬🇧 sample (statistics)</div>
+  <div class="word-ex">🗣️ Die Stichprobe war repräsentativ für die Gesamtbevölkerung.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">widerlegen (widerlegte, widerlegt)</div>
+  <div class="word-en">🇬🇧 to refute / disprove</div>
+  <div class="word-ex">🗣️ Das Experiment widerlegte die ursprüngliche These.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">die Korrelation, -en</div>
+  <div class="word-en">🇬🇧 correlation</div>
+  <div class="word-ex">🗣️ Eine Korrelation bedeutet nicht zwangsläufig eine Kausalität.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">reproduzierbar</div>
+  <div class="word-en">🇬🇧 reproducible</div>
+  <div class="word-ex">🗣️ Wissenschaftliche Ergebnisse müssen reproduzierbar sein.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">das Peer-Review</div>
+  <div class="word-en">🇬🇧 peer review</div>
+  <div class="word-ex">🗣️ Der Artikel wurde einem strengen Peer-Review-Verfahren unterzogen.</div>
+</div>
+<div class="word-card">
+  <div class="word-de">interdisziplinär</div>
+  <div class="word-en">🇬🇧 interdisciplinary</div>
+  <div class="word-ex">🗣️ Dieses Problem erfordert einen interdisziplinären Ansatz.</div>
+</div>
+</div>
+<div class="card"><h2>🧠 Schnelltest / Quick Quiz</h2>
+<div class="qblock">
+  <div class="qnum">Frage 1</div>
+  <div class="qtext">Was bedeutet: <strong style="color:var(--gold)">die Hypothese, -n</strong>?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'v1',false)">to prove / substantiate</button>
+<button class="qopt" onclick="mc(this,'v1',false)">paradigm</button>
+<button class="qopt" onclick="mc(this,'v1',true)">hypothesis</button>
+<button class="qopt" onclick="mc(this,'v1',false)">insight / finding</button>
+</div>
+  <div id="qfbv1" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 2</div>
+  <div class="qtext">Was bedeutet: <strong style="color:var(--gold)">das Paradigma, -men</strong>?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'v2',false)">to prove / substantiate</button>
+<button class="qopt" onclick="mc(this,'v2',true)">paradigm</button>
+<button class="qopt" onclick="mc(this,'v2',false)">hypothesis</button>
+<button class="qopt" onclick="mc(this,'v2',false)">insight / finding</button>
+</div>
+  <div id="qfbv2" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 3</div>
+  <div class="qtext">Was bedeutet: <strong style="color:var(--gold)">die Erkenntnis, -se</strong>?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'v3',false)">to prove / substantiate</button>
+<button class="qopt" onclick="mc(this,'v3',false)">hypothesis</button>
+<button class="qopt" onclick="mc(this,'v3',true)">insight / finding</button>
+<button class="qopt" onclick="mc(this,'v3',false)">paradigm</button>
+</div>
+  <div id="qfbv3" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 4</div>
+  <div class="qtext">Was bedeutet: <strong style="color:var(--gold)">belegen (belegte, belegt)</strong>?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'v4',true)">to prove / substantiate</button>
+<button class="qopt" onclick="mc(this,'v4',false)">hypothesis</button>
+<button class="qopt" onclick="mc(this,'v4',false)">insight / finding</button>
+<button class="qopt" onclick="mc(this,'v4',false)">paradigm</button>
+</div>
+  <div id="qfbv4" class="qfb"></div>
+</div>
+<div class="qblock">
+  <div class="qnum">Frage 5</div>
+  <div class="qtext">Was bedeutet: <strong style="color:var(--gold)">die Stichprobe, -n</strong>?</div>
+  <div class="qopts"><button class="qopt" onclick="mc(this,'v5',false)">paradigm</button>
+<button class="qopt" onclick="mc(this,'v5',false)">hypothesis</button>
+<button class="qopt" onclick="mc(this,'v5',false)">insight / finding</button>
+<button class="qopt" onclick="mc(this,'v5',true)">sample (statistics)</button>
+</div>
+  <div id="qfbv5" class="qfb"></div>
+</div>
+</div>
+</div>
+<div style="text-align:center;padding:24px 16px 40px;color:var(--muted);font-size:.85rem">
+  <a href="TheGermanStefan_C1_Hub.html" style="color:var(--gold);text-decoration:none;font-weight:700">← Back to C1 Hub</a>
+</div>
+<script>
+
+const CL='en';
+function setLang(l){
+  document.querySelectorAll('[data-lang]').forEach(e=>e.style.display=e.getAttribute('data-lang')===l?'block':'none');
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===l));
+}
+const mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){
+    btn.classList.add('correct');
+    if(fb){fb.className='qfb ok';fb.textContent='✓ Richtig!';}
+    mcs[qid]=1;
+  }else{
+    btn.classList.add('wrong');
+    w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes('true'))b.classList.add('correct');});
+    if(fb){fb.className='qfb err';fb.textContent='✗ Nicht ganz — die richtige Antwort ist markiert.';}
+    mcs[qid]=0;
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
+  setLang(CL);
+});
+
+</script>
+</body>
+</html>
