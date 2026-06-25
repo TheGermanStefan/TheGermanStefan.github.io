@@ -5,31 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TheGermanStefan · C2 Proficiency Hub</title>
 <style>
-:root{--lc:#b91c2c;--lc2:#4c1d95;--lv:#8b5cf6;--bg:#f8f9fa;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;}
+:root{--lc:#004d40;--lc2:#00251a;--bg:#f8f9fa;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);}
-/* NAV */
 .topnav{background:#0d1117;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;}
 .topnav .brand{color:#fff;font-weight:700;font-size:1rem;text-decoration:none;display:flex;align-items:center;gap:8px;}
-.breadcrumb{color:#9ca3af;font-size:.8rem;}
-.breadcrumb a{color:#9ca3af;text-decoration:none;}
-.breadcrumb a:hover{color:#fff;}
 .lang-bar{display:flex;gap:6px;}
 .lb{background:none;border:1px solid #374151;color:#9ca3af;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:.75rem;font-weight:600;}
 .lb.on{background:var(--lc);border-color:var(--lc);color:#fff;}
-/* HERO */
-.hero{background:linear-gradient(135deg,#0f0a1e 0%,#4c1d95 50%,#6d28d9 100%);color:#fff;padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;}
+.hero{background:linear-gradient(135deg,#000d0a 0%,#00251a 50%,#004d40 100%);color:#fff;padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
 .level-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.1em;padding:4px 14px;border-radius:20px;margin-bottom:16px;position:relative;}
 .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:12px;position:relative;}
 .hero p{font-size:1rem;opacity:.85;max-width:560px;margin:0 auto 20px;position:relative;}
 .hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;}
 .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;padding:5px 14px;border-radius:20px;}
-/* PROGRESS */
 .prog-bar{background:rgba(0,0,0,.2);height:6px;border-radius:3px;margin:24px auto 0;max-width:400px;position:relative;}
-.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#c4b5fd,#8b5cf6);width:0%;transition:width .6s;}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#80cbc4,#00897b);width:0%;transition:width .6s;}
 .prog-label{text-align:center;font-size:.75rem;opacity:.7;margin-top:6px;}
-/* TABS */
 .tabs{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;overflow-x:auto;}
 .tabs-inner{display:flex;max-width:1100px;margin:0 auto;padding:0 16px;}
 .tab{padding:14px 18px;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;}
@@ -37,24 +30,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .tab.active{color:var(--lc);border-bottom-color:var(--lc);}
 .tab-dot{width:8px;height:8px;border-radius:50%;background:#e5e7eb;transition:background .2s;}
 .tab.active .tab-dot{background:var(--lc);}
-/* SECTIONS */
 .section{display:none;max-width:1100px;margin:0 auto;padding:32px 20px;}
 .section.active{display:block;}
 .sec-header{margin-bottom:28px;}
 .sec-header h2{font-size:1.5rem;font-weight:700;color:var(--txt);}
 .sec-header p{color:var(--muted);margin-top:4px;font-size:.9rem;}
-/* CARDS GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
-.card:hover{border-color:var(--lc);box-shadow:0 4px 20px rgba(124,58,237,.12);transform:translateY(-2px);}
+.card:hover{border-color:var(--lc);box-shadow:0 4px 20px rgba(0,77,64,.12);transform:translateY(-2px);}
 .card-icon{font-size:1.6rem;margin-bottom:10px;}
 .card-title{font-weight:700;font-size:.95rem;color:var(--txt);margin-bottom:4px;}
 .card-sub{font-size:.8rem;color:var(--muted);}
 .card-badge{display:inline-block;background:var(--lc);color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:8px;}
 .card-done{border-color:#16a34a !important;background:#f0fdf4;}
 .card-done .card-badge{background:#16a34a;}
-/* WELCOME */
-.welcome-box{background:linear-gradient(135deg,#4c1d95,#b91c2c);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;}
+.welcome-box{background:linear-gradient(135deg,#00251a,#004d40);color:#fff;border-radius:16px;padding:32px;margin-bottom:28px;}
 .welcome-box h2{font-size:1.4rem;font-weight:700;margin-bottom:10px;}
 .welcome-box p{opacity:.9;line-height:1.7;margin-bottom:12px;}
 .welcome-box ul{padding-left:20px;opacity:.9;}
@@ -65,13 +55,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ov-card .ov-icon{font-size:1.8rem;margin-bottom:8px;}
 .ov-card .ov-title{font-weight:700;font-size:.85rem;color:var(--txt);}
 .ov-card .ov-count{font-size:.75rem;color:var(--muted);margin-top:2px;}
-/* UPGRADE */
-.upgrade{background:linear-gradient(135deg,#1a0033,#4c1d95);color:#fff;border-radius:16px;padding:32px;text-align:center;margin-top:32px;}
+.upgrade{background:linear-gradient(135deg,#000d0a,#00251a);color:#fff;border-radius:16px;padding:32px;text-align:center;margin-top:32px;}
 .upgrade h3{font-size:1.2rem;font-weight:700;margin-bottom:8px;}
 .upgrade p{opacity:.85;margin-bottom:20px;}
 .btn-upgrade{display:inline-block;background:#fff;color:var(--lc);font-weight:700;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:.9rem;transition:opacity .2s;}
 .btn-upgrade:hover{opacity:.9;}
-/* FOOTER */
 footer{text-align:center;padding:24px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:40px;}
 </style>
 </head>
@@ -92,99 +80,78 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:.8rem;border-
 
 <div class="hero">
   <div class="level-badge">🎓 C2 · PROFICIENCY · MASTER TIER</div>
-  <h1 data-t="hero_title">🎓 C2 German — Proficiency</h1>
-  <p data-t="hero_sub">Reach the pinnacle of German mastery. Engage with complex texts, produce nuanced academic writing, and communicate with the precision and elegance of an educated native speaker.</p>
+  <h1>🎓 C2 German — Proficiency</h1>
+  <p>Reach the pinnacle of German mastery. Engage with complex texts, produce nuanced academic writing, and communicate with the precision and elegance of an educated native speaker.</p>
   <div class="hero-pills">
-    <div class="pill" data-t="pill1">📝 10 Grammar Lessons</div>
-    <div class="pill" data-t="pill2">📖 5 Reading Rooms</div>
-    <div class="pill" data-t="pill3">📚 5 Vocabulary Sets</div>
-    <div class="pill" data-t="pill4">🗣️ 10 Speaking Sets</div>
-    <div class="pill" data-t="pill5">🎯 5 Practice Tests</div>
+    <div class="pill">📝 10 Grammar Lessons</div>
+    <div class="pill">📖 5 Reading Rooms</div>
+    <div class="pill">📚 5 Vocabulary Sets</div>
+    <div class="pill">🗣️ 10 Speaking Sets</div>
+    <div class="pill">🎯 2 Practice Tests</div>
   </div>
   <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
-  <div class="prog-label" id="progLabel">0 of 35 completed · 0%</div>
+  <div class="prog-label" id="progLabel">0 of 32 completed · 0%</div>
 </div>
 
 <div class="tabs">
   <div class="tabs-inner">
-    <div class="tab active" onclick="showTab('welcome')" data-t="tab_welcome">👋 Overview <span class="tab-dot"></span></div>
-    <div class="tab" onclick="showTab('grammar')" data-t="tab_grammar">📝 Grammar <span class="tab-dot"></span></div>
-    <div class="tab" onclick="showTab('reading')" data-t="tab_reading">📖 Reading <span class="tab-dot"></span></div>
-    <div class="tab" onclick="showTab('vocab')" data-t="tab_vocab">📚 Vocabulary <span class="tab-dot"></span></div>
-    <div class="tab" onclick="showTab('speaking')" data-t="tab_speaking">🗣️ Speaking <span class="tab-dot"></span></div>
-    <div class="tab" onclick="showTab('tests')" data-t="tab_tests">🎯 Tests <span class="tab-dot"></span></div>
+    <div class="tab active" onclick="showTab('welcome')">👋 Overview <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('grammar')">📝 Grammar <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('reading')">📖 Reading <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('vocab')">📚 Vocabulary <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('speaking')">🗣️ Speaking <span class="tab-dot"></span></div>
+    <div class="tab" onclick="showTab('tests')">🎯 Tests <span class="tab-dot"></span></div>
   </div>
 </div>
 
-<!-- WELCOME -->
 <div class="section active" id="sec-welcome">
   <div class="welcome-box">
-    <h2 data-t="w_title">Welcome to C2 — Proficiency German</h2>
-    <p data-t="w_p1">At C2 you operate at near-native level. You engage with highly complex and nuanced texts, produce academically rigorous writing, and communicate with the precision and eloquence of an educated native speaker.</p>
+    <h2>Welcome to C2 — Proficiency German</h2>
+    <p>At C2 you operate at near-native level. You engage with highly complex and nuanced texts, produce academically rigorous writing, and communicate with the precision and eloquence of an educated native speaker.</p>
     <ul>
-      <li data-t="w_li1">Proficiency grammar: Subjunktiv I, Hypotaxe, Rhetorik, Modalität & Stilkritik</li>
-      <li data-t="w_li2">Authentic reading texts: philosophy, literature, politics, bioethics, digital</li>
-      <li data-t="w_li3">Academic and formal vocabulary sets across 5 topic areas</li>
-      <li data-t="w_li4">Speaking card sets for literary analysis, philosophical discourse, cultural critique, and high-level academic presentation</li>
-      <li data-t="w_li5">5 full Goethe-Zertifikat C2 style practice tests</li>
+      <li>Proficiency grammar: Rhetorische Figuren, Stilkritik, Argumentationsstrukturen, Sprachphilosophie</li>
+      <li>Authentic reading texts: philosophy, science, discourse analysis, cultural history, literature</li>
+      <li>Academic and formal vocabulary across 5 high-level topic areas</li>
+      <li>Speaking card sets for rhetoric, negotiation, academic presentation, ethical debate</li>
+      <li>Goethe-Zertifikat C2 style practice tests</li>
     </ul>
   </div>
   <div class="overview-grid">
-    <div class="ov-card" onclick="showTab('grammar')"><div class="ov-icon">📝</div><div class="ov-title" data-t="tab_grammar">Grammar</div><div class="ov-count">10 lessons</div></div>
-    <div class="ov-card" onclick="showTab('reading')"><div class="ov-icon">📖</div><div class="ov-title" data-t="tab_reading">Reading</div><div class="ov-count">5 texts</div></div>
-    <div class="ov-card" onclick="showTab('vocab')"><div class="ov-icon">📚</div><div class="ov-title" data-t="tab_vocab">Vocabulary</div><div class="ov-count">5 sets</div></div>
-    <div class="ov-card" onclick="showTab('speaking')"><div class="ov-icon">🗣️</div><div class="ov-title" data-t="tab_speaking">Speaking</div><div class="ov-count">10 sets</div></div>
-    <div class="ov-card" onclick="showTab('tests')"><div class="ov-icon">🎯</div><div class="ov-title" data-t="tab_tests">Tests</div><div class="ov-count">5 tests</div></div>
+    <div class="ov-card" onclick="showTab('grammar')"><div class="ov-icon">📝</div><div class="ov-title">Grammar</div><div class="ov-count">10 lessons</div></div>
+    <div class="ov-card" onclick="showTab('reading')"><div class="ov-icon">📖</div><div class="ov-title">Reading</div><div class="ov-count">5 texts</div></div>
+    <div class="ov-card" onclick="showTab('vocab')"><div class="ov-icon">📚</div><div class="ov-title">Vocabulary</div><div class="ov-count">5 sets</div></div>
+    <div class="ov-card" onclick="showTab('speaking')"><div class="ov-icon">🗣️</div><div class="ov-title">Speaking</div><div class="ov-count">10 sets</div></div>
+    <div class="ov-card" onclick="showTab('tests')"><div class="ov-icon">🎯</div><div class="ov-title">Tests</div><div class="ov-count">2 tests</div></div>
   </div>
 </div>
 
-<!-- GRAMMAR -->
 <div class="section" id="sec-grammar">
-  <div class="sec-header">
-    <h2 data-t="grammar_h">📝 C2 Grammar Lessons</h2>
-    <p data-t="grammar_sub">10 proficiency grammar topics — from Konjunktiv II to Nominalstil and academic connectors</p>
-  </div>
+  <div class="sec-header"><h2>📝 C2 Grammar Lessons</h2><p>10 proficiency grammar topics — from Rhetorische Figuren to Sprachphilosophie</p></div>
   <div class="grid" id="grammarGrid"></div>
 </div>
 
-<!-- READING -->
 <div class="section" id="sec-reading">
-  <div class="sec-header">
-    <h2 data-t="reading_h">📖 C2 Reading Room</h2>
-    <p data-t="reading_sub">5 authentic C2-level texts with comprehension tasks — philosophy, literature, politics, bioethics, digital</p>
-  </div>
+  <div class="sec-header"><h2>📖 C2 Reading Room</h2><p>5 authentic C2-level texts — philosophy, science, discourse, culture, literature</p></div>
   <div class="grid" id="readingGrid"></div>
 </div>
 
-<!-- VOCAB -->
 <div class="section" id="sec-vocab">
-  <div class="sec-header">
-    <h2 data-t="vocab_h">📚 C2 Vocabulary Sets</h2>
-    <p data-t="vocab_sub">5 focused vocabulary sets for academic, economic, scientific, political and cultural registers</p>
-  </div>
+  <div class="sec-header"><h2>📚 C2 Vocabulary Sets</h2><p>5 focused vocabulary sets for academic, philosophical and literary registers</p></div>
   <div class="grid" id="vocabGrid"></div>
 </div>
 
-<!-- SPEAKING -->
 <div class="section" id="sec-speaking">
-  <div class="sec-header">
-    <h2 data-t="speaking_h">🗣️ C2 Speaking Cards</h2>
-    <p data-t="speaking_sub">10 speaking card sets — argumentation, negotiation, presentation, debate, and cultural comparison</p>
-  </div>
+  <div class="sec-header"><h2>🗣️ C2 Speaking Cards</h2><p>10 speaking card sets — rhetoric, academic discourse, ethical debate, mastery showcase</p></div>
   <div class="grid" id="speakingGrid"></div>
 </div>
 
-<!-- TESTS -->
 <div class="section" id="sec-tests">
-  <div class="sec-header">
-    <h2 data-t="tests_h">🎯 C2 Practice Tests</h2>
-    <p data-t="tests_sub">5 full Goethe-Zertifikat C2 style tests — Lesen, Hören, Schreiben, Sprachbausteine</p>
-  </div>
+  <div class="sec-header"><h2>🎯 C2 Practice Tests</h2><p>Goethe-Zertifikat C2 style tests — Lesen, Hören, Schreiben, Sprachbausteine</p></div>
   <div class="grid" id="testsGrid"></div>
   <div class="upgrade">
-    <h3 data-t="up_title">🎓 Master Membership</h3>
-    <p data-t="up_sub">C2 & C2 content is included in the Master membership. Get full access to all tests, grammar files, vocabulary sets and speaking cards.</p>
-    <a href="https://www.skool.com/thegermanstefan-9325" class="btn-upgrade" data-t="up_btn">Join TheGermanStefan →</a>
+    <h3>🎓 Master Membership</h3>
+    <p>C2 content is included in the Master membership. Get full access to all tests, grammar files, vocabulary sets and speaking cards.</p>
+    <a href="https://www.skool.com/thegermanstefan-9325" class="btn-upgrade">Join TheGermanStefan →</a>
   </div>
 </div>
 
@@ -194,93 +161,106 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:.8rem;border-
 const BASE = 'https://thegermanstefan.github.io';
 
 const grammar = [
-  {n:'01',t:'Subjunktiv I & indirekte Rede',s:'Reported speech in academic & journalistic texts',f:`${BASE}/TheGermanStefan_C2_Grammar_01.html`},
-  {n:'02',t:'Komplexe Satzgefüge',s:'Hypotaxe & multiply-embedded clauses',f:`${BASE}/TheGermanStefan_C2_Grammar_02.html`},
-  {n:'03',t:'Rhetorische Stilfiguren',s:'Metapher, Ironie, Antithese & more',f:`${BASE}/TheGermanStefan_C2_Grammar_03.html`},
-  {n:'04',t:'Textgrammatik',s:'Cohesion, coherence & thematic structure',f:`${BASE}/TheGermanStefan_C2_Grammar_04.html`},
-  {n:'05',t:'Sprachliche Variation',s:'Register, dialect & stylistic choice',f:`${BASE}/TheGermanStefan_C2_Grammar_05.html`},
-  {n:'06',t:'Epistemische Modalität',s:'Expressing degrees of certainty',f:`${BASE}/TheGermanStefan_C2_Grammar_06.html`},
-  {n:'07',t:'Wortbildung',s:'Komposition, prefixes & suffixes',f:`${BASE}/TheGermanStefan_C2_Grammar_07.html`},
-  {n:'08',t:'Pragmatik & Sprechakte',s:'Speech acts & intercultural competence',f:`${BASE}/TheGermanStefan_C2_Grammar_08.html`},
-  {n:'09',t:'Historische Sprachentwicklung',s:'From Middle High German to today',f:`${BASE}/TheGermanStefan_C2_Grammar_09.html`},
-  {n:'10',t:'Stilkritik',s:'Text analysis, revision & optimisation',f:`${BASE}/TheGermanStefan_C2_Grammar_10.html`},
+  {n:'01',t:'Rhetorische Figuren',s:'Anaphora, chiasmus, antithesis and more',f:`${BASE}/C2_Grammar_01_Rhetorische_Figuren.html`},
+  {n:'02',t:'Stilistische Variation',s:'Mastering register and stylistic range',f:`${BASE}/C2_Grammar_02_Stilistische_Variation.html`},
+  {n:'03',t:'Fachsprachliche Strukturen',s:'Technical language patterns in German',f:`${BASE}/C2_Grammar_03_Fachsprachliche_Strukturen.html`},
+  {n:'04',t:'Argumentationsstrukturen',s:'Building and deconstructing formal arguments',f:`${BASE}/C2_Grammar_04_Argumentationsstrukturen.html`},
+  {n:'05',t:'Historische Sprachformen',s:'Understanding older German texts',f:`${BASE}/C2_Grammar_05_Historische_Sprachformen.html`},
+  {n:'06',t:'Syntax & Pragmatik',s:'How word order shapes meaning',f:`${BASE}/C2_Grammar_06_Syntax_Pragmatik.html`},
+  {n:'07',t:'Präzision & Nuancierung',s:'Near-synonyms, connotation and precision',f:`${BASE}/C2_Grammar_07_Praezision_Nuancierung.html`},
+  {n:'08',t:'Wissenschaftlicher Stil',s:'Academic writing conventions at C2',f:`${BASE}/C2_Grammar_08_Wissenschaftlicher_Stil.html`},
+  {n:'09',t:'Literarische Stilmittel',s:'Metaphor, symbol, irony and more',f:`${BASE}/C2_Grammar_09_Literarische_Stilmittel.html`},
+  {n:'10',t:'Sprachphilosophie',s:'Language, thought and reality',f:`${BASE}/C2_Grammar_10_Sprachphilosophie.html`},
 ];
 const reading = [
-  {n:'01',t:'Philosophie & Erkenntnistheorie',s:'Epistemology, Kant, Hegel, Habermas',f:`${BASE}/TheGermanStefan_C2_Reading_01.html`},
-  {n:'02',t:'Literatur & Ästhetik',s:'Literary analysis, close reading, aesthetics',f:`${BASE}/TheGermanStefan_C2_Reading_02.html`},
-  {n:'03',t:'Demokratietheorie',s:'Deliberative democracy, legitimacy, governance',f:`${BASE}/TheGermanStefan_C2_Reading_03.html`},
-  {n:'04',t:'Biopolitik & Ethik',s:'Foucault, bioethics, body autonomy',f:`${BASE}/TheGermanStefan_C2_Reading_04.html`},
-  {n:'05',t:'Digitale Gesellschaft',s:'Surveillance capitalism, AI, digital democracy',f:`${BASE}/TheGermanStefan_C2_Reading_05.html`},
+  {n:'01',t:'Gesellschaftskritik',s:'Digital inequality and social structures',f:`${BASE}/C2_Reading_01_Gesellschaftskritik.html`},
+  {n:'02',t:'Wissenschaftsphilosophie',s:'Philosophy of science — Popper and Kuhn',f:`${BASE}/C2_Reading_02_Wissenschaftsphilosophie.html`},
+  {n:'03',t:'Sprachkritik',s:'Language, power and discourse analysis',f:`${BASE}/C2_Reading_03_Sprachkritik.html`},
+  {n:'04',t:'Kulturgeschichte',s:'Culture, memory and historical narrative',f:`${BASE}/C2_Reading_04_Kulturgeschichte.html`},
+  {n:'05',t:'Literarischer Text',s:'Kafka — literary analysis at C2 level',f:`${BASE}/C2_Reading_05_Literarischer_Text.html`},
 ];
 const vocab = [
-  {n:'01',t:'Wissenschaftliche Fachsprache',s:'Scholarly metalanguage & argumentation',f:`${BASE}/TheGermanStefan_C2_Vocab_01.html`},
-  {n:'02',t:'Philosophie & abstrakte Begriffe',s:'Kant, Hegel, Habermas, Heidegger vocabulary',f:`${BASE}/TheGermanStefan_C2_Vocab_02.html`},
-  {n:'03',t:'Literarische Sprache',s:'Literary vocabulary & stylistics',f:`${BASE}/TheGermanStefan_C2_Vocab_03.html`},
-  {n:'04',t:'Recht, Politik & Institutionen',s:'Legal and political terminology',f:`${BASE}/TheGermanStefan_C2_Vocab_04.html`},
-  {n:'05',t:'Interkulturelle Kompetenz',s:'Cultural hybridity, identity, othering',f:`${BASE}/TheGermanStefan_C2_Vocab_05.html`},
+  {n:'01',t:'Wissenschaft & Forschung',s:'Advanced academic and scientific vocabulary',f:`${BASE}/C2_Vocab_01_Wissenschaft_Forschung.html`},
+  {n:'02',t:'Philosophie & Ethik',s:'Vocabulary for philosophical discourse',f:`${BASE}/C2_Vocab_02_Philosophie_Ethik.html`},
+  {n:'03',t:'Literatur & Kulturkritik',s:'Literary and cultural analysis vocabulary',f:`${BASE}/C2_Vocab_03_Literatur_Kulturkritik.html`},
+  {n:'04',t:'Politik & Recht',s:'High-level political and legal vocabulary',f:`${BASE}/C2_Vocab_04_Politik_Recht.html`},
+  {n:'05',t:'Wirtschaft & Globalisierung',s:'Advanced economics vocabulary',f:`${BASE}/C2_Vocab_05_Wirtschaft_Globalisierung.html`},
 ];
 const speaking = [
-  {n:'01',t:'Meinung vertreten',s:'Proficiency opinion & hedging phrases',f:`${BASE}/TheGermanStefan_C2_Sprechen_01.html`},
-  {n:'02',t:'Argumentation',s:'Build & respond to arguments',f:`${BASE}/TheGermanStefan_C2_Sprechen_02.html`},
-  {n:'03',t:'Hypothesen',s:'Conditional & hypothetical discussion',f:`${BASE}/TheGermanStefan_C2_Sprechen_03.html`},
-  {n:'04',t:'Verhandlung',s:'Negotiation & compromise',f:`${BASE}/TheGermanStefan_C2_Sprechen_04.html`},
-  {n:'05',t:'Präsentation',s:'Structuring a formal presentation',f:`${BASE}/TheGermanStefan_C2_Sprechen_05.html`},
-  {n:'06',t:'Gesellschaftliche Debatten',s:'Social issues & debate',f:`${BASE}/TheGermanStefan_C2_Sprechen_06.html`},
-  {n:'07',t:'Akademische Diskussion',s:'Analytical discussion vocabulary',f:`${BASE}/TheGermanStefan_C2_Sprechen_07.html`},
-  {n:'08',t:'Kulturvergleich',s:'Comparing cultures diplomatically',f:`${BASE}/TheGermanStefan_C2_Sprechen_08.html`},
-  {n:'09',t:'Problemlösung',s:'Problem analysis & solution proposals',f:`${BASE}/TheGermanStefan_C2_Sprechen_09.html`},
-  {n:'10',t:'Beschwerden & Konflikt',s:'Formal complaints & de-escalation',f:`${BASE}/TheGermanStefan_C2_Sprechen_10.html`},
+  {n:'01',t:'Rhetorik & Überzeugung',s:'Persuasion and rhetorical mastery',f:`${BASE}/C2_Sprechen_01_Rhetorik_Ueberzeugung.html`},
+  {n:'02',t:'Akademische Diskussion',s:'High-level academic discourse',f:`${BASE}/C2_Sprechen_02_Akademische_Diskussion.html`},
+  {n:'03',t:'Diplomatisches Verhandeln',s:'Negotiation, diplomacy and face-saving',f:`${BASE}/C2_Sprechen_03_Diplomatisches_Verhandeln.html`},
+  {n:'04',t:'Kritische Analyse',s:'Analysing texts and arguments at C2',f:`${BASE}/C2_Sprechen_04_Kritische_Analyse.html`},
+  {n:'05',t:'Kulturelle Mediation',s:'Bridging cultural perspectives',f:`${BASE}/C2_Sprechen_05_Kulturelle_Mediation.html`},
+  {n:'06',t:'Politische Rede',s:'Political speech and public discourse',f:`${BASE}/C2_Sprechen_06_Politische_Rede.html`},
+  {n:'07',t:'Wissenschaftsvortrag',s:'Presenting academic research',f:`${BASE}/C2_Sprechen_07_Wissenschaftsvortrag.html`},
+  {n:'08',t:'Ethische Debatte',s:'Arguing ethics at the highest level',f:`${BASE}/C2_Sprechen_08_Ethische_Debatte.html`},
+  {n:'09',t:'Freie Reflexion',s:'Spontaneous sophisticated self-expression',f:`${BASE}/C2_Sprechen_09_Freie_Reflexion.html`},
+  {n:'10',t:'Meisterklasse',s:'The C2 mastery showcase',f:`${BASE}/C2_Sprechen_10_Meisterklasse.html`},
 ];
 const tests = [
-  {n:'01',t:'Test 1 — Lesen & Sprachbausteine',s:'Literary & journalistic comprehension',f:`${BASE}/Goethe_C2_Test_1.html`},
-  {n:'02',t:'Test 2 — Hören & Schreiben',s:'Academic listening + argumentative essay',f:`${BASE}/Goethe_C2_Test_2.html`},
-  {n:'03',t:'Test 3 — Integriert',s:'Integrated language skills at C2 level',f:`${BASE}/Goethe_C2_Test_3.html`},
   {n:'04',t:'Test 4 — Biopolitik / Sprachphilosophie / Globale Gerechtigkeit',s:'Full Goethe-style C2 practice test',f:`${BASE}/Goethe_C2_Test_4.html`},
   {n:'05',t:'Test 5 — Ästhetik / Demokratietheorien / Digitalphilosophie',s:'Full Goethe-style C2 practice test',f:`${BASE}/Goethe_C2_Test_5.html`},
 ];
 
 const DONE_KEY = 'c2_done';
-const done = new Set(JSON.parse(localStorage.getItem(DONE_KEY = 'c2_done';
+const done = new Set(JSON.parse(localStorage.getItem(DONE_KEY)||'[]'));
 
-function renderGrid(containerId, items, prefix) {
-  const el = document.getElementById(containerId);
+function renderGrid(id, items, prefix) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const icons = {g:'📝',r:'📖',v:'📚',s:'🗣️',t:'🎯'};
   el.innerHTML = items.map(item => {
     const key = prefix + item.n;
     const isDone = done.has(key);
-    return `<a href="${item.f}" class="card${isDone?' card-done':''}" target="_blank" onclick="markDone('${key}',this)">
-      <div class="card-icon">${prefix==='g'?'📝':prefix==='r'?'📖':prefix==='v'?'📚':prefix==='s'?'🗣️':'🎯'}</div>
-      <div class="card-title">${item.n}. ${item.t}</div>
-      <div class="card-sub">${item.s}</div>
-      <span class="card-badge">${isDone?'✓ Done':'C2'}</span>
-    </a>`;
+    return '<a href="' + item.f + '" class="card' + (isDone?' card-done':'') + '" onclick="markDone(\'' + key + '\',this)">'
+      + '<div class="card-icon">' + (icons[prefix]||'📄') + '</div>'
+      + '<div class="card-title">' + item.n + '. ' + item.t + '</div>'
+      + '<div class="card-sub">' + item.s + '</div>'
+      + '<span class="card-badge">' + (isDone?'✓ Done':'C2') + '</span>'
+      + '</a>';
   }).join('');
 }
 
 function markDone(key, el) {
   done.add(key);
-  localStorage.setItem(DONE_KEY = 'c2_done';
+  localStorage.setItem(DONE_KEY, JSON.stringify([...done]));
   el.classList.add('card-done');
-  el.querySelector('.card-badge').textContent = '✓ Done';
+  const b = el.querySelector('.card-badge');
+  if (b) b.textContent = '✓ Done';
   updateProgress();
 }
 
 function updateProgress() {
   const total = grammar.length + reading.length + vocab.length + speaking.length + tests.length;
   const pct = Math.round(done.size / total * 100);
-  document.getElementById('progFill').style.width = pct + '%';
-  document.getElementById('progLabel').textContent = `${done.size} of ${total} completed · ${pct}%`;
+  const pf = document.getElementById('progFill');
+  const pl = document.getElementById('progLabel');
+  if (pf) pf.style.width = pct + '%';
+  if (pl) pl.textContent = done.size + ' of ' + total + ' completed · ' + pct + '%';
 }
 
 function showTab(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('sec-' + name).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t => { if(t.getAttribute('onclick').includes("'"+name+"'")) t.classList.add('active'); });
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => {
+    if ((t.getAttribute('onclick')||'').includes("'" + name + "'")) t.classList.add('active');
+  });
 }
 
-// Multilingual
-const UI = {
-  EN:{hero_title:'🎓 C2 German — Proficiency',hero_sub:'Express yourself fluently on any topic. Master academic grammar, sophisticated vocabulary, and the speaking skills that define true C2 proficiency.',pill1:'📝 10 Grammar Lessons',pill2:'📖 5 Reading Rooms',pill3:'📚 5 Vocabulary Sets',pill4:'🗣️ 10 Speaking Sets',pill5:'🎯 5 Practice Tests',tab_welcome:'👋 Overview',tab_grammar:'📝 Grammar',tab_reading:'📖 Reading',tab_vocab:'📚 Vocabulary',tab_speaking:'🗣️ Speaking',tab_tests:'🎯 Tests',w_title:'Welcome to C2 — Proficiency German',w_p1:'At C2 you operate at near-native level. You engage with highly complex texts, produce academically rigorous writing, and communicate with the precision and eloquence of an educated native speaker.</script>
+function setLang(l) {
+  document.querySelectorAll('.lb').forEach(b => b.classList.toggle('on', b.textContent === l));
+}
+
+renderGrid('grammarGrid', grammar, 'g');
+renderGrid('readingGrid', reading, 'r');
+renderGrid('vocabGrid', vocab, 'v');
+renderGrid('speakingGrid', speaking, 's');
+renderGrid('testsGrid', tests, 't');
+updateProgress();
+</script>
 <script src="level-nav.js"></script>
 </body>
 </html>
