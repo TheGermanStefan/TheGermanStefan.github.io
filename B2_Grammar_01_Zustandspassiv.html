@@ -122,7 +122,7 @@ const LANG={en:{fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.'
 let CL=localStorage.getItem('tgs_lang')||'en';
 function t(k){return(LANG[CL]||LANG.en)[k]||k}
 function applyLang(){
-  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var lb={fr:'🇫������ Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
   var bar=document.getElementById('lang-bar');
   if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
   document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
