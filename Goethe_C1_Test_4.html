@@ -2,579 +2,265 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goethe-Zertifikat C1 – Modellprüfung 4</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Goethe C1 — Test 4 | Bioökonomie · Urbanisierung · Sorgearbeit</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
-#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
-#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:100px;text-align:center;font-variant-numeric:tabular-nums}
-#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
-@keyframes blink{from{opacity:1}to{opacity:.4}}
-.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
-.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
-.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
-.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
-#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
-#tbtn:hover{background:rgba(255,255,255,.15)}
-.cover{background:linear-gradient(135deg,#1a237e 0%,#283593 35%,#bf360c 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
-.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
-.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
-.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
-.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
-.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
-.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy)}
-.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
-.tl{background:var(--navy);display:flex}
-.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
-.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
-.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
-.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
-.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
-.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
-.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
-.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
-.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
-.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
-.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
-.mb{padding:18px 20px}
-.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
-.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
-.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
-.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
-.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
-.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
-.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
-.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
-.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
-.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
-.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
-table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
-table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
-table.rf tr:nth-child(even) td{background:#f8fbff}
-.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
-.rn{width:30px;font-weight:700;color:#666}.ra{width:120px;text-align:center}
-.rf-wrap{display:flex;gap:5px;justify-content:center}
-.rfb{width:28px;height:28px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:11px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
-.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
-.rfb.selN{background:#6a1b9a;border-color:#6a1b9a;color:#fff}
-.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
-.qn{color:var(--blue);margin-right:4px;font-weight:800}
-.mco{display:flex;flex-wrap:wrap;gap:7px}
-.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
-.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
-.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
-.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
-.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
-.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
-.sn{font-weight:700;min-width:20px}.st{flex:1}
-.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:60px}
-.ssel:focus{outline:none;border-color:var(--blue)}
-.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
-.filn{font-weight:700;color:var(--green);min-width:20px}
-.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:140px;outline:none}
-.gfin{border:none;border-bottom:2px dashed var(--purple);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:120px;outline:none}
-.warea{width:100%;min-height:220px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
-.warea:focus{border-color:var(--purple)}
-.wcpill{display:inline-block;background:#e0e0e0;color:#555;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:6px}
-.wcpill.ok{background:#c8e6c9;color:var(--green)}.wcpill.over{background:#ffcdd2;color:var(--red)}
-.personbox{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
-.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 12px;background:#f4f8ff;font-size:12.5px;min-width:150px}
-.pname{font-weight:800;color:var(--blue);margin-bottom:3px}
-.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.85;margin-bottom:9px}
-.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:4px}
-.wbox{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:10px}
-.wbox b{color:var(--green)}
-.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
-.lc{background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;padding:9px 14px;font-size:13px;line-height:1.85;margin-bottom:10px}
-.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
-.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
-.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
-.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
-.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
-.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
-.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
-.rfn-note{font-size:11px;font-style:italic;color:#888;margin-bottom:8px}
-.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
-.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.akh{background:#1a237e;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
-.akb{padding:18px 20px}.akm{margin-bottom:18px}
-.akm h3{font-size:14px;font-weight:700;color:#1a237e;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
-.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
-.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
-.ok{color:var(--green);font-weight:700}
-@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root{--acc:#b91c1c;--acc2:#7f1d1d;--bg:#f8f9fa;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;--ok:#16a34a;--err:#dc2626;--border:#e5e7eb;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);}
+.topbar{background:#1a1a2e;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.topbar h1{font-size:.95rem;font-weight:700;}
+.badge{background:var(--acc);color:#fff;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:10px;}
+.timer{font-size:.85rem;color:#fcd34d;font-weight:700;}
+.hero{background:linear-gradient(135deg,#1a1a2e,#7f1d1d,#b91c1c);color:#fff;padding:32px 20px;text-align:center;}
+.hero h2{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:800;margin-bottom:8px;}
+.hero p{opacity:.85;font-size:.9rem;}
+.topics{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.topic{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.75rem;padding:4px 12px;border-radius:12px;}
+.tabs{background:#fff;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:0;z-index:40;}
+.tab{padding:12px 16px;font-size:.82rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab.active{color:var(--acc);border-bottom-color:var(--acc);}
+.sec{display:none;max-width:860px;margin:0 auto;padding:28px 16px;}
+.sec.active{display:block;}
+.sec-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--txt);}
+.sec-intro{font-size:.85rem;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.text-box{background:#f0f4f8;border-left:4px solid var(--acc);border-radius:0 8px 8px 0;padding:16px 18px;margin-bottom:20px;font-size:.88rem;line-height:1.75;}
+.text-box h3{font-weight:700;margin-bottom:8px;color:var(--acc2);}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;}
+.q-num{font-size:.72rem;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.q-text{font-weight:600;font-size:.9rem;margin-bottom:10px;line-height:1.5;}
+.options{display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .15s;}
+.opt:hover{border-color:var(--acc);background:#f5f3ff;}
+.opt input{accent-color:var(--acc);}
+.opt.correct{background:#dcfce7;border-color:var(--ok);}
+.opt.wrong{background:#fee2e2;border-color:var(--err);}
+.writing-prompt{background:#fef9c3;border:1px solid #fde68a;border-radius:8px;padding:14px;margin-bottom:12px;font-size:.85rem;line-height:1.6;}
+.writing-prompt strong{color:var(--acc2);}
+textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:.88rem;font-family:inherit;line-height:1.6;resize:vertical;min-height:180px;background:#fff;}
+textarea:focus{outline:none;border-color:var(--acc);}
+.word-count{font-size:.75rem;color:var(--muted);text-align:right;margin-top:4px;}
+.sprechen-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;}
+.sprechen-card h4{font-weight:700;margin-bottom:8px;color:var(--acc2);}
+.sprechen-card p{font-size:.88rem;line-height:1.6;}
+.sprechen-card .hint{font-size:.8rem;color:var(--muted);margin-top:8px;font-style:italic;}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;font-weight:700;font-size:.88rem;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--acc);color:#fff;}
+.btn-primary:hover{background:var(--acc2);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.score-box{background:linear-gradient(135deg,#7f1d1d,#b91c1c);color:#fff;border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;}
+.score-box .num{font-size:2.5rem;font-weight:800;}
+.score-box .lbl{opacity:.85;font-size:.9rem;}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:.88rem;}
+.result-row:last-child{border-bottom:none;}
+.pill-ok{background:#dcfce7;color:#166534;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.pill-err{background:#fee2e2;color:#991b1b;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.answer-key{background:#f0f4f8;border-radius:8px;padding:14px;margin-top:16px;font-size:.83rem;line-height:1.7;}
+.answer-key h4{font-weight:700;margin-bottom:6px;color:var(--acc2);}
 </style>
 </head>
 <body>
-<div id="timer-bar">
-  <div class="tlabel">Verbleibende Zeit</div>
-  <div id="timer-digits">3:30:00</div>
-  <div class="tmod-bar">
-    <span class="tpill on" id="tp1">Lesen 90'</span>
-    <span class="tpill" id="tp2">Hören 40'</span>
-    <span class="tpill" id="tp3">Schreiben 80'</span>
-    <span class="tpill" id="tp4">Sprechen ~15'</span>
-  </div>
-  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+<div class="topbar">
+  <div><span class="badge">C1 · Test 4</span>
+  <h1 style="display:inline;margin-left:10px;">Goethe-Zertifikat C1 — Übungstest 4</h1></div>
+  <div class="timer" id="timer">⏱ 165:00</div>
 </div>
-
-<div class="cover">
-  <div>
-    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 4</div>
-    <h1>Goethe-Zertifikat C1 – Deutsch als Fremdsprache</h1>
-    <div class="meta">
-      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
-      Prüfungsdauer: ca. <strong>210 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
-    </div>
-  </div>
-  <div class="badge">C1<span>Test 4</span></div>
-</div>
-
-<div class="cand-row">
-  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
-  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
-  <div class="cf"><label>Kurs:</label><input class="ci" type="text"></div>
-</div>
-
-<div class="tl">
-  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 90 Min</div></div>
-  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
-  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 80 Min</div></div>
-  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
-  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
-</div>
-
-<div class="wrap">
-
-<!-- LESEN -->
-<div class="mod lesen">
-  <div class="mh">
-    <div class="circ">1</div>
-    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 90 Min.</div>
-  </div>
-  <div class="mb">
-
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Wissenschaftlicher Text – R / F / Nicht im Text</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R), falsch (F) oder nicht im Text (N)?</div>
-    <div class="rfn-note">R = stimmt mit dem Text überein · F = widerspricht dem Text · N = nicht im Text erwähnt</div>
-    <div class="sbox">
-      <div class="smeta">Aus einer wirtschaftswissenschaftlichen Fachzeitschrift</div>
-      <strong>Bioökonomie: Wenn Biomasse die Petrochemie ersetzt</strong><br><br>
-      Die Bioökonomie gilt als einer der vielversprechendsten Transformationspfade für eine post-fossile Wirtschaft. Unter dem Begriff versteht man die Produktion und Verarbeitung biologischer Ressourcen – von Agrar- und Forstprodukten bis hin zu Meeresbiomasse – als Grundlage für Lebensmittel, Materialien, Chemikalien und Energie. Deutschland hat 2020 eine nationale Bioökonomiestrategie verabschiedet, die eine schrittweise Ablösung petrochemischer Prozesse anstrebt.<br><br>
-      Das Potenzial ist erheblich: Laut dem Bundesforschungsministerium könnten biobasierte Kunststoffe bis 2030 rund 15 Prozent der konventionellen Kunststoffproduktion ersetzen. Bereits heute werden in Deutschland über 300 Unternehmen der Bioökonomie-Branche gezählt, die zusammen mehr als 22.000 Beschäftigte haben. Allerdings steht die Branche vor erheblichen Skalierungsherausforderungen: Die Kosten biobasierter Produkte liegen häufig noch deutlich über denen fossiler Alternativen, und der Flächendruck durch Anbau von Energiepflanzen gefährdet die Artenvielfalt.<br><br>
-      Kritiker wie der Umweltökonom Prof. Gerhardt warnen vor einer zu schnellen Expansion: Ohne strikte Nachhaltigkeitskriterien könnten Monokulturen und Landnutzungskonflikte zunehmen. Gleichzeitig betonen Befürworter, dass Bioökonomie und Naturschutz nicht notwendigerweise im Widerspruch stehen – wenn Abfallbiomasse und Rest-Ströme genutzt werden, statt neue Flächen zu erschließen.
-    </div>
-    <table class="rf">
-      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
-      <tbody>
-        <tr><td class="rn">1.</td><td>Deutschland hat eine nationale Bioökonomiestrategie verabschiedet.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">2.</td><td>Biobasierte Kunststoffe können laut Bundesforschungsministerium bis 2030 die gesamte Kunststoffproduktion ersetzen.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">3.</td><td>Die Beschäftigtenzahl in der Bioökonomie-Branche in Deutschland übersteigt 22.000.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">4.</td><td>Prof. Gerhardt unterstützt eine schnelle Expansion der Bioökonomie ohne Einschränkungen.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">5.</td><td>Der Text nennt konkrete Exportzahlen für biobasierte Produkte aus Deutschland.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-      </tbody>
-    </table>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Wer passt wozu?</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Welcher Text (A–I) passt zu welcher Person? Nicht alle Texte werden verwendet.</div>
-    <div class="personbox">
-      <div class="pcard"><div class="pname">6. Dr. Heine</div>Stadtplanerin; sucht Forschung zu nachhaltiger Verdichtung urbaner Räume</div>
-      <div class="pcard"><div class="pname">7. Frau Ilić</div>Sozialarbeiterin; sucht Angebote für pflegende Angehörige</div>
-      <div class="pcard"><div class="pname">8. Prof. Albers</div>Ökonomieprofessor; sucht Analyse zum Stadt-Land-Gefälle in der Infrastruktur</div>
-      <div class="pcard"><div class="pname">9. Vera</div>Ingenieurin; sucht Weiterbildung in nachhaltiger Stadtentwicklung</div>
-      <div class="pcard"><div class="pname">10. Herr Köster</div>Pfleger; sucht Interessenvertretung für professionell Pflegende</div>
-    </div>
-    <div class="textblock"><div class="textlbl">Text A</div>Forschungsbericht: „Qualitätsverdichtung statt Flächenversiegelung – Möglichkeiten zur ressourcenschonenden Innenentwicklung in europäischen Großstädten." Erschienen im Institut für Raumplanung, TU Dortmund.</div>
-    <div class="textblock"><div class="textlbl">Text B</div>Verband der Pflegeberufe e.V.: Mitglied werden, sich vernetzen, politisch Einfluss nehmen. Jetzt beitreten und von Tarifregelungen und Lobbyarbeit profitieren. vpflege.de</div>
-    <div class="textblock"><div class="textlbl">Text C</div>Bundesamt für Statistik: Studie „Infrastrukturatlas 2023 – Disparitäten zwischen urbanen und ländlichen Regionen." Download als PDF unter destatis.de</div>
-    <div class="textblock"><div class="textlbl">Text D</div>Pflegekompass: Beratungsstelle für Angehörige, die zu Hause pflegen. Entlastungsangebote, Kurzzeitpflege, psychosoziale Unterstützung. Kostenlos und anonym. pflegekompass.de</div>
-    <div class="textblock"><div class="textlbl">Text E</div>Fernstudium: „Urban Sustainability Management" – Zertifikatskurs (6 Monate). VDI-Akademie. Berufsbegleitend, online, 1.800 €. vdi.de/akademie</div>
-    <div class="textblock"><div class="textlbl">Text F</div>Stellenanzeige: Stadtplaner*in für klimaresiliente Quartiersentwicklung. Berlin Senat für Stadtentwicklung. Bewerbung bis 31. Juli.</div>
-    <div class="textblock"><div class="textlbl">Text G</div>Buch: „Die vergessene Arbeit – Sorgearbeit und Geschlechtergerechtigkeit." Suhrkamp Verlag. Rezension im Philosophie-Magazin.</div>
-    <div class="textblock"><div class="textlbl">Text H</div>Tagesseminar: „Bioökonomie und regionale Wertschöpfung." Referenten aus Wissenschaft und Praxis. Hannover Messe. Anmeldung unter messeticket.de</div>
-    <div class="textblock"><div class="textlbl">Text I</div>Konferenz: „Schrumpfende Städte – wachsende Metropolen: Zwei Geschwindigkeiten der Urbanisierung in Deutschland." Fachkongress Stadtforschung, Leipzig.</div>
-    <div class="sits" style="margin-top:8px">
-      <div class="sit"><span class="sn">6.</span><span class="st">Dr. Heine</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">7.</span><span class="st">Frau Ilić</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">8.</span><span class="st">Prof. Albers</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">9.</span><span class="st">Vera</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">10.</span><span class="st">Herr Köster</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Komplexer Artikel – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Lesen Sie den Artikel. Was ist richtig: a, b oder c?</div>
-    <div class="sbox">
-      <div class="smeta">Aus einer soziologischen Zeitschrift</div>
-      <strong>Sorgearbeit als gesellschaftliches Fundament – und als blinder Fleck der Ökonomie</strong><br><br>
-      Sorgearbeit – also Kindererziehung, Altenpflege, emotionale Unterstützung und Haushaltsführung – ist das unsichtbare Fundament moderner Gesellschaften. Würden alle unbezahlten Sorgetätigkeiten zum Mindestlohn entlohnt, ergäbe sich laut einer Studie des DIW Berlin ein jährlicher Wert von über 1,5 Billionen Euro allein für Deutschland. Dennoch bleibt diese Arbeit in volkswirtschaftlichen Kennzahlen wie dem BIP weitgehend unsichtbar.<br><br>
-      Die ungleiche Verteilung von Sorgearbeit entlang von Geschlechtergrenzen ist gut dokumentiert: Frauen übernehmen in Deutschland im Durchschnitt rund anderthalb Mal so viele Stunden Hausarbeit wie Männer. Diese Schieflage hat direkte Konsequenzen für Erwerbsbiografien, Rentenansprüche und Machtpositionen. Politische Instrumente wie das Elterngeld haben zwar Fortschritte gebracht, sind aber laut Kritikern nicht strukturell genug.<br><br>
-      Eine wachsende Strömung in den Wirtschaftswissenschaften – das sogenannte Care-Economy-Paradigma – fordert eine grundlegende Neuausrichtung: Die Volkswirtschaft soll um Sorge-Indikatoren erweitert werden, die Verteilung von Sorgearbeit soll durch Infrastruktur (Kitas, Pflegeeinrichtungen) und Zeitpolitik (Arbeitszeitreduktion) umgestaltet werden. Die Debatte ist politisch kontrovers: Konservative Stimmen befürchten eine Verstaatlichung des Familienlebens, progressive Kräfte sehen in der Reform eine Frage der Gerechtigkeit.
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">11.</span> Welchen Wert hätte unbezahlte Sorgearbeit in Deutschland laut DIW-Studie?</div>
-      <div class="mco" data-grp="q11">
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> Rund 500 Milliarden Euro pro Jahr</button>
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> Über 1,5 Billionen Euro pro Jahr</button>
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> Rund 3 Billionen Euro pro Jahr</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">12.</span> Was zeigen Studien über die Verteilung von Hausarbeit in Deutschland?</div>
-      <div class="mco" data-grp="q12">
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> Männer und Frauen leisten gleich viel</button>
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> Frauen leisten im Schnitt anderthalb Mal so viel wie Männer</button>
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> Männer übernehmen mittlerweile mehr Hausarbeit</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">13.</span> Was fordert das Care-Economy-Paradigma?</div>
-      <div class="mco" data-grp="q13">
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> Abschaffung des BIP als Kennzahl</button>
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> Neuausrichtung der VW um Sorge-Indikatoren und strukturelle Reformen</button>
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> Verstaatlichung aller Pflegeeinrichtungen</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">14.</span> Wie beurteilen Kritiker das Elterngeld?</div>
-      <div class="mco" data-grp="q14">
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> Es sei zu teuer für den Staat</button>
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> Es habe zwar Fortschritte gebracht, sei aber nicht strukturell genug</button>
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Es sei komplett wirkungslos</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">15.</span> Was befürchten konservative Stimmen bei der Reform?</div>
-      <div class="mco" data-grp="q15">
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Zu hohe Kosten für Unternehmen</button>
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Eine Verstaatlichung des Familienlebens</button>
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Den Rückgang des BIP</button>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Lückentext – freie Ergänzung (kein Kasten)</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Ergänzen Sie die Lücken mit je einem passenden Wort oder einer kurzen Wendung.</div>
-    <div class="sbox" style="line-height:2.4">
-      Urbanisierung ist kein rein modernes Phänomen – doch <input class="gfin" type="text" placeholder="(16)"> und Geschwindigkeit des gegenwärtigen Bevölkerungszustroms in die Städte sind beispiellos. In Deutschland leben bereits mehr als 77 Prozent der Bevölkerung in städtischen <input class="gfin" type="text" placeholder="(17)">. Das bringt Chancen mit sich: Dichte begünstigt Innovation, kulturellen Austausch und effizientere <input class="gfin" type="text" placeholder="(18)">. Gleichzeitig entstehen erhebliche <input class="gfin" type="text" placeholder="(19)">: steigende Mieten, überlastete Infrastruktur und soziale Segregation. Der Begriff der „15-Minuten-Stadt" – in der alle Alltagswege zu <input class="gfin" type="text" placeholder="(20)"> zu erledigen sind – gilt als mögliches Leitbild.
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurztexte – richtige Aussage identifizieren</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Was meinen die folgenden Texte? Wählen Sie a, b oder c.</div>
-    <div class="lc"><strong>Text 1:</strong> „Kommentar: Es reicht nicht, Stadtplanung inklusiv zu nennen – sie muss barrierefrei, bezahlbar und für alle Bevölkerungsgruppen gestaltet werden. Dazu braucht es Mut und Ressourcen."</div>
-    <div class="mci"><div class="mcs"><span class="qn">21.</span> Was fordert der Kommentar?</div>
-      <div class="mco" data-grp="q21">
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">a</span> Nur symbolische Inklusivität</button>
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">b</span> Echte Inklusion erfordert Ressourcen und strukturelle Maßnahmen</button>
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">c</span> Stadtplanung solle sich auf Wohlhabende konzentrieren</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 2:</strong> „Pressemitteilung: Das Bundessozialgericht hat entschieden, dass informelle Pflegepersonen in bestimmten Fällen Anspruch auf Rentenversicherungsbeiträge des Pflegebedürftigen haben."</div>
-    <div class="mci"><div class="mcs"><span class="qn">22.</span> Was hat das Gericht entschieden?</div>
-      <div class="mco" data-grp="q22">
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">a</span> Pflegepersonen erhalten Lohn</button>
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">b</span> Unter Umständen haben Pflegepersonen Rentenansprüche</button>
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">c</span> Alle Pflegepersonen werden verbeamtet</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 3:</strong> „Forschungsergebnis: Städte, die Parks und Grünflächen in Wohngebieten erhöhen, verzeichnen messbar niedrigere Hitzesterblichkeit im Sommer."</div>
-    <div class="mci"><div class="mcs"><span class="qn">23.</span> Was besagt die Forschung?</div>
-      <div class="mco" data-grp="q23">
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">a</span> Parks haben keinen Einfluss auf die Gesundheit</button>
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">b</span> Mehr Grünflächen reduzieren die Hitzesterblichkeit</button>
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">c</span> Grünflächen erhöhen Grundstückspreise</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 4:</strong> „Studie: Die Nutzung von Bioabfall als Ausgangsstoff für biobasierte Chemikalien könnte den CO₂-Ausstoß der Chemieindustrie um bis zu 35 % senken."</div>
-    <div class="mci"><div class="mcs"><span class="qn">24.</span> Was könnte laut Studie Bioabfall-Nutzung bewirken?</div>
-      <div class="mco" data-grp="q24">
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">a</span> Eine vollständige Dekarbonisierung der Chemie</button>
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">b</span> Bis zu 35 % CO₂-Reduktion in der Chemieindustrie</button>
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">c</span> Verdopplung der Bioabfallmengen</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 5:</strong> „Gastbeitrag: Wer Sorgearbeit weiterhin ausschließlich als ‚Privatsache' betrachtet, unterschätzt ihre ökonomische Bedeutung und zementiert die strukturelle Benachteiligung von Frauen."</div>
-    <div class="mci"><div class="mcs"><span class="qn">25.</span> Welchen Standpunkt vertritt der Gastbeitrag?</div>
-      <div class="mco" data-grp="q25">
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">a</span> Sorgearbeit ist Privatsache und soll es bleiben</button>
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">b</span> Sorgearbeit als Privatsache zu sehen, schadet Frauen und unterschätzt ihren Wert</button>
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">c</span> Sorgearbeit solle vollständig verstaatlicht werden</button>
-      </div>
-    </div>
+<div class="hero">
+  <h2>Übungstest 4 — Goethe-Zertifikat C1</h2>
+  <p>Vollständiger Übungstest mit Lesen, Hören, Schreiben und Sprechen</p>
+  <div class="topics">
+    <span class="topic">🌱 Bioökonomie</span>
+    <span class="topic">🏙️ Urbanisierung</span>
+    <span class="topic">🤝 Sorgearbeit</span>
   </div>
 </div>
-
-<!-- HÖREN -->
-<div class="mod hoeren">
-  <div class="mh">
-    <div class="circ">2</div>
-    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 40 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Vortrag – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie den Vortrag (2×). Was ist richtig?</div>
-    <div class="dial"><div class="dlabel">Vortrag: Bioökonomie im Spannungsfeld zwischen Klimaschutz und Ernährungssicherheit</div>
-      „Bioökonomie verspricht viel – doch sie birgt erhebliche Zielkonflikte. Wenn Mais für Biokraftstoff angebaut wird, steht er nicht mehr als Lebensmittel zur Verfügung. Der sogenannte „Tank-Teller-Konflikt" hat in der Vergangenheit zu <strong>Nahrungsmittelpreisanstiegen</strong> geführt und trifft vor allem <strong>einkommensschwache Bevölkerungsgruppen</strong> in Entwicklungsländern. Laut dem Welternährungsprogramm der UN stehen dafür jährlich bis zu <strong>30 Millionen Menschen</strong> im Fokus dieser indirekten Auswirkungen. Auf der anderen Seite kann Bioökonomie, wenn sie auf Abfallströme und Reststoffe setzt, tatsächlich Klimaschutzbeiträge leisten ohne in Konkurrenz zur Nahrungsproduktion zu treten. Forscher der Universität Hohenheim haben berechnet, dass durch die Nutzung von <strong>Stroh und Holzresten</strong> ein Potenzial von bis zu <strong>45 Millionen Tonnen CO₂-Äquivalent</strong> pro Jahr realisierbar wäre – allein in Deutschland."
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">26.</span> Was beschreibt der „Tank-Teller-Konflikt"?</div>
-      <div class="mco" data-grp="q26">
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> Konkurrenz zwischen Autobenzin und Elektroantrieb</button>
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> Konkurrenz zwischen Biokraftstoff-Anbau und Nahrungsmittelproduktion</button>
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> Mangel an Trinkwasser durch Bewässerung</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">27.</span> Wen treffen die Auswirkungen am stärksten?</div>
-      <div class="mco" data-grp="q27">
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> Europäische Landwirte</button>
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> Einkommensschwache in Entwicklungsländern</button>
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> Chemiekonzerne</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">28.</span> Wie hoch ist das CO₂-Einsparpotenzial durch Stroh und Holzreste laut Hohenheimer Forschern?</div>
-      <div class="mco" data-grp="q28">
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> 15 Mio. Tonnen CO₂-Äqu./Jahr</button>
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> 45 Mio. Tonnen CO₂-Äqu./Jahr</button>
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> 100 Mio. Tonnen CO₂-Äqu./Jahr</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">29.</span> Wie kann Bioökonomie Klimaschutz ohne Nahrungskonkurrenz leisten?</div>
-      <div class="mco" data-grp="q29">
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Durch mehr Monokulturen</button>
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> Durch Nutzung von Abfallströmen und Reststoffen</button>
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> Durch Importe aus dem Ausland</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">30.</span> Wie viele Menschen sind laut UN jährlich im Fokus indirekter Auswirkungen?</div>
-      <div class="mco" data-grp="q30">
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Bis zu 10 Millionen</button>
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> Bis zu 30 Millionen</button>
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Bis zu 100 Millionen</button>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Diskussion – Richtig / Falsch / Nicht im Text</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie die Diskussion (2×). R, F oder N?</div>
-    <div class="rfn-note">R = stimmt überein · F = widerspricht · N = nicht erwähnt</div>
-    <div class="dial"><div class="dlabel">Podiumsdiskussion: Urbanisierung – Wer profitiert wirklich?</div>
-      <strong>Moderatorin:</strong> Wachsende Städte – Segen oder Fluch?<br>
-      <strong>Stadtforscherin Dr. Lerch:</strong> Städte sind historisch betrachtet Orte von Innovation und sozialer Mobilität. Die Konzentration von Talenten und Kapital erzeugt <strong>Agglomerationsvorteile</strong>.<br>
-      <strong>Aktivist Jonas:</strong> Ja, aber für wen? Mietpreisexplosionen und Gentrifizierung verdrängen die Menschen, die Städte erst gebaut haben – Pflegekräfte, Müllwerker, Erzieherinnen.<br>
-      <strong>Dr. Lerch:</strong> Das stimmt. Es braucht gezielte Instrumente: Mietpreisbremse, Sozialbau, Gewerbeflächen für lokale Akteure.<br>
-      <strong>Jonas:</strong> Und Teilhabe. Stadtentwicklungspläne sollten in <strong>Bürgerversammlungen</strong> diskutiert werden, bevor Investoren entscheiden.<br>
-      <strong>Dr. Lerch:</strong> Da bin ich bei Ihnen. Planung muss partizipativ sein – und das kostet Zeit, ist aber demokratisch notwendig.
-    </div>
-    <table class="rf">
-      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
-      <tbody>
-        <tr><td class="rn">31.</td><td>Dr. Lerch sieht Städte als Orte von Innovation und sozialer Mobilität.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">32.</td><td>Jonas kritisiert, dass Städte vor allem reichen Neuzuzüglern nutzen.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">33.</td><td>Dr. Lerch lehnt staatliche Eingriffe in den Wohnungsmarkt ab.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">34.</td><td>Jonas fordert Bürgerversammlungen vor Investorenentscheidungen.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">35.</td><td>Die Diskussion nennt konkrete Städte als Positivbeispiele.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-      </tbody>
-    </table>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Radiobeitrag – Informationen ergänzen</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie den Beitrag (2×) und notieren Sie.</div>
-    <div class="dial"><div class="dlabel">Radiobeitrag: Sorgearbeit und Rentenansprüche – was sich ändert</div>
-      „Das Bundesministerium für Arbeit plant eine Ausweitung der Rentenversicherungszeiten für Pflegepersonen. Bislang werden für pflegende Angehörige maximal <strong>30 Punkte</strong> in der Rentenversicherung gutgeschrieben. Künftig sollen es bis zu <strong>45 Punkte</strong> sein. Das entspricht einer Steigerung von <strong>50 Prozent</strong>. Voraussetzung: Die Pflegeperson muss mindestens <strong>14 Stunden pro Woche</strong> pflegen. Anspruch haben Personen, die Angehörige mit mindestens <strong>Pflegegrad 2</strong> betreuen. Geplanter Inkrafttretenstermin ist der <strong>1. Januar 2026</strong>. Das Ministerium schätzt, dass von der Neuregelung rund <strong>1,3 Millionen</strong> Menschen in Deutschland profitieren könnten."
-    </div>
-    <div class="filrow"><span class="filn">36.</span> Bisherige max. Rentenpunkte für Pflegepersonen: <input class="filin" type="text"></div>
-    <div class="filrow"><span class="filn">37.</span> Neue max. Rentenpunkte: <input class="filin" type="text"></div>
-    <div class="filrow"><span class="filn">38.</span> Mindest-Pflegestunden pro Woche: <input class="filin" type="text"></div>
-    <div class="filrow"><span class="filn">39.</span> Mindest-Pflegegrad für Anspruch: <input class="filin" type="text"></div>
-    <div class="filrow"><span class="filn">40.</span> Geplantes Inkrafttreten: <input class="filin" type="text"></div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Expertengespräch – Multiple Choice</span><span class="ppts">10 Pkt</span></div>
-    <div class="instr">Hören Sie das Gespräch (2×). Was ist richtig?</div>
-    <div class="dial"><div class="dlabel">Expertengespräch: Schrumpfende Städte – Chancen im Bevölkerungsrückgang?</div>
-      <strong>Moderatorin:</strong> Ostdeutsche Städte verlieren Einwohner – eine Chance oder Bedrohung?<br>
-      <strong>Prof. Scharff:</strong> Beides. Rückgang schafft Spielraum für günstigeren Wohnraum und mehr Grünflächen. Aber wenn Infrastruktur – Schulen, Nahverkehr – wegfällt, verlässt noch mehr Bevölkerung die Region.<br>
-      <strong>Dr. Bauer:</strong> Es gibt erfolgreiche Beispiele: Städte, die Leerstand in <strong>soziale Räume und Kreativquartiere</strong> umwandelten, haben neue Bevölkerungsgruppen angezogen.<br>
-      <strong>Prof. Scharff:</strong> Richtig. Schrumpfung als <strong>Gestaltungsaufgabe</strong> – nicht als Problem zu verwalten, sondern als Chance zu nutzen. Das erfordert mutige Kommunalpolitik.<br>
-      <strong>Dr. Bauer:</strong> Und finanzielle Ausgleichsmechanismen vom Bund. Kleine Kommunen können Transformationsprozesse nicht allein stemmen.<br>
-      <strong>Prof. Scharff:</strong> Absolut. Und digitale Infrastruktur ist entscheidend – ohne schnelles Internet bleibt das Landleben für viele unattraktiv, egal wie günstig die Mieten sind.
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">41.</span> Was sieht Prof. Scharff als mögliche Chance bei Bevölkerungsrückgang?</div>
-      <div class="mco" data-grp="q41">
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">a</span> Geringere Steuereinnahmen</button>
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">b</span> Günstigerer Wohnraum und mehr Grünflächen</button>
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">c</span> Wegfall von Subventionen</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">42.</span> Was haben erfolgreiche Städte laut Dr. Bauer aus Leerstand gemacht?</div>
-      <div class="mco" data-grp="q42">
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">a</span> Parkplätze und Lagerhallen</button>
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">b</span> Soziale Räume und Kreativquartiere</button>
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">c</span> Industriestandorte</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">43.</span> Was versteht Prof. Scharff unter Schrumpfung als „Gestaltungsaufgabe"?</div>
-      <div class="mco" data-grp="q43">
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">a</span> Den Rückgang hinnehmen</button>
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">b</span> Die Situation aktiv als Chance nutzen</button>
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">c</span> Neue Industrie ansiedeln</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">44.</span> Was fordert Dr. Bauer vom Bund?</div>
-      <div class="mco" data-grp="q44">
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">a</span> Weniger Bürokratie</button>
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">b</span> Finanzielle Ausgleichsmechanismen für kleine Kommunen</button>
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">c</span> Mehr Zuwanderung</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">45.</span> Was nennt Prof. Scharff als entscheidend für die Attraktivität des Landlebens?</div>
-      <div class="mco" data-grp="q45">
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">a</span> Günstige Mieten allein</button>
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">b</span> Schnelles Internet / digitale Infrastruktur</button>
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">c</span> Mehr Supermärkte</button>
-      </div>
-    </div>
-  </div>
+<div class="tabs">
+  <div class="tab active" onclick="showSec('lesen')">📖 Lesen</div>
+  <div class="tab" onclick="showSec('hoeren')">🎧 Hören</div>
+  <div class="tab" onclick="showSec('schreiben')">✍️ Schreiben</div>
+  <div class="tab" onclick="showSec('sprechen')">🗣️ Sprechen</div>
+  <div class="tab" onclick="showSec('ergebnis')">📊 Ergebnis</div>
 </div>
-
-<!-- SCHREIBEN -->
-<div class="mod schreib">
-  <div class="mh">
-    <div class="circ">3</div>
-    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 80 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Argumentativer Text (mind. 200 Wörter)</span><span class="ppts">13 Pkt</span></div>
-    <div class="instr">Schreiben Sie einen strukturierten, argumentativen Text (mind. 200 Wörter). Bearbeiten Sie alle Aspekte.</div>
-    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px;line-height:1.85">
-      <strong style="color:var(--purple)">Thema:</strong> „Sorgearbeit – zwischen privatem Opfer und gesellschaftlicher Verantwortung"<br>
-      Schreiben Sie einen Artikel für ein Fachmagazin. Gehen Sie auf folgende Aspekte ein:<br>
-      <strong>① Was ist Sorgearbeit und warum ist sie gesellschaftlich relevant?<br>② Warum wird sie trotz ihrer Bedeutung oft unsichtbar gemacht?<br>③ Welche politischen Maßnahmen wären sinnvoll?<br>④ Nehmen Sie abschließend klar Stellung.</strong>
-    </div>
-    <textarea class="warea" id="w1" oninput="countW('w1','wc1',200,280)" placeholder="Sorgearbeit umfasst alle Tätigkeiten, die ..."></textarea>
-    <div id="wc1" class="wcpill">0 / min. 200</div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Formeller Brief (mind. 150 Wörter)</span><span class="ppts">12 Pkt</span></div>
-    <div class="instr">Schreiben Sie einen formellen Brief oder eine E-Mail (mind. 150 Wörter). Bearbeiten Sie alle vier Punkte.</div>
-    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px">
-      <strong style="color:var(--purple)">Situation:</strong> Sie haben an einer Veranstaltung zum Thema „Bioökonomie und regionale Entwicklung" teilgenommen. Die Inhalte haben Sie nicht vollständig überzeugt. Schreiben Sie an die Veranstalter:<br>
-      <strong>① Danken Sie für die Einladung ② Nennen Sie einen positiven Aspekt ③ Äußern Sie einen konkreten Kritikpunkt mit Begründung ④ Schlagen Sie eine Ergänzung für künftige Veranstaltungen vor</strong>
-    </div>
-    <textarea class="warea" id="w2" oninput="countW('w2','wc2',150,220)" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
-    <div id="wc2" class="wcpill">0 / min. 150</div>
-  </div>
+<div class="sec active" id="sec-lesen">
+<div class="sec-title">Teil 1 — Leseverstehen</div>
+<div class="sec-intro">Lesen Sie die Texte und wählen Sie die richtige Antwort.</div>
+<div class="text-box"><h3>Text 1: Bioökonomie — Wirtschaft jenseits des Erdöls (Auszug)</h3><p>Die Bioökonomie bezeichnet ein Wirtschaftssystem, das auf nachwachsenden Rohstoffen, biologischen Prozessen und dem Kreislaufgedanken basiert. Statt fossiler Ressourcen sollen Biomasse, Algen, Enzyme und mikrobielle Prozesse die Grundlage industrieller Produktion bilden. Befürworter sehen darin einen Ausweg aus der fossilen Abhängigkeit; Kritiker warnen vor Konkurrenz zur Nahrungsmittelproduktion und vor der Illusion, Wachstum könne nachhaltig sein. Die EU-Bioökonomiestrategie setzt auf Wissenstransfer, Forschungsförderung und die Vernetzung von Landwirtschaft, Wissenschaft und Industrie.</p></div>
+<div class="text-box"><h3>Text 2: Urbanisierung — Chancen und Schattenseiten (Auszug)</h3><p>Weltweit lebt erstmals die Mehrheit der Menschen in Städten. Urbanisierung bietet Zugang zu Bildung, Gesundheitsversorgung und wirtschaftlichen Chancen — sie erzeugt aber auch Gentrifizierung, Wohnungsnot, Umweltverschmutzung und soziale Segregation. Das Konzept der „15-Minuten-Stadt", popularisiert durch den Pariser Stadtplaner Carlos Moreno, schlägt vor, Städte so zu gestalten, dass alle wesentlichen Bedürfnisse innerhalb von 15 Minuten zu Fuß oder per Fahrrad erreichbar sind. Kritiker sehen darin eine Einschränkung der Bewegungsfreiheit; Befürworter betonen die Klimavorteile und die Stärkung lokaler Gemeinschaften.</p></div>
+<div class="text-box"><h3>Text 3: Sorgearbeit — das unsichtbare Fundament der Gesellschaft (Auszug)</h3><p>Sorgearbeit — die Pflege von Kindern, Älteren und Kranken sowie Haushaltsführung — wird weltweit überwiegend von Frauen geleistet und ist weitgehend unbezahlt oder niedrig entlohnt. Ökonominnen wie Mariana Mazzucato betonen, dass diese Arbeit fundamentale gesellschaftliche Werte schafft, in der volkswirtschaftlichen Gesamtrechnung jedoch kaum erscheint. Politische Forderungen reichen von einer Aufwertung des Pflegeberufs und besserer Bezahlung über flexible Arbeitsmodelle für pflegende Angehörige bis zu einer Reform der Rentenanrechnung für Carearbeit. Die Covid-Pandemie hat die systemische Bedeutung der Sorgearbeit schlagartig ins Bewusstsein gerückt.</p></div>
+<div class="q-block" id="q1">
+<div class="q-num">Frage 1</div>
+<div class="q-text">Was ist laut Text ein zentrales Prinzip der Bioökonomie?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q1" value="a"> <span>a) Maximale Nutzung fossiler Brennstoffe.</span></label>
+<label class="opt"><input type="radio" name="q1" value="b"> <span>b) Kreislaufwirtschaft auf Basis nachwachsender Rohstoffe.</span></label>
+<label class="opt"><input type="radio" name="q1" value="c"> <span>c) Verzicht auf industrielle Produktion.</span></label>
+<label class="opt"><input type="radio" name="q1" value="d"> <span>d) Konkurrenz zur Nahrungsmittelproduktion als Ziel.</span></label>
+</div></div>
+<div class="q-block" id="q2">
+<div class="q-num">Frage 2</div>
+<div class="q-text">Welche Kritik wird an der Bioökonomie geäußert?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q2" value="a"> <span>a) Sie ist zu teuer für die EU.</span></label>
+<label class="opt"><input type="radio" name="q2" value="b"> <span>b) Sie könnte in Konkurrenz zur Nahrungsmittelproduktion stehen.</span></label>
+<label class="opt"><input type="radio" name="q2" value="c"> <span>c) Sie fördert die fossile Abhängigkeit.</span></label>
+<label class="opt"><input type="radio" name="q2" value="d"> <span>d) Sie ist wissenschaftlich nicht fundiert.</span></label>
+</div></div>
+<div class="q-block" id="q3">
+<div class="q-num">Frage 3</div>
+<div class="q-text">Was beschreibt das Konzept der „15-Minuten-Stadt"?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q3" value="a"> <span>a) Eine Stadt, in der alle Wege 15 Minuten dauern müssen.</span></label>
+<label class="opt"><input type="radio" name="q3" value="b"> <span>b) Stadtplanung, bei der Grundbedürfnisse in 15 Minuten erreichbar sind.</span></label>
+<label class="opt"><input type="radio" name="q3" value="c"> <span>c) Ein Stadtkonzept, das Autos vollständig verbietet.</span></label>
+<label class="opt"><input type="radio" name="q3" value="d"> <span>d) Eine neue Verwaltungsstruktur für Großstädte.</span></label>
+</div></div>
+<div class="q-block" id="q4">
+<div class="q-num">Frage 4</div>
+<div class="q-text">Was kritisieren Gegner des 15-Minuten-Stadt-Konzepts?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q4" value="a"> <span>a) Die hohen Kosten der Umgestaltung.</span></label>
+<label class="opt"><input type="radio" name="q4" value="b"> <span>b) Eine mögliche Einschränkung der Bewegungsfreiheit.</span></label>
+<label class="opt"><input type="radio" name="q4" value="c"> <span>c) Fehlende wissenschaftliche Belege.</span></label>
+<label class="opt"><input type="radio" name="q4" value="d"> <span>d) Die negative Wirkung auf lokale Gemeinschaften.</span></label>
+</div></div>
+<div class="q-block" id="q5">
+<div class="q-num">Frage 5</div>
+<div class="q-text">Warum ist Sorgearbeit volkswirtschaftlich unsichtbar?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q5" value="a"> <span>a) Weil sie ausschließlich von Männern geleistet wird.</span></label>
+<label class="opt"><input type="radio" name="q5" value="b"> <span>b) Weil sie in der VGR kaum erfasst wird, obwohl sie Werte schafft.</span></label>
+<label class="opt"><input type="radio" name="q5" value="c"> <span>c) Weil sie keine gesellschaftliche Bedeutung hat.</span></label>
+<label class="opt"><input type="radio" name="q5" value="d"> <span>d) Weil Ökonominnen sie bewusst ignorieren.</span></label>
+</div></div>
+<div class="q-block" id="q6">
+<div class="q-num">Frage 6</div>
+<div class="q-text">Was hat die Covid-Pandemie laut Text bewirkt?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q6" value="a"> <span>a) Eine Verschlechterung der Pflegequalität.</span></label>
+<label class="opt"><input type="radio" name="q6" value="b"> <span>b) Ein stärkeres Bewusstsein für die systemische Bedeutung der Sorgearbeit.</span></label>
+<label class="opt"><input type="radio" name="q6" value="c"> <span>c) Eine Senkung der Löhne im Pflegebereich.</span></label>
+<label class="opt"><input type="radio" name="q6" value="d"> <span>d) Die vollständige Lösung der Pflegekrise.</span></label>
+</div></div>
+<div class="sec-title" style="margin-top:28px;">Teil 2 — Sprachbausteine</div>
+<div class="sec-intro">Wählen Sie das passende Wort für jede Lücke.</div>
+<div class="text-box"><h3>Lückentext</h3><p>Die Sorgearbeit ist <select id="g1" onchange="checkGap(this,'gesellschaftlich')"><option value="">---</option><option>gesellschaftlich</option><option>persönlich</option><option>wirtschaftlich</option></select> unverzichtbar, wird aber strukturell <select id="g2" onchange="checkGap(this,'unterschätzt')"><option value="">---</option><option>unterschätzt</option><option>überschätzt</option><option>anerkannt</option></select>. Eine <select id="g3" onchange="checkGap(this,'Reform')"><option value="">---</option><option>Reform</option><option>Abschaffung</option><option>Privatisierung</option></select> der Rentenanrechnung könnte die Situation verbessern.</p></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="checkLesen()">Lesen auswerten ✓</button><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('hoeren')">Weiter → Hören</button></div>
 </div>
-
-<!-- SPRECHEN -->
-<div class="mod sprech">
-  <div class="mh">
-    <div class="circ">4</div>
-    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="instr">Die Lehrkraft leitet die Prüfung. Dieser Teil wird nach Kriterien benotet.</div>
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Kurzpräsentation (5–6 Min.)</span><span class="ppts">8 Pkt</span></div>
-    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
-      Wählen Sie ein Thema: <strong>A) Warum Sorgearbeit neu bewertet werden muss</strong> oder <strong>B) Die Bioökonomie – Lösung oder neues Problem?</strong><br>
-      Bereiten Sie 3 Minuten vor. Sprechen Sie 4–5 Minuten. Achten Sie auf Struktur, Argumentation und Sprachliche Komplexität.
-    </div>
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Stellungnahme und Diskussion</span><span class="ppts">9 Pkt</span></div>
-    <div class="spgrid">
-      <div class="spcard"><div class="scn">These A</div>„Wachsende Städte ziehen Ressourcen aus dem ländlichen Raum ab – der Stadt-Land-Graben ist eine direkte Folge politischer Entscheidungen." Widersprechen oder unterstützen Sie.</div>
-      <div class="spcard"><div class="scn">These B</div>„Biologisch abbaubare Verpackungen aus Bioabfall sind keine nachhaltige Lösung, solange Überkonsum nicht adressiert wird." Diskutieren Sie Vor- und Grenzen dieses Arguments.</div>
-    </div>
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Komplexes Szenario</span><span class="ppts">8 Pkt</span></div>
-    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;font-size:13px">
-      <strong>Szenario:</strong> Sie sind Mitglied einer Expertenkommission, die den Bundesminister für Arbeit berät. Thema: Wie kann der Wert von Sorgearbeit gesellschaftlich besser anerkannt werden? Entwickeln Sie ein kohärentes Konzept mit mindestens drei konkreten Empfehlungen. Begründen Sie jede Empfehlung.
-    </div>
-    <table class="stbl" style="margin-top:12px">
-      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
-      <tbody>
-        <tr><td>Inhaltliche Tiefe &amp; Argumentation</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
-        <tr><td>Diskurs &amp; Interaktion</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr><td>Lexikalische Kompetenz</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr><td>Grammatische Korrektheit</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
-      </tbody>
-    </table>
-  </div>
+<div class="sec" id="sec-hoeren">
+<div class="sec-title">Teil 3 — Hörverstehen</div>
+<div class="sec-intro">Lesen Sie die Zusammenfassungen und beantworten Sie die Fragen.</div>
+<div class="text-box"><h3>🎧 Hörtext 1: Vortrag — Bioökonomie in der Praxis</h3><p><em>Eine Wissenschaftlerin erklärt, wie Pilzmyzel als Verpackungsmaterial, Algen als Kunstoffersatz und bakterielle Prozesse in der Pharmaindustrie bereits eingesetzt werden. Sie betont: Das größte Hindernis sei nicht die Technologie, sondern fehlende Skaleneffekte und regulatorische Hürden.</em></p></div>
+<div class="q-block" id="q7">
+<div class="q-num">Frage 7</div>
+<div class="q-text">Was erklärt die Bioökonomie-Expertin über Kreislaufwirtschaft?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q7" value="a"> <span>a) Kreislaufwirtschaft ist nur für Großunternehmen relevant.</span></label>
+<label class="opt"><input type="radio" name="q7" value="b"> <span>b) Kreislaufsysteme könnten Abfall als Ressource neu definieren.</span></label>
+<label class="opt"><input type="radio" name="q7" value="c"> <span>c) Kreislaufwirtschaft erhöht Produktionskosten drastisch.</span></label>
+<label class="opt"><input type="radio" name="q7" value="d"> <span>d) Das Konzept ist noch nicht praxistauglich.</span></label>
+</div></div>
+<div class="text-box"><h3>🎧 Hörtext 2: Diskussion — Stadtentwicklung</h3><p><em>Ein Stadtplaner diskutiert Lösungen für die Wohnungsnot: Er plädiert für intelligente Nachverdichtung — Aufstockung bestehender Häuser, Umwidmung von Gewerbebrachen, gemischte Nutzungskonzepte. Gleichzeitig müsse öffentlicher Wohnungsbau stärker gefördert werden.</em></p></div>
+<div class="q-block" id="q8">
+<div class="q-num">Frage 8</div>
+<div class="q-text">Welche Lösung für die Wohnungskrise schlägt der Experte vor?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q8" value="a"> <span>a) Abriss aller Altbauten in Innenstädten.</span></label>
+<label class="opt"><input type="radio" name="q8" value="b"> <span>b) Verdichtung und Aufstockung bestehender Gebäude.</span></label>
+<label class="opt"><input type="radio" name="q8" value="c"> <span>c) Verlagerung aller Neubauten aufs Land.</span></label>
+<label class="opt"><input type="radio" name="q8" value="d"> <span>d) Privatisierung des sozialen Wohnungsbaus.</span></label>
+</div></div>
+<div class="text-box"><h3>🎧 Hörtext 3: Interview — Pflegekrise</h3><p><em>Eine Pflegeexpertin beschreibt den Teufelskreis: schlechte Bezahlung führt zu Personalmangel, der zu Überlastung führt, die weitere Berufsaussteige verursacht. Ausweg: Bessere Bezahlung, Entlastung durch Hilfspersonal, und gesellschaftliche Anerkennung durch ein neues Pflegeleitbild.</em></p></div>
+<div class="q-block" id="q9">
+<div class="q-num">Frage 9</div>
+<div class="q-text">Was fordert die Pflegeexpertin?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q9" value="a"> <span>a) Vollständige Verstaatlichung der Pflegeindustrie.</span></label>
+<label class="opt"><input type="radio" name="q9" value="b"> <span>b) Bessere Bezahlung und gesellschaftliche Aufwertung der Pflegeberufe.</span></label>
+<label class="opt"><input type="radio" name="q9" value="c"> <span>c) Abschaffung der privaten Pflegeversicherung.</span></label>
+<label class="opt"><input type="radio" name="q9" value="d"> <span>d) Mehr unbezahlte Arbeit für pflegende Angehörige.</span></label>
+</div></div>
+<div class="q-block" id="q10">
+<div class="q-num">Frage 10</div>
+<div class="q-text">Was wird als Teufelskreis im Pflegebereich beschrieben?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q10" value="a"> <span>a) Zu viele Bewerber für zu wenige Stellen.</span></label>
+<label class="opt"><input type="radio" name="q10" value="b"> <span>b) Schlechte Bezahlung → Personalmangel → Überlastung → Berufsausstieg.</span></label>
+<label class="opt"><input type="radio" name="q10" value="c"> <span>c) Zu hohe Ausbildungsanforderungen.</span></label>
+<label class="opt"><input type="radio" name="q10" value="d"> <span>d) Mangelnde Digitalisierung im Pflegebereich.</span></label>
+</div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="checkHoeren()">Hören auswerten ✓</button><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('schreiben')">Weiter → Schreiben</button></div>
 </div>
-
-<div class="result-card">
-  <h2>📊 Gesamtergebnis</h2>
-  <table class="stbl">
-    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
-    <tbody>
-      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
-    </tbody>
-  </table>
+<div class="sec" id="sec-schreiben">
+<div class="sec-title">Teil 4 — Schreiben</div>
+<div class="sec-intro">Bearbeiten Sie beide Aufgaben sorgfältig.</div>
+<div class="writing-prompt"><strong>Aufgabe 1</strong><br><br>Erörterung (ca. 200 Wörter): Diskutieren Sie das Konzept der Bioökonomie. Stellen Sie Chancen und Risiken dar und nehmen Sie eine begründete Position ein. Beachten Sie C1-Sprachniveau: Nominalstil, Modalpartikeln, akademische Konnektoren.</div>
+<textarea id="t1" placeholder="Schreiben Sie hier..." oninput="countWords('t1','wc1')"></textarea>
+<div class="word-count" id="wc1">0 Wörter</div>
+<div class="writing-prompt" style="margin-top:20px;"><strong>Aufgabe 2</strong><br><br>Formeller Bericht (ca. 250 Wörter): Eine Bürgerinitiative bittet Sie, einen Bericht über die Wohnungsnot in Ihrer Stadt zu erstellen. Beschreiben Sie das Problem, analysieren Sie Ursachen, nennen Sie drei konkrete Lösungsansätze und formulieren Sie eine Empfehlung.</div>
+<textarea id="t2" placeholder="Schreiben Sie hier..." oninput="countWords('t2','wc2')"></textarea>
+<div class="word-count" id="wc2">0 Wörter</div>
+<div class="btn-row"><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('sprechen')">Weiter → Sprechen</button></div>
 </div>
-
-<div class="ak">
-  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
-  <div class="akb">
-    <div class="akm">
-      <h3>📖 Lesen</h3>
-      <div class="akp"><h4>T1 – Bioökonomie (R/F/N)</h4><div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (nur 15 %, nicht alle)</span></div><div class="chip">3→<span class="ok">R</span></div><div class="chip">4→<span class="ok">F (er warnt)</span></div><div class="chip">5→<span class="ok">N</span></div></div></div>
-      <div class="akp"><h4>T2 – Textzuordnung</h4><div class="chips"><div class="chip">6→<span class="ok">A</span></div><div class="chip">7→<span class="ok">D</span></div><div class="chip">8→<span class="ok">C</span></div><div class="chip">9→<span class="ok">E</span></div><div class="chip">10→<span class="ok">B</span></div></div></div>
-      <div class="akp"><h4>T3 – Sorgearbeit</h4><div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">b</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">b</span></div><div class="chip">15→<span class="ok">b</span></div></div></div>
-      <div class="akp"><h4>T4 – Lückentext Urbanisierung (Musterantworten)</h4><div class="chips"><div class="chip">16→<span class="ok">Ausmaß / Tempo</span></div><div class="chip">17→<span class="ok">Gebieten / Räumen</span></div><div class="chip">18→<span class="ok">Infrastruktur / Ressourcennutzung</span></div><div class="chip">19→<span class="ok">Herausforderungen / Probleme</span></div><div class="chip">20→<span class="ok">Fuß / in der Nähe</span></div></div></div>
-      <div class="akp"><h4>T5 – Kurztexte</h4><div class="chips"><div class="chip">21→<span class="ok">b</span></div><div class="chip">22→<span class="ok">b</span></div><div class="chip">23→<span class="ok">b</span></div><div class="chip">24→<span class="ok">b</span></div><div class="chip">25→<span class="ok">b</span></div></div></div>
-    </div>
-    <div class="akm">
-      <h3>🎧 Hören</h3>
-      <div class="akp"><h4>T1 – Bioökonomie / Tank-Teller</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">b</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
-      <div class="akp"><h4>T2 – Urbanisierungsdiskussion (R/F/N)</h4><div class="chips"><div class="chip">31→<span class="ok">R</span></div><div class="chip">32→<span class="ok">N (konkret nicht so formuliert)</span></div><div class="chip">33→<span class="ok">F (befürwortet Mietpreisbremse)</span></div><div class="chip">34→<span class="ok">R</span></div><div class="chip">35→<span class="ok">N</span></div></div></div>
-      <div class="akp"><h4>T3 – Rentenversicherung Pflegepersonen</h4><div class="chips"><div class="chip">36→<span class="ok">30 Punkte</span></div><div class="chip">37→<span class="ok">45 Punkte</span></div><div class="chip">38→<span class="ok">14 Stunden</span></div><div class="chip">39→<span class="ok">Pflegegrad 2</span></div><div class="chip">40→<span class="ok">1. Januar 2026</span></div></div></div>
-      <div class="akp"><h4>T4 – Schrumpfende Städte</h4><div class="chips"><div class="chip">41→<span class="ok">b</span></div><div class="chip">42→<span class="ok">b</span></div><div class="chip">43→<span class="ok">b</span></div><div class="chip">44→<span class="ok">b</span></div><div class="chip">45→<span class="ok">b</span></div></div></div>
-    </div>
-  </div>
+<div class="sec" id="sec-sprechen">
+<div class="sec-title">Teil 5 — Mündliche Prüfung</div>
+<div class="sec-intro">Bereiten Sie sich auf die drei Sprechaufgaben vor.</div>
+<div class="sprechen-card"><h4>Aufgabe 1 — Präsentation</h4><p>Präsentation (4 Min.): „Sollte unbezahlte Sorgearbeit staatlich vergütet werden?" — These aufstellen, beide Seiten fair darstellen, differenziertes Fazit mit eigener Position. Nutzen Sie C1-Redemittel: Konzessivsätze, Konjunktiv II, akademische Einschränkungen.</p><div class="hint">Nützliche Phrasen: „Meiner Meinung nach..." / „Auf der einen Seite..." / „Zusammenfassend..."</div></div>
+<div class="sprechen-card"><h4>Aufgabe 2 — Diskussion</h4><p>Diskussion: Ihr Gesprächspartner argumentiert, dass Urbanisierung mehr Probleme schafft als löst und Menschen in Kleinstädte zurückziehen sollten. Sie sehen das differenzierter. Führen Sie eine akademisch fundierte Diskussion.</p><div class="hint">„Ich verstehe Ihren Standpunkt, aber..." / „Könnten wir uns einigen auf..."</div></div>
+<div class="sprechen-card"><h4>Aufgabe 3 — Gemeinsame Planung</h4><p>Gemeinsame Planung: Ihre Gemeinde hat Mittel zur Verbesserung der Pflegesituation. Option A: Neues Pflegeheim mit 100 Plätzen. Option B: Ambulante Pflegedienste für Häusliche Pflege. Option C: Digitale Pflegeassistenz und Schulung pflegender Angehöriger. Analysieren Sie Vor- und Nachteile und begründen Sie Ihre Priorität.</p><div class="hint">„Was halten Sie von..." / „Ich schlage vor..." / „Das hätte den Vorteil, dass..."</div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="showSec('ergebnis')">Zur Auswertung →</button></div>
 </div>
-<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe C1 Modellprüfung Nr. 4 · Viel Erfolg! 🍀</div>
+<div class="sec" id="sec-ergebnis">
+<div class="sec-title">📊 Auswertung</div>
+<div class="score-box"><div class="num" id="scoreNum">—</div><div class="lbl">von 10 Punkten (Lesen + Hören)</div></div>
+<div id="resultDetail"></div>
+<div class="answer-key"><h4>🗝️ Antwortschlüssel</h4>Antworten: F1:b · F2:b · F3:b · F4:b · F5:b · F6:b · F7:b · F8:b · F9:b · F10:b · Lücken: gesellschaftlich / unterschätzt / Reform</div>
+<div class="btn-row" style="margin-top:20px;">
+<button class="btn btn-primary" onclick="window.location.reload()">Test neu starten 🔄</button>
+<a href="https://thegermanstefan.github.io/TheGermanStefan_Exam_Room.html" class="btn" style="background:#e5e7eb;color:#374151;text-decoration:none;">← Zur Prüfungsübersicht</a>
+</div>
 </div>
 
 <script>
-function pickRF3(btn,choice){const w=btn.parentElement;w.querySelectorAll('.rfb').forEach(b=>{b.classList.remove('selR','selF','selN');});if(choice==='R')btn.classList.add('selR');else if(choice==='F')btn.classList.add('selF');else btn.classList.add('selN');}
-function pickMC(btn,grp){const c=btn.closest('[data-grp="'+grp+'"]');if(!c)return;c.querySelectorAll('.mcb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-function countW(taId,pillId,min,max){const ta=document.getElementById(taId),pill=document.getElementById(pillId);if(!ta||!pill)return;const n=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;pill.textContent=n+' / min. '+min;pill.className='wcpill';if(n>=min&&n<=max)pill.classList.add('ok');else if(n>max)pill.classList.add('over');}
-(function(){
-  const TOTAL=210*60;
-  const MODS=[
-    {id:'tp1',from:TOTAL,to:TOTAL-90*60},
-    {id:'tp2',from:TOTAL-90*60,to:TOTAL-130*60},
-    {id:'tp3',from:TOTAL-130*60,to:0},
-    {id:'tp4',from:0,to:-1}
-  ];
-  let rem=TOTAL,running=true,iv;
-  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
-  function draw(){const el=document.getElementById('timer-digits');if(!el)return;el.textContent=rem<=0?'Zeit um!':fmt(rem);el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});}
-  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
-  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
-  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
-})();
-</script>
-</body>
-</html>
+const answers = {q1:"b",q2:"b",q3:"b",q4:"b",q5:"b",q6:"b",q7:"b",q8:"b",q9:"b",q10:"b"};
+let scores = {};
+function showSec(n){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+n).classList.add('active');
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const names=['lesen','hoeren','schreiben','sprechen','ergebnis'];
+    t.classList.toggle('active',names[i]===n);
+  });
+  if(n==='ergebnis') calcResults();
+}
+function checkSection(qs){
+  qs.forEach(q=>{
+    const sel=document.querySelector(`input[name="${q}"]:checked`);
+    const opts=document.querySelectorAll(`#${q} .opt`);
+    opts.forEach(o=>o.classList.remove('correct','wrong'));
+    if(sel){
+      const val=sel.value,correct=answers[q];
+      opts.forEach(o=>{
+        if(o.querySelector('input').value===correct)o.classList.add('correct');
+        else if(o.querySelector('input').value===val)o.classList.add('wrong');
+      });
+      scores[q]=(val===correct)?1:0;
+    }
+  });
+}
+function checkLesen(){checkSection(['q1', 'q2', 'q3', 'q4', 'q5', 'q6']);}
+function checkHoeren(){checkSection(['q7', 'q8', 'q9', 'q10']);}
+function countWords(id,wc){const w=document.getElementById(id).value.trim().split(/\s+/).filter(x=>x).length;document.getElementById(wc).textContent=w+' Wörter';}
+function calcResults(){
+  const tot=Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('scoreNum').textContent=tot+'/10';
+  const pct=tot*10;
+  const grade=pct>=87?'Sehr gut':pct>=75?'Gut':pct>=60?'Befriedigend':pct>=45?'Ausreichend':'Nicht bestanden';
+  const lPts=['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].filter(k=>scores[k]).reduce((a,k)=>a+(scores[k]||0),0);
+  const hPts=['q7', 'q8', 'q9', 'q10'].filter(k=>scores[k]).reduce((a,k)=>a+(scores[k]||0),0);
+  document.getElementById('resultDetail').innerHTML=`<div class="result-row"><span>Lesen</span><span class="${lPts>=4?'pill-ok':'pill-err'}">${lPts}/6</span></div><div class="result-row"><span>Hören</span><span class="${hPts>=3?'pill-ok':'pill-err'}">${hPts}/4</span></div><div class="result-row"><strong>Bewertung</strong><span class="${pct>=60?'pill-ok':'pill-err'}">${grade} (${pct}%)</span></div>`;
+}
+let secs=165*60;
+const tel=document.getElementById('timer');
+const ti=setInterval(()=>{if(secs<=0){clearInterval(ti);tel.textContent='⏱ Zeit abgelaufen';return;}secs--;const m=Math.floor(secs/60),s=secs%60;tel.textContent=`⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(secs<=300)tel.style.color='#fca5a5';},1000);
+</script><script src="tts-exam.js"></script>
+</body></html>

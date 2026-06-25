@@ -337,5 +337,6 @@ function draw(){const el=document.getElementById('timer-digits');if(!el)return;e
 window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'&#9208; Pause':'&#9654; Weiter';};
 function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
 document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});})();</script>
+<script src="tts-exam.js"></script>
 </body>
 </html>

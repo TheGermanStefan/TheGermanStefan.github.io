@@ -2,577 +2,265 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goethe-Zertifikat C2 – Modellprüfung 4</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Goethe C2 — Test 4 | Biopolitik · Sprachphilosophie · Globale Gerechtigkeit</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0b2545;--blue:#1464b4;--green:#2e7d32;--purple:#6a1b9a;--red:#c62828;--orange:#e65100;--amber:#f9a825;--bg:#f0f2f5;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px;line-height:1.75}
-#timer-bar{position:sticky;top:0;z-index:999;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
-#timer-digits{font-size:26px;font-weight:900;letter-spacing:3px;min-width:100px;text-align:center;font-variant-numeric:tabular-nums}
-#timer-digits.warn{color:var(--amber)}#timer-digits.danger{color:#ff5252;animation:blink .7s infinite alternate}
-@keyframes blink{from{opacity:1}to{opacity:.4}}
-.tlabel{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px}
-.tmod-bar{display:flex;gap:6px;flex-wrap:wrap}
-.tpill{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#ccc;white-space:nowrap}
-.tpill.on{background:var(--amber);color:var(--navy);font-weight:800}
-#tbtn{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:6px;padding:4px 13px;font-size:12px;cursor:pointer;font-family:inherit}
-#tbtn:hover{background:rgba(255,255,255,.15)}
-.cover{background:linear-gradient(135deg,#37474f 0%,#455a64 35%,#1a237e 100%);color:#fff;padding:32px 44px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
-.cover h1{font-size:23px;font-weight:900}.cover .sub{font-size:12px;opacity:.75;margin-top:4px}
-.cover .meta{font-size:12px;opacity:.6;margin-top:12px;line-height:2.1}
-.badge{background:var(--amber);color:var(--navy);font-weight:900;font-size:20px;padding:12px 20px;border-radius:10px;text-align:center;flex-shrink:0;line-height:1.2}
-.badge span{display:block;font-size:11px;font-weight:700;margin-top:2px;opacity:.75}
-.cand-row{background:#fff;border-bottom:3px solid var(--blue);padding:10px 44px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
-.cf{display:flex;align-items:center;gap:8px;font-size:13px}.cf label{font-weight:700;color:var(--navy)}
-.ci{border:none;border-bottom:1.5px solid #aaa;font-size:13px;padding:3px 6px;width:160px;outline:none;background:transparent}
-.tl{background:var(--navy);display:flex}
-.tls{flex:1;text-align:center;padding:9px 4px;border-right:1px solid rgba(255,255,255,.12);color:#fff}
-.tls:last-child{border:none}.tls .m{font-size:13px;font-weight:800}.tls .i{font-size:11px;opacity:.55;margin-top:2px}
-.wrap{max-width:900px;margin:0 auto;padding:24px 18px 80px}
-.mod{background:#fff;border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;color:#fff}
-.mh .circ{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
-.mh .mt{font-size:17px;font-weight:800}.mh .ms{font-size:12px;opacity:.8;margin-top:1px}
-.mh .mp{margin-left:auto;text-align:right;font-size:12px;opacity:.8}.mh .mp strong{display:block;font-size:18px;font-weight:900}
-.lesen .mh{background:linear-gradient(90deg,#1464b4,#1976d2)}
-.hoeren .mh{background:linear-gradient(90deg,#2e7d32,#43a047)}
-.schreib .mh{background:linear-gradient(90deg,#6a1b9a,#8e24aa)}
-.sprech .mh{background:linear-gradient(90deg,#bf360c,#e64a19)}
-.mb{padding:18px 20px}
-.ph{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #e8eef8}
-.ptag{font-size:11px;font-weight:800;padding:3px 11px;border-radius:20px;white-space:nowrap}
-.lesen .ptag{background:#e3f2fd;color:#1464b4}.hoeren .ptag{background:#e8f5e9;color:#2e7d32}
-.schreib .ptag{background:#f3e5f5;color:#6a1b9a}.sprech .ptag{background:#fbe9e7;color:#bf360c}
-.pdesc{font-size:13px;color:#444;flex:1}.ppts{font-size:12px;font-weight:700;color:#999}
-.divider{border:none;border-top:1.5px dashed #dde;margin:18px 0}
-.instr{padding:8px 13px;border-left:3px solid;border-radius:0 6px 6px 0;font-size:13px;font-style:italic;color:#333;margin-bottom:12px}
-.lesen .instr{background:#f0f7ff;border-color:var(--blue)}.hoeren .instr{background:#f0faf0;border-color:var(--green)}
-.schreib .instr{background:#f9f0ff;border-color:var(--purple)}.sprech .instr{background:#fff4f0;border-color:var(--orange)}
-.sbox{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:16px 20px;font-size:13.5px;line-height:1.9;margin-bottom:12px}
-.sbox .smeta{color:#aaa;font-size:12px;margin-bottom:6px;font-style:italic}
-table.rf{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-table.rf th{background:#e3f2fd;padding:7px 10px;text-align:left;font-weight:700;color:var(--blue);border-bottom:2px solid #b0cef8}
-table.rf td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:middle}
-table.rf tr:nth-child(even) td{background:#f8fbff}
-.hoeren table.rf th{background:#e8f5e9;color:var(--green);border-bottom-color:#c8e6c9}
-.rn{width:30px;font-weight:700;color:#666}.ra{width:120px;text-align:center}
-.rf-wrap{display:flex;gap:5px;justify-content:center}
-.rfb{width:28px;height:28px;border-radius:50%;border:2px solid #bbb;background:#fff;font-weight:800;font-size:11px;color:#666;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.rfb:hover{transform:scale(1.1)}.rfb.selR{background:var(--green);border-color:var(--green);color:#fff}
-.rfb.selF{background:var(--red);border-color:var(--red);color:#fff}
-.rfb.selN{background:#6a1b9a;border-color:#6a1b9a;color:#fff}
-.mci{margin-bottom:14px}.mcs{font-size:13.5px;font-weight:600;margin-bottom:6px;color:#222}
-.qn{color:var(--blue);margin-right:4px;font-weight:800}
-.mco{display:flex;flex-wrap:wrap;gap:7px}
-.mcb{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:8px;border:1.5px solid #ccdcf0;background:#f4f8ff;font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit}
-.mcb:hover{border-color:var(--blue);background:#dbeafe}.mcb.sel{border-color:var(--blue);background:var(--blue);color:#fff}
-.mcb .ll{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
-.hoeren .mcb{border-color:#c8e6c9;background:#f0faf0}.hoeren .mcb:hover{border-color:var(--green);background:#d4edda}
-.hoeren .mcb.sel{border-color:var(--green);background:var(--green);color:#fff}
-.sit{display:flex;align-items:center;gap:10px;margin-bottom:7px;font-size:13px}
-.sn{font-weight:700;min-width:20px}.st{flex:1}
-.ssel{padding:4px 8px;border-radius:6px;border:1.5px solid #aaa;background:#fff;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;min-width:60px}
-.ssel:focus{outline:none;border-color:var(--blue)}
-.filrow{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;font-size:13px;flex-wrap:wrap}
-.filn{font-weight:700;color:var(--green);min-width:20px}
-.filin{border:none;border-bottom:2px solid var(--green);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:140px;outline:none}
-.gfin{border:none;border-bottom:2px dashed var(--purple);background:transparent;font-size:14px;font-weight:600;color:#111;padding:2px 5px;min-width:120px;outline:none}
-.warea{width:100%;min-height:260px;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 13px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.75}
-.warea:focus{border-color:var(--purple)}
-.wcpill{display:inline-block;background:#e0e0e0;color:#555;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-top:6px}
-.wcpill.ok{background:#c8e6c9;color:var(--green)}.wcpill.over{background:#ffcdd2;color:var(--red)}
-.personbox{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
-.pcard{border:1.5px solid #b0cef8;border-radius:8px;padding:8px 12px;background:#f4f8ff;font-size:12.5px;min-width:150px}
-.pname{font-weight:800;color:var(--blue);margin-bottom:3px}
-.textblock{background:#fafcff;border:1.5px solid #b0cef8;border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.85;margin-bottom:9px}
-.textlbl{font-weight:800;color:var(--blue);font-size:12px;margin-bottom:4px}
-.wbox{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:10px}
-.wbox b{color:var(--green)}
-.sits{background:#f7f9fc;border:1px solid #dde3f0;border-radius:8px;padding:12px 16px}
-.lc{background:#fff3e0;border:1.5px solid #ffcc80;border-radius:8px;padding:9px 14px;font-size:13px;line-height:1.85;margin-bottom:10px}
-.dial{background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:10px 14px;font-size:13px;line-height:2;margin-bottom:10px}
-.dlabel{font-weight:800;font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}
-.spcard{border:2px solid #ffb74d;border-radius:10px;padding:10px 13px;background:#fff8f0;font-size:13px}
-.scn{font-size:10px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.stbl{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-.stbl th{background:var(--navy);color:#fff;padding:7px 12px;text-align:left}
-.stbl td{padding:6px 10px;border-bottom:1px solid #ddd;vertical-align:middle}
-.stbl tr:nth-child(even) td{background:#f9f9f9}.stbl tr.tot td{font-weight:700;background:#e8eaf6}
-.sin{border:none;border-bottom:1.5px solid #aaa;background:transparent;width:55px;font-size:14px;font-weight:700;text-align:center;padding:2px;outline:none}
-.rfn-note{font-size:11px;font-style:italic;color:#888;margin-bottom:8px}
-.result-card{background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:28px}
-.ak{background:#fff;border-radius:12px;margin-top:36px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.akh{background:#37474f;color:#fff;padding:12px 20px;font-size:16px;font-weight:800}
-.akb{padding:18px 20px}.akm{margin-bottom:18px}
-.akm h3{font-size:14px;font-weight:700;color:#37474f;padding-bottom:4px;border-bottom:1.5px solid #e0e0e0;margin-bottom:8px}
-.akp{margin-bottom:8px}.akp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px}
-.chips{display:flex;flex-wrap:wrap;gap:5px}.chip{background:#f5f5f5;border-radius:6px;padding:3px 10px;font-size:13px}
-.ok{color:var(--green);font-weight:700}
-@media print{body{background:#fff}.ak{page-break-before:always}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root{--acc:#7c3aed;--acc2:#4c1d95;--bg:#f8f9fa;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;--ok:#16a34a;--err:#dc2626;--border:#e5e7eb;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);}
+.topbar{background:#1a1a2e;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.topbar h1{font-size:.95rem;font-weight:700;}
+.badge{background:var(--acc);color:#fff;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:10px;}
+.timer{font-size:.85rem;color:#fcd34d;font-weight:700;}
+.hero{background:linear-gradient(135deg,#1a1a2e,#4c1d95,#7c3aed);color:#fff;padding:32px 20px;text-align:center;}
+.hero h2{font-size:clamp(1.2rem,3vw,1.8rem);font-weight:800;margin-bottom:8px;}
+.hero p{opacity:.85;font-size:.9rem;}
+.topics{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.topic{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.75rem;padding:4px 12px;border-radius:12px;}
+.tabs{background:#fff;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:0;z-index:40;}
+.tab{padding:12px 16px;font-size:.82rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab.active{color:var(--acc);border-bottom-color:var(--acc);}
+.sec{display:none;max-width:860px;margin:0 auto;padding:28px 16px;}
+.sec.active{display:block;}
+.sec-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--txt);}
+.sec-intro{font-size:.85rem;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.text-box{background:#f0f4f8;border-left:4px solid var(--acc);border-radius:0 8px 8px 0;padding:16px 18px;margin-bottom:20px;font-size:.88rem;line-height:1.75;}
+.text-box h3{font-weight:700;margin-bottom:8px;color:var(--acc2);}
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;}
+.q-num{font-size:.72rem;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.q-text{font-weight:600;font-size:.9rem;margin-bottom:10px;line-height:1.5;}
+.options{display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .15s;}
+.opt:hover{border-color:var(--acc);background:#f5f3ff;}
+.opt input{accent-color:var(--acc);}
+.opt.correct{background:#dcfce7;border-color:var(--ok);}
+.opt.wrong{background:#fee2e2;border-color:var(--err);}
+.writing-prompt{background:#fef9c3;border:1px solid #fde68a;border-radius:8px;padding:14px;margin-bottom:12px;font-size:.85rem;line-height:1.6;}
+.writing-prompt strong{color:var(--acc2);}
+textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:.88rem;font-family:inherit;line-height:1.6;resize:vertical;min-height:180px;background:#fff;}
+textarea:focus{outline:none;border-color:var(--acc);}
+.word-count{font-size:.75rem;color:var(--muted);text-align:right;margin-top:4px;}
+.sprechen-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;}
+.sprechen-card h4{font-weight:700;margin-bottom:8px;color:var(--acc2);}
+.sprechen-card p{font-size:.88rem;line-height:1.6;}
+.sprechen-card .hint{font-size:.8rem;color:var(--muted);margin-top:8px;font-style:italic;}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;font-weight:700;font-size:.88rem;cursor:pointer;border:none;transition:all .2s;}
+.btn-primary{background:var(--acc);color:#fff;}
+.btn-primary:hover{background:var(--acc2);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.score-box{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;}
+.score-box .num{font-size:2.5rem;font-weight:800;}
+.score-box .lbl{opacity:.85;font-size:.9rem;}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:.88rem;}
+.result-row:last-child{border-bottom:none;}
+.pill-ok{background:#dcfce7;color:#166534;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.pill-err{background:#fee2e2;color:#991b1b;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.answer-key{background:#f0f4f8;border-radius:8px;padding:14px;margin-top:16px;font-size:.83rem;line-height:1.7;}
+.answer-key h4{font-weight:700;margin-bottom:6px;color:var(--acc2);}
 </style>
 </head>
 <body>
-<div id="timer-bar">
-  <div class="tlabel">Verbleibende Zeit</div>
-  <div id="timer-digits">4:00:00</div>
-  <div class="tmod-bar">
-    <span class="tpill on" id="tp1">Lesen 100'</span>
-    <span class="tpill" id="tp2">Hören 40'</span>
-    <span class="tpill" id="tp3">Schreiben 100'</span>
-    <span class="tpill" id="tp4">Sprechen ~15'</span>
-  </div>
-  <button id="tbtn" onclick="toggleTimer()">⏸ Pause</button>
+<div class="topbar">
+  <div><span class="badge">C2 · Test 4</span>
+  <h1 style="display:inline;margin-left:10px;">Goethe-Zertifikat C2 — Übungstest 4</h1></div>
+  <div class="timer" id="timer">⏱ 175:00</div>
 </div>
-
-<div class="cover">
-  <div>
-    <div class="sub">Modellprüfung im Goethe-Stil · Prüfung Nr. 4</div>
-    <h1>Goethe-Zertifikat C2 – Deutsch als Fremdsprache</h1>
-    <div class="meta">
-      Gesamtpunkte: <strong>100</strong> &nbsp;·&nbsp; Bestanden ab: <strong>60 Punkte (60 %)</strong><br>
-      Prüfungsdauer: ca. <strong>240 Minuten</strong> &nbsp;·&nbsp; Jedes Modul ≥ 15 / 25 = bestanden
-    </div>
-  </div>
-  <div class="badge">C2<span>Test 4</span></div>
-</div>
-
-<div class="cand-row">
-  <div class="cf"><label>Name:</label><input class="ci" type="text" placeholder="Familienname, Vorname"></div>
-  <div class="cf"><label>Datum:</label><input class="ci" type="text" placeholder="TT.MM.JJJJ"></div>
-  <div class="cf"><label>Kurs:</label><input class="ci" type="text"></div>
-</div>
-
-<div class="tl">
-  <div class="tls"><div class="m">① Lesen</div><div class="i">25 Pkt · 100 Min</div></div>
-  <div class="tls"><div class="m">② Hören</div><div class="i">25 Pkt · 40 Min</div></div>
-  <div class="tls"><div class="m">③ Schreiben</div><div class="i">25 Pkt · 100 Min</div></div>
-  <div class="tls"><div class="m">④ Sprechen</div><div class="i">25 Pkt · ~15 Min</div></div>
-  <div class="tls"><div class="m">Gesamt</div><div class="i">100 Pkt · ≥ 60 = ✓</div></div>
-</div>
-
-<div class="wrap">
-
-<!-- LESEN -->
-<div class="mod lesen">
-  <div class="mh">
-    <div class="circ">1</div>
-    <div><div class="mt">Lesen</div><div class="ms">Leseverstehen – 5 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 100 Min.</div>
-  </div>
-  <div class="mb">
-
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Komplexer Essay – R / F / Nicht im Text</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Lesen Sie den Text. Sind die Aussagen richtig (R), falsch (F) oder nicht im Text (N)?</div>
-    <div class="rfn-note">R = stimmt mit dem Text überein · F = widerspricht dem Text · N = nicht im Text erwähnt</div>
-    <div class="sbox">
-      <div class="smeta">Aus einem Sammelband zu bioethischen Grundsatzfragen</div>
-      <strong>Biopolitik und das Leben als Regierungsgegenstand</strong><br><br>
-      Der Begriff „Biopolitik" wurde durch Michel Foucault in den 1970er Jahren in die politische Theorie eingeführt. Foucault beschrieb damit den Übergang von einer Macht, die töten konnte, zu einer Macht, die das Leben der Bevölkerung zu regulieren sucht – eine Macht über Geburten, Sterblichkeit, Gesundheit und das Lebensalter insgesamt. Im modernen Staat wird das biologische Leben der Bevölkerung zum Gegenstand von Verwaltung und Steuerung: Impfpflichten, Reproduktionsmedizin, genetisches Screening, Sterbehilfegesetze – all das sind biopolitische Instrumente.<br><br>
-      Giorgio Agamben hat Foucaults Konzept erweitert und zuspitzt. Für Agamben ist der Ausnahmezustand – wenn Grundrechte außer Kraft gesetzt werden – keine Ausnahme, sondern das Normalparadigma moderner Staaten. In der Coronapandemie glaubte Agamben, Belege für diese These zu finden: Lockdowns, Ausgangsbeschränkungen und Impfpflichten interpretierten er und seine Anhänger als biopolitische Übergriffe. Diese Interpretation wurde allerdings von einer Vielzahl von Bioethikern scharf kritisiert, die zwischen legitimer Gesundheitspolitik und autoritärer Biopolitik differenzieren.<br><br>
-      Die Genomeditierung durch CRISPR-Cas9 stellt Biopolitik vor völlig neue Herausforderungen. Nicht mehr nur das Leben von Individuen, sondern die genetische Zukunft von Generationen steht zur Disposition. Fragen der Einwilligung, der Reversibilität und der globalen Gerechtigkeit – denn CRISPR ist keine gleichmäßig zugängliche Technologie – rücken in den Mittelpunkt.
-    </div>
-    <table class="rf">
-      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
-      <tbody>
-        <tr><td class="rn">1.</td><td>Michel Foucault hat den Begriff „Biopolitik" in den 1970er Jahren geprägt.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">2.</td><td>Giorgio Agamben sieht den Ausnahmezustand als absolute Ausnahme und nicht als Normalzustand.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">3.</td><td>Agambens Corona-Interpretation wurde von zahlreichen Bioethikern kritisiert.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">4.</td><td>Der Text gibt an, in wie vielen Ländern CRISPR-Cas9 bereits zugelassen ist.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">5.</td><td>Laut Text ist Foucaults ursprüngliches Konzept von Biopolitik mit Agambens Erweiterung identisch.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-      </tbody>
-    </table>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Textzuordnung – Wer passt wozu?</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Welcher Text (A–I) passt zu welcher Person? Nicht alle Texte werden verwendet.</div>
-    <div class="personbox">
-      <div class="pcard"><div class="pname">6. Prof. Nkrumah</div>Philosophieprofessor; sucht Forschung zu Sprachphilosophie und Sprachrelativismus</div>
-      <div class="pcard"><div class="pname">7. Jana</div>Doktorandin Bioethik; sucht aktuelle Primärquellen zur CRISPR-Regulierung</div>
-      <div class="pcard"><div class="pname">8. Herr Lenz</div>NGO-Mitarbeiter; sucht Berichte zu globaler Impfgerechtigkeit</div>
-      <div class="pcard"><div class="pname">9. Dr. Sørensen</div>Linguistin; sucht Kurs zu Diskursanalyse</div>
-      <div class="pcard"><div class="pname">10. Alicia</div>Studentin; sucht Praktikum in einer internationalen Entwicklungsorganisation</div>
-    </div>
-    <div class="textblock"><div class="textlbl">Text A</div>Whorf, B.L.: „Language, Thought, and Reality: Selected Writings." MIT Press. Klassisches Werk zum Sapir-Whorf-Sprachdeterminismus. Antiquariatsausgabe: 28 €.</div>
-    <div class="textblock"><div class="textlbl">Text B</div>WHO-Bericht: „Vaccine Equity – Global Access Gap 2023." Datenbank über Impfdosen-Verteilung nach Einkommensgruppe. who.int/vaccine-equity</div>
-    <div class="textblock"><div class="textlbl">Text C</div>Nature Medicine: „CRISPR Governance: International Regulatory Frameworks and Ethical Boundaries." Peer-reviewed, Open Access. nature.com/articles/nm2024</div>
-    <div class="textblock"><div class="textlbl">Text D</div>UNDP: Freiwilligenprogramm „Youth for Development." Sechs Monate in Entwicklungsprojekten weltweit. Bewerbung bis 1. September. undp.org/volunteer</div>
-    <div class="textblock"><div class="textlbl">Text E</div>Online-Zertifikat: „Discourse Analysis in Applied Linguistics." Universität Leiden, 8 Wochen, 600 €. coursera.org/leiden</div>
-    <div class="textblock"><div class="textlbl">Text F</div>Dissertation: „Biopolitik zwischen Foucault und Agamben: Grenzen der Übertragbarkeit auf das 21. Jahrhundert." Uni Wien, 2023. Kostenloser PDF-Download.</div>
-    <div class="textblock"><div class="textlbl">Text G</div>Stellenanzeige: Rechtsanwalt/-anwältin für internationales Handelrecht. Kanzlei Frankfurt. Bewerbung an info@lex-international.de</div>
-    <div class="textblock"><div class="textlbl">Text H</div>Tagesseminar: „Globale Gerechtigkeit – philosophische und politische Perspektiven." ZIF Bielefeld. Referenten: Prof. Gosepath, Dr. Risse. Anmeldung: zif.uni-bielefeld.de</div>
-    <div class="textblock"><div class="textlbl">Text I</div>Podcast: „Wörter, Denken, Welt – Sprachrelativismus heute." Episode 22: Neues aus der Kognitionswissenschaft. Hören bei Audible.</div>
-    <div class="sits" style="margin-top:8px">
-      <div class="sit"><span class="sn">6.</span><span class="st">Prof. Nkrumah</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">7.</span><span class="st">Jana</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">8.</span><span class="st">Herr Lenz</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">9.</span><span class="st">Dr. Sørensen</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-      <div class="sit"><span class="sn">10.</span><span class="st">Alicia</span><select class="ssel"><option>—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select></div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Wissenschaftlicher Artikel – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Lesen Sie den Artikel. Was ist richtig: a, b oder c?</div>
-    <div class="sbox">
-      <div class="smeta">Aus einer philosophischen Fachzeitschrift</div>
-      <strong>Kann Sprache das Denken formen? Der Sprachrelativismus zwischen Hypothese und Dogma</strong><br><br>
-      Die sogenannte Sapir-Whorf-Hypothese – auch „Linguistischer Relativismus" genannt – besagt in ihrer starken Version, dass die Sprache, die wir sprechen, unser Denken determiniert: Wer keine sprachliche Kategorie für ein Konzept hat, kann es nicht denken. Diese radikale Position gilt in der modernen Kognitionslinguistik als weitgehend widerlegt. Was bleibt, ist eine schwache Version des Relativismus: Sprache beeinflusst Denken, ohne es vollständig zu bestimmen.<br><br>
-      Empirische Belege gibt es durchaus. Sprachen, die räumliche Orientierung nicht durch relative Begriffe wie „links" und „rechts" ausdrücken, sondern durch absolute Himmelsrichtungen – wie das australische Kuuk Thaayorre – formen nachweislich eine andere kognitive Raumwahrnehmung ihrer Sprecherinnen und Sprecher. Ähnliches gilt für die Farbwahrnehmung: Sprachen mit mehr Farbunterscheidungen führen zu präziserer Farbunterscheidung in Experimenten.<br><br>
-      Wichtig ist die Unterscheidung zwischen Determinismus und Einfluss. Die Sprache schafft keine unüberwindliche kognitive Barriere – Konzepte aus anderen Sprachräumen können erlernt werden. Dennoch zeigen Neurostudien, dass sprachliche Kategorien die neuronale Verarbeitung von Wahrnehmungen schneller und effizienter machen. Sprache ist somit ein kognitives Werkzeug, das Denken formt – ohne es zu fesseln.
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">11.</span> Was sagt die starke Version der Sapir-Whorf-Hypothese?</div>
-      <div class="mco" data-grp="q11">
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">a</span> Sprache beeinflusst Denken leicht</button>
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">b</span> Sprache determiniert Denken vollständig</button>
-        <button class="mcb" onclick="pickMC(this,'q11')"><span class="ll">c</span> Denken existiert unabhängig von Sprache</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">12.</span> Was gilt laut Text als weitgehend widerlegt?</div>
-      <div class="mco" data-grp="q12">
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">a</span> Die schwache Version des Relativismus</button>
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">b</span> Die radikale, starke Version der Sapir-Whorf-Hypothese</button>
-        <button class="mcb" onclick="pickMC(this,'q12')"><span class="ll">c</span> Die Neurowissenschaft des Spracherwerbs</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">13.</span> Was ist das Besondere an Kuuk Thaayorre?</div>
-      <div class="mco" data-grp="q13">
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">a</span> Es hat keine Farbwörter</button>
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">b</span> Es nutzt absolute Himmelsrichtungen statt relativ links/rechts</button>
-        <button class="mcb" onclick="pickMC(this,'q13')"><span class="ll">c</span> Es hat keine Vergangenheitsform</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">14.</span> Was zeigen Neurostudien laut Text?</div>
-      <div class="mco" data-grp="q14">
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">a</span> Sprache hemmt neuronale Prozesse</button>
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">b</span> Sprachliche Kategorien machen Wahrnehmungsverarbeitung effizienter</button>
-        <button class="mcb" onclick="pickMC(this,'q14')"><span class="ll">c</span> Mehrsprachigkeit senkt die kognitive Leistung</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">15.</span> Wie beschreibt der Text die Rolle der Sprache abschließend?</div>
-      <div class="mco" data-grp="q15">
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">a</span> Als unüberwindliche kognitive Barriere</button>
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">b</span> Als kognitives Werkzeug, das Denken formt, ohne es zu fesseln</button>
-        <button class="mcb" onclick="pickMC(this,'q15')"><span class="ll">c</span> Als irrelevant für das Denken</button>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Lückentext – freie Ergänzung (kein Kasten)</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Ergänzen Sie die Lücken mit je einem treffenden Wort oder einer kurzen Wendung.</div>
-    <div class="sbox" style="line-height:2.4">
-      Globale Gerechtigkeit stellt eine der zentralen moralphilosophischen <input class="gfin" type="text" placeholder="(16)"> unserer Zeit dar. Die Frage, ob wohlhabende Staaten eine moralische <input class="gfin" type="text" placeholder="(17)"> gegenüber den Ärmsten der Welt tragen, wird unterschiedlich beantwortet. Kosmopoliten wie Peter Singer argumentieren, dass geographische <input class="gfin" type="text" placeholder="(18)"> moralisch irrelevant ist – wer einem Kind helfen kann, ohne selbst erheblich zu <input class="gfin" type="text" placeholder="(19)"> , sollte es tun. Kritiker hingegen betonen, dass besondere Pflichten gegenüber den eigenen <input class="gfin" type="text" placeholder="(20)"> existieren, die globalen Umverteilungsansprüchen Grenzen setzen.
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 5</span><span class="pdesc">Kurztexte – richtige Aussage identifizieren</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Was meinen die folgenden Texte? Wählen Sie a, b oder c.</div>
-    <div class="lc"><strong>Text 1:</strong> „Urteil des Europäischen Gerichtshofs: CRISPR-editierte Pflanzen unterliegen denselben Zulassungsvorschriften wie herkömmliche GVO."</div>
-    <div class="mci"><div class="mcs"><span class="qn">21.</span> Was hat der EuGH entschieden?</div>
-      <div class="mco" data-grp="q21">
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">a</span> CRISPR-Pflanzen sind von Regulierung befreit</button>
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">b</span> CRISPR-Pflanzen werden wie herkömmliche GVO reguliert</button>
-        <button class="mcb" onclick="pickMC(this,'q21')"><span class="ll">c</span> CRISPR ist in der EU verboten</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 2:</strong> „Gastessay: Wer Globalisierung kritisiert, ohne alternative Handelsstrukturen zu denken, bleibt im Protest stecken. Was fehlt, ist konstruktive Utopie."</div>
-    <div class="mci"><div class="mcs"><span class="qn">22.</span> Was fordert der Gastessay?</div>
-      <div class="mco" data-grp="q22">
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">a</span> Den Rückzug aus der Globalisierung</button>
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">b</span> Kritik allein reicht nicht – gefordert sind konstruktive Alternativen</button>
-        <button class="mcb" onclick="pickMC(this,'q22')"><span class="ll">c</span> Mehr Freihandelsabkommen</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 3:</strong> „Sprachbericht EU 2024: Obwohl Englisch als Lingua franca dominiert, haben 82 % der EU-Bürger ein positives Verhältnis zur eigenen Muttersprache."</div>
-    <div class="mci"><div class="mcs"><span class="qn">23.</span> Was besagt der Bericht?</div>
-      <div class="mco" data-grp="q23">
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">a</span> Englisch verdrängt Muttersprachen vollständig</button>
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">b</span> Trotz Englisch-Dominanz schätzen die meisten EU-Bürger ihre Muttersprache</button>
-        <button class="mcb" onclick="pickMC(this,'q23')"><span class="ll">c</span> 82 % sprechen kein Englisch</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 4:</strong> „IPCC-Sonderbericht: Ohne Reduktion von CO₂-Emissionen um 45 % bis 2030 wird das 1,5-Grad-Ziel nicht erreichbar sein."</div>
-    <div class="mci"><div class="mcs"><span class="qn">24.</span> Was macht der IPCC-Bericht deutlich?</div>
-      <div class="mco" data-grp="q24">
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">a</span> Das 1,5-Grad-Ziel ist bereits unerreichbar</button>
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">b</span> 45 % Emissionsreduktion bis 2030 ist Bedingung für das 1,5-Grad-Ziel</button>
-        <button class="mcb" onclick="pickMC(this,'q24')"><span class="ll">c</span> CO₂ ist der einzige relevante Klimafaktor</button>
-      </div>
-    </div>
-    <div class="lc"><strong>Text 5:</strong> „Bioethik-Kommission: Präimplantationsdiagnostik (PID) darf nur unter strikten Voraussetzungen und nach individueller Einzelfallentscheidung angewendet werden."</div>
-    <div class="mci"><div class="mcs"><span class="qn">25.</span> Was legt die Kommission fest?</div>
-      <div class="mco" data-grp="q25">
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">a</span> PID ist grundsätzlich verboten</button>
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">b</span> PID nur unter strikten Bedingungen und per Einzelfallentscheidung erlaubt</button>
-        <button class="mcb" onclick="pickMC(this,'q25')"><span class="ll">c</span> PID ist für alle zugänglich</button>
-      </div>
-    </div>
+<div class="hero">
+  <h2>Übungstest 4 — Goethe-Zertifikat C2</h2>
+  <p>Vollständiger Übungstest mit Lesen, Hören, Schreiben und Sprechen</p>
+  <div class="topics">
+    <span class="topic">⚗️ Biopolitik</span>
+    <span class="topic">🗣️ Sprachphilosophie</span>
+    <span class="topic">⚖️ Globale Gerechtigkeit</span>
   </div>
 </div>
-
-<!-- HÖREN -->
-<div class="mod hoeren">
-  <div class="mh">
-    <div class="circ">2</div>
-    <div><div class="mt">Hören</div><div class="ms">Hörverstehen – 4 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 40 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Akademischer Vortrag – Multiple Choice</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie den Vortrag (2×). Was ist richtig?</div>
-    <div class="dial"><div class="dlabel">Vortrag: Globale Gerechtigkeit und die Grenzen des Möglichen</div>
-      „Thomas Pogge hat in seiner Theorie der negativen Pflichten einen entscheidenden Beitrag zur Debatte um globale Gerechtigkeit geleistet. Pogge argumentiert, dass wohlhabende Staaten nicht aktiv helfen müssen – aber sie müssen aufhören, aktiv zu schaden. Das globale Wirtschaftssystem, so Pogge, ist so gestaltet, dass es die Armut in Entwicklungsländern <strong>reproduziert und stabilisiert</strong>. Reiche Länder profitieren von Handelsregeln, die sie selbst gestaltet haben – das sei keine neutrale Position, sondern eine Form struktureller Ungerechtigkeit. Poggfe fordert deshalb keine Almosen, sondern die Reform internationaler Institutionen wie der WTO und des IWF. Im Gegensatz dazu steht Rawls' kosmopolitisch-minimale Konzeption: In seinem Werk ‚Das Recht der Völker' plädiert Rawls für Unterstützung, aber nur bis sogenannte ‚belastete Gesellschaften' zur Selbsttragfähigkeit gebracht werden. <strong>Einen globalen Differenzprinzip</strong> – also eine weltweite Umverteilung zur Maximierung der Situation der Ärmsten – lehnte Rawls dagegen ab."
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">26.</span> Was ist Pogges Kernthese?</div>
-      <div class="mco" data-grp="q26">
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">a</span> Wohlhabende Staaten müssen aktiv Armut bekämpfen</button>
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">b</span> Reiche Staaten müssen aufhören, strukturell zu schaden – keine neutralen Handelsregeln</button>
-        <button class="mcb" onclick="pickMC(this,'q26')"><span class="ll">c</span> Globale Umverteilung ist die einzige Lösung</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">27.</span> Was fordert Pogge konkret?</div>
-      <div class="mco" data-grp="q27">
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">a</span> Höhere Entwicklungshilfe</button>
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">b</span> Reform internationaler Institutionen wie WTO und IWF</button>
-        <button class="mcb" onclick="pickMC(this,'q27')"><span class="ll">c</span> Abschaffung des Freihandels</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">28.</span> Was lehnt Rawls laut dem Vortrag ab?</div>
-      <div class="mco" data-grp="q28">
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">a</span> Jede Form internationaler Zusammenarbeit</button>
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">b</span> Ein globales Differenzprinzip (weltweite Umverteilung)</button>
-        <button class="mcb" onclick="pickMC(this,'q28')"><span class="ll">c</span> Das Konzept belasteter Gesellschaften</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">29.</span> Worin unterscheiden sich Pogge und Rawls am stärksten?</div>
-      <div class="mco" data-grp="q29">
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">a</span> Im Umgang mit Migration</button>
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">b</span> In der Frage, ob globale Umverteilung moralisch geboten ist</button>
-        <button class="mcb" onclick="pickMC(this,'q29')"><span class="ll">c</span> In ihrer Sicht auf Demokratie</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">30.</span> Wie bezeichnet Pogge die Gestaltung des globalen Wirtschaftssystems?</div>
-      <div class="mco" data-grp="q30">
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">a</span> Als gerecht, aber ineffizient</button>
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">b</span> Als strukturelle Ungerechtigkeit</button>
-        <button class="mcb" onclick="pickMC(this,'q30')"><span class="ll">c</span> Als unvermeidlich</button>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Diskussion – R / F / N</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie die Diskussion (2×). R, F oder N?</div>
-    <div class="rfn-note">R = stimmt überein · F = widerspricht · N = nicht erwähnt</div>
-    <div class="dial"><div class="dlabel">Podiumsdiskussion: Biopolitik im 21. Jahrhundert – Wer kontrolliert das Leben?</div>
-      <strong>Moderatorin:</strong> Ist staatliche Biopolitik eine Bedrohung der Freiheit?<br>
-      <strong>Prof. Wenger (Bioethik):</strong> Das kommt auf die Form an. Impfpflichten, die Epidemien verhindern, sind eine andere Form von Biopolitik als Zwangssterilisierungen des 20. Jahrhunderts. Der <strong>kontextblinde Foucault-Verweis</strong> hilft da nicht weiter.<br>
-      <strong>Dr. Aydin (Philosophie):</strong> Aber die Tendenz zur Ausweitung ist real. Wer hat das Recht, über CRISPR-Eingriffe in die Keimbahn zu entscheiden? Staatliche Regulierungsbehörden? Marktmechanismen? Das sind <strong>Machtfragen</strong>.<br>
-      <strong>Prof. Wenger:</strong> Einverstanden. Deswegen brauchen wir internationale Bioethik-Institutionen mit echter Durchsetzungsmacht – keine rein nationalen Lösungen.<br>
-      <strong>Dr. Aydin:</strong> Und echte <strong>Partizipation</strong> der betroffenen Gesellschaften, nicht nur westlicher Akademiker.
-    </div>
-    <table class="rf">
-      <thead><tr><th class="rn">#</th><th>Aussage</th><th class="ra">R / F / N</th></tr></thead>
-      <tbody>
-        <tr><td class="rn">31.</td><td>Prof. Wenger unterscheidet zwischen verschiedenen Formen von Biopolitik.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">32.</td><td>Dr. Aydin sieht keine Probleme mit staatlicher CRISPR-Regulierung.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">33.</td><td>Prof. Wenger fordert internationale Bioethik-Institutionen mit Durchsetzungsmacht.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">34.</td><td>Die Diskussion nennt konkrete nationale Gesetze zu Keimbahneingriffen.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-        <tr><td class="rn">35.</td><td>Dr. Aydin fordert die Einbeziehung betroffener Gesellschaften, nicht nur westlicher Akademiker.</td>
-          <td class="ra"><div class="rf-wrap"><button class="rfb" onclick="pickRF3(this,'R')">R</button><button class="rfb" onclick="pickRF3(this,'F')">F</button><button class="rfb" onclick="pickRF3(this,'N')">N</button></div></td></tr>
-      </tbody>
-    </table>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Radiobeitrag – Informationen ergänzen</span><span class="ppts">5 Pkt</span></div>
-    <div class="instr">Hören Sie den Beitrag (2×) und notieren Sie.</div>
-    <div class="dial"><div class="dlabel">Radiobeitrag: Globale Impfstoffverteilung – die Zahlen hinter COVAX</div>
-      „Das COVAX-Programm der WHO wurde 2020 gegründet, um Impfstoffe gerecht zu verteilen. Ziel war es, bis Ende 2021 <strong>zwei Milliarden Dosen</strong> in ärmere Länder zu liefern. Erreicht wurden bis dahin erst <strong>890 Millionen Dosen</strong>. Die Lücke von rund <strong>55 Prozent</strong> wird auf Exportbeschränkungen reicher Staaten und <strong>Produktionsengpässe</strong> zurückgeführt. Länder des globalen Südens hatten bis Mitte 2022 im Schnitt nur <strong>28 Prozent</strong> ihrer Bevölkerung vollständig geimpft – verglichen mit <strong>71 Prozent</strong> in Industrieländern. Die WHO forderte die Aussetzung von Patentrechten für Impfstoffe – ein Vorschlag, den die USA unterstützten, die EU jedoch zunächst <strong>ablehnte</strong>."
-    </div>
-    <div class="filrow"><span class="filn">36.</span> Gründungsjahr von COVAX: <input class="filin" type="text"></div>
-    <div class="filrow"><span class="filn">37.</span> Ursprüngliches Ziel: <input class="filin" type="text"> Dosen bis Ende 2021</div>
-    <div class="filrow"><span class="filn">38.</span> Tatsächlich geliefert: <input class="filin" type="text"> Mio./Mrd. Dosen</div>
-    <div class="filrow"><span class="filn">39.</span> Impfquote globaler Süden bis Mitte 2022: <input class="filin" type="text"> %</div>
-    <div class="filrow"><span class="filn">40.</span> Haltung der EU zum Patentrecht-Vorschlag der WHO: <input class="filin" type="text"></div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 4</span><span class="pdesc">Expertengespräch – Multiple Choice</span><span class="ppts">10 Pkt</span></div>
-    <div class="instr">Hören Sie das Gespräch (2×). Was ist richtig?</div>
-    <div class="dial"><div class="dlabel">Expertengespräch: Sprachphilosophie – Können wir das Unsagbare denken?</div>
-      <strong>Moderatorin:</strong> Ludwig Wittgenstein schrieb: „Worüber man nicht sprechen kann, darüber muss man schweigen." Was meinte er damit?<br>
-      <strong>Prof. Roth (Sprachphil.):</strong> Im frühen Wittgenstein des Tractatus bedeutet das: Die Grenzen meiner Sprache sind die Grenzen meiner Welt. Alles, was sich nicht sagen lässt, ist metaphysisch – und damit außerhalb des Sagbaren.<br>
-      <strong>Dr. Kim:</strong> Aber der späte Wittgenstein korrigierte sich: In den Philosophischen Untersuchungen zeigt er, dass Sprache kein fixes Bild der Welt ist, sondern ein <strong>Sprachspiel</strong> – regelgeleitet, aber wandelbar.<br>
-      <strong>Prof. Roth:</strong> Genau. Der Bedeutungswandel geschieht durch <strong>Gebrauch</strong>, nicht durch Definitionen. Deshalb können neue Konzepte entstehen – wir können das scheinbar Unsagbare in neue Sprache fassen.<br>
-      <strong>Dr. Kim:</strong> Das ist auch für Interkulturelle Kommunikation wichtig: Wir können Konzepte fremder Sprachen lernen – und damit unsere kognitive Welt erweitern.
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">41.</span> Was bedeutet Wittgensteins Aussage im frühen Werk (Tractatus)?</div>
-      <div class="mco" data-grp="q41">
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">a</span> Schweigen ist immer die beste Antwort</button>
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">b</span> Die Grenzen der Sprache sind die Grenzen der Welt – Metaphysisches ist unsagbar</button>
-        <button class="mcb" onclick="pickMC(this,'q41')"><span class="ll">c</span> Sprache ist ein Hindernis für das Denken</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">42.</span> Was versteht der späte Wittgenstein unter „Sprachspiel"?</div>
-      <div class="mco" data-grp="q42">
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">a</span> Ein fixes Abbild der Realität</button>
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">b</span> Regelgeleitete, aber wandelbare Sprachpraxis</button>
-        <button class="mcb" onclick="pickMC(this,'q42')"><span class="ll">c</span> Eine Form des Kinderspiels</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">43.</span> Wie entsteht laut Prof. Roth Bedeutungswandel?</div>
-      <div class="mco" data-grp="q43">
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">a</span> Durch Wörterbuchdefinitionen</button>
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">b</span> Durch den Gebrauch der Sprache</button>
-        <button class="mcb" onclick="pickMC(this,'q43')"><span class="ll">c</span> Durch staatliche Sprachpolitik</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">44.</span> Wozu ist das Gespräch laut Dr. Kim auch für interkulturelle Kommunikation relevant?</div>
-      <div class="mco" data-grp="q44">
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">a</span> Weil Übersetzen unmöglich ist</button>
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">b</span> Weil fremde Konzepte erlernt werden können und die kognitive Welt erweitern</button>
-        <button class="mcb" onclick="pickMC(this,'q44')"><span class="ll">c</span> Weil alle Sprachen dieselben Konzepte haben</button>
-      </div>
-    </div>
-    <div class="mci"><div class="mcs"><span class="qn">45.</span> Wie hat sich Wittgensteins Position vom frühen zum späten Werk verändert?</div>
-      <div class="mco" data-grp="q45">
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">a</span> Er wurde strenger in seiner Ablehnung der Metaphysik</button>
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">b</span> Sprache ist nicht mehr festes Weltabbild, sondern wandelbares Sprachspiel</button>
-        <button class="mcb" onclick="pickMC(this,'q45')"><span class="ll">c</span> Er lehnte Sprache als Erkenntnisquelle ab</button>
-      </div>
-    </div>
-  </div>
+<div class="tabs">
+  <div class="tab active" onclick="showSec('lesen')">📖 Lesen</div>
+  <div class="tab" onclick="showSec('hoeren')">🎧 Hören</div>
+  <div class="tab" onclick="showSec('schreiben')">✍️ Schreiben</div>
+  <div class="tab" onclick="showSec('sprechen')">🗣️ Sprechen</div>
+  <div class="tab" onclick="showSec('ergebnis')">📊 Ergebnis</div>
 </div>
-
-<!-- SCHREIBEN -->
-<div class="mod schreib">
-  <div class="mh">
-    <div class="circ">3</div>
-    <div><div class="mt">Schreiben</div><div class="ms">Schriftliche Produktion – 2 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · 100 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Wissenschaftlicher Essay (mind. 250 Wörter)</span><span class="ppts">13 Pkt</span></div>
-    <div class="instr">Schreiben Sie einen wissenschaftlich argumentativen Essay (mind. 250 Wörter). Berücksichtigen Sie alle Aspekte.</div>
-    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px;line-height:1.85">
-      <strong style="color:var(--purple)">These:</strong> „Biopolitik ist nicht per se ein Instrument der Unterdrückung – sie kann ebenso ein Instrument des Schutzes und der Gerechtigkeit sein."<br>
-      Schreiben Sie einen essayistischen Kommentar für ein philosophisches Fachmagazin:<br>
-      <strong>① Erläutern Sie den Begriff Biopolitik und seine historische Dimension<br>② Diskutieren Sie sowohl die autoritären als auch die emanzipatorischen Potenziale von Biopolitik<br>③ Gehen Sie auf CRISPR als konkretes Beispiel ein<br>④ Entwickeln Sie ein klares Fazit</strong>
-    </div>
-    <textarea class="warea" id="w1" oninput="countW('w1','wc1',250,340)" placeholder="Der Begriff Biopolitik, geprägt von Michel Foucault ..."></textarea>
-    <div id="wc1" class="wcpill">0 / min. 250</div>
-
-    <hr class="divider">
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Formeller Text / Stellungnahme (mind. 200 Wörter)</span><span class="ppts">12 Pkt</span></div>
-    <div class="instr">Schreiben Sie einen formellen Text (mind. 200 Wörter). Bearbeiten Sie alle vier Punkte.</div>
-    <div style="background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:8px;padding:11px 16px;margin-bottom:10px;font-size:13px">
-      <strong style="color:var(--purple)">Situation:</strong> Sie wurden von einer internationalen Studierendenkonferenz eingeladen, eine schriftliche Stellungnahme zum Thema „Globale Gerechtigkeit – Pflicht oder Utopie?" einzureichen:<br>
-      <strong>① Stellen Sie das Problem der globalen Ungleichheit dar ② Diskutieren Sie zwei konkurrierende philosophische Positionen ③ Entwickeln Sie Ihre eigene Position ④ Formulieren Sie eine konkrete Forderung an die internationale Gemeinschaft</strong>
-    </div>
-    <textarea class="warea" id="w2" oninput="countW('w2','wc2',200,280)" placeholder="Globale Gerechtigkeit ist nicht bloß eine akademische Frage ..."></textarea>
-    <div id="wc2" class="wcpill">0 / min. 200</div>
-  </div>
+<div class="sec active" id="sec-lesen">
+<div class="sec-title">Teil 1 — Leseverstehen</div>
+<div class="sec-intro">Lesen Sie die Texte und wählen Sie die richtige Antwort.</div>
+<div class="text-box"><h3>Text 1: Biopolitik — Foucaults Erbe im 21. Jahrhundert (Auszug)</h3><p>Michel Foucaults Begriff der Biopolitik beschreibt die Techniken, durch die moderne Staaten Bevölkerungen verwalten, regulieren und normieren — durch Medizin, Demografie, Gesundheitspolitik und Raumplanung. Im 21. Jahrhundert haben diese Mechanismen eine neue Dimension erhalten: Big Data ermöglicht eine Individualisierung der Kontrolle, die Foucault kaum ahnen konnte. Pandemiemanagement, Impfpflichtdebatten und digitale Kontaktverfolgungs-Apps haben gezeigt, wie tief biopolitische Eingriffe in demokratische Gesellschaften reichen können. Giorgio Agamben hat Foucaults Analyse durch den Begriff des „Ausnahmezustands" erweitert: In Krisen werden temporäre Einschränkungen zu Dauerzuständen normalisiert.</p></div>
+<div class="text-box"><h3>Text 2: Sprache und Denken — Sapir, Whorf und die Grenzen der Welt (Auszug)</h3><p>Die Sapir-Whorf-Hypothese postuliert in ihrer starken Form, dass Sprache das Denken nicht nur beeinflusst, sondern determiniert — Menschen, die unterschiedliche Sprachen sprechen, erleben demnach grundlegend verschiedene Wirklichkeiten. In ihrer schwachen Form besagt sie, dass Sprache das Denken formt, ohne es vollständig zu bestimmen. Wittgensteins berühmter Satz „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt" reflektiert eine ähnliche Intuition. Neuere kognitionswissenschaftliche Forschung (Boroditsky) zeigt tatsächlich messbare Auswirkungen von Sprachstruktur auf räumliches Denken, Zeitwahrnehmung und Farbkategorisierung — ohne jedoch die starke Determinismusthese zu stützen.</p></div>
+<div class="text-box"><h3>Text 3: Globale Gerechtigkeit — Rawls, Singer und die Grenzen der Moral (Auszug)</h3><p>John Rawls' Gerechtigkeitstheorie, entwickelt für eine geschlossene Gesellschaft hinter dem „Schleier des Nichtwissens", stößt bei der Anwendung auf globale Verhältnisse an Grenzen. Peter Singer hingegen argumentiert mit dem Prinzip der Gleichwertigkeit von Interessen: Der Abstand zwischen einem Bettelnden in Mumbai und einem Wohlhabenden in München ist moralisch irrelevant — Leiden verdient gleiche moralische Berücksichtigung unabhängig von Ort und Nationalität. Thomas Pogge sieht globale Armut nicht als natürliches Unglück, sondern als durch globale institutionelle Arrangements aktiv verursacht — und damit als Verletzung negativer Pflichten, nicht nur als Unterlassung.</p></div>
+<div class="q-block" id="q1">
+<div class="q-num">Frage 1</div>
+<div class="q-text">Was ergänzt Agambens Begriff des Ausnahmezustands an Foucaults Biopolitik?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q1" value="a"> <span>a) Er zeigt, dass Biopolitik ausschließlich in Diktaturen existiert.</span></label>
+<label class="opt"><input type="radio" name="q1" value="b"> <span>b) Er zeigt, wie temporäre Krisenmaßnahmen zu Dauerzuständen werden können.</span></label>
+<label class="opt"><input type="radio" name="q1" value="c"> <span>c) Er widerlegt Foucaults These vollständig.</span></label>
+<label class="opt"><input type="radio" name="q1" value="d"> <span>d) Er beschränkt Biopolitik auf medizinische Eingriffe.</span></label>
+</div></div>
+<div class="q-block" id="q2">
+<div class="q-num">Frage 2</div>
+<div class="q-text">Was ermöglicht Big Data laut Text im biopolitischen Kontext?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q2" value="a"> <span>a) Eine Reduzierung staatlicher Kontrolle.</span></label>
+<label class="opt"><input type="radio" name="q2" value="b"> <span>b) Eine Individualisierung der Kontrolle über Foucaults Konzepte hinaus.</span></label>
+<label class="opt"><input type="radio" name="q2" value="c"> <span>c) Die vollständige Abschaffung staatlicher Regulierung.</span></label>
+<label class="opt"><input type="radio" name="q2" value="d"> <span>d) Effektivere demokratische Mitbestimmung.</span></label>
+</div></div>
+<div class="q-block" id="q3">
+<div class="q-num">Frage 3</div>
+<div class="q-text">Was zeigt neuere Forschung (Boroditsky) zur Sapir-Whorf-Hypothese?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q3" value="a"> <span>a) Sprache determiniert das Denken vollständig.</span></label>
+<label class="opt"><input type="radio" name="q3" value="b"> <span>b) Sprache hat messbare Auswirkungen auf Denken, ohne starken Determinismus zu belegen.</span></label>
+<label class="opt"><input type="radio" name="q3" value="c"> <span>c) Sprache hat keinerlei Einfluss auf das Denken.</span></label>
+<label class="opt"><input type="radio" name="q3" value="d"> <span>d) Alle Menschen denken unabhängig von ihrer Sprache identisch.</span></label>
+</div></div>
+<div class="q-block" id="q4">
+<div class="q-num">Frage 4</div>
+<div class="q-text">Was meint Wittgenstein mit „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt"?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q4" value="a"> <span>a) Menschen mit weniger Sprachkenntnissen leben in kleineren Welten.</span></label>
+<label class="opt"><input type="radio" name="q4" value="b"> <span>b) Das sprachlich Nicht-Ausdrückbare bleibt dem Denken weitgehend unzugänglich.</span></label>
+<label class="opt"><input type="radio" name="q4" value="c"> <span>c) Mehrsprachigkeit erweitert die physische Welt.</span></label>
+<label class="opt"><input type="radio" name="q4" value="d"> <span>d) Sprachliche Grenzen sind kulturell überwindbar.</span></label>
+</div></div>
+<div class="q-block" id="q5">
+<div class="q-num">Frage 5</div>
+<div class="q-text">Wie unterscheidet sich Singers Position von Rawls in der globalen Gerechtigkeit?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q5" value="a"> <span>a) Singer beschränkt moralische Verpflichtung auf den Nationalstaat.</span></label>
+<label class="opt"><input type="radio" name="q5" value="b"> <span>b) Singer sieht moralische Verpflichtung als global und ortunabhängig.</span></label>
+<label class="opt"><input type="radio" name="q5" value="c"> <span>c) Rawls fordert eine Weltregierung; Singer nicht.</span></label>
+<label class="opt"><input type="radio" name="q5" value="d"> <span>d) Singer bezieht sich nur auf wirtschaftliche, nicht moralische Gleichheit.</span></label>
+</div></div>
+<div class="q-block" id="q6">
+<div class="q-num">Frage 6</div>
+<div class="q-text">Wie deutet Pogge globale Armut?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q6" value="a"> <span>a) Als unvermeidliches Naturphänomen.</span></label>
+<label class="opt"><input type="radio" name="q6" value="b"> <span>b) Als durch institutionelle Arrangements aktiv verursacht — eine Verletzung negativer Pflichten.</span></label>
+<label class="opt"><input type="radio" name="q6" value="c"> <span>c) Als Ergebnis individueller Fehler der Betroffenen.</span></label>
+<label class="opt"><input type="radio" name="q6" value="d"> <span>d) Als moralisch relevantes, aber politisch unlösbares Problem.</span></label>
+</div></div>
+<div class="sec-title" style="margin-top:28px;">Teil 2 — Sprachbausteine</div>
+<div class="sec-intro">Wählen Sie das passende Wort für jede Lücke.</div>
+<div class="text-box"><h3>Lückentext</h3><p>Globale Gerechtigkeit erfordert, dass wir moralische Verpflichtungen nicht auf Staatsgrenzen <select id="g1" onchange="checkGap(this,'beschränken')"><option value="">---</option><option>beschränken</option><option>erweitern</option><option>ignorieren</option></select>. Wer von ungerechten globalen Strukturen <select id="g2" onchange="checkGap(this,'profitiert')"><option value="">---</option><option>profitiert</option><option>leidet</option><option>flieht</option></select>, trägt eine besondere Verantwortung. Passivität angesichts <select id="g3" onchange="checkGap(this,'struktureller')"><option value="">---</option><option>struktureller</option><option>zufälliger</option><option>historischer</option></select> Ungerechtigkeiten ist keine neutrale Haltung.</p></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="checkLesen()">Lesen auswerten ✓</button><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('hoeren')">Weiter → Hören</button></div>
 </div>
-
-<!-- SPRECHEN -->
-<div class="mod sprech">
-  <div class="mh">
-    <div class="circ">4</div>
-    <div><div class="mt">Sprechen</div><div class="ms">Mündliche Prüfung – 3 Teile</div></div>
-    <div class="mp"><strong>25</strong> Punkte · ~15 Min.</div>
-  </div>
-  <div class="mb">
-    <div class="instr">Die Lehrkraft leitet die Prüfung. Dieser Teil wird benotet.</div>
-    <div class="ph"><span class="ptag">Teil 1</span><span class="pdesc">Expertenpräsentation (6–7 Min.)</span><span class="ppts">8 Pkt</span></div>
-    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;margin-bottom:12px;font-size:13px">
-      Wählen Sie: <strong>A) Biopolitik und die Macht über das Leben</strong> oder <strong>B) Sprache, Denken, Welt – wie viel Form gibt uns unsere Sprache?</strong><br>
-      Bereiten Sie 3 Minuten vor. Sprechen Sie 5–6 Minuten. Zeigen Sie akademische Sprachkompetenz, differenzierte Argumentation und diskursive Tiefe.
-    </div>
-    <div class="ph"><span class="ptag">Teil 2</span><span class="pdesc">Kontroverse Debatte</span><span class="ppts">9 Pkt</span></div>
-    <div class="spgrid">
-      <div class="spcard"><div class="scn">Position A</div>„Patentrechte auf Medikamente und Impfstoffe töten Menschen in Entwicklungsländern – sie müssen sofort und weltweit aufgehoben werden." Verteidigen oder widersprechen Sie.</div>
-      <div class="spcard"><div class="scn">Position B</div>„Sprache ist kein neutrales Kommunikationsmittel – sie ist ein Machtinstrument, das Wirklichkeit konstruiert und Ausgrenzung produziert." Erörtern Sie mit konkreten Beispielen.</div>
-    </div>
-    <div class="ph"><span class="ptag">Teil 3</span><span class="pdesc">Multidimensionales Szenario</span><span class="ppts">8 Pkt</span></div>
-    <div style="background:#fff4f0;border:1.5px solid #ffb74d;border-radius:8px;padding:11px 14px;font-size:13px">
-      <strong>Szenario:</strong> Ein Pharmaunternehmen hat eine CRISPR-Therapie entwickelt, die genetisch bedingte Armutskrankheiten heilen kann – aber sie kostet 800.000 € pro Patient. Als Berater/-in einer UN-Ethikkommission: Welche Empfehlungen geben Sie? Berücksichtigen Sie Gerechtigkeit, Innovationsförderung, Biopolitik und Menschenrechte.
-    </div>
-    <table class="stbl" style="margin-top:12px">
-      <thead><tr><th>Kriterium</th><th>Max.</th><th>Punkte</th></tr></thead>
-      <tbody>
-        <tr><td>Inhaltliche Tiefe &amp; Differenziertheit</td><td>10</td><td><input class="sin" type="number" min="0" max="10"></td></tr>
-        <tr><td>Diskurs &amp; Kohärenz</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr><td>Lexikalische Präzision</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr><td>Grammatische Komplexität</td><td>5</td><td><input class="sin" type="number" min="0" max="5"></td></tr>
-        <tr class="tot"><td><strong>Gesamt Sprechen</strong></td><td><strong>25</strong></td><td><input class="sin" type="number" min="0" max="25"></td></tr>
-      </tbody>
-    </table>
-  </div>
+<div class="sec" id="sec-hoeren">
+<div class="sec-title">Teil 3 — Hörverstehen</div>
+<div class="sec-intro">Lesen Sie die Zusammenfassungen und beantworten Sie die Fragen.</div>
+<div class="text-box"><h3>🎧 Hörtext 1: Akademische Diskussion — Biopolitik und Demokratie</h3><p><em>Ein Politikphilosoph und eine Verfassungsrechtlerin diskutieren: Er warnt vor dem schleichenden Aufbau biopolitischer Infrastrukturen durch Krisenmanagement. Sie betont, dass demokratische Rechtsstaaten über Mechanismen verfügen, Grundrechtseinschränkungen zu begrenzen und rückgängig zu machen. Einig sind sie sich: transparente öffentliche Debatte ist unerlässlich.</em></p></div>
+<div class="q-block" id="q7">
+<div class="q-num">Frage 7</div>
+<div class="q-text">Was kritisiert der Philosoph an staatlichen Pandemiemaßnahmen?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q7" value="a"> <span>a) Sie waren vollständig gerechtfertigt und notwendig.</span></label>
+<label class="opt"><input type="radio" name="q7" value="b"> <span>b) Die Normalisierung temporärer Grundrechtseinschränkungen als Dauerzustand.</span></label>
+<label class="opt"><input type="radio" name="q7" value="c"> <span>c) Die mangelnde wissenschaftliche Grundlage.</span></label>
+<label class="opt"><input type="radio" name="q7" value="d"> <span>d) Die fehlende internationale Koordination.</span></label>
+</div></div>
+<div class="text-box"><h3>🎧 Hörtext 2: Vortrag — Kognition und Sprache</h3><p><em>Eine Kognitionswissenschaftlerin präsentiert Studien, die zeigen, dass Sprecher von Sprachen mit obligatorischer Raumorientierung (z.B. nach Himmelsrichtungen statt relativ) bessere absolute Orientierungsfähigkeiten entwickeln. Sie schlussfolgert: Sprache ist ein kognitives Werkzeug, das bestimmte Denkweisen erleichtert und andere erschwert — aber nicht unmöglich macht.</em></p></div>
+<div class="q-block" id="q8">
+<div class="q-num">Frage 8</div>
+<div class="q-text">Welche Schlussfolgerung zieht die Sprachwissenschaftlerin?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q8" value="a"> <span>a) Mehrsprachigkeit beeinträchtigt das Denken.</span></label>
+<label class="opt"><input type="radio" name="q8" value="b"> <span>b) Sprachliche Strukturen prägen kognitive Muster, ohne sie vollständig zu determinieren.</span></label>
+<label class="opt"><input type="radio" name="q8" value="c"> <span>c) Alle natürlichen Sprachen haben identische kognitive Auswirkungen.</span></label>
+<label class="opt"><input type="radio" name="q8" value="d"> <span>d) Wittgenstein hat die Sprachphilosophie überholt.</span></label>
+</div></div>
+<div class="text-box"><h3>🎧 Hörtext 3: Podiumsdiskussion — Globale Verantwortung</h3><p><em>Ein Entwicklungsethiker argumentiert, dass der Fehler westlicher Gerechtigkeitsdiskurse in der impliziten Annahme liegt, moralische Verpflichtungen endeten an Staatsgrenzen. Wenn globale Strukturen aktiv Armut produzieren — durch Handelsregeln, Patentrecht, Kapitalflucht — dann ist Inaktivität keine neutrale Position, sondern Komplizenschaft.</em></p></div>
+<div class="q-block" id="q9">
+<div class="q-num">Frage 9</div>
+<div class="q-text">Was ist laut dem Ethiker der Kernfehler westlicher Gerechtigkeitsdiskurse?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q9" value="a"> <span>a) Zu viel Fokus auf wirtschaftliche Ungleichheit.</span></label>
+<label class="opt"><input type="radio" name="q9" value="b"> <span>b) Die Beschränkung moralischer Verpflichtung auf Staatsgrenzen.</span></label>
+<label class="opt"><input type="radio" name="q9" value="c"> <span>c) Die Überbetonung individueller Rechte.</span></label>
+<label class="opt"><input type="radio" name="q9" value="d"> <span>d) Die Ignorierung kultureller Unterschiede.</span></label>
+</div></div>
+<div class="q-block" id="q10">
+<div class="q-num">Frage 10</div>
+<div class="q-text">Was bedeutet „Komplizenschaft" im Kontext des Vortrags?</div>
+<div class="options">
+<label class="opt"><input type="radio" name="q10" value="a"> <span>a) Direkte Beteiligung an kriminellen Handlungen.</span></label>
+<label class="opt"><input type="radio" name="q10" value="b"> <span>b) Inaktivität angesichts von durch globale Strukturen verursachtem Unrecht.</span></label>
+<label class="opt"><input type="radio" name="q10" value="c"> <span>c) Wirtschaftliche Zusammenarbeit mit Entwicklungsländern.</span></label>
+<label class="opt"><input type="radio" name="q10" value="d"> <span>d) Unterstützung von Freihandelsabkommen.</span></label>
+</div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="checkHoeren()">Hören auswerten ✓</button><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('schreiben')">Weiter → Schreiben</button></div>
 </div>
-
-<div class="result-card">
-  <h2>📊 Gesamtergebnis</h2>
-  <table class="stbl">
-    <thead><tr><th>Modul</th><th>Max.</th><th>Punkte</th><th>Bestanden (≥15)?</th></tr></thead>
-    <tbody>
-      <tr><td>① Lesen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>② Hören</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>③ Schreiben</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr><td>④ Sprechen</td><td>25</td><td><input class="sin" type="number" min="0" max="25"></td><td style="font-size:12px;color:#888">ab 15 ✓</td></tr>
-      <tr class="tot"><td><strong>Gesamt</strong></td><td><strong>100</strong></td><td><input class="sin" type="number" min="0" max="100"></td><td style="font-weight:700;color:var(--green)">ab 60 = Bestanden ✅</td></tr>
-    </tbody>
-  </table>
+<div class="sec" id="sec-schreiben">
+<div class="sec-title">Teil 4 — Schreiben</div>
+<div class="sec-intro">Bearbeiten Sie beide Aufgaben sorgfältig.</div>
+<div class="writing-prompt"><strong>Aufgabe 1</strong><br><br>Textanalyse und Kommentar (ca. 300 Wörter): Analysieren Sie Foucaults Begriff der Biopolitik und bewerten Sie seine Relevanz für aktuelle politische Entwicklungen (Digitalisierung, Pandemiemanagement, KI-Überwachung). Nutzen Sie rhetorische Mittel, Nominalstil und C2-Kohäsionsstrategien.</div>
+<textarea id="t1" placeholder="Schreiben Sie hier..." oninput="countWords('t1','wc1')"></textarea>
+<div class="word-count" id="wc1">0 Wörter</div>
+<div class="writing-prompt" style="margin-top:20px;"><strong>Aufgabe 2</strong><br><br>Philosophischer Essay (ca. 350 Wörter): „Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt" (Wittgenstein). Erörtern Sie diese These unter Einbeziehung der Sapir-Whorf-Debatte und eigener Überlegungen. Ziehen Sie eine differenzierte Schlussfolgerung über die Beziehung zwischen Sprache, Denken und Weltbild.</div>
+<textarea id="t2" placeholder="Schreiben Sie hier..." oninput="countWords('t2','wc2')"></textarea>
+<div class="word-count" id="wc2">0 Wörter</div>
+<div class="btn-row"><button class="btn" style="background:#e5e7eb;color:#374151;" onclick="showSec('sprechen')">Weiter → Sprechen</button></div>
 </div>
-
-<div class="ak">
-  <div class="akh">🔑 Lösungsschlüssel – Nur für Lehrkräfte</div>
-  <div class="akb">
-    <div class="akm">
-      <h3>📖 Lesen</h3>
-      <div class="akp"><h4>T1 – Biopolitik (R/F/N)</h4><div class="chips"><div class="chip">1→<span class="ok">R</span></div><div class="chip">2→<span class="ok">F (Normalparadigma)</span></div><div class="chip">3→<span class="ok">R</span></div><div class="chip">4→<span class="ok">N</span></div><div class="chip">5→<span class="ok">F (Agamben erweitert und zuspitzt)</span></div></div></div>
-      <div class="akp"><h4>T2 – Textzuordnung</h4><div class="chips"><div class="chip">6→<span class="ok">A oder I</span></div><div class="chip">7→<span class="ok">C</span></div><div class="chip">8→<span class="ok">B</span></div><div class="chip">9→<span class="ok">E</span></div><div class="chip">10→<span class="ok">D</span></div></div></div>
-      <div class="akp"><h4>T3 – Sprachrelativismus</h4><div class="chips"><div class="chip">11→<span class="ok">b</span></div><div class="chip">12→<span class="ok">b</span></div><div class="chip">13→<span class="ok">b</span></div><div class="chip">14→<span class="ok">b</span></div><div class="chip">15→<span class="ok">b</span></div></div></div>
-      <div class="akp"><h4>T4 – Lückentext Globale Gerechtigkeit (Musterantworten)</h4><div class="chips"><div class="chip">16→<span class="ok">Herausforderungen / Fragen</span></div><div class="chip">17→<span class="ok">Verantwortung / Pflicht</span></div><div class="chip">18→<span class="ok">Entfernung / Nähe</span></div><div class="chip">19→<span class="ok">verzichten / leiden</span></div><div class="chip">20→<span class="ok">Mitbürgern / Gemeinschaft</span></div></div></div>
-      <div class="akp"><h4>T5 – Kurztexte</h4><div class="chips"><div class="chip">21→<span class="ok">b</span></div><div class="chip">22→<span class="ok">b</span></div><div class="chip">23→<span class="ok">b</span></div><div class="chip">24→<span class="ok">b</span></div><div class="chip">25→<span class="ok">b</span></div></div></div>
-    </div>
-    <div class="akm">
-      <h3>🎧 Hören</h3>
-      <div class="akp"><h4>T1 – Globale Gerechtigkeit Pogge/Rawls</h4><div class="chips"><div class="chip">26→<span class="ok">b</span></div><div class="chip">27→<span class="ok">b</span></div><div class="chip">28→<span class="ok">b</span></div><div class="chip">29→<span class="ok">b</span></div><div class="chip">30→<span class="ok">b</span></div></div></div>
-      <div class="akp"><h4>T2 – Biopolitik-Diskussion (R/F/N)</h4><div class="chips"><div class="chip">31→<span class="ok">R</span></div><div class="chip">32→<span class="ok">F</span></div><div class="chip">33→<span class="ok">R</span></div><div class="chip">34→<span class="ok">N</span></div><div class="chip">35→<span class="ok">R</span></div></div></div>
-      <div class="akp"><h4>T3 – COVAX</h4><div class="chips"><div class="chip">36→<span class="ok">2020</span></div><div class="chip">37→<span class="ok">zwei Milliarden</span></div><div class="chip">38→<span class="ok">890 Millionen</span></div><div class="chip">39→<span class="ok">28 %</span></div><div class="chip">40→<span class="ok">abgelehnt</span></div></div></div>
-      <div class="akp"><h4>T4 – Wittgenstein / Sprachphilosophie</h4><div class="chips"><div class="chip">41→<span class="ok">b</span></div><div class="chip">42→<span class="ok">b</span></div><div class="chip">43→<span class="ok">b</span></div><div class="chip">44→<span class="ok">b</span></div><div class="chip">45→<span class="ok">b</span></div></div></div>
-    </div>
-  </div>
+<div class="sec" id="sec-sprechen">
+<div class="sec-title">Teil 5 — Mündliche Prüfung</div>
+<div class="sec-intro">Bereiten Sie sich auf die drei Sprechaufgaben vor.</div>
+<div class="sprechen-card"><h4>Aufgabe 1 — Präsentation</h4><p>Intellektueller Diskurs (5 Min.): „Rechtfertigt das Prinzip globaler Gerechtigkeit (Singer/Pogge) eine grundlegende Umverteilung von Nord nach Süd — auch gegen den Willen demokratisch gewählter Regierungen?" Führen Sie eine philosophisch präzise Argumentation mit Konzessionen, Gegenargumenten und Schlussfolgerung.</p><div class="hint">Nützliche Phrasen: „Meiner Meinung nach..." / „Auf der einen Seite..." / „Zusammenfassend..."</div></div>
+<div class="sprechen-card"><h4>Aufgabe 2 — Diskussion</h4><p>Kritische Analyse: Analysieren Sie den Begriff „Biopolitik" anhand eines aktuellen Beispiels Ihrer Wahl (z.B. Überwachungstechnologie, Gesundheitsdaten, KI in der Strafverfolgung). Zeigen Sie Foucaults Konzept in der Praxis und bewerten Sie demokratische Gegenmechanismen.</p><div class="hint">„Ich verstehe Ihren Standpunkt, aber..." / „Könnten wir uns einigen auf..."</div></div>
+<div class="sprechen-card"><h4>Aufgabe 3 — Gemeinsame Planung</h4><p>Philosophische Diskussion: Ihr Gesprächspartner vertritt die starke Sapir-Whorf-These: Sprache determiniert Denken vollständig, daher seien manche Konzepte in manchen Kulturen schlicht undenkbar. Widerlegen oder qualifizieren Sie diese Position mit sprachphilosophischen und kognitionswissenschaftlichen Argumenten.</p><div class="hint">„Was halten Sie von..." / „Ich schlage vor..." / „Das hätte den Vorteil, dass..."</div></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="showSec('ergebnis')">Zur Auswertung →</button></div>
 </div>
-<div style="text-align:center;font-size:12px;color:#bbb;margin-top:18px;padding-bottom:20px">Goethe C2 Modellprüfung Nr. 4 · Viel Erfolg! 🍀</div>
+<div class="sec" id="sec-ergebnis">
+<div class="sec-title">📊 Auswertung</div>
+<div class="score-box"><div class="num" id="scoreNum">—</div><div class="lbl">von 10 Punkten (Lesen + Hören)</div></div>
+<div id="resultDetail"></div>
+<div class="answer-key"><h4>🗝️ Antwortschlüssel</h4>Antworten: F1:b · F2:b · F3:b · F4:b · F5:b · F6:b · F7:b · F8:b · F9:b · F10:b · Lücken: beschränken / profitiert / struktureller</div>
+<div class="btn-row" style="margin-top:20px;">
+<button class="btn btn-primary" onclick="window.location.reload()">Test neu starten 🔄</button>
+<a href="https://thegermanstefan.github.io/TheGermanStefan_Exam_Room.html" class="btn" style="background:#e5e7eb;color:#374151;text-decoration:none;">← Zur Prüfungsübersicht</a>
+</div>
 </div>
 
 <script>
-function pickRF3(btn,choice){const w=btn.parentElement;w.querySelectorAll('.rfb').forEach(b=>{b.classList.remove('selR','selF','selN');});if(choice==='R')btn.classList.add('selR');else if(choice==='F')btn.classList.add('selF');else btn.classList.add('selN');}
-function pickMC(btn,grp){const c=btn.closest('[data-grp="'+grp+'"]');if(!c)return;c.querySelectorAll('.mcb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-function countW(taId,pillId,min,max){const ta=document.getElementById(taId),pill=document.getElementById(pillId);if(!ta||!pill)return;const n=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;pill.textContent=n+' / min. '+min;pill.className='wcpill';if(n>=min&&n<=max)pill.classList.add('ok');else if(n>max)pill.classList.add('over');}
-(function(){
-  const TOTAL=240*60;
-  const MODS=[
-    {id:'tp1',from:TOTAL,to:TOTAL-100*60},
-    {id:'tp2',from:TOTAL-100*60,to:TOTAL-140*60},
-    {id:'tp3',from:TOTAL-140*60,to:0},
-    {id:'tp4',from:0,to:-1}
-  ];
-  let rem=TOTAL,running=true,iv;
-  function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
-  function draw(){const el=document.getElementById('timer-digits');if(!el)return;el.textContent=rem<=0?'Zeit um!':fmt(rem);el.className=rem<=0?'danger':rem<=5*60?'danger':rem<=15*60?'warn':'';MODS.forEach(m=>{const p=document.getElementById(m.id);if(p)p.className='tpill'+(rem<=m.from&&rem>m.to?' on':'');});}
-  window.toggleTimer=function(){running=!running;const b=document.getElementById('tbtn');if(b)b.textContent=running?'⏸ Pause':'▶ Weiter';};
-  function tick(){if(!running||rem<=0)return;rem--;draw();if(rem===0){clearInterval(iv);const b=document.getElementById('tbtn');if(b)b.disabled=true;}}
-  document.addEventListener('DOMContentLoaded',()=>{draw();iv=setInterval(tick,1000);});
-})();
-</script>
-</body>
-</html>
+const answers = {q1:"b",q2:"b",q3:"b",q4:"b",q5:"b",q6:"b",q7:"b",q8:"b",q9:"b",q10:"b"};
+let scores = {};
+function showSec(n){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+n).classList.add('active');
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const names=['lesen','hoeren','schreiben','sprechen','ergebnis'];
+    t.classList.toggle('active',names[i]===n);
+  });
+  if(n==='ergebnis') calcResults();
+}
+function checkSection(qs){
+  qs.forEach(q=>{
+    const sel=document.querySelector(`input[name="${q}"]:checked`);
+    const opts=document.querySelectorAll(`#${q} .opt`);
+    opts.forEach(o=>o.classList.remove('correct','wrong'));
+    if(sel){
+      const val=sel.value,correct=answers[q];
+      opts.forEach(o=>{
+        if(o.querySelector('input').value===correct)o.classList.add('correct');
+        else if(o.querySelector('input').value===val)o.classList.add('wrong');
+      });
+      scores[q]=(val===correct)?1:0;
+    }
+  });
+}
+function checkLesen(){checkSection(['q1', 'q2', 'q3', 'q4', 'q5', 'q6']);}
+function checkHoeren(){checkSection(['q7', 'q8', 'q9', 'q10']);}
+function countWords(id,wc){const w=document.getElementById(id).value.trim().split(/\s+/).filter(x=>x).length;document.getElementById(wc).textContent=w+' Wörter';}
+function calcResults(){
+  const tot=Object.values(scores).reduce((a,b)=>a+b,0);
+  document.getElementById('scoreNum').textContent=tot+'/10';
+  const pct=tot*10;
+  const grade=pct>=87?'Sehr gut':pct>=75?'Gut':pct>=60?'Befriedigend':pct>=45?'Ausreichend':'Nicht bestanden';
+  const lPts=['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].filter(k=>scores[k]).reduce((a,k)=>a+(scores[k]||0),0);
+  const hPts=['q7', 'q8', 'q9', 'q10'].filter(k=>scores[k]).reduce((a,k)=>a+(scores[k]||0),0);
+  document.getElementById('resultDetail').innerHTML=`<div class="result-row"><span>Lesen</span><span class="${lPts>=4?'pill-ok':'pill-err'}">${lPts}/6</span></div><div class="result-row"><span>Hören</span><span class="${hPts>=3?'pill-ok':'pill-err'}">${hPts}/4</span></div><div class="result-row"><strong>Bewertung</strong><span class="${pct>=60?'pill-ok':'pill-err'}">${grade} (${pct}%)</span></div>`;
+}
+let secs=175*60;
+const tel=document.getElementById('timer');
+const ti=setInterval(()=>{if(secs<=0){clearInterval(ti);tel.textContent='⏱ Zeit abgelaufen';return;}secs--;const m=Math.floor(secs/60),s=secs%60;tel.textContent=`⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(secs<=300)tel.style.color='#fca5a5';},1000);
+</script><script src="tts-exam.js"></script>
+</body></html>
