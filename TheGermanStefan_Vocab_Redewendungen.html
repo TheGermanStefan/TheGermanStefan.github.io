@@ -7,7 +7,7 @@
 <style>
 :root{--lc:#c47a0a;--lc2:#8a5507;--lv:#f5a623;--navy:#0d1b2a;--gold:#f4c430;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 .topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{font-size:1.1rem;font-weight:800;color:var(--gold);letter-spacing:-.3px;text-decoration:none}
 .back-link{color:#8a9bb0;font-size:.85rem;text-decoration:none}
@@ -18,12 +18,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hero h1{font-size:2rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
 .hero p{font-size:1rem;opacity:.9;max-width:520px;margin:0 auto}
 .tabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#fff;padding:0 24px;overflow-x:auto;position:sticky;top:56px;z-index:90}
-.tab{padding:14px 20px;font-size:.87rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
+.tab{padding:14px 18px;font-size:.83rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s}
 .tab.active{color:var(--lc);border-bottom-color:var(--lc)}
 .tab:hover:not(.active){color:var(--text)}
 .content{max-width:900px;margin:0 auto;padding:24px 16px}
-.section{display:none}
-.section.active{display:block}
+.section{display:none}.section.active{display:block}
 .browse-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
 .search-box{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none}
 .search-box:focus{border-color:var(--lc)}
@@ -41,9 +40,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-cat{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
 .card-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .level-badge{padding:3px 8px;border-radius:12px;font-size:.7rem;font-weight:700}
-.lvl-b1{background:#e8f5e9;color:#2e7d32}
-.lvl-b2{background:#fff3e0;color:#e65100}
-.lvl-c1{background:#fce4ec;color:#c62828}
+.lvl-b1{background:#e8f5e9;color:#2e7d32}.lvl-b2{background:#fff3e0;color:#e65100}.lvl-c1{background:#fce4ec;color:#c62828}
 .fav-btn{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:2px;border-radius:4px;transition:transform .2s}
 .fav-btn:hover{transform:scale(1.2)}
 .card-body{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
@@ -52,7 +49,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-row-val{font-size:.88rem;color:var(--text);line-height:1.5}
 .literal{color:var(--muted);font-style:italic}
 .example-box{background:#fef9f0;border-left:3px solid var(--lv);padding:8px 12px;border-radius:4px;font-size:.85rem;line-height:1.5}
-/* FLASHCARD */
+/* FC */
 .fc-wrap{max-width:600px;margin:0 auto;text-align:center}
 .fc-cat-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
 .fc-cat-btn{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:#fff;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
@@ -62,8 +59,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fc-prog-bar{background:var(--lc);height:100%;border-radius:4px;transition:width .3s}
 .flashcard{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:44px 32px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow);margin-bottom:18px;position:relative}
 .flashcard.flipped{border-color:var(--lc);background:#fef9f0}
-.fc-front{width:100%}
-.fc-back{display:none;width:100%}
+.fc-front{width:100%}.fc-back{display:none;width:100%}
 .flashcard.flipped .fc-front{display:none}
 .flashcard.flipped .fc-back{display:block}
 .fc-phrase{font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:10px;line-height:1.3}
@@ -74,9 +70,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fc-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
 .fc-btn{padding:9px 22px;border-radius:10px;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
 .fc-btn:hover{opacity:.85;transform:translateY(-1px)}
-.fc-skip{background:#f0f2f5;color:var(--muted)}
-.fc-again{background:#fff3e0;color:#e65100}
-.fc-know{background:#e8f5e9;color:#2e7d32}
+.fc-skip{background:#f0f2f5;color:var(--muted)}.fc-again{background:#fff3e0;color:#e65100}.fc-know{background:#e8f5e9;color:#2e7d32}
 .fc-known-lbl{font-size:.78rem;color:var(--muted);text-align:center}
 /* QUIZ */
 .quiz-wrap{max-width:640px;margin:0 auto}
@@ -96,6 +90,103 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .empty{text-align:center;padding:48px 16px;color:var(--muted)}
 .empty-icon{font-size:3rem;margin-bottom:12px}
 .quiz-prog{text-align:center;font-size:.8rem;color:var(--muted);margin-top:8px}
+/* UBUNGEN */
+.ub-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.ub-nav-btn{padding:8px 18px;border-radius:20px;border:2px solid var(--border);background:#fff;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--muted)}
+.ub-nav-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.ub-nav-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+.ub-section{display:none}.ub-section.active{display:block}
+.ub-header{margin-bottom:20px}
+.ub-title{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.ub-desc{font-size:.85rem;color:var(--muted);line-height:1.5}
+.ub-prog{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.ub-prog-bar-wrap{flex:1;background:var(--border);border-radius:4px;height:8px}
+.ub-prog-bar{background:var(--lc);height:100%;border-radius:4px;transition:width .3s}
+.ub-prog-lbl{font-size:.8rem;color:var(--muted);white-space:nowrap;font-weight:600}
+.ub-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:16px}
+.ub-sentence{font-size:1.1rem;line-height:1.8;color:var(--text);margin-bottom:20px;font-weight:500}
+.ub-opts{display:grid;gap:9px;grid-template-columns:1fr 1fr}
+.ub-opt{padding:11px 14px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;text-align:left;transition:all .2s;line-height:1.3}
+.ub-opt:hover:not(:disabled){border-color:var(--lc);background:#fef9f0}
+.ub-opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32}
+.ub-opt.wrong{border-color:#c62828;background:#fce4ec;color:#c62828}
+.ub-feedback{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.88rem;font-weight:600;display:none}
+.ub-feedback.correct{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.ub-feedback.wrong{background:#fce4ec;color:#c62828;border:1px solid #ef9a9a}
+.ub-next-btn{margin-top:16px;padding:10px 22px;background:var(--lc);color:#fff;border:none;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;display:none;transition:all .2s}
+.ub-next-btn:hover{background:var(--lc2)}
+.ub-result{text-align:center;padding:32px;background:var(--card);border-radius:16px;border:1px solid var(--border)}
+.ub-result-icon{font-size:3rem;margin-bottom:12px}
+.ub-result-score{font-size:3rem;font-weight:900;color:var(--lc);margin-bottom:6px}
+.ub-result-lbl{color:var(--muted);font-size:.95rem;margin-bottom:6px}
+.ub-result-msg{font-size:.9rem;color:var(--text);margin-bottom:20px}
+/* PUZZLE */
+.puzzle-phrase-display{font-size:1.05rem;font-weight:700;color:var(--muted);background:#f4f6f9;border-radius:10px;padding:14px 18px;min-height:52px;margin-bottom:16px;line-height:1.6;letter-spacing:.3px;border:2px dashed var(--border)}
+.puzzle-phrase-display.has-words{color:var(--text);border-color:var(--lc);background:#fef9f0}
+.puzzle-words{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.puzzle-word{padding:8px 14px;background:#fff;border:2px solid var(--border);border-radius:20px;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.puzzle-word:hover:not(.used){border-color:var(--lc);background:#fef9f0;transform:translateY(-1px)}
+.puzzle-word.used{opacity:.3;cursor:default;transform:none}
+.puzzle-check-btn{padding:10px 22px;background:var(--lc);color:#fff;border:none;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;margin-right:8px;transition:all .2s}
+.puzzle-check-btn:hover{background:var(--lc2)}
+.puzzle-reset-btn{padding:10px 18px;background:#f0f2f5;color:var(--muted);border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s}
+.puzzle-reset-btn:hover{background:#e0e3e8}
+/* KATEGORIE */
+.kat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:16px}
+.kat-idiom{font-size:1.15rem;font-weight:900;color:var(--text);margin-bottom:6px}
+.kat-example{font-size:.85rem;color:var(--muted);font-style:italic;margin-bottom:20px}
+.kat-opts{display:grid;gap:9px;grid-template-columns:1fr 1fr}
+.kat-opt{padding:11px 14px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.88rem;font-weight:700;cursor:pointer;text-align:center;transition:all .2s}
+.kat-opt:hover:not(:disabled){border-color:var(--lc);background:#fef9f0}
+.kat-opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32}
+.kat-opt.wrong{border-color:#c62828;background:#fce4ec;color:#c62828}
+/* MC UBUNGEN */
+.mc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:14px}
+.mc-q-num{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:6px}
+.mc-q-text{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.5}
+.mc-opts2{display:flex;flex-direction:column;gap:8px}
+.mc-btn2{padding:10px 14px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;text-align:left;transition:all .2s}
+.mc-btn2:hover:not(:disabled){border-color:var(--lc);background:#fef9f0}
+.mc-btn2.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32}
+.mc-btn2.wrong{border-color:#c62828;background:#fce4ec;color:#c62828}
+.mc-btn2.show-ok{border-color:#2e7d32;background:#e8f5e9}
+/* LESETEXT */
+.story-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:16px}
+.story-card h3{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.story-text{font-size:.92rem;line-height:2.2;color:#333}
+.rw-span{background:linear-gradient(120deg,rgba(244,162,97,.3),rgba(244,162,97,.15));border-bottom:2px solid var(--lv);border-radius:3px;padding:1px 3px;cursor:pointer;font-weight:700;color:#7a4800;transition:background .15s;white-space:nowrap}
+.rw-span:hover{background:rgba(244,162,97,.5)}
+.story-intro{background:linear-gradient(135deg,rgba(196,122,10,.15),rgba(138,85,7,.1));border:2px solid rgba(196,122,10,.3);border-radius:14px;padding:18px 20px;margin-bottom:20px;text-align:center}
+.story-intro h2{font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:6px}
+.story-intro p{font-size:.85rem;color:var(--muted);line-height:1.5}
+/* POPUP */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-end;justify-content:center;padding:20px}
+.popup-overlay.open{display:flex}
+.popup-box{background:#fff;border-radius:20px 20px 16px 16px;padding:24px;max-width:480px;width:100%;position:relative;animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-phrase{font-size:1.25rem;font-weight:900;color:var(--navy);margin-bottom:6px}
+.popup-literal{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:10px}
+.popup-meaning{font-size:.92rem;color:#333;line-height:1.6;margin-bottom:10px;font-weight:600}
+.popup-example{background:#fef9f0;border-left:3px solid var(--lv);border-radius:4px;padding:10px 12px;font-size:.85rem;color:#555;font-style:italic;line-height:1.6}
+.popup-close{position:absolute;top:14px;right:14px;background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* BONUS MC EXERCISES */
+.ex-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px}
+.ex-block h3{font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:2px dashed var(--border)}
+.ex-tag{display:inline-block;color:#fff;font-size:.7rem;font-weight:700;border-radius:6px;padding:2px 8px;margin-right:6px;background:var(--lc)}
+.luecke-box{background:#eef4ff;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.83rem;color:var(--navy);font-weight:600;line-height:1.9}
+.luecke-sentence{font-size:.9rem;line-height:2.2;color:#333;margin-bottom:10px}
+.luecke-input{border:none;border-bottom:2px solid var(--lc);background:transparent;font-size:.9rem;color:var(--text);outline:none;padding:2px 4px;min-width:110px}
+.luecke-input.ok{border-bottom-color:#2e7d32;background:#e8f5e9;border-radius:4px}
+.luecke-input.no{border-bottom-color:#c62828;background:#fce4ec;border-radius:4px}
+.check-btn{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s}
+.check-btn:hover{opacity:.9}
+.ex-feedback{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:.85rem;font-weight:600;display:none;line-height:1.6}
+.ex-feedback.show{display:block}
+.ex-feedback.great{background:#e8f5e9;color:#2e7d32}
+.ex-feedback.almost{background:#fff3cd;color:#856404}
+.textarea-box{width:100%;border:2px solid var(--border);border-radius:10px;padding:10px;font-size:.85rem;font-family:inherit;resize:vertical;min-height:60px;outline:none;margin-bottom:10px}
+.textarea-box:focus{border-color:var(--lc)}
+@media(max-width:500px){.ub-opts,.kat-opts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -119,6 +210,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="tab active" onclick="switchTab('browse')" data-t="tab_browse">📚 Browse</div>
   <div class="tab" onclick="switchTab('flash')" data-t="tab_flash">🎴 Flashcards</div>
   <div class="tab" onclick="switchTab('quiz')" data-t="tab_quiz">🧠 Quiz</div>
+  <div class="tab" onclick="switchTab('uebungen')" data-t="tab_uebungen">✏️ Übungen</div>
+  <div class="tab" onclick="switchTab('lesetext')" data-t="tab_lesetext">📖 Lesetext</div>
   <div class="tab" onclick="switchTab('favs')" data-t="tab_favs">⭐ Favourites</div>
 </div>
 <div class="content">
@@ -126,7 +219,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- BROWSE -->
 <div id="sec-browse" class="section active">
   <div class="browse-controls">
-    <input class="search-box" id="searchBox" placeholder="Search idioms…" oninput="filterCards()">
+    <input class="search-box" id="searchBox" placeholder="Search idioms..." oninput="filterCards()">
     <select class="filter-sel" id="catFilter" onchange="filterCards()">
       <option value="all" data-t="cat_all">All Categories</option>
       <option value="tiere">🦁 Tiere</option>
@@ -137,6 +230,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <option value="natur">🌿 Natur</option>
       <option value="korper">👤 Körper</option>
       <option value="alltag">🏠 Alltag</option>
+      <option value="kommunikation">💬 Kommunikation</option>
+      <option value="geld">💶 Geld</option>
     </select>
     <select class="filter-sel" id="lvlFilter" onchange="filterCards()">
       <option value="all" data-t="lvl_all">All Levels</option>
@@ -146,8 +241,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </select>
   </div>
   <div class="stats-bar">
-    <div class="stat"><span class="stat-val" id="statTotal">80</span><span class="stat-lbl" data-t="stat_total">Total</span></div>
-    <div class="stat"><span class="stat-val" id="statShown">80</span><span class="stat-lbl" data-t="stat_shown">Shown</span></div>
+    <div class="stat"><span class="stat-val" id="statTotal">140</span><span class="stat-lbl" data-t="stat_total">Total</span></div>
+    <div class="stat"><span class="stat-val" id="statShown">140</span><span class="stat-lbl" data-t="stat_shown">Shown</span></div>
     <div class="stat"><span class="stat-val" id="statFavs">0</span><span class="stat-lbl" data-t="stat_favs">Saved</span></div>
   </div>
   <div class="idiom-grid" id="idiomGrid"></div>
@@ -161,14 +256,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="fc-cat-btn active" onclick="setFCFilter('all',this)" data-t="cat_all">All</button>
       <button class="fc-cat-btn" onclick="setFCFilter('tiere',this)">🦁 Tiere</button>
       <button class="fc-cat-btn" onclick="setFCFilter('zeit',this)">🕐 Zeit</button>
-      <button class="fc-cat-btn" onclick="setFCFilter('gefuhle',this)">❤️ Gefühle</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('gefuhle',this)">❤️ Gefühl</button>
       <button class="fc-cat-btn" onclick="setFCFilter('arbeit',this)">💼 Arbeit</button>
       <button class="fc-cat-btn" onclick="setFCFilter('essen',this)">🍎 Essen</button>
       <button class="fc-cat-btn" onclick="setFCFilter('natur',this)">🌿 Natur</button>
       <button class="fc-cat-btn" onclick="setFCFilter('korper',this)">👤 Körper</button>
       <button class="fc-cat-btn" onclick="setFCFilter('alltag',this)">🏠 Alltag</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('kommunikation',this)">💬 Komm.</button>
+      <button class="fc-cat-btn" onclick="setFCFilter('geld',this)">💶 Geld</button>
     </div>
-    <div class="fc-prog-lbl" id="fcLbl">1 / 80</div>
+    <div class="fc-prog-lbl" id="fcLbl">1 / 140</div>
     <div class="fc-prog"><div class="fc-prog-bar" id="fcBar" style="width:1%"></div></div>
     <div class="flashcard" id="flashcard" onclick="flipCard()">
       <div class="fc-front"><div class="fc-phrase" id="fcPhrase">—</div><div class="fc-tap" data-t="fc_tap">Tap to reveal meaning</div></div>
@@ -201,23 +298,258 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- ÜBUNGEN -->
+<div id="sec-uebungen" class="section">
+  <div class="ub-nav">
+    <button class="ub-nav-btn active" onclick="switchUb('luecke',this)">📝 Lückentext</button>
+    <button class="ub-nav-btn" onclick="switchUb('puzzle',this)">🧩 Wort-Puzzle</button>
+    <button class="ub-nav-btn" onclick="switchUb('kategorie',this)">🏷️ Kategorie</button>
+    <button class="ub-nav-btn" onclick="switchUb('bonus',this)">💼 Bonus-MC</button>
+  </div>
+
+  <!-- LÜCKENTEXT -->
+  <div id="ub-luecke" class="ub-section active">
+    <div class="ub-header"><div class="ub-title">📝 Lückentext</div><div class="ub-desc">Read the sentence and choose which idiom fills the gap.</div></div>
+    <div class="ub-prog"><div class="ub-prog-bar-wrap"><div class="ub-prog-bar" id="lueckeBar" style="width:0%"></div></div><div class="ub-prog-lbl" id="lueckeLbl">0 / 10</div></div>
+    <div id="lueckeCard" class="ub-card">
+      <div class="ub-sentence" id="lueckeSentence">—</div>
+      <div class="ub-opts" id="lueckeOpts"></div>
+      <div class="ub-feedback" id="lueckeFeedback"></div>
+      <button class="ub-next-btn" id="lueckeNext" onclick="nextLuecke()">Next →</button>
+    </div>
+    <div class="ub-result" id="lueckeResult" style="display:none">
+      <div class="ub-result-icon" id="lueckeResultIcon">🏆</div>
+      <div class="ub-result-score" id="lueckeResultScore">0/10</div>
+      <div class="ub-result-lbl">Lückentext complete!</div>
+      <div class="ub-result-msg" id="lueckeResultMsg"></div>
+      <button class="btn-primary" onclick="startLuecke()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- WORT-PUZZLE -->
+  <div id="ub-puzzle" class="ub-section">
+    <div class="ub-header"><div class="ub-title">🧩 Wort-Puzzle</div><div class="ub-desc">Tap words in the correct order to reconstruct the idiom.</div></div>
+    <div class="ub-prog"><div class="ub-prog-bar-wrap"><div class="ub-prog-bar" id="puzzleBar" style="width:0%"></div></div><div class="ub-prog-lbl" id="puzzleLbl">0 / 8</div></div>
+    <div id="puzzleCard" class="ub-card">
+      <div class="card-row-lbl" style="margin-bottom:8px">Meaning:</div>
+      <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:18px" id="puzzleMeaning">—</div>
+      <div class="card-row-lbl" style="margin-bottom:8px">Build the idiom:</div>
+      <div class="puzzle-phrase-display" id="puzzleDisplay">Click words below to build the phrase…</div>
+      <div class="puzzle-words" id="puzzleWords"></div>
+      <button class="puzzle-check-btn" onclick="checkPuzzle()">Check ✓</button>
+      <button class="puzzle-reset-btn" onclick="resetPuzzle()">↺ Reset</button>
+      <div class="ub-feedback" id="puzzleFeedback"></div>
+      <button class="ub-next-btn" id="puzzleNext" onclick="nextPuzzle()">Next →</button>
+    </div>
+    <div class="ub-result" id="puzzleResult" style="display:none">
+      <div class="ub-result-icon" id="puzzleResultIcon">🏆</div>
+      <div class="ub-result-score" id="puzzleResultScore">0/8</div>
+      <div class="ub-result-lbl">Wort-Puzzle complete!</div>
+      <div class="ub-result-msg" id="puzzleResultMsg"></div>
+      <button class="btn-primary" onclick="startPuzzle()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- KATEGORIE -->
+  <div id="ub-kategorie" class="ub-section">
+    <div class="ub-header"><div class="ub-title">🏷️ Kategorie-Quiz</div><div class="ub-desc">Which category does this idiom belong to?</div></div>
+    <div class="ub-prog"><div class="ub-prog-bar-wrap"><div class="ub-prog-bar" id="katBar" style="width:0%"></div></div><div class="ub-prog-lbl" id="katLbl">0 / 10</div></div>
+    <div id="katCard" class="kat-card">
+      <div class="kat-idiom" id="katIdiom">—</div>
+      <div class="kat-example" id="katExample">—</div>
+      <div class="kat-opts" id="katOpts"></div>
+      <div class="ub-feedback" id="katFeedback"></div>
+      <button class="ub-next-btn" id="katNext" onclick="nextKat()">Next →</button>
+    </div>
+    <div class="ub-result" id="katResult" style="display:none">
+      <div class="ub-result-icon" id="katResultIcon">🏆</div>
+      <div class="ub-result-score" id="katResultScore">0/10</div>
+      <div class="ub-result-lbl">Kategorie-Quiz complete!</div>
+      <div class="ub-result-msg" id="katResultMsg"></div>
+      <button class="btn-primary" onclick="startKat()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- BONUS MC (from Bonus file) -->
+  <div id="ub-bonus" class="ub-section">
+    <div class="ub-header"><div class="ub-title">💼 Bonus-Übungen: Alltag & Arbeit</div><div class="ub-desc">B1 exercises based on idioms used every day at work and home. Three exercise types: meaning, fill-in, and situation.</div></div>
+
+    <div class="ex-block">
+      <h3><span class="ex-tag">B1</span> Aufgabe 1 – Was bedeutet das?</h3>
+      <div class="mc-q" id="bq1"><p class="mc-q-text">1. „Er hat die Flinte ins Korn geworfen."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq1',false)">a) Er hat sehr hart gearbeitet.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq1',true)">b) Er hat aufgegeben.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq1',false)">c) Er ist sehr wütend geworden.</button>
+      </div></div>
+      <div class="mc-q" id="bq2"><p class="mc-q-text">2. „Sie hat kein Blatt vor den Mund genommen."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq2',false)">a) Sie hat sehr leise gesprochen.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq2',false)">b) Sie hat nichts gesagt.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq2',true)">c) Sie hat offen und direkt gesprochen.</button>
+      </div></div>
+      <div class="mc-q" id="bq3"><p class="mc-q-text">3. „Das Projekt ist unter Dach und Fach."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq3',true)">a) Das Projekt ist abgeschlossen.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq3',false)">b) Das Projekt hat Probleme.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq3',false)">c) Das Projekt beginnt gerade.</button>
+      </div></div>
+      <div class="mc-q" id="bq4"><p class="mc-q-text">4. „Er ist ins kalte Wasser geworfen worden."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq4',false)">a) Er ist ins Schwimmbad gefallen.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq4',false)">b) Er wurde ungerechtfertigt bestraft.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq4',true)">c) Er musste ohne Vorbereitung eine schwierige Aufgabe übernehmen.</button>
+      </div></div>
+      <div class="mc-q" id="bq5"><p class="mc-q-text">5. „Sie bewahrt immer einen kühlen Kopf."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq5',false)">a) Sie trägt immer eine Mütze.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq5',false)">b) Sie ist immer schlecht gelaunt.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq5',true)">c) Sie bleibt ruhig und gelassen in Stresssituationen.</button>
+      </div></div>
+      <div class="mc-q" id="bq6"><p class="mc-q-text">6. „Er redet immer um den heißen Brei herum."</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq6',false)">a) Er spricht sehr laut und direkt.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq6',true)">b) Er vermeidet es, das eigentliche Thema anzusprechen.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq6',false)">c) Er redet sehr viel über Essen.</button>
+      </div></div>
+    </div>
+
+    <div class="ex-block">
+      <h3><span class="ex-tag">B1</span> Aufgabe 2 – Lückentext: Ergänze die Redewendung</h3>
+      <div class="luecke-box">Zahn · Socken · Nagel · Ärmel · Wolke · Daumen · Wellenlänge · Keks · Schatten · Rücken</div>
+      <div class="luecke-sentence" id="bl1">1. Jetzt müssen wir die <input class="luecke-input" data-answer="ärmel" placeholder="___"> hochkrempeln und richtig arbeiten.</div>
+      <div class="luecke-sentence" id="bl2">2. Er trifft immer den <input class="luecke-input" data-answer="nagel" placeholder="___"> auf den Kopf – seine Ideen sind genial.</div>
+      <div class="luecke-sentence" id="bl3">3. Ich drücke dir die <input class="luecke-input" data-answer="daumen" placeholder="___"> für das Vorstellungsgespräch!</div>
+      <div class="luecke-sentence" id="bl4">4. Du musst einen <input class="luecke-input" data-answer="zahn" placeholder="___"> zulegen – wir haben keine Zeit mehr.</div>
+      <div class="luecke-sentence" id="bl5">5. Seit der Beförderung ist sie auf <input class="luecke-input" data-answer="wolke" placeholder="___"> sieben.</div>
+      <div class="luecke-sentence" id="bl6">6. Dieses ewige Gemecker geht mir auf den <input class="luecke-input" data-answer="keks" placeholder="___">.</div>
+      <div class="luecke-sentence" id="bl7">7. Er muss über seinen <input class="luecke-input" data-answer="schatten" placeholder="___"> springen und die Präsentation halten.</div>
+      <div class="luecke-sentence" id="bl8">8. Wir sind auf der gleichen <input class="luecke-input" data-answer="wellenlänge" placeholder="___"> – wir denken immer gleich.</div>
+      <button class="check-btn" onclick="checkBonusLuecke()">✅ Prüfen</button>
+      <div class="ex-feedback" id="fb-bonus"></div>
+    </div>
+
+    <div class="ex-block">
+      <h3><span class="ex-tag">B1</span> Aufgabe 3 – In welcher Situation passt das?</h3>
+      <div class="mc-q" id="bq7"><p class="mc-q-text">1. Wann sagt man: „Abwarten und Tee trinken."?</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq7',false)">a) Wenn man jemanden dazu auffordert, schneller zu handeln.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq7',true)">b) Wenn man rät, geduldig zu sein und die Entwicklung abzuwarten.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq7',false)">c) Wenn man sagt, dass etwas unmöglich ist.</button>
+      </div></div>
+      <div class="mc-q" id="bq8"><p class="mc-q-text">2. Dein Chef gibt dir ein wichtiges Projekt ohne Erklärung. Was sagt dein Kollege?</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq8',false)">a) „Du bist auf der gleichen Wellenlänge!"</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq8',false)">b) „Du hast Schwein gehabt!"</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq8',true)">c) „Du wurdest ins kalte Wasser geworfen!"</button>
+      </div></div>
+      <div class="mc-q" id="bq9"><p class="mc-q-text">3. Das Projekt soll erst nächstes Jahr angegangen werden. Was macht der Manager?</p><div class="mc-opts2">
+        <button class="mc-btn2" onclick="doBMC(this,'bq9',false)">a) Er bringt es unter Dach und Fach.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq9',true)">b) Er schiebt es auf die lange Bank.</button>
+        <button class="mc-btn2" onclick="doBMC(this,'bq9',false)">c) Er reißt das Ruder herum.</button>
+      </div></div>
+    </div>
+
+    <div class="ex-block">
+      <h3><span class="ex-tag">B1</span> Aufgabe 4 – Freies Schreiben</h3>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px;line-height:1.6">Schreibe für jede Redewendung einen eigenen Satz. Beschreibe eine Situation aus deinem Alltag!</p>
+      <p style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:6px">1. „die Ärmel hochkrempeln"</p>
+      <textarea class="textarea-box" placeholder="Schreibe hier deinen Satz..."></textarea>
+      <p style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:6px">2. „auf der gleichen Wellenlänge sein"</p>
+      <textarea class="textarea-box" placeholder="Schreibe hier deinen Satz..."></textarea>
+      <p style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:6px">3. „einen kühlen Kopf bewahren"</p>
+      <textarea class="textarea-box" placeholder="Schreibe hier deinen Satz..."></textarea>
+      <p style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:6px">4. Deine eigene Wahl – eine Redewendung aus der Browse-Liste!</p>
+      <textarea class="textarea-box" placeholder="Redewendung + Satz..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- LESETEXT -->
+<div id="sec-lesetext" class="section">
+  <div class="story-intro">
+    <h2>📖 Ein Tag im Büro</h2>
+    <p>Der Text ist voll mit Redewendungen. Tippe auf einen <span style="background:rgba(244,162,97,.5);padding:1px 5px;border-radius:3px;font-weight:700;color:#5a3000">markierten Ausdruck</span> um die Bedeutung zu sehen!</p>
+  </div>
+
+  <div class="story-card">
+    <h3>☀️ Morgens</h3>
+    <div class="story-text">
+      Sebastian ist heute <span class="rw-span" onclick="showRW(0)">mit dem falschen Fuß aufgestanden</span>. Der Wecker hat nicht geklingelt, der Kaffee ist kalt – und dann hat er auch noch den Bus verpasst. „Typisch, ich hab mal wieder Pech", denkt er. Trotzdem macht er sich <span class="rw-span" onclick="showRW(2)">auf die Socken</span> und läuft schnell zur Arbeit. Er will nicht, dass sein Chef ihn <span class="rw-span" onclick="showRW(3)">auf dem Kieker hat</span>.<br><br>
+      Im Büro angekommen, begrüßt ihn sein Kollege Jonas: „Na, du siehst aus, als ob du <span class="rw-span" onclick="showRW(4)">einen Zahn zulegen</span> müsstest! Das Meeting fängt in fünf Minuten an." Sebastian seufzt. Er hatte die Unterlagen noch nicht vorbereitet – er hatte sie <span class="rw-span" onclick="showRW(5)">auf die lange Bank geschoben</span>.
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h3>🤝 Das Meeting</h3>
+    <div class="story-text">
+      Im Besprechungsraum steht die Chefin, Frau Bauer, schon bereit. Sie ist ein Mensch, der <span class="rw-span" onclick="showRW(6)">kein Blatt vor den Mund nimmt</span>. „Guten Morgen! Kommen wir gleich <span class="rw-span" onclick="showRW(7)">auf den Punkt</span>. Das Projekt läuft nicht gut. Wir müssen <span class="rw-span" onclick="showRW(8)">die Ärmel hochkrempeln</span>."<br><br>
+      Sebastians Kollege Peter flüstert ihm zu: „Sie ist heute wieder <span class="rw-span" onclick="showRW(9)">auf 180</span>." Sebastian nickt und <span class="rw-span" onclick="showRW(10)">beißt die Zähne zusammen</span>. Er weiß, dass Frau Bauer Recht hat – das Team hat <span class="rw-span" onclick="showRW(11)">die Flinte ins Korn geworfen</span>, als es schwierig wurde.<br><br>
+      Frau Bauer fährt fort: „Wir haben alles <span class="rw-span" onclick="showRW(12)">schwarz auf weiß</span> – die Zahlen sprechen für sich. Es ist Zeit, <span class="rw-span" onclick="showRW(13)">das Ruder herumzureißen</span>. Ich brauche jemanden, der <span class="rw-span" onclick="showRW(14)">sich ins Zeug legt</span>." Sie schaut Sebastian direkt an.<br><br>
+      Sebastian <span class="rw-span" onclick="showRW(15)">trifft den Nagel auf den Kopf</span>: „Wir müssen <span class="rw-span" onclick="showRW(16)">über unseren Schatten springen</span> und neue Methoden ausprobieren. Das alte System läuft zwar, aber wir sind damit <span class="rw-span" onclick="showRW(17)">hinter dem Mond</span>." Frau Bauer nickt zufrieden. „Gut. Dann gebe ich Ihnen <span class="rw-span" onclick="showRW(18)">grünes Licht</span> für das neue Konzept."
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h3>☕ Die Mittagspause</h3>
+    <div class="story-text">
+      In der Kantine setzt sich Sebastian zu seiner Kollegin Laura. Sie ist <span class="rw-span" onclick="showRW(19)">gut drauf</span> heute – ganz im Gegensatz zu gestern, als sie <span class="rw-span" onclick="showRW(20)">die Nase voll hatte</span> vom Stress.<br><br>
+      „Weißt du schon das Neueste?", fragt Laura. „Unser Kollege Markus bekommt eine Beförderung." Sebastian ist überrascht. „Wirklich? Er hat sich wirklich <span class="rw-span" onclick="showRW(21)">einen Namen gemacht</span>." Laura lacht. „Ja, aber anfangs war er <span class="rw-span" onclick="showRW(22)">ins kalte Wasser geworfen worden</span> – er hatte keine Ahnung, wie das alles funktioniert."<br><br>
+      Sebastian denkt laut nach: „Ich glaube, er hat immer <span class="rw-span" onclick="showRW(23)">einen kühlen Kopf bewahrt</span>, auch wenn es stressig wurde. Und er hat nie <span class="rw-span" onclick="showRW(24)">um den heißen Brei herumgeredet</span> – er hat immer direkt gesagt, was er denkt."<br><br>
+      Laura stimmt zu: „Stimmt. Und er ist immer <span class="rw-span" onclick="showRW(25)">auf der gleichen Wellenlänge</span> wie die Chefin." Sie lachen beide. „<span class="rw-span" onclick="showRW(26)">Abwarten und Tee trinken</span>", sagt Sebastian, „ich mache einfach meine Arbeit und schaue, was passiert."
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h3>😤 Der Nachmittag</h3>
+    <div class="story-text">
+      Zurück am Schreibtisch muss Sebastian einen wichtigen Bericht schreiben. Sein Kollege Jonas kommt vorbei und fängt an, über sein Privatleben zu reden. Sebastian <span class="rw-span" onclick="showRW(27)">geht das auf den Keks</span> – er steht <span class="rw-span" onclick="showRW(28)">unter Zeitdruck</span>. „Jonas, ich muss <span class="rw-span" onclick="showRW(29)">Nägel mit Köpfen machen</span>. Können wir später reden?"<br><br>
+      Jonas zieht ab, aber dann passiert das Nächste: Das System stürzt ab und Sebastian verliert eine Stunde Arbeit. Er <span class="rw-span" onclick="showRW(30)">ist außer sich</span> vor Ärger. Aber er weiß, er muss <span class="rw-span" onclick="showRW(31)">einen kühlen Kopf bewahren</span> und neu anfangen. Er <span class="rw-span" onclick="showRW(32)">setzt sich auf den Hosenboden</span> und arbeitet konzentriert bis zum Abend.<br><br>
+      Kurz vor Feierabend ruft sein Freund Tobias an. „Kommst du heute Abend aus?" Sebastian überlegt. Er ist zwar müde, aber er hat <span class="rw-span" onclick="showRW(33)">die Arbeit unter Dach und Fach gebracht</span>. „Ich drücke die Daumen, dass ich noch einen Parkplatz finde – aber ja, ich komme!"
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h3>🌆 Feierabend</h3>
+    <div class="story-text">
+      In der Bar ist Tobias schon da und <span class="rw-span" onclick="showRW(34)">auf Wolke sieben</span> – er hat heute einen neuen Job bekommen. „Ich hab richtig <span class="rw-span" onclick="showRW(35)">Schwein gehabt</span>! Die hatten mich schon <span class="rw-span" onclick="showRW(36)">auf dem Kieker</span> für die Stelle, aber ich dachte schon, ich würde einen Korb bekommen."<br><br>
+      Sebastian freut sich ehrlich. „Du hast dir das verdient! Du hast nie <span class="rw-span" onclick="showRW(37)">die Flinte ins Korn geworfen</span>, auch wenn es mal nicht lief." Tobias lächelt und sagt: „Danke. Und du?" Sebastian denkt kurz nach. „Ich bin mit dem falschen Fuß aufgestanden und war kurz davor, <span class="rw-span" onclick="showRW(38)">den Kürzeren zu ziehen</span>. Aber am Ende lief es gut. Manchmal muss man einfach <span class="rw-span" onclick="showRW(39)">über seinen Schatten springen</span>."<br><br>
+      Sie stoßen an. Ein langer Tag – aber Sebastian ist <span class="rw-span" onclick="showRW(40)">mit sich im Reinen</span>. Morgen ist ein neuer Tag.
+    </div>
+  </div>
+
+  <div style="background:#fef9f0;border:2px solid rgba(244,162,97,.4);border-radius:14px;padding:18px;text-align:center;margin-top:8px">
+    <div style="font-size:1.1rem;font-weight:800;margin-bottom:6px;color:var(--text)">📊 Der Text enthält <strong>41 markierte Redewendungen</strong></div>
+    <p style="font-size:.84rem;color:var(--muted);margin-bottom:14px">Alle Ausdrücke findest du auch im Browse-Tab mit Bedeutungen, Beispielen und Flashcards!</p>
+    <button onclick="switchTab('uebungen')" class="btn-primary" style="margin-right:8px">✏️ Zu den Übungen</button>
+    <button onclick="switchTab('browse')" class="btn-primary" style="background:var(--muted)">📚 Browse-Liste</button>
+  </div>
+</div>
+
 <!-- FAVOURITES -->
 <div id="sec-favs" class="section">
   <div class="idiom-grid" id="favsGrid"></div>
   <div class="empty" id="emptyFavs" style="display:none"><div class="empty-icon">⭐</div><p data-t="no_favs">Star idioms in Browse mode to save them here</p></div>
 </div>
 
-</div><!-- /content -->
+</div>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="rwPopup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-phrase" id="popupPhrase">—</div>
+    <div class="popup-literal" id="popupLiteral">—</div>
+    <div class="popup-meaning" id="popupMeaning">—</div>
+    <div class="popup-example" id="popupExample">—</div>
+  </div>
+</div>
 <script>
 const UI={
-en:{badge:'Special · B1–C1',hero_sub:'Master authentic German idioms and fixed expressions used by native speakers every day',tab_browse:'📚 Browse',tab_flash:'🎴 Flashcards',tab_quiz:'🧠 Quiz',tab_favs:'⭐ Favourites',cat_all:'All Categories',lvl_all:'All Levels',stat_total:'Total',stat_shown:'Shown',stat_favs:'Saved',fc_tap:'Tap to reveal meaning',fc_hint:'tap to flip',fc_skip:'↩ Skip',fc_again:'🔄 Again',fc_know:'✓ Got it',quiz_sub:'Choose the correct meaning:',quiz_done:'Quiz complete!',quiz_retry:'Try Again',no_results:'No idioms match your search',no_favs:'Star idioms in Browse mode to save them here',lbl_literal:'Literal meaning',lbl_meaning:'Actual meaning',lbl_example:'Example'},
-fr:{badge:'Spécial · B1–C1',hero_sub:'Maîtrisez les expressions idiomatiques allemandes authentiques',tab_browse:'📚 Parcourir',tab_flash:'🎴 Flashcards',tab_quiz:'🧠 Quiz',tab_favs:'⭐ Favoris',cat_all:'Toutes catégories',lvl_all:'Tous niveaux',stat_total:'Total',stat_shown:'Affichés',stat_favs:'Sauvegardés',fc_tap:'Appuyer pour révéler',fc_hint:'retourner',fc_skip:'↩ Passer',fc_again:'🔄 Revoir',fc_know:'✓ Compris',quiz_sub:'Choisissez le sens correct :',quiz_done:'Quiz terminé !',quiz_retry:'Recommencer',no_results:'Aucun résultat',no_favs:'Étoilez des expressions pour les sauvegarder',lbl_literal:'Sens littéral',lbl_meaning:'Sens réel',lbl_example:'Exemple'},
-es:{badge:'Especial · B1–C1',hero_sub:'Domina las expresiones idiomáticas alemanas auténticas',tab_browse:'📚 Explorar',tab_flash:'🎴 Tarjetas',tab_quiz:'🧠 Quiz',tab_favs:'⭐ Favoritos',cat_all:'Todas las categorías',lvl_all:'Todos los niveles',stat_total:'Total',stat_shown:'Mostrados',stat_favs:'Guardados',fc_tap:'Toca para revelar',fc_hint:'voltear',fc_skip:'↩ Saltar',fc_again:'🔄 Repetir',fc_know:'✓ Lo sé',quiz_sub:'Elige el significado correcto:',quiz_done:'¡Quiz completado!',quiz_retry:'Intentar de nuevo',no_results:'Sin resultados',no_favs:'Marca expresiones para guardarlas',lbl_literal:'Significado literal',lbl_meaning:'Significado real',lbl_example:'Ejemplo'},
-it:{badge:'Speciale · B1–C1',hero_sub:'Padroneggia le espressioni idiomatiche tedesche autentiche',tab_browse:'📚 Sfoglia',tab_flash:'🎴 Flashcard',tab_quiz:'🧠 Quiz',tab_favs:'⭐ Preferiti',cat_all:'Tutte le categorie',lvl_all:'Tutti i livelli',stat_total:'Totale',stat_shown:'Mostrati',stat_favs:'Salvati',fc_tap:'Tocca per rivelare',fc_hint:'girare',fc_skip:'↩ Salta',fc_again:'🔄 Ancora',fc_know:'✓ Lo so',quiz_sub:'Scegli il significato corretto:',quiz_done:'Quiz completato!',quiz_retry:'Riprova',no_results:'Nessun risultato',no_favs:'Aggiungi ai preferiti',lbl_literal:'Significato letterale',lbl_meaning:'Significato reale',lbl_example:'Esempio'},
-pt:{badge:'Especial · B1–C1',hero_sub:'Domine as expressões idiomáticas alemãs autênticas',tab_browse:'📚 Explorar',tab_flash:'🎴 Flashcards',tab_quiz:'🧠 Quiz',tab_favs:'⭐ Favoritos',cat_all:'Todas as categorias',lvl_all:'Todos os níveis',stat_total:'Total',stat_shown:'Exibidos',stat_favs:'Salvos',fc_tap:'Toque para revelar',fc_hint:'virar',fc_skip:'↩ Pular',fc_again:'🔄 Rever',fc_know:'✓ Entendi',quiz_sub:'Escolha o significado correto:',quiz_done:'Quiz concluído!',quiz_retry:'Tentar novamente',no_results:'Sem resultados',no_favs:'Marque expressões para salvá-las',lbl_literal:'Significado literal',lbl_meaning:'Significado real',lbl_example:'Exemplo'}
+en:{badge:"Special · B1–C1",hero_sub:"Master authentic German idioms and fixed expressions used by native speakers every day",tab_browse:"📚 Browse",tab_flash:"🎴 Flashcards",tab_quiz:"🧠 Quiz",tab_uebungen:"✏️ Übungen",tab_lesetext:"📖 Lesetext",tab_favs:"⭐ Favourites",cat_all:"All Categories",lvl_all:"All Levels",stat_total:"Total",stat_shown:"Shown",stat_favs:"Saved",fc_tap:"Tap to reveal meaning",fc_hint:"tap to flip",fc_skip:"↩ Skip",fc_again:"🔄 Again",fc_know:"✓ Got it",quiz_sub:"Choose the correct meaning:",quiz_done:"Quiz complete!",quiz_retry:"Try Again",no_results:"No idioms match your search",no_favs:"Star idioms in Browse mode to save them here",lbl_literal:"Literal meaning",lbl_meaning:"Actual meaning",lbl_example:"Example"},
+fr:{badge:"Spécial · B1–C1",hero_sub:"Maîtrisez les expressions idiomatiques allemandes authentiques",tab_browse:"📚 Parcourir",tab_flash:"🎴 Flashcards",tab_quiz:"🧠 Quiz",tab_uebungen:"✏️ Exercices",tab_lesetext:"📖 Texte",tab_favs:"⭐ Favoris",cat_all:"Toutes catégories",lvl_all:"Tous niveaux",stat_total:"Total",stat_shown:"Affichés",stat_favs:"Sauvegardés",fc_tap:"Appuyer pour révéler",fc_hint:"retourner",fc_skip:"↩ Passer",fc_again:"🔄 Revoir",fc_know:"✓ Compris",quiz_sub:"Choisissez le sens correct :",quiz_done:"Quiz terminé !",quiz_retry:"Recommencer",no_results:"Aucun résultat",no_favs:"Étoilez des expressions pour les sauvegarder",lbl_literal:"Sens littéral",lbl_meaning:"Sens réel",lbl_example:"Exemple"},
+es:{badge:"Especial · B1–C1",hero_sub:"Domina las expresiones idiomáticas alemanas auténticas",tab_browse:"📚 Explorar",tab_flash:"🎴 Tarjetas",tab_quiz:"🧠 Quiz",tab_uebungen:"✏️ Ejercicios",tab_lesetext:"📖 Texto",tab_favs:"⭐ Favoritos",cat_all:"Todas las categorías",lvl_all:"Todos los niveles",stat_total:"Total",stat_shown:"Mostrados",stat_favs:"Guardados",fc_tap:"Toca para revelar",fc_hint:"voltear",fc_skip:"↩ Saltar",fc_again:"🔄 Repetir",fc_know:"✓ Lo sé",quiz_sub:"Elige el significado correcto:",quiz_done:"¡Quiz completado!",quiz_retry:"Intentar de nuevo",no_results:"Sin resultados",no_favs:"Marca expresiones para guardarlas",lbl_literal:"Significado literal",lbl_meaning:"Significado real",lbl_example:"Ejemplo"},
+it:{badge:"Speciale · B1–C1",hero_sub:"Padroneggia le espressioni idiomatiche tedesche autentiche",tab_browse:"📚 Sfoglia",tab_flash:"🎴 Flashcard",tab_quiz:"🧠 Quiz",tab_uebungen:"✏️ Esercizi",tab_lesetext:"📖 Testo",tab_favs:"⭐ Preferiti",cat_all:"Tutte le categorie",lvl_all:"Tutti i livelli",stat_total:"Totale",stat_shown:"Mostrati",stat_favs:"Salvati",fc_tap:"Tocca per rivelare",fc_hint:"girare",fc_skip:"↩ Salta",fc_again:"🔄 Ancora",fc_know:"✓ Lo so",quiz_sub:"Scegli il significato corretto:",quiz_done:"Quiz completato!",quiz_retry:"Riprova",no_results:"Nessun risultato",no_favs:"Aggiungi ai preferiti",lbl_literal:"Significado literal",lbl_meaning:"Significado real",lbl_example:"Esempio"},
+pt:{badge:"Especial · B1–C1",hero_sub:"Domine as expressões idiomáticas alemãs autênticas",tab_browse:"📚 Explorar",tab_flash:"🎴 Flashcards",tab_quiz:"🧠 Quiz",tab_uebungen:"✏️ Exercícios",tab_lesetext:"📖 Texto",tab_favs:"⭐ Favoritos",cat_all:"Todas as categorias",lvl_all:"Todos os níveis",stat_total:"Total",stat_shown:"Exibidos",stat_favs:"Salvos",fc_tap:"Toque para revelar",fc_hint:"virar",fc_skip:"↩ Pular",fc_again:"🔄 Rever",fc_know:"✓ Entendi",quiz_sub:"Escolha o significado correto:",quiz_done:"Quiz concluído!",quiz_retry:"Tentar novamente",no_results:"Sem resultados",no_favs:"Marque expressões para salvá-las",lbl_literal:"Significado literal",lbl_meaning:"Significado real",lbl_example:"Exemplo"}
 };
 
+const CAT_ICONS={tiere:"🦁 Tiere",zeit:"🕐 Zeit",gefuhle:"❤️ Gefühle",arbeit:"💼 Arbeit",essen:"🍎 Essen",natur:"🌿 Natur",korper:"👤 Körper",alltag:"🏠 Alltag",kommunikation:"💬 Kommunikation",geld:"💶 Geld"};
+const ALL_CATS=Object.keys(CAT_ICONS);
+
 const IDIOMS=[
+// ── ORIGINAL 80 ──
 {id:1,phrase:"Da liegt der Hund begraben",literal:"That's where the dog is buried",meaning:"That's the real issue / the crux of the matter",example:"Jetzt verstehe ich — da liegt der Hund begraben!",cat:"tiere",level:"B2"},
 {id:2,phrase:"Den Stier bei den Hörnern packen",literal:"To grab the bull by the horns",meaning:"To tackle a problem directly and boldly",example:"Wir müssen den Stier bei den Hörnern packen und das Problem lösen.",cat:"tiere",level:"B1"},
 {id:3,phrase:"Zwei Fliegen mit einer Klappe schlagen",literal:"To hit two flies with one swat",meaning:"To kill two birds with one stone",example:"Ich kaufe Lebensmittel und besuche meine Mutter — zwei Fliegen mit einer Klappe!",cat:"tiere",level:"B1"},
@@ -297,54 +629,170 @@ const IDIOMS=[
 {id:77,phrase:"Auf der faulen Haut liegen",literal:"To lie on the lazy skin",meaning:"To laze around; to be idle and do nothing",example:"Den ganzen Sonntag habe ich auf der faulen Haut gelegen.",cat:"alltag",level:"B1"},
 {id:78,phrase:"Über die Runden kommen",literal:"To get over the rounds",meaning:"To make ends meet; to get by financially",example:"Mit diesem Gehalt kommen wir gerade so über die Runden.",cat:"alltag",level:"B2"},
 {id:79,phrase:"Einen Haken haben",literal:"To have a hook",meaning:"To have a catch; there's something wrong with it",example:"Das Angebot klingt gut, aber es hat bestimmt einen Haken.",cat:"alltag",level:"B1"},
-{id:80,phrase:"Das i-Tüpfelchen",literal:"The dot on the i",meaning:"The finishing touch; the cherry on top",example:"Das frische Basilikum war das i-Tüpfelchen auf der Pizza.",cat:"alltag",level:"B2"}
+{id:80,phrase:"Das i-Tüpfelchen",literal:"The dot on the i",meaning:"The finishing touch; the cherry on top",example:"Das frische Basilikum war das i-Tüpfelchen auf der Pizza.",cat:"alltag",level:"B2"},
+// ── BONUS: Arbeit & Alltag ──
+{id:81,phrase:"Mit dem falschen Fuß aufstehen",literal:"To get up with the wrong foot",meaning:"To start the day in a bad mood; to wake up grumpy",example:"Er war heute morgen so unfreundlich – er muss mit dem falschen Fuß aufgestanden sein.",cat:"alltag",level:"B1"},
+{id:82,phrase:"Sich auf die Socken machen",literal:"To get oneself onto one's socks",meaning:"To get going; to hurry up and leave",example:"Es ist schon spät – wir müssen uns auf die Socken machen!",cat:"alltag",level:"B1"},
+{id:83,phrase:"Jemanden auf dem Kieker haben",literal:"To have someone in the sight",meaning:"To have someone in one's sights; to keep a close eye on them",example:"Seit dem Fehler hat der Chef mich auf dem Kieker.",cat:"arbeit",level:"B2"},
+{id:84,phrase:"Einen Zahn zulegen",literal:"To add a tooth",meaning:"To speed up; to put more effort in",example:"Wenn wir den Termin einhalten wollen, müssen wir einen Zahn zulegen.",cat:"arbeit",level:"B1"},
+{id:85,phrase:"Kein Blatt vor den Mund nehmen",literal:"To take no leaf before one's mouth",meaning:"To speak openly and directly; to not mince words",example:"Meine Chefin nimmt kein Blatt vor den Mund – sie sagt immer klar, was sie denkt.",cat:"kommunikation",level:"B1"},
+{id:86,phrase:"Auf den Punkt kommen",literal:"To come to the point",meaning:"To get to the point; to say what needs to be said",example:"Können wir bitte auf den Punkt kommen? Wir haben nicht viel Zeit.",cat:"kommunikation",level:"B1"},
+{id:87,phrase:"Auf 180 sein",literal:"To be at 180",meaning:"To be extremely angry; to be furious",example:"Als er das hörte, war er sofort auf 180.",cat:"gefuhle",level:"B2"},
+{id:88,phrase:"Die Zähne zusammenbeißen",literal:"To bite one's teeth together",meaning:"To grit one's teeth; to persevere despite difficulty",example:"Es war hart, aber sie hat die Zähne zusammengebissen und nicht aufgegeben.",cat:"gefuhle",level:"B2"},
+{id:89,phrase:"Schwarz auf weiß haben",literal:"To have in black on white",meaning:"To have something in writing; officially confirmed",example:"Ich habe es schwarz auf weiß – der Vertrag wurde unterschrieben.",cat:"arbeit",level:"B1"},
+{id:90,phrase:"Das Ruder herumreißen",literal:"To yank the rudder around",meaning:"To turn things around quickly; to reverse a bad situation",example:"Das Unternehmen muss das Ruder herumreißen, sonst gibt es Probleme.",cat:"arbeit",level:"B2"},
+{id:91,phrase:"Sich ins Zeug legen",literal:"To lay oneself into the stuff",meaning:"To go all out; to give everything one has",example:"Wenn du dich ins Zeug legst, wirst du die Prüfung sicher bestehen.",cat:"arbeit",level:"B1"},
+{id:92,phrase:"Grünes Licht geben",literal:"To give green light",meaning:"To give the go-ahead; to approve",example:"Der Direktor hat grünes Licht für das neue Projekt gegeben.",cat:"arbeit",level:"B1"},
+{id:93,phrase:"Gut drauf sein",literal:"To be well on it",meaning:"To be in a good mood; to feel great",example:"Sie ist heute super gut drauf – vielleicht hat sie gute Neuigkeiten.",cat:"gefuhle",level:"B1"},
+{id:94,phrase:"Die Nase voll haben",literal:"To have the nose full",meaning:"To be fed up; to have had enough",example:"Ich hab die Nase voll von diesem Stress – ich brauche einen Urlaub.",cat:"gefuhle",level:"B1"},
+{id:95,phrase:"Sich einen Namen machen",literal:"To make oneself a name",meaning:"To make a name for oneself; to build a reputation",example:"Mit seiner innovativen Arbeit hat er sich schnell einen Namen gemacht.",cat:"arbeit",level:"B2"},
+{id:96,phrase:"Ins kalte Wasser geworfen werden",literal:"To be thrown into cold water",meaning:"To be thrown in at the deep end; no preparation",example:"Am ersten Arbeitstag wurde ich direkt ins kalte Wasser geworfen.",cat:"arbeit",level:"B1"},
+{id:97,phrase:"Einen kühlen Kopf bewahren",literal:"To keep a cool head",meaning:"To stay calm and rational under pressure",example:"In der Krise hat er einen kühlen Kopf bewahrt und die richtige Entscheidung getroffen.",cat:"arbeit",level:"B1"},
+{id:98,phrase:"Um den heißen Brei herumreden",literal:"To talk around the hot porridge",meaning:"To beat around the bush; to avoid the real topic",example:"Hör auf, um den heißen Brei herumzureden – sag mir einfach, was du denkst!",cat:"kommunikation",level:"B1"},
+{id:99,phrase:"Auf der gleichen Wellenlänge sein",literal:"To be on the same wavelength",meaning:"To be on the same page; to share the same views",example:"Mit meiner Kollegin bin ich auf der gleichen Wellenlänge – wir arbeiten super zusammen.",cat:"kommunikation",level:"B1"},
+{id:100,phrase:"Abwarten und Tee trinken",literal:"To wait and drink tea",meaning:"To wait and see; to be patient and let things unfold",example:"Mach dir keine Sorgen – abwarten und Tee trinken, das klärt sich von selbst.",cat:"alltag",level:"B1"},
+{id:101,phrase:"Nägel mit Köpfen machen",literal:"To make nails with heads",meaning:"To do things properly; to be thorough and decisive",example:"Wenn wir das angehen, dann machen wir Nägel mit Köpfen – kein halbherziger Plan!",cat:"arbeit",level:"B1"},
+{id:102,phrase:"Außer sich sein",literal:"To be outside oneself",meaning:"To be beside oneself; to be extremely upset or excited",example:"Als sie die Nachricht hörte, war sie völlig außer sich.",cat:"gefuhle",level:"B1"},
+{id:103,phrase:"Sich auf den Hosenboden setzen",literal:"To sit on one's trouser bottom",meaning:"To knuckle down; to sit down and focus seriously on work",example:"Es wird Zeit, dass du dich auf den Hosenboden setzt und die Hausarbeit schreibst.",cat:"alltag",level:"B2"},
+{id:104,phrase:"Etwas unter Dach und Fach bringen",literal:"To bring something under roof and frame",meaning:"To wrap something up; to bring something to a successful conclusion",example:"Heute haben wir den Vertrag unter Dach und Fach gebracht.",cat:"arbeit",level:"B1"},
+{id:105,phrase:"Schwein haben",literal:"To have a pig",meaning:"To be very lucky",example:"Ich hab wirklich Schwein gehabt – der Zug hatte Verspätung und ich hab ihn noch erwischt!",cat:"alltag",level:"B1"},
+{id:106,phrase:"Den Kürzeren ziehen",literal:"To draw the shorter one",meaning:"To come off worse; to lose out in a dispute",example:"In der Gehaltsverhandlung hat er leider den Kürzeren gezogen.",cat:"arbeit",level:"B2"},
+{id:107,phrase:"Mit sich im Reinen sein",literal:"To be at peace with oneself",meaning:"To have a clear conscience; to be at peace with oneself",example:"Ich habe alles getan, was ich konnte – jetzt bin ich mit mir im Reinen.",cat:"gefuhle",level:"B2"},
+// ── KOMMUNIKATION ──
+{id:108,phrase:"Klartext reden",literal:"To speak plain text",meaning:"To speak plainly; to say exactly what one means",example:"Ich rede jetzt Klartext: Das Projekt ist gescheitert.",cat:"kommunikation",level:"B1"},
+{id:109,phrase:"Zwischen den Zeilen lesen",literal:"To read between the lines",meaning:"To read between the lines; to understand the hidden meaning",example:"Was er wirklich meinte, musste man zwischen den Zeilen lesen.",cat:"kommunikation",level:"B2"},
+{id:110,phrase:"Das Wort ergreifen",literal:"To seize the word",meaning:"To take the floor; to begin speaking (formally)",example:"In der Konferenz hat sie als Erste das Wort ergriffen.",cat:"kommunikation",level:"B2"},
+{id:111,phrase:"In aller Munde sein",literal:"To be in everyone's mouths",meaning:"To be on everyone's lips; to be widely discussed",example:"Der Skandal war in aller Munde – alle haben nur darüber geredet.",cat:"kommunikation",level:"B2"},
+{id:112,phrase:"Jemandem im Dunkeln lassen",literal:"To leave someone in the dark",meaning:"To keep someone in the dark; to withhold information",example:"Bitte lass mich nicht im Dunkeln – was ist passiert?",cat:"kommunikation",level:"B1"},
+{id:113,phrase:"Jemandem das Wort im Mund umdrehen",literal:"To turn the word in someone's mouth",meaning:"To twist someone's words; to misrepresent what they said",example:"Ich habe das nicht so gemeint – dreh mir nicht das Wort im Mund um!",cat:"kommunikation",level:"C1"},
+{id:114,phrase:"Jemandem auf Augenhöhe begegnen",literal:"To meet someone at eye level",meaning:"To treat someone as an equal",example:"In diesem Unternehmen begegnet man jedem Mitarbeiter auf Augenhöhe.",cat:"kommunikation",level:"B2"},
+{id:115,phrase:"Tomaten auf den Augen haben",literal:"To have tomatoes on one's eyes",meaning:"To not see something obvious; to be blind to the obvious",example:"Hast du Tomaten auf den Augen? Der Fehler steht doch direkt im Bericht!",cat:"kommunikation",level:"B1"},
+// ── GELD ──
+{id:116,phrase:"Den Gürtel enger schnallen",literal:"To fasten the belt tighter",meaning:"To tighten one's belt; to cut back on spending",example:"In diesem Monat müssen wir den Gürtel enger schnallen.",cat:"geld",level:"B1"},
+{id:117,phrase:"Geld zum Fenster rauswerfen",literal:"To throw money out of the window",meaning:"To waste money; to fritter money away",example:"Jeden Tag ein Taxi nehmen – das ist Geld zum Fenster rauswerfen!",cat:"geld",level:"B1"},
+{id:118,phrase:"Knappe Kasse haben",literal:"To have a tight till",meaning:"To be short of money; to be broke",example:"Diesen Monat habe ich knappe Kasse – ich warte auf das Gehalt.",cat:"geld",level:"B1"},
+{id:119,phrase:"Für einen Pappenstiel kaufen",literal:"To buy for a bit of straw",meaning:"To buy something for next to nothing; a bargain",example:"Ich habe das Auto für einen Pappenstiel gekauft – der Verkäufer wollte es schnell loswerden.",cat:"geld",level:"B2"},
+{id:120,phrase:"Über seine Verhältnisse leben",literal:"To live beyond one's means",meaning:"To live beyond one's means; to spend more than one earns",example:"Er lebt weit über seine Verhältnisse – mit dem Gehalt kann er sich das nicht erlauben.",cat:"geld",level:"B2"},
+// ── MORE ARBEIT ──
+{id:121,phrase:"Jemandem freie Hand lassen",literal:"To leave someone a free hand",meaning:"To give someone free rein; to let them decide independently",example:"Die Chefin hat mir freie Hand gelassen – ich kann das Projekt selbst gestalten.",cat:"arbeit",level:"B2"},
+{id:122,phrase:"Die Zügel in der Hand halten",literal:"To hold the reins in one's hand",meaning:"To stay in control; to maintain authority",example:"Auch in der Krise hält sie die Zügel fest in der Hand.",cat:"arbeit",level:"B2"},
+{id:123,phrase:"Einen Schritt voraus sein",literal:"To be a step ahead",meaning:"To be one step ahead; to have an advantage",example:"Dank unserer Marktanalyse sind wir der Konkurrenz einen Schritt voraus.",cat:"arbeit",level:"B2"},
+{id:124,phrase:"Rückendeckung bekommen",literal:"To receive back cover",meaning:"To get backing from a superior; to have support",example:"Ohne Rückendeckung vom Chef hätte ich das nie durchgesetzt.",cat:"arbeit",level:"B2"},
+{id:125,phrase:"Auf Hochtouren laufen",literal:"To run at high revs",meaning:"To run at full capacity; to be working flat out",example:"Die Fabrik läuft auf Hochtouren – wir haben riesige Aufträge.",cat:"arbeit",level:"B2"},
+{id:126,phrase:"Das Handtuch werfen",literal:"To throw the towel",meaning:"To throw in the towel; to give up completely",example:"Nach drei Jahren im Startup hat er das Handtuch geworfen.",cat:"arbeit",level:"B1"},
+{id:127,phrase:"Das Ruder übernehmen",literal:"To take over the rudder",meaning:"To take charge; to take control",example:"Als der Chef krank wurde, hat sie sofort das Ruder übernommen.",cat:"arbeit",level:"B2"},
+{id:128,phrase:"Sich die Zähne ausbeißen",literal:"To bite one's teeth out on something",meaning:"To struggle greatly with something; to come up against a hard challenge",example:"An dieser Aufgabe hat sich das ganze Team die Zähne ausgebissen.",cat:"arbeit",level:"B2"},
+{id:129,phrase:"Einen langen Atem haben",literal:"To have long breath",meaning:"To have staying power; to be persistent",example:"Für dieses Projekt braucht man wirklich einen langen Atem.",cat:"arbeit",level:"B2"},
+{id:130,phrase:"Etwas in die Wege leiten",literal:"To guide something onto the path",meaning:"To set something in motion; to initiate a process",example:"Wir müssen die Umstrukturierung jetzt in die Wege leiten.",cat:"arbeit",level:"B2"},
+// ── MORE ALLTAG & GEFÜHLE ──
+{id:131,phrase:"Auf dem Holzweg sein",literal:"To be on the wood road",meaning:"To be on the wrong track; to be mistaken",example:"Wenn du denkst, ich helfe dir damit, bist du auf dem Holzweg.",cat:"alltag",level:"B1"},
+{id:132,phrase:"Aus der Reihe tanzen",literal:"To dance out of line",meaning:"To stand out from the crowd; to not conform",example:"Er tanzt immer aus der Reihe – aber seine Ideen sind oft genial.",cat:"alltag",level:"B2"},
+{id:133,phrase:"Sich in Luft auflösen",literal:"To dissolve into air",meaning:"To vanish into thin air; to come to nothing",example:"Die ganzen guten Vorsätze haben sich im Januar schon in Luft aufgelöst.",cat:"alltag",level:"B2"},
+{id:134,phrase:"Licht am Ende des Tunnels sehen",literal:"To see light at the end of the tunnel",meaning:"To see light at the end of the tunnel; to have hope",example:"Nach Monaten der Arbeit sehen wir endlich Licht am Ende des Tunnels.",cat:"alltag",level:"B1"},
+{id:135,phrase:"Auf eigenen Beinen stehen",literal:"To stand on one's own legs",meaning:"To stand on one's own two feet; to be independent",example:"Nach dem Studium wollte er endlich auf eigenen Beinen stehen.",cat:"alltag",level:"B1"},
+{id:136,phrase:"Jemandem auf der Seele brennen",literal:"To burn on someone's soul",meaning:"To weigh heavily on one's mind; to feel compelled to address",example:"Dieses Problem brennt mir schon lange auf der Seele.",cat:"gefuhle",level:"C1"},
+{id:137,phrase:"Schlecht drauf sein",literal:"To be badly on it",meaning:"To be in a bad mood; to feel down",example:"Er ist heute total schlecht drauf – besser nicht ansprechen.",cat:"gefuhle",level:"B1"},
+{id:138,phrase:"Auf einen grünen Zweig kommen",literal:"To come to a green branch",meaning:"To make progress; to become successful",example:"Mit dieser Strategie werden wir nie auf einen grünen Zweig kommen.",cat:"arbeit",level:"B2"},
+// ── MEHR ZEIT ──
+{id:139,phrase:"In letzter Minute",literal:"In the last minute",meaning:"At the very last minute; just in time",example:"Wir haben den Vertrag in letzter Minute noch abgeschlossen.",cat:"zeit",level:"B1"},
+{id:140,phrase:"Den Zug verpassen",literal:"To miss the train",meaning:"To miss the boat; to miss a good opportunity",example:"Wenn du jetzt nicht investierst, verpasst du den Zug.",cat:"zeit",level:"B1"}
 ];
 
-let lang='en', currentTab='browse';
+// Story popup data (41 entries for the Lesetext tab)
+const STORY=[
+  {p:"mit dem falschen Fuß aufstehen",b:"In schlechter Stimmung in den Tag starten.",e:"Er war heute morgen so unfreundlich – er muss mit dem falschen Fuß aufgestanden sein."},
+  {p:"Pech haben",b:"Unglück haben; wenn etwas nicht klappt.",e:"Ich hab heute richtig Pech gehabt – zuerst der Bus, dann der Regen!"},
+  {p:"sich auf die Socken machen",b:"Aufbrechen, losgehen, sich beeilen.",e:"Es ist schon spät – wir müssen uns auf die Socken machen!"},
+  {p:"jemanden auf dem Kieker haben",b:"Jemanden besonders beobachten oder im Visier haben (oft negativ).",e:"Seit dem Fehler hat der Chef mich auf dem Kieker."},
+  {p:"einen Zahn zulegen",b:"Schneller werden; mehr Leistung bringen.",e:"Wenn wir den Termin einhalten wollen, müssen wir einen Zahn zulegen."},
+  {p:"etwas auf die lange Bank schieben",b:"Etwas immer wieder verschieben; prokrastinieren.",e:"Ich habe die Steuererklärung schon seit Monaten auf die lange Bank geschoben."},
+  {p:"kein Blatt vor den Mund nehmen",b:"Offen und direkt sagen, was man denkt.",e:"Meine Chefin nimmt kein Blatt vor den Mund – sie sagt immer klar, was sie denkt."},
+  {p:"auf den Punkt kommen",b:"Direkt zum Thema kommen; das Wesentliche sagen.",e:"Können wir bitte auf den Punkt kommen? Wir haben nicht viel Zeit."},
+  {p:"die Ärmel hochkrempeln",b:"Sich an die Arbeit machen; ernsthaft anfangen zu arbeiten.",e:"Jetzt ist keine Zeit für Diskussionen – wir müssen die Ärmel hochkrempeln."},
+  {p:"auf 180 sein",b:"Sehr wütend sein; außer sich vor Wut.",e:"Als er das hörte, war er sofort auf 180."},
+  {p:"die Zähne zusammenbeißen",b:"Trotz Schmerz oder Schwierigkeiten weitermachen; Durchhalten.",e:"Es war hart, aber sie hat die Zähne zusammengebissen und nicht aufgegeben."},
+  {p:"die Flinte ins Korn werfen",b:"Aufgeben; kapitulieren.",e:"Nur weil es schwierig ist, darf man nicht die Flinte ins Korn werfen!"},
+  {p:"schwarz auf weiß haben",b:"Etwas schriftlich, offiziell bestätigt haben.",e:"Ich habe es schwarz auf weiß – der Vertrag wurde unterschrieben."},
+  {p:"das Ruder herumreißen",b:"Eine schlechte Entwicklung schnell umkehren.",e:"Das Unternehmen muss das Ruder herumreißen, sonst gibt es Probleme."},
+  {p:"sich ins Zeug legen",b:"Sich sehr anstrengen; alles geben.",e:"Wenn du dich ins Zeug legst, wirst du die Prüfung sicher bestehen."},
+  {p:"den Nagel auf den Kopf treffen",b:"Genau das Richtige sagen oder tun; präzise sein.",e:"Mit seiner Analyse hat er den Nagel auf den Kopf getroffen."},
+  {p:"über seinen Schatten springen",b:"Etwas tun, das man normalerweise nicht tun würde; sich überwinden.",e:"Ich musste wirklich über meinen Schatten springen und den Chef ansprechen."},
+  {p:"hinter dem Mond leben",b:"Nicht auf dem neuesten Stand sein; altmodisch denken.",e:"Wer heute noch kein Smartphone hat, lebt hinter dem Mond."},
+  {p:"grünes Licht geben",b:"Die Erlaubnis geben, weiterzumachen.",e:"Der Direktor hat grünes Licht für das neue Projekt gegeben."},
+  {p:"gut drauf sein",b:"Gut gelaunt und in guter Stimmung sein.",e:"Sie ist heute super gut drauf – vielleicht hat sie gute Neuigkeiten."},
+  {p:"die Nase voll haben",b:"Genug haben von etwas; genervt und erschöpft sein.",e:"Ich hab die Nase voll von diesem Stress – ich brauche einen Urlaub."},
+  {p:"sich einen Namen machen",b:"Berühmt oder bekannt werden; eine gute Reputation aufbauen.",e:"Mit seiner innovativen Arbeit hat er sich schnell einen Namen gemacht."},
+  {p:"ins kalte Wasser geworfen werden",b:"Ohne Vorbereitung in eine schwierige Situation geworfen werden.",e:"Am ersten Arbeitstag wurde ich direkt ins kalte Wasser geworfen."},
+  {p:"einen kühlen Kopf bewahren",b:"Ruhig und rational bleiben, auch in stressigen Situationen.",e:"In der Krise hat er einen kühlen Kopf bewahrt und die richtige Entscheidung getroffen."},
+  {p:"um den heißen Brei herumreden",b:"Das eigentliche Thema vermeiden; nicht direkt sein.",e:"Hör auf, um den heißen Brei herumzureden – sag mir einfach, was du denkst!"},
+  {p:"auf der gleichen Wellenlänge sein",b:"Die gleichen Ansichten oder Interessen haben; gut harmonieren.",e:"Mit meiner Kollegin bin ich auf der gleichen Wellenlänge – wir arbeiten super zusammen."},
+  {p:"abwarten und Tee trinken",b:"Geduldig sein und die Entwicklung abwarten.",e:"Mach dir keine Sorgen – abwarten und Tee trinken, das klärt sich von selbst."},
+  {p:"jemandem auf den Keks gehen",b:"Jemanden nerven; auf die Nerven gehen.",e:"Dieser Lärm geht mir wirklich auf den Keks – ich kann mich nicht konzentrieren."},
+  {p:"unter Zeitdruck stehen",b:"Wenig Zeit haben; eine Deadline einhalten müssen.",e:"Ich stehe gerade unter extremem Zeitdruck – der Bericht muss bis morgen fertig sein."},
+  {p:"Nägel mit Köpfen machen",b:"Etwas richtig und gründlich erledigen; konsequent handeln.",e:"Wenn wir das angehen, dann machen wir Nägel mit Köpfen – kein halbherziger Plan!"},
+  {p:"außer sich sein",b:"Sehr aufgeregt, wütend oder erschüttert sein.",e:"Als sie die Nachricht hörte, war sie völlig außer sich."},
+  {p:"einen kühlen Kopf bewahren",b:"Ruhig bleiben in schwierigen Situationen.",e:"Auch in der Krise hat er immer einen kühlen Kopf bewahrt."},
+  {p:"sich auf den Hosenboden setzen",b:"Sich ernsthaft hinsetzen und konzentriert arbeiten.",e:"Es wird Zeit, dass du dich auf den Hosenboden setzt und die Hausarbeit schreibst."},
+  {p:"etwas unter Dach und Fach bringen",b:"Etwas erfolgreich abschließen oder sichern.",e:"Heute haben wir den Vertrag unter Dach und Fach gebracht."},
+  {p:"auf Wolke sieben sein",b:"Sehr glücklich sein; im siebten Himmel sein.",e:"Seit er die neue Stelle bekommen hat, ist er auf Wolke sieben."},
+  {p:"Schwein haben",b:"Großes Glück haben.",e:"Ich hab wirklich Schwein gehabt – der Zug hatte Verspätung und ich hab ihn noch erwischt!"},
+  {p:"jemanden auf dem Kieker haben",b:"Jemanden bevorzugt beobachten oder im Visier haben.",e:"Für die neue Führungsposition hat sie mich auf dem Kieker."},
+  {p:"die Flinte ins Korn werfen",b:"Aufgeben; kapitulieren.",e:"Nur weil es einmal nicht klappt, muss man nicht die Flinte ins Korn werfen."},
+  {p:"den Kürzeren ziehen",b:"In einer Auseinandersetzung verlieren; benachteiligt werden.",e:"In der Gehaltsverhandlung hat er leider den Kürzeren gezogen."},
+  {p:"über seinen Schatten springen",b:"Sich überwinden; etwas tun, das man eigentlich nicht mag.",e:"Ich musste über meinen Schatten springen und mich beim Chef entschuldigen."},
+  {p:"mit sich im Reinen sein",b:"Mit sich selbst zufrieden sein; ein reines Gewissen haben.",e:"Ich habe alles getan, was ich konnte – jetzt bin ich mit mir im Reinen."}
+];
+
+function showRW(i){
+  const d=STORY[i];
+  document.getElementById('popupPhrase').textContent=d.p;
+  document.getElementById('popupLiteral').textContent='';
+  document.getElementById('popupMeaning').textContent=d.b;
+  document.getElementById('popupExample').textContent='💬 '+d.e;
+  document.getElementById('rwPopup').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePopup(){
+  document.getElementById('rwPopup').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('rwPopup').addEventListener('click',e=>{if(e.target===document.getElementById('rwPopup'))closePopup();});
+
+let lang='en',currentTab='browse';
 let favs=new Set(JSON.parse(localStorage.getItem('rw_favs')||'[]'));
-let fcFilter='all', fcQueue=[], fcIdx=0, fcKnown=0;
-let quizQuestions=[], quizQ=0, quizCorrect=0, quizAnswered=false;
+let fcFilter='all',fcQueue=[],fcIdx=0,fcKnown=0;
+let quizQuestions=[],quizQ=0,quizCorrect=0,quizAnswered=false;
 const QUIZ_TOTAL=10;
+let lueckeQs=[],lueckeIdx=0,lueckeScore=0,lueckeAnswered=false;
+const LUECKE_TOTAL=10;
+let puzzleQs=[],puzzleIdx=0,puzzleScore=0;
+let puzzleSelected=[],puzzleWords=[];
+const PUZZLE_TOTAL=8;
+let katQs=[],katIdx=0,katScore=0,katAnswered=false;
+const KAT_TOTAL=10;
 
 function t(k){return(UI[lang]&&UI[lang][k])||UI.en[k]||k;}
-function setLang(l){lang=l;applyLang();filterCards();renderFlash();}
+function setLang(l){lang=l;applyLang();filterCards();}
 function applyLang(){
-  document.querySelectorAll('[data-t]').forEach(el=>{
-    const k=el.dataset.t;
-    if(el.tagName==='INPUT'){el.placeholder=t(k);}
-    else{el.textContent=t(k);}
-  });
-  // Update cat_all in selects
+  document.querySelectorAll('[data-t]').forEach(el=>{const k=el.dataset.t;if(el.tagName==='INPUT')el.placeholder=t(k);else el.textContent=t(k);});
   document.querySelectorAll('option[data-t]').forEach(o=>o.textContent=t(o.dataset.t));
 }
 function saveFavs(){localStorage.setItem('rw_favs',JSON.stringify([...favs]));}
-function toggleFav(id,e){
-  if(e)e.stopPropagation();
-  if(favs.has(id))favs.delete(id);else favs.add(id);
-  saveFavs();
-  filterCards();
-  if(currentTab==='favs')renderFavs();
-  document.getElementById('statFavs').textContent=favs.size;
-}
+function toggleFav(id,e){if(e)e.stopPropagation();if(favs.has(id))favs.delete(id);else favs.add(id);saveFavs();filterCards();if(currentTab==='favs')renderFavs();document.getElementById('statFavs').textContent=favs.size;}
 function levelClass(l){return l==='B1'?'lvl-b1':l==='B2'?'lvl-b2':'lvl-c1';}
-function catIcon(c){return{tiere:'🦁',zeit:'🕐',gefuhle:'❤️',arbeit:'💼',essen:'🍎',natur:'🌿',korper:'👤',alltag:'🏠'}[c]||'';}
+function catIcon(c){return{tiere:'🦁',zeit:'🕐',gefuhle:'❤️',arbeit:'💼',essen:'🍎',natur:'🌿',korper:'👤',alltag:'🏠',kommunikation:'💬',geld:'💶'}[c]||'';}
 
 function buildCard(i,clickable=true){
   const isFav=favs.has(i.id);
   return `<div class="idiom-card" id="card-${i.id}" ${clickable?`onclick="toggleCard(${i.id})"`:''}>
-    <div class="card-head">
-      <div><div class="idiom-phrase">${i.phrase}</div><div class="card-cat">${catIcon(i.cat)} ${i.cat}</div></div>
-      <div class="card-meta">
-        <span class="level-badge ${levelClass(i.level)}">${i.level}</span>
-        <button class="fav-btn" onclick="toggleFav(${i.id},event)">${isFav?'⭐':'☆'}</button>
-      </div>
-    </div>
+    <div class="card-head"><div><div class="idiom-phrase">${i.phrase}</div><div class="card-cat">${catIcon(i.cat)} ${i.cat}</div></div>
+    <div class="card-meta"><span class="level-badge ${levelClass(i.level)}">${i.level}</span>
+    <button class="fav-btn" onclick="toggleFav(${i.id},event)">${isFav?'⭐':'☆'}</button></div></div>
     <div class="card-body">
       <div class="card-row"><div class="card-row-lbl">${t('lbl_literal')}</div><div class="card-row-val literal">"${i.literal}"</div></div>
       <div class="card-row"><div class="card-row-lbl">${t('lbl_meaning')}</div><div class="card-row-val">${i.meaning}</div></div>
       <div class="card-row"><div class="card-row-lbl">${t('lbl_example')}</div><div class="example-box">${i.example}</div></div>
-    </div>
-  </div>`;
+    </div></div>`;
 }
 function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('expanded');}
 
@@ -374,18 +822,8 @@ function renderFavs(){
 }
 
 // FLASHCARD
-function setFCFilter(f,btn){
-  fcFilter=f;
-  document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  initFC();
-}
-function initFC(){
-  fcQueue=[...IDIOMS.filter(i=>fcFilter==='all'||i.cat===fcFilter)].sort(()=>Math.random()-.5);
-  fcIdx=0;fcKnown=0;
-  document.getElementById('flashcard').classList.remove('flipped');
-  renderFlash();
-}
+function setFCFilter(f,btn){fcFilter=f;document.querySelectorAll('.fc-cat-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');initFC();}
+function initFC(){fcQueue=[...IDIOMS.filter(i=>fcFilter==='all'||i.cat===fcFilter)].sort(()=>Math.random()-.5);fcIdx=0;fcKnown=0;document.getElementById('flashcard').classList.remove('flipped');renderFlash();}
 function renderFlash(){
   if(!fcQueue.length)return;
   const i=fcQueue[fcIdx%fcQueue.length];
@@ -394,27 +832,16 @@ function renderFlash(){
   document.getElementById('fcEx').textContent=i.example;
   document.getElementById('fcLbl').textContent=(fcIdx%fcQueue.length+1)+' / '+fcQueue.length;
   document.getElementById('fcBar').style.width=(((fcIdx%fcQueue.length+1)/fcQueue.length)*100)+'%';
-  document.getElementById('fcKnownLbl').textContent=fcKnown+' '+t('fc_know').replace('✓ ','').toLowerCase();
+  document.getElementById('fcKnownLbl').textContent=fcKnown+' known';
   document.getElementById('flashcard').classList.remove('flipped');
 }
 function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
 function nextCard(known){if(known)fcKnown++;fcIdx++;if(fcIdx>=fcQueue.length)fcIdx=0;renderFlash();}
 
 // QUIZ
-function startQuiz(){
-  quizQuestions=[...IDIOMS].sort(()=>Math.random()-.5).slice(0,QUIZ_TOTAL);
-  quizQ=0;quizCorrect=0;quizAnswered=false;
-  document.getElementById('quizScore').style.display='none';
-  document.getElementById('quizCard').style.display='block';
-  renderQuiz();
-}
+function startQuiz(){quizQuestions=[...IDIOMS].sort(()=>Math.random()-.5).slice(0,QUIZ_TOTAL);quizQ=0;quizCorrect=0;quizAnswered=false;document.getElementById('quizScore').style.display='none';document.getElementById('quizCard').style.display='block';renderQuiz();}
 function renderQuiz(){
-  if(quizQ>=quizQuestions.length){
-    document.getElementById('quizCard').style.display='none';
-    document.getElementById('quizScore').style.display='block';
-    document.getElementById('quizScoreVal').textContent=quizCorrect+'/'+QUIZ_TOTAL;
-    return;
-  }
+  if(quizQ>=quizQuestions.length){document.getElementById('quizCard').style.display='none';document.getElementById('quizScore').style.display='block';document.getElementById('quizScoreVal').textContent=quizCorrect+'/'+QUIZ_TOTAL;return;}
   const q=quizQuestions[quizQ];
   const wrong=IDIOMS.filter(i=>i.id!==q.id).sort(()=>Math.random()-.5).slice(0,3);
   const opts=[q,...wrong].sort(()=>Math.random()-.5);
@@ -425,27 +852,162 @@ function renderQuiz(){
 }
 function answerQuiz(chosen,correct){
   if(quizAnswered)return;quizAnswered=true;
-  document.querySelectorAll('.quiz-opt').forEach(b=>{
-    const id=parseInt(b.getAttribute('onclick').split('(')[1]);
-    if(id===correct)b.classList.add('correct');
-    else if(id===chosen&&chosen!==correct)b.classList.add('wrong');
-    b.disabled=true;
-  });
+  document.querySelectorAll('.quiz-opt').forEach(b=>{const id=parseInt(b.getAttribute('onclick').split('(')[1]);if(id===correct)b.classList.add('correct');else if(id===chosen&&chosen!==correct)b.classList.add('wrong');b.disabled=true;});
   if(chosen===correct)quizCorrect++;
   setTimeout(()=>{quizQ++;renderQuiz();},1300);
 }
 
+// LÜCKENTEXT
+function createBlank(idiom){const re=new RegExp(idiom.phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');return idiom.example.replace(re,'<span style="display:inline-block;border-bottom:3px solid var(--lc);min-width:120px;background:#fef9f0;border-radius:4px;padding:0 8px;color:transparent">___________</span>');}
+function startLuecke(){lueckeQs=[...IDIOMS].sort(()=>Math.random()-.5).slice(0,LUECKE_TOTAL);lueckeIdx=0;lueckeScore=0;lueckeAnswered=false;document.getElementById('lueckeResult').style.display='none';document.getElementById('lueckeCard').style.display='block';renderLuecke();}
+function renderLuecke(){
+  if(lueckeIdx>=LUECKE_TOTAL){showLueckeResult();return;}
+  const q=lueckeQs[lueckeIdx];
+  const wrong=IDIOMS.filter(i=>i.id!==q.id).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[q,...wrong].sort(()=>Math.random()-.5);
+  document.getElementById('lueckeSentence').innerHTML=createBlank(q);
+  document.getElementById('lueckeOpts').innerHTML=opts.map(o=>`<button class="ub-opt" onclick="answerLuecke(${o.id},${q.id})">${o.phrase}</button>`).join('');
+  const fb=document.getElementById('lueckeFeedback');fb.style.display='none';fb.className='ub-feedback';
+  document.getElementById('lueckeNext').style.display='none';
+  document.getElementById('lueckeBar').style.width=(lueckeIdx/LUECKE_TOTAL*100)+'%';
+  document.getElementById('lueckeLbl').textContent=lueckeIdx+' / '+LUECKE_TOTAL;
+  lueckeAnswered=false;
+}
+function answerLuecke(chosen,correct){
+  if(lueckeAnswered)return;lueckeAnswered=true;
+  const isCorrect=chosen===correct;if(isCorrect)lueckeScore++;
+  document.querySelectorAll('#lueckeOpts .ub-opt').forEach(b=>{const id=parseInt(b.getAttribute('onclick').split('(')[1]);if(id===correct)b.classList.add('correct');else if(id===chosen&&!isCorrect)b.classList.add('wrong');b.disabled=true;});
+  const fb=document.getElementById('lueckeFeedback');const q=lueckeQs[lueckeIdx];
+  fb.className='ub-feedback '+(isCorrect?'correct':'wrong');
+  fb.textContent=isCorrect?'✓ Richtig! "'+q.phrase+'"':'✗ Not quite. The correct idiom: "'+q.phrase+'"';
+  fb.style.display='block';document.getElementById('lueckeNext').style.display='inline-block';
+}
+function nextLuecke(){lueckeIdx++;renderLuecke();}
+function showLueckeResult(){
+  document.getElementById('lueckeCard').style.display='none';document.getElementById('lueckeResult').style.display='block';
+  document.getElementById('lueckeResultScore').textContent=lueckeScore+'/'+LUECKE_TOTAL;
+  document.getElementById('lueckeBar').style.width='100%';document.getElementById('lueckeLbl').textContent=LUECKE_TOTAL+' / '+LUECKE_TOTAL;
+  const pct=lueckeScore/LUECKE_TOTAL;
+  document.getElementById('lueckeResultIcon').textContent=pct>=0.8?'🏆':pct>=0.5?'👍':'💪';
+  document.getElementById('lueckeResultMsg').textContent=pct>=0.8?'Ausgezeichnet! You really know your Redewendungen!':pct>=0.5?'Gut gemacht! Keep practising the trickier ones.':'Weiter üben! Review the Browse tab and try again.';
+}
+
+// PUZZLE
+function startPuzzle(){puzzleQs=[...IDIOMS].sort(()=>Math.random()-.5).slice(0,PUZZLE_TOTAL);puzzleIdx=0;puzzleScore=0;document.getElementById('puzzleResult').style.display='none';document.getElementById('puzzleCard').style.display='block';renderPuzzle();}
+function renderPuzzle(){
+  if(puzzleIdx>=PUZZLE_TOTAL){showPuzzleResult();return;}
+  const q=puzzleQs[puzzleIdx];
+  puzzleWords=q.phrase.split(' ').sort(()=>Math.random()-.5);puzzleSelected=[];
+  document.getElementById('puzzleMeaning').textContent=q.meaning;
+  document.getElementById('puzzleDisplay').innerHTML='<span style="color:var(--muted);font-style:italic;font-weight:400">Click words below to build the phrase…</span>';
+  document.getElementById('puzzleDisplay').classList.remove('has-words');
+  document.getElementById('puzzleWords').innerHTML=puzzleWords.map((w,i)=>`<span class="puzzle-word" id="pw-${i}" onclick="addPuzzleWord(${i},'${w.replace(/'/g,"\\'")}')">${w}</span>`).join('');
+  const fb=document.getElementById('puzzleFeedback');fb.style.display='none';fb.className='ub-feedback';
+  document.getElementById('puzzleNext').style.display='none';
+  document.getElementById('puzzleBar').style.width=(puzzleIdx/PUZZLE_TOTAL*100)+'%';
+  document.getElementById('puzzleLbl').textContent=puzzleIdx+' / '+PUZZLE_TOTAL;
+}
+function addPuzzleWord(idx,word){const el=document.getElementById('pw-'+idx);if(el.classList.contains('used'))return;el.classList.add('used');puzzleSelected.push({idx,word});const disp=document.getElementById('puzzleDisplay');disp.classList.add('has-words');disp.textContent=puzzleSelected.map(s=>s.word).join(' ');}
+function resetPuzzle(){puzzleSelected=[];document.querySelectorAll('.puzzle-word').forEach(w=>w.classList.remove('used'));const disp=document.getElementById('puzzleDisplay');disp.innerHTML='<span style="color:var(--muted);font-style:italic;font-weight:400">Click words below to build the phrase…</span>';disp.classList.remove('has-words');}
+function checkPuzzle(){
+  if(puzzleSelected.length===0)return;
+  const q=puzzleQs[puzzleIdx];const answer=puzzleSelected.map(s=>s.word).join(' ');const isCorrect=answer===q.phrase;if(isCorrect)puzzleScore++;
+  const fb=document.getElementById('puzzleFeedback');fb.className='ub-feedback '+(isCorrect?'correct':'wrong');fb.textContent=isCorrect?'✓ Perfekt! "'+q.phrase+'"':'✗ Not quite. Correct: "'+q.phrase+'"';fb.style.display='block';
+  document.getElementById('puzzleNext').style.display='inline-block';document.querySelectorAll('.puzzle-word').forEach(w=>w.classList.add('used'));
+}
+function nextPuzzle(){puzzleIdx++;renderPuzzle();}
+function showPuzzleResult(){
+  document.getElementById('puzzleCard').style.display='none';document.getElementById('puzzleResult').style.display='block';
+  document.getElementById('puzzleResultScore').textContent=puzzleScore+'/'+PUZZLE_TOTAL;
+  document.getElementById('puzzleBar').style.width='100%';document.getElementById('puzzleLbl').textContent=PUZZLE_TOTAL+' / '+PUZZLE_TOTAL;
+  const pct=puzzleScore/PUZZLE_TOTAL;
+  document.getElementById('puzzleResultIcon').textContent=pct>=0.75?'🏆':pct>=0.5?'👍':'💪';
+  document.getElementById('puzzleResultMsg').textContent=pct>=0.75?'Wunderbar! You know these idioms inside out!':pct>=0.5?'Sehr gut! A few more rounds and you\'ll master them.':'Keep going! The word order gets easier with practice.';
+}
+
+// KATEGORIE
+function startKat(){katQs=[...IDIOMS].sort(()=>Math.random()-.5).slice(0,KAT_TOTAL);katIdx=0;katScore=0;katAnswered=false;document.getElementById('katResult').style.display='none';document.getElementById('katCard').style.display='block';renderKat();}
+function renderKat(){
+  if(katIdx>=KAT_TOTAL){showKatResult();return;}
+  const q=katQs[katIdx];
+  const wrongCats=ALL_CATS.filter(c=>c!==q.cat).sort(()=>Math.random()-.5).slice(0,3);
+  const opts=[q.cat,...wrongCats].sort(()=>Math.random()-.5);
+  document.getElementById('katIdiom').textContent='💬 "'+q.phrase+'"';
+  document.getElementById('katExample').textContent=q.example;
+  document.getElementById('katOpts').innerHTML=opts.map(c=>`<button class="kat-opt" onclick="answerKat('${c}','${q.cat}')">${CAT_ICONS[c]}</button>`).join('');
+  const fb=document.getElementById('katFeedback');fb.style.display='none';fb.className='ub-feedback';
+  document.getElementById('katNext').style.display='none';
+  document.getElementById('katBar').style.width=(katIdx/KAT_TOTAL*100)+'%';
+  document.getElementById('katLbl').textContent=katIdx+' / '+KAT_TOTAL;
+  katAnswered=false;
+}
+function answerKat(chosen,correct){
+  if(katAnswered)return;katAnswered=true;const isCorrect=chosen===correct;if(isCorrect)katScore++;
+  document.querySelectorAll('#katOpts .kat-opt').forEach(b=>{const cat=b.getAttribute('onclick').split("'")[1];if(cat===correct)b.classList.add('correct');else if(cat===chosen&&!isCorrect)b.classList.add('wrong');b.disabled=true;});
+  const fb=document.getElementById('katFeedback');fb.className='ub-feedback '+(isCorrect?'correct':'wrong');fb.textContent=isCorrect?'✓ Richtig! Category: '+CAT_ICONS[correct]:'✗ Not quite. It belongs to: '+CAT_ICONS[correct];fb.style.display='block';
+  document.getElementById('katNext').style.display='inline-block';
+}
+function nextKat(){katIdx++;renderKat();}
+function showKatResult(){
+  document.getElementById('katCard').style.display='none';document.getElementById('katResult').style.display='block';
+  document.getElementById('katResultScore').textContent=katScore+'/'+KAT_TOTAL;
+  document.getElementById('katBar').style.width='100%';document.getElementById('katLbl').textContent=KAT_TOTAL+' / '+KAT_TOTAL;
+  const pct=katScore/KAT_TOTAL;
+  document.getElementById('katResultIcon').textContent=pct>=0.8?'🏆':pct>=0.5?'👍':'💪';
+  document.getElementById('katResultMsg').textContent=pct>=0.8?'Fantastisch! You know exactly where each idiom belongs.':pct>=0.5?'Gut gemacht! Focus on the categories you mixed up.':'Keep at it! Browse the categories in the first tab to review.';
+}
+
+// BONUS MC
+const bmcDone={};
+function doBMC(btn,id,correct){
+  if(bmcDone[id])return;bmcDone[id]=true;
+  document.querySelectorAll(`#${id} .mc-btn2`).forEach(b=>{b.disabled=true;if(b.getAttribute('onclick').includes('true'))b.classList.add(b===btn?'correct':'show-ok');});
+  if(!correct){btn.classList.remove('show-ok');btn.classList.add('wrong');}
+}
+
+// BONUS LÜCKENTEXT
+const bonusDone={};
+function checkBonusLuecke(){
+  if(bonusDone['bl']){
+    ['bl1','bl2','bl3','bl4','bl5','bl6','bl7','bl8'].forEach(id=>{const i=document.querySelector('#'+id+' input');if(i){i.classList.remove('ok','no');i.value='';i.disabled=false;}});
+    const fb=document.getElementById('fb-bonus');fb.className='ex-feedback';delete bonusDone['bl'];return;
+  }
+  bonusDone['bl']=true;let ok=0;
+  ['bl1','bl2','bl3','bl4','bl5','bl6','bl7','bl8'].forEach(id=>{
+    const inp=document.querySelector('#'+id+' input');if(!inp)return;
+    const exp=inp.dataset.answer.toLowerCase().trim();const giv=inp.value.toLowerCase().trim();
+    const correct=giv===exp||(exp.startsWith(giv)&&giv.length>2);
+    inp.classList.add(correct?'ok':'no');inp.disabled=true;if(correct)ok++;
+  });
+  const fb=document.getElementById('fb-bonus');
+  fb.className='ex-feedback show '+(ok===8?'great':'almost');
+  if(ok===8)fb.textContent='🎉 Perfekt! Alle Lücken richtig!';
+  else{
+    const hints=['bl1','bl2','bl3','bl4','bl5','bl6','bl7','bl8'].map(id=>{const i=document.querySelector('#'+id+' input');return(!i||i.classList.contains('ok'))?null:'→ '+i.dataset.answer;}).filter(Boolean).join('  ');
+    fb.textContent=`✅ ${ok}/8 richtig. Lösungen: ${hints}`;
+  }
+}
+
+// UB NAV
+function switchUb(name,btn){
+  document.querySelectorAll('.ub-nav-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');
+  document.querySelectorAll('.ub-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('ub-'+name).classList.add('active');
+}
+
 function switchTab(tab){
   currentTab=tab;
-  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['browse','flash','quiz','favs'][i]===tab);});
+  const tabNames=['browse','flash','quiz','uebungen','lesetext','favs'];
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',tabNames[i]===tab);});
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('sec-'+tab).classList.add('active');
   if(tab==='flash')initFC();
   if(tab==='quiz')startQuiz();
   if(tab==='favs')renderFavs();
+  if(tab==='uebungen'){startLuecke();startPuzzle();startKat();}
 }
 
-document.addEventListener('DOMContentLoaded',()=>{applyLang();filterCards();initFC();startQuiz();});
+document.addEventListener('DOMContentLoaded',()=>{applyLang();filterCards();initFC();startQuiz();startLuecke();startPuzzle();startKat();});
 </script>
 </body>
 </html>
