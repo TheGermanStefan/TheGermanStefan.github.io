@@ -225,9 +225,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 .next-lvl-wrap{margin:40px auto;padding:0 20px;max-width:900px}
 .next-lvl-link{display:block;text-decoration:none;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:transform .2s,box-shadow .2s}
 .next-lvl-link:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.65)}
-.next-lvl-inner{position:relative;background:linear-gradient(135deg,#1a0505,#4a0f0f,#1a0505);aspect-ratio:1460/750;display:flex;align-items:center;justify-content:space-between;padding:32px 40px}
-.next-lvl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.next-lvl-inner{position:relative;background:linear-gradient(135deg,#1a0505,#4a0f0f,#1a0505);overflow:hidden}
+.next-lvl-img{display:block;width:100%;height:auto}
 .next-lvl-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.25) 60%,rgba(0,0,0,.6) 100%)}
+.next-lvl-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:5% 6%}
 .next-lvl-text{position:relative;z-index:2}
 .next-lvl-badge{display:inline-block;background:#e53935;color:#000;font-weight:900;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px}
 .next-lvl-title{color:#fff;font-size:2rem;font-weight:900;margin:0 0 6px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
@@ -245,6 +246,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <p class="next-lvl-sub">Master German</p>
       </div>
       <div class="next-lvl-arrow">→</div>
+      </div>
     </div>
   </a>
 </div>
