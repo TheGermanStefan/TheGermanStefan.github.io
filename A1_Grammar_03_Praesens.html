@@ -98,7 +98,7 @@ table.rft tr:nth-child(even) td{background:#fafcff}
 <div class="topbar">
   <div class="topbar-left">
     <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
-    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="A1_hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
+    <div class="bc"><a href="index.html" data-t="home">Home</a><span>›</span><a href="https://thegermanstefan.github.io/TheGermanStefan_A1_Hub.html">A1</a><span>›</span><span data-t="grammar">Grammar</span></div>
     <span class="lbadge">A1</span><span class="mbadge" data-t="grammar">Grammar</span>
   </div>
   <div class="ls">
@@ -359,5 +359,6 @@ function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===
 function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=0.8){cls='great';msg=t('res_great');}else if(p>=0.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
 document.addEventListener('DOMContentLoaded',()=>applyLang());
 </script>
+<script src="content-nav.js"></script>
 </body>
 </html>
