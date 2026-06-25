@@ -1,19 +1,17 @@
-/* TheGermanStefan — Level Navigation Bar  (v2)
+/* TheGermanStefan — Level Navigation Bar  (v3)
    ─────────────────────────────────────────────────────────────────────
    Add to any hub page: <script src="level-nav.js"></script>  before </body>
 
-   v2 additions:
-   • Automatically fixes C1/C2 topnav (makes it sticky so the bar anchors correctly)
-   • Adjusts C1/C2 tab bar top offset so it sits below the level nav
-   • Dynamically loads hub-section-nav.js for section jump-links on A1–B2 hubs
+   v3 additions over v2:
+   • Loads hub-premium-cta.js  — replaces squeezed image banners with a
+     clean premium upgrade card ($19/month, no images)
+   • Loads hub-hero.js         — places banner image as a full-width hero
+     at the top of the hub's main content area
    ─────────────────────────────────────────────────────────────────────
 */
 (function () {
 
-  /* ── 0. Fix C1/C2 topnav: make sticky + add .topbar class ──────────
-     C1/C2 use <nav class="topnav"> with no sticky positioning.
-     level-nav looks for .topbar; adding the class lets it anchor correctly.
-  ─────────────────────────────────────────────────────────────────── */
+  /* ── 0. Fix C1/C2 topnav ─────────────────────────────────────────── */
   var topnavEl = document.querySelector('.topnav:not(.topbar)');
   if (topnavEl) {
     topnavEl.classList.add('topbar');
@@ -89,10 +87,7 @@
     document.body.insertBefore(nav, document.body.firstChild);
   }
 
-  /* ── 2. Fix C1/C2 tab bar top offset ──────────────────────────────
-     After inserting the level-nav, measure actual heights and push
-     the .tabs bar below both the topnav and the level-nav.
-  ─────────────────────────────────────────────────────────────────── */
+  /* ── 2. Fix C1/C2 tab bar top offset ─────────────────────────────── */
   setTimeout(function () {
     var tabsEl = document.querySelector('.tabs');
     if (tabsEl) {
@@ -105,12 +100,11 @@
     }
   }, 0);
 
-  /* ── 3. Load hub-section-nav.js ────────────────────────────────────
-     Creates the section jump-links bar on A1, A2, B1, B2 hubs.
-     Is a no-op on pages that don't have the expected section patterns.
-  ─────────────────────────────────────────────────────────────────── */
-  var s = document.createElement('script');
-  s.src = 'hub-section-nav.js';
-  document.body.appendChild(s);
+  /* ── 3. Load additional enhancement scripts ───────────────────────── */
+  ['hub-section-nav.js', 'hub-premium-cta.js', 'hub-hero.js'].forEach(function (src) {
+    var s = document.createElement('script');
+    s.src = src;
+    document.body.appendChild(s);
+  });
 
 })();
