@@ -122,7 +122,7 @@ const LANG={en:{fb_correct:'Correct!',fb_wrong:'Not quite — check the answer.'
 let CL=localStorage.getItem('tgs_lang')||'en';
 function t(k){return(LANG[CL]||LANG.en)[k]||k}
 function applyLang(){
-  var lb={fr:'🇫������ Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
+  var lb={fr:'🇫🇷 Français',es:'🇪🇸 Español',it:'🇮🇹 Italiano',pt:'🇵🇹 Português'};
   var bar=document.getElementById('lang-bar');
   if(bar){if(CL==='en'){bar.style.display='none';}else{bar.textContent=lb[CL]||CL;bar.style.display='block';}}
   document.querySelectorAll('[data-t]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-t'));});
@@ -141,5 +141,6 @@ function checkRF(ans,idxs,rid){let ok=0;idxs.forEach((idx,i)=>{if(rfSels[idx]===
 function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice'),em='💪';if(p===1){cls='perfect';msg=t('res_perfect');em='🏆';}else if(p>=0.8){cls='great';msg=t('res_great');em='🎉';}else if(p>=0.5){cls='good';msg=t('res_good');em='👍';}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+em+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
 document.addEventListener('DOMContentLoaded',()=>{applyLang()});
 </script>
+<script src="content-nav.js"></script>
 </body>
 </html>
