@@ -49,7 +49,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .qopt:hover{border-color:var(--lc);background:#f3e5f5}
 .qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
 .qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
-.qopt.disabled{cursor:default;opacity:.6}
+.qopt.disabled{cursor:default;opacity:.6;pointer-events:none}
 .qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
 .qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
 .qfb.bad{background:#ffebee;color:#b71c1c;display:block}
@@ -152,10 +152,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 1</div>
     <div class="qtext">Ich _____ gestern Fußball gespielt.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,1,false)">bin</button>
-      <button class="qopt" onclick="mc(this,1,true)">habe</button>
-      <button class="qopt" onclick="mc(this,1,false)">hatte</button>
-      <button class="qopt" onclick="mc(this,1,false)">war</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">bin</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">habe</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">hatte</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">war</button>
     </div>
     <div class="qfb" id="qfb1"></div>
   </div>
@@ -164,10 +164,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 2</div>
     <div class="qtext">Er _____ gestern nach München gefahren.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,2,false)">hat</button>
-      <button class="qopt" onclick="mc(this,2,true)">ist</button>
-      <button class="qopt" onclick="mc(this,2,false)">war</button>
-      <button class="qopt" onclick="mc(this,2,false)">hatte</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">hat</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">ist</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">war</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">hatte</button>
     </div>
     <div class="qfb" id="qfb2"></div>
   </div>
@@ -176,10 +176,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 3</div>
     <div class="qtext">Was ist the Partizip II of "kaufen"?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,3,false)">gekaufen</button>
-      <button class="qopt" onclick="mc(this,3,true)">gekauft</button>
-      <button class="qopt" onclick="mc(this,3,false)">gekauff</button>
-      <button class="qopt" onclick="mc(this,3,false)">kauft</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">gekaufen</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">gekauft</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">gekauff</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">kauft</button>
     </div>
     <div class="qfb" id="qfb3"></div>
   </div>
@@ -188,10 +188,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 4</div>
     <div class="qtext">Was ist the Partizip II of "schreiben"?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,4,false)">geschreibt</button>
-      <button class="qopt" onclick="mc(this,4,false)">schrieben</button>
-      <button class="qopt" onclick="mc(this,4,true)">geschrieben</button>
-      <button class="qopt" onclick="mc(this,4,false)">geschreibt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">geschreibt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">schrieben</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">geschrieben</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">geschreibt</button>
     </div>
     <div class="qfb" id="qfb4"></div>
   </div>
@@ -200,10 +200,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 5</div>
     <div class="qtext">Wir _____ lange geschlafen.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,5,true)">haben</button>
-      <button class="qopt" onclick="mc(this,5,false)">sind</button>
-      <button class="qopt" onclick="mc(this,5,false)">hatten</button>
-      <button class="qopt" onclick="mc(this,5,false)">waren</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">haben</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">sind</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">hatten</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">waren</button>
     </div>
     <div class="qfb" id="qfb5"></div>
   </div>
@@ -212,10 +212,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 6</div>
     <div class="qtext">Das Partizip II of "bestellen" (to order) is:</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,6,false)">gebestellt</button>
-      <button class="qopt" onclick="mc(this,6,true)">bestellt</button>
-      <button class="qopt" onclick="mc(this,6,false)">begestellt</button>
-      <button class="qopt" onclick="mc(this,6,false)">bestellgt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">gebestellt</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">bestellt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">begestellt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">bestellgt</button>
     </div>
     <div class="qfb" id="qfb6"></div>
   </div>
@@ -224,10 +224,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 7</div>
     <div class="qtext">Sie (she) _____ früh eingeschlafen.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,7,false)">hat</button>
-      <button class="qopt" onclick="mc(this,7,true)">ist</button>
-      <button class="qopt" onclick="mc(this,7,false)">hatte</button>
-      <button class="qopt" onclick="mc(this,7,false)">war</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">hat</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">ist</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">hatte</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">war</button>
     </div>
     <div class="qfb" id="qfb7"></div>
   </div>
@@ -236,10 +236,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 8</div>
     <div class="qtext">Ich _____ das Buch gelesen.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,8,true)">habe</button>
-      <button class="qopt" onclick="mc(this,8,false)">bin</button>
-      <button class="qopt" onclick="mc(this,8,false)">hatte</button>
-      <button class="qopt" onclick="mc(this,8,false)">war</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">habe</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">bin</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">hatte</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">war</button>
     </div>
     <div class="qfb" id="qfb8"></div>
   </div>
@@ -248,10 +248,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 9</div>
     <div class="qtext">Was ist the Partizip II of "essen"?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,9,false)">geesst</button>
-      <button class="qopt" onclick="mc(this,9,false)">geessen</button>
-      <button class="qopt" onclick="mc(this,9,true)">gegessen</button>
-      <button class="qopt" onclick="mc(this,9,false)">gessen</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">geesst</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">geessen</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">gegessen</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">gessen</button>
     </div>
     <div class="qfb" id="qfb9"></div>
   </div>
@@ -260,10 +260,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 10</div>
     <div class="qtext">Er _____ nach Hause gekommen.</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,10,false)">hat</button>
-      <button class="qopt" onclick="mc(this,10,true)">ist</button>
-      <button class="qopt" onclick="mc(this,10,false)">hatte</button>
-      <button class="qopt" onclick="mc(this,10,false)">war</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">hat</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">ist</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">hatte</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">war</button>
     </div>
     <div class="qfb" id="qfb10"></div>
   </div>
@@ -332,10 +332,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 1</div>
     <div class="qtext">Where did the author travel on Saturday?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,11,false)">Berlin</button>
-      <button class="qopt" onclick="mc(this,11,true)">Hamburg</button>
-      <button class="qopt" onclick="mc(this,11,false)">München</button>
-      <button class="qopt" onclick="mc(this,11,false)">Wien</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">Berlin</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,11,true)">Hamburg</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">München</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">Wien</button>
     </div>
     <div class="qfb" id="qfb11"></div>
   </div>
@@ -344,10 +344,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 2</div>
     <div class="qtext">What did the author and Lisa do in the park?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,12,false)">Played football</button>
-      <button class="qopt" onclick="mc(this,12,false)">Ate lunch</button>
-      <button class="qopt" onclick="mc(this,12,true)">Walked / strolled</button>
-      <button class="qopt" onclick="mc(this,12,false)">Watched a film</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,12,false)">Played football</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,12,false)">Ate lunch</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,12,true)">Walked / strolled</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,12,false)">Watched a film</button>
     </div>
     <div class="qfb" id="qfb12"></div>
   </div>
@@ -356,10 +356,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
     <div class="qnum" data-t="q_label">Question 3</div>
     <div class="qtext">What did the author do on Sunday?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,13,false)">Travelled again</button>
-      <button class="qopt" onclick="mc(this,13,false)">Cooked dinner</button>
-      <button class="qopt" onclick="mc(this,13,false)">Visited family</button>
-      <button class="qopt" onclick="mc(this,13,true)">Slept all day</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,13,false)">Travelled again</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,13,false)">Cooked dinner</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,13,false)">Visited family</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,13,true)">Slept all day</button>
     </div>
     <div class="qfb" id="qfb13"></div>
   </div>
@@ -386,7 +386,7 @@ function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 let mcs={};
-function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
 function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
 function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
 function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}

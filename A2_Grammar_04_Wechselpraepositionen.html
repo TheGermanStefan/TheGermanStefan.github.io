@@ -46,7 +46,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .qopt:hover{border-color:var(--lc);background:#f3e5f5}
 .qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
 .qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
-.qopt.disabled{cursor:default;opacity:.6}
+.qopt.disabled{cursor:default;opacity:.6;pointer-events:none}
 .qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
 .qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
 .qfb.bad{background:#ffebee;color:#b71c1c;display:block}
@@ -131,61 +131,61 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <div class="qblock">
   <div class="qnum">Question 1</div>
   <div class="qtext">Ich lege das Buch _____ Tisch. (der Tisch — motion)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,1,true)">auf den</button><button class="qopt" onclick="mc(this,1,false)">auf dem</button><button class="qopt" onclick="mc(this,1,false)">in den</button><button class="qopt" onclick="mc(this,1,false)">in dem</button></div>
+  <div class="qopts"><button class="qopt" data-correct="true" onclick="mc(this,1,true)">auf den</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">auf dem</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">in den</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">in dem</button></div>
   <div class="qfb" id="qfb1"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 2</div>
   <div class="qtext">Das Buch liegt _____ Tisch. (der Tisch — location)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,2,false)">auf den</button><button class="qopt" onclick="mc(this,2,true)">auf dem</button><button class="qopt" onclick="mc(this,2,false)">an die</button><button class="qopt" onclick="mc(this,2,false)">an der</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,2,false)">auf den</button><button class="qopt" data-correct="true" onclick="mc(this,2,true)">auf dem</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">an die</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">an der</button></div>
   <div class="qfb" id="qfb2"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 3</div>
   <div class="qtext">Wir gehen _____ Kino. (das Kino — motion)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,3,false)">in dem</button><button class="qopt" onclick="mc(this,3,true)">in das</button><button class="qopt" onclick="mc(this,3,false)">in den</button><button class="qopt" onclick="mc(this,3,false)">auf das</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,3,false)">in dem</button><button class="qopt" data-correct="true" onclick="mc(this,3,true)">in das</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">in den</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">auf das</button></div>
   <div class="qfb" id="qfb3"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 4</div>
   <div class="qtext">Sie sitzt _____ Sofa. (das Sofa — location)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,4,false)">auf das</button><button class="qopt" onclick="mc(this,4,true)">auf dem</button><button class="qopt" onclick="mc(this,4,false)">auf den</button><button class="qopt" onclick="mc(this,4,false)">in das</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,4,false)">auf das</button><button class="qopt" data-correct="true" onclick="mc(this,4,true)">auf dem</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">auf den</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">in das</button></div>
   <div class="qfb" id="qfb4"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 5</div>
   <div class="qtext">"Wohin?" triggers which case with Wechselpräpositionen?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,5,false)">Dative</button><button class="qopt" onclick="mc(this,5,true)">Accusative</button><button class="qopt" onclick="mc(this,5,false)">Genitive</button><button class="qopt" onclick="mc(this,5,false)">Nominative</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,5,false)">Dative</button><button class="qopt" data-correct="true" onclick="mc(this,5,true)">Accusative</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">Genitive</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">Nominative</button></div>
   <div class="qfb" id="qfb5"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 6</div>
   <div class="qtext">Er hängt das Bild _____ Wand. (die Wand — motion)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,6,false)">an der</button><button class="qopt" onclick="mc(this,6,true)">an die</button><button class="qopt" onclick="mc(this,6,false)">auf die</button><button class="qopt" onclick="mc(this,6,false)">vor der</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,6,false)">an der</button><button class="qopt" data-correct="true" onclick="mc(this,6,true)">an die</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">auf die</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">vor der</button></div>
   <div class="qfb" id="qfb6"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 7</div>
   <div class="qtext">Das Auto steht _____ Garage. (die Garage — location)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,7,false)">vor die</button><button class="qopt" onclick="mc(this,7,true)">vor der</button><button class="qopt" onclick="mc(this,7,false)">hinter die</button><button class="qopt" onclick="mc(this,7,false)">neben den</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,7,false)">vor die</button><button class="qopt" data-correct="true" onclick="mc(this,7,true)">vor der</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">hinter die</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">neben den</button></div>
   <div class="qfb" id="qfb7"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 8</div>
   <div class="qtext">Die Katze schläft _____ Bett. (das Bett — location)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,8,false)">unter das</button><button class="qopt" onclick="mc(this,8,true)">unter dem</button><button class="qopt" onclick="mc(this,8,false)">über das</button><button class="qopt" onclick="mc(this,8,false)">neben den</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,8,false)">unter das</button><button class="qopt" data-correct="true" onclick="mc(this,8,true)">unter dem</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">über das</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">neben den</button></div>
   <div class="qfb" id="qfb8"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 9</div>
   <div class="qtext">Sie stellt die Blumen _____ Tisch. (der Tisch — motion)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,9,false)">auf dem</button><button class="qopt" onclick="mc(this,9,false)">neben dem</button><button class="qopt" onclick="mc(this,9,true)">neben den</button><button class="qopt" onclick="mc(this,9,false)">auf den</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,9,false)">auf dem</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">neben dem</button><button class="qopt" data-correct="true" onclick="mc(this,9,true)">neben den</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">auf den</button></div>
   <div class="qfb" id="qfb9"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 10</div>
   <div class="qtext">Which verb pair describes location, not motion?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,10,false)">legen / stellen</button><button class="qopt" onclick="mc(this,10,true)">liegen / stehen</button><button class="qopt" onclick="mc(this,10,false)">hängen / setzen</button><button class="qopt" onclick="mc(this,10,false)">stecken / legen</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,10,false)">legen / stellen</button><button class="qopt" data-correct="true" onclick="mc(this,10,true)">liegen / stehen</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">hängen / setzen</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">stecken / legen</button></div>
   <div class="qfb" id="qfb10"></div>
 </div>
 </div>
@@ -241,17 +241,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <div class="qblock">
   <div class="qnum">Question 11</div>
   <div class="qtext">Where does the speaker put the books?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,11,false)">Under the bed</button><button class="qopt" onclick="mc(this,11,true)">On the desk</button><button class="qopt" onclick="mc(this,11,false)">Behind the door</button><button class="qopt" onclick="mc(this,11,false)">Next to the lamp</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,11,false)">Under the bed</button><button class="qopt" data-correct="true" onclick="mc(this,11,true)">On the desk</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">Behind the door</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">Next to the lamp</button></div>
   <div class="qfb" id="qfb11"></div>
 </div><div class="qblock">
   <div class="qnum">Question 12</div>
   <div class="qtext">Where does the jacket end up hanging?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,12,false)">On the chair</button><button class="qopt" onclick="mc(this,12,false)">Next to the desk</button><button class="qopt" onclick="mc(this,12,true)">Behind the door</button><button class="qopt" onclick="mc(this,12,false)">Above the bed</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,12,false)">On the chair</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">Next to the desk</button><button class="qopt" data-correct="true" onclick="mc(this,12,true)">Behind the door</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">Above the bed</button></div>
   <div class="qfb" id="qfb12"></div>
 </div><div class="qblock">
   <div class="qnum">Question 13</div>
   <div class="qtext">The sentence "Die Schuhe liegen unter dem Bett" uses dative because...</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,13,false)">unter always takes dative</button><button class="qopt" onclick="mc(this,13,true)">it describes location (Wo?)</button><button class="qopt" onclick="mc(this,13,false)">Schuhe is plural</button><button class="qopt" onclick="mc(this,13,false)">liegen is a modal verb</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,13,false)">unter always takes dative</button><button class="qopt" data-correct="true" onclick="mc(this,13,true)">it describes location (Wo?)</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">Schuhe is plural</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">liegen is a modal verb</button></div>
   <div class="qfb" id="qfb13"></div>
 </div>
 </div>
@@ -267,7 +267,7 @@ function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 let mcs={};
-function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
 function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
 function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
 function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}

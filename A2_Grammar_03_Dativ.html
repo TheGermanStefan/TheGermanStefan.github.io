@@ -46,7 +46,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .qopt:hover{border-color:var(--lc);background:#f3e5f5}
 .qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
 .qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
-.qopt.disabled{cursor:default;opacity:.6}
+.qopt.disabled{cursor:default;opacity:.6;pointer-events:none}
 .qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
 .qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
 .qfb.bad{background:#ffebee;color:#b71c1c;display:block}
@@ -126,61 +126,61 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <div class="qblock">
   <div class="qnum">Question 1</div>
   <div class="qtext">Ich gebe _____ Mann das Geld.</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,1,false)">der</button><button class="qopt" onclick="mc(this,1,true)">dem</button><button class="qopt" onclick="mc(this,1,false)">den</button><button class="qopt" onclick="mc(this,1,false)">die</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,1,false)">der</button><button class="qopt" data-correct="true" onclick="mc(this,1,true)">dem</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">den</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">die</button></div>
   <div class="qfb" id="qfb1"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 2</div>
   <div class="qtext">Er kommt aus _____ Schweiz. (die Schweiz)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,2,false)">die</button><button class="qopt" onclick="mc(this,2,true)">der</button><button class="qopt" onclick="mc(this,2,false)">dem</button><button class="qopt" onclick="mc(this,2,false)">das</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,2,false)">die</button><button class="qopt" data-correct="true" onclick="mc(this,2,true)">der</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">dem</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">das</button></div>
   <div class="qfb" id="qfb2"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 3</div>
   <div class="qtext">Wir fahren mit _____ Bus. (der Bus)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,3,true)">dem</button><button class="qopt" onclick="mc(this,3,false)">der</button><button class="qopt" onclick="mc(this,3,false)">den</button><button class="qopt" onclick="mc(this,3,false)">die</button></div>
+  <div class="qopts"><button class="qopt" data-correct="true" onclick="mc(this,3,true)">dem</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">der</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">den</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">die</button></div>
   <div class="qfb" id="qfb3"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 4</div>
   <div class="qtext">Sie schreibt _____ Lehrerin einen Brief. (die Lehrerin)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,4,false)">dem</button><button class="qopt" onclick="mc(this,4,true)">der</button><button class="qopt" onclick="mc(this,4,false)">die</button><button class="qopt" onclick="mc(this,4,false)">einen</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,4,false)">dem</button><button class="qopt" data-correct="true" onclick="mc(this,4,true)">der</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">die</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">einen</button></div>
   <div class="qfb" id="qfb4"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 5</div>
   <div class="qtext">Ich wohne bei _____ Freundin. (eine Freundin)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,5,false)">einem</button><button class="qopt" onclick="mc(this,5,true)">einer</button><button class="qopt" onclick="mc(this,5,false)">eine</button><button class="qopt" onclick="mc(this,5,false)">ein</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,5,false)">einem</button><button class="qopt" data-correct="true" onclick="mc(this,5,true)">einer</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">eine</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">ein</button></div>
   <div class="qfb" id="qfb5"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 6</div>
   <div class="qtext">"nach" always takes which case?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Nominative</button><button class="qopt" onclick="mc(this,6,false)">Accusative</button><button class="qopt" onclick="mc(this,6,true)">Dative</button><button class="qopt" onclick="mc(this,6,false)">Genitive</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,6,false)">Nominative</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">Accusative</button><button class="qopt" data-correct="true" onclick="mc(this,6,true)">Dative</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">Genitive</button></div>
   <div class="qfb" id="qfb6"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 7</div>
   <div class="qtext">Seit _____ Jahr lerne ich Deutsch. (ein Jahr)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,7,false)">ein</button><button class="qopt" onclick="mc(this,7,false)">eine</button><button class="qopt" onclick="mc(this,7,true)">einem</button><button class="qopt" onclick="mc(this,7,false)">einen</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,7,false)">ein</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">eine</button><button class="qopt" data-correct="true" onclick="mc(this,7,true)">einem</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">einen</button></div>
   <div class="qfb" id="qfb7"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 8</div>
   <div class="qtext">In the dative plural, nouns usually add _____ at the end.</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,8,false)">-e</button><button class="qopt" onclick="mc(this,8,true)">-n</button><button class="qopt" onclick="mc(this,8,false)">-s</button><button class="qopt" onclick="mc(this,8,false)">-en</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,8,false)">-e</button><button class="qopt" data-correct="true" onclick="mc(this,8,true)">-n</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">-s</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">-en</button></div>
   <div class="qfb" id="qfb8"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 9</div>
   <div class="qtext">Er hilft _____ Kind. (das Kind)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,9,false)">das</button><button class="qopt" onclick="mc(this,9,true)">dem</button><button class="qopt" onclick="mc(this,9,false)">den</button><button class="qopt" onclick="mc(this,9,false)">die</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,9,false)">das</button><button class="qopt" data-correct="true" onclick="mc(this,9,true)">dem</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">den</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">die</button></div>
   <div class="qfb" id="qfb9"></div>
 </div>
 <div class="qblock">
   <div class="qnum">Question 10</div>
   <div class="qtext">Von _____ Arzt habe ich gute Nachrichten. (der Arzt)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,10,false)">die</button><button class="qopt" onclick="mc(this,10,false)">den</button><button class="qopt" onclick="mc(this,10,true)">dem</button><button class="qopt" onclick="mc(this,10,false)">der</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,10,false)">die</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">den</button><button class="qopt" data-correct="true" onclick="mc(this,10,true)">dem</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">der</button></div>
   <div class="qfb" id="qfb10"></div>
 </div>
 </div>
@@ -239,17 +239,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   <div class="qblock">
   <div class="qnum">Question 11</div>
   <div class="qtext">How did the author travel to the city?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,11,false)">By train</button><button class="qopt" onclick="mc(this,11,true)">By bicycle</button><button class="qopt" onclick="mc(this,11,false)">By bus</button><button class="qopt" onclick="mc(this,11,false)">On foot</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,11,false)">By train</button><button class="qopt" data-correct="true" onclick="mc(this,11,true)">By bicycle</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">By bus</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">On foot</button></div>
   <div class="qfb" id="qfb11"></div>
 </div><div class="qblock">
   <div class="qnum">Question 12</div>
   <div class="qtext">What could you see from the museum?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,12,false)">The sea</button><button class="qopt" onclick="mc(this,12,false)">The mountains</button><button class="qopt" onclick="mc(this,12,true)">The whole city</button><button class="qopt" onclick="mc(this,12,false)">A park</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,12,false)">The sea</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">The mountains</button><button class="qopt" data-correct="true" onclick="mc(this,12,true)">The whole city</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">A park</button></div>
   <div class="qfb" id="qfb12"></div>
 </div><div class="qblock">
   <div class="qnum">Question 13</div>
   <div class="qtext">How did the author get home?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,13,false)">By bicycle</button><button class="qopt" onclick="mc(this,13,true)">By train</button><button class="qopt" onclick="mc(this,13,false)">By bus</button><button class="qopt" onclick="mc(this,13,false)">By car</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,13,false)">By bicycle</button><button class="qopt" data-correct="true" onclick="mc(this,13,true)">By train</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">By bus</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">By car</button></div>
   <div class="qfb" id="qfb13"></div>
 </div>
 </div>
@@ -266,7 +266,7 @@ function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 let mcs={};
-function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
 function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
 function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='\u2192 '+ans[i];}});showRes(rid,ok,ids.length)}
 function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}

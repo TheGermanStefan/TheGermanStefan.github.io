@@ -41,7 +41,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 .qopt:hover{border-color:var(--lc);background:#f3e5f5}
 .qopt.correct{background:var(--green);border-color:var(--green);color:#fff}
 .qopt.wrong{background:var(--red);border-color:var(--red);color:#fff}
-.qopt.disabled{cursor:default;opacity:.6}
+.qopt.disabled{cursor:default;opacity:.6;pointer-events:none}
 .qfb{margin-top:8px;font-size:13px;padding:7px 12px;border-radius:8px;display:none}
 .qfb.ok{background:#e8f5e9;color:#1b5e20;display:block}
 .qfb.bad{background:#ffebee;color:#b71c1c;display:block}
@@ -122,52 +122,52 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
 <div class="card"><div class="sec-title">Multiple Choice - 10 Questions</div><div class="qblock">
   <div class="qnum">Question 1</div>
   <div class="qtext">Berlin ist gross. Hamburg ist _____ als Berlin.</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,1,false)">grosser</button><button class="qopt" onclick="mc(this,1,true)">groesser</button><button class="qopt" onclick="mc(this,1,false)">am groessten</button><button class="qopt" onclick="mc(this,1,false)">grosst</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,1,false)">grosser</button><button class="qopt" data-correct="true" onclick="mc(this,1,true)">groesser</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">am groessten</button><button class="qopt" data-correct="false" onclick="mc(this,1,false)">grosst</button></div>
   <div class="qfb" id="qfb1"></div>
 </div><div class="qblock">
   <div class="qnum">Question 2</div>
   <div class="qtext">Dieses Buch ist gut. Aber jenes Buch ist _____. (comparative)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,2,false)">am besten</button><button class="qopt" onclick="mc(this,2,true)">besser</button><button class="qopt" onclick="mc(this,2,false)">gut</button><button class="qopt" onclick="mc(this,2,false)">beste</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,2,false)">am besten</button><button class="qopt" data-correct="true" onclick="mc(this,2,true)">besser</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">gut</button><button class="qopt" data-correct="false" onclick="mc(this,2,false)">beste</button></div>
   <div class="qfb" id="qfb2"></div>
 </div><div class="qblock">
   <div class="qnum">Question 3</div>
   <div class="qtext">What is the superlative of "viel"?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,3,false)">vieler</button><button class="qopt" onclick="mc(this,3,false)">am vielsten</button><button class="qopt" onclick="mc(this,3,true)">am meisten</button><button class="qopt" onclick="mc(this,3,false)">mehren</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,3,false)">vieler</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">am vielsten</button><button class="qopt" data-correct="true" onclick="mc(this,3,true)">am meisten</button><button class="qopt" data-correct="false" onclick="mc(this,3,false)">mehren</button></div>
   <div class="qfb" id="qfb3"></div>
 </div><div class="qblock">
   <div class="qnum">Question 4</div>
   <div class="qtext">Er laeuft schnell. Sie laeuft _____ von allen.</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,4,false)">schneller</button><button class="qopt" onclick="mc(this,4,false)">schnellsten</button><button class="qopt" onclick="mc(this,4,true)">am schnellsten</button><button class="qopt" onclick="mc(this,4,false)">am schnell</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,4,false)">schneller</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">schnellsten</button><button class="qopt" data-correct="true" onclick="mc(this,4,true)">am schnellsten</button><button class="qopt" data-correct="false" onclick="mc(this,4,false)">am schnell</button></div>
   <div class="qfb" id="qfb4"></div>
 </div><div class="qblock">
   <div class="qnum">Question 5</div>
   <div class="qtext">Das ist das _____ Hotel in der Stadt. (gut, superlative attr.)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,5,false)">bestste</button><button class="qopt" onclick="mc(this,5,false)">guteste</button><button class="qopt" onclick="mc(this,5,true)">beste</button><button class="qopt" onclick="mc(this,5,false)">am besten</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,5,false)">bestste</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">guteste</button><button class="qopt" data-correct="true" onclick="mc(this,5,true)">beste</button><button class="qopt" data-correct="false" onclick="mc(this,5,false)">am besten</button></div>
   <div class="qfb" id="qfb5"></div>
 </div><div class="qblock">
   <div class="qnum">Question 6</div>
   <div class="qtext">Sommer ist waermer als Winter. Which word is comparative?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,6,false)">Sommer</button><button class="qopt" onclick="mc(this,6,true)">waermer</button><button class="qopt" onclick="mc(this,6,false)">als</button><button class="qopt" onclick="mc(this,6,false)">Winter</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,6,false)">Sommer</button><button class="qopt" data-correct="true" onclick="mc(this,6,true)">waermer</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">als</button><button class="qopt" data-correct="false" onclick="mc(this,6,false)">Winter</button></div>
   <div class="qfb" id="qfb6"></div>
 </div><div class="qblock">
   <div class="qnum">Question 7</div>
   <div class="qtext">What is the comparative of "gern"?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,7,false)">gerner</button><button class="qopt" onclick="mc(this,7,true)">lieber</button><button class="qopt" onclick="mc(this,7,false)">am liebsten</button><button class="qopt" onclick="mc(this,7,false)">mehr</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,7,false)">gerner</button><button class="qopt" data-correct="true" onclick="mc(this,7,true)">lieber</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">am liebsten</button><button class="qopt" data-correct="false" onclick="mc(this,7,false)">mehr</button></div>
   <div class="qfb" id="qfb7"></div>
 </div><div class="qblock">
   <div class="qnum">Question 8</div>
   <div class="qtext">Der Mount Everest ist der _____ Berg der Welt. (hoch)</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,8,false)">hoehste</button><button class="qopt" onclick="mc(this,8,false)">am hoechsten</button><button class="qopt" onclick="mc(this,8,true)">hoechste</button><button class="qopt" onclick="mc(this,8,false)">hoehere</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,8,false)">hoehste</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">am hoechsten</button><button class="qopt" data-correct="true" onclick="mc(this,8,true)">hoechste</button><button class="qopt" data-correct="false" onclick="mc(this,8,false)">hoehere</button></div>
   <div class="qfb" id="qfb8"></div>
 </div><div class="qblock">
   <div class="qnum">Question 9</div>
   <div class="qtext">Mein Bruder ist aelter _____ ich.</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,9,false)">wie</button><button class="qopt" onclick="mc(this,9,true)">als</button><button class="qopt" onclick="mc(this,9,false)">von</button><button class="qopt" onclick="mc(this,9,false)">zu</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,9,false)">wie</button><button class="qopt" data-correct="true" onclick="mc(this,9,true)">als</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">von</button><button class="qopt" data-correct="false" onclick="mc(this,9,false)">zu</button></div>
   <div class="qfb" id="qfb9"></div>
 </div><div class="qblock">
   <div class="qnum">Question 10</div>
   <div class="qtext">What is the superlative of "nah"?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,10,false)">am naehsten</button><button class="qopt" onclick="mc(this,10,true)">am naechsten</button><button class="qopt" onclick="mc(this,10,false)">nahsten</button><button class="qopt" onclick="mc(this,10,false)">naehersten</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,10,false)">am naehsten</button><button class="qopt" data-correct="true" onclick="mc(this,10,true)">am naechsten</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">nahsten</button><button class="qopt" data-correct="false" onclick="mc(this,10,false)">naehersten</button></div>
   <div class="qfb" id="qfb10"></div>
 </div></div>
 <div class="card"><div class="sec-title">Fill in the blanks</div><div class="fill-row">1. Meine Stadt ist gross, aber Berlin ist <input class="fi" id="f1" placeholder="?"> (gross + comparative).</div>
@@ -187,17 +187,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--
   </div><div class="qblock">
   <div class="qnum">Question 11</div>
   <div class="qtext">Who thinks their city is the most modern?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,11,false)">Anna</button><button class="qopt" onclick="mc(this,11,false)">The narrator</button><button class="qopt" onclick="mc(this,11,true)">Thomas</button><button class="qopt" onclick="mc(this,11,false)">Nobody</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,11,false)">Anna</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">The narrator</button><button class="qopt" data-correct="true" onclick="mc(this,11,true)">Thomas</button><button class="qopt" data-correct="false" onclick="mc(this,11,false)">Nobody</button></div>
   <div class="qfb" id="qfb11"></div>
 </div><div class="qblock">
   <div class="qnum">Question 12</div>
   <div class="qtext">Which German city is called the biggest?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,12,false)">Hamburg</button><button class="qopt" onclick="mc(this,12,false)">Muenchen</button><button class="qopt" onclick="mc(this,12,false)">Frankfurt</button><button class="qopt" onclick="mc(this,12,true)">Berlin</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,12,false)">Hamburg</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">Muenchen</button><button class="qopt" data-correct="false" onclick="mc(this,12,false)">Frankfurt</button><button class="qopt" data-correct="true" onclick="mc(this,12,true)">Berlin</button></div>
   <div class="qfb" id="qfb12"></div>
 </div><div class="qblock">
   <div class="qnum">Question 13</div>
   <div class="qtext">What grammatical form is "schoener" in the text?</div>
-  <div class="qopts"><button class="qopt" onclick="mc(this,13,false)">Positive</button><button class="qopt" onclick="mc(this,13,false)">Superlative</button><button class="qopt" onclick="mc(this,13,true)">Comparative</button><button class="qopt" onclick="mc(this,13,false)">Attributive</button></div>
+  <div class="qopts"><button class="qopt" data-correct="false" onclick="mc(this,13,false)">Positive</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">Superlative</button><button class="qopt" data-correct="true" onclick="mc(this,13,true)">Comparative</button><button class="qopt" data-correct="false" onclick="mc(this,13,false)">Attributive</button></div>
   <div class="qfb" id="qfb13"></div>
 </div></div>
 <div class="cta">
@@ -211,7 +211,7 @@ function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 let mcs={};
-function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
 function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
 function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='-> '+ans[i];}});showRes(rid,ok,ids.length)}
 function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}

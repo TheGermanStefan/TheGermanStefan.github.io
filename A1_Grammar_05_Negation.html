@@ -152,90 +152,90 @@ table.rft tr:nth-child(even) td{background:#fafcff}
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 1</div>
     <div class="qtext">Ich habe ___ Auto. (I don't have a car.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,1,false)">nicht</button>
-      <button class="qopt" onclick="mc(this,1,true)">kein</button>
-      <button class="qopt" onclick="mc(this,1,false)">keine</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">nicht</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">keine</button>
     </div><div class="qfb" id="qfb1"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 2</div>
     <div class="qtext">Das ist ___ mein Buch. (That's not my book.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,2,true)">nicht</button>
-      <button class="qopt" onclick="mc(this,2,false)">kein</button>
-      <button class="qopt" onclick="mc(this,2,false)">keine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">keine</button>
     </div><div class="qfb" id="qfb2"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 3</div>
     <div class="qtext">Ich habe ___ Schwester. (I don't have a sister.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,3,false)">nicht</button>
-      <button class="qopt" onclick="mc(this,3,false)">kein</button>
-      <button class="qopt" onclick="mc(this,3,true)">keine</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">kein</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">keine</button>
     </div><div class="qfb" id="qfb3"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 4</div>
     <div class="qtext">Sie kommt ___ aus Deutschland. (She's not from Germany.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,4,true)">nicht</button>
-      <button class="qopt" onclick="mc(this,4,false)">kein</button>
-      <button class="qopt" onclick="mc(this,4,false)">keine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">keine</button>
     </div><div class="qfb" id="qfb4"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 5</div>
     <div class="qtext">Wir haben ___ Hunger. (We're not hungry.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,5,false)">nicht</button>
-      <button class="qopt" onclick="mc(this,5,true)">keinen</button>
-      <button class="qopt" onclick="mc(this,5,false)">keine</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">nicht</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">keinen</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">keine</button>
     </div><div class="qfb" id="qfb5"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 6</div>
     <div class="qtext">Das Wetter ist heute ___ schön. (The weather isn't nice today.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,6,true)">nicht</button>
-      <button class="qopt" onclick="mc(this,6,false)">kein</button>
-      <button class="qopt" onclick="mc(this,6,false)">keine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">keine</button>
     </div><div class="qfb" id="qfb6"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 7</div>
     <div class="qtext">Er ist ___ Lehrer. (He is not a teacher. — noun, no article before it)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,7,false)">nicht</button>
-      <button class="qopt" onclick="mc(this,7,true)">kein</button>
-      <button class="qopt" onclick="mc(this,7,false)">keine</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">nicht</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">keine</button>
     </div><div class="qfb" id="qfb7"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 8</div>
     <div class="qtext">Ich spreche ___ Japanisch. (I don't speak Japanese.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,8,true)">nicht</button>
-      <button class="qopt" onclick="mc(this,8,false)">kein</button>
-      <button class="qopt" onclick="mc(this,8,false)">keine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">keine</button>
     </div><div class="qfb" id="qfb8"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 9</div>
     <div class="qtext">Ich habe ___ Geld. (I don't have money. — das Geld, neuter)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,9,false)">nicht</button>
-      <button class="qopt" onclick="mc(this,9,true)">kein</button>
-      <button class="qopt" onclick="mc(this,9,false)">keine</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">nicht</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">keine</button>
     </div><div class="qfb" id="qfb9"></div>
   </div>
 
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 10</div>
     <div class="qtext">Das stimmt ___. (That's not right.)</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,10,true)">nicht</button>
-      <button class="qopt" onclick="mc(this,10,false)">kein</button>
-      <button class="qopt" onclick="mc(this,10,false)">keine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">nicht</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">kein</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">keine</button>
     </div><div class="qfb" id="qfb10"></div>
   </div>
 </div></div>
@@ -290,25 +290,25 @@ table.rft tr:nth-child(even) td{background:#fafcff}
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 11</div>
     <div class="qtext">„Kein guter Tag" — why is it „kein" and not „keine"?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,11,false)">Because Tag is feminine</button>
-      <button class="qopt" onclick="mc(this,11,true)">Because Tag (day) is masculine (der Tag)</button>
-      <button class="qopt" onclick="mc(this,11,false)">Because it's used before an adjective</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">Because Tag is feminine</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,11,true)">Because Tag (day) is masculine (der Tag)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">Because it's used before an adjective</button>
     </div><div class="qfb" id="qfb11"></div>
   </div>
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 12</div>
     <div class="qtext">„Der Bus kommt nicht." Why is „nicht" used here (not „kein")?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,11,false)">Because Bus is neuter</button>
-      <button class="qopt" onclick="mc(this,12,true)">Because it negates a verb (kommt)</button>
-      <button class="qopt" onclick="mc(this,12,false)">Because Bus has a definite article</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,11,false)">Because Bus is neuter</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,12,true)">Because it negates a verb (kommt)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,12,false)">Because Bus has a definite article</button>
     </div><div class="qfb" id="qfb12"></div>
   </div>
   <div class="qblock"><div class="qnum"><span data-t="question">Question</span> 13</div>
     <div class="qtext">At the end, the author says the evening is „nicht schlecht". What does this mean?</div>
     <div class="qopts">
-      <button class="qopt" onclick="mc(this,13,false)">Very bad</button>
-      <button class="qopt" onclick="mc(this,13,true)">Not bad (actually okay)</button>
-      <button class="qopt" onclick="mc(this,13,false)">Terrible</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,13,false)">Very bad</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,13,true)">Not bad (actually okay)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,13,false)">Terrible</button>
     </div><div class="qfb" id="qfb13"></div>
   </div>
 </div></div>
@@ -335,7 +335,7 @@ function t(k){return(LANG[CL]||{})[k]||(LANG.en||{})[k]||k}
 function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);applyLang()}
 function applyLang(){document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.getAttribute('data-t')));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
 let mcs={};
-function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.onclick&&b.onclick.toString().includes(',true)'))b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
+function mc(btn,qid,correct){const w=btn.closest('.qopts');if(w.querySelector('.correct'))return;w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));const fb=document.getElementById('qfb'+qid);if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}updatePg()}
 function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
 function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
 function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.placeholder='?';inp.classList.remove('ok','bad')});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
