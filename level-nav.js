@@ -23,6 +23,7 @@
   /* ── 1. Level navigation bar ──────────────────────────────────────── */
   var BASE  = 'https://thegermanstefan.github.io/';
   var pages = [
+    { id:'req',    emoji:'📋', label:'Overview', badge:'FREE',   cls:'free',    file:'TheGermanStefan_Requirements.html' },
     { id:'a0',     emoji:'🌱', label:'A0',      badge:'FREE',    cls:'free',    file:'TheGermanStefan_A0_Beginner_Hub.html' },
     { id:'a1',     emoji:'🇩🇪', label:'A1',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A1_Hub.html' },
     { id:'a2',     emoji:'📗',  label:'A2',      badge:'PREMIUM', cls:'premium', file:'TheGermanStefan_A2_Hub.html' },
