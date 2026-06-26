@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · Verhandlungen auf Deutsch</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#b71c1c;--lc2:#7f0000;--lv:#c62828;--navy:#0d1b2a;--gold:#f4c430;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;--text:#1a2332;--muted:#6b7a8d;--green:#2e7d32;--red:#c62828;--amber:#f9a825}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;text-decoration:none}.tb-logo span{color:var(--gold)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}.lb.on{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.hero{background:linear-gradient(135deg,var(--lc),var(--lc2));color:#fff;padding:36px 24px 28px;text-align:center}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:700;letter-spacing:.5px;margin-bottom:14px;text-transform:uppercase}
+.hero h1{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;margin-bottom:8px}
+.hero p{font-size:.95rem;opacity:.85;max-width:580px;margin:0 auto}
+.hero-stats{display:flex;justify-content:center;gap:20px;margin-top:18px;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 18px;font-size:.85rem;font-weight:700}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);background:#fff;padding:0 24px;overflow-x:auto;position:sticky;top:56px;z-index:90}
+.tab{padding:14px 20px;font-size:.88rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.15s;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.tab:hover{color:var(--lc)}.tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.section{display:none;max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.section.active{display:block}
+.sec-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:16px}
+.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:12px;margin-bottom:28px}
+.phrase-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;border-left:4px solid var(--lc)}
+.pc-situation{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:6px}
+.pc-de{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.pc-en{font-size:.85rem;color:var(--muted);font-style:italic}
+.lvl-chip{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.7rem;font-weight:800;margin-left:6px}
+.b2{background:#fff3e0;color:#e65100}.c1{background:#fce4ec;color:#c62828}
+.vocab-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:24px}
+.vocab-table th{background:var(--lc);color:#fff;padding:10px 14px;text-align:left;font-size:.8rem;font-weight:800}
+.vocab-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.vocab-table tr:nth-child(even) td{background:#fff5f5}
+.vocab-table td:first-child{font-weight:700;color:var(--lc2)}
+.tip-box{background:#ffebee;border-left:4px solid var(--lc);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:.9rem}
+.tip-box strong{color:var(--lc2)}
+.warn-box{background:#fff8e1;border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:.9rem}
+.strategy-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;border-left:5px solid var(--lc)}
+.sc-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--lc);margin-bottom:8px}
+.sc-de{font-weight:700;color:var(--navy);margin-bottom:4px;font-size:.97rem}
+.sc-en{font-size:.83rem;color:var(--muted);font-style:italic;margin-bottom:6px}
+.sc-note{font-size:.8rem;background:#fff5f5;border-radius:6px;padding:6px 10px;color:var(--lc2)}
+.qblock{background:#fff5f5;border:1.5px solid #ef9a9a;border-radius:10px;padding:15px 17px;margin-bottom:14px}
+.qnum{font-size:.72rem;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.qtext{font-size:.97rem;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid #ef9a9a;background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#ffebee}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default;pointer-events:none;opacity:.7}
+.qfb{margin-top:8px;font-size:.83rem;padding:6px 10px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.score-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.sb-num{font-size:2rem;font-weight:900;color:var(--lc);line-height:1}
+.sb-label{font-size:.82rem;color:var(--muted)}
+.sb-prog{flex:1;height:8px;background:#e0e0e0;border-radius:4px;overflow:hidden}
+.sb-fill{height:100%;background:var(--lc);border-radius:4px;width:0%;transition:width .4s}
+.fill-item{background:#fff5f5;border:1.5px solid #ef9a9a;border-radius:10px;padding:13px 16px;margin-bottom:11px;font-size:.95rem;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:.95rem;font-weight:700;color:var(--navy);padding:2px 6px;min-width:160px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}.fi.bad{border-color:var(--red);color:var(--red)}
+.btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{padding:9px 22px;border-radius:9px;border:none;font-size:.88rem;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{background:var(--lc2)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#cdd6e8}
+.rb{border-radius:10px;padding:14px 18px;margin-top:14px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:#e8f5e9;border:2px solid var(--green)}
+.rb.great{background:#fff5f5;border:2px solid var(--lc)}
+.rb.good{background:#fffde7;border:2px solid var(--amber)}
+.rb.practice{background:#fce4ec;border:2px solid #e91e63}
+@media(max-width:600px){.phrase-grid{grid-template-columns:1fr}.qopts{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="tb-logo" href="index.html">The<span>German</span>Stefan</a>
+  <div class="tb-right">
+    <button class="lb on" onclick="setLang('en')">EN</button>
+    <button class="lb" onclick="setLang('de')">DE</button>
+    <button class="lb" onclick="setLang('fr')">FR</button>
+    <button class="lb" onclick="setLang('es')">ES</button>
+    <button class="lb" onclick="setLang('tr')">TR</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">Special Skills · Business Deutsch · B2–C1</div>
+  <h1>🤝 Verhandlungen auf Deutsch</h1>
+  <p>Negotiate confidently in German — make offers, counter-proposals, handle objections, and close deals.</p>
+  <div class="hero-stats">
+    <div class="hstat">💬 55+ phrases</div>
+    <div class="hstat">🎯 10 MC questions</div>
+    <div class="hstat">✏️ 5 fill-in exercises</div>
+    <div class="hstat">🗣️ B2–C1 level</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('vocab')">📚 Vocabulary</button>
+  <button class="tab" onclick="showTab('strategies')">♟️ Strategies</button>
+  <button class="tab" onclick="showTab('phrases')">💬 Phrases</button>
+  <button class="tab" onclick="showTab('quiz')">🎯 Quiz</button>
+  <button class="tab" onclick="showTab('fill')">✏️ Fill-in</button>
+</div>
+
+<!-- VOCABULARY -->
+<div class="section active" id="tab-vocab">
+  <div class="sec-title">📚 Key Negotiation Vocabulary</div>
+  <table class="vocab-table">
+    <tr><th>Deutsch</th><th>English</th><th>Level</th><th>Context / Notes</th></tr>
+    <tr><td>die Verhandlung / verhandeln</td><td>negotiation / to negotiate</td><td><span class="lvl-chip b2">B2</span></td><td>Core term. "Wir müssen noch verhandeln."</td></tr>
+    <tr><td>das Angebot / ein Angebot unterbreiten</td><td>offer / to make an offer</td><td><span class="lvl-chip b2">B2</span></td><td>Formal: "ein Angebot unterbreiten"</td></tr>
+    <tr><td>der Gegenvorschlag</td><td>counter-proposal</td><td><span class="lvl-chip b2">B2</span></td><td>"Darf ich einen Gegenvorschlag machen?"</td></tr>
+    <tr><td>der Kompromiss / einen Kompromiss finden</td><td>compromise / to find a compromise</td><td><span class="lvl-chip b2">B2</span></td><td>Very common in German negotiations</td></tr>
+    <tr><td>Zugeständnisse machen</td><td>to make concessions</td><td><span class="lvl-chip c1">C1</span></td><td>"Wir sind bereit, Zugeständnisse zu machen."</td></tr>
+    <tr><td>die Einigung erzielen</td><td>to reach an agreement</td><td><span class="lvl-chip c1">C1</span></td><td>Formal closing phrase</td></tr>
+    <tr><td>auf etwas bestehen</td><td>to insist on something</td><td><span class="lvl-chip b2">B2</span></td><td>"Wir bestehen auf diesem Punkt."</td></tr>
+    <tr><td>einen Schritt zurückgehen</td><td>to step back / make a concession</td><td><span class="lvl-chip c1">C1</span></td><td>Idiomatic — softening a position</td></tr>
+    <tr><td>das Entgegenkommen</td><td>goodwill gesture / concession</td><td><span class="lvl-chip c1">C1</span></td><td>"Als Entgegenkommen bieten wir…"</td></tr>
+    <tr><td>nicht verhandelbar</td><td>non-negotiable</td><td><span class="lvl-chip b2">B2</span></td><td>Use sparingly — signals firmness</td></tr>
+    <tr><td>Spielraum haben</td><td>to have room to manoeuvre</td><td><span class="lvl-chip c1">C1</span></td><td>"Da haben wir wenig Spielraum."</td></tr>
+    <tr><td>eine Win-win-Lösung anstreben</td><td>to aim for a win-win solution</td><td><span class="lvl-chip b2">B2</span></td><td>Common in collaborative negotiations</td></tr>
+    <tr><td>unter Vorbehalt</td><td>with reservations / conditionally</td><td><span class="lvl-chip c1">C1</span></td><td>"Ich stimme dem unter Vorbehalt zu."</td></tr>
+    <tr><td>einen Vertrag abschließen</td><td>to conclude / sign a contract</td><td><span class="lvl-chip b2">B2</span></td><td>Closing phrase</td></tr>
+    <tr><td>das ist inakzeptabel</td><td>that is unacceptable</td><td><span class="lvl-chip b2">B2</span></td><td>Strong but neutral — not impolite in formal German</td></tr>
+  </table>
+  <div class="tip-box">💡 <strong>Cultural tip:</strong> German negotiators tend to be direct and well-prepared. Vague commitments are not valued. It's normal to say "Das ist für uns nicht akzeptabel" without this being seen as aggressive — clarity is respected over diplomatic ambiguity.</div>
+  <div class="warn-box">⚠️ <strong>Register:</strong> Using "wir" instead of "ich" during negotiations sounds more authoritative and protects personal face. "Wir können das nicht akzeptieren" vs. "Ich kann das nicht akzeptieren."</div>
+</div>
+
+<!-- STRATEGIES -->
+<div class="section" id="tab-strategies">
+  <div class="sec-title">♟️ Negotiation Strategies with German Phrases</div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Opening Position — Establishing your stance</div>
+    <div class="sc-de">Unsere Ausgangsposition ist folgende: Wir erwarten einen Rabatt von mindestens 15%.</div>
+    <div class="sc-en">Our opening position is as follows: we expect a discount of at least 15%.</div>
+    <div class="sc-note">💡 State positions clearly and early. Germans value transparency about interests.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Making a conditional offer</div>
+    <div class="sc-de">Wenn Sie die Lieferzeit auf zwei Wochen reduzieren, wären wir bereit, den Preis zu akzeptieren.</div>
+    <div class="sc-en">If you reduce the delivery time to two weeks, we would be prepared to accept the price.</div>
+    <div class="sc-note">💡 Konjunktiv II ("wären", "würden") softens the offer — essential at C1 level.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Counter-proposal</div>
+    <div class="sc-de">Darf ich einen Gegenvorschlag machen? Wie wäre es mit 10% Rabatt und einer Verlängerung der Garantiezeit?</div>
+    <div class="sc-en">May I make a counter-proposal? How about 10% discount and an extended warranty?</div>
+    <div class="sc-note">💡 Ask for permission to counter — it signals respect for the process.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Expressing concerns without rejecting</div>
+    <div class="sc-de">Ich sehe die Logik Ihres Vorschlags, habe jedoch Bedenken hinsichtlich der Zeitplanung.</div>
+    <div class="sc-en">I see the logic of your proposal, but I have concerns regarding the timeline.</div>
+    <div class="sc-note">💡 "Ich sehe … jedoch" = acknowledge + object. Keeps dialogue open.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Signalling flexibility</div>
+    <div class="sc-de">Da haben wir durchaus Spielraum. Lassen Sie uns über die Konditionen sprechen.</div>
+    <div class="sc-en">There is certainly room to manoeuvre there. Let's talk about the terms.</div>
+    <div class="sc-note">💡 "Spielraum" is the key word — offering flexibility without full commitment.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Reaching agreement</div>
+    <div class="sc-de">Ich denke, wir haben nun eine Einigung erzielt, mit der beide Seiten gut leben können.</div>
+    <div class="sc-en">I believe we have now reached an agreement that both sides can live with.</div>
+    <div class="sc-note">💡 "Beide Seiten können damit leben" — a common German phrase for mutual acceptance.</div>
+  </div>
+
+  <div class="strategy-card">
+    <div class="sc-label">Requesting time to consider</div>
+    <div class="sc-de">Ich würde das Angebot gerne intern abstimmen. Können wir das Gespräch morgen fortsetzen?</div>
+    <div class="sc-en">I'd like to align internally on this offer. Could we continue the conversation tomorrow?</div>
+    <div class="sc-note">💡 "Intern abstimmen" = professional phrasing for "need to check with my team/boss".</div>
+  </div>
+</div>
+
+<!-- PHRASES -->
+<div class="section" id="tab-phrases">
+  <div class="sec-title">💬 Essential Negotiation Phrases</div>
+  <div class="phrase-grid">
+    <div class="phrase-card">
+      <div class="pc-situation">Making an offer</div>
+      <div class="pc-de">Wir würden Ihnen folgendes Angebot unterbreiten…</div>
+      <div class="pc-en">We would like to make you the following offer…</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Making an offer</div>
+      <div class="pc-de">Als Entgegenkommen bieten wir Ihnen eine Verlängerung der Zahlungsfrist an.</div>
+      <div class="pc-en">As a goodwill gesture, we offer an extension of the payment deadline.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Countering</div>
+      <div class="pc-de">Das liegt leider außerhalb unseres Budgets. Wäre 8% möglich?</div>
+      <div class="pc-en">That's unfortunately beyond our budget. Would 8% be possible?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Expressing limits</div>
+      <div class="pc-de">Weiter können wir leider nicht gehen. Das ist unsere Untergrenze.</div>
+      <div class="pc-en">Unfortunately, we cannot go further. That is our lower limit.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Asking for clarification</div>
+      <div class="pc-de">Was genau meinen Sie mit „flexiblen Konditionen"?</div>
+      <div class="pc-en">What exactly do you mean by "flexible terms"?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Buying time</div>
+      <div class="pc-de">Dazu muss ich zunächst Rücksprache mit meiner Geschäftsleitung halten.</div>
+      <div class="pc-en">I need to consult with my management first on that.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Conditional agreement</div>
+      <div class="pc-de">Ich stimme dem zu, unter der Bedingung, dass die Lieferung bis Ende Mai erfolgt.</div>
+      <div class="pc-en">I agree to that, on the condition that delivery takes place by end of May.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Rejecting firmly but politely</div>
+      <div class="pc-de">Das Angebot entspricht leider nicht unseren Erwartungen.</div>
+      <div class="pc-en">Unfortunately, the offer does not meet our expectations.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Finding compromise</div>
+      <div class="pc-de">Könnten wir uns auf einen Mittelweg einigen?</div>
+      <div class="pc-en">Could we agree on a middle ground?</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Closing</div>
+      <div class="pc-de">Dann sind wir uns einig. Ich lasse Ihnen den Vertrag zur Unterzeichnung zukommen.</div>
+      <div class="pc-en">Then we're agreed. I'll send you the contract for signature.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Insisting</div>
+      <div class="pc-de">Auf diesen Punkt müssen wir leider bestehen.</div>
+      <div class="pc-en">We do need to insist on this point, unfortunately.</div>
+    </div>
+    <div class="phrase-card">
+      <div class="pc-situation">Summarising agreed terms</div>
+      <div class="pc-de">Lassen Sie mich das Vereinbarte kurz zusammenfassen: Preis X, Lieferung Y, Garantie Z.</div>
+      <div class="pc-en">Let me briefly summarise what we agreed: price X, delivery Y, warranty Z.</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="tab-quiz">
+  <div class="sec-title">🎯 Quiz — Negotiation German</div>
+  <div class="score-bar">
+    <div><div class="sb-num" id="sc">0</div><div class="sb-label">correct</div></div>
+    <div class="sb-prog"><div class="sb-fill" id="sbf"></div></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q1</div>
+    <div class="qtext">What is "ein Angebot unterbreiten"?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">To reject an offer</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">To make / submit an offer</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">To accept an offer</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q2</div>
+    <div class="qtext">How do you say "counter-proposal" in German?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">die Gegenmaßnahme</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">der Widerspruch</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">der Gegenvorschlag</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q3</div>
+    <div class="qtext">"Spielraum haben" means:</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">To have room to manoeuvre / flexibility</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">To have a game plan</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">To be in the wrong position</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q4</div>
+    <div class="qtext">You need time to check with your boss. What do you say?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">Ich frage mal meinen Chef.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">Dazu muss ich zunächst Rücksprache mit meiner Geschäftsleitung halten.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">Das entscheide ich alleine.</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q5</div>
+    <div class="qtext">What does "Zugeständnisse machen" mean?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">To make demands</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">To make concessions</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">To sign a contract</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q6</div>
+    <div class="qtext">Which phrase politely signals that a point is non-negotiable?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">Das ist mir egal.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">Auf diesen Punkt müssen wir leider bestehen.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">Das akzeptiere ich nicht!</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q7</div>
+    <div class="qtext">"Unter der Bedingung, dass…" introduces:</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">A condition attached to an agreement</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">A rejection of the deal</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">A summary of agreed terms</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q8</div>
+    <div class="qtext">What is "das Entgegenkommen" in a negotiation?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">A confrontational move</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">The final price</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">A goodwill gesture or concession</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q9</div>
+    <div class="qtext">How do you propose a middle ground?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Wir einigen uns auf nichts.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">Könnten wir uns auf einen Mittelweg einigen?</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Nehmen oder lassen Sie es.</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Q10</div>
+    <div class="qtext">"Dann sind wir uns einig" signals:</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">The start of negotiations</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">Both sides have reached agreement</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">A disagreement</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div>
+
+<!-- FILL -->
+<div class="section" id="tab-fill">
+  <div class="sec-title">✏️ Fill in the Blanks</div>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px">Complete each negotiation sentence with the correct German word or phrase.</p>
+
+  <div class="fill-item">Darf ich einen <input class="fi" id="f1" placeholder="(counter-proposal)" autocomplete="off"> machen?</div>
+  <div class="fill-item">Da haben wir durchaus <input class="fi" id="f2" placeholder="(room to manoeuvre)" autocomplete="off">.</div>
+  <div class="fill-item">Ich stimme dem zu, unter der <input class="fi" id="f3" placeholder="(condition)" autocomplete="off">, dass die Ware pünktlich geliefert wird.</div>
+  <div class="fill-item">Auf diesen Punkt müssen wir leider <input class="fi" id="f4" placeholder="(insist)" autocomplete="off">.</div>
+  <div class="fill-item">Ich denke, wir haben eine <input class="fi" id="f5" placeholder="(agreement)" autocomplete="off"> erzielt.</div>
+
+  <div class="btn-row">
+    <button class="btn btn-p" onclick="checkFill(['Gegenvorschlag','Spielraum','Bedingung','bestehen','Einigung'],['f1','f2','f3','f4','f5'],'fr1')">✓ Check answers</button>
+    <button class="btn btn-s" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')">↺ Reset</button>
+  </div>
+  <div class="rb" id="fr1"></div>
+</div>
+
+<script>
+let CL='en';
+const FB={en:{ok:'✓ Correct!',bad:'✗ Not quite — see correct answer.',perfect:'🏆 Perfect score!',great:'🎉 Excellent!',good:'👍 Good effort!',practice:'💪 Keep practising!',score:'Score',of:'of',correct:'correct'},de:{ok:'✓ Richtig!',bad:'✗ Nicht ganz.',perfect:'🏆 Perfekt!',great:'🎉 Sehr gut!',good:'👍 Gut!',practice:'💪 Weiter üben!',score:'Punkte',of:'von',correct:'richtig'},fr:{ok:'✓ Correct !',bad:'✗ Pas tout à fait.',perfect:'🏆 Parfait !',great:'🎉 Excellent !',good:'👍 Bien !',practice:'💪 Continuez !',score:'Score',of:'sur',correct:'correct'},es:{ok:'✓ ¡Correcto!',bad:'✗ No del todo.',perfect:'🏆 ¡Perfecto!',great:'🎉 ¡Muy bien!',good:'👍 ¡Bien!',practice:'💪 ¡Sigue!',score:'Puntos',of:'de',correct:'correctas'},tr:{ok:'✓ Doğru!',bad:'✗ Tam değil.',perfect:'🏆 Mükemmel!',great:'🎉 Harika!',good:'👍 İyi!',practice:'💪 Devam et!',score:'Puan',of:'/',correct:'doğru'}};
+function t(k){return(FB[CL]||FB.en)[k]||k}
+function setLang(c){CL=c;document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.textContent===c.toUpperCase()))}
+function showTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');event.target.classList.add('active')}
+let mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('ok');}mcs[qid]=1;}
+  else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('bad');}mcs[qid]=0;}
+  const score=Object.values(mcs).reduce((a,b)=>a+b,0);
+  document.getElementById('sc').textContent=score;
+  document.getElementById('sbf').style.width=(Object.keys(mcs).length/10*100)+'%';
+}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);inp.value='';inp.classList.remove('ok','bad');});document.getElementById(rid).className='rb'}
+function showRes(id,ok,tot){const el=document.getElementById(id);const p=ok/tot;let cls='practice',msg=t('practice');if(p===1){cls='perfect';msg=t('perfect');}else if(p>=.8){cls='great';msg=t('great');}else if(p>=.5){cls='good';msg=t('good');}el.className='rb show '+cls;el.innerHTML='<strong>'+msg+'</strong> — '+t('score')+': '+ok+' '+t('of')+' '+tot+' '+t('correct')+'.'}
+</script>
+</body>
+</html>
