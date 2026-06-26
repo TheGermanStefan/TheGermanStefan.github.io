@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · A2 · Satzstellung</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#6a1b9a;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--border:#e0e6f0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap;text-decoration:none}
+.tb-logo span{color:var(--amber)}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap;text-decoration:none}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--lc));color:#fff;padding:26px 24px 22px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:44px}
+.ph-title{font-size:24px;font-weight:900;margin-bottom:4px}
+.ph-sub{font-size:13px;opacity:.85}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score{text-align:right;flex-shrink:0}
+.ph-pts{font-size:32px;font-weight:900;color:var(--amber);line-height:1}
+.ph-ptsl{font-size:11px;opacity:.65;margin-top:3px}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.diagram{display:flex;gap:4px;margin:14px 0;flex-wrap:wrap}
+.slot{border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;text-align:center;flex:1;min-width:70px}
+.slot-label{font-size:10px;font-weight:900;letter-spacing:.05em;opacity:.7;margin-bottom:3px;text-transform:uppercase}
+.slot-word{font-size:14px}
+.s-vor{background:#e3f2fd;color:#0d47a1;border:2px solid #90caf9}
+.s-v2{background:#fff9c4;color:#f57f17;border:2px solid #ffe082}
+.s-mit{background:#e8f5e9;color:#1b5e20;border:2px solid #a5d6a7}
+.s-end{background:#fce4ec;color:#880e4f;border:2px solid #f48fb1}
+.s-sub{background:#f3e5f5;color:#4a148c;border:2px solid #ce93d8}
+.diagram-note{font-size:12px;color:var(--txt2);margin-top:6px;font-style:italic}
+.rule-box{background:#f3e5f5;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.rule-box strong{color:var(--lc)}
+.warn-box{background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.warn-box strong{color:#e65100}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.cmp{border-radius:8px;padding:12px 14px;font-size:13px}
+.cmp-ok{background:#e8f5e9;border:1.5px solid #a5d6a7}
+.cmp-bad{background:#ffebee;border:1.5px solid #ef9a9a}
+.cmp-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.cmp-ok .cmp-label{color:#2e7d32}
+.cmp-bad .cmp-label{color:#c62828}
+.cmp-de{font-weight:700;color:var(--navy);font-size:14px}
+.cmp-en{color:var(--txt2);font-size:12px;margin-top:3px}
+.conj-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.conj-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.conj-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.conj-table tr:nth-child(even) td{background:#f9f0ff}
+.conj-table td:first-child{font-weight:800;color:var(--lc)}
+.qblock{background:#f9f0ff;border:1.5px solid #ce93d8;border-radius:10px;padding:15px 17px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid #ce93d8;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#f3e5f5}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default;pointer-events:none;opacity:.7}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f9f0ff;border-radius:10px;border:1.5px solid #ce93d8}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid var(--border)}
+.rf-table tr:nth-child(even) td{background:#f9f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ce93d8;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#cdd6e8}
+.rb{border-radius:12px;padding:16px 20px;margin-top:14px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#f3e5f5,#e1bee7);border:2px solid var(--lc)}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px}
+.rbe{font-size:34px}
+.rbti{font-size:17px;font-weight:900;color:var(--navy)}
+.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+.nav-btns{display:flex;justify-content:space-between;margin-top:28px;flex-wrap:wrap;gap:10px}
+.nbtn{padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.nprev{background:#e0e6f0;color:var(--navy)}.nnext{background:var(--lc);color:#fff}
+@media(max-width:600px){.compare{grid-template-columns:1fr}.qopts{flex-direction:column}.diagram{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <a class="tb-logo" href="index.html">The<span>German</span>Stefan</a>
+    <span class="tb-sep">›</span>
+    <a class="tb-crumb" href="TheGermanStefan_A2_Hub.html">A2</a>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb">Grammar</span>
+    <span class="tb-badge">A2</span>
+    <span class="tb-mod">Satzstellung</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="tr" onclick="setLang('tr')">TR</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">🔗</div>
+      <div class="ph-title">Satzstellung A2</div>
+      <div class="ph-sub">Conjunctions, subordinate clauses, Perfekt word order & relative clauses</div>
+      <div class="ph-meta">
+        <span class="ph-tag">A2</span><span class="ph-tag">Grammar</span>
+        <span class="ph-tag">⏱ 25 min</span><span class="ph-tag">15 questions</span>
+      </div>
+    </div>
+    <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Coordinating conjunctions -->
+<div class="card"><div class="cb">
+  <div class="st">🔵 Coordinating conjunctions — word order UNCHANGED</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">The conjunctions <strong>und, aber, oder, denn, sondern</strong> join two main clauses. The verb stays in position 2 in both clauses — nothing changes.</p>
+
+  <table class="conj-table">
+    <tr><th>Conjunction</th><th>Meaning</th><th>Word order effect</th><th>Example</th></tr>
+    <tr><td>und</td><td>and</td><td>V2 maintained</td><td>Ich lerne Deutsch und <strong>ich</strong> <strong>spreche</strong> es gut.</td></tr>
+    <tr><td>aber</td><td>but</td><td>V2 maintained</td><td>Er ist müde, aber <strong>er</strong> <strong>arbeitet</strong> weiter.</td></tr>
+    <tr><td>oder</td><td>or</td><td>V2 maintained</td><td>Kommst du heute oder <strong>kommst</strong> <strong>du</strong> morgen?</td></tr>
+    <tr><td>denn</td><td>because (coord.)</td><td>V2 maintained ⚠️</td><td>Er bleibt zu Hause, denn <strong>er</strong> <strong>ist</strong> krank.</td></tr>
+    <tr><td>sondern</td><td>but rather</td><td>V2 maintained</td><td>Ich trinke keinen Kaffee, sondern <strong>ich</strong> <strong>trinke</strong> Tee.</td></tr>
+  </table>
+  <div class="rule-box">💡 <strong>Key insight:</strong> These conjunctions are "zero position" — they don't count as position 1. They sit before the second main clause without affecting its word order.</div>
+</div></div>
+
+<!-- Subordinating conjunctions -->
+<div class="card"><div class="cb">
+  <div class="st">🔴 Subordinating conjunctions — verb goes to THE END</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px"><strong>weil, dass, obwohl, wenn, ob, als, seit, bis, während…</strong> — these send the conjugated verb to the very end of the subordinate clause. This is the most important A2 word order rule!</p>
+
+  <div class="diagram">
+    <div class="slot s-mit"><div class="slot-label">Main clause</div><div class="slot-word">Er bleibt zu Hause,</div></div>
+    <div class="slot s-vor"><div class="slot-label">Conjunction</div><div class="slot-word">weil</div></div>
+    <div class="slot s-mit"><div class="slot-label">Subject + rest</div><div class="slot-word">er</div></div>
+    <div class="slot s-end"><div class="slot-label">Verb → END</div><div class="slot-word">krank ist.</div></div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ weil (verb at end)</div>
+      <div class="cmp-de">Er schläft, weil er müde <strong>ist</strong>.</div>
+      <div class="cmp-en">He sleeps because he is tired.</div>
+    </div>
+    <div class="cmp cmp-bad">
+      <div class="cmp-label">✗ Wrong — verb not at end</div>
+      <div class="cmp-de">Er schläft, weil er <strong>ist</strong> müde.</div>
+      <div class="cmp-en">Common error: treating weil like denn!</div>
+    </div>
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ dass (verb at end)</div>
+      <div class="cmp-de">Ich weiß, dass er morgen <strong>kommt</strong>.</div>
+      <div class="cmp-en">I know that he is coming tomorrow.</div>
+    </div>
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ obwohl (verb at end)</div>
+      <div class="cmp-de">Sie geht aus, obwohl sie krank <strong>ist</strong>.</div>
+      <div class="cmp-en">She goes out even though she's sick.</div>
+    </div>
+  </div>
+
+  <div class="warn-box">⚠️ <strong>denn vs weil:</strong> Both mean "because" — but <strong>denn</strong> = coordinating (verb stays in pos. 2), <strong>weil</strong> = subordinating (verb goes to END). This is one of the most tested distinctions in German!</div>
+</div></div>
+
+<!-- Subordinate clause FIRST -->
+<div class="card"><div class="cb">
+  <div class="st">↩️ When the subordinate clause comes FIRST</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">If the subordinate clause precedes the main clause, the whole subordinate clause counts as position 1. The main clause then INVERTS — verb immediately after the comma.</p>
+
+  <div class="diagram">
+    <div class="slot s-sub"><div class="slot-label">Subordinate clause (= pos. 1)</div><div class="slot-word">Weil er krank ist,</div></div>
+    <div class="slot s-v2"><div class="slot-label">Main verb (pos. 2!)</div><div class="slot-word">bleibt</div></div>
+    <div class="slot s-mit"><div class="slot-label">Subject + rest</div><div class="slot-word">er zu Hause.</div></div>
+  </div>
+
+  <div class="rule-box">💡 <strong>The comma rule:</strong> After a subordinate clause, the main clause ALWAYS starts with the verb. Comma → verb. No exceptions!</div>
+
+  <div class="compare">
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ Sub clause first → inversion</div>
+      <div class="cmp-de">Wenn ich Zeit habe, <strong>gehe</strong> ich ins Gym.</div>
+      <div class="cmp-en">When I have time, I go to the gym.</div>
+    </div>
+    <div class="cmp cmp-bad">
+      <div class="cmp-label">✗ Wrong — forgot inversion</div>
+      <div class="cmp-de">Wenn ich Zeit habe, <strong>ich gehe</strong> ins Gym.</div>
+      <div class="cmp-en">After the comma, verb must come first!</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- Perfekt word order -->
+<div class="card"><div class="cb">
+  <div class="st">⏰ Perfekt word order — bracket in main vs sub clause</div>
+
+  <div class="compare">
+    <div class="cmp" style="background:#e3f2fd;border:1.5px solid #90caf9">
+      <div class="cmp-label" style="color:#0d47a1">Main clause (Hauptsatz)</div>
+      <div class="cmp-de">Ich <strong>habe</strong> das Buch gelesen.</div>
+      <div class="cmp-en">haben/sein in pos. 2 → Partizip II at END</div>
+    </div>
+    <div class="cmp" style="background:#f3e5f5;border:1.5px solid #ce93d8">
+      <div class="cmp-label" style="color:#4a148c">Subordinate clause (Nebensatz)</div>
+      <div class="cmp-de">…weil ich das Buch gelesen <strong>habe</strong>.</div>
+      <div class="cmp-en">Partizip II → then haben/sein at VERY END</div>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <div class="slot s-vor"><div class="slot-label">Sub-conjunction</div><div class="slot-word">weil</div></div>
+    <div class="slot s-mit"><div class="slot-label">Subject</div><div class="slot-word">er</div></div>
+    <div class="slot s-mit"><div class="slot-label">Object</div><div class="slot-word">das Buch</div></div>
+    <div class="slot s-end"><div class="slot-label">Partizip II + haben</div><div class="slot-word">gelesen hat.</div></div>
+  </div>
+  <div class="rule-box">💡 <strong>Sub clause Perfekt:</strong> Partizip II + haben/sein — both go to the end, with Partizip II BEFORE haben/sein.</div>
+</div></div>
+
+<!-- Relative clauses -->
+<div class="card"><div class="cb">
+  <div class="st">🔗 Relative clauses — verb at the end</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">Relative clauses describe a noun. They work like subordinate clauses: verb at the end. They sit directly after the noun they describe.</p>
+
+  <div class="diagram">
+    <div class="slot s-mit"><div class="slot-label">Main clause</div><div class="slot-word">Das ist das Buch,</div></div>
+    <div class="slot s-vor"><div class="slot-label">Relative pronoun</div><div class="slot-word">das</div></div>
+    <div class="slot s-mit"><div class="slot-label">Object/subject</div><div class="slot-word">ich gestern</div></div>
+    <div class="slot s-end"><div class="slot-label">Verb → END</div><div class="slot-word">gekauft habe.</div></div>
+  </div>
+
+  <div class="compare">
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ Relative clause</div>
+      <div class="cmp-de">Der Mann, der dort <strong>steht</strong>, ist mein Lehrer.</div>
+      <div class="cmp-en">The man who is standing there is my teacher.</div>
+    </div>
+    <div class="cmp cmp-ok">
+      <div class="cmp-label">✓ With Perfekt</div>
+      <div class="cmp-de">Das Film, den ich gesehen <strong>habe</strong>, war toll.</div>
+      <div class="cmp-en">The film that I saw was great.</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- MC -->
+<div class="card"><div class="cb">
+  <div class="st">🎯 Multiple Choice</div>
+
+  <div class="qblock">
+    <div class="qnum">Question 1</div>
+    <div class="qtext">Which sentence correctly uses "weil"?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">Er schläft, weil er ist müde.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">Er schläft, weil er müde ist.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">Er schläft weil er müde ist.</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 2</div>
+    <div class="qtext">What is the difference between "denn" and "weil"?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">They are exactly the same — both send the verb to the end.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">denn keeps verb in position 2; weil sends verb to the end.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">weil keeps verb in position 2; denn sends verb to the end.</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 3</div>
+    <div class="qtext">The subordinate clause comes first: "Wenn er kommt, ___"</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">…ich gehe nach Hause.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">…gehe ich nach Hause.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">…nach Hause ich gehe.</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 4</div>
+    <div class="qtext">Where does "hat" go in: "Ich weiß, dass er das Buch gelesen ___."?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">before "das Buch"</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">after "dass"</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">at the very end, after "gelesen"</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 5</div>
+    <div class="qtext">Which conjunction does NOT change word order?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">weil</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">obwohl</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">aber</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 6</div>
+    <div class="qtext">Relative clause: "Das ist die Frau, ___ dort wohnt."</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">die dort wohnt" — verb wohnt goes to end? No wait... (position)</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">die — relative pronoun matches "die Frau" (feminine nom.)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">das — relative pronoun for all nouns</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 7</div>
+    <div class="qtext">Which is correct Perfekt in a subordinate clause?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">…weil er hat das gegessen.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">…weil er das gegessen hat.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">…weil er gegessen das hat.</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 8</div>
+    <div class="qtext">"obwohl" means "although/even though" — what word order does it trigger?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">No change — verb stays in position 2.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">Verb goes to the end of the clause.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">Verb moves to position 1.</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 9</div>
+    <div class="qtext">Complete: "Sie sagt, dass sie morgen ___." (kommen)</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">kommt sie morgen</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">morgen kommt</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">kommt morgen</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 10</div>
+    <div class="qtext">Which sentence is WRONG?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">Ich bleibe zu Hause, weil ich krank bin.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">Ich bleibe zu Hause, weil ich bin krank.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">Weil ich krank bin, bleibe ich zu Hause.</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<!-- Fill -->
+<div class="card"><div class="cb">
+  <div class="st">✏️ Fill in — verb position in subordinate clauses</div>
+  <p style="font-size:13px;color:var(--txt2);margin-bottom:12px">Complete each sentence by placing the verb correctly.</p>
+
+  <div class="fill-row">Ich lerne Deutsch, weil es sehr interessant <input class="fi" id="f1" placeholder="(sein)" autocomplete="off">.</div>
+  <div class="fill-row">Sie weiß, dass er morgen nicht <input class="fi" id="f2" placeholder="(kommen)" autocomplete="off">.</div>
+  <div class="fill-row">Obwohl es regnet, <input class="fi" id="f3" placeholder="(gehen / er)" autocomplete="off"> er spazieren.</div>
+  <div class="fill-row">Das ist das Auto, das er gestern <input class="fi" id="f4" placeholder="(kaufen / Perfekt)" autocomplete="off">.</div>
+  <div class="fill-row">Weil sie krank ist, <input class="fi" id="f5" placeholder="(bleiben / sie)" autocomplete="off"> sie zu Hause.</div>
+
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['ist','kommt','geht','gekauft hat','bleibt sie'],['f1','f2','f3','f4','f5'],'fr1')">✓ Check</button>
+    <button class="btn btn-s" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')">Reset</button>
+  </div>
+  <div class="rb" id="fr1"></div>
+</div></div>
+
+<!-- R/F -->
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <table class="rf-table">
+    <thead><tr><th>#</th><th>Statement</th><th>R</th><th>F</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>"und" sends the verb to the end of the second clause.</td>
+        <td><button class="rfb" onclick="rf(this,'R',0)">R</button></td><td><button class="rfb" onclick="rf(this,'F',0)">F</button></td></tr>
+      <tr><td>2</td><td>In "Er ist krank, deshalb geht er nicht" — "deshalb" causes inversion (verb after it).</td>
+        <td><button class="rfb" onclick="rf(this,'R',1)">R</button></td><td><button class="rfb" onclick="rf(this,'F',1)">F</button></td></tr>
+      <tr><td>3</td><td>In a Perfekt subordinate clause, the Partizip II comes before haben/sein at the end.</td>
+        <td><button class="rfb" onclick="rf(this,'R',2)">R</button></td><td><button class="rfb" onclick="rf(this,'F',2)">F</button></td></tr>
+      <tr><td>4</td><td>After a subordinate clause + comma, the main clause verb comes directly after the comma.</td>
+        <td><button class="rfb" onclick="rf(this,'R',3)">R</button></td><td><button class="rfb" onclick="rf(this,'F',3)">F</button></td></tr>
+      <tr><td>5</td><td>"denn" and "weil" trigger the same word order change.</td>
+        <td><button class="rfb" onclick="rf(this,'R',4)">R</button></td><td><button class="rfb" onclick="rf(this,'F',4)">F</button></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['F','R','R','R','F'],'rfr1')">✓ Check</button>
+  </div>
+  <div class="rb" id="rfr1"></div>
+</div></div>
+
+<div class="nav-btns">
+  <button class="nbtn nprev" onclick="history.back()">← Back</button>
+  <button class="nbtn nnext" onclick="location.href='TheGermanStefan_A2_Hub.html'">A2 Hub →</button>
+</div>
+</div>
+
+<script>
+let CL=localStorage.getItem('tgs_lang')||'en';
+const LANG_FB={en:{fb_correct:'✓ Correct! Well done!',fb_wrong:'✗ Not quite — see the correct answer.',res_perfect:'🏆 Perfect!',res_great:'🎉 Great job!',res_good:'👍 Good effort!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},de:{fb_correct:'✓ Richtig!',fb_wrong:'✗ Nicht ganz.',res_perfect:'🏆 Perfekt!',res_great:'🎉 Sehr gut!',res_good:'👍 Gut!',res_practice:'💪 Weiter üben!',res_score:'Punkte',res_of:'von',res_correct:'richtig'},fr:{fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon effort !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Buen esfuerzo!',res_practice:'💪 ¡Sigue!',res_score:'Puntuación',res_of:'de',res_correct:'correctas'},tr:{fb_correct:'✓ Doğru!',fb_wrong:'✗ Tam değil.',res_perfect:'🏆 Mükemmel!',res_great:'🎉 Çok iyi!',res_good:'👍 İyi!',res_practice:'💪 Devam et!',res_score:'Puan',res_of:'/',res_correct:'doğru'}};
+function t(k){return(LANG_FB[CL]||{})[k]||(LANG_FB.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}
+  else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}
+  updatePg()
+}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;const done=Object.keys(mcs).length;document.getElementById('pgf').style.width=(done/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.classList.remove('ok','bad');});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice,idx){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[idx]=choice}
+function checkRF(ans,rid){let ok=0;ans.forEach((a,i)=>{if(rfSels[i]===a)ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=.8){cls='great';msg=t('res_great');}else if(p>=.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))});
+</script>
+<script src="content-nav.js"></script>
+</body>
+</html>

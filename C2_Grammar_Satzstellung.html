@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · C2 · Satzstellung</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#bf360c;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--border:#e0e6f0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap;text-decoration:none}
+.tb-logo span{color:var(--amber)}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap;text-decoration:none}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--lc));color:#fff;padding:26px 24px 22px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:44px}
+.ph-title{font-size:24px;font-weight:900;margin-bottom:4px}
+.ph-sub{font-size:13px;opacity:.85}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score{text-align:right;flex-shrink:0}
+.ph-pts{font-size:32px;font-weight:900;color:var(--amber);line-height:1}
+.ph-ptsl{font-size:11px;opacity:.65;margin-top:3px}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.diagram{display:flex;gap:4px;margin:14px 0;flex-wrap:wrap}
+.slot{border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;text-align:center;flex:1;min-width:70px}
+.slot-label{font-size:10px;font-weight:900;letter-spacing:.05em;opacity:.7;margin-bottom:3px;text-transform:uppercase}
+.slot-word{font-size:14px}
+.s-vor{background:#e3f2fd;color:#0d47a1;border:2px solid #90caf9}
+.s-v2{background:#fff9c4;color:#f57f17;border:2px solid #ffe082}
+.s-mit{background:#e8f5e9;color:#1b5e20;border:2px solid #a5d6a7}
+.s-end{background:#fce4ec;color:#880e4f;border:2px solid #f48fb1}
+.s-nf{background:#fbe9e7;color:#bf360c;border:2px solid #ffab91}
+.rule-box{background:#fbe9e7;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.rule-box strong{color:var(--lc)}
+.info-box{background:#e3f2fd;border-left:4px solid #1976d2;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.warn-box{background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.cmp{border-radius:8px;padding:12px 14px;font-size:13px}
+.cmp-ok{background:#e8f5e9;border:1.5px solid #a5d6a7}
+.cmp-bad{background:#ffebee;border:1.5px solid #ef9a9a}
+.cmp-neu{background:#fbe9e7;border:1.5px solid #ffab91}
+.cmp-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.cmp-ok .cmp-label{color:#2e7d32}
+.cmp-bad .cmp-label{color:#c62828}
+.cmp-neu .cmp-label{color:#bf360c}
+.cmp-de{font-weight:700;color:var(--navy);font-size:14px}
+.cmp-en{color:var(--txt2);font-size:12px;margin-top:3px}
+.conj-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.conj-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.conj-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.conj-table tr:nth-child(even) td{background:#fff5f2}
+.conj-table td:first-child{font-weight:800;color:var(--lc)}
+.qblock{background:#fff5f2;border:1.5px solid #ffab91;border-radius:10px;padding:15px 17px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid #ffab91;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#fbe9e7}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default;pointer-events:none;opacity:.7}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#fff5f2;border-radius:10px;border:1.5px solid #ffab91}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid var(--border)}
+.rf-table tr:nth-child(even) td{background:#fff5f2}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #ffab91;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.15)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#cdd6e8}
+.rb{border-radius:12px;padding:16px 20px;margin-top:14px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#fbe9e7,#ffccbc);border:2px solid var(--lc)}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px}
+.rbe{font-size:34px}
+.rbti{font-size:17px;font-weight:900;color:var(--navy)}
+.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+@media(max-width:600px){.compare{grid-template-columns:1fr}.qopts{flex-direction:column}.diagram{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <a class="tb-logo" href="index.html">The<span>German</span>Stefan</a>
+    <span class="tb-sep">›</span>
+    <a class="tb-crumb" href="TheGermanStefan_C2_Hub.html">C2</a>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb">Grammar</span>
+    <span class="tb-badge">C2</span>
+    <span class="tb-mod">Satzstellung</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="tr" onclick="setLang('tr')">TR</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">👑</div>
+      <div class="ph-title">Satzstellung C2</div>
+      <div class="ph-sub">Stylistic inversions, Ausklammerung, register variation, complex nesting, TEKAMOLO deviations</div>
+      <div class="ph-meta">
+        <span class="ph-tag">C2</span><span class="ph-tag">Grammar</span>
+        <span class="ph-tag">⏱ 40 min</span><span class="ph-tag">15 questions</span>
+      </div>
+    </div>
+    <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Stylistic inversions -->
+<div class="card"><div class="cb">
+  <div class="st">🎭 Stylistic inversions — deliberate rule-bending for effect</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">At C2, speakers understand that word order rules can be bent deliberately for rhetorical, poetic, or emphatic effect. What looks like an "error" may be a calculated stylistic choice.</p>
+
+  <div class="compare">
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Standard (V2)</div>
+      <div class="cmp-de">Er kam zu spät.</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Rhetorical inversion (literary)</div>
+      <div class="cmp-de">Zu spät kam er — zu spät für alles.</div>
+      <div class="cmp-en">"Too late he came" — amplified by repetition</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Absolute construction (no verb)</div>
+      <div class="cmp-de">Den Kopf gesenkt, verließ er den Raum.</div>
+      <div class="cmp-en">Participle phrase replaces adverbial clause</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Subject at the very end (final position for weight)</div>
+      <div class="cmp-de">Geblieben ist — entgegen aller Erwartung — <strong>er</strong>.</div>
+      <div class="cmp-en">Heavy subject moved to end for maximum contrast</div>
+    </div>
+  </div>
+
+  <div class="rule-box">💡 <strong>Principle:</strong> Every deviation from standard word order is communicatively motivated. C2 speakers don't just know the rules — they know when and why to break them purposefully.</div>
+</div></div>
+
+<!-- Ausklammerung -->
+<div class="card"><div class="cb">
+  <div class="st">🚪 Ausklammerung — extraposition from the bracket</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px"><em>Ausklammerung</em> is the deliberate movement of elements from the Mittelfeld out of the Satzklammer into the Nachfeld. This lightens a heavy middle field and improves readability — but changes emphasis.</p>
+
+  <div class="diagram">
+    <div class="slot s-vor"><div class="slot-label">Subject</div><div class="slot-word">Er</div></div>
+    <div class="slot s-v2"><div class="slot-label">Verb pos.2</div><div class="slot-word">hat</div></div>
+    <div class="slot s-mit"><div class="slot-label">Light middle field</div><div class="slot-word">viel</div></div>
+    <div class="slot s-end"><div class="slot-label">Right bracket</div><div class="slot-word">gelernt</div></div>
+    <div class="slot s-nf"><div class="slot-label">NACHFELD (Ausklammerung)</div><div class="slot-word">aus reiner Neugier.</div></div>
+  </div>
+
+  <table class="conj-table">
+    <tr><th>Moved to Nachfeld</th><th>Original (heavy Mittelfeld)</th><th>Lightened (Ausklammerung)</th></tr>
+    <tr><td>Prepositional phrase</td><td>Er hat <strong>aus reiner Neugier</strong> viel gelernt.</td><td>Er hat viel gelernt, <strong>aus reiner Neugier</strong>.</td></tr>
+    <tr><td>Comparative clause</td><td>Das ist <strong>mehr als ich erwartet hatte</strong> wichtig.</td><td>Das ist wichtig, <strong>mehr als ich erwartet hatte</strong>.</td></tr>
+    <tr><td>dass-clause</td><td>Er hat <strong>dass sie nicht kommt</strong> gewusst.</td><td>Er hat es gewusst, <strong>dass sie nicht kommt</strong>.</td></tr>
+    <tr><td>Infinitive phrase</td><td>Er hat <strong>früher aufzuhören</strong> versucht.</td><td>Er hat versucht, <strong>früher aufzuhören</strong>.</td></tr>
+  </table>
+
+  <div class="warn-box">⚠️ Ausklammerung is common in speech but can be marked as non-standard in formal writing. Context and register determine when it is appropriate.</div>
+</div></div>
+
+<!-- TEKAMOLO deviations -->
+<div class="card"><div class="cb">
+  <div class="st">↔️ TEKAMOLO deviations — when word order serves meaning</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">Standard TEKAMOLO order (Temporal → Kausal → Modal → Lokal) can be inverted when the speaker wants to give specific emphasis or contrast. Deviation is always meaning-driven.</p>
+
+  <table class="conj-table">
+    <tr><th>Deviation</th><th>Standard</th><th>Deviated (emphatic)</th><th>Effect</th></tr>
+    <tr><td>LO before TE</td><td>Er arbeitet <u>heute</u> <u>in Berlin</u>.</td><td>Er arbeitet <u>in Berlin</u> <u>heute</u>.</td><td>Berlin in focus, time secondary</td></tr>
+    <tr><td>MO before TE</td><td>Er fährt <u>morgen</u> <u>mit dem Zug</u>.</td><td>Er fährt <u>mit dem Zug</u> <u>morgen</u>.</td><td>"by train" is the news, time is known</td></tr>
+    <tr><td>Object before subject (scrambling)</td><td>Er hat <u>dem Kind</u> <u>das Buch</u> gegeben.</td><td>Er hat <u>das Buch</u> <u>dem Kind</u> gegeben.</td><td>"das Buch" is contrasted or newly mentioned</td></tr>
+  </table>
+
+  <div class="rule-box">💡 <strong>Information structure principle:</strong> Given information (what you already know) comes early; new information (what you're adding) comes late. This is why "default" TEKAMOLO can be reversed: if the location is already known but the time is new, the time comes last.</div>
+</div></div>
+
+<!-- Register variation -->
+<div class="card"><div class="cb">
+  <div class="st">🎨 Register variation in word order</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">German word order varies across registers. What is standard in one register may be marked or even unacceptable in another.</p>
+
+  <table class="conj-table">
+    <tr><th>Feature</th><th>Formal / Written</th><th>Colloquial / Spoken</th></tr>
+    <tr><td>Participial attributes</td><td>das <em>von allen erwartete</em> Ergebnis</td><td>das Ergebnis, das alle erwartet haben</td></tr>
+    <tr><td>Relative clause position</td><td>immediately after modified noun</td><td>sometimes delayed / extraposed</td></tr>
+    <tr><td>Ausklammerung</td><td>avoided (kept inside bracket)</td><td>frequent</td></tr>
+    <tr><td>Verb-final in main clause</td><td>never (stays V2)</td><td>sometimes in quotations: "Ich sag mal so…"</td></tr>
+    <tr><td>Afterthought structure</td><td>restructured into one sentence</td><td>"Er hat angerufen — der Chef."</td></tr>
+    <tr><td>wenn-less conditional</td><td>literary, formal</td><td>rare in speech</td></tr>
+  </table>
+</div></div>
+
+<!-- Complex nesting -->
+<div class="card"><div class="cb">
+  <div class="st">🕸️ Complex nesting — sub clause within sub clause</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">German can nest dependent clauses inside each other. Each layer adds a subordination. The key challenge is tracking which verb belongs to which clause.</p>
+
+  <div class="info-box">📌 <strong>Example:</strong><br>
+  <em>Er sagte, dass er wisse, dass sie behauptet habe, dass er lüge.</em><br>
+  <strong>Layer 1:</strong> er sagte (dass…) — main clause<br>
+  <strong>Layer 2:</strong> er wisse (dass…) — 1st sub clause<br>
+  <strong>Layer 3:</strong> sie behauptet habe (dass…) — 2nd sub clause<br>
+  <strong>Layer 4:</strong> er lüge — 3rd sub clause<br>
+  Each layer uses Konjunktiv I (indirect speech) and verb-final order.
+  </div>
+
+  <div class="warn-box">⚠️ More than 2–3 levels of nesting is considered poor style even in written German. Skilled writers restructure or split such constructions. Recognizing and parsing nested clauses is, however, a C2 reading skill.</div>
+</div></div>
+
+<!-- MC -->
+<div class="card"><div class="cb">
+  <div class="st">🎯 Multiple Choice</div>
+
+  <div class="qblock">
+    <div class="qnum">Question 1</div>
+    <div class="qtext">"Den Kopf gesenkt, verließ er den Raum." — what grammatical structure is this?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">Standard V2 sentence with an adverb</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">Absolute participial construction (Partizip II as adverbial)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">A relative clause functioning as subject</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 2</div>
+    <div class="qtext">Ausklammerung — "Er hat versucht, früher aufzuhören." What was extraposed?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">The finite verb "hat"</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">The infinitive phrase "früher aufzuhören" — moved to Nachfeld</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">The subject "er"</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 3</div>
+    <div class="qtext">TEKAMOLO deviation: "Er fährt mit dem Zug morgen." — what effect does this order create?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">It's a grammatical error — the standard order must be kept.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">It emphasizes "by train" as new/contrasted information; "morgen" is already known.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">It moves both elements to the Nachfeld simultaneously.</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 4</div>
+    <div class="qtext">Which structure is typical of formal written German?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">"Er hat angerufen — der Chef." (afterthought)</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">Extended participial attributes: "das von allen erwartete Ergebnis"</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">Frequent Ausklammerung (extraposition)</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 5</div>
+    <div class="qtext">Information structure: which principle determines when TEKAMOLO can be reversed?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">The length of each element — longer elements come first.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">Given (known) information comes early; new (focus) information comes late.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">Temporal always comes first regardless of context.</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 6</div>
+    <div class="qtext">In nested indirect speech: "Er sagte, dass er wisse, dass sie komme." — how many sub clauses?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">1</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">2 — "dass er wisse" and "dass sie komme"</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">3</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 7</div>
+    <div class="qtext">When does Ausklammerung become stylistically inappropriate?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">In everyday conversation among friends</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">In formal academic or legal writing where the bracket should remain intact</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">When the extraposed element is a prepositional phrase</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 8</div>
+    <div class="qtext">"Geblieben ist — entgegen aller Erwartung — er." — what is at the very end?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">The verb, for emphatic effect</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">The subject "er" — moved to final position for maximum contrast/surprise</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">The parenthetical "entgegen aller Erwartung"</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 9</div>
+    <div class="qtext">Which of these is a legitimate C2 stylistic choice (not an error)?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Er kam weil er Hunger hatte. (missing comma before weil)</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">Zu spät kam er — dramatische Stille folgte. (rhetorical inversion for effect)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Weil er hatte Hunger, kam er. (verb not at end in weil-clause)</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 10</div>
+    <div class="qtext">Object scrambling: "Er hat dem Kind das Buch gegeben" vs "Er hat das Buch dem Kind gegeben." The second version suggests:</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">"das Buch" is already known; "dem Kind" is the focus.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">"das Buch" is the contrastive/new element being introduced or contrasted.</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">No difference — both orders are interchangeable.</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<!-- Fill -->
+<div class="card"><div class="cb">
+  <div class="st">✏️ Fill in the blanks (C2 level)</div>
+
+  <div class="fill-row"><input class="fi" id="f1" placeholder="wenn-less (Wäre/Hätte?)" autocomplete="off"> er früher gegangen, hätte er den Zug nicht verpasst.</div>
+  <div class="fill-row">Das ist der Moment, <input class="fi" id="f2" placeholder="auf den / den / dem" autocomplete="off"> alle gewartet haben. (relative pronoun — Dativ after "warten auf")</div>
+  <div class="fill-row">Er sagte, die Lage <input class="fi" id="f3" placeholder="Konj. I of sein" autocomplete="off"> ernst. (indirect speech — Konj. I)</div>
+  <div class="fill-row">Das von allen erwartete <input class="fi" id="f4" placeholder="das Ergebnis / die Antwort..." autocomplete="off"> kam nie.</div>
+  <div class="fill-row">Er hat es versucht, früh <input class="fi" id="f5" placeholder="zu + aufwachen" autocomplete="off">. (Ausklammerung into Nachfeld)</div>
+
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['Wäre','auf den','sei','Ergebnis','aufzuwachen'],['f1','f2','f3','f4','f5'],'fr1')">✓ Check</button>
+    <button class="btn btn-s" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')">Reset</button>
+  </div>
+  <div class="rb" id="fr1"></div>
+</div></div>
+
+<!-- R/F -->
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <table class="rf-table">
+    <thead><tr><th>#</th><th>Statement</th><th>R</th><th>F</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Deviating from TEKAMOLO is always an error, regardless of context.</td>
+        <td><button class="rfb" onclick="rf(this,'R',0)">R</button></td><td><button class="rfb" onclick="rf(this,'F',0)">F</button></td></tr>
+      <tr><td>2</td><td>Ausklammerung (Nachfeld extraposition) is acceptable in spoken German but marked in formal writing.</td>
+        <td><button class="rfb" onclick="rf(this,'R',1)">R</button></td><td><button class="rfb" onclick="rf(this,'F',1)">F</button></td></tr>
+      <tr><td>3</td><td>Moving an object to position 1 in a sentence violates the V2 rule.</td>
+        <td><button class="rfb" onclick="rf(this,'R',2)">R</button></td><td><button class="rfb" onclick="rf(this,'F',2)">F</button></td></tr>
+      <tr><td>4</td><td>In German information structure, new/focus information typically appears towards the end of the sentence.</td>
+        <td><button class="rfb" onclick="rf(this,'R',3)">R</button></td><td><button class="rfb" onclick="rf(this,'F',3)">F</button></td></tr>
+      <tr><td>5</td><td>More than 3 levels of nested clauses is considered excellent, sophisticated style in German.</td>
+        <td><button class="rfb" onclick="rf(this,'R',4)">R</button></td><td><button class="rfb" onclick="rf(this,'F',4)">F</button></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['F','R','F','R','F'],'rfr1')">✓ Check</button>
+  </div>
+  <div class="rb" id="rfr1"></div>
+</div></div>
+
+<div style="display:flex;justify-content:space-between;margin-top:28px;flex-wrap:wrap;gap:10px">
+  <button style="padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;background:#e0e6f0;color:var(--navy)" onclick="history.back()">← Back</button>
+  <button style="padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;background:var(--lc);color:#fff" onclick="location.href='TheGermanStefan_C2_Hub.html'">C2 Hub →</button>
+</div>
+</div>
+
+<script>
+let CL=localStorage.getItem('tgs_lang')||'en';
+const LF={en:{fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite — see correct answer.',res_perfect:'🏆 Perfect!',res_great:'🎉 Excellent!',res_good:'👍 Good!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},de:{fb_correct:'✓ Richtig!',fb_wrong:'✗ Nicht ganz.',res_perfect:'🏆 Perfekt!',res_great:'🎉 Ausgezeichnet!',res_good:'👍 Gut!',res_practice:'💪 Weiter üben!',res_score:'Punkte',res_of:'von',res_correct:'richtig'},fr:{fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Excellent !',res_good:'👍 Bon !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Excelente!',res_good:'👍 ¡Bien!',res_practice:'💪 ¡Sigue!',res_score:'Pun.',res_of:'de',res_correct:'correctas'},tr:{fb_correct:'✓ Doğru!',fb_wrong:'✗ Tam değil.',res_perfect:'🏆 Mükemmel!',res_great:'🎉 Harika!',res_good:'👍 İyi!',res_practice:'💪 Devam et!',res_score:'Puan',res_of:'/',res_correct:'doğru'}};
+function t(k){return(LF[CL]||{})[k]||(LF.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}
+  else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}
+  updatePg()
+}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;document.getElementById('pgf').style.width=(Object.keys(mcs).length/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.classList.remove('ok','bad');});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice,idx){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[idx]=choice}
+function checkRF(ans,rid){let ok=0;ans.forEach((a,i)=>{if(rfSels[i]===a)ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=.8){cls='great';msg=t('res_great');}else if(p>=.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))});
+</script>
+<script src="content-nav.js"></script>
+</body>
+</html>

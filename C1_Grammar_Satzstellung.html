@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · C1 · Satzstellung</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--lc:#4a148c;--green:#2e7d32;--red:#c62828;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--border:#e0e6f0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap;text-decoration:none}
+.tb-logo span{color:var(--amber)}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap;text-decoration:none}
+.tb-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-mod{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--lc));color:#fff;padding:26px 24px 22px}
+.phi{max-width:860px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ph-icon{font-size:44px}
+.ph-title{font-size:24px;font-weight:900;margin-bottom:4px}
+.ph-sub{font-size:13px;opacity:.85}
+.ph-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.ph-tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.ph-score{text-align:right;flex-shrink:0}
+.ph-pts{font-size:32px;font-weight:900;color:var(--amber);line-height:1}
+.ph-ptsl{font-size:11px;opacity:.65;margin-top:3px}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px;overflow:hidden}
+.cb{padding:20px 22px}
+.st{font-size:13px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.diagram{display:flex;gap:4px;margin:14px 0;flex-wrap:wrap}
+.slot{border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;text-align:center;flex:1;min-width:70px}
+.slot-label{font-size:10px;font-weight:900;letter-spacing:.05em;opacity:.7;margin-bottom:3px;text-transform:uppercase}
+.slot-word{font-size:14px}
+.s-vor{background:#e3f2fd;color:#0d47a1;border:2px solid #90caf9}
+.s-v2{background:#fff9c4;color:#f57f17;border:2px solid #ffe082}
+.s-mit{background:#e8f5e9;color:#1b5e20;border:2px solid #a5d6a7}
+.s-end{background:#fce4ec;color:#880e4f;border:2px solid #f48fb1}
+.s-nf{background:#ede7f6;color:#4a148c;border:2px solid #b39ddb}
+.rule-box{background:#ede7f6;border-left:4px solid var(--lc);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.rule-box strong{color:var(--lc)}
+.info-box{background:#e3f2fd;border-left:4px solid #1976d2;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.warn-box{background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:13px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.cmp{border-radius:8px;padding:12px 14px;font-size:13px}
+.cmp-ok{background:#e8f5e9;border:1.5px solid #a5d6a7}
+.cmp-bad{background:#ffebee;border:1.5px solid #ef9a9a}
+.cmp-neu{background:#ede7f6;border:1.5px solid #b39ddb}
+.cmp-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.cmp-ok .cmp-label{color:#2e7d32}
+.cmp-bad .cmp-label{color:#c62828}
+.cmp-neu .cmp-label{color:#4a148c}
+.cmp-de{font-weight:700;color:var(--navy);font-size:14px}
+.cmp-en{color:var(--txt2);font-size:12px;margin-top:3px}
+.conj-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+.conj-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.conj-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.conj-table tr:nth-child(even) td{background:#f5f0ff}
+.conj-table td:first-child{font-weight:800;color:var(--lc)}
+.qblock{background:#f5f0ff;border:1.5px solid #b39ddb;border-radius:10px;padding:15px 17px;margin-bottom:14px}
+.qnum{font-size:11px;font-weight:800;color:var(--lc);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.qopt{padding:7px 15px;border-radius:8px;border:2px solid #b39ddb;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt:hover:not(.disabled){border-color:var(--lc);background:#ede7f6}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default;pointer-events:none;opacity:.7}
+.qfb{margin-top:8px;font-size:13px;padding:7px 11px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.fill-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:15px;margin-bottom:11px;padding:10px 14px;background:#f5f0ff;border-radius:10px;border:1.5px solid #b39ddb}
+.fi{border:none;border-bottom:2.5px solid var(--lc);background:transparent;font-size:15px;font-weight:700;color:var(--navy);padding:2px 6px;min-width:130px;outline:none;font-family:inherit}
+.fi.ok{border-color:var(--green);color:var(--green)}
+.fi.bad{border-color:var(--red);color:var(--red)}
+.rf-table{width:100%;border-collapse:collapse;font-size:14px}
+.rf-table th{background:var(--lc);color:#fff;padding:8px 12px;text-align:left;font-size:12px;font-weight:800}
+.rf-table td{padding:9px 12px;border-bottom:1px solid var(--border)}
+.rf-table tr:nth-child(even) td{background:#f5f0ff}
+.rfb{padding:5px 14px;border-radius:7px;border:2px solid #b39ddb;background:#fff;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.rfb:hover{border-color:var(--lc)}
+.rfb.selR{background:#e8f5e9;border-color:var(--green);color:var(--green)}
+.rfb.selF{background:#ffebee;border-color:var(--red);color:var(--red)}
+.btng{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.btn-p{background:var(--lc);color:#fff}.btn-p:hover{filter:brightness(1.15)}
+.btn-s{background:#e0e6f0;color:var(--navy)}.btn-s:hover{background:#cdd6e8}
+.rb{border-radius:12px;padding:16px 20px;margin-top:14px;display:none}
+.rb.show{display:block}
+.rb.perfect{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:2px solid var(--green)}
+.rb.great{background:linear-gradient(135deg,#ede7f6,#d1c4e9);border:2px solid var(--lc)}
+.rb.good{background:linear-gradient(135deg,#fffde7,#fff9c4);border:2px solid var(--amber)}
+.rb.practice{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #e91e63}
+.rbt{display:flex;align-items:center;gap:12px}
+.rbe{font-size:34px}
+.rbti{font-size:17px;font-weight:900;color:var(--navy)}
+.rbs{font-size:13px;color:var(--txt2);margin-top:2px}
+@media(max-width:600px){.compare{grid-template-columns:1fr}.qopts{flex-direction:column}.diagram{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <a class="tb-logo" href="index.html">The<span>German</span>Stefan</a>
+    <span class="tb-sep">›</span>
+    <a class="tb-crumb" href="TheGermanStefan_C1_Hub.html">C1</a>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb">Grammar</span>
+    <span class="tb-badge">C1</span>
+    <span class="tb-mod">Satzstellung</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="tr" onclick="setLang('tr')">TR</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="page-hdr">
+  <div class="phi">
+    <div>
+      <div class="ph-icon">🔬</div>
+      <div class="ph-title">Satzstellung C1</div>
+      <div class="ph-sub">Omitting wenn, es-placeholder, extended verb brackets, Nachfeld, participial phrases</div>
+      <div class="ph-meta">
+        <span class="ph-tag">C1</span><span class="ph-tag">Grammar</span>
+        <span class="ph-tag">⏱ 35 min</span><span class="ph-tag">15 questions</span>
+      </div>
+    </div>
+    <div class="ph-score"><div class="ph-pts" id="lsd">0</div><div class="ph-ptsl">correct</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Omitting wenn -->
+<div class="card"><div class="cb">
+  <div class="st">❌ Omitting "wenn" — conditional inversion</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">In formal or literary German, "wenn" can be omitted from a conditional clause. When this happens, the verb of the subordinate clause moves to position 1 of the whole sentence (inversion without a conjunction).</p>
+
+  <div class="compare">
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Standard: mit "wenn"</div>
+      <div class="cmp-de">Wenn ich Zeit hätte, würde ich kommen.</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Elevated: ohne "wenn" (verb first)</div>
+      <div class="cmp-de"><strong>Hätte</strong> ich Zeit, würde ich kommen.</div>
+      <div class="cmp-en">Had I time, I would come. (formal English echo)</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Indicative version: wenn omitted</div>
+      <div class="cmp-de"><strong>Hat</strong> er Zeit, besucht er mich. (= Wenn er Zeit hat…)</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Perfekt version</div>
+      <div class="cmp-de"><strong>Wäre</strong> er früher gegangen, hätte er den Zug erwischt.</div>
+    </div>
+  </div>
+
+  <div class="rule-box">💡 <strong>Signal:</strong> When a sentence starts with a verb (not a question, not imperative), it's likely a wenn-less conditional. The main clause follows with "würde", "hätte", "wäre", or another Konjunktiv II form.</div>
+</div></div>
+
+<!-- es placeholder -->
+<div class="card"><div class="cb">
+  <div class="st">📌 "es" as a placeholder — position and deletion</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px"><em>Es</em> is used as a structural placeholder when the grammatical subject is a clause (dass/zu-infinitive). It occupies position 1 but disappears when something else fills position 1.</p>
+
+  <table class="conj-table">
+    <tr><th>Pattern</th><th>With "es" in pos.1</th><th>es disappears — other element in pos.1</th></tr>
+    <tr><td>dass-Satz as subject</td><td><strong>Es</strong> ist bekannt, dass er kommt.</td><td>Dass er kommt, ist bekannt.</td></tr>
+    <tr><td>Infinitive as subject</td><td><strong>Es</strong> macht Spaß, Deutsch zu lernen.</td><td>Deutsch zu lernen macht Spaß.</td></tr>
+    <tr><td>Impersonal constructions</td><td><strong>Es</strong> wurde viel diskutiert.</td><td>Viel wurde diskutiert. (es deleted)</td></tr>
+    <tr><td>es as weather/impersonal</td><td><strong>Es</strong> regnet. (fixed — can't delete)</td><td>— (es is obligatory here)</td></tr>
+  </table>
+
+  <div class="warn-box">⚠️ <strong>Key rule:</strong> If es is a "dummy/placeholder" subject (replaced by a following clause), it CAN be deleted when that clause moves to position 1. If es is a real impersonal subject (weather, feeling), it CANNOT be deleted.</div>
+</div></div>
+
+<!-- Extended bracket chains -->
+<div class="card"><div class="cb">
+  <div class="st">🧱 Extended verbal brackets — Satzklammer with multiple verbs</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">The verbal bracket (Satzklammer) can extend with modals, perfect auxiliaries, and passive constructions. The second verb bracket position accumulates multiple verb forms, always reading right-to-left in meaning.</p>
+
+  <div class="diagram">
+    <div class="slot s-vor"><div class="slot-label">Subject</div><div class="slot-word">Er</div></div>
+    <div class="slot s-v2"><div class="slot-label">Fin. verb (pos.2)</div><div class="slot-word">hätte</div></div>
+    <div class="slot s-mit"><div class="slot-label">Middle field</div><div class="slot-word">das</div></div>
+    <div class="slot s-end"><div class="slot-label">Verb cluster (right bracket)</div><div class="slot-word">erledigen können müssen.</div></div>
+  </div>
+
+  <div class="info-box">📌 <strong>Reading the cluster:</strong> "erledigen können müssen" = had to be able to do it. Work backwards: müssen (obligation) → können (ability) → erledigen (action). In speech/writing, Germans restructure to avoid 3-verb clusters when possible.</div>
+
+  <div class="compare">
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Subordinate clause — all verbs at end</div>
+      <div class="cmp-de">…weil er das Projekt hätte fertigstellen sollen.</div>
+      <div class="cmp-en">…because he should have finished the project.</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Passive + modal + Perfekt</div>
+      <div class="cmp-de">…weil das Problem hätte gelöst werden können.</div>
+      <div class="cmp-en">…because the problem could have been solved.</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- Nachfeld -->
+<div class="card"><div class="cb">
+  <div class="st">🏁 The Nachfeld — what goes after the verb bracket</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">The Nachfeld is the area after the right verb bracket. Normally it is empty — but C1 speakers use it for specific additions that would make the Mittelfeld too heavy.</p>
+
+  <table class="conj-table">
+    <tr><th>What goes into Nachfeld</th><th>Example</th></tr>
+    <tr><td>Long relative clauses</td><td>Er hat das Buch <strong>gelesen</strong>, das er schon lange kaufen wollte.</td></tr>
+    <tr><td>dass/weil-clauses added as afterthought</td><td>Er kam, <strong>obwohl</strong> er eigentlich keine Zeit hatte.</td></tr>
+    <tr><td>Comparative/corrective clauses</td><td>Das war besser <strong>als</strong> erwartet.</td></tr>
+    <tr><td>Infinitive phrases (zu + inf.)</td><td>Er versprach ihr, <strong>früher nach Hause zu kommen</strong>.</td></tr>
+    <tr><td>Appositions or parenthetical remarks</td><td>Er rief an — <strong>endlich!</strong></td></tr>
+  </table>
+
+  <div class="rule-box">💡 Nachfeld allows German sentences to remain readable: heavy dependent clauses are "exported" after the main verb bracket rather than crammed into the middle field.</div>
+</div></div>
+
+<!-- Participial phrases -->
+<div class="card"><div class="cb">
+  <div class="st">🌿 Participial phrases — compressed relative clauses</div>
+  <p style="font-size:14px;color:var(--txt2);margin-bottom:12px">C1 German compresses relative clauses into participial phrases (Partizipialattribute). These are dense but common in formal writing. Partizip I (active) and Partizip II (passive) both work.</p>
+
+  <div class="compare">
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Full relative clause</div>
+      <div class="cmp-de">der Mann, der dort steht</div>
+      <div class="cmp-en">the man who is standing there</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Partizip I (active) → compressed</div>
+      <div class="cmp-de">der dort <strong>stehende</strong> Mann</div>
+      <div class="cmp-en">the man standing there</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Full relative clause (passive)</div>
+      <div class="cmp-de">das Buch, das geschrieben wurde</div>
+      <div class="cmp-en">the book that was written</div>
+    </div>
+    <div class="cmp cmp-neu">
+      <div class="cmp-label">Partizip II (passive) → compressed</div>
+      <div class="cmp-de">das <strong>geschriebene</strong> Buch</div>
+      <div class="cmp-en">the written book</div>
+    </div>
+  </div>
+
+  <div class="warn-box">⚠️ Extended participial phrases: <em>das von allen heiß erwartete Projekt</em> = "the project eagerly anticipated by everyone". In speech these are usually avoided — they belong to formal written German.</div>
+</div></div>
+
+<!-- MC -->
+<div class="card"><div class="cb">
+  <div class="st">🎯 Multiple Choice</div>
+
+  <div class="qblock">
+    <div class="qnum">Question 1</div>
+    <div class="qtext">What is the wenn-less equivalent of "Wenn ich früher gewusst hätte, …"?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">Ob ich früher gewusst hätte, …</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,1,true)">Hätte ich früher gewusst, …</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,1,false)">Ich hätte früher gewusst, …</button>
+    </div><div class="qfb" id="qfb1"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 2</div>
+    <div class="qtext">"Es ist bekannt, dass er kommt." — When can "es" be deleted?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">Never — es is always mandatory</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,2,true)">When "dass er kommt" moves to position 1: "Dass er kommt, ist bekannt."</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,2,false)">Only in questions, not in statements</button>
+    </div><div class="qfb" id="qfb2"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 3</div>
+    <div class="qtext">In "Er hätte das erledigen können müssen" — what does "müssen" modify?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">It modifies "hätte" directly</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,3,true)">The obligation wraps the whole: he was obliged (müssen) to be able (können) to do it (erledigen)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,3,false)">It is a stylistic filler with no grammatical role</button>
+    </div><div class="qfb" id="qfb3"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 4</div>
+    <div class="qtext">Which element typically goes into the Nachfeld?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">The subject and main verb</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,4,true)">Long dependent clauses or infinitive phrases added after the verb bracket</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,4,false)">TEKAMOLO adverbs (temporal, causal, modal, local)</button>
+    </div><div class="qfb" id="qfb4"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 5</div>
+    <div class="qtext">Compress: "der Mann, der dort wartet" → Partizip I form</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">der gewartet Mann</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,5,true)">der dort wartende Mann</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,5,false)">der dort gewartet Mann</button>
+    </div><div class="qfb" id="qfb5"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 6</div>
+    <div class="qtext">"Hätte er mehr geübt, ___." — complete the main clause.</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">er besser spielen würde.</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,6,true)">wäre er besser geworden. (Konj. II Perfekt)</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,6,false)">er würde besser sein geworden.</button>
+    </div><div class="qfb" id="qfb6"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 7</div>
+    <div class="qtext">"Es regnet" — can "es" be deleted or topicalized here?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">Yes — just like any other es placeholder</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,7,true)">No — es is an obligatory impersonal subject here, not a placeholder</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,7,false)">Yes, but only in spoken informal German</button>
+    </div><div class="qfb" id="qfb7"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 8</div>
+    <div class="qtext">Participial phrase (passive): "das Buch, das veröffentlicht wurde" compressed:</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">das veröffentlichende Buch</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,8,true)">das veröffentlichte Buch</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,8,false)">das zu veröffentlichende Buch</button>
+    </div><div class="qfb" id="qfb8"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 9</div>
+    <div class="qtext">Which style is the wenn-less conditional typical of?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Casual spoken German with friends</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,9,true)">Formal written / literary German</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,9,false)">Regional dialects only</button>
+    </div><div class="qfb" id="qfb9"></div>
+  </div>
+
+  <div class="qblock">
+    <div class="qnum">Question 10</div>
+    <div class="qtext">In "…weil das hätte geklärt werden müssen" — how many verbs are in the bracket?</div>
+    <div class="qopts">
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">2</button>
+      <button class="qopt" data-correct="true" onclick="mc(this,10,true)">4: hätte (fin.) + geklärt + werden + müssen</button>
+      <button class="qopt" data-correct="false" onclick="mc(this,10,false)">1 — only the finite verb counts</button>
+    </div><div class="qfb" id="qfb10"></div>
+  </div>
+</div></div>
+
+<!-- Fill -->
+<div class="card"><div class="cb">
+  <div class="st">✏️ Fill in the blanks (C1 level)</div>
+
+  <div class="fill-row"><input class="fi" id="f1" placeholder="wenn-less conditional" autocomplete="off"> er mehr Zeit gehabt, wäre er länger geblieben. (→ omit wenn)</div>
+  <div class="fill-row">Das ist der Bericht, den er gestern <input class="fi" id="f2" placeholder="Partizip II — schreiben" autocomplete="off"> hat. (Nachfeld: relative clause)</div>
+  <div class="fill-row">Dass er recht hat, <input class="fi" id="f3" placeholder="ist + bekannt/..." autocomplete="off"> bekannt. (es deleted — clause in pos.1)</div>
+  <div class="fill-row">Er versprach ihr, früher nach Hause <input class="fi" id="f4" placeholder="zu + kommen" autocomplete="off">. (Nachfeld infinitive)</div>
+  <div class="fill-row">Das von allen erwartete <input class="fi" id="f5" placeholder="noun (Ergebnis/Projekt...)" autocomplete="off"> blieb aus. (extended participial)</div>
+
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkFill(['Hätte','geschrieben','ist','zu kommen','Ergebnis'],['f1','f2','f3','f4','f5'],'fr1')">✓ Check</button>
+    <button class="btn btn-s" onclick="resetFill(['f1','f2','f3','f4','f5'],'fr1')">Reset</button>
+  </div>
+  <div class="rb" id="fr1"></div>
+</div></div>
+
+<!-- R/F -->
+<div class="card"><div class="cb">
+  <div class="st">✅ Richtig oder Falsch?</div>
+  <table class="rf-table">
+    <thead><tr><th>#</th><th>Statement</th><th>R</th><th>F</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Omitting "wenn" causes the conjugated verb to move to position 1 of the sentence.</td>
+        <td><button class="rfb" onclick="rf(this,'R',0)">R</button></td><td><button class="rfb" onclick="rf(this,'F',0)">F</button></td></tr>
+      <tr><td>2</td><td>A placeholder "es" can always be deleted regardless of what follows the verb.</td>
+        <td><button class="rfb" onclick="rf(this,'R',1)">R</button></td><td><button class="rfb" onclick="rf(this,'F',1)">F</button></td></tr>
+      <tr><td>3</td><td>The Nachfeld appears AFTER the right verb bracket and is used for heavy dependent clauses.</td>
+        <td><button class="rfb" onclick="rf(this,'R',2)">R</button></td><td><button class="rfb" onclick="rf(this,'F',2)">F</button></td></tr>
+      <tr><td>4</td><td>Partizip I describes an ongoing active process; Partizip II describes a completed passive state.</td>
+        <td><button class="rfb" onclick="rf(this,'R',3)">R</button></td><td><button class="rfb" onclick="rf(this,'F',3)">F</button></td></tr>
+      <tr><td>5</td><td>A verb cluster like "hätte sagen können müssen" is perfectly normal in everyday conversation.</td>
+        <td><button class="rfb" onclick="rf(this,'R',4)">R</button></td><td><button class="rfb" onclick="rf(this,'F',4)">F</button></td></tr>
+    </tbody>
+  </table>
+  <div class="btng">
+    <button class="btn btn-p" onclick="checkRF(['R','F','R','R','F'],'rfr1')">✓ Check</button>
+  </div>
+  <div class="rb" id="rfr1"></div>
+</div></div>
+
+<div style="display:flex;justify-content:space-between;margin-top:28px;flex-wrap:wrap;gap:10px">
+  <button style="padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;background:#e0e6f0;color:var(--navy)" onclick="history.back()">← Back</button>
+  <button style="padding:9px 20px;border-radius:9px;border:none;font-size:14px;font-weight:800;cursor:pointer;background:var(--lc);color:#fff" onclick="location.href='TheGermanStefan_C1_Hub.html'">C1 Hub →</button>
+</div>
+</div>
+
+<script>
+let CL=localStorage.getItem('tgs_lang')||'en';
+const LF={en:{fb_correct:'✓ Correct!',fb_wrong:'✗ Not quite — see correct answer.',res_perfect:'🏆 Perfect!',res_great:'🎉 Excellent!',res_good:'👍 Good!',res_practice:'💪 Keep practising!',res_score:'Score',res_of:'of',res_correct:'correct'},de:{fb_correct:'✓ Richtig!',fb_wrong:'✗ Nicht ganz.',res_perfect:'🏆 Perfekt!',res_great:'🎉 Ausgezeichnet!',res_good:'👍 Gut!',res_practice:'💪 Weiter üben!',res_score:'Punkte',res_of:'von',res_correct:'richtig'},fr:{fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Excellent !',res_good:'👍 Bon !',res_practice:'💪 Continuez !',res_score:'Score',res_of:'sur',res_correct:'correct'},es:{fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Excelente!',res_good:'👍 ¡Bien!',res_practice:'💪 ¡Sigue!',res_score:'Pun.',res_of:'de',res_correct:'correctas'},tr:{fb_correct:'✓ Doğru!',fb_wrong:'✗ Tam değil.',res_perfect:'🏆 Mükemmel!',res_great:'🎉 Harika!',res_good:'👍 İyi!',res_practice:'💪 Devam et!',res_score:'Puan',res_of:'/',res_correct:'doğru'}};
+function t(k){return(LF[CL]||{})[k]||(LF.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+let mcs={};
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}
+  else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}
+  updatePg()
+}
+function updatePg(){const tot=document.querySelectorAll('.qblock').length;document.getElementById('pgf').style.width=(Object.keys(mcs).length/tot*100)+'%';document.getElementById('lsd').textContent=Object.values(mcs).reduce((a,b)=>a+b,0)}
+function checkFill(ans,ids,rid){let ok=0;ids.forEach((id,i)=>{const inp=document.getElementById(id);if(!inp)return;inp.classList.remove('ok','bad');if(inp.value.trim().toLowerCase()===ans[i].toLowerCase()){inp.classList.add('ok');ok++;}else{inp.classList.add('bad');inp.value='';inp.placeholder='→ '+ans[i];}});showRes(rid,ok,ids.length)}
+function resetFill(ids,rid){ids.forEach(id=>{const inp=document.getElementById(id);if(!inp)return;inp.value='';inp.classList.remove('ok','bad');});const rb=document.getElementById(rid);if(rb)rb.className='rb'}
+let rfSels={};
+function rf(btn,choice,idx){const w=btn.closest('tr');w.querySelectorAll('.rfb').forEach(b=>b.classList.remove('selR','selF'));btn.classList.add(choice==='R'?'selR':'selF');rfSels[idx]=choice}
+function checkRF(ans,rid){let ok=0;ans.forEach((a,i)=>{if(rfSels[i]===a)ok++;});showRes(rid,ok,ans.length)}
+function showRes(id,ok,tot){const el=document.getElementById(id);if(!el)return;const p=ok/tot;let cls='practice',msg=t('res_practice');if(p===1){cls='perfect';msg=t('res_perfect');}else if(p>=.8){cls='great';msg=t('res_great');}else if(p>=.5){cls='good';msg=t('res_good');}el.className='rb show '+cls;el.innerHTML='<div class="rbt"><div class="rbe">'+(p===1?'🏆':p>=.8?'🎉':p>=.5?'👍':'💪')+'</div><div><div class="rbti">'+msg+'</div><div class="rbs">'+t('res_score')+': '+ok+' '+t('res_of')+' '+tot+' '+t('res_correct')+'</div></div></div>'}
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))});
+</script>
+<script src="content-nav.js"></script>
+</body>
+</html>

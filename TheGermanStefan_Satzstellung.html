@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGermanStefan · Special Skills · Satzstellung — Complete Guide</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0b2545;--amber:#f9a825;--gray:#f0f4f8;--txt:#1a1a1a;--txt2:#555;--border:#e0e6f0;
+  --a1:#1464b4;--a2:#6a1b9a;--b1:#b71c1c;--b2:#1b5e20;--c1:#4a148c;--c2:#bf360c;
+  --green:#2e7d32;--red:#c62828}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);font-size:15px;line-height:1.75}
+.topbar{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:52px;position:sticky;top:0;z-index:200;gap:12px}
+.tb-left{display:flex;align-items:center;gap:8px;overflow:hidden}
+.tb-logo{font-weight:900;font-size:15px;color:#fff;white-space:nowrap;text-decoration:none}
+.tb-logo span{color:var(--amber)}
+.tb-sep{color:rgba(255,255,255,.4);font-size:13px}
+.tb-crumb{font-size:12px;color:rgba(255,255,255,.6);white-space:nowrap}
+.tb-badge{background:linear-gradient(135deg,var(--a1),var(--c2));color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:12px;margin-left:4px}
+.tb-right{display:flex;gap:4px;flex-shrink:0}
+.lb{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:inherit;transition:.15s}
+.lb:hover{background:rgba(255,255,255,.15);color:#fff}
+.lb.on{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.pgstrip{height:4px;background:rgba(0,0,0,.1);position:sticky;top:52px;z-index:199}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .5s}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3a70 50%,#0d2137 100%);color:#fff;padding:32px 24px 28px;text-align:center}
+.hero-icon{font-size:52px;margin-bottom:10px}
+.hero-title{font-size:28px;font-weight:900;letter-spacing:-.5px}
+.hero-sub{font-size:14px;opacity:.8;margin-top:6px;max-width:600px;margin-left:auto;margin-right:auto}
+.level-filter{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px}
+.lbtn{padding:7px 18px;border-radius:20px;border:2px solid rgba(255,255,255,.3);background:transparent;color:rgba(255,255,255,.7);font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.lbtn:hover{background:rgba(255,255,255,.15)}
+.lbtn.active{color:#fff;border-color:currentColor}
+.lbtn.a1{--lc:var(--a1)}.lbtn.a2{--lc:var(--a2)}.lbtn.b1{--lc:var(--b1)}.lbtn.b2{--lc:var(--b2)}.lbtn.c1{--lc:var(--c1)}.lbtn.c2{--lc:var(--c2)}.lbtn.all{--lc:var(--amber)}
+.lbtn.active{background:var(--lc);border-color:var(--lc)}
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 80px}
+.level-section{margin-bottom:28px}
+.ls-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:14px 18px;border-radius:12px;color:#fff}
+.ls-header.a1{background:var(--a1)}.ls-header.a2{background:var(--a2)}.ls-header.b1{background:var(--b1)}.ls-header.b2{background:var(--b2)}.ls-header.c1{background:var(--c1)}.ls-header.c2{background:var(--c2)}
+.ls-icon{font-size:28px}
+.ls-title{font-size:18px;font-weight:900}
+.ls-sub{font-size:12px;opacity:.85;margin-top:2px}
+.ls-link{margin-left:auto;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 14px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;cursor:pointer;white-space:nowrap;transition:.15s}
+.ls-link:hover{background:rgba(255,255,255,.35)}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:14px;overflow:hidden}
+.cb{padding:18px 20px}
+.st{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.st.a1{color:var(--a1);border-color:#90caf9}.st.a2{color:var(--a2);border-color:#ce93d8}.st.b1{color:var(--b1);border-color:#ef9a9a}.st.b2{color:var(--b2);border-color:#a5d6a7}.st.c1{color:var(--c1);border-color:#b39ddb}.st.c2{color:var(--c2);border-color:#ffab91}
+.diagram{display:flex;gap:4px;margin:12px 0;flex-wrap:wrap}
+.slot{border-radius:7px;padding:7px 10px;font-size:12px;font-weight:700;text-align:center;flex:1;min-width:60px}
+.slot-label{font-size:9px;font-weight:900;letter-spacing:.05em;opacity:.7;margin-bottom:2px;text-transform:uppercase}
+.slot-word{font-size:13px}
+.s-vor{background:#e3f2fd;color:#0d47a1;border:2px solid #90caf9}
+.s-v2{background:#fff9c4;color:#f57f17;border:2px solid #ffe082}
+.s-mit{background:#e8f5e9;color:#1b5e20;border:2px solid #a5d6a7}
+.s-end{background:#fce4ec;color:#880e4f;border:2px solid #f48fb1}
+.s-nf{background:#f3e5f5;color:#4a148c;border:2px solid #ce93d8}
+.rule-box{border-left:4px solid currentColor;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:13px}
+.rule-box.a1{background:#e3f2fd;color:var(--a1)}.rule-box.a2{background:#f3e5f5;color:var(--a2)}.rule-box.b1{background:#ffebee;color:var(--b1)}.rule-box.b2{background:#e8f5e9;color:var(--b2)}.rule-box.c1{background:#ede7f6;color:var(--c1)}.rule-box.c2{background:#fbe9e7;color:var(--c2)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.cmp{border-radius:8px;padding:10px 12px;font-size:13px}
+.cmp-ok{background:#e8f5e9;border:1.5px solid #a5d6a7}
+.cmp-bad{background:#ffebee;border:1.5px solid #ef9a9a}
+.cmp-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.cmp-ok .cmp-label{color:#2e7d32}.cmp-bad .cmp-label{color:#c62828}
+.cmp-de{font-weight:700;color:var(--navy);font-size:14px}
+.cmp-en{color:var(--txt2);font-size:12px;margin-top:2px}
+/* Quick Reference Table */
+.qr-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0}
+.qr-table th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-size:12px;font-weight:800}
+.qr-table td{padding:9px 12px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.qr-table tr:hover td{background:#f5faff}
+.lvl-chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:900;color:#fff}
+.lvl-chip.a1{background:var(--a1)}.lvl-chip.a2{background:var(--a2)}.lvl-chip.b1{background:var(--b1)}.lvl-chip.b2{background:var(--b2)}.lvl-chip.c1{background:var(--c1)}.lvl-chip.c2{background:var(--c2)}
+/* MC exercises */
+.qblock{border-radius:10px;padding:14px 16px;margin-bottom:12px;border:1.5px solid}
+.qblock.a1{background:#e3f2fd;border-color:#90caf9}.qblock.a2{background:#f3e5f5;border-color:#ce93d8}
+.qblock.b1{background:#ffebee;border-color:#ef9a9a}.qblock.b2{background:#e8f5e9;border-color:#a5d6a7}
+.qblock.c1{background:#ede7f6;border-color:#b39ddb}.qblock.c2{background:#fbe9e7;border-color:#ffab91}
+.qnum{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.qnum.a1{color:var(--a1)}.qnum.a2{color:var(--a2)}.qnum.b1{color:var(--b1)}.qnum.b2{color:var(--b2)}.qnum.c1{color:var(--c1)}.qnum.c2{color:var(--c2)}
+.qtext{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.qopts{display:flex;flex-wrap:wrap;gap:6px}
+.qopt{padding:6px 13px;border-radius:8px;border:2px solid #ccc;background:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.qopt.a1{border-color:#90caf9}.qopt.a2{border-color:#ce93d8}.qopt.b1{border-color:#ef9a9a}
+.qopt.b2{border-color:#a5d6a7}.qopt.c1{border-color:#b39ddb}.qopt.c2{border-color:#ffab91}
+.qopt:hover:not(.disabled){opacity:.85;transform:translateY(-1px)}
+.qopt.correct{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.qopt.wrong{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.qopt.disabled{cursor:default;pointer-events:none;opacity:.7}
+.qfb{margin-top:7px;font-size:12px;padding:6px 10px;border-radius:7px;display:none}
+.qfb.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.qfb.bad{display:block;background:#ffebee;color:#b71c1c}
+.score-strip{background:var(--navy);color:#fff;border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.ss-num{font-size:40px;font-weight:900;color:var(--amber);line-height:1}
+.ss-label{font-size:13px;opacity:.7;margin-top:2px}
+.ss-bar-wrap{flex:1;min-width:150px}
+.ss-bar{height:8px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden;margin-top:8px}
+.ss-barfill{height:100%;background:var(--amber);width:0%;border-radius:4px;transition:width .5s}
+.hidden{display:none!important}
+@media(max-width:600px){.compare{grid-template-columns:1fr}.qopts{flex-direction:column}.diagram{flex-direction:column}.score-strip{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-left">
+    <a class="tb-logo" href="index.html">The<span>German</span>Stefan</a>
+    <span class="tb-sep">›</span>
+    <span class="tb-crumb">Special Skills</span>
+    <span class="tb-badge">ALL LEVELS</span>
+  </div>
+  <div class="tb-right">
+    <button class="lb on" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="tr" onclick="setLang('tr')">TR</button>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<div class="hero">
+  <div class="hero-icon">🗂️</div>
+  <div class="hero-title">Satzstellung — Complete Guide</div>
+  <div class="hero-sub">From V2 to Ausklammerung — every word order rule across all levels, in one place. Filter by your level or study the full picture.</div>
+  <div class="level-filter">
+    <button class="lbtn all active" onclick="filterLevel('all')">All Levels</button>
+    <button class="lbtn a1" onclick="filterLevel('a1')">A1</button>
+    <button class="lbtn a2" onclick="filterLevel('a2')">A2</button>
+    <button class="lbtn b1" onclick="filterLevel('b1')">B1</button>
+    <button class="lbtn b2" onclick="filterLevel('b2')">B2</button>
+    <button class="lbtn c1" onclick="filterLevel('c1')">C1</button>
+    <button class="lbtn c2" onclick="filterLevel('c2')">C2</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Quick Reference Table -->
+<div class="card">
+  <div class="cb">
+    <div class="st" style="color:var(--navy);border-color:var(--border)">📋 Quick Reference — All Word Order Rules</div>
+    <table class="qr-table">
+      <thead><tr><th>Level</th><th>Rule</th><th>Key principle</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><span class="lvl-chip a1">A1</span></td><td>V2 Rule</td><td>Conjugated verb always in position 2</td><td>Heute <strong>gehe</strong> ich ins Kino.</td></tr>
+        <tr><td><span class="lvl-chip a1">A1</span></td><td>Inversion</td><td>Non-subject in pos.1 → verb before subject</td><td>Morgen <strong>fahre</strong> ich nach Berlin.</td></tr>
+        <tr><td><span class="lvl-chip a1">A1</span></td><td>Satzklammer</td><td>Separable prefix / infinitive at the END</td><td>Er <strong>ruft</strong> mich <strong>an</strong>.</td></tr>
+        <tr><td><span class="lvl-chip a2">A2</span></td><td>Coordinating conj.</td><td>und/aber/oder/denn → V2 unchanged</td><td>Er schläft, denn er ist müde.</td></tr>
+        <tr><td><span class="lvl-chip a2">A2</span></td><td>Subordinating conj.</td><td>weil/dass/obwohl → verb to END</td><td>…weil er müde <strong>ist</strong>.</td></tr>
+        <tr><td><span class="lvl-chip a2">A2</span></td><td>Sub clause first</td><td>Whole sub clause = pos.1 → main verb next</td><td>Weil er krank ist, <strong>bleibt</strong> er zu Hause.</td></tr>
+        <tr><td><span class="lvl-chip a2">A2</span></td><td>Perfekt order</td><td>Sub clause: Partizip II before haben/sein</td><td>…weil er das gelesen <strong>hat</strong>.</td></tr>
+        <tr><td><span class="lvl-chip b1">B1</span></td><td>TEKAMOLO</td><td>Temporal → Kausal → Modal → Lokal</td><td>Er fährt heute schnell nach Berlin.</td></tr>
+        <tr><td><span class="lvl-chip b1">B1</span></td><td>nicht position</td><td>Late as possible; before adjective/prep if specific</td><td>Er kommt <strong>nicht</strong>. / Das ist <strong>nicht</strong> gut.</td></tr>
+        <tr><td><span class="lvl-chip b1">B1</span></td><td>als/wenn/wann</td><td>als=one past moment; wenn=repeated; wann=question</td><td>Als ich jung war… / Wenn es regnet…</td></tr>
+        <tr><td><span class="lvl-chip b1">B1</span></td><td>Modal in Nebensatz</td><td>Infinitive + modal at VERY END</td><td>…weil sie nicht kommen <strong>kann</strong>.</td></tr>
+        <tr><td><span class="lvl-chip b1">B1</span></td><td>um…zu</td><td>Purpose: infinitive after zu at end</td><td>…um besser zu lernen.</td></tr>
+        <tr><td><span class="lvl-chip b2">B2</span></td><td>Topicalization</td><td>Any element in pos.1 → inversion + emphasis</td><td>Das Buch habe ich gestern gelesen.</td></tr>
+        <tr><td><span class="lvl-chip b2">B2</span></td><td>je…desto</td><td>je-clause verb-final; desto: adj → verb → subject</td><td>Je mehr er übt, desto besser wird er.</td></tr>
+        <tr><td><span class="lvl-chip b2">B2</span></td><td>Konjunktiv II</td><td>Same position rules; würde/infinitive at end in sub</td><td>…wenn er kommen würde.</td></tr>
+        <tr><td><span class="lvl-chip b2">B2</span></td><td>Indirect speech</td><td>With dass: verb-final; without dass: V2</td><td>Er sagt, er komme morgen.</td></tr>
+        <tr><td><span class="lvl-chip c1">C1</span></td><td>wenn-less conditional</td><td>Verb in pos.1 replaces wenn</td><td>Hätte ich Zeit, würde ich kommen.</td></tr>
+        <tr><td><span class="lvl-chip c1">C1</span></td><td>es placeholder</td><td>Placeholder es deleted when clause fills pos.1</td><td>Dass er kommt, ist bekannt. (es gone)</td></tr>
+        <tr><td><span class="lvl-chip c1">C1</span></td><td>Nachfeld</td><td>Heavy clauses exported after right bracket</td><td>Er hat versucht, früher zu kommen.</td></tr>
+        <tr><td><span class="lvl-chip c1">C1</span></td><td>Partizipialattribut</td><td>Relative clause compressed to participial phrase</td><td>der dort wartende Mann</td></tr>
+        <tr><td><span class="lvl-chip c2">C2</span></td><td>Ausklammerung</td><td>Extraposition from bracket for readability</td><td>Er hat viel gelernt, aus reiner Neugier.</td></tr>
+        <tr><td><span class="lvl-chip c2">C2</span></td><td>TEKAMOLO deviation</td><td>New info comes late — given/known info comes early</td><td>Er fährt mit dem Zug morgen. (train=new)</td></tr>
+        <tr><td><span class="lvl-chip c2">C2</span></td><td>Stylistic inversion</td><td>Rule-bending for rhetorical effect (literary)</td><td>Zu spät kam er — dramatische Stille folgte.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Score Strip -->
+<div class="score-strip">
+  <div><div class="ss-num" id="ss-score">0</div><div class="ss-label">correct answers</div></div>
+  <div class="ss-bar-wrap">
+    <div style="font-size:13px;opacity:.7">Progress through exercises:</div>
+    <div class="ss-bar"><div class="ss-barfill" id="pgbar"></div></div>
+  </div>
+</div>
+
+<!-- A1 Section -->
+<div class="level-section" data-level="a1">
+  <div class="ls-header a1">
+    <div class="ls-icon">📘</div>
+    <div><div class="ls-title">A1 — Satzstellung Basics</div><div class="ls-sub">V2 rule · Inversion · Satzklammer · Questions</div></div>
+    <a class="ls-link" href="A1_Grammar_Satzstellung.html">Full A1 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st a1">The V2 Rule — verb always in position 2</div>
+    <div class="diagram">
+      <div class="slot s-vor"><div class="slot-label">Vorfeld (pos.1)</div><div class="slot-word">Ich / Heute / Im Sommer</div></div>
+      <div class="slot s-v2"><div class="slot-label">Verb (pos.2)</div><div class="slot-word">gehe / fahre / lerne</div></div>
+      <div class="slot s-mit"><div class="slot-label">Rest</div><div class="slot-word">ins Kino / nach Berlin / Deutsch.</div></div>
+    </div>
+    <div class="rule-box a1">💡 No matter what is in position 1 — subject, adverb, object — the conjugated verb ALWAYS occupies position 2.</div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st a1">Satzklammer — the verbal bracket</div>
+    <div class="diagram">
+      <div class="slot s-vor"><div class="slot-label">Subject</div><div class="slot-word">Er</div></div>
+      <div class="slot s-v2"><div class="slot-label">Left bracket</div><div class="slot-word">ruft</div></div>
+      <div class="slot s-mit"><div class="slot-label">Middle field</div><div class="slot-word">mich jeden Tag</div></div>
+      <div class="slot s-end"><div class="slot-label">Right bracket</div><div class="slot-word">an.</div></div>
+    </div>
+    <div class="compare">
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Separable verb</div><div class="cmp-de">Er <strong>ruft</strong> mich <strong>an</strong>.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Modal + infinitive</div><div class="cmp-de">Er <strong>kann</strong> heute nicht <strong>kommen</strong>.</div></div>
+    </div>
+  </div></div>
+
+  <!-- A1 MC -->
+  <div class="card"><div class="cb">
+    <div class="st a1">🎯 A1 Exercises</div>
+    <div class="qblock a1">
+      <div class="qnum a1">A1 · Q1</div>
+      <div class="qtext">Inversion: "Heute ___ ich ins Kino."</div>
+      <div class="qopts">
+        <button class="qopt a1" data-correct="true" onclick="mc(this,'a1_1',true)">gehe</button>
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_1',false)">ich gehe</button>
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_1',false)">geht</button>
+      </div><div class="qfb" id="qfba1_1"></div>
+    </div>
+    <div class="qblock a1">
+      <div class="qnum a1">A1 · Q2</div>
+      <div class="qtext">Which is correct? (separable verb "aufmachen")</div>
+      <div class="qopts">
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_2',false)">Er aufmacht das Fenster.</button>
+        <button class="qopt a1" data-correct="true" onclick="mc(this,'a1_2',true)">Er macht das Fenster auf.</button>
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_2',false)">Er macht auf das Fenster.</button>
+      </div><div class="qfb" id="qfba1_2"></div>
+    </div>
+    <div class="qblock a1">
+      <div class="qnum a1">A1 · Q3</div>
+      <div class="qtext">W-question: "Wo ___ du?"</div>
+      <div class="qopts">
+        <button class="qopt a1" data-correct="true" onclick="mc(this,'a1_3',true)">wohnst</button>
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_3',false)">du wohnst</button>
+        <button class="qopt a1" data-correct="false" onclick="mc(this,'a1_3',false)">wohnt</button>
+      </div><div class="qfb" id="qfba1_3"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- A2 Section -->
+<div class="level-section" data-level="a2">
+  <div class="ls-header a2">
+    <div class="ls-icon">🔗</div>
+    <div><div class="ls-title">A2 — Conjunctions & Subordinate Clauses</div><div class="ls-sub">weil/dass/obwohl · sub clause first · Perfekt order · Relative clauses</div></div>
+    <a class="ls-link" href="A2_Grammar_Satzstellung.html">Full A2 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st a2">weil vs denn — the crucial distinction</div>
+    <div class="compare">
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ denn (coordinating — V2!)</div><div class="cmp-de">Er schläft, denn er ist müde.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ weil (subordinating — verb END!)</div><div class="cmp-de">Er schläft, weil er müde <strong>ist</strong>.</div></div>
+      <div class="cmp cmp-bad"><div class="cmp-label">✗ Common error</div><div class="cmp-de">Er schläft, weil er <strong>ist</strong> müde.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Sub clause first → inversion</div><div class="cmp-de">Weil er krank ist, <strong>bleibt</strong> er zu Hause.</div></div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st a2">🎯 A2 Exercises</div>
+    <div class="qblock a2">
+      <div class="qnum a2">A2 · Q1</div>
+      <div class="qtext">Which sentence correctly uses "obwohl"?</div>
+      <div class="qopts">
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_1',false)">Sie geht aus, obwohl sie ist krank.</button>
+        <button class="qopt a2" data-correct="true" onclick="mc(this,'a2_1',true)">Sie geht aus, obwohl sie krank ist.</button>
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_1',false)">Sie geht aus, obwohl ist sie krank.</button>
+      </div><div class="qfb" id="qfba2_1"></div>
+    </div>
+    <div class="qblock a2">
+      <div class="qnum a2">A2 · Q2</div>
+      <div class="qtext">Perfekt in sub clause: "Ich weiß, dass er das Buch gelesen ___."</div>
+      <div class="qopts">
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_2',false)">hat gelesen</button>
+        <button class="qopt a2" data-correct="true" onclick="mc(this,'a2_2',true)">hat (gelesen hat → hat goes last)</button>
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_2',false)">liest</button>
+      </div><div class="qfb" id="qfba2_2"></div>
+    </div>
+    <div class="qblock a2">
+      <div class="qnum a2">A2 · Q3</div>
+      <div class="qtext">Sub clause first: "Wenn ich Zeit habe, ___ ich ins Kino."</div>
+      <div class="qopts">
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_3',false)">ich gehe</button>
+        <button class="qopt a2" data-correct="true" onclick="mc(this,'a2_3',true)">gehe</button>
+        <button class="qopt a2" data-correct="false" onclick="mc(this,'a2_3',false)">gehe ich ins Kino gehe</button>
+      </div><div class="qfb" id="qfba2_3"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- B1 Section -->
+<div class="level-section" data-level="b1">
+  <div class="ls-header b1">
+    <div class="ls-icon">🧩</div>
+    <div><div class="ls-title">B1 — TEKAMOLO, nicht, als/wenn/wann</div><div class="ls-sub">Adverb order · negation · temporal conjunctions · modals in sub clauses · um…zu</div></div>
+    <a class="ls-link" href="B1_Grammar_Satzstellung.html">Full B1 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st b1">TEKAMOLO — adverb order</div>
+    <div class="diagram">
+      <div class="slot s-v2"><div class="slot-label">Verb</div><div class="slot-word">fährt</div></div>
+      <div class="slot" style="background:#e3f2fd;color:#0d47a1;border:2px solid #90caf9"><div class="slot-label">T — Temporal</div><div class="slot-word">heute</div></div>
+      <div class="slot" style="background:#ede7f6;color:#4a148c;border:2px solid #b39ddb"><div class="slot-label">K — Kausal</div><div class="slot-word">wegen Arbeit</div></div>
+      <div class="slot" style="background:#e8f5e9;color:#1b5e20;border:2px solid #a5d6a7"><div class="slot-label">M — Modal</div><div class="slot-word">schnell</div></div>
+      <div class="slot" style="background:#fff9c4;color:#f57f17;border:2px solid #ffe082"><div class="slot-label">L — Lokal</div><div class="slot-word">nach München.</div></div>
+    </div>
+    <div class="rule-box b1">💡 WHEN? → WHY? → HOW? → WHERE? — this is the fixed order for adverbs in the middle field.</div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st b1">🎯 B1 Exercises</div>
+    <div class="qblock b1">
+      <div class="qnum b1">B1 · Q1</div>
+      <div class="qtext">Fill the blank: "___ ich jung war, lebte ich in Wien." (als/wenn/wann)</div>
+      <div class="qopts">
+        <button class="qopt b1" data-correct="true" onclick="mc(this,'b1_1',true)">Als — one specific past moment</button>
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_1',false)">Wenn — for repeated past events</button>
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_1',false)">Wann — indirect question word</button>
+      </div><div class="qfb" id="qfbb1_1"></div>
+    </div>
+    <div class="qblock b1">
+      <div class="qnum b1">B1 · Q2</div>
+      <div class="qtext">TEKAMOLO correct: "She goes every day quickly to school."</div>
+      <div class="qopts">
+        <button class="qopt b1" data-correct="true" onclick="mc(this,'b1_2',true)">Sie geht jeden Tag schnell zur Schule.</button>
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_2',false)">Sie geht schnell jeden Tag zur Schule.</button>
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_2',false)">Sie geht zur Schule schnell jeden Tag.</button>
+      </div><div class="qfb" id="qfbb1_2"></div>
+    </div>
+    <div class="qblock b1">
+      <div class="qnum b1">B1 · Q3</div>
+      <div class="qtext">Modal in sub clause: "…weil sie heute nicht ___."</div>
+      <div class="qopts">
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_3',false)">kann kommen</button>
+        <button class="qopt b1" data-correct="true" onclick="mc(this,'b1_3',true)">kommen kann</button>
+        <button class="qopt b1" data-correct="false" onclick="mc(this,'b1_3',false)">kommen können</button>
+      </div><div class="qfb" id="qfbb1_3"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- B2 Section -->
+<div class="level-section" data-level="b2">
+  <div class="ls-header b2">
+    <div class="ls-icon">🎓</div>
+    <div><div class="ls-title">B2 — Topicalization, Konjunktiv II, Indirect Speech</div><div class="ls-sub">Focus word order · je…desto · modal particles · two-part conjunctions</div></div>
+    <a class="ls-link" href="B2_Grammar_Satzstellung.html">Full B2 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st b2">Topicalization & je…desto</div>
+    <div class="compare">
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Object topicalized</div><div class="cmp-de">Das Buch habe ich gelesen.</div><div class="cmp-en">"das Buch" in focus</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ je…desto structure</div><div class="cmp-de">Je mehr er übt, desto besser wird er.</div><div class="cmp-en">je-clause: verb-final; desto: adj→verb→subj</div></div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st b2">🎯 B2 Exercises</div>
+    <div class="qblock b2">
+      <div class="qnum b2">B2 · Q1</div>
+      <div class="qtext">Which sentence topicalizes "gestern" for emphasis?</div>
+      <div class="qopts">
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_1',false)">Ich habe gestern das Buch gelesen.</button>
+        <button class="qopt b2" data-correct="true" onclick="mc(this,'b2_1',true)">Gestern habe ich das Buch gelesen.</button>
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_1',false)">Gestern ich habe das Buch gelesen.</button>
+      </div><div class="qfb" id="qfbb2_1"></div>
+    </div>
+    <div class="qblock b2">
+      <div class="qnum b2">B2 · Q2</div>
+      <div class="qtext">Indirect speech: "Er sagt, ___ morgen kommen." (Konj. I, without dass)</div>
+      <div class="qopts">
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_2',false)">er kommt</button>
+        <button class="qopt b2" data-correct="true" onclick="mc(this,'b2_2',true)">er komme</button>
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_2',false)">er käme</button>
+      </div><div class="qfb" id="qfbb2_2"></div>
+    </div>
+    <div class="qblock b2">
+      <div class="qnum b2">B2 · Q3</div>
+      <div class="qtext">je…desto: "Je früher ___, desto besser ___."</div>
+      <div class="qopts">
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_3',false)">er geht / es ist</button>
+        <button class="qopt b2" data-correct="true" onclick="mc(this,'b2_3',true)">er geht (verb-final) / ist es (verb before subject after desto)</button>
+        <button class="qopt b2" data-correct="false" onclick="mc(this,'b2_3',false)">geht er / es ist</button>
+      </div><div class="qfb" id="qfbb2_3"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- C1 Section -->
+<div class="level-section" data-level="c1">
+  <div class="ls-header c1">
+    <div class="ls-icon">🔬</div>
+    <div><div class="ls-title">C1 — Omitting wenn, Nachfeld, Participials</div><div class="ls-sub">wenn-less conditionals · es placeholder · extended brackets · Nachfeld · Partizipialattribute</div></div>
+    <a class="ls-link" href="C1_Grammar_Satzstellung.html">Full C1 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st c1">wenn-less conditional & Nachfeld</div>
+    <div class="compare">
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Standard (with wenn)</div><div class="cmp-de">Wenn ich Zeit hätte, würde ich kommen.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ wenn-less (formal)</div><div class="cmp-de">Hätte ich Zeit, würde ich kommen.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Nachfeld: infinitive phrase</div><div class="cmp-de">Er versprach ihr, früher zu kommen.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Participial phrase</div><div class="cmp-de">der dort wartende Mann</div></div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st c1">🎯 C1 Exercises</div>
+    <div class="qblock c1">
+      <div class="qnum c1">C1 · Q1</div>
+      <div class="qtext">wenn-less: "Wenn er mehr gelernt hätte, wäre er erfolgreich." → omit wenn:</div>
+      <div class="qopts">
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_1',false)">Er hätte mehr gelernt, wäre er erfolgreich.</button>
+        <button class="qopt c1" data-correct="true" onclick="mc(this,'c1_1',true)">Hätte er mehr gelernt, wäre er erfolgreich.</button>
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_1',false)">Mehr gelernt hätte er, wäre er erfolgreich.</button>
+      </div><div class="qfb" id="qfbc1_1"></div>
+    </div>
+    <div class="qblock c1">
+      <div class="qnum c1">C1 · Q2</div>
+      <div class="qtext">"Es ist bekannt, dass er kommt." → When can "es" be deleted?</div>
+      <div class="qopts">
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_2',false)">Never — es is always obligatory.</button>
+        <button class="qopt c1" data-correct="true" onclick="mc(this,'c1_2',true)">When the dass-clause moves to position 1: "Dass er kommt, ist bekannt."</button>
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_2',false)">Always — es is just a filler word.</button>
+      </div><div class="qfb" id="qfbc1_2"></div>
+    </div>
+    <div class="qblock c1">
+      <div class="qnum c1">C1 · Q3</div>
+      <div class="qtext">Compress: "das Projekt, das schon lange geplant wurde" → Partizip II form:</div>
+      <div class="qopts">
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_3',false)">das schon lange planende Projekt</button>
+        <button class="qopt c1" data-correct="true" onclick="mc(this,'c1_3',true)">das schon lange geplante Projekt</button>
+        <button class="qopt c1" data-correct="false" onclick="mc(this,'c1_3',false)">das geplant lange Projekt</button>
+      </div><div class="qfb" id="qfbc1_3"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- C2 Section -->
+<div class="level-section" data-level="c2">
+  <div class="ls-header c2">
+    <div class="ls-icon">👑</div>
+    <div><div class="ls-title">C2 — Stylistic Mastery & Register</div><div class="ls-sub">Ausklammerung · TEKAMOLO deviations · information structure · complex nesting · register</div></div>
+    <a class="ls-link" href="C2_Grammar_Satzstellung.html">Full C2 file →</a>
+  </div>
+
+  <div class="card"><div class="cb">
+    <div class="st c2">Information structure & Ausklammerung</div>
+    <div class="compare">
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Given info early, new info late</div><div class="cmp-de">Er fährt <strong>mit dem Zug</strong> morgen. (train=new)</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Ausklammerung (extraposition)</div><div class="cmp-de">Er hat viel gelernt, <strong>aus reiner Neugier</strong>.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Stylistic inversion (literary)</div><div class="cmp-de">Zu spät kam er — dramatische Stille.</div></div>
+      <div class="cmp cmp-ok"><div class="cmp-label">✓ Extended participial (formal)</div><div class="cmp-de">das von allen heiß erwartete Projekt</div></div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="cb">
+    <div class="st c2">🎯 C2 Exercises</div>
+    <div class="qblock c2">
+      <div class="qnum c2">C2 · Q1</div>
+      <div class="qtext">Ausklammerung: "Er hat versucht, früher aufzuhören." What was extraposed?</div>
+      <div class="qopts">
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_1',false)">The finite verb "hat"</button>
+        <button class="qopt c2" data-correct="true" onclick="mc(this,'c2_1',true)">The infinitive phrase "früher aufzuhören" — moved after the bracket</button>
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_1',false)">The subject "er"</button>
+      </div><div class="qfb" id="qfbc2_1"></div>
+    </div>
+    <div class="qblock c2">
+      <div class="qnum c2">C2 · Q2</div>
+      <div class="qtext">Information structure: why might a speaker say "Er fährt mit dem Zug morgen" (LO before TE)?</div>
+      <div class="qopts">
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_2',false)">It's a grammatical error in all contexts.</button>
+        <button class="qopt c2" data-correct="true" onclick="mc(this,'c2_2',true)">"by train" is the new/focused information; "morgen" is already known.</button>
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_2',false)">The speaker is using Ausklammerung.</button>
+      </div><div class="qfb" id="qfbc2_2"></div>
+    </div>
+    <div class="qblock c2">
+      <div class="qnum c2">C2 · Q3</div>
+      <div class="qtext">"Den Kopf gesenkt, verließ er den Raum." — This is an example of:</div>
+      <div class="qopts">
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_3',false)">A subordinating conjunction clause</button>
+        <button class="qopt c2" data-correct="true" onclick="mc(this,'c2_3',true)">An absolute participial construction (stylistic inversion)</button>
+        <button class="qopt c2" data-correct="false" onclick="mc(this,'c2_3',false)">A Nachfeld relative clause</button>
+      </div><div class="qfb" id="qfbc2_3"></div>
+    </div>
+  </div></div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+let CL=localStorage.getItem('tgs_lang')||'en';
+const LF={en:{fb_correct:'✓ Correct!',fb_wrong:'✗ See the correct answer.',res_perfect:'🏆 Perfect!',res_great:'🎉 Excellent!',res_good:'👍 Good!',res_practice:'💪 Keep practising!'},de:{fb_correct:'✓ Richtig!',fb_wrong:'✗ Nicht ganz.',res_perfect:'🏆 Perfekt!',res_great:'🎉 Sehr gut!',res_good:'👍 Gut!',res_practice:'💪 Weiter üben!'},fr:{fb_correct:'✓ Correct !',fb_wrong:'✗ Pas tout à fait.',res_perfect:'🏆 Parfait !',res_great:'🎉 Très bien !',res_good:'👍 Bon !',res_practice:'💪 Continuez !'},es:{fb_correct:'✓ ¡Correcto!',fb_wrong:'✗ No del todo.',res_perfect:'🏆 ¡Perfecto!',res_great:'🎉 ¡Muy bien!',res_good:'👍 ¡Bien!',res_practice:'💪 ¡Sigue!'},tr:{fb_correct:'✓ Doğru!',fb_wrong:'✗ Tam değil.',res_perfect:'🏆 Mükemmel!',res_great:'🎉 Harika!',res_good:'👍 İyi!',res_practice:'💪 Devam et!'}};
+function t(k){return(LF[CL]||{})[k]||(LF.en||{})[k]||k}
+function setLang(c){CL=c;localStorage.setItem('tgs_lang',c);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL))}
+
+let mcs={};
+const TOTAL_QS=18; // 3 per level × 6 levels
+function mc(btn,qid,correct){
+  const w=btn.closest('.qopts');
+  if(w.querySelector('.correct'))return;
+  w.querySelectorAll('.qopt').forEach(b=>b.classList.add('disabled'));
+  const fb=document.getElementById('qfb'+qid);
+  if(correct){btn.classList.add('correct');if(fb){fb.className='qfb ok';fb.textContent=t('fb_correct');}mcs[qid]=1;}
+  else{btn.classList.add('wrong');w.querySelectorAll('.qopt').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct');});if(fb){fb.className='qfb bad';fb.textContent=t('fb_wrong');}mcs[qid]=0;}
+  const done=Object.keys(mcs).length;const score=Object.values(mcs).reduce((a,b)=>a+b,0);
+  document.getElementById('ss-score').textContent=score;
+  document.getElementById('pgbar').style.width=(done/TOTAL_QS*100)+'%';
+  document.getElementById('pgf').style.width=(done/TOTAL_QS*100)+'%';
+}
+
+// Level filter
+function filterLevel(lvl){
+  document.querySelectorAll('.lbtn').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===lvl||b.textContent==='All Levels'&&lvl==='all')});
+  document.querySelectorAll('.level-section').forEach(s=>{
+    if(lvl==='all'||s.getAttribute('data-level')===lvl){s.classList.remove('hidden');}
+    else{s.classList.add('hidden');}
+  });
+  localStorage.setItem('sz_level',lvl);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.getAttribute('data-lang')===CL));
+  const saved=localStorage.getItem('sz_level');
+  if(saved)filterLevel(saved);
+});
+</script>
+</body>
+</html>
