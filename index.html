@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- TheGermanStefan Academy | Release: RC9 | Generated: 2026-06-29 | Status: RELEASE CANDIDATE | File: index.html | TGS_RELEASE: RC9-INDEX -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -126,6 +127,42 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:#fff;m
   transition:filter .15s;white-space:nowrap;align-self:flex-start;
 }
 .fa-cta:hover{filter:brightness(1.1)}
+
+/* ── RC9: PLACEMENT TEST PORTAL CARD ────────────────────────── */
+.placement-portal-card{
+  background:linear-gradient(135deg,rgba(0,131,143,.2) 0%,rgba(20,100,180,.15) 100%);
+  border:1.5px solid rgba(0,131,143,.4);
+  border-radius:16px;
+  padding:22px 28px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  text-decoration:none;color:#fff;
+  transition:transform .15s,box-shadow .15s;
+  margin-bottom:20px;
+}
+.placement-portal-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.ppc-icon{font-size:36px;flex-shrink:0}
+.ppc-body{flex:1;min-width:200px}
+.ppc-badge{
+  background:rgba(46,125,50,.9);color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;
+  display:inline-block;margin-bottom:8px;
+}
+.ppc-title{font-size:18px;font-weight:900;margin-bottom:5px}
+.ppc-desc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55}
+.ppc-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.ppc-tag{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.75);
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;
+}
+.ppc-cta{
+  background:var(--amber);color:var(--navy);
+  font-size:13px;font-weight:900;
+  padding:10px 22px;border-radius:9px;
+  white-space:nowrap;flex-shrink:0;align-self:center;
+}
+@media(max-width:640px){.ppc-cta{width:100%;text-align:center}}
 
 /* ── COMING SOON GRID ────────────────────────────────────────── */
 .cs-section{margin-bottom:60px}
@@ -266,6 +303,22 @@ footer a:hover{color:rgba(255,255,255,.6)}
     <div>
       <span class="fa-cta">Enter Academy →</span>
     </div>
+  </a>
+
+  <!-- RC9: PLACEMENT TEST CARD -->
+  <a class="placement-portal-card" href="placement-test.html">
+    <div class="ppc-icon">🎯</div>
+    <div class="ppc-body">
+      <span class="ppc-badge">FREE · Recommended First Step</span>
+      <div class="ppc-title">German Placement Test</div>
+      <p class="ppc-desc">Not sure where to start? Find your German level from A0 to C2 in ~10 minutes. Get a personalised course recommendation.</p>
+      <div class="ppc-meta">
+        <span class="ppc-tag">⏱ ~10 minutes</span>
+        <span class="ppc-tag">24 Questions</span>
+        <span class="ppc-tag">A0 – C2</span>
+      </div>
+    </div>
+    <span class="ppc-cta">Take the Test →</span>
   </a>
 
   <!-- PREMIUM BANNER -->
