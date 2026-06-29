@@ -27,8 +27,8 @@
   // §1  CONFIG
   // ═══════════════════════════════════════════════════════════════
   var CONFIG = {
-    version:    '1.0.0',
-    sprint:     'Sprint-001',
+    version:    '1.1.0',
+    sprint:     'Sprint-002',
     baseUrl:    'https://thegermanstefan.github.io/',
     skoolUrl:   'https://www.skool.com/thegermanstefan-9325',
     upgradeUrl: 'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
@@ -49,6 +49,7 @@
       languageAcademy:    'language-academy.html',
       placementTest:      'placement-test.html',
       vocabularyUniverse: 'vocabulary-universe.html',   // 📚 Vocabulary Universe — single unified page
+      levelDashboard:     'level-dashboard.html',        // 🎓 Universal level dashboard (Sprint-002)
       specialSkillsHub:   'special-skills-hub.html',    // Future page (Sprint-00x)
       examCenter:         'exam-center.html',            // Future page (Sprint-00x)
       locked:             'locked.html'
