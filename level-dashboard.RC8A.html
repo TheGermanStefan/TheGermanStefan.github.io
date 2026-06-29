@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<!-- TheGermanStefan Academy | Release: RC8A | Generated: 2026-06-29 17:42 | Status: RELEASE CANDIDATE | File: level-dashboard.html | TGS_RELEASE: RC8A-DASHBOARD -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Dashboard · TheGermanStefan Academy</title>
+<meta name="robots" content="noindex">
+<style>
+/*
+ * level-dashboard.html — Universal Dashboard Shell
+ * TheGermanStefan Academy · Sprint-002
+ *
+ * This file is a shell only. All component HTML is injected by tgs-dashboard.js.
+ * To change layout: edit this file.
+ * To change component content: edit tgs-dashboard.js.
+ * To change level data: edit tgs-levels.js.
+ */
+
+/* ── RESET & TOKENS ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Brand tokens (Sprint-001) */
+  --navy:      #0b2545;
+  --navy2:     #0d2e56;
+  --blue:      #1464b4;
+  --amber:     #f9a825;
+  --green:     #2e7d32;
+  --red:       #c62828;
+  --gray:      #f0f4f8;
+  --border:    #e0e6f0;
+
+  /* Dashboard tokens */
+  --card-bg:   rgba(255,255,255,.05);
+  --card-bd:   rgba(255,255,255,.1);
+  --txt-dim:   rgba(255,255,255,.55);
+  --txt-faint: rgba(255,255,255,.3);
+
+  /* Set by DashboardFramework.init() to match the active level */
+  --level-color: #1464b4;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--navy);
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── TOPBAR ─────────────────────────────────────────────────────── */
+.topbar {
+  background: rgba(0,0,0,.35);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+}
+.tgs-logo {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tgs-logo span { color: var(--amber); }
+.topbar-center {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amber);
+  flex: 1;
+  text-align: center;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt-dim);
+  text-decoration: none;
+  transition: color .15s;
+}
+.topbar-link:hover { color: #fff; }
+.btn-skool {
+  background: var(--amber);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: filter .15s;
+  white-space: nowrap;
+}
+.btn-skool:hover { filter: brightness(1.1); }
+
+/* ── LOADING STATE ──────────────────────────────────────────────── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--txt-dim);
+  font-size: 14px;
+}
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255,255,255,.1);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── DASHBOARD LAYOUT ───────────────────────────────────────────── */
+.dashboard-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* ── SIDEBAR STICKY ─────────────────────────────────────────────── */
+.dash-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 60px;  /* clear topbar */
+}
+.dash-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── BASE COMPONENT CARD ────────────────────────────────────────── */
+.component {
+  background: var(--card-bg);
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  padding: 22px 22px 20px;
+}
+.comp-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: rgba(255,255,255,.7);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* ── PROGRESS BAR ───────────────────────────────────────────────── */
+.pbar-wrap {
+  background: rgba(255,255,255,.1);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.pbar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .4s ease;
+  min-width: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HERO COMPONENT
+══════════════════════════════════════════════════════════════════ */
+.hero-component {
+  border-left: 4px solid var(--level-color);
+  background: linear-gradient(135deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 100%);
+  padding: 28px 28px 24px;
+}
+.hero-inner {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.hero-emoji {
+  font-size: 52px;
+  line-height: 1;
+}
+.hero-level-chip {
+  background: var(--level-color);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 99px;
+  letter-spacing: .5px;
+}
+.hero-right { flex: 1; min-width: 0; }
+.hero-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.badge-free {
+  background: rgba(46,125,50,.8);
+  border: 1px solid rgba(46,125,50,1);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+.badge-prem {
+  background: rgba(249,168,37,.2);
+  border: 1px solid rgba(249,168,37,.5);
+  color: var(--amber);
+  font-size: 10px;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+.badge-exam {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.75);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+.hero-title {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.hero-desc {
+  font-size: 14px;
+  color: var(--txt-dim);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.hero-outcomes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.hero-outcomes li {
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  padding-left: 18px;
+  position: relative;
+}
+.hero-outcomes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--level-color);
+  font-weight: 900;
+}
+.hero-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.meta-chip {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--txt-dim);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.hero-progress-note {
+  font-size: 11px;
+  color: var(--amber);
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .hero-inner { flex-direction: column; }
+  .hero-left { flex-direction: row; align-items: center; }
+  .hero-emoji { font-size: 36px; }
+  .hero-title { font-size: 20px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PROGRESS COMPONENT
+══════════════════════════════════════════════════════════════════ */
+.prog-pct-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.prog-pct-num {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+}
+.prog-status {
+  font-size: 13px;
+  color: var(--txt-dim);
+  flex: 1;
+}
+.prog-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--txt-faint);
+  margin-top: 4px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   RECOMMENDATION COMPONENT
+══════════════════════════════════════════════════════════════════ */
+.rec-component {
+  border: 1px solid rgba(255,255,255,.15);
+  background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.03) 100%);
+}
+.rec-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.rec-component.rec-complete .rec-badge {
+  background: var(--green);
+}
+.rec-lesson-title {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.rec-module {
+  font-size: 13px;
+  color: var(--txt-dim);
+  margin-bottom: 18px;
+}
+.btn-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--amber);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 900;
+  padding: 11px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: filter .15s, transform .1s;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+.btn-rec:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.rec-ai-note { display: none; } /* hidden until AI is wired */
+
+/* ══════════════════════════════════════════════════════════════════
+   MODULE CARDS
+══════════════════════════════════════════════════════════════════ */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.module-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color .15s;
+}
+.module-card:hover {
+  border-color: rgba(255,255,255,.2);
+}
+.mod-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.mod-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.mod-meta {
+  flex: 1;
+  min-width: 0;
+}
+.mod-label {
+  font-size: 13px;
+  font-weight: 800;
+  display: block;
+}
+.mod-count {
+  font-size: 11px;
+  color: var(--txt-dim);
+}
+.mod-pct {
+  font-size: 16px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.lesson-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.1) transparent;
+}
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--txt-dim);
+  padding: 3px 0;
+  border-radius: 4px;
+}
+.lesson-item.lesson-done {
+  color: rgba(255,255,255,.85);
+}
+.lesson-dot {
+  font-size: 11px;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+  color: rgba(255,255,255,.25);
+}
+.dot-done {
+  color: var(--green);
+  font-weight: 900;
+}
+.dot-soon {
+  color: rgba(255,255,255,.15);
+}
+.lesson-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color .15s;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lesson-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.lesson-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.soon-chip {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  color: rgba(255,255,255,.25);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 1px 6px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+.lesson-item.lesson-soon {
+  opacity: .5;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   VOCABULARY COMPONENT
+══════════════════════════════════════════════════════════════════ */
+.vocab-counts {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.vocab-num {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+.vocab-of {
+  font-size: 13px;
+  color: var(--txt-dim);
+}
+.vocab-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amber);
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.vocab-link:hover { opacity: .8; }
+.vocab-hook-note { display: none; }
+
+/* ══════════════════════════════════════════════════════════════════
+   PLACEHOLDER COMPONENTS (Challenge, Achievement)
+══════════════════════════════════════════════════════════════════ */
+.placeholder-box {
+  background: rgba(255,255,255,.03);
+  border: 1px dashed rgba(255,255,255,.12);
+  border-radius: 10px;
+  padding: 20px 16px;
+  text-align: center;
+}
+.placeholder-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.placeholder-label {
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,.6);
+}
+.placeholder-desc {
+  font-size: 12px;
+  color: var(--txt-faint);
+  line-height: 1.5;
+}
+
+/* ── Achievement badges ─────────────────────────────────────────── */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 99px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+}
+.badge-chip span {
+  font-size: 15px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   NEXT LEVEL COMPONENT
+══════════════════════════════════════════════════════════════════ */
+.nextlevel-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.nl-current,
+.nl-next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.05);
+  border: 2px solid;
+  border-radius: 12px;
+  padding: 12px 20px;
+  min-width: 80px;
+}
+.nl-emoji { font-size: 24px; }
+.nl-id {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+.nl-arrow {
+  font-size: 20px;
+  color: var(--txt-faint);
+  font-weight: 900;
+}
+.nl-remaining {
+  font-size: 13px;
+  color: var(--txt-dim);
+  text-align: center;
+  margin-bottom: 10px;
+}
+.nl-remaining strong {
+  color: #fff;
+}
+.btn-nextlevel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.1);
+  border: 1.5px solid rgba(255,255,255,.2);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color .15s, background .15s;
+  width: 100%;
+  justify-content: center;
+}
+.btn-nextlevel:hover {
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.35);
+}
+.btn-nextlevel.btn-locked {
+  background: rgba(249,168,37,.1);
+  border-color: rgba(249,168,37,.3);
+  color: var(--amber);
+}
+.btn-nextlevel.btn-locked:hover {
+  background: rgba(249,168,37,.2);
+}
+.nextlevel-complete {
+  text-align: center;
+  padding: 16px 0;
+}
+.nextlevel-crown {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LEARNING JOURNEY
+══════════════════════════════════════════════════════════════════ */
+.journey-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 16px 4px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.1) transparent;
+}
+.journey-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.node-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 2px solid;
+  transition: transform .15s;
+}
+.journey-node:hover .node-dot {
+  transform: scale(1.1);
+}
+.node-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Node states */
+.node-current .node-dot {
+  border-color: var(--node-color);
+  background: var(--node-color);
+  box-shadow: 0 0 0 4px rgba(var(--node-color), .2), 0 0 16px rgba(255,255,255,.1);
+}
+.node-current .node-label {
+  color: var(--amber);
+}
+.node-done .node-dot {
+  border-color: var(--green);
+  background: rgba(46,125,50,.2);
+  color: var(--green);
+}
+.node-done .node-label {
+  color: rgba(255,255,255,.7);
+}
+.node-past .node-dot {
+  border-color: rgba(255,255,255,.3);
+  background: rgba(255,255,255,.05);
+}
+.node-past .node-label {
+  color: var(--txt-dim);
+}
+.node-future .node-dot {
+  border-color: rgba(255,255,255,.15);
+  background: transparent;
+  color: rgba(255,255,255,.25);
+}
+.node-future .node-label {
+  color: rgba(255,255,255,.25);
+}
+
+.journey-connector {
+  width: 28px;
+  height: 2px;
+  background: rgba(255,255,255,.12);
+  flex-shrink: 0;
+}
+.journey-sub {
+  font-size: 11px;
+  color: var(--txt-faint);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LEGACY HUB CARD (A0 and future legacy levels)
+══════════════════════════════════════════════════════════════════ */
+.legacy-hub-card {
+  background: linear-gradient(135deg, rgba(0,131,143,.18) 0%, rgba(0,131,143,.08) 100%);
+  border: 1.5px solid rgba(0,131,143,.45);
+  border-radius: 16px;
+  padding: 26px 28px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.legacy-hub-icon {
+  font-size: 42px;
+  flex-shrink: 0;
+}
+.legacy-hub-body {
+  flex: 1;
+  min-width: 200px;
+}
+.legacy-hub-eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+  color: rgba(0,200,220,.75);
+  margin-bottom: 6px;
+}
+.legacy-hub-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.legacy-hub-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.6;
+}
+.btn-legacy-hub {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #00838f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: filter .15s, transform .1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-legacy-hub:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.legacy-hub-soon-note {
+  margin-top: 16px;
+  font-size: 11px;
+  color: rgba(255,255,255,.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 600px) {
+  .legacy-hub-card { flex-direction: column; }
+  .btn-legacy-hub  { width: 100%; justify-content: center; }
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 18px;
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+footer a {
+  color: rgba(255,255,255,.35);
+  text-decoration: none;
+}
+footer a:hover { color: rgba(255,255,255,.6); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="tgs-logo" href="index.html">The<span>German</span>Stefan
+    <span style="font-size:11px;font-weight:500;opacity:.45;margin-left:3px">Academy</span>
+  </a>
+  <div class="topbar-center">
+    <span id="topbar-level-chip">Loading…</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-link" id="back-to-academy" href="language-academy.html">← Language Academy</a>
+    <a class="btn-skool"
+       href="https://www.skool.com/thegermanstefan-9325"
+       target="_blank" rel="noopener">Skool →</a>
+  </div>
+</div>
+
+<!-- DASHBOARD ROOT -->
+<div class="dashboard-wrap" id="dash-root">
+
+  <!-- Loading state (replaced by DashboardFramework.init) -->
+  <div class="loading-state" id="dash-loading">
+    <div class="loading-spinner"></div>
+    <span>Loading your dashboard…</span>
+  </div>
+
+  <!-- Dashboard grid (hidden until JS renders) -->
+  <div class="dashboard-grid" id="dash-grid" style="display:none">
+    <div class="dash-main"    id="dash-main"></div>
+    <div class="dash-sidebar" id="dash-sidebar"></div>
+  </div>
+
+</div><!-- /dash-root -->
+
+<footer>
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="language-academy.html">Language Academy</a> &nbsp;·&nbsp;
+  <a href="placement-test.html">Placement Test</a> &nbsp;·&nbsp;
+  <a href="vocabulary-universe.html">Vocabulary Universe</a> &nbsp;·&nbsp;
+  <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
+</footer>
+
+<!-- ENGINE: load order matters -->
+<script src="tgs-core.js"></script>
+<script src="tgs-levels.js"></script>
+<script src="tgs-dashboard.js"></script>
+
+<script>
+/**
+ * Dashboard bootstrap.
+ * Reads ?level=A1 from URL and hands off to DashboardFramework.
+ *
+ * To test locally:  open level-dashboard.html?level=A1
+ * Defaults to A1 if no param is provided.
+ */
+(function () {
+  var params  = {};
+  window.location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) {
+    params[decodeURIComponent(k)] = decodeURIComponent(v);
+  });
+
+  /* Validate level param */
+  var validLevels = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+  var raw         = (params.level || 'A1').toUpperCase();
+  var levelId     = validLevels.indexOf(raw) >= 0 ? raw : 'A1';
+
+  /* Show grid, hide loader */
+  function reveal() {
+    var loading = document.getElementById('dash-loading');
+    var grid    = document.getElementById('dash-grid');
+    if (loading) loading.style.display = 'none';
+    if (grid)    grid.style.display    = 'grid';
+  }
+
+  /* Small delay lets the page paint the loading spinner first */
+  setTimeout(function () {
+    try {
+      DashboardFramework.init(levelId);
+      reveal();
+
+      /* ── RC6: Legacy Hub Banner ──────────────────────────────────
+         If a level has a legacyHub property (e.g. A0), inject a
+         prominent card at the top of dash-main so students always
+         have a clear path to the existing content.
+         Does NOT replace or overwrite the legacy hub file.
+      ──────────────────────────────────────────────────────────── */
+      var level = (typeof TGS_LEVELS !== 'undefined') ? TGS_LEVELS.get(levelId) : null;
+      if (level && level.legacyHub) {
+        var hub    = level.legacyHub;
+        var mainEl = document.getElementById('dash-main');
+        if (mainEl) {
+          var card = document.createElement('div');
+          card.className = 'legacy-hub-card';
+          card.innerHTML =
+            '<div class="legacy-hub-icon">🏛️</div>' +
+            '<div class="legacy-hub-body">' +
+              '<div class="legacy-hub-eyebrow">A0 Legacy Course · Available Now</div>' +
+              '<div class="legacy-hub-title">' + (level.name || levelId) + ' — Full Course</div>' +
+              '<div class="legacy-hub-desc">' + hub.desc + '</div>' +
+              '<div class="legacy-hub-soon-note">⚡ Individual lesson cards will appear here once files are uploaded.</div>' +
+            '</div>' +
+            '<a class="btn-legacy-hub" href="' + hub.url + '">' + hub.label + ' →</a>';
+          mainEl.insertBefore(card, mainEl.firstChild);
+        }
+      }
+      /* ── end RC6 ─────────────────────────────────────────────── */
+
+    } catch (e) {
+      console.error('[TGS Dashboard] init error:', e);
+      reveal();
+    }
+  }, 80);
+
+}());
+</script>
+</body>
+</html>

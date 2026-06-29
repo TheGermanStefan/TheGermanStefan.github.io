@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<!-- TheGermanStefan Academy | Release: RC8A | Generated: 2026-06-29 17:42 | Status: RELEASE CANDIDATE | File: vocabulary-universe.html | TGS_RELEASE: RC8A-VOCAB -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Universe · TheGermanStefan Academy</title>
+<meta name="description" content="The complete German vocabulary journey — A0 to C2, Business German, Idioms and Advanced Expressions. Free for A0–A2.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--amber:#f9a825;
+  --green:#2e7d32;--red:#c62828;--gray:#f0f4f8;--border:#e0e6f0;
+  --txt:#1a1a1a;--txt2:#555;--txt3:#888;
+  --free-bg:rgba(46,125,50,.12);--free-border:rgba(46,125,50,.35);
+  --prem-bg:rgba(249,168,37,.08);--prem-border:rgba(249,168,37,.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:#fff;min-height:100vh}
+
+/* ── TOPBAR ──────────────────────────────────────────────────── */
+.topbar{
+  background:rgba(0,0,0,.3);
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;top:0;z-index:200;
+  backdrop-filter:blur(8px);
+}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}
+.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.55;margin-left:10px}
+.bc a{color:#fff;text-decoration:none}.bc a:hover{opacity:1}
+.topbar-left{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.btn-skool-sm{
+  background:var(--amber);color:var(--navy);
+  font-size:12px;font-weight:900;
+  padding:6px 16px;border-radius:7px;
+  text-decoration:none;transition:filter .15s;
+}
+.btn-skool-sm:hover{filter:brightness(1.1)}
+
+/* ── HEADER ──────────────────────────────────────────────────── */
+.page-hdr{
+  background:linear-gradient(135deg,#071a30 0%,#0b2545 50%,#0a3d4f 100%);
+  padding:44px 24px 36px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:relative;overflow:hidden;
+}
+.page-hdr::after{
+  content:'📚';
+  position:absolute;right:-10px;top:-20px;
+  font-size:200px;opacity:.05;pointer-events:none;line-height:1;
+}
+.hdr-inner{max-width:860px;margin:0 auto}
+.hdr-eye{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.hdr-title{font-size:clamp(24px,5vw,36px);font-weight:900;margin-bottom:10px;line-height:1.1}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,.6);max-width:560px;line-height:1.65;margin-bottom:20px}
+.hdr-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hdr-stat-n{font-size:20px;font-weight:900;color:var(--amber)}
+.hdr-stat-l{font-size:11px;color:rgba(255,255,255,.45)}
+
+/* ── SECTION NAV ─────────────────────────────────────────────── */
+.sec-nav{
+  background:rgba(0,0,0,.25);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:0 20px;
+  display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:44px;z-index:150;
+}
+.sec-nav::-webkit-scrollbar{display:none}
+.sn-link{
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.45);
+  padding:10px 14px;
+  text-decoration:none;white-space:nowrap;
+  border-bottom:2px solid transparent;transition:.15s;
+}
+.sn-link:hover{color:rgba(255,255,255,.8)}
+.sn-link.active{color:#fff;border-bottom-color:var(--amber)}
+
+/* ── WRAP ────────────────────────────────────────────────────── */
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+
+/* ── SECTION HEADER ──────────────────────────────────────────── */
+.sec-hdr{
+  padding:36px 0 18px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.sec-hdr-icon{font-size:24px}
+.sec-hdr-title{font-size:18px;font-weight:900}
+.sec-hdr-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:3px}
+.sec-badge{
+  font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-left:auto;
+}
+.badge-free{background:rgba(46,125,50,.9);color:#fff}
+.badge-prem{background:rgba(249,168,37,.9);color:#0b2545}
+
+/* ── LEVEL CARD GRID ─────────────────────────────────────────── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+  margin-bottom:10px;
+}
+
+/* ── LEVEL CARD — FREE ───────────────────────────────────────── */
+.vocab-card{
+  border-radius:14px;padding:22px 20px;
+  text-decoration:none;color:#fff;
+  display:block;transition:.15s;position:relative;overflow:hidden;
+}
+.vocab-card.free-card{
+  background:var(--free-bg);
+  border:1.5px solid var(--free-border);
+}
+.vocab-card.free-card:hover{background:rgba(46,125,50,.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.vocab-card.prem-card{
+  background:var(--prem-bg);
+  border:1.5px solid var(--prem-border);
+  cursor:pointer;
+}
+.vocab-card.prem-card:hover{background:rgba(249,168,37,.13);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.vocab-card .lock-icon{
+  position:absolute;top:14px;right:16px;font-size:14px;opacity:.5;
+}
+.vc-eyebrow{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.vc-level{font-size:22px;font-weight:900;margin-bottom:4px}
+.vc-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:10px}
+.vc-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:14px}
+.vc-topics{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.vc-topic{
+  font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:6px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);
+}
+.vc-cta{font-size:12px;font-weight:800;color:var(--amber);display:block}
+.vc-cta-lock{font-size:12px;font-weight:800;color:rgba(255,255,255,.35);display:block}
+
+/* ── TOPIC GRID (A1 detailed view) ──────────────────────────── */
+.topic-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:10px;
+  margin-bottom:14px;
+}
+.topic-card{
+  background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(46,125,50,.25);
+  border-radius:10px;
+  padding:14px 14px;
+  text-decoration:none;color:#fff;
+  transition:.12s;display:block;
+}
+.topic-card:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}
+.tc-icon{font-size:20px;margin-bottom:6px}
+.tc-title{font-size:12px;font-weight:800;margin-bottom:2px}
+.tc-sub{font-size:11px;color:rgba(255,255,255,.4)}
+
+/* ── SPECIAL CATEGORIES ──────────────────────────────────────── */
+.special-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+}
+.special-card{
+  background:rgba(249,168,37,.06);
+  border:1.5px solid rgba(249,168,37,.2);
+  border-radius:12px;
+  padding:18px 16px;
+  cursor:pointer;transition:.15s;
+  position:relative;overflow:hidden;
+}
+.special-card:hover{background:rgba(249,168,37,.12);transform:translateY(-1px)}
+.sc-lock{position:absolute;top:12px;right:12px;font-size:13px;opacity:.4}
+.sc-icon{font-size:24px;margin-bottom:8px}
+.sc-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.sc-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:10px}
+.sc-cta{font-size:11px;font-weight:800;color:rgba(255,255,255,.3)}
+
+/* ── FUTURE CATEGORIES ───────────────────────────────────────── */
+.future-row{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;
+  padding:14px 18px;
+  display:flex;align-items:center;gap:10px;
+  color:rgba(255,255,255,.35);font-size:13px;
+  margin-bottom:8px;
+}
+.future-row-icon{font-size:18px;opacity:.5}
+.badge-soon-sm{
+  margin-left:auto;
+  font-size:9px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  padding:3px 8px;border-radius:20px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.35);
+}
+
+/* ── UPGRADE BANNER ──────────────────────────────────────────── */
+.upgrade-banner{
+  background:rgba(249,168,37,.08);
+  border:1.5px solid rgba(249,168,37,.22);
+  border-radius:14px;padding:22px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;margin-top:36px;margin-bottom:14px;
+}
+.ub-text h3{font-size:15px;font-weight:900;margin-bottom:4px;color:var(--amber)}
+.ub-text p{font-size:12px;color:rgba(255,255,255,.55)}
+.btn-upgrade{
+  background:var(--amber);color:var(--navy);
+  font-size:13px;font-weight:900;
+  padding:10px 22px;border-radius:9px;
+  text-decoration:none;white-space:nowrap;transition:filter .15s;
+}
+.btn-upgrade:hover{filter:brightness(1.1)}
+
+/* ── DIVIDER ─────────────────────────────────────────────────── */
+.divider{border:none;border-top:1px solid rgba(255,255,255,.07);margin:8px 0 0}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer{
+  text-align:center;padding:18px;
+  font-size:11px;color:rgba(255,255,255,.2);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+footer a{color:rgba(255,255,255,.35);text-decoration:none}
+footer a:hover{color:rgba(255,255,255,.6)}
+
+@media(max-width:600px){
+  .card-grid,.topic-grid,.special-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <nav class="bc" aria-label="Breadcrumb">
+      <a href="index.html">Academy</a>
+      <span aria-hidden="true">›</span>
+      <a href="language-academy.html">Language Academy</a>
+      <span aria-hidden="true">›</span>
+      <span>📚 Vocabulary Universe</span>
+    </nav>
+  </div>
+  <a class="btn-skool-sm" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Upgrade →</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-hdr">
+  <div class="hdr-inner">
+    <div class="hdr-eye">German Language Academy</div>
+    <div class="hdr-title">📚 Vocabulary Universe</div>
+    <p class="hdr-sub">
+      The complete German vocabulary database — full CEFR-level word banks from A0 to C2, plus
+      Business German, Idioms and Advanced Expressions. Free for A0–A2. Premium unlocks everything.
+    </p>
+    <div class="hdr-stats">
+      <div><div class="hdr-stat-n">A0–C2</div><div class="hdr-stat-l">Full CEFR Range</div></div>
+      <div><div class="hdr-stat-n">15,000+</div><div class="hdr-stat-l">Total Words</div></div>
+      <div><div class="hdr-stat-n">Free</div><div class="hdr-stat-l">A0, A1, A2</div></div>
+      <div><div class="hdr-stat-n">Premium</div><div class="hdr-stat-l">B1–C2 + Specialist</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION NAV -->
+<nav class="sec-nav" aria-label="Vocabulary sections">
+  <a class="sn-link active" href="#free-vocab">Free (A0–A2)</a>
+  <a class="sn-link" href="#premium-vocab">Premium (B1–C2)</a>
+  <a class="sn-link" href="#specialist">Specialist</a>
+  <a class="sn-link" href="#future-vocab">Future</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="wrap">
+
+  <!-- ══════════════════════════════════════════════════════════
+       FREE VOCABULARY (A0 – A2)
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="free-vocab">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🌱</span>
+      <div>
+        <div class="sec-hdr-title">Free Vocabulary</div>
+        <div class="sec-hdr-sub">A0, A1 and A2 vocabulary — open to everyone.</div>
+      </div>
+      <span class="sec-badge badge-free">FREE</span>
+    </div>
+
+    <!-- A0 -->
+    <div style="margin-bottom:28px">
+      <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">A0 · Absolute Beginner</div>
+      <a class="vocab-card free-card" href="TheGermanStefan_A0_Beginner_Hub.html">
+        <div class="vc-eyebrow">Free · Full Word Bank · 300+ Words</div>
+        <div class="vc-level">A0</div>
+        <div class="vc-title">Full A0 Vocabulary</div>
+        <p class="vc-desc">The complete A0 word bank — the alphabet, numbers 1–100, greetings, family, food, colours, days, months and all essential first words. Covers the full CEFR A0 vocabulary target.</p>
+        <div class="vc-topics">
+          <span class="vc-topic">Alphabet</span>
+          <span class="vc-topic">Numbers</span>
+          <span class="vc-topic">Greetings</span>
+          <span class="vc-topic">Family</span>
+          <span class="vc-topic">Days &amp; Months</span>
+        </div>
+        <span class="vc-cta">Open A0 Vocabulary →</span>
+      </a>
+    </div>
+
+    <!-- A1 — Full Word Bank + lesson sets -->
+    <div style="margin-bottom:28px">
+      <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">A1 · Elementary · 800+ Words</div>
+
+      <!-- Full word bank coming soon notice -->
+      <div style="background:rgba(20,100,180,.12);border:1.5px solid rgba(20,100,180,.3);border-radius:12px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:180px">
+          <div style="font-size:13px;font-weight:900;margin-bottom:4px">Full A1 Vocabulary — 800+ Words</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.55">The complete A1 CEFR word bank (Master Vocabulary Database) is being built. It will cover every A1 word — not just lesson vocabulary.</div>
+        </div>
+        <span style="font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(20,100,180,.3);border:1px solid rgba(20,100,180,.5);color:rgba(150,200,255,.8);white-space:nowrap">Master DB: Coming Soon</span>
+      </div>
+
+      <!-- Available now: lesson vocabulary sets -->
+      <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px">Available Now — A1 Lesson Vocabulary Sets</div>
+      <div class="topic-grid">
+        <a class="topic-card" href="A1_Vocab_01_Wohnen.html">
+          <div class="tc-icon">🏠</div>
+          <div class="tc-title">Wohnen</div>
+          <div class="tc-sub">Home &amp; living</div>
+        </a>
+        <a class="topic-card" href="A1_Vocab_02_Essen.html">
+          <div class="tc-icon">🍽️</div>
+          <div class="tc-title">Essen &amp; Trinken</div>
+          <div class="tc-sub">Food &amp; drink</div>
+        </a>
+        <a class="topic-card" href="A1_Vocab_03_Kleidung.html">
+          <div class="tc-icon">👗</div>
+          <div class="tc-title">Kleidung</div>
+          <div class="tc-sub">Clothing &amp; fashion</div>
+        </a>
+        <a class="topic-card" href="A1_Vocab_04_Stadt.html">
+          <div class="tc-icon">🏙️</div>
+          <div class="tc-title">In der Stadt</div>
+          <div class="tc-sub">City &amp; navigation</div>
+        </a>
+        <a class="topic-card" href="A1_Vocab_05_Arbeit.html">
+          <div class="tc-icon">💼</div>
+          <div class="tc-title">Arbeit &amp; Berufe</div>
+          <div class="tc-sub">Work &amp; professions</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">A2 · Pre-Intermediate · 1,500+ Words</div>
+      <!-- Full word bank coming soon — individual lesson files not yet uploaded -->
+      <div class="vocab-card free-card" style="cursor:default;opacity:.85">
+        <div style="position:absolute;top:14px;right:16px;font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:rgba(46,125,50,.3);border:1px solid rgba(46,125,50,.5);color:rgba(180,255,180,.7)">Free · Coming Soon</div>
+        <div class="vc-eyebrow">Free · Full Word Bank · 1,500+ Words</div>
+        <div class="vc-level">A2</div>
+        <div class="vc-title">Full A2 Vocabulary</div>
+        <p class="vc-desc">The complete A2 CEFR word bank — travel, health, technology, media, school and social situations. Part of the Master Vocabulary Database (in development).</p>
+        <div class="vc-topics">
+          <span class="vc-topic">Travel</span>
+          <span class="vc-topic">Health</span>
+          <span class="vc-topic">Technology</span>
+          <span class="vc-topic">Social</span>
+          <span class="vc-topic">School</span>
+        </div>
+        <span style="font-size:12px;font-weight:800;color:rgba(255,255,255,.3)">⚡ Master Database: Coming Soon</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       PREMIUM VOCABULARY (B1 – C2)
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="premium-vocab">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🔒</span>
+      <div>
+        <div class="sec-hdr-title">Premium Vocabulary</div>
+        <div class="sec-hdr-sub">B1 to C2 — advanced, academic and professional German.</div>
+      </div>
+      <span class="sec-badge badge-prem">PREMIUM</span>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- B1 -->
+      <div class="vocab-card prem-card"
+           onclick="TGS.premium.gate('vocabulary-b1.html','language','Vocabulary B1')">
+        <span class="lock-icon">🔒</span>
+        <div class="vc-eyebrow">Premium · Full Word Bank · 2,500+ Words</div>
+        <div class="vc-level">B1</div>
+        <div class="vc-title">Full B1 Vocabulary</div>
+        <p class="vc-desc">The complete B1 CEFR word bank — environment, health, careers, media and society. Covers every word needed to pass the Goethe B1 / Telc B1 exam.</p>
+        <div class="vc-topics">
+          <span class="vc-topic">🌿 Umwelt</span>
+          <span class="vc-topic">🏥 Gesundheit</span>
+          <span class="vc-topic">💼 Karriere</span>
+          <span class="vc-topic">📱 Medien</span>
+          <span class="vc-topic">🤝 Gesellschaft</span>
+        </div>
+        <span class="vc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- B2 -->
+      <div class="vocab-card prem-card"
+           onclick="TGS.premium.gate('vocabulary-b2.html','language','Vocabulary B2')">
+        <span class="lock-icon">🔒</span>
+        <div class="vc-eyebrow">Premium · Full Word Bank · 4,000+ Words</div>
+        <div class="vc-level">B2</div>
+        <div class="vc-title">Full B2 Vocabulary</div>
+        <p class="vc-desc">The complete B2 CEFR word bank — academic language, politics, economy, culture and nuanced expression for fluent, confident communication.</p>
+        <div class="vc-topics">
+          <span class="vc-topic">Academic</span>
+          <span class="vc-topic">Politics</span>
+          <span class="vc-topic">Economy</span>
+          <span class="vc-topic">Culture</span>
+        </div>
+        <span class="vc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- C1 -->
+      <div class="vocab-card prem-card"
+           onclick="TGS.premium.gate('vocabulary-c1.html','language','Vocabulary C1')">
+        <span class="lock-icon">🔒</span>
+        <div class="vc-eyebrow">Premium · Full Word Bank · 6,000+ Words</div>
+        <div class="vc-level">C1</div>
+        <div class="vc-title">Full C1 Vocabulary</div>
+        <p class="vc-desc">The complete C1 CEFR word bank — precise, stylistically varied language. Formal register, complex collocations, idioms and professional expression.</p>
+        <div class="vc-topics">
+          <span class="vc-topic">Formal Register</span>
+          <span class="vc-topic">Collocations</span>
+          <span class="vc-topic">Idioms</span>
+          <span class="vc-topic">Academic</span>
+        </div>
+        <span class="vc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- C2 -->
+      <div class="vocab-card prem-card"
+           onclick="TGS.premium.gate('vocabulary-c2.html','language','Vocabulary C2')">
+        <span class="lock-icon">🔒</span>
+        <div class="vc-eyebrow">Premium · Full Word Bank · 8,000+ Words</div>
+        <div class="vc-level">C2</div>
+        <div class="vc-title">Full C2 Vocabulary</div>
+        <p class="vc-desc">The complete C2 CEFR word bank — literary, philosophical and specialist language. The vocabulary of highly educated native German speakers.</p>
+        <div class="vc-topics">
+          <span class="vc-topic">Literary</span>
+          <span class="vc-topic">Philosophy</span>
+          <span class="vc-topic">Specialist</span>
+          <span class="vc-topic">Dialects</span>
+        </div>
+        <span class="vc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       SPECIALIST CATEGORIES
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="specialist">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🎓</span>
+      <div>
+        <div class="sec-hdr-title">Specialist Categories</div>
+        <div class="sec-hdr-sub">Beyond the textbook — real-world and professional German.</div>
+      </div>
+      <span class="sec-badge badge-prem">PREMIUM</span>
+    </div>
+
+    <div class="special-grid">
+
+      <div class="special-card"
+           onclick="TGS.premium.gate('vocabulary-business.html','language','Business German')">
+        <span class="sc-lock">🔒</span>
+        <div class="sc-icon">💼</div>
+        <div class="sc-title">Business German</div>
+        <p class="sc-desc">Meetings, emails, negotiations, presentations and corporate vocabulary.</p>
+        <span class="sc-cta">🔒 Premium — Unlock →</span>
+      </div>
+
+      <div class="special-card"
+           onclick="TGS.premium.gate('vocabulary-idioms.html','language','Idioms')">
+        <span class="sc-lock">🔒</span>
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-title">Idioms</div>
+        <p class="sc-desc">The expressions native speakers actually use — Redewendungen, Sprichwörter and more.</p>
+        <span class="sc-cta">🔒 Premium — Unlock →</span>
+      </div>
+
+      <div class="special-card"
+           onclick="TGS.premium.gate('vocabulary-advanced-expressions.html','language','Advanced Expressions')">
+        <span class="sc-lock">🔒</span>
+        <div class="sc-icon">✍️</div>
+        <div class="sc-title">Advanced Expressions</div>
+        <p class="sc-desc">Collocations, fixed phrases and high-level expressions for C1–C2 level communication.</p>
+        <span class="sc-cta">🔒 Premium — Unlock →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       FUTURE VOCABULARY CATEGORIES
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="future-vocab">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🔭</span>
+      <div>
+        <div class="sec-hdr-title">Coming to the Vocabulary Universe</div>
+        <div class="sec-hdr-sub">Future categories — expanding with every new academy.</div>
+      </div>
+    </div>
+
+    <div class="future-row">
+      <span class="future-row-icon">🏛️</span>
+      <span>Germany Knowledge Vocabulary — history, politics, geography terms</span>
+      <span class="badge-soon-sm">Coming Soon</span>
+    </div>
+    <div class="future-row">
+      <span class="future-row-icon">🍺</span>
+      <span>German Culinary Vocabulary — food, drinks, recipes and traditions</span>
+      <span class="badge-soon-sm">Coming Soon</span>
+    </div>
+    <div class="future-row">
+      <span class="future-row-icon">🏠</span>
+      <span>Living in Germany Vocabulary — bureaucracy, housing, healthcare terms</span>
+      <span class="badge-soon-sm">Coming Soon</span>
+    </div>
+    <div class="future-row">
+      <span class="future-row-icon">🤖</span>
+      <span>AI-personalised vocabulary sets based on your learning history</span>
+      <span class="badge-soon-sm">Future</span>
+    </div>
+  </section>
+
+  <!-- UPGRADE BANNER -->
+  <div class="upgrade-banner">
+    <div class="ub-text">
+      <h3>📚 Unlock the Full Vocabulary Universe</h3>
+      <p>Full B1–C2 word banks (12,000+ words) · Business German · Idioms · Advanced Expressions · All future categories including the Master Vocabulary Database</p>
+    </div>
+    <a class="btn-upgrade" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">
+      Upgrade on Skool →
+    </a>
+  </div>
+
+</div><!-- /wrap -->
+
+<footer>
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="index.html">All Academies</a> &nbsp;·&nbsp;
+  <a href="language-academy.html">Language Academy</a> &nbsp;·&nbsp;
+  <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
+</footer>
+
+<script src="tgs-core.js"></script>
+<script>
+/* Highlight active section in sec-nav on scroll */
+(function(){
+  var links    = document.querySelectorAll('.sn-link');
+  var secIds   = ['free-vocab','premium-vocab','specialist','future-vocab'];
+  var sections = secIds.map(function(id){ return document.getElementById(id); });
+
+  function onScroll(){
+    var y = window.scrollY + 120;
+    var active = sections[0];
+    sections.forEach(function(s){ if(s && s.offsetTop <= y) active = s; });
+    links.forEach(function(l){
+      l.classList.toggle('active', active && l.getAttribute('href') === '#' + active.id);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+</script>
+</body>
+</html>
