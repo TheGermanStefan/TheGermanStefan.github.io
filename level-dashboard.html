@@ -764,6 +764,77 @@ body {
   margin-top: 12px;
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   LEGACY HUB CARD (A0 and future legacy levels)
+══════════════════════════════════════════════════════════════════ */
+.legacy-hub-card {
+  background: linear-gradient(135deg, rgba(0,131,143,.18) 0%, rgba(0,131,143,.08) 100%);
+  border: 1.5px solid rgba(0,131,143,.45);
+  border-radius: 16px;
+  padding: 26px 28px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.legacy-hub-icon {
+  font-size: 42px;
+  flex-shrink: 0;
+}
+.legacy-hub-body {
+  flex: 1;
+  min-width: 200px;
+}
+.legacy-hub-eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+  color: rgba(0,200,220,.75);
+  margin-bottom: 6px;
+}
+.legacy-hub-title {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+.legacy-hub-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.6;
+}
+.btn-legacy-hub {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #00838f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: filter .15s, transform .1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-legacy-hub:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.legacy-hub-soon-note {
+  margin-top: 16px;
+  font-size: 11px;
+  color: rgba(255,255,255,.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 600px) {
+  .legacy-hub-card { flex-direction: column; }
+  .btn-legacy-hub  { width: 100%; justify-content: center; }
+}
+
 /* ── FOOTER ─────────────────────────────────────────────────────── */
 footer {
   text-align: center;
@@ -859,6 +930,34 @@ footer a:hover { color: rgba(255,255,255,.6); }
     try {
       DashboardFramework.init(levelId);
       reveal();
+
+      /* ── RC6: Legacy Hub Banner ──────────────────────────────────
+         If a level has a legacyHub property (e.g. A0), inject a
+         prominent card at the top of dash-main so students always
+         have a clear path to the existing content.
+         Does NOT replace or overwrite the legacy hub file.
+      ──────────────────────────────────────────────────────────── */
+      var level = (typeof TGS_LEVELS !== 'undefined') ? TGS_LEVELS.get(levelId) : null;
+      if (level && level.legacyHub) {
+        var hub    = level.legacyHub;
+        var mainEl = document.getElementById('dash-main');
+        if (mainEl) {
+          var card = document.createElement('div');
+          card.className = 'legacy-hub-card';
+          card.innerHTML =
+            '<div class="legacy-hub-icon">🏛️</div>' +
+            '<div class="legacy-hub-body">' +
+              '<div class="legacy-hub-eyebrow">A0 Legacy Course · Available Now</div>' +
+              '<div class="legacy-hub-title">' + (level.name || levelId) + ' — Full Course</div>' +
+              '<div class="legacy-hub-desc">' + hub.desc + '</div>' +
+              '<div class="legacy-hub-soon-note">⚡ Individual lesson cards will appear here once files are uploaded.</div>' +
+            '</div>' +
+            '<a class="btn-legacy-hub" href="' + hub.url + '">' + hub.label + ' →</a>';
+          mainEl.insertBefore(card, mainEl.firstChild);
+        }
+      }
+      /* ── end RC6 ─────────────────────────────────────────────── */
+
     } catch (e) {
       console.error('[TGS Dashboard] init error:', e);
       reveal();
