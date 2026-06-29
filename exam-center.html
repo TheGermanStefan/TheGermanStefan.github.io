@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  TheGermanStefan Academy — Goethe Exam Center               ║
+  ║  File   : exam-center.html                                  ║
+  ║  Release : RC10 | Sprint-003                                ║
+  ║  Purpose : Hub listing all 30 Goethe practice tests,        ║
+  ║            grouped A1–C2. Resolves missing NAV reference.   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goethe Exam Center · TheGermanStefan Academy</title>
+<meta name="description" content="30 Goethe practice tests for A1 through C2. Full model exams with Lesen, Hören, Schreiben and Sprechen — interactive, self-scored, free.">
+<script src="tgs-core.js" defer></script>
+
+<style>
+/* ── RESET & TOKENS ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #0b2545;
+  --navy2:  #0d2e56;
+  --amber:  #f9a825;
+  --txt-dim: rgba(255,255,255,.55);
+  --border:  rgba(255,255,255,.1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--navy);
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── TOPBAR ─────────────────────────────────────────────────────── */
+.topbar {
+  background: rgba(0,0,0,.35);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+}
+.tgs-logo {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tgs-logo span { color: var(--amber); }
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt-dim);
+  text-decoration: none;
+  transition: color .15s;
+}
+.topbar-link:hover { color: #fff; }
+.btn-skool {
+  background: var(--amber);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 7px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-skool:hover { filter: brightness(1.1); }
+
+/* ── HERO ───────────────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #0d2e56 0%, #0b2545 60%, #1a1a2e 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 20px 40px;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(249,168,37,.15);
+  border: 1px solid rgba(249,168,37,.4);
+  color: var(--amber);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.hero h1 em {
+  color: var(--amber);
+  font-style: normal;
+}
+.hero-sub {
+  color: var(--txt-dim);
+  font-size: 15px;
+  max-width: 560px;
+  margin: 0 auto 28px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--amber);
+  display: block;
+}
+.hero-stat-lbl {
+  font-size: 12px;
+  color: var(--txt-dim);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ── MAIN WRAP ──────────────────────────────────────────────────── */
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ── INFO STRIP ─────────────────────────────────────────────────── */
+.info-strip {
+  background: rgba(249,168,37,.08);
+  border: 1px solid rgba(249,168,37,.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+.info-strip strong { color: var(--amber); }
+
+/* ── LEVEL SECTION ──────────────────────────────────────────────── */
+.level-section {
+  margin-bottom: 40px;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid;
+}
+
+.level-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.level-info { flex: 1; }
+
+.level-title {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.level-meta {
+  font-size: 12px;
+  color: var(--txt-dim);
+  margin-top: 3px;
+}
+
+.level-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+/* ── TEST GRID ──────────────────────────────────────────────────── */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.test-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: #fff;
+  transition: background .15s, transform .15s, border-color .2s;
+  display: block;
+}
+.test-card:hover {
+  background: rgba(255,255,255,.1);
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.25);
+}
+
+.test-card-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.test-card-title {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.test-card-footer {
+  font-size: 11px;
+  color: var(--txt-dim);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.test-card-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .5;
+}
+
+/* ── FOOTER NAV ─────────────────────────────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--txt-dim);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 40px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: color .15s, border-color .15s;
+}
+.back-link:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+
+/* ── LEVEL COLORS ───────────────────────────────────────────────── */
+.lc-a1 { color: #1464b4; border-color: #1464b4; }
+.lc-a2 { color: #2e7d32; border-color: #2e7d32; }
+.lc-b1 { color: #e65100; border-color: #e65100; }
+.lc-b2 { color: #6a1b9a; border-color: #6a1b9a; }
+.lc-c1 { color: #c62828; border-color: #c62828; }
+.lc-c2 { color: #f9a825; border-color: #f9a825; }
+
+.lh-a1 { border-color: #1464b4; }
+.lh-a2 { border-color: #2e7d32; }
+.lh-b1 { border-color: #e65100; }
+.lh-b2 { border-color: #6a1b9a; }
+.lh-c1 { border-color: #c62828; }
+.lh-c2 { border-color: #f9a825; }
+
+.tc-a1 { color: #4d9ee8; }
+.tc-a2 { color: #66bb6a; }
+.tc-b1 { color: #ff8a50; }
+.tc-b2 { color: #ba68c8; }
+.tc-c1 { color: #ef5350; }
+.tc-c2 { color: #f9a825; }
+
+@media (max-width: 600px) {
+  .test-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 20px; }
+}
+@media (max-width: 380px) {
+  .test-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+  <div class="topbar-right">
+    <a class="topbar-link" href="language-academy.html">Academy</a>
+    <a class="topbar-link" href="placement-test.html">Placement</a>
+    <a class="btn-skool" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Join Skool ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">🎓 Goethe-Institut Style</div>
+  <h1>Goethe <em>Exam Center</em></h1>
+  <p class="hero-sub">
+    30 full practice tests for every CEFR level — A1 to C2.
+    Interactive scoring, answer keys, and timed conditions.
+    No account required.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">30</span>
+      <span class="hero-stat-lbl">Practice Tests</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">6</span>
+      <span class="hero-stat-lbl">CEFR Levels</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4</span>
+      <span class="hero-stat-lbl">Skills per Test</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">Free</span>
+      <span class="hero-stat-lbl">No Sign-up</span>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="wrap">
+
+  <div class="info-strip">
+    <strong>How to use:</strong> Each test covers all four Goethe skills —
+    <strong>Lesen</strong>, <strong>Hören</strong>, <strong>Schreiben</strong> and <strong>Sprechen</strong>.
+    Score yourself using the built-in answer key. Pass mark is <strong>60 %</strong> overall
+    (each module ≥ 60 %). Choose your level below and start practising.
+  </div>
+
+  <!-- ── A1 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-a1">
+      <div class="level-emoji">⭐</div>
+      <div class="level-info">
+        <div class="level-title">A1 — Elementary</div>
+        <div class="level-meta">60 pts · Pass ≥ 36 (60 %) · Each module ≥ 9 / 15 · ~85 min</div>
+      </div>
+      <div class="level-badge lc-a1">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_A1_Test_1.html">
+        <div class="test-card-num tc-a1">A1 · Test 1</div>
+        <div class="test-card-title">Modellprüfung 1</div>
+        <div class="test-card-footer">
+          <span>60 pts</span><div class="test-card-dot"></div><span>~85 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A1_Test_2.html">
+        <div class="test-card-num tc-a1">A1 · Test 2</div>
+        <div class="test-card-title">Modellprüfung 2</div>
+        <div class="test-card-footer">
+          <span>60 pts</span><div class="test-card-dot"></div><span>~85 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A1_Test_3.html">
+        <div class="test-card-num tc-a1">A1 · Test 3</div>
+        <div class="test-card-title">Modellprüfung 3</div>
+        <div class="test-card-footer">
+          <span>60 pts</span><div class="test-card-dot"></div><span>~85 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A1_Test_4.html">
+        <div class="test-card-num tc-a1">A1 · Test 4</div>
+        <div class="test-card-title">Modellprüfung 4</div>
+        <div class="test-card-footer">
+          <span>60 pts</span><div class="test-card-dot"></div><span>~85 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A1_Test_5.html">
+        <div class="test-card-num tc-a1">A1 · Test 5</div>
+        <div class="test-card-title">Modellprüfung 5</div>
+        <div class="test-card-footer">
+          <span>60 pts</span><div class="test-card-dot"></div><span>~85 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── A2 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-a2">
+      <div class="level-emoji">🌟</div>
+      <div class="level-info">
+        <div class="level-title">A2 — Pre-Intermediate</div>
+        <div class="level-meta">100 pts · Pass ≥ 60 (60 %) · Each module ≥ 15 / 25 · ~105 min</div>
+      </div>
+      <div class="level-badge lc-a2">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_A2_Test_1.html">
+        <div class="test-card-num tc-a2">A2 · Test 1</div>
+        <div class="test-card-title">Modellprüfung 1</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~105 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A2_Test_2.html">
+        <div class="test-card-num tc-a2">A2 · Test 2</div>
+        <div class="test-card-title">Modellprüfung 2</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~105 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A2_Test_3.html">
+        <div class="test-card-num tc-a2">A2 · Test 3</div>
+        <div class="test-card-title">Modellprüfung 3</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~105 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A2_Test_4.html">
+        <div class="test-card-num tc-a2">A2 · Test 4</div>
+        <div class="test-card-title">Modellprüfung 4</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~105 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_A2_Test_5.html">
+        <div class="test-card-num tc-a2">A2 · Test 5</div>
+        <div class="test-card-title">Modellprüfung 5</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~105 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── B1 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-b1">
+      <div class="level-emoji">🔥</div>
+      <div class="level-info">
+        <div class="level-title">B1 — Intermediate</div>
+        <div class="level-meta">100 pts · Pass ≥ 60 (60 %) · Each module ≥ 15 / 25 · ~165 min + ~15 min speaking</div>
+      </div>
+      <div class="level-badge lc-b1">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_B1_Test_1.html">
+        <div class="test-card-num tc-b1">B1 · Test 1</div>
+        <div class="test-card-title">Modellprüfung 1</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~165 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B1_Test_2.html">
+        <div class="test-card-num tc-b1">B1 · Test 2</div>
+        <div class="test-card-title">Modellprüfung 2</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~165 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B1_Test_3.html">
+        <div class="test-card-num tc-b1">B1 · Test 3</div>
+        <div class="test-card-title">Modellprüfung 3</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~165 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B1_Test_4.html">
+        <div class="test-card-num tc-b1">B1 · Test 4</div>
+        <div class="test-card-title">Modellprüfung 4</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~165 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B1_Test_5.html">
+        <div class="test-card-num tc-b1">B1 · Test 5</div>
+        <div class="test-card-title">Modellprüfung 5</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~165 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── B2 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-b2">
+      <div class="level-emoji">💎</div>
+      <div class="level-info">
+        <div class="level-title">B2 — Upper-Intermediate</div>
+        <div class="level-meta">100 pts · Pass ≥ 60 (60 %) · Each module ≥ 15 / 25 · ~185 min + ~15 min speaking</div>
+      </div>
+      <div class="level-badge lc-b2">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_B2_Test_1.html">
+        <div class="test-card-num tc-b2">B2 · Test 1</div>
+        <div class="test-card-title">Modellprüfung 1</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~185 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B2_Test_2.html">
+        <div class="test-card-num tc-b2">B2 · Test 2</div>
+        <div class="test-card-title">Modellprüfung 2</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~185 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B2_Test_3.html">
+        <div class="test-card-num tc-b2">B2 · Test 3</div>
+        <div class="test-card-title">Modellprüfung 3</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~185 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B2_Test_4.html">
+        <div class="test-card-num tc-b2">B2 · Test 4</div>
+        <div class="test-card-title">Übungstest 4</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~185 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_B2_Test_5.html">
+        <div class="test-card-num tc-b2">B2 · Test 5</div>
+        <div class="test-card-title">Übungstest 5</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~185 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── C1 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-c1">
+      <div class="level-emoji">🏆</div>
+      <div class="level-info">
+        <div class="level-title">C1 — Advanced</div>
+        <div class="level-meta">100 pts · Pass ≥ 60 (60 %) · Each module ≥ 15 / 25 · ~210 min + ~15 min speaking</div>
+      </div>
+      <div class="level-badge lc-c1">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_C1_Test_1.html">
+        <div class="test-card-num tc-c1">C1 · Test 1</div>
+        <div class="test-card-title">Übungstest 1</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~210 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C1_Test_2.html">
+        <div class="test-card-num tc-c1">C1 · Test 2</div>
+        <div class="test-card-title">Übungstest 2</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~210 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C1_Test_3.html">
+        <div class="test-card-num tc-c1">C1 · Test 3</div>
+        <div class="test-card-title">Übungstest 3</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~210 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C1_Test_4.html">
+        <div class="test-card-num tc-c1">C1 · Test 4</div>
+        <div class="test-card-title">Übungstest 4</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~210 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C1_Test_5.html">
+        <div class="test-card-num tc-c1">C1 · Test 5</div>
+        <div class="test-card-title">Übungstest 5</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~210 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── C2 ───────────────────────────────────────────────────── -->
+  <section class="level-section">
+    <div class="level-header lh-c2">
+      <div class="level-emoji">👑</div>
+      <div class="level-info">
+        <div class="level-title">C2 — Mastery</div>
+        <div class="level-meta">100 pts · Pass ≥ 60 (60 %) · Each module ≥ 15 / 25 · ~240 min + ~15 min speaking</div>
+      </div>
+      <div class="level-badge lc-c2">5 Tests</div>
+    </div>
+    <div class="test-grid">
+      <a class="test-card" href="Goethe_C2_Test_1.html">
+        <div class="test-card-num tc-c2">C2 · Test 1</div>
+        <div class="test-card-title">Übungstest 1</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~240 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C2_Test_2.html">
+        <div class="test-card-num tc-c2">C2 · Test 2</div>
+        <div class="test-card-title">Übungstest 2</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~240 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C2_Test_3.html">
+        <div class="test-card-num tc-c2">C2 · Test 3</div>
+        <div class="test-card-title">Übungstest 3</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~240 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C2_Test_4.html">
+        <div class="test-card-num tc-c2">C2 · Test 4</div>
+        <div class="test-card-title">Übungstest 4</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~240 min</span>
+        </div>
+      </a>
+      <a class="test-card" href="Goethe_C2_Test_5.html">
+        <div class="test-card-num tc-c2">C2 · Test 5</div>
+        <div class="test-card-title">Modellprüfung 5</div>
+        <div class="test-card-footer">
+          <span>100 pts</span><div class="test-card-dot"></div><span>~240 min</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <a class="back-link" href="language-academy.html">← Back to Language Academy</a>
+
+</main>
+
+<!-- ──────────────────────────────────────────────────────────────
+  RC10 | Sprint-003 | TheGermanStefan Academy
+  Resolves: NAV.pages.examCenter reference in tgs-core.js
+────────────────────────────────────────────────────────────── -->
+</body>
+</html>

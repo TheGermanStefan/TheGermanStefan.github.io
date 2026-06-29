@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
  *  TheGermanStefan Academy Engine
- *  tgs-core.js — v1.0 | Sprint-001
+ *  tgs-core.js — v1.2.0 | Sprint-003-RC10
  *
  *  Sections:
  *   §1  CONFIG          — Global settings & constants
@@ -28,7 +28,7 @@
   // ═══════════════════════════════════════════════════════════════
   var CONFIG = {
     version:          '1.2.0',
-    sprint:           'Sprint-002-RC1',
+    sprint:           'Sprint-003-RC10',
     baseUrl:          'https://thegermanstefan.github.io/',
     skoolUrl:         'https://www.skool.com/thegermanstefan-9325',
     upgradeUrl:       'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
@@ -52,8 +52,8 @@
       placementTest:      'placement-test.html',
       vocabularyUniverse: 'vocabulary-universe.html',   // 📚 Vocabulary Universe — single unified page
       levelDashboard:     'level-dashboard.html',        // 🎓 Universal level dashboard (Sprint-002)
-      specialSkillsHub:   'special-skills-hub.html',    // Future page (Sprint-00x)
-      examCenter:         'exam-center.html',            // Future page (Sprint-00x)
+      specialSkillsHub:   'TheGermanStefan_Special_Skills_Hub.html',
+      examCenter:         'exam-center.html',
       locked:             'locked.html'
     },
 
