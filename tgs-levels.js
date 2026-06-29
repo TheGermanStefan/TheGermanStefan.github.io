@@ -61,45 +61,49 @@
           label:   'Grammar',
           icon:    '📚',
           lessons: [
-            lesson('A0_Grammar_01', 'Das Alphabet', 'A0_Grammar_01_Alphabet.html'),
-            lesson('A0_Grammar_02', 'Zahlen 1–100', 'A0_Grammar_02_Zahlen.html'),
-            lesson('A0_Grammar_03', 'Ich bin / Du bist', 'A0_Grammar_03_Sein.html'),
-            lesson('A0_Grammar_04', 'Artikel: der, die, das', 'A0_Grammar_04_Artikel.html'),
-            lesson('A0_Grammar_05', 'Farben & Formen', 'A0_Grammar_05_Farben.html'),
-            lesson('A0_Grammar_06', 'Fragewörter', 'A0_Grammar_06_Fragewörter.html'),
-            lesson('A0_Grammar_07', 'Ja / Nein / Nicht', 'A0_Grammar_07_Negation.html'),
-            lesson('A0_Grammar_08', 'Possessivpronomen', 'A0_Grammar_08_Possessiv.html')
+            /* RC5: individual A0 lesson files not yet uploaded — all coming soon */
+            soon('A0_Grammar_01', 'Das Alphabet'),
+            soon('A0_Grammar_02', 'Zahlen 1–100'),
+            soon('A0_Grammar_03', 'Ich bin / Du bist'),
+            soon('A0_Grammar_04', 'Artikel: der, die, das'),
+            soon('A0_Grammar_05', 'Farben & Formen'),
+            soon('A0_Grammar_06', 'Fragewörter'),
+            soon('A0_Grammar_07', 'Ja / Nein / Nicht'),
+            soon('A0_Grammar_08', 'Possessivpronomen')
           ]
         },
         vocabulary: {
           label:   'Vocabulary',
           icon:    '🗂️',
           lessons: [
-            lesson('A0_Vocab_01', 'Begrüßungen', 'A0_Vocab_01_Begrüßungen.html'),
-            lesson('A0_Vocab_02', 'Familie', 'A0_Vocab_02_Familie.html'),
-            lesson('A0_Vocab_03', 'Essen & Trinken', 'A0_Vocab_03_Essen.html'),
-            lesson('A0_Vocab_04', 'Tage & Monate', 'A0_Vocab_04_Zeit.html'),
-            lesson('A0_Vocab_05', 'Länder & Sprachen', 'A0_Vocab_05_Länder.html')
+            /* RC5: files not yet on GitHub */
+            soon('A0_Vocab_01', 'Begrüßungen'),
+            soon('A0_Vocab_02', 'Familie'),
+            soon('A0_Vocab_03', 'Essen & Trinken'),
+            soon('A0_Vocab_04', 'Tage & Monate'),
+            soon('A0_Vocab_05', 'Länder & Sprachen')
           ]
         },
         reading: {
           label:   'Reading',
           icon:    '📖',
           lessons: [
-            lesson('A0_Reading_01', 'Hallo! Ich heiße Stefan.', 'A0_Reading_01_Vorstellen.html'),
-            lesson('A0_Reading_02', 'Meine Familie', 'A0_Reading_02_Familie.html'),
-            lesson('A0_Reading_03', 'Im Café', 'A0_Reading_03_Cafe.html')
+            /* RC5: files not yet on GitHub */
+            soon('A0_Reading_01', 'Hallo! Ich heiße Stefan.'),
+            soon('A0_Reading_02', 'Meine Familie'),
+            soon('A0_Reading_03', 'Im Café')
           ]
         },
         speaking: {
           label:   'Speaking',
           icon:    '🗣️',
           lessons: [
-            lesson('A0_Sprechen_01', 'Sich vorstellen', 'A0_Sprechen_01_Vorstellen.html'),
-            lesson('A0_Sprechen_02', 'Über die Familie sprechen', 'A0_Sprechen_02_Familie.html'),
-            lesson('A0_Sprechen_03', 'Bestellen im Café', 'A0_Sprechen_03_Cafe.html'),
-            lesson('A0_Sprechen_04', 'Zahlen im Alltag', 'A0_Sprechen_04_Zahlen.html'),
-            lesson('A0_Sprechen_05', 'Auf Wiedersehen!', 'A0_Sprechen_05_Abschied.html')
+            /* RC5: files not yet on GitHub */
+            soon('A0_Sprechen_01', 'Sich vorstellen'),
+            soon('A0_Sprechen_02', 'Über die Familie sprechen'),
+            soon('A0_Sprechen_03', 'Bestellen im Café'),
+            soon('A0_Sprechen_04', 'Zahlen im Alltag'),
+            soon('A0_Sprechen_05', 'Auf Wiedersehen!')
           ]
         }
       }
