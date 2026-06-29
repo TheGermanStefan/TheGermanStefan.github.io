@@ -45,10 +45,13 @@
 
     /** Top-level pages */
     pages: {
-      home:            'index.html',
-      languageAcademy: 'language-academy.html',
-      placementTest:   'placement-test.html',
-      locked:          'locked.html'
+      home:               'index.html',
+      languageAcademy:    'language-academy.html',
+      placementTest:      'placement-test.html',
+      vocabularyUniverse: 'vocabulary-universe.html',   // 📚 Vocabulary Universe — single unified page
+      specialSkillsHub:   'special-skills-hub.html',    // Future page (Sprint-00x)
+      examCenter:         'exam-center.html',            // Future page (Sprint-00x)
+      locked:             'locked.html'
     },
 
     /**
@@ -306,10 +309,10 @@
         free:     false
       },
       {
-        id:       'quiz',
-        name:     'Quiz Center',
-        tagline:  'Challenge yourself across all academies',
-        icon:     '🎯',
+        id:       'challenge-arena',
+        name:     'Challenge Arena',
+        tagline:  'Cross-academy challenges, quizzes and competitions',
+        icon:     '🏆',
         accent:   '#6a1b9a',
         status:   'coming-soon',
         url:      null,
@@ -338,7 +341,12 @@
 
 
   // ═══════════════════════════════════════════════════════════════
-  // §7  VOCABULARY  (stub — Sprint-002+)
+  // §7  VOCABULARY UNIVERSE  (stub — Sprint-002+)
+  //
+  //  Official product name: 📚 Vocabulary Universe
+  //  Single unified product — free A0–A2, premium B1–C2+.
+  //  Future: Master Vocabulary Database connects all academies.
+  //  Page: vocabulary-universe.html
   // ═══════════════════════════════════════════════════════════════
   var VOCAB = {
 
@@ -352,7 +360,7 @@
      * @returns {object|null}
      */
     lookup: function (term, lang, academy) {
-      // TODO Sprint-002: connect to Vocabulary Universe
+      // TODO Sprint-002: connect to Vocabulary Universe Master Database
       if (CONFIG.debug) {
         console.log('[TGS:VOCAB] lookup stub — term:', term, '| lang:', lang, '| academy:', academy);
       }
@@ -360,13 +368,15 @@
     },
 
     /**
-     * Register vocabulary entries from a lesson.
-     * Future: feeds the central vocabulary database without duplication.
+     * Register vocabulary entries from any academy lesson.
+     * Future: feeds the Vocabulary Universe without duplication.
+     * Every academy (Language, Knowledge, Culinary, Living) can
+     * contribute vocabulary to the shared universe.
      *
      * @param {Array}  entries  — [{ de, en, level, academy, tags }, …]
      */
     register: function (entries) {
-      // TODO Sprint-002: persist to Vocabulary Universe
+      // TODO Sprint-002: persist to Vocabulary Universe Master Database
       if (CONFIG.debug) {
         console.log('[TGS:VOCAB] register stub — entries:', entries.length);
       }

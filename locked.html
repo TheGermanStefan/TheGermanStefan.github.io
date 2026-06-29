@@ -240,42 +240,60 @@ footer a:hover{color:rgba(255,255,255,.6)}
  */
 (function () {
 
-  /* ── Academy definitions — mirrors TGS.academies.registry ── */
+  /**
+   * Academy registry for the universal lock screen.
+   * ─────────────────────────────────────────────────────────────
+   * One lock screen. One architecture. Unlimited academies.
+   *
+   * To add a new academy: append one entry here.
+   * Official product names (RC1-006) are used throughout.
+   * ─────────────────────────────────────────────────────────────
+   */
   var ACADEMIES = {
     language: {
-      label: 'German Language Academy',
+      label: '🎓 German Language Academy',
       perks: [
-        { icon: '🇩🇪', title: 'Full A1–C2 Curriculum',        desc: 'Structured grammar, reading, speaking & vocabulary for every level.' },
-        { icon: '📝', title: '5 Practice Exams per Level',    desc: 'Goethe-style mock exams to prepare for official certification.' },
-        { icon: '🏆', title: 'Special Skills Hub',            desc: 'Interview German, idioms, business language & advanced speaking.' },
-        { icon: '👨‍🏫', title: 'Live Coaching & Community',   desc: 'Weekly Stammtisch, community support and direct coach access.' }
+        { icon: '🇩🇪', title: 'Full A1–C2 Curriculum',         desc: 'Structured grammar, reading, speaking & vocabulary for every level.' },
+        { icon: '📚', title: 'Vocabulary Universe',            desc: 'B1–C2 vocabulary, Business German, Idioms and Advanced Expressions.' },
+        { icon: '📝', title: '5 Practice Exams per Level',     desc: 'Goethe-style mock exams to prepare for official certification.' },
+        { icon: '🎓', title: 'Special Skills Hub',             desc: 'Interview German, idioms, business language & advanced speaking.' },
+        { icon: '👨‍🏫', title: 'Live Coaching & Community',    desc: 'Weekly Stammtisch, community support and direct coach access.' }
       ]
     },
     knowledge: {
-      label: 'Germany Knowledge Academy',
+      label: '🏛️ Germany Knowledge Academy',
       perks: [
-        { icon: '🏛️', title: 'History & Politics',           desc: 'German history from the Holy Roman Empire to modern day.' },
-        { icon: '🗺️', title: 'Geography & Regions',          desc: 'Every federal state, landmark and regional culture.' },
-        { icon: '🎭', title: 'Culture & Society',            desc: 'Art, music, literature and everyday German life.' },
-        { icon: '📰', title: 'Current Affairs',              desc: 'Understanding modern Germany and its place in the world.' }
+        { icon: '🏛️', title: 'History & Politics',            desc: 'German history from the Holy Roman Empire to modern day.' },
+        { icon: '🗺️', title: 'Geography & Regions',           desc: 'Every federal state, landmark and regional culture.' },
+        { icon: '🎭', title: 'Culture & Society',             desc: 'Art, music, literature and everyday German life.' },
+        { icon: '📰', title: 'Current Affairs',               desc: 'Understanding modern Germany and its place in the world.' }
       ]
     },
     culinary: {
-      label: 'German Culinary Academy',
+      label: '🍺 German Culinary Academy',
       perks: [
-        { icon: '🍺', title: 'Beer & Brewing Culture',        desc: 'The Reinheitsgebot, regional styles and brewery traditions.' },
-        { icon: '🍞', title: 'Breads, Cakes & Recipes',       desc: 'Authentic German recipes with vocabulary built in.' },
-        { icon: '🍷', title: 'Wine & Regional Cuisine',       desc: 'German wines, regional specialities and food traditions.' },
-        { icon: '🎉', title: 'Festivals & Food Traditions',   desc: 'Oktoberfest, Christmas markets and seasonal cooking.' }
+        { icon: '🍺', title: 'Beer & Brewing Culture',         desc: 'The Reinheitsgebot, regional styles and brewery traditions.' },
+        { icon: '🍞', title: 'Breads, Cakes & Recipes',        desc: 'Authentic German recipes with vocabulary built in.' },
+        { icon: '🍷', title: 'Wine & Regional Cuisine',        desc: 'German wines, regional specialities and food traditions.' },
+        { icon: '🎉', title: 'Festivals & Food Traditions',    desc: 'Oktoberfest, Christmas markets and seasonal cooking.' }
       ]
     },
     living: {
-      label: 'Living in Germany Academy',
+      label: '🏠 Living in Germany Academy',
       perks: [
-        { icon: '📋', title: 'Bureaucracy & Admin',           desc: 'Registration, visas, health insurance and official paperwork.' },
-        { icon: '🏥', title: 'Healthcare & Education',        desc: 'Navigating the German healthcare and school system.' },
-        { icon: '💼', title: 'Work & Career',                 desc: 'Job applications, workplace culture and workers\' rights.' },
-        { icon: '🤝', title: 'Integration & Daily Life',      desc: 'Cultural tips, etiquette and building a life in Germany.' }
+        { icon: '📋', title: 'Bureaucracy & Admin',            desc: 'Registration, visas, health insurance and official paperwork.' },
+        { icon: '🏥', title: 'Healthcare & Education',         desc: 'Navigating the German healthcare and school system.' },
+        { icon: '💼', title: 'Work & Career',                  desc: 'Job applications, workplace culture and workers\' rights.' },
+        { icon: '🤝', title: 'Integration & Daily Life',       desc: 'Cultural tips, etiquette and building a life in Germany.' }
+      ]
+    },
+    'challenge-arena': {
+      label: '🏆 Challenge Arena',
+      perks: [
+        { icon: '🏆', title: 'Cross-Academy Challenges',       desc: 'Test your knowledge across all TheGermanStefan academies.' },
+        { icon: '🎯', title: 'Daily & Weekly Quizzes',         desc: 'Fresh challenges every day to keep you sharp.' },
+        { icon: '📊', title: 'Leaderboards',                   desc: 'Compete with other learners and track your progress.' },
+        { icon: '🥇', title: 'Achievements & Badges',          desc: 'Earn recognition as you master German and Germany.' }
       ]
     }
   };
@@ -300,7 +318,7 @@ footer a:hover{color:rgba(255,255,255,.6)}
 
   var academyData = ACADEMIES[academyId] || {};
   var perks       = academyData.perks || DEFAULT_PERKS;
-  var academyLabel = academyData.label || 'TheGermanStefan Academy';
+  var academyLabel = academyData.label || '🏛️ TheGermanStefan Academy';
 
   /* ── Populate page ───────────────────────────────────────── */
   var badgeEl  = document.getElementById('badge-academy');
