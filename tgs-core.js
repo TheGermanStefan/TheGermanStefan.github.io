@@ -34,15 +34,8 @@
     upgradeUrl:       'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
     lockedPage:       'locked.html',
     storageKey:       'tgs_v1',
-    premiumStorageKey:'tgs_premium_v1',
-    /**
-     * ─── PREMIUM ACTIVATION KEY ───────────────────────────────────────
-     * Share the activation URL privately inside your Skool community only.
-     * To rotate: change this value and share a new URL with members.
-     * Old activations expire automatically after 30 days.
-     * ─────────────────────────────────────────────────────────────────
-     */
-    premiumKey:       'tgs-s2025-premium',
+    /* TEMP_BRIDGE */ premiumStorageKey: 'tgs_premium_v1',    // localStorage key for activation token
+    /* TEMP_BRIDGE */ premiumKey:        'tgs-s2025-premium', // share activation URL privately in Skool only
     debug:            false
   };
 
@@ -219,172 +212,51 @@
 
   // ═══════════════════════════════════════════════════════════════
   // §5  PREMIUM ACCESS
+  //
+  // LONG-TERM TARGET ARCHITECTURE:
+  //
+  //   Skool Membership
+  //       ↓
+  //   Future Authentication Layer  (Skool SSO / JWT)
+  //       ↓
+  //   Academy Access
+  //
+  // PERMANENT PUBLIC INTERFACE (stable — survives any auth change):
+  //   isUnlocked()  — returns true when the session has premium access
+  //   gate()        — route to target (premium) or locked.html (free)
+  //   upgrade()     — open Skool upgrade page
+  //
+  // Only the body of isUnlocked() changes when the auth layer arrives.
+  // Every caller in every HTML file stays identical.
   // ═══════════════════════════════════════════════════════════════
   var PREMIUM = {
 
-    /**
-     * ─── HOW PREMIUM DETECTION WORKS  (Sprint-002-RC1) ──────────────
-     *
-     * GitHub Pages is static — no server-side session, no Skool API.
-     * Premium access uses a two-layer model:
-     *
-     *  LAYER 1 — NAVIGATIONAL LOCK (always active)
-     *    Premium URLs are never exposed in free navigation.
-     *    Free users cannot discover premium links via the Academy UI.
-     *
-     *  LAYER 2 — ACTIVATION TOKEN (transitional until Skool SSO)
-     *    Stefan posts an activation URL inside the Skool community.
-     *    Only logged-in Skool members can see it.
-     *    Visiting the URL stores a 30-day token in localStorage.
-     *    Every page checks the token. Premium navigation works for 30 days.
-     *
-     *  ACTIVATION: share ?tgs_access=<CONFIG.premiumKey> URL inside Skool only.
-     *
-     *  CONSOLE TESTING:
-     *    TGS.premium.activate(CONFIG.premiumKey)  → activate premium
-     *    TGS.premium.deactivate()                 → back to free mode
-     *    TGS.premium.status()                     → { unlocked, expiresAt, daysLeft }
-     *
-     *  KEY ROTATION:
-     *    Change CONFIG.premiumKey → share new activation URL on Skool.
-     *    Old tokens expire automatically after 30 days.
-     *
-     *  FUTURE: Replace _checkLocalStorage() with Skool JWT validation.
-     *    isUnlocked() interface stays unchanged — callers unaffected.
-     * ─────────────────────────────────────────────────────────────────
-     */
+    // ─── PERMANENT INTERFACE ───────────────────────────────────────
+    // These three functions are the stable contract with the rest of
+    // the codebase. Do not change their signatures or remove them.
+    // ───────────────────────────────────────────────────────────────
 
     /**
-     * Check whether this browser has active premium access.
-     * Reads the localStorage activation token set by activate().
+     * Check whether this session has active premium access.
+     *
+     * CURRENT BODY:  delegates to the temporary bridge (_checkLocalStorage).
+     * FUTURE BODY:   validate a Skool SSO token / JWT here instead.
+     *                The function name, signature and all call sites stay unchanged.
+     *
      * @returns {boolean}
      */
     isUnlocked: function () {
+      /* TEMP_BRIDGE: replace this single line with real auth validation */
       return PREMIUM._checkLocalStorage();
     },
 
     /**
-     * @private — read & validate the localStorage activation token.
-     * Cleans up expired tokens automatically.
-     */
-    _checkLocalStorage: function () {
-      try {
-        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
-        if (!raw) return false;
-        var data = JSON.parse(raw);
-        if (!data || !data.expires) return false;
-        if (Date.now() > data.expires) {
-          localStorage.removeItem(CONFIG.premiumStorageKey); /* clean up expired */
-          return false;
-        }
-        return true;
-      } catch (e) {
-        return false; /* storage unavailable — fail safe (free) */
-      }
-    },
-
-    /**
-     * @private — called at init().
-     * Checks the URL for ?tgs_access=KEY and activates premium if valid.
-     * Strips the token from the URL bar after processing (clean URLs).
-     */
-    _checkUrlActivation: function () {
-      try {
-        var params = UTILS.getParams();
-        if (!params.tgs_access) return;
-        var success = PREMIUM.activate(params.tgs_access);
-        if (success) {
-          if (CONFIG.debug) {
-            console.log('[TGS:PREMIUM] ✓ Activated via URL. Welcome, premium member! 🎓');
-          }
-          /* Remove token from the URL bar — keeps URLs clean */
-          var clean = window.location.href
-            .replace(/[?&]tgs_access=[^&]*/g, '')
-            .replace(/[?&]$/, '');
-          if (clean !== window.location.href) {
-            history.replaceState(null, '', clean || './');
-          }
-        } else {
-          if (CONFIG.debug) {
-            console.warn('[TGS:PREMIUM] URL activation failed — invalid key.');
-          }
-        }
-      } catch (e) { /* history API unavailable — fail silently */ }
-    },
-
-    /**
-     * Activate premium mode in this browser for 30 days.
-     * Called automatically by _checkUrlActivation() on page load.
-     * Also callable in the browser console for testing.
+     * Gate a premium resource. Permanent — never changes.
+     * Routes to targetUrl (premium) or locked.html (free).
      *
-     * @param  {string}  key — must match CONFIG.premiumKey
-     * @returns {boolean}    — true if activated, false if key is wrong
-     *
-     * @example (browser console)
-     *   TGS.premium.activate(TGS.config.premiumKey)  // → true
-     */
-    activate: function (key) {
-      if (key !== CONFIG.premiumKey) return false;
-      try {
-        var TTL_MS = 30 * 24 * 60 * 60 * 1000; /* 30 days */
-        localStorage.setItem(CONFIG.premiumStorageKey, JSON.stringify({
-          activated: Date.now(),
-          expires:   Date.now() + TTL_MS,
-          source:    'tgs-activation-v1'
-        }));
-        return true;
-      } catch (e) {
-        return false; /* localStorage unavailable */
-      }
-    },
-
-    /**
-     * Deactivate premium mode in this browser.
-     * Use this to test the free-user experience.
-     *
-     * @example (browser console)
-     *   TGS.premium.deactivate()  // → back to free navigation
-     */
-    deactivate: function () {
-      try { localStorage.removeItem(CONFIG.premiumStorageKey); }
-      catch (e) { /* fail silently */ }
-    },
-
-    /**
-     * Return a readable premium status object.
-     * Useful for Stefan to check / debug member access.
-     *
-     * @returns {{ unlocked: boolean, expiresAt: string|null, daysLeft: number|null }}
-     *
-     * @example (browser console)
-     *   TGS.premium.status()
-     *   // → { unlocked: true, expiresAt: '28/07/2025', daysLeft: 27 }
-     */
-    status: function () {
-      try {
-        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
-        if (!raw) return { unlocked: false, expiresAt: null, daysLeft: null };
-        var data    = JSON.parse(raw);
-        var msLeft  = data.expires - Date.now();
-        var daysLeft = Math.max(0, Math.round(msLeft / (24 * 60 * 60 * 1000)));
-        return {
-          unlocked:  msLeft > 0,
-          expiresAt: new Date(data.expires).toLocaleDateString(),
-          daysLeft:  daysLeft
-        };
-      } catch (e) {
-        return { unlocked: false, expiresAt: null, daysLeft: null };
-      }
-    },
-
-    /**
-     * Gate a premium resource.
-     * If unlocked → navigate directly to target URL.
-     * If locked   → redirect to universal lock screen (locked.html).
-     *
-     * @param {string} targetUrl  — destination if premium (e.g. 'level-dashboard.html?level=B2')
-     * @param {string} academy    — academy ID (e.g. 'language')
-     * @param {string} course     — course label shown on lock screen (e.g. 'B2')
+     * @param {string} targetUrl  — e.g. 'level-dashboard.html?level=B2'
+     * @param {string} academy    — e.g. 'language'
+     * @param {string} course     — label shown on lock screen, e.g. 'B2'
      */
     gate: function (targetUrl, academy, course) {
       if (PREMIUM.isUnlocked()) {
@@ -398,10 +270,135 @@
       }
     },
 
-    /** Open Skool upgrade page in a new tab */
+    /** Open Skool upgrade page in a new tab. Permanent. */
     upgrade: function () {
       window.open(CONFIG.upgradeUrl, '_blank', 'noopener,noreferrer');
+    },
+
+
+    // ┌─────────────────────────────────────────────────────────────┐
+    // │  TEMPORARY BRIDGE — Sprint-002-RC1                          │
+    // │                                                             │
+    // │  TODO: Remove this entire block when the Skool             │
+    // │  authentication layer is implemented.                       │
+    // │                                                             │
+    // │  WHY THIS EXISTS:                                           │
+    // │  GitHub Pages is static — no server-side session and no     │
+    // │  Skool API is available. This bridge provides a             │
+    // │  navigational unlock via a URL token shared privately       │
+    // │  inside the Skool community, stored in localStorage.        │
+    // │  It is a development/testing measure, not a security        │
+    // │  architecture. The real premium value is the Skool          │
+    // │  community (live coaching, Stammtisch, etc.).               │
+    // │                                                             │
+    // │  REMOVAL CHECKLIST (search "TEMP_BRIDGE" for all sites):   │
+    // │    □ CONFIG.premiumKey           (§1)                       │
+    // │    □ CONFIG.premiumStorageKey    (§1)                       │
+    // │    □ PREMIUM._checkLocalStorage  (§5 below)                 │
+    // │    □ PREMIUM._checkUrlActivation (§5 below)                 │
+    // │    □ PREMIUM.activate            (§5 below)                 │
+    // │    □ PREMIUM.deactivate          (§5 below)                 │
+    // │    □ PREMIUM.status              (§5 below)                 │
+    // │    □ PREMIUM._checkUrlActivation() call in init() (§10)     │
+    // │    □ isUnlocked() body (swap for real auth call)            │
+    // │    □ Clear 'tgs_premium_v1' from members' browsers          │
+    // └─────────────────────────────────────────────────────────────┘
+
+    /** @private TEMP_BRIDGE — validate the localStorage activation token */
+    _checkLocalStorage: function () {
+      try {
+        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
+        if (!raw) return false;
+        var data = JSON.parse(raw);
+        if (!data || !data.expires) return false;
+        if (Date.now() > data.expires) {
+          localStorage.removeItem(CONFIG.premiumStorageKey); /* expired — clean up */
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false; /* storage unavailable — fail safe to free */
+      }
+    },
+
+    /** @private TEMP_BRIDGE — process ?tgs_access= URL param at page load */
+    _checkUrlActivation: function () {
+      try {
+        var params = UTILS.getParams();
+        if (!params.tgs_access) return;
+        var success = PREMIUM.activate(params.tgs_access);
+        if (success) {
+          if (CONFIG.debug) console.log('[TGS:PREMIUM] ✓ Activated via URL. 🎓');
+          /* Strip token from URL bar — clean URLs after activation */
+          var clean = window.location.href
+            .replace(/[?&]tgs_access=[^&]*/g, '')
+            .replace(/[?&]$/, '');
+          if (clean !== window.location.href) history.replaceState(null, '', clean || './');
+        } else {
+          if (CONFIG.debug) console.warn('[TGS:PREMIUM] URL activation failed — invalid key.');
+        }
+      } catch (e) { /* history API unavailable — fail silently */ }
+    },
+
+    /**
+     * TEMP_BRIDGE — activate premium for 30 days in this browser.
+     * Called automatically via _checkUrlActivation() on page load.
+     * Can also be run in the browser console for testing:
+     *   TGS.premium.activate(TGS.config.premiumKey)
+     *
+     * @param  {string}  key
+     * @returns {boolean}
+     */
+    activate: function (key) {
+      if (key !== CONFIG.premiumKey) return false;
+      try {
+        var TTL_MS = 30 * 24 * 60 * 60 * 1000; /* 30 days */
+        localStorage.setItem(CONFIG.premiumStorageKey, JSON.stringify({
+          activated: Date.now(),
+          expires:   Date.now() + TTL_MS,
+          source:    'tgs-activation-v1'
+        }));
+        return true;
+      } catch (e) { return false; }
+    },
+
+    /**
+     * TEMP_BRIDGE — deactivate premium in this browser.
+     * Use to test the free-user experience:
+     *   TGS.premium.deactivate()
+     */
+    deactivate: function () {
+      try { localStorage.removeItem(CONFIG.premiumStorageKey); }
+      catch (e) { /* fail silently */ }
+    },
+
+    /**
+     * TEMP_BRIDGE — return readable activation status.
+     * Useful for Stefan to check member access:
+     *   TGS.premium.status()
+     *   // → { unlocked: true, expiresAt: '28/07/2025', daysLeft: 27 }
+     *
+     * @returns {{ unlocked: boolean, expiresAt: string|null, daysLeft: number|null }}
+     */
+    status: function () {
+      try {
+        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
+        if (!raw) return { unlocked: false, expiresAt: null, daysLeft: null };
+        var data     = JSON.parse(raw);
+        var msLeft   = data.expires - Date.now();
+        var daysLeft = Math.max(0, Math.round(msLeft / (24 * 60 * 60 * 1000)));
+        return {
+          unlocked:  msLeft > 0,
+          expiresAt: new Date(data.expires).toLocaleDateString(),
+          daysLeft:  daysLeft
+        };
+      } catch (e) {
+        return { unlocked: false, expiresAt: null, daysLeft: null };
+      }
     }
+
+    // ── TEMP_BRIDGE_END ─────────────────────────────────────────────
+
   };
 
 
@@ -632,7 +629,7 @@
   // §10 INIT
   // ═══════════════════════════════════════════════════════════════
   function init () {
-    /* Sprint-002-RC1: check URL for ?tgs_access= activation token */
+    /* TEMP_BRIDGE: remove this call when the auth layer replaces isUnlocked() */
     PREMIUM._checkUrlActivation();
 
     if (CONFIG.debug) {
@@ -640,6 +637,7 @@
         '%c TheGermanStefan Academy Engine v' + CONFIG.version + ' (' + CONFIG.sprint + ') ',
         'background:#0b2545;color:#f9a825;font-weight:bold;padding:4px 10px;border-radius:4px'
       );
+      /* TEMP_BRIDGE: remove this debug line with the bridge */
       console.log('[TGS:PREMIUM] status:', PREMIUM.status());
     }
 
