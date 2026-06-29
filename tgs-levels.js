@@ -1,3 +1,19 @@
+/*
+ * TheGermanStefan Academy
+ * Release:   RC8A
+ * Generated: 2026-06-29 17:42
+ * Status:    RELEASE CANDIDATE
+ * File:      tgs-levels.js
+ *
+ * RC CHANGELOG:
+ *   RC4 — A2 Vocab/Reading/Speaking → soon() (files not yet on GitHub)
+ *   RC5 — A0 all 21 lessons → soon() (individual files not yet built)
+ *   RC6-1 — A0 legacyHub property added
+ *   RC8A — Release artifact regenerated with verification marker
+ */
+
+var TGS_RELEASE = "RC8A-LEVELS";
+
 /**
  * TheGermanStefan Academy — Level Configuration Database
  * tgs-levels.js — v1.0 | Sprint-002
