@@ -224,38 +224,41 @@
           label:   'Vocabulary',
           icon:    '🗂️',
           lessons: [
-            lesson('A2_Vocab_01', 'Health & Body (Gesundheit)',          'A2_Vocab_01_Gesundheit.html'),
-            lesson('A2_Vocab_02', 'Travel & Transport (Reisen)',         'A2_Vocab_02_Reisen.html'),
-            lesson('A2_Vocab_03', 'Weather & Seasons (Wetter)',          'A2_Vocab_03_Wetter.html'),
-            lesson('A2_Vocab_04', 'Technology & Media (Medien)',         'A2_Vocab_04_Medien.html'),
-            lesson('A2_Vocab_05', 'School & Education (Schule)',         'A2_Vocab_05_Schule.html')
+            /* RC4: files not yet on GitHub — marked coming-soon until uploaded */
+            soon('A2_Vocab_01', 'Health & Body (Gesundheit)'),
+            soon('A2_Vocab_02', 'Travel & Transport (Reisen)'),
+            soon('A2_Vocab_03', 'Weather & Seasons (Wetter)'),
+            soon('A2_Vocab_04', 'Technology & Media (Medien)'),
+            soon('A2_Vocab_05', 'School & Education (Schule)')
           ]
         },
         reading: {
           label:   'Reading',
           icon:    '📖',
           lessons: [
-            lesson('A2_Reading_01', 'A Day in Berlin',                   'A2_Reading_01_Berlin.html'),
-            lesson('A2_Reading_02', 'At the Hotel',                      'A2_Reading_02_Hotel.html'),
-            lesson('A2_Reading_03', 'German School Life',                'A2_Reading_03_Schule.html'),
-            lesson('A2_Reading_04', 'Planning a Holiday',                'A2_Reading_04_Urlaub.html'),
-            lesson('A2_Reading_05', 'Health & the Doctor',               'A2_Reading_05_Gesundheit.html')
+            /* RC4: files not yet on GitHub — marked coming-soon until uploaded */
+            soon('A2_Reading_01', 'A Day in Berlin'),
+            soon('A2_Reading_02', 'At the Hotel'),
+            soon('A2_Reading_03', 'German School Life'),
+            soon('A2_Reading_04', 'Planning a Holiday'),
+            soon('A2_Reading_05', 'Health & the Doctor')
           ]
         },
         speaking: {
           label:   'Speaking',
           icon:    '🗣️',
           lessons: [
-            lesson('A2_Sprechen_01', 'Talking about the Past',           'A2_Sprechen_01_Vergangenheit.html'),
-            lesson('A2_Sprechen_02', 'Describing Your Home',             'A2_Sprechen_02_Wohnung.html'),
-            lesson('A2_Sprechen_03', 'At the Doctor',                    'A2_Sprechen_03_Arzt.html'),
-            lesson('A2_Sprechen_04', 'Planning a Trip',                  'A2_Sprechen_04_Reise.html'),
-            lesson('A2_Sprechen_05', 'Expressing Preferences',           'A2_Sprechen_05_Vorlieben.html'),
-            lesson('A2_Sprechen_06', 'Asking for Help',                  'A2_Sprechen_06_Hilfe.html'),
-            lesson('A2_Sprechen_07', 'On the Phone',                     'A2_Sprechen_07_Telefon.html'),
-            lesson('A2_Sprechen_08', 'Describing People',                'A2_Sprechen_08_Personen.html'),
-            lesson('A2_Sprechen_09', 'Talking about Future Plans',       'A2_Sprechen_09_Zukunft.html'),
-            lesson('A2_Sprechen_10', 'Talking about Weather',            'A2_Sprechen_10_Wetter.html')
+            /* RC4: files not yet on GitHub — marked coming-soon until uploaded */
+            soon('A2_Sprechen_01', 'Talking about the Past'),
+            soon('A2_Sprechen_02', 'Describing Your Home'),
+            soon('A2_Sprechen_03', 'At the Doctor'),
+            soon('A2_Sprechen_04', 'Planning a Trip'),
+            soon('A2_Sprechen_05', 'Expressing Preferences'),
+            soon('A2_Sprechen_06', 'Asking for Help'),
+            soon('A2_Sprechen_07', 'On the Phone'),
+            soon('A2_Sprechen_08', 'Describing People'),
+            soon('A2_Sprechen_09', 'Talking about Future Plans'),
+            soon('A2_Sprechen_10', 'Talking about Weather')
           ]
         }
       }
@@ -368,9 +371,10 @@
             lesson('B2_Grammar_03', 'Participial Phrases',               'B2_Grammar_03_Partizipialkonstruktionen.html'),
             lesson('B2_Grammar_04', 'Concessive Clauses (obwohl/trotz)', 'B2_Grammar_04_Konzessiv.html'),
             lesson('B2_Grammar_05', 'Causal & Consecutive Clauses',      'B2_Grammar_05_Kausal_Konsekutiv.html'),
-            soon('B2_Grammar_06',   'Extended Attribute Phrases'),
-            soon('B2_Grammar_07',   'Subjunctive in Conditional Sentences'),
-            soon('B2_Grammar_08',   'Sentence Brackets & Stylistics'),
+            /* RC4: 06 and 07 confirmed live on GitHub */
+            lesson('B2_Grammar_06', 'Nominalisierung',                   'B2_Grammar_06_Nominalisierung.html'),
+            lesson('B2_Grammar_07', 'Modalpartikeln',                    'B2_Grammar_07_Modalpartikeln.html'),
+            soon('B2_Grammar_08',   'Irrealis & Conditional Sentences'),
             soon('B2_Grammar_09',   'Register: Formal vs. Colloquial'),
             soon('B2_Grammar_10',   'Advanced Word Formation')
           ]
