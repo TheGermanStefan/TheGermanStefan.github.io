@@ -56,6 +56,12 @@
       free:        true,
       nextLevel:   'A1',
       prevLevel:   null,
+      /* RC6: A0 individual lesson files not yet built — content lives in the legacy hub */
+      legacyHub: {
+        url:   'TheGermanStefan_A0_Beginner_Hub.html',
+        label: 'Open A0 Starter Course',
+        desc:  'Full A0 course — grammar, vocabulary, reading and speaking exercises. Available now in the interactive A0 Hub.'
+      },
       modules: {
         grammar: {
           label:   'Grammar',
