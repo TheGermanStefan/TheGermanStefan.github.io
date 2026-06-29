@@ -27,14 +27,23 @@
   // §1  CONFIG
   // ═══════════════════════════════════════════════════════════════
   var CONFIG = {
-    version:    '1.1.0',
-    sprint:     'Sprint-002',
-    baseUrl:    'https://thegermanstefan.github.io/',
-    skoolUrl:   'https://www.skool.com/thegermanstefan-9325',
-    upgradeUrl: 'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
-    lockedPage: 'locked.html',
-    storageKey: 'tgs_v1',
-    debug:      false
+    version:          '1.2.0',
+    sprint:           'Sprint-002-RC1',
+    baseUrl:          'https://thegermanstefan.github.io/',
+    skoolUrl:         'https://www.skool.com/thegermanstefan-9325',
+    upgradeUrl:       'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
+    lockedPage:       'locked.html',
+    storageKey:       'tgs_v1',
+    premiumStorageKey:'tgs_premium_v1',
+    /**
+     * ─── PREMIUM ACTIVATION KEY ───────────────────────────────────────
+     * Share the activation URL privately inside your Skool community only.
+     * To rotate: change this value and share a new URL with members.
+     * Old activations expire automatically after 30 days.
+     * ─────────────────────────────────────────────────────────────────
+     */
+    premiumKey:       'tgs-s2025-premium',
+    debug:            false
   };
 
 
@@ -214,27 +223,168 @@
   var PREMIUM = {
 
     /**
-     * Check premium access status.
-     * ─────────────────────────────────────────────────────────────
-     * STUB — Sprint-001: always returns false (navigation-level lock).
-     * Future sprint: validate JWT / session token from Skool SSO.
-     * Replace this function body only — all callers remain unchanged.
-     * ─────────────────────────────────────────────────────────────
+     * ─── HOW PREMIUM DETECTION WORKS  (Sprint-002-RC1) ──────────────
+     *
+     * GitHub Pages is static — no server-side session, no Skool API.
+     * Premium access uses a two-layer model:
+     *
+     *  LAYER 1 — NAVIGATIONAL LOCK (always active)
+     *    Premium URLs are never exposed in free navigation.
+     *    Free users cannot discover premium links via the Academy UI.
+     *
+     *  LAYER 2 — ACTIVATION TOKEN (transitional until Skool SSO)
+     *    Stefan posts an activation URL inside the Skool community.
+     *    Only logged-in Skool members can see it.
+     *    Visiting the URL stores a 30-day token in localStorage.
+     *    Every page checks the token. Premium navigation works for 30 days.
+     *
+     *  ACTIVATION: share ?tgs_access=<CONFIG.premiumKey> URL inside Skool only.
+     *
+     *  CONSOLE TESTING:
+     *    TGS.premium.activate(CONFIG.premiumKey)  → activate premium
+     *    TGS.premium.deactivate()                 → back to free mode
+     *    TGS.premium.status()                     → { unlocked, expiresAt, daysLeft }
+     *
+     *  KEY ROTATION:
+     *    Change CONFIG.premiumKey → share new activation URL on Skool.
+     *    Old tokens expire automatically after 30 days.
+     *
+     *  FUTURE: Replace _checkLocalStorage() with Skool JWT validation.
+     *    isUnlocked() interface stays unchanged — callers unaffected.
+     * ─────────────────────────────────────────────────────────────────
+     */
+
+    /**
+     * Check whether this browser has active premium access.
+     * Reads the localStorage activation token set by activate().
      * @returns {boolean}
      */
     isUnlocked: function () {
-      // TODO: replace with real Skool SSO token validation
-      return false;
+      return PREMIUM._checkLocalStorage();
+    },
+
+    /**
+     * @private — read & validate the localStorage activation token.
+     * Cleans up expired tokens automatically.
+     */
+    _checkLocalStorage: function () {
+      try {
+        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
+        if (!raw) return false;
+        var data = JSON.parse(raw);
+        if (!data || !data.expires) return false;
+        if (Date.now() > data.expires) {
+          localStorage.removeItem(CONFIG.premiumStorageKey); /* clean up expired */
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false; /* storage unavailable — fail safe (free) */
+      }
+    },
+
+    /**
+     * @private — called at init().
+     * Checks the URL for ?tgs_access=KEY and activates premium if valid.
+     * Strips the token from the URL bar after processing (clean URLs).
+     */
+    _checkUrlActivation: function () {
+      try {
+        var params = UTILS.getParams();
+        if (!params.tgs_access) return;
+        var success = PREMIUM.activate(params.tgs_access);
+        if (success) {
+          if (CONFIG.debug) {
+            console.log('[TGS:PREMIUM] ✓ Activated via URL. Welcome, premium member! 🎓');
+          }
+          /* Remove token from the URL bar — keeps URLs clean */
+          var clean = window.location.href
+            .replace(/[?&]tgs_access=[^&]*/g, '')
+            .replace(/[?&]$/, '');
+          if (clean !== window.location.href) {
+            history.replaceState(null, '', clean || './');
+          }
+        } else {
+          if (CONFIG.debug) {
+            console.warn('[TGS:PREMIUM] URL activation failed — invalid key.');
+          }
+        }
+      } catch (e) { /* history API unavailable — fail silently */ }
+    },
+
+    /**
+     * Activate premium mode in this browser for 30 days.
+     * Called automatically by _checkUrlActivation() on page load.
+     * Also callable in the browser console for testing.
+     *
+     * @param  {string}  key — must match CONFIG.premiumKey
+     * @returns {boolean}    — true if activated, false if key is wrong
+     *
+     * @example (browser console)
+     *   TGS.premium.activate(TGS.config.premiumKey)  // → true
+     */
+    activate: function (key) {
+      if (key !== CONFIG.premiumKey) return false;
+      try {
+        var TTL_MS = 30 * 24 * 60 * 60 * 1000; /* 30 days */
+        localStorage.setItem(CONFIG.premiumStorageKey, JSON.stringify({
+          activated: Date.now(),
+          expires:   Date.now() + TTL_MS,
+          source:    'tgs-activation-v1'
+        }));
+        return true;
+      } catch (e) {
+        return false; /* localStorage unavailable */
+      }
+    },
+
+    /**
+     * Deactivate premium mode in this browser.
+     * Use this to test the free-user experience.
+     *
+     * @example (browser console)
+     *   TGS.premium.deactivate()  // → back to free navigation
+     */
+    deactivate: function () {
+      try { localStorage.removeItem(CONFIG.premiumStorageKey); }
+      catch (e) { /* fail silently */ }
+    },
+
+    /**
+     * Return a readable premium status object.
+     * Useful for Stefan to check / debug member access.
+     *
+     * @returns {{ unlocked: boolean, expiresAt: string|null, daysLeft: number|null }}
+     *
+     * @example (browser console)
+     *   TGS.premium.status()
+     *   // → { unlocked: true, expiresAt: '28/07/2025', daysLeft: 27 }
+     */
+    status: function () {
+      try {
+        var raw = localStorage.getItem(CONFIG.premiumStorageKey);
+        if (!raw) return { unlocked: false, expiresAt: null, daysLeft: null };
+        var data    = JSON.parse(raw);
+        var msLeft  = data.expires - Date.now();
+        var daysLeft = Math.max(0, Math.round(msLeft / (24 * 60 * 60 * 1000)));
+        return {
+          unlocked:  msLeft > 0,
+          expiresAt: new Date(data.expires).toLocaleDateString(),
+          daysLeft:  daysLeft
+        };
+      } catch (e) {
+        return { unlocked: false, expiresAt: null, daysLeft: null };
+      }
     },
 
     /**
      * Gate a premium resource.
-     * If unlocked → navigate to target URL.
-     * If locked   → redirect to universal lock screen.
+     * If unlocked → navigate directly to target URL.
+     * If locked   → redirect to universal lock screen (locked.html).
      *
-     * @param {string} targetUrl  — destination if premium
+     * @param {string} targetUrl  — destination if premium (e.g. 'level-dashboard.html?level=B2')
      * @param {string} academy    — academy ID (e.g. 'language')
-     * @param {string} course     — course label (e.g. 'A1')
+     * @param {string} course     — course label shown on lock screen (e.g. 'B2')
      */
     gate: function (targetUrl, academy, course) {
       if (PREMIUM.isUnlocked()) {
@@ -482,12 +632,17 @@
   // §10 INIT
   // ═══════════════════════════════════════════════════════════════
   function init () {
+    /* Sprint-002-RC1: check URL for ?tgs_access= activation token */
+    PREMIUM._checkUrlActivation();
+
     if (CONFIG.debug) {
       console.log(
         '%c TheGermanStefan Academy Engine v' + CONFIG.version + ' (' + CONFIG.sprint + ') ',
         'background:#0b2545;color:#f9a825;font-weight:bold;padding:4px 10px;border-radius:4px'
       );
+      console.log('[TGS:PREMIUM] status:', PREMIUM.status());
     }
+
     UTILS.events.emit('tgs:ready', { version: CONFIG.version, sprint: CONFIG.sprint });
   }
 
