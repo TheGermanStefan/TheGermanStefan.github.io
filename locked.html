@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Content · TheGermanStefan Academy</title>
+<meta name="robots" content="noindex">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--navy2:#0d2e56;--blue:#1464b4;--amber:#f9a825;
+  --green:#2e7d32;--gray:#f0f4f8;--border:#e0e6f0;
+  --txt:#1a1a1a;--txt2:#555;--txt3:#888;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:var(--navy);
+  color:#fff;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ── TOPBAR ──────────────────────────────────────────────────── */
+.topbar{
+  background:rgba(0,0,0,.35);
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}
+.tgs-logo span{color:var(--amber)}
+.topbar-skool{
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.55);
+  text-decoration:none;
+  transition:.15s;
+}
+.topbar-skool:hover{color:#fff}
+
+/* ── MAIN ────────────────────────────────────────────────────── */
+main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px 60px;
+  text-align:center;
+}
+
+/* ── LOCK ICON ───────────────────────────────────────────────── */
+.lock-wrap{
+  width:80px;height:80px;
+  background:rgba(255,255,255,.06);
+  border:2px solid rgba(255,255,255,.15);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;
+  margin:0 auto 24px;
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(249,168,37,.25)}50%{box-shadow:0 0 0 16px rgba(249,168,37,0)}}
+
+/* ── HEADING ─────────────────────────────────────────────────── */
+.badge-academy{
+  display:inline-block;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.7);
+  font-size:11px;font-weight:800;
+  letter-spacing:.6px;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;
+  margin-bottom:14px;
+}
+h1{font-size:28px;font-weight:900;margin-bottom:8px;line-height:1.2}
+h1 span{color:var(--amber)}
+.sub{font-size:15px;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 32px;line-height:1.7}
+
+/* ── PERKS GRID ──────────────────────────────────────────────── */
+.perks{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+  max-width:680px;
+  width:100%;
+  margin:0 auto 36px;
+}
+.perk{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  padding:16px 18px;
+  text-align:left;
+}
+.perk-icon{font-size:22px;margin-bottom:8px}
+.perk-title{font-size:13px;font-weight:800;margin-bottom:4px}
+.perk-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* ── PRICING ─────────────────────────────────────────────────── */
+.pricing{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  padding:22px 28px;
+  margin:0 auto 32px;
+  max-width:380px;
+  width:100%;
+}
+.price-label{font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--amber);text-transform:uppercase;margin-bottom:10px}
+.price-row{display:flex;align-items:baseline;gap:6px;justify-content:center;margin-bottom:6px}
+.price-main{font-size:36px;font-weight:900;color:#fff}
+.price-period{font-size:14px;color:rgba(255,255,255,.5)}
+.price-alt{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:0}
+
+/* ── CTA BUTTONS ─────────────────────────────────────────────── */
+.cta-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:32px}
+.btn-upgrade{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--amber);color:#0b2545;
+  font-size:15px;font-weight:900;
+  padding:14px 36px;border-radius:12px;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:filter .15s,transform .1s;
+  font-family:inherit;
+}
+.btn-upgrade:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-back{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;
+  color:rgba(255,255,255,.55);
+  font-size:13px;font-weight:700;
+  padding:10px 20px;border-radius:9px;
+  border:1.5px solid rgba(255,255,255,.15);
+  cursor:pointer;text-decoration:none;
+  transition:.15s;font-family:inherit;
+}
+.btn-back:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* ── REASSURANCE ─────────────────────────────────────────────── */
+.reassure{font-size:12px;color:rgba(255,255,255,.35);max-width:380px;margin:0 auto}
+.reassure a{color:rgba(255,255,255,.5);text-decoration:underline}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer{
+  text-align:center;
+  padding:16px;
+  font-size:11px;
+  color:rgba(255,255,255,.2);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+footer a{color:rgba(255,255,255,.35);text-decoration:none}
+footer a:hover{color:rgba(255,255,255,.6)}
+
+@media(max-width:480px){
+  h1{font-size:22px}
+  .perks{grid-template-columns:1fr}
+  .pricing{padding:18px 20px}
+  .btn-upgrade{font-size:14px;padding:13px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+  <a class="topbar-skool" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">
+    skool.com/thegermanstefan →
+  </a>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <div class="lock-wrap" aria-hidden="true">🔒</div>
+  <div class="badge-academy" id="badge-academy">Premium Content</div>
+
+  <h1>Unlock <span id="course-name">this course</span></h1>
+  <p class="sub" id="lock-sub">
+    This content is part of the TheGermanStefan Premium Academy.
+    Upgrade once — access everything.
+  </p>
+
+  <!-- PERKS -->
+  <div class="perks" id="perks-grid">
+    <!-- Filled by JS based on academy param -->
+  </div>
+
+  <!-- PRICING -->
+  <div class="pricing">
+    <div class="price-label">Premium Access</div>
+    <div class="price-row">
+      <div class="price-main">$19</div>
+      <div class="price-period">/ month</div>
+    </div>
+    <p class="price-alt">or $149 / year — save 35%</p>
+  </div>
+
+  <!-- CTAs -->
+  <div class="cta-wrap">
+    <a id="btn-upgrade" class="btn-upgrade"
+       href="https://www.skool.com/thegermanstefan-9325"
+       target="_blank" rel="noopener">
+      🚀 Upgrade on Skool
+    </a>
+    <a id="btn-back" class="btn-back" href="language-academy.html">
+      ← Back to Academy
+    </a>
+  </div>
+
+  <p class="reassure">
+    Already a Premium member?&nbsp;
+    <a href="https://www.skool.com/thegermanstefan-9325/classroom" target="_blank" rel="noopener">
+      Log in to Skool
+    </a>
+    &nbsp;to access your content.
+  </p>
+
+</main>
+
+<footer>
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="language-academy.html">Language Academy</a> &nbsp;·&nbsp;
+  <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
+</footer>
+
+<script src="tgs-core.js"></script>
+<script>
+/**
+ * locked.html — Universal Premium Gate
+ * Reads URL params and customises the page per academy / course.
+ *
+ * Params:
+ *   ?academy=language&course=A1&return=language-academy.html
+ */
+(function () {
+
+  /* ── Academy definitions — mirrors TGS.academies.registry ── */
+  var ACADEMIES = {
+    language: {
+      label: 'German Language Academy',
+      perks: [
+        { icon: '🇩🇪', title: 'Full A1–C2 Curriculum',        desc: 'Structured grammar, reading, speaking & vocabulary for every level.' },
+        { icon: '📝', title: '5 Practice Exams per Level',    desc: 'Goethe-style mock exams to prepare for official certification.' },
+        { icon: '🏆', title: 'Special Skills Hub',            desc: 'Interview German, idioms, business language & advanced speaking.' },
+        { icon: '👨‍🏫', title: 'Live Coaching & Community',   desc: 'Weekly Stammtisch, community support and direct coach access.' }
+      ]
+    },
+    knowledge: {
+      label: 'Germany Knowledge Academy',
+      perks: [
+        { icon: '🏛️', title: 'History & Politics',           desc: 'German history from the Holy Roman Empire to modern day.' },
+        { icon: '🗺️', title: 'Geography & Regions',          desc: 'Every federal state, landmark and regional culture.' },
+        { icon: '🎭', title: 'Culture & Society',            desc: 'Art, music, literature and everyday German life.' },
+        { icon: '📰', title: 'Current Affairs',              desc: 'Understanding modern Germany and its place in the world.' }
+      ]
+    },
+    culinary: {
+      label: 'German Culinary Academy',
+      perks: [
+        { icon: '🍺', title: 'Beer & Brewing Culture',        desc: 'The Reinheitsgebot, regional styles and brewery traditions.' },
+        { icon: '🍞', title: 'Breads, Cakes & Recipes',       desc: 'Authentic German recipes with vocabulary built in.' },
+        { icon: '🍷', title: 'Wine & Regional Cuisine',       desc: 'German wines, regional specialities and food traditions.' },
+        { icon: '🎉', title: 'Festivals & Food Traditions',   desc: 'Oktoberfest, Christmas markets and seasonal cooking.' }
+      ]
+    },
+    living: {
+      label: 'Living in Germany Academy',
+      perks: [
+        { icon: '📋', title: 'Bureaucracy & Admin',           desc: 'Registration, visas, health insurance and official paperwork.' },
+        { icon: '🏥', title: 'Healthcare & Education',        desc: 'Navigating the German healthcare and school system.' },
+        { icon: '💼', title: 'Work & Career',                 desc: 'Job applications, workplace culture and workers\' rights.' },
+        { icon: '🤝', title: 'Integration & Daily Life',      desc: 'Cultural tips, etiquette and building a life in Germany.' }
+      ]
+    }
+  };
+
+  /* ── Default perks for unknown academies ────────────────── */
+  var DEFAULT_PERKS = [
+    { icon: '📚', title: 'Full Course Access',     desc: 'All lessons, exercises and quizzes for this academy.' },
+    { icon: '🎯', title: 'Practice & Exams',       desc: 'Structured practice with real exam-style questions.' },
+    { icon: '👨‍🏫', title: 'Coach & Community',   desc: 'Live sessions and a supportive community of learners.' },
+    { icon: '🚀', title: 'Unlimited Learning',     desc: 'Access all future content as it is added.' }
+  ];
+
+  /* ── Read URL params ─────────────────────────────────────── */
+  var params    = {};
+  window.location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) {
+    params[decodeURIComponent(k)] = decodeURIComponent(v);
+  });
+
+  var academyId = (params.academy || 'language').toLowerCase();
+  var course    = params.course  || 'Premium';
+  var returnUrl = params.return  || 'language-academy.html';
+
+  var academyData = ACADEMIES[academyId] || {};
+  var perks       = academyData.perks || DEFAULT_PERKS;
+  var academyLabel = academyData.label || 'TheGermanStefan Academy';
+
+  /* ── Populate page ───────────────────────────────────────── */
+  var badgeEl  = document.getElementById('badge-academy');
+  var courseEl = document.getElementById('course-name');
+  var subEl    = document.getElementById('lock-sub');
+  var perksEl  = document.getElementById('perks-grid');
+  var backEl   = document.getElementById('btn-back');
+
+  if (badgeEl)  badgeEl.textContent  = academyLabel;
+  if (courseEl) courseEl.textContent = course;
+  if (subEl) {
+    subEl.textContent = 'This content is part of the '
+      + academyLabel
+      + '. Upgrade once to unlock everything — including all future content.';
+  }
+
+  /* Render perk cards */
+  if (perksEl) {
+    perksEl.innerHTML = perks.map(function (p) {
+      return '<div class="perk">'
+        + '<div class="perk-icon">' + p.icon + '</div>'
+        + '<div class="perk-title">' + p.title + '</div>'
+        + '<div class="perk-desc">' + p.desc + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  /* Back button */
+  if (backEl) backEl.href = returnUrl;
+
+  /* Update page title */
+  document.title = course + ' · Premium · TheGermanStefan Academy';
+
+})();
+</script>
+</body>
+</html>

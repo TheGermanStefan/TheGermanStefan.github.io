@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEFR Placement Test · TheGermanStefan Academy</title>
+<meta name="description" content="Find your German level in 10 minutes. 24 questions spanning A0 to C2. Get a personalised course recommendation.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--amber:#f9a825;
+  --green:#2e7d32;--red:#c62828;--gray:#f0f4f8;--border:#e0e6f0;
+  --txt:#1a1a1a;--txt2:#555;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--gray);color:var(--txt);min-height:100vh}
+
+/* ── TOPBAR ──────────────────────────────────────────────────── */
+.topbar{
+  background:var(--navy);color:#fff;
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 10px rgba(0,0,0,.35);
+}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}
+.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.6;margin-left:8px}
+.bc a{color:#fff;text-decoration:none}.bc a:hover{opacity:1}
+.topbar-left{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.badge-free-sm{
+  background:var(--green);color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-left:4px;
+}
+
+/* ── PAGE HEADER ─────────────────────────────────────────────── */
+.page-hdr{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+  color:#fff;padding:28px 24px 22px;
+}
+.phdr-inner{max-width:680px;margin:0 auto;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.phdr-icon{font-size:44px;flex-shrink:0}
+.phdr-title{font-size:22px;font-weight:900;margin-bottom:5px}
+.phdr-sub{font-size:13px;opacity:.75;line-height:1.6;margin-bottom:10px}
+.phdr-meta{display:flex;gap:7px;flex-wrap:wrap}
+.phdr-tag{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────────────── */
+.pgstrip{background:rgba(255,255,255,.2);height:4px}
+.pgfill{height:100%;background:var(--amber);width:0%;transition:width .4s ease}
+
+/* ── WRAP ────────────────────────────────────────────────────── */
+.wrap{max-width:680px;margin:0 auto;padding:28px 16px 80px}
+
+/* ── INTRO CARD ──────────────────────────────────────────────── */
+.intro-card{
+  background:#fff;border-radius:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+  padding:28px 28px;margin-bottom:22px;
+  text-align:center;
+}
+.intro-card h2{font-size:18px;font-weight:900;color:var(--navy);margin-bottom:10px}
+.intro-card p{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:18px}
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.ig-item{padding:14px 10px;background:var(--gray);border-radius:10px;text-align:center}
+.ig-n{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:3px}
+.ig-l{font-size:11px;color:var(--txt2)}
+.btn-start-test{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue);color:#fff;
+  font-size:15px;font-weight:900;
+  padding:13px 32px;border-radius:10px;
+  border:none;cursor:pointer;font-family:inherit;transition:.15s;
+}
+.btn-start-test:hover{filter:brightness(1.1)}
+
+/* ── LEVEL SECTION INDICATOR ─────────────────────────────────── */
+.level-ind{
+  display:flex;gap:6px;justify-content:center;
+  margin-bottom:18px;flex-wrap:wrap;
+}
+.li-dot{
+  padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;
+  background:#e0e6f0;color:#aaa;transition:.3s;
+}
+.li-dot.active{background:var(--blue);color:#fff}
+.li-dot.done{background:var(--green);color:#fff}
+
+/* ── QUESTION CARD ───────────────────────────────────────────── */
+.q-card{
+  background:#fff;border-radius:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+  padding:26px 24px;margin-bottom:18px;
+  display:none;
+}
+.q-card.visible{display:block}
+.q-level-tag{
+  display:inline-block;
+  font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;margin-bottom:14px;
+}
+.tag-a0{background:#e3f2fd;color:#0277bd}
+.tag-a1{background:#e8f5e9;color:#2e7d32}
+.tag-a2{background:#f3e5f5;color:#6a1b9a}
+.tag-b1{background:#fff8e1;color:#f57f17}
+.tag-b2{background:#fce4ec;color:#c62828}
+.tag-c1{background:#e8eaf6;color:#283593}
+.q-num{font-size:11px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.q-text{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:18px;line-height:1.5}
+.q-opts{display:flex;flex-direction:column;gap:9px}
+.q-opt{
+  padding:11px 16px;border-radius:9px;
+  border:2px solid var(--border);background:#fff;
+  font-size:14px;font-weight:600;
+  cursor:pointer;text-align:left;font-family:inherit;
+  transition:.12s;color:var(--txt);
+}
+.q-opt:hover:not(:disabled){border-color:var(--blue);background:#e8f0fe}
+.q-opt.selected{border-color:var(--blue);background:#e8f0fe;font-weight:800}
+.q-opt:disabled{cursor:default}
+
+/* ── NAV BUTTONS ─────────────────────────────────────────────── */
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px}
+.btn-prev,.btn-next{
+  padding:9px 22px;border-radius:9px;
+  font-size:14px;font-weight:800;cursor:pointer;
+  font-family:inherit;border:none;transition:.15s;
+}
+.btn-prev{background:#e0e6f0;color:var(--navy)}.btn-prev:hover{background:#d0d8ec}
+.btn-next{background:var(--blue);color:#fff}.btn-next:hover{filter:brightness(1.1)}
+.btn-next:disabled{background:#b0bec5;cursor:default}
+.btn-submit{
+  padding:12px 28px;border-radius:9px;
+  font-size:14px;font-weight:900;cursor:pointer;
+  font-family:inherit;border:none;transition:.15s;
+  background:var(--green);color:#fff;
+}
+.btn-submit:hover{filter:brightness(1.1)}
+.q-counter{font-size:12px;color:#aaa;font-weight:700}
+
+/* ── RESULT CARD ─────────────────────────────────────────────── */
+.result-card{
+  background:#fff;border-radius:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);
+  padding:36px 28px;
+  display:none;text-align:center;
+}
+.result-card.show{display:block}
+.result-emoji{font-size:60px;margin-bottom:10px}
+.result-level-badge{
+  display:inline-block;
+  font-size:28px;font-weight:900;
+  padding:10px 28px;border-radius:14px;
+  margin-bottom:14px;color:#fff;
+}
+.result-title{font-size:20px;font-weight:900;color:var(--navy);margin-bottom:8px}
+.result-desc{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.result-breakdown{
+  background:#f8faff;border-radius:10px;
+  padding:16px;margin-bottom:22px;text-align:left;
+}
+.rb-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.rb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.rb-label{font-weight:700;width:32px;color:var(--navy)}
+.rb-bar-wrap{flex:1;background:#e0e6f0;border-radius:20px;height:8px;overflow:hidden}
+.rb-bar{height:100%;border-radius:20px;background:var(--blue);transition:width .8s ease}
+.rb-score{font-size:12px;color:#888;font-weight:700;width:32px;text-align:right}
+.result-cta-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.btn-go-level{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:900;
+  padding:13px 30px;border-radius:10px;
+  text-decoration:none;color:#fff;
+  background:var(--blue);transition:.15s;
+}
+.btn-go-level:hover{filter:brightness(1.1)}
+.btn-retry{
+  font-size:13px;font-weight:700;color:#888;
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  text-decoration:underline;
+}
+.btn-retry:hover{color:var(--navy)}
+
+/* ── HIDDEN ──────────────────────────────────────────────────── */
+.hidden{display:none!important}
+
+@media(max-width:500px){
+  .q-text{font-size:14px}
+  .q-opt{font-size:13px}
+  .intro-grid{grid-template-columns:1fr}
+  .phdr-inner{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <nav class="bc" aria-label="Breadcrumb">
+      <a href="index.html">Academy</a>
+      <span aria-hidden="true">›</span>
+      <a href="language-academy.html">Language</a>
+      <span aria-hidden="true">›</span>
+      <span>Placement Test</span>
+    </nav>
+  </div>
+  <span class="badge-free-sm">FREE</span>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-hdr">
+  <div class="phdr-inner">
+    <div class="phdr-icon">🎯</div>
+    <div>
+      <div class="phdr-title">CEFR Placement Test</div>
+      <p class="phdr-sub">24 questions. Find your level. Get a personalised recommendation.</p>
+      <div class="phdr-meta">
+        <span class="phdr-tag">FREE</span>
+        <span class="phdr-tag">⏱ ~10 minutes</span>
+        <span class="phdr-tag">A0 – C2</span>
+        <span class="phdr-tag">24 Questions</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pgstrip"><div class="pgfill" id="pgf"></div></div>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="intro-card" id="intro-card">
+    <h2>🎯 Find Your German Level</h2>
+    <p>
+      Answer 24 questions covering everything from absolute beginner to advanced German.
+      There's no time limit — just pick the best answer you can.
+      At the end you'll see your recommended starting level and a direct link to your first course.
+    </p>
+    <div class="intro-grid">
+      <div class="ig-item"><div class="ig-n">24</div><div class="ig-l">Questions</div></div>
+      <div class="ig-item"><div class="ig-n">~10</div><div class="ig-l">Minutes</div></div>
+      <div class="ig-item"><div class="ig-n">A0–C2</div><div class="ig-l">All Levels</div></div>
+    </div>
+    <button class="btn-start-test" onclick="startTest()">▶ Start the Test</button>
+  </div>
+
+  <!-- LEVEL INDICATOR (hidden until test starts) -->
+  <div class="level-ind hidden" id="level-ind">
+    <span class="li-dot" id="li-A0">A0</span>
+    <span class="li-dot" id="li-A1">A1</span>
+    <span class="li-dot" id="li-A2">A2</span>
+    <span class="li-dot" id="li-B1">B1</span>
+    <span class="li-dot" id="li-B2">B2</span>
+    <span class="li-dot" id="li-C1">C1/C2</span>
+  </div>
+
+  <!-- QUESTION CARDS -->
+  <div id="questions-wrap">
+    <!-- Generated by JS -->
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="q-nav hidden" id="q-nav">
+    <button class="btn-prev" id="btn-prev" onclick="prevQ()">← Back</button>
+    <span class="q-counter" id="q-counter">1 / 24</span>
+    <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Next →</button>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="result-card">
+    <div class="result-emoji" id="r-emoji">🎉</div>
+    <div class="result-level-badge" id="r-badge">A1</div>
+    <div class="result-title" id="r-title">Your Level: Elementary</div>
+    <p class="result-desc" id="r-desc">Description here.</p>
+
+    <div class="result-breakdown">
+      <div class="rb-title">Your Score by Level</div>
+      <div class="rb-row"><span class="rb-label">A0</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-A0" style="width:0%"></div></div><span class="rb-score" id="sc-A0">0/4</span></div>
+      <div class="rb-row"><span class="rb-label">A1</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-A1" style="width:0%"></div></div><span class="rb-score" id="sc-A1">0/4</span></div>
+      <div class="rb-row"><span class="rb-label">A2</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-A2" style="width:0%"></div></div><span class="rb-score" id="sc-A2">0/4</span></div>
+      <div class="rb-row"><span class="rb-label">B1</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-B1" style="width:0%"></div></div><span class="rb-score" id="sc-B1">0/4</span></div>
+      <div class="rb-row"><span class="rb-label">B2</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-B2" style="width:0%"></div></div><span class="rb-score" id="sc-B2">0/4</span></div>
+      <div class="rb-row"><span class="rb-label">C1/C2</span><div class="rb-bar-wrap"><div class="rb-bar" id="bar-C1" style="width:0%"></div></div><span class="rb-score" id="sc-C1">0/4</span></div>
+    </div>
+
+    <div class="result-cta-wrap">
+      <a class="btn-go-level" id="r-cta-btn" href="language-academy.html">Go to my course →</a>
+      <button class="btn-retry" onclick="resetTest()">Retake the test</button>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script src="tgs-core.js"></script>
+<script>
+/**
+ * TheGermanStefan Academy — CEFR Placement Test
+ * 24 questions across 6 level bands (A0, A1, A2, B1, B2, C1/C2)
+ * 4 questions per band, 1 point each.
+ * Recommendation: highest band where score ≥ 3/4 → recommend next level.
+ */
+
+/* ──────────────────────────────────────────────────────────────
+   QUESTION DATA
+   Each question: { level, text, opts: [string], answer: index }
+────────────────────────────────────────────────────────────── */
+var QUESTIONS = [
+
+  /* ── A0 ──────────────────────────────────────────────────── */
+  {
+    level: 'A0',
+    text: 'What does "Guten Morgen" mean?',
+    opts: ['Good morning', 'Good evening', 'Good night', 'Goodbye'],
+    answer: 0
+  },
+  {
+    level: 'A0',
+    text: 'Which number is "fünf"?',
+    opts: ['3', '4', '5', '6'],
+    answer: 2
+  },
+  {
+    level: 'A0',
+    text: 'Fill in the blank: "___ heiße Thomas."',
+    opts: ['Du', 'Er', 'Ich', 'Wir'],
+    answer: 2
+  },
+  {
+    level: 'A0',
+    text: 'Which colour is "rot"?',
+    opts: ['Blue', 'Green', 'Yellow', 'Red'],
+    answer: 3
+  },
+
+  /* ── A1 ──────────────────────────────────────────────────── */
+  {
+    level: 'A1',
+    text: '"Das ist meine Freundin Jana. ___ kommt aus Wien." — Which pronoun fits?',
+    opts: ['Er', 'Sie', 'Es', 'Ihr'],
+    answer: 1
+  },
+  {
+    level: 'A1',
+    text: 'Which form of "kommen" is correct? "Wir ___ aus Deutschland."',
+    opts: ['kommt', 'komme', 'kommen', 'kommst'],
+    answer: 2
+  },
+  {
+    level: 'A1',
+    text: 'Which article is correct? "___ Buch ist neu." (das Buch)',
+    opts: ['Der', 'Die', 'Das', 'Dem'],
+    answer: 2
+  },
+  {
+    level: 'A1',
+    text: 'Which form of "sein" is correct? "Wie ___ du?"',
+    opts: ['ist', 'bin', 'sind', 'bist'],
+    answer: 3
+  },
+
+  /* ── A2 ──────────────────────────────────────────────────── */
+  {
+    level: 'A2',
+    text: 'Which is the correct Perfekt form? "Ich ___ gestern ins Kino gegangen."',
+    opts: ['habe', 'bin', 'hatte', 'war'],
+    answer: 1
+  },
+  {
+    level: 'A2',
+    text: 'Dative case: "Ich helfe ___ Lehrerin." (die Lehrerin)',
+    opts: ['die', 'den', 'der', 'dem'],
+    answer: 2
+  },
+  {
+    level: 'A2',
+    text: 'Which modal verb fits? "Du ___ hier nicht parken — es ist verboten."',
+    opts: ['kannst', 'musst', 'darfst', 'sollst'],
+    answer: 2
+  },
+  {
+    level: 'A2',
+    text: 'Comparative: "Berlin ist ___ als Hamburg." (groß)',
+    opts: ['groß', 'am größten', 'größer', 'größten'],
+    answer: 2
+  },
+
+  /* ── B1 ──────────────────────────────────────────────────── */
+  {
+    level: 'B1',
+    text: 'Passive voice: "Das Auto ___ letzte Woche repariert." (Präteritum Passiv)',
+    opts: ['hat', 'wurde', 'ist', 'wird'],
+    answer: 1
+  },
+  {
+    level: 'B1',
+    text: 'Konjunktiv II: "Wenn ich mehr Zeit hätte, ___ ich mehr reisen."',
+    opts: ['werde', 'wäre', 'würde', 'hätte'],
+    answer: 2
+  },
+  {
+    level: 'B1',
+    text: 'Subordinate clause: "Ich weiß nicht, ___ er kommt oder nicht."',
+    opts: ['dass', 'ob', 'weil', 'wenn'],
+    answer: 1
+  },
+  {
+    level: 'B1',
+    text: 'Which connector fits? "Er ist krank, ___ er geht trotzdem zur Arbeit."',
+    opts: ['weil', 'damit', 'obwohl', 'wenn'],
+    answer: 2
+  },
+
+  /* ── B2 ──────────────────────────────────────────────────── */
+  {
+    level: 'B2',
+    text: 'Konjunktiv I (indirect speech): "Er sagte, er ___ sehr müde."',
+    opts: ['ist', 'wäre', 'sei', 'war'],
+    answer: 2
+  },
+  {
+    level: 'B2',
+    text: 'Partizip I as adjective: "___ Kind weint." (schlafen → Partizip I, nom. sg. n.)',
+    opts: ['Schlafendes', 'Geschlafenes', 'Schlafenem', 'Schlafende'],
+    answer: 0
+  },
+  {
+    level: 'B2',
+    text: 'Genitive: "Die Meinung ___ Bevölkerung zählt." (die Bevölkerung)',
+    opts: ['die', 'den', 'der', 'dem'],
+    answer: 2
+  },
+  {
+    level: 'B2',
+    text: 'Which sentence is most suitable for a formal business letter?',
+    opts: [
+      '"Hey, ich wollte mal kurz fragen…"',
+      '"Hiermit möchte ich höflich anfragen…"',
+      '"Kannst du mir mal sagen…"',
+      '"Ich frag mal kurz nach…"'
+    ],
+    answer: 1
+  },
+
+  /* ── C1 / C2 ─────────────────────────────────────────────── */
+  {
+    level: 'C1',
+    text: 'Modalpartikel: "Das ist ___ nicht wahr! Das glaubst du doch selbst nicht." (expressing strong disbelief)',
+    opts: ['mal', 'ja', 'doch', 'halt'],
+    answer: 2
+  },
+  {
+    level: 'C1',
+    text: 'What does the idiom "Er hat die Nase voll." mean?',
+    opts: [
+      'He has a cold.',
+      'He has a big nose.',
+      'He is fed up.',
+      'He smells something suspicious.'
+    ],
+    answer: 2
+  },
+  {
+    level: 'C1',
+    text: 'Extended participial phrase: "Die von der Regierung ___ Reform wurde abgelehnt." (vorschlagen → Partizip II, nom. sg. f.)',
+    opts: ['vorschlagende', 'vorgeschlagene', 'vorgeschlagen', 'vorschlagendem'],
+    answer: 1
+  },
+  {
+    level: 'C1',
+    text: 'Which sentence uses the Genitivattribut correctly?',
+    opts: [
+      '"Das Haus von meinem Vater ist groß." (colloquial — acceptable)',
+      '"Das Haus meines Vaters ist groß." (standard written German)',
+      '"Das Haus meinen Vaters ist groß."',
+      '"Das Haus meiner Vater ist groß."'
+    ],
+    answer: 1
+  }
+];
+
+/* ──────────────────────────────────────────────────────────────
+   LEVEL META
+────────────────────────────────────────────────────────────── */
+var LEVEL_META = {
+  A0: {
+    emoji: '🌱', color: '#0277bd',
+    name: 'Absolute Beginner',
+    desc: 'You\'re at the very start — and that\'s exciting! The A0 Beginner Course is your first step. You\'ll learn the alphabet, numbers, essential vocabulary and your first sentences.',
+    hub: 'TheGermanStefan_A0_Beginner_Hub.html',
+    lockCourse: false
+  },
+  A1: {
+    emoji: '⭐', color: '#1464b4',
+    name: 'Elementary',
+    desc: 'You have a foundation! The A1 course will build your core grammar, personal pronouns, basic conversations and everyday vocabulary. Perfect for newcomers to structured German.',
+    hub: 'locked.html?academy=language&course=A1&return=language-academy.html',
+    lockCourse: true
+  },
+  A2: {
+    emoji: '⭐⭐', color: '#6a1b9a',
+    name: 'Pre-Intermediate',
+    desc: 'Good start! At A2 you\'ll master Perfekt, modal verbs, Dativ and begin handling real-world situations confidently — shopping, travel and more.',
+    hub: 'locked.html?academy=language&course=A2&return=language-academy.html',
+    lockCourse: true
+  },
+  B1: {
+    emoji: '⭐⭐⭐', color: '#f57f17',
+    name: 'Intermediate',
+    desc: 'You\'re making great progress! B1 covers Passiv, Konjunktiv II and complex sentence structures. This is the level you need for the Goethe-Zertifikat B1.',
+    hub: 'locked.html?academy=language&course=B1&return=language-academy.html',
+    lockCourse: true
+  },
+  B2: {
+    emoji: '⭐⭐⭐⭐', color: '#c62828',
+    name: 'Upper-Intermediate',
+    desc: 'Impressive! At B2 you\'ll tackle Konjunktiv I, advanced sentence construction and academic German. You can communicate fluently with native speakers.',
+    hub: 'locked.html?academy=language&course=B2&return=language-academy.html',
+    lockCourse: true
+  },
+  C1: {
+    emoji: '💎', color: '#283593',
+    name: 'Advanced',
+    desc: 'Excellent German! The C1 course will bring you to professional fluency — complex grammar, stylistic register, idioms and advanced communication in any context.',
+    hub: 'locked.html?academy=language&course=C1&return=language-academy.html',
+    lockCourse: true
+  },
+  C2: {
+    emoji: '👑', color: '#2e7d32',
+    name: 'Mastery',
+    desc: 'Outstanding! You\'re already at or near native level. The C2 course will perfect your precision, stylistic range and mastery of formal and literary German.',
+    hub: 'locked.html?academy=language&course=C2&return=language-academy.html',
+    lockCourse: true
+  }
+};
+
+/* ──────────────────────────────────────────────────────────────
+   STATE
+────────────────────────────────────────────────────────────── */
+var current = 0;
+var answers = new Array(QUESTIONS.length).fill(null);
+var LEVEL_ORDER = ['A0','A1','A2','B1','B2','C1'];
+
+/* ──────────────────────────────────────────────────────────────
+   BUILD QUESTION CARDS
+────────────────────────────────────────────────────────────── */
+function buildQuestions () {
+  var wrap = document.getElementById('questions-wrap');
+  wrap.innerHTML = '';
+  QUESTIONS.forEach(function (q, i) {
+    var card = document.createElement('div');
+    card.className = 'q-card' + (i === 0 ? ' visible' : '');
+    card.id = 'qc' + i;
+
+    var tagClass = 'tag-' + q.level.toLowerCase().replace('/','').substring(0,2);
+    var levelLabel = q.level === 'C1' ? 'C1 / C2' : q.level;
+
+    card.innerHTML =
+      '<span class="q-level-tag ' + tagClass + '">' + levelLabel + '</span>' +
+      '<div class="q-num">Question ' + (i+1) + ' of ' + QUESTIONS.length + '</div>' +
+      '<div class="q-text">' + q.text + '</div>' +
+      '<div class="q-opts" id="qopts' + i + '">' +
+        q.opts.map(function(opt, j){
+          return '<button class="q-opt" id="qopt' + i + '_' + j + '" onclick="selectOpt(' + i + ',' + j + ')">' + opt + '</button>';
+        }).join('') +
+      '</div>';
+
+    wrap.appendChild(card);
+  });
+}
+
+/* ──────────────────────────────────────────────────────────────
+   INTERACTIONS
+────────────────────────────────────────────────────────────── */
+function startTest () {
+  document.getElementById('intro-card').classList.add('hidden');
+  document.getElementById('level-ind').classList.remove('hidden');
+  document.getElementById('q-nav').classList.remove('hidden');
+  buildQuestions();
+  showQ(0);
+}
+
+function showQ (idx) {
+  document.querySelectorAll('.q-card').forEach(function(c){ c.classList.remove('visible'); });
+  var card = document.getElementById('qc' + idx);
+  if (card) card.classList.add('visible');
+
+  /* progress bar */
+  document.getElementById('pgf').style.width = ((idx / QUESTIONS.length) * 100) + '%';
+
+  /* counter */
+  document.getElementById('q-counter').textContent = (idx+1) + ' / ' + QUESTIONS.length;
+
+  /* prev/next */
+  document.getElementById('btn-prev').disabled = idx === 0;
+  var nextBtn = document.getElementById('btn-next');
+  nextBtn.disabled = answers[idx] === null;
+  if (idx === QUESTIONS.length - 1) {
+    nextBtn.classList.add('hidden');
+    var sub = document.getElementById('btn-submit-el');
+    if (!sub) {
+      var s = document.createElement('button');
+      s.className = 'btn-submit';
+      s.id = 'btn-submit-el';
+      s.textContent = '✓ See My Result';
+      s.disabled = answers[idx] === null;
+      s.onclick = showResult;
+      document.getElementById('q-nav').appendChild(s);
+    }
+    document.getElementById('btn-submit-el').disabled = answers[idx] === null;
+  } else {
+    nextBtn.classList.remove('hidden');
+    var sub2 = document.getElementById('btn-submit-el');
+    if (sub2) sub2.classList.add('hidden');
+  }
+
+  /* level indicator */
+  var levelOrder = ['A0','A0','A0','A0','A1','A1','A1','A1','A2','A2','A2','A2','B1','B1','B1','B1','B2','B2','B2','B2','C1','C1','C1','C1'];
+  var curLevel = levelOrder[idx];
+  LEVEL_ORDER.forEach(function(l){
+    var dot = document.getElementById('li-' + l);
+    if (!dot) return;
+    var levelIdx = LEVEL_ORDER.indexOf(l);
+    var curIdx   = LEVEL_ORDER.indexOf(curLevel);
+    if (levelIdx < curIdx) {
+      dot.classList.add('done'); dot.classList.remove('active');
+    } else if (l === curLevel) {
+      dot.classList.add('active'); dot.classList.remove('done');
+    } else {
+      dot.classList.remove('active','done');
+    }
+  });
+}
+
+function selectOpt (qIdx, optIdx) {
+  answers[qIdx] = optIdx;
+  var opts = document.getElementById('qopts' + qIdx).querySelectorAll('.q-opt');
+  opts.forEach(function(b){ b.classList.remove('selected'); });
+  opts[optIdx].classList.add('selected');
+
+  /* enable next / submit */
+  document.getElementById('btn-next').disabled = false;
+  var sub = document.getElementById('btn-submit-el');
+  if (sub) sub.disabled = false;
+}
+
+function nextQ () {
+  if (current < QUESTIONS.length - 1) { current++; showQ(current); }
+}
+function prevQ () {
+  if (current > 0) { current--; showQ(current); }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SCORING & RESULT
+────────────────────────────────────────────────────────────── */
+function computeScores () {
+  /* 4 questions per band, in order: A0(0-3), A1(4-7), A2(8-11), B1(12-15), B2(16-19), C1(20-23) */
+  var bands = {A0:0, A1:0, A2:0, B1:0, B2:0, C1:0};
+  QUESTIONS.forEach(function(q, i){
+    var key = q.level === 'C1' ? 'C1' : q.level;
+    if (answers[i] === q.answer) bands[key]++;
+  });
+  return bands;
+}
+
+function recommendLevel (bands) {
+  /* Find the first level where score < 3/4 — that's the recommended level.
+     If all ≥ 3 → recommend C2 (ready to aim for mastery). */
+  var order = ['A0','A1','A2','B1','B2','C1'];
+  for (var i = 0; i < order.length; i++) {
+    if (bands[order[i]] < 3) return order[i];
+  }
+  return 'C2';
+}
+
+function showResult () {
+  /* Hide test UI */
+  document.getElementById('questions-wrap').classList.add('hidden');
+  document.getElementById('q-nav').classList.add('hidden');
+  document.getElementById('level-ind').classList.add('hidden');
+  document.getElementById('pgf').style.width = '100%';
+
+  var bands  = computeScores();
+  var level  = recommendLevel(bands);
+  var meta   = LEVEL_META[level] || LEVEL_META['A1'];
+
+  /* Save to TGS progress */
+  if (window.TGS) TGS.progress.savePlacementResult(level);
+
+  /* Render result card */
+  document.getElementById('r-emoji').textContent = meta.emoji;
+  var badge = document.getElementById('r-badge');
+  badge.textContent = level;
+  badge.style.background = meta.color;
+
+  document.getElementById('r-title').textContent = 'Your Level: ' + meta.name;
+  document.getElementById('r-desc').textContent  = meta.desc;
+
+  /* Score breakdown bars */
+  var order = ['A0','A1','A2','B1','B2','C1'];
+  order.forEach(function(l){
+    var score = bands[l] || 0;
+    var pct   = (score / 4 * 100) + '%';
+    document.getElementById('bar-' + l).style.width = pct;
+    document.getElementById('sc-' + l).textContent  = score + '/4';
+  });
+
+  /* CTA button */
+  var cta = document.getElementById('r-cta-btn');
+  cta.href = meta.hub;
+  cta.textContent = 'Go to my ' + level + ' course →';
+
+  var rc = document.getElementById('result-card');
+  rc.classList.add('show');
+
+  /* Scroll to result */
+  setTimeout(function(){ rc.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+}
+
+function resetTest () {
+  current = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  document.getElementById('result-card').classList.remove('show');
+  document.getElementById('intro-card').classList.remove('hidden');
+  document.getElementById('level-ind').classList.add('hidden');
+  document.getElementById('q-nav').classList.add('hidden');
+  document.getElementById('questions-wrap').classList.remove('hidden');
+  document.getElementById('pgf').style.width = '0%';
+  var sub = document.getElementById('btn-submit-el');
+  if (sub) sub.remove();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Language Academy · TheGermanStefan</title>
+<meta name="description" content="Complete German language curriculum from A0 to C2. Grammar, reading, vocabulary, speaking and Goethe exam preparation.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0b2545;--blue:#1464b4;--amber:#f9a825;
+  --green:#2e7d32;--red:#c62828;--gray:#f0f4f8;--border:#e0e6f0;
+  --txt:#1a1a1a;--txt2:#555;--txt3:#888;
+  --free-bg:rgba(46,125,50,.12);--free-border:rgba(46,125,50,.35);
+  --prem-bg:rgba(249,168,37,.08);--prem-border:rgba(249,168,37,.25);
+  --soon-bg:rgba(255,255,255,.04);--soon-border:rgba(255,255,255,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:#fff;min-height:100vh}
+
+/* ── TOPBAR ──────────────────────────────────────────────────── */
+.topbar{
+  background:rgba(0,0,0,.3);
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;top:0;z-index:200;
+  backdrop-filter:blur(8px);
+}
+.tgs-logo{font-size:15px;font-weight:900;color:#fff;text-decoration:none}
+.tgs-logo span{color:var(--amber)}
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.55;margin-left:10px}
+.bc a{color:#fff;text-decoration:none}.bc a:hover{opacity:1}
+.topbar-left{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.btn-skool-sm{
+  background:var(--amber);color:var(--navy);
+  font-size:12px;font-weight:900;
+  padding:6px 16px;border-radius:7px;
+  text-decoration:none;transition:filter .15s;
+}
+.btn-skool-sm:hover{filter:brightness(1.1)}
+
+/* ── ACADEMY HEADER ──────────────────────────────────────────── */
+.academy-hdr{
+  background:linear-gradient(135deg,#071a30 0%,#0b2545 50%,#0d3060 100%);
+  padding:44px 24px 36px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:relative;overflow:hidden;
+}
+.academy-hdr::after{
+  content:'🇩🇪';
+  position:absolute;right:-10px;top:-20px;
+  font-size:200px;opacity:.05;pointer-events:none;
+  line-height:1;
+}
+.hdr-inner{max-width:860px;margin:0 auto}
+.hdr-eye{
+  font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--amber);margin-bottom:10px;
+}
+.hdr-title{font-size:clamp(24px,5vw,36px);font-weight:900;margin-bottom:10px;line-height:1.1}
+.hdr-sub{font-size:14px;color:rgba(255,255,255,.6);max-width:540px;line-height:1.65;margin-bottom:20px}
+.hdr-stats{display:flex;gap:24px;flex-wrap:wrap}
+.hdr-stat-n{font-size:20px;font-weight:900;color:var(--amber)}
+.hdr-stat-l{font-size:11px;color:rgba(255,255,255,.45)}
+
+/* ── SECTION NAV ─────────────────────────────────────────────── */
+.sec-nav{
+  background:rgba(0,0,0,.25);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:0 20px;
+  display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:44px;z-index:150;
+}
+.sec-nav::-webkit-scrollbar{display:none}
+.sn-link{
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.45);
+  padding:10px 14px;
+  text-decoration:none;white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:.15s;
+}
+.sn-link:hover{color:rgba(255,255,255,.8)}
+.sn-link.active{color:#fff;border-bottom-color:var(--amber)}
+
+/* ── WRAP ────────────────────────────────────────────────────── */
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+
+/* ── SECTION HEADER ──────────────────────────────────────────── */
+.sec-hdr{
+  padding:36px 0 18px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.sec-hdr-icon{font-size:24px}
+.sec-hdr-title{font-size:18px;font-weight:900}
+.sec-hdr-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:3px}
+.sec-badge{
+  font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-left:auto;
+}
+.badge-free{background:rgba(46,125,50,.9);color:#fff}
+.badge-prem{background:rgba(249,168,37,.9);color:#0b2545}
+.badge-soon{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15)}
+
+/* ── CARD GRID ───────────────────────────────────────────────── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:14px;
+  margin-bottom:10px;
+}
+
+/* ── COURSE CARD (clickable) ─────────────────────────────────── */
+.course-card{
+  background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:22px 20px;
+  text-decoration:none;color:#fff;
+  display:block;
+  transition:.15s;position:relative;overflow:hidden;
+}
+.course-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.course-card.free-card{
+  border-color:var(--free-border);
+  background:var(--free-bg);
+}
+.course-card.free-card:hover{background:rgba(46,125,50,.18)}
+.course-card.prem-card{
+  border-color:var(--prem-border);
+  background:var(--prem-bg);
+  cursor:pointer;
+}
+.course-card.prem-card:hover{background:rgba(249,168,37,.13)}
+
+/* LOCKED OVERLAY */
+.course-card.prem-card .lock-icon{
+  position:absolute;top:14px;right:16px;
+  font-size:14px;opacity:.5;
+}
+
+.cc-eyebrow{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.cc-icon{font-size:28px;margin-bottom:10px}
+.cc-level{font-size:22px;font-weight:900;margin-bottom:4px}
+.cc-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:10px}
+.cc-desc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:14px}
+.cc-modules{display:flex;gap:5px;flex-wrap:wrap}
+.cc-mod{
+  font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:6px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);
+}
+.cc-cta{
+  font-size:12px;font-weight:800;
+  color:var(--amber);margin-top:14px;display:block;
+}
+.cc-cta-lock{
+  font-size:12px;font-weight:800;
+  color:rgba(255,255,255,.35);margin-top:14px;display:block;
+}
+
+/* ── PLACEMENT CARD (featured) ───────────────────────────────── */
+.placement-card{
+  background:linear-gradient(135deg,#0d3a4a 0%,#1464b4 100%);
+  border:1.5px solid rgba(20,100,180,.6);
+  border-radius:14px;
+  padding:26px 24px;
+  display:grid;grid-template-columns:1fr auto;gap:16px;
+  align-items:center;
+  text-decoration:none;color:#fff;
+  transition:.15s;margin-bottom:16px;
+}
+.placement-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.pc-icon{font-size:36px;margin-bottom:8px}
+.pc-title{font-size:18px;font-weight:900;margin-bottom:5px}
+.pc-desc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.55}
+.pc-badge{
+  background:rgba(46,125,50,.9);color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:10px;display:inline-block;
+}
+.btn-start{
+  background:var(--amber);color:var(--navy);
+  font-size:13px;font-weight:900;
+  padding:10px 22px;border-radius:9px;
+  white-space:nowrap;
+}
+
+/* ── COMING SOON SECTION ─────────────────────────────────────── */
+.coming-section{
+  margin-top:8px;padding:24px;
+  background:var(--soon-bg);
+  border:1.5px solid var(--soon-border);
+  border-radius:14px;
+}
+.cs-title{font-size:14px;font-weight:800;margin-bottom:6px;color:rgba(255,255,255,.6)}
+.cs-desc{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px}
+.cs-chips{display:flex;gap:8px;flex-wrap:wrap}
+.cs-chip{
+  font-size:12px;font-weight:700;
+  padding:6px 14px;border-radius:20px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.4);
+}
+
+/* ── DIVIDER ─────────────────────────────────────────────────── */
+.divider{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.07);
+  margin:8px 0 0;
+}
+
+/* ── UPGRADE BANNER ──────────────────────────────────────────── */
+.upgrade-banner{
+  background:rgba(249,168,37,.08);
+  border:1.5px solid rgba(249,168,37,.22);
+  border-radius:14px;padding:22px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  margin-top:44px;margin-bottom:14px;
+}
+.ub-text h3{font-size:15px;font-weight:900;margin-bottom:4px;color:var(--amber)}
+.ub-text p{font-size:12px;color:rgba(255,255,255,.55)}
+.btn-upgrade{
+  background:var(--amber);color:var(--navy);
+  font-size:13px;font-weight:900;
+  padding:10px 22px;border-radius:9px;
+  text-decoration:none;white-space:nowrap;transition:filter .15s;
+}
+.btn-upgrade:hover{filter:brightness(1.1)}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer{
+  text-align:center;padding:18px;
+  font-size:11px;color:rgba(255,255,255,.2);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+footer a{color:rgba(255,255,255,.35);text-decoration:none}
+footer a:hover{color:rgba(255,255,255,.6)}
+
+@media(max-width:600px){
+  .placement-card{grid-template-columns:1fr}
+  .btn-start{display:none}
+  .hdr-stats{gap:16px}
+  .card-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="tgs-logo" href="index.html">The<span>German</span>Stefan</a>
+    <nav class="bc" aria-label="Breadcrumb">
+      <a href="index.html">Academy</a>
+      <span aria-hidden="true">›</span>
+      <span>Language Academy</span>
+    </nav>
+  </div>
+  <div class="topbar-right">
+    <a class="btn-skool-sm" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">
+      Upgrade →
+    </a>
+  </div>
+</div>
+
+<!-- ACADEMY HEADER -->
+<div class="academy-hdr">
+  <div class="hdr-inner">
+    <div class="hdr-eye">German Language Academy</div>
+    <div class="hdr-title">Master German.<br>From Zero to Fluency.</div>
+    <p class="hdr-sub">
+      A structured curriculum from A0 to C2 — grammar, reading, vocabulary, speaking
+      and full Goethe exam preparation. Start free. Upgrade when ready.
+    </p>
+    <div class="hdr-stats">
+      <div><div class="hdr-stat-n">7</div><div class="hdr-stat-l">Levels (A0–C2)</div></div>
+      <div><div class="hdr-stat-n">100+</div><div class="hdr-stat-l">Lessons</div></div>
+      <div><div class="hdr-stat-n">5</div><div class="hdr-stat-l">Modules per Level</div></div>
+      <div><div class="hdr-stat-n">Free</div><div class="hdr-stat-l">Starter Available</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION NAV -->
+<nav class="sec-nav" aria-label="Academy sections">
+  <a class="sn-link active" href="#start">Start Here</a>
+  <a class="sn-link" href="#free">Free Starter</a>
+  <a class="sn-link" href="#premium">Premium Courses</a>
+  <a class="sn-link" href="#mastery">Premium Mastery</a>
+  <a class="sn-link" href="#future">Coming Soon</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="wrap">
+
+  <!-- ══════════════════════════════════════════════════════════
+       START HERE
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="start">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🚀</span>
+      <div>
+        <div class="sec-hdr-title">Start Here</div>
+        <div class="sec-hdr-sub">New to the Academy? Begin with your Placement Test.</div>
+      </div>
+    </div>
+
+    <!-- PLACEMENT TEST featured card -->
+    <a class="placement-card" href="placement-test.html">
+      <div>
+        <div class="pc-icon">🎯</div>
+        <span class="pc-badge">FREE · Recommended First Step</span>
+        <div class="pc-title">Placement Test</div>
+        <p class="pc-desc">
+          Not sure where to start? Answer 24 questions and find your CEFR level.
+          You'll receive a personalised course recommendation — A0 to C2.
+        </p>
+      </div>
+      <div class="btn-start">Take the Test →</div>
+    </a>
+
+    <!-- INFO CARDS -->
+    <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+      <div class="course-card free-card" style="cursor:default">
+        <div class="cc-icon">📋</div>
+        <div class="cc-title" style="font-size:14px;font-weight:800;color:#fff">Learning Roadmap</div>
+        <p class="cc-desc">A0 → A1 → A2 → B1 → B2 → C1 → C2. Each level builds on the last. Your progress is tracked automatically.</p>
+      </div>
+      <div class="course-card free-card" style="cursor:default">
+        <div class="cc-icon">🗺️</div>
+        <div class="cc-title" style="font-size:14px;font-weight:800;color:#fff">How to Use the Academy</div>
+        <p class="cc-desc">Start with Grammar → Reading → Vocabulary → Speaking. Complete all modules at your level before moving up.</p>
+      </div>
+      <div class="course-card free-card" style="cursor:default">
+        <div class="cc-icon">🏆</div>
+        <div class="cc-title" style="font-size:14px;font-weight:800;color:#fff">Goethe Exam Prep</div>
+        <p class="cc-desc">Premium includes 5 Goethe-style practice exams per level — perfect preparation for official certification.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       FREE STARTER
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="free">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🌱</span>
+      <div>
+        <div class="sec-hdr-title">Free Starter</div>
+        <div class="sec-hdr-sub">Begin your German journey — no account required.</div>
+      </div>
+      <span class="sec-badge badge-free">FREE</span>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- A0 -->
+      <a class="course-card free-card" href="TheGermanStefan_A0_Beginner_Hub.html">
+        <div class="cc-eyebrow">Free · Starter Level</div>
+        <div class="cc-icon">🌱</div>
+        <div class="cc-level">A0</div>
+        <div class="cc-title">Absolute Beginner</div>
+        <p class="cc-desc">No German at all? Start here. The alphabet, numbers, colours and your very first words.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span>
+          <span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span>
+        </div>
+        <span class="cc-cta">Start for free →</span>
+      </a>
+
+      <!-- Placement Test (repeated for discoverability) -->
+      <a class="course-card free-card" href="placement-test.html">
+        <div class="cc-eyebrow">Free · Find Your Level</div>
+        <div class="cc-icon">🎯</div>
+        <div class="cc-level">Test</div>
+        <div class="cc-title">CEFR Placement Test</div>
+        <p class="cc-desc">24 questions spanning A0 to C2. Get your level result and a personalised course recommendation.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">⏱ ~10 min</span>
+          <span class="cc-mod">A0–C2</span>
+        </div>
+        <span class="cc-cta">Take the test →</span>
+      </a>
+
+      <!-- Vocabulary Hub A0-A2 -->
+      <div class="course-card free-card" style="cursor:default">
+        <div class="cc-eyebrow">Free · Vocabulary</div>
+        <div class="cc-icon">🗂️</div>
+        <div class="cc-level">Vocab</div>
+        <div class="cc-title">Vocabulary Hub A0–A2</div>
+        <p class="cc-desc">Essential vocabulary for beginners. Flashcards, exercises and topic sets for everyday German.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">A0</span>
+          <span class="cc-mod">A1</span>
+          <span class="cc-mod">A2</span>
+        </div>
+        <span class="cc-cta" style="color:rgba(255,255,255,.3)">Available within level hubs →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       PREMIUM LANGUAGE COURSES
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="premium">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🇩🇪</span>
+      <div>
+        <div class="sec-hdr-title">Premium Language Courses</div>
+        <div class="sec-hdr-sub">Full CEFR curriculum — A1 through C2.</div>
+      </div>
+      <span class="sec-badge badge-prem">PREMIUM</span>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- A1 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_A1_Hub.html','language','A1')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 1</div>
+        <div class="cc-icon">⭐</div>
+        <div class="cc-level">A1</div>
+        <div class="cc-title">Elementary German</div>
+        <p class="cc-desc">Introduce yourself, talk about family, shopping and daily life. 10 grammar lessons + reading, vocab &amp; speaking.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- A2 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_A2_Hub.html','language','A2')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 2</div>
+        <div class="cc-icon">⭐⭐</div>
+        <div class="cc-level">A2</div>
+        <div class="cc-title">Pre-Intermediate</div>
+        <p class="cc-desc">Perfekt, modal verbs, Dativ. Handle travel, shopping and everyday situations confidently.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- B1 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_B1_Hub.html','language','B1')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 3</div>
+        <div class="cc-icon">⭐⭐⭐</div>
+        <div class="cc-level">B1</div>
+        <div class="cc-title">Intermediate</div>
+        <p class="cc-desc">Passiv, Konjunktiv II, complex sentences. Communicate in most situations you encounter while travelling.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- B2 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_B2_Hub.html','language','B2')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 4</div>
+        <div class="cc-icon">⭐⭐⭐⭐</div>
+        <div class="cc-level">B2</div>
+        <div class="cc-title">Upper-Intermediate</div>
+        <p class="cc-desc">Konjunktiv I, Partizipialkonstruktionen, academic language. Communicate fluently with native speakers.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- C1 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_C1_Hub.html','language','C1')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 5</div>
+        <div class="cc-icon">💎</div>
+        <div class="cc-level">C1</div>
+        <div class="cc-title">Advanced</div>
+        <p class="cc-desc">Express yourself fluently and flexibly for social, academic and professional purposes.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <!-- C2 -->
+      <div class="course-card prem-card" onclick="TGS.premium.gate('TheGermanStefan_C2_Hub.html','language','C2')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-eyebrow">Premium · Level 6</div>
+        <div class="cc-icon">👑</div>
+        <div class="cc-level">C2</div>
+        <div class="cc-title">Mastery</div>
+        <p class="cc-desc">Understand virtually everything. Express yourself with precision, spontaneity and high stylistic accuracy.</p>
+        <div class="cc-modules">
+          <span class="cc-mod">📚 Grammar</span><span class="cc-mod">📖 Reading</span>
+          <span class="cc-mod">🗂️ Vocab</span><span class="cc-mod">🗣️ Sprechen</span>
+        </div>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       PREMIUM MASTERY
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="mastery">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🏆</span>
+      <div>
+        <div class="sec-hdr-title">Premium Mastery</div>
+        <div class="sec-hdr-sub">Go beyond the curriculum — skills, exams and advanced vocabulary.</div>
+      </div>
+      <span class="sec-badge badge-prem">PREMIUM</span>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="course-card prem-card" onclick="TGS.premium.gate('locked.html','language','Special Skills Hub')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-icon">🎓</div>
+        <div class="cc-title" style="font-size:15px;font-weight:900;color:#fff;margin-bottom:8px">Special Skills Hub</div>
+        <p class="cc-desc">Interview German, business language, idioms, advanced speaking — real-world skills beyond the textbook.</p>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <div class="course-card prem-card" onclick="TGS.premium.gate('locked.html','language','Exam Center')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-icon">📝</div>
+        <div class="cc-title" style="font-size:15px;font-weight:900;color:#fff;margin-bottom:8px">Exam Center</div>
+        <p class="cc-desc">5 Goethe-style practice exams per level. Full mock exams with scoring, feedback and time limits.</p>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+      <div class="course-card prem-card" onclick="TGS.premium.gate('locked.html','language','Advanced Vocabulary')">
+        <span class="lock-icon">🔒</span>
+        <div class="cc-icon">📖</div>
+        <div class="cc-title" style="font-size:15px;font-weight:900;color:#fff;margin-bottom:8px">Advanced Vocabulary B1–C2</div>
+        <p class="cc-desc">Business German, idioms, collocations and advanced expressions — the vocabulary that separates good from great.</p>
+        <span class="cc-cta-lock">🔒 Premium — Unlock →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- UPGRADE BANNER -->
+  <div class="upgrade-banner">
+    <div class="ub-text">
+      <h3>🚀 Unlock Everything for $19/month</h3>
+      <p>A1–C2 courses · Exam Center · Special Skills · Live coaching · All future content</p>
+    </div>
+    <a class="btn-upgrade" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">
+      Upgrade on Skool →
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ══════════════════════════════════════════════════════════
+       FUTURE ACADEMIES
+  ═══════════════════════════════════════════════════════════ -->
+  <section id="future">
+    <div class="sec-hdr">
+      <span class="sec-hdr-icon">🔭</span>
+      <div>
+        <div class="sec-hdr-title">Future Academies</div>
+        <div class="sec-hdr-sub">TheGermanStefan Academy is growing. More is coming.</div>
+      </div>
+      <span class="sec-badge badge-soon">Coming Soon</span>
+    </div>
+
+    <div class="coming-section">
+      <div class="cs-title">TheGermanStefan Academy is expanding beyond language.</div>
+      <p class="cs-desc">Premium membership includes all current and future academies when they launch.</p>
+      <div class="cs-chips">
+        <span class="cs-chip">🏛️ Germany Knowledge Academy</span>
+        <span class="cs-chip">🍺 German Culinary Academy</span>
+        <span class="cs-chip">🏠 Living in Germany Academy</span>
+        <span class="cs-chip">🎯 Quiz Center</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /wrap -->
+
+<footer>
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="index.html">All Academies</a> &nbsp;·&nbsp;
+  <a href="placement-test.html">Placement Test</a> &nbsp;·&nbsp;
+  <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
+</footer>
+
+<script src="tgs-core.js"></script>
+<script>
+/* Highlight active section in nav on scroll */
+(function(){
+  var links = document.querySelectorAll('.sn-link');
+  var sections = ['start','free','premium','mastery','future'].map(function(id){
+    return document.getElementById(id);
+  });
+  function onScroll(){
+    var scrollY = window.scrollY + 120;
+    var active = sections[0];
+    sections.forEach(function(s){ if(s && s.offsetTop <= scrollY) active = s; });
+    links.forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : 'start'));
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+</script>
+</body>
+</html>
