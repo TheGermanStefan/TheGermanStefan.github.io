@@ -10,15 +10,21 @@
  * academy-home.html — Academy Home MVP
  * TheGermanStefan Academy · Sprint-003B-1 (Design Upgrade)
  *
- * Components (this sprint):
- *   1. Welcome Header    (Living Academy ready)
- *   2. German Buddy Card
- *   3. Today's Focus
+ * Sprint-003B-1 Components:
+ *   1. Welcome Header    (Living Academy ready — time-of-day greeting)
+ *   2. German Buddy Card (template engine, priority waterfall)
+ *   3. Today's Focus     (rule-based)
  *   4. Continue Journey  (Primary CTA — always above fold)
- *   5. Progress Summary
+ *   5. Progress Summary  (XP · Lessons · Streak · level progress bar)
  *   6. Navigation        (topbar desktop + bottom bar mobile)
  *
- * Design Upgrade (CSS-only — no architecture, JS or Foundation Layer changes):
+ * Sprint-003B-2 Components (added this sprint):
+ *   6. German Passport Preview  (miniature stamp grid, Recognised Certifications)
+ *   7. Journey Preview          (Yesterday / Today / Next Destination)
+ *   8. Buddy Practice           (Buddy recommendation + 4 practice type chips)
+ *   +  Academy Identity Card    (collapsible expand from Welcome Header)
+ *
+ * Sprint-003B-1 Design Language — Academy Living Room (permanent direction):
  *   - Cinematic dark premium atmosphere via fixed background layer
  *   - Welcome Header is a hero, not a card
  *   - German Buddy has a companion-scale avatar (76px + amber ring)
@@ -29,9 +35,9 @@
  *   - Progress bar taller with shimmer animation (motion-safe)
  *
  * Reserved (future sprints):
- *   Sprint-003B-2: Passport Preview, Journey Preview, Identity Card, Quick Practice
  *   Sprint-003B-3: Living Academy full, Last Visit Memory, Discover Germany Today
- *   Future:        Your German Journey (annual summary)
+ *   Future:        Daily Challenge, Your German Journey (annual summary)
+ *   Future:        Academy Passport Number (permanent backend-issued)
  *
  * Data sources: tgs-progress.js · tgs-profile.js · tgs-content-registry.js
  *               tgs-achievements.js · tgs_home_v1 (home state key)
@@ -674,6 +680,418 @@ body {
 .stagger-3 { animation-delay: 100ms; }
 .stagger-4 { animation-delay: 150ms; }
 .stagger-5 { animation-delay: 200ms; }
+/* Sprint-003B-2 additions */
+.stagger-6 { animation-delay: 250ms; }
+.stagger-7 { animation-delay: 300ms; }
+.stagger-8 { animation-delay: 350ms; }
+
+/* ══════════════════════════════════════════════════════════════════
+   IDENTITY CARD — Collapsible from Welcome Header
+   Sprint-003B-2
+   Replaces the Sprint-003B-1 .identity-card-stub placeholder.
+══════════════════════════════════════════════════════════════════ */
+
+/* Toggle button — replaces the static stub */
+.identity-card-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.38);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .15s;
+}
+.identity-card-trigger:hover { color: rgba(255,255,255,.65); }
+.identity-card-trigger.open  { color: var(--amber); }
+
+.id-trigger-arrow {
+  font-size: 12px;
+  display: inline-block;
+  transition: transform .22s ease;
+}
+.identity-card-trigger.open .id-trigger-arrow { transform: rotate(180deg); }
+
+/* Collapsible panel — max-height transition */
+.identity-card-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+}
+.identity-card-panel.open {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+/* The card face */
+.id-card {
+  background: linear-gradient(140deg,
+    rgba(255,255,255,.07) 0%,
+    rgba(255,255,255,.03) 100%
+  );
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 14px;
+  padding: 20px 20px 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 20px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.10);
+}
+.id-card::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(249,168,37,.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.id-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.id-card-academy {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: .75;
+}
+.id-card-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.25);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  line-height: 1;
+  transition: color .15s;
+  flex-shrink: 0;
+}
+.id-card-close:hover { color: rgba(255,255,255,.65); }
+.id-card-name {
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+.id-card-level {
+  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.id-card-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.id-card-field-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 3px;
+}
+.id-card-field-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,.9);
+}
+.id-card-field-val.reserved {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.25);
+  font-style: italic;
+}
+.id-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.id-card-passport-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 4px;
+}
+.id-card-passport-no {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: .5px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 6: PASSPORT PREVIEW
+   Sprint-003B-2 — miniature stamp layout (not dot indicators)
+   Refinement 1: stamp visual grid, not dot indicators
+   Refinement 5: "Recognised Certifications" terminology only
+══════════════════════════════════════════════════════════════════ */
+
+.passport-stamp-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 10px;
+}
+
+/* 6-column × 2-row miniature stamp grid — passport page feel */
+.passport-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.passport-mini-stamp {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.passport-mini-stamp.earned {
+  background: rgba(255,255,255,.07);
+  border: 1.5px solid var(--level-color);
+}
+.passport-mini-stamp.locked {
+  background: rgba(255,255,255,.03);
+  border: 1.5px dashed rgba(255,255,255,.10);
+}
+.passport-mini-stamp.reserved {
+  background: rgba(255,255,255,.02);
+  border: 1px dashed rgba(255,255,255,.05);
+}
+
+/* Recognised Certifications locked row */
+.passport-certs-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.passport-cert-lock  { font-size: 14px; opacity: .35; flex-shrink: 0; }
+.passport-cert-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 2px;
+}
+.passport-cert-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+}
+
+/* Passport CTA — disabled until Passport page is built */
+.btn-passport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.45);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background .15s, color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-passport:not([aria-disabled="true"]):hover {
+  background: rgba(255,255,255,.09);
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 7: JOURNEY PREVIEW
+   Sprint-003B-2 — Yesterday / Today / Next Destination
+   Refinement 2: travel metaphor wording exactly as specified
+══════════════════════════════════════════════════════════════════ */
+
+.journey-stops { display: flex; flex-direction: column; }
+
+.journey-stop {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+}
+
+/* Arrow connector rendered between stops */
+.journey-arrow {
+  padding-left: 17px; /* centres under the 36px indicator */
+  font-size: 13px;
+  color: rgba(255,255,255,.18);
+  line-height: 1;
+  user-select: none;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.journey-stop-indicator {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.journey-stop.past    .journey-stop-indicator {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.4);
+}
+.journey-stop.present .journey-stop-indicator {
+  background: var(--level-color);
+  border: none;
+  box-shadow: 0 0 16px rgba(20,100,180,.35);
+  font-size: 15px;
+}
+.journey-stop.future  .journey-stop-indicator {
+  background: rgba(249,168,37,.07);
+  border: 1.5px dashed rgba(249,168,37,.3);
+  color: rgba(249,168,37,.6);
+}
+
+.journey-stop-body  { flex: 1; min-width: 0; }
+
+.journey-stop-tag {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-bottom: 2px;
+}
+.journey-stop.past    .journey-stop-tag { color: rgba(255,255,255,.25); }
+.journey-stop.present .journey-stop-tag { color: var(--level-color); }
+.journey-stop.future  .journey-stop-tag { color: rgba(249,168,37,.5); }
+
+.journey-stop-level { font-weight: 700; line-height: 1.2; }
+.journey-stop.past    .journey-stop-level { font-size: 14px; color: rgba(255,255,255,.4); }
+.journey-stop.present .journey-stop-level { font-size: 18px; color: #fff; }
+.journey-stop.future  .journey-stop-level { font-size: 14px; color: rgba(255,255,255,.7); }
+
+.journey-stop-sub { font-size: 11px; margin-top: 1px; }
+.journey-stop.past    .journey-stop-sub { color: rgba(255,255,255,.22); }
+.journey-stop.present .journey-stop-sub { color: rgba(255,255,255,.45); }
+.journey-stop.future  .journey-stop-sub { color: rgba(255,255,255,.32); }
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 8: BUDDY PRACTICE
+   Sprint-003B-2 (Refinement 4: renamed from "Quick Practice")
+   Buddy attributes the recommendation; student chooses practice type.
+══════════════════════════════════════════════════════════════════ */
+
+.buddy-practice-intro {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.42);
+  margin-bottom: 10px;
+}
+
+/* Primary Buddy recommendation tile */
+.buddy-practice-rec {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(20,100,180,.10);
+  border: 1px solid rgba(20,100,180,.22);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: background .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.buddy-practice-rec:hover { background: rgba(20,100,180,.17); }
+.buddy-practice-rec-icon  { font-size: 22px; flex-shrink: 0; }
+.buddy-practice-rec-body  { flex: 1; min-width: 0; }
+.buddy-practice-rec-label {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.buddy-practice-rec-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.4;
+}
+.buddy-practice-rec-arrow {
+  font-size: 16px;
+  color: rgba(255,255,255,.35);
+  flex-shrink: 0;
+}
+
+/* Secondary practice type grid */
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.practice-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.7);
+  transition: background .15s, color .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.practice-chip:not(.coming):hover {
+  background: rgba(255,255,255,.09);
+  color: #fff;
+}
+.practice-chip.coming {
+  opacity: .38;
+  cursor: default;
+  pointer-events: none;
+}
+.practice-chip-icon { font-size: 16px; flex-shrink: 0; }
+.practice-chip-soon {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: rgba(255,255,255,.3);
+}
 
 /* ══════════════════════════════════════════════════════════════════
    NAVIGATION — BOTTOM BAR (mobile) + integrated in topbar (desktop)
@@ -836,22 +1254,65 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="skel" style="height:20px;width:100%;border-radius:99px;margin-top:16px"></div>
   </section>
 
+  <!-- ── COMPONENT 6: PASSPORT PREVIEW ───────────────────────── -->
+  <!-- Sprint-003B-2: Miniature stamp layout (Refinement 1)       -->
+  <!-- Recognised Certifications terminology (Refinement 5)       -->
+  <section id="comp-passport" class="component fade-in stagger-6 is-loading" aria-label="Your Passport">
+    <div class="skel" style="height:14px;width:40%;border-radius:4px"></div>
+    <div class="skel" style="height:12px;width:55%;border-radius:4px;margin-top:10px"></div>
+    <div class="skel" style="height:72px;width:100%;border-radius:8px;margin-top:8px"></div>
+    <div class="skel" style="height:42px;width:100%;border-radius:8px;margin-top:8px"></div>
+    <div class="skel" style="height:42px;width:100%;border-radius:8px;margin-top:8px"></div>
+  </section>
+
+  <!-- ── COMPONENT 7: JOURNEY PREVIEW ─────────────────────────── -->
+  <!-- Sprint-003B-2: Yesterday / Today / Next Destination (R2)    -->
+  <section id="comp-journey" class="component fade-in stagger-7 is-loading" aria-label="Your Journey">
+    <div class="skel" style="height:14px;width:40%;border-radius:4px"></div>
+    <div class="skel" style="height:52px;width:100%;border-radius:8px;margin-top:10px"></div>
+    <div class="skel" style="height:60px;width:100%;border-radius:8px;margin-top:6px"></div>
+    <div class="skel" style="height:52px;width:100%;border-radius:8px;margin-top:6px"></div>
+  </section>
+
+  <!-- ── COMPONENT 8: BUDDY PRACTICE ──────────────────────────── -->
+  <!-- Sprint-003B-2 (Refinement 4: renamed from "Quick Practice") -->
+  <!-- Daily Challenge architecture reserved — see JS comment      -->
+  <section id="comp-buddy-practice" class="component fade-in stagger-8 is-loading" aria-label="Buddy Practice">
+    <div class="skel" style="height:14px;width:40%;border-radius:4px"></div>
+    <div class="skel" style="height:12px;width:60%;border-radius:4px;margin-top:10px"></div>
+    <div class="skel" style="height:68px;width:100%;border-radius:8px;margin-top:8px"></div>
+    <div class="skel" style="height:46px;width:100%;border-radius:8px;margin-top:8px"></div>
+  </section>
+
   <!--
   ════════════════════════════════════════════════════════════════
-  SPRINT-003B-2 RESERVED SLOTS
-  The following components are specified in Blueprint v2.0 but
-  are not built in Sprint-003B-1. Their position in the layout
-  is reserved here as HTML comments.
+  SPRINT-003B-2 STATUS: IMPLEMENTED
+  Components 6–8 + Identity Card expand are live above.
 
-  German Passport Preview  → Sprint-003B-2
-  Journey Preview          → Sprint-003B-2
-  Academy Identity Card    → Sprint-003B-2 (expand from Welcome Header)
-  Quick Practice           → Sprint-003B-2 (with Ambient Mode stub)
+  ════════════════════════════════════════════════════════════════
+  DAILY CHALLENGE — RESERVED ARCHITECTURE (Sprint-003B-2, R6)
+  A daily rotating challenge card will appear below Buddy Practice.
+  Seed: TGS_CONTENT rotating by day-of-year.
+  XP: bonus multiplier for daily challenge completion.
+  Storage: tgs_home_v1.lastDailyChallengeId + date.
+  Implementation: Future dedicated sprint.
+  ════════════════════════════════════════════════════════════════
 
+  ════════════════════════════════════════════════════════════════
   SPRINT-003B-3 RESERVED SLOTS
   Living Academy full (birthday, cultural calendar, anniversary)
-  Last Visit Memory (tgs_home_v1 — infrastructure written now)
+  Last Visit Memory (tgs_home_v1 infrastructure is already live)
   Discover Germany Today
+  ════════════════════════════════════════════════════════════════
+
+  ════════════════════════════════════════════════════════════════
+  ACADEMY PASSPORT NUMBER — PERMANENT ARCHITECTURE NOTE (R3)
+  Sprint-003B-2 derives passport numbers client-side from the
+  profile creation timestamp (TGS-YYYY-NNNNN format).
+  When server infrastructure is established, Passport Numbers
+  should be permanent sequential integers issued at registration,
+  stored server-side, and retrieved via authenticated account.
+  The display format TGS-YYYY-NNNNN is intentionally reserved.
   ════════════════════════════════════════════════════════════════
 
   ════════════════════════════════════════════════════════════════
@@ -860,7 +1321,6 @@ footer a:hover { color: rgba(255,255,255,.6); }
   Suggested content: words learned · lessons completed · study
   hours · longest streak · stamps earned · passport pages ·
   favourite learning category · biggest achievement of the year.
-  Enormous emotional value and sharing potential.
   Implementation: Future dedicated sprint.
   Data source: TGS_PROGRESS + TGS_ACHIEVEMENTS (already captured).
   ════════════════════════════════════════════════════════════════
@@ -947,6 +1407,28 @@ footer a:hover { color: rgba(255,255,255,.6); }
     C1: 'C1 Advanced',
     C2: 'C2 Mastery'
   };
+
+  /* Level progression order — static, no FL query needed */
+  var LEVEL_ORDER = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
+  /*
+   * STAMP MANIFEST — Sprint-003B-2
+   * Must match stamp IDs emitted by tgs-achievements.js exactly.
+   * stampId field is the authoritative key; icon/name are display only.
+   */
+  var STAMP_MANIFEST = [
+    { id: 'cross_academyEntry',    icon: '🎓', name: 'Academy Entry'    },
+    { id: 'milestone_lessons_1',   icon: '✏️',  name: 'First Lesson'     },
+    { id: 'milestone_lessons_10',  icon: '📚', name: '10 Lessons'       },
+    { id: 'milestone_lessons_25',  icon: '🌟', name: '25 Lessons'       },
+    { id: 'milestone_lessons_50',  icon: '🏆', name: '50 Lessons'       },
+    { id: 'milestone_lessons_100', icon: '👑', name: '100 Lessons'      },
+    { id: 'milestone_streak_3',    icon: '🔥', name: '3-Day Streak'     },
+    { id: 'milestone_streak_7',    icon: '⚡', name: '7-Day Streak'     },
+    { id: 'milestone_streak_30',   icon: '💫', name: '30-Day Streak'    },
+    { id: 'milestone_streak_100',  icon: '🌙', name: '100-Day Streak'   },
+    { id: 'milestone_streak_365',  icon: '⭐', name: '365-Day Streak'   }
+  ];
 
   /* ──────────────────────────────────────────────────────────────
      FOUNDATION LAYER SAFETY GUARDS
@@ -1192,10 +1674,14 @@ footer a:hover { color: rgba(255,255,255,.6); }
         '</div>' +
       '</div>' +
 
-      /* Identity Card stub — expands to full card in Sprint-003B-2 */
-      '<div class="identity-card-stub" title="Academy Identity Card — coming in Sprint-003B-2">' +
-        'Your Academy Card ▾ <span style="font-size:10px;opacity:.5">(coming soon)</span>' +
-      '</div>';
+      /* Identity Card trigger + collapsible panel — Sprint-003B-2 */
+      /* Panel content is populated by renderIdentityCard() called from init() */
+      '<button class="identity-card-trigger" id="identity-card-trigger" ' +
+              'type="button" aria-expanded="false" aria-controls="identity-card-panel">' +
+        '<span class="id-trigger-arrow" aria-hidden="true">▾</span> Your Academy Card' +
+      '</button>' +
+      '<div class="identity-card-panel" id="identity-card-panel" ' +
+           'role="region" aria-label="Academy Identity Card" aria-hidden="true"></div>';
 
     el.classList.remove('is-loading');
   }
@@ -1362,6 +1848,316 @@ footer a:hover { color: rgba(255,255,255,.6); }
   }
 
   /* ──────────────────────────────────────────────────────────────
+     SPRINT-003B-2 UTILITIES
+  ────────────────────────────────────────────────────────────── */
+
+  /*
+   * PASSPORT NUMBER — Sprint-003B-2 PLACEHOLDER
+   * Derived client-side from profile creation timestamp.
+   *
+   * RESERVED ARCHITECTURE: When server infrastructure is established,
+   * Academy Passport Numbers should be permanent sequential integers
+   * issued at student registration, stored server-side, and retrieved
+   * via authenticated account. Display format TGS-YYYY-NNNNN reserved.
+   */
+  function buildPassportNumber(ts) {
+    if (!ts) return 'TGS-XXXX-XXXXX';
+    var d   = new Date(ts);
+    var yr  = d.getFullYear();
+    var seq = String(ts % 100000).padStart(5, '0');
+    return 'TGS-' + yr + '-' + seq;
+  }
+
+  function formatMemberSince(ts) {
+    if (!ts) return '—';
+    var months = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+    var d = new Date(ts);
+    return months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function formatNum(n) {
+    if (!n) return '0';
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     6. IDENTITY CARD (Sprint-003B-2)
+        Populates the collapsible panel inside #comp-welcome.
+        Called AFTER renderWelcome() which injects the trigger+panel.
+  ────────────────────────────────────────────────────────────── */
+  function renderIdentityCard(xp, profileCreated, levelId) {
+    var trigger = document.getElementById('identity-card-trigger');
+    var panel   = document.getElementById('identity-card-panel');
+    if (!trigger || !panel) return;
+
+    var passportNo  = buildPassportNumber(profileCreated);
+    var memberSince = formatMemberSince(profileCreated);
+    var levelLabel  = LEVEL_LABELS[levelId] || (levelId || 'Getting started');
+
+    panel.innerHTML =
+      '<div class="id-card">' +
+        '<div class="id-card-header">' +
+          '<div class="id-card-academy">TheGermanStefan Academy</div>' +
+          '<button class="id-card-close" id="id-card-close-btn" type="button" aria-label="Close Academy Card">✕</button>' +
+        '</div>' +
+
+        /* Student name — "Academy Member" until onboarding sprint adds name field */
+        /* TGS_PROFILE.name is reserved for future onboarding sprint */
+        '<div class="id-card-name">Academy Member</div>' +
+        '<div class="id-card-level">' + escHtml(levelLabel) + '</div>' +
+
+        '<div class="id-card-fields">' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Member Since</div>' +
+            '<div class="id-card-field-val">' + escHtml(memberSince) + '</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Total XP</div>' +
+            '<div class="id-card-field-val">' + escHtml(formatNum(xp)) + '</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Learning DNA</div>' +
+            /* Reserved — future sprint analyses learning style patterns */
+            '<div class="id-card-field-val reserved">Unlocking...</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Rank</div>' +
+            /* Reserved — rank system to be defined in Academy OS update */
+            '<div class="id-card-field-val reserved">Coming soon</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="id-card-footer">' +
+          '<div>' +
+            '<div class="id-card-passport-label">Passport No.</div>' +
+            '<div class="id-card-passport-no">' + escHtml(passportNo) + '</div>' +
+          '</div>' +
+          '<div style="font-size:24px;opacity:.12" aria-hidden="true">🛂</div>' +
+        '</div>' +
+      '</div>';
+
+    /* Wire toggle */
+    function openCard() {
+      panel.classList.add('open');
+      trigger.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+    }
+    function closeCard() {
+      panel.classList.remove('open');
+      trigger.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+    function toggleCard() {
+      panel.classList.contains('open') ? closeCard() : openCard();
+    }
+
+    trigger.addEventListener('click', toggleCard);
+    trigger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(); }
+    });
+
+    var closeBtn = document.getElementById('id-card-close-btn');
+    if (closeBtn) closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeCard();
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     7. PASSPORT PREVIEW (Sprint-003B-2)
+        Refinement 1: miniature stamp grid, not dot indicators.
+        Refinement 5: "Recognised Certifications" — no provider names.
+  ────────────────────────────────────────────────────────────── */
+  function renderPassportPreview(earned) {
+    var el = document.getElementById('comp-passport');
+    if (!el) return;
+
+    /* Build earned-ID lookup */
+    var earnedMap = {};
+    (earned || []).forEach(function(s) {
+      var sid = s.stampId || s.id || '';
+      if (sid) earnedMap[sid] = true;
+    });
+    var earnedCount = Object.keys(earnedMap).length;
+
+    /* Miniature stamp grid — 11 defined stamps + 1 reserved cell = 12 */
+    var gridHtml = '';
+    STAMP_MANIFEST.forEach(function(s) {
+      if (earnedMap[s.id]) {
+        gridHtml +=
+          '<div class="passport-mini-stamp earned" ' +
+               'title="' + escHtml(s.name) + '" ' +
+               'role="img" aria-label="Earned: ' + escHtml(s.name) + '">' +
+            s.icon +
+          '</div>';
+      } else {
+        gridHtml +=
+          '<div class="passport-mini-stamp locked" ' +
+               'title="' + escHtml(s.name) + '" aria-hidden="true"></div>';
+      }
+    });
+    /* 12th cell — reserved for future stamp types */
+    gridHtml += '<div class="passport-mini-stamp reserved" title="More stamps coming" aria-hidden="true"></div>';
+
+    var stampLabel = earnedCount === 0
+      ? 'No stamps yet — start learning to earn your first'
+      : (earnedCount + ' of ' + STAMP_MANIFEST.length + ' stamps earned');
+
+    el.innerHTML =
+      '<div class="comp-label">Your Passport</div>' +
+
+      '<div class="passport-stamp-count">' + escHtml(stampLabel) + '</div>' +
+      '<div class="passport-mini-grid" role="list" aria-label="Passport stamps">' +
+        gridHtml +
+      '</div>' +
+
+      /* Recognised Certifications — Refinement 5: no specific provider names */
+      '<div class="passport-certs-row">' +
+        '<span class="passport-cert-lock" aria-hidden="true">🔒</span>' +
+        '<div>' +
+          '<div class="passport-cert-title">Recognised Certifications</div>' +
+          '<div class="passport-cert-sub">Certification tracking coming soon</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* Passport page CTA — disabled until full Passport page is built */
+      '<a class="btn-passport" href="#" aria-disabled="true" style="pointer-events:none">' +
+        '🛂 View Full Passport' +
+        '<span style="font-size:10px;opacity:.5;margin-left:4px">(coming soon)</span>' +
+      '</a>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     8. JOURNEY PREVIEW (Sprint-003B-2)
+        Refinement 2: Yesterday / Today / Next Destination wording.
+        No percentages — travel metaphor, not progress bar.
+  ────────────────────────────────────────────────────────────── */
+  function renderJourneyPreview(levelId) {
+    var el = document.getElementById('comp-journey');
+    if (!el) return;
+
+    var idx = LEVEL_ORDER.indexOf(levelId);
+    if (idx < 0) idx = 1; /* default A1 if level unknown */
+
+    var prevId = idx > 0                    ? LEVEL_ORDER[idx - 1] : null;
+    var nextId = idx < LEVEL_ORDER.length - 1 ? LEVEL_ORDER[idx + 1] : null;
+
+    function stopHtml(type, id, labelOverride, subOverride, iconOverride) {
+      var icon  = iconOverride  || (type === 'past' ? '✓' : type === 'present' ? '📍' : '→');
+      var label = labelOverride || LEVEL_LABELS[id] || (id || '—');
+      var sub   = subOverride   || (type === 'past' ? 'Completed'        :
+                                    type === 'present' ? 'You are here'  : 'Your next horizon');
+      var tag   = type === 'past' ? 'Yesterday' : type === 'present' ? 'Today' : 'Next Destination';
+      return (
+        '<div class="journey-stop ' + type + '">' +
+          '<div class="journey-stop-indicator" aria-hidden="true">' + icon + '</div>' +
+          '<div class="journey-stop-body">' +
+            '<div class="journey-stop-tag">' + escHtml(tag) + '</div>' +
+            '<div class="journey-stop-level">' + escHtml(label) + '</div>' +
+            '<div class="journey-stop-sub">' + escHtml(sub) + '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    var prevStop = prevId
+      ? stopHtml('past',    prevId)
+      : stopHtml('past',    null, 'Before the Academy', 'Where your journey begins',  '✦');
+
+    var currStop = stopHtml('present', levelId);
+
+    var nextStop = nextId
+      ? stopHtml('future',  nextId)
+      : stopHtml('future',  null, 'The Summit',         'You have arrived — mastery achieved!', '⭐');
+
+    el.innerHTML =
+      '<div class="comp-label">Your Journey</div>' +
+      '<div class="journey-stops">' +
+        prevStop +
+        '<div class="journey-arrow" aria-hidden="true">↓</div>' +
+        currStop +
+        '<div class="journey-arrow" aria-hidden="true">↓</div>' +
+        nextStop +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     9. BUDDY PRACTICE (Sprint-003B-2)
+        Refinement 4: renamed from "Quick Practice".
+        Buddy attributes the top recommendation; student chooses type.
+        Refinement 6: Daily Challenge reserved via HTML comment.
+  ────────────────────────────────────────────────────────────── */
+  function renderBuddyPractice(streak, lessonsComplete, levelId) {
+    var el = document.getElementById('comp-buddy-practice');
+    if (!el) return;
+
+    var lvl      = levelId || 'A1';
+    var dashHref = 'level-dashboard.html?level=' + encodeURIComponent(lvl);
+    var current  = streak ? (streak.current || 0) : 0;
+
+    /* Buddy recommendation waterfall — first match wins */
+    var rec;
+    if (lessonsComplete === 0) {
+      rec = { icon: '✏️',  label: 'Start with Grammar',   sub: 'Build your foundation from day one',          href: dashHref };
+    } else if (current === 0) {
+      rec = { icon: '📖', label: 'Grammar Practice',       sub: 'Rebuild momentum with solid foundations',     href: dashHref };
+    } else {
+      rec = { icon: '🗂️', label: 'Vocabulary Universe',    sub: 'Expand your word bank today',                 href: 'vocabulary-universe.html' };
+    }
+
+    /* Secondary grid — all 4 practice types */
+    var SECONDARY = [
+      { icon: '🗂️', label: 'Vocabulary', href: 'vocabulary-universe.html', coming: false },
+      { icon: '📖', label: 'Grammar',    href: dashHref,                   coming: false },
+      { icon: '📖', label: 'Reading',    href: '#',                         coming: true  },
+      { icon: '🗣️', label: 'Speaking',   href: '#',                         coming: true  }
+    ];
+
+    var gridHtml = '';
+    SECONDARY.forEach(function(opt) {
+      gridHtml +=
+        '<a class="practice-chip' + (opt.coming ? ' coming' : '') + '"' +
+           ' href="' + escHtml(opt.coming ? '#' : opt.href) + '"' +
+           (opt.coming ? ' aria-disabled="true" tabindex="-1"' : '') + '>' +
+          '<span class="practice-chip-icon" aria-hidden="true">' + opt.icon + '</span>' +
+          escHtml(opt.label) +
+          (opt.coming ? '<span class="practice-chip-soon">soon</span>' : '') +
+        '</a>';
+    });
+
+    el.innerHTML =
+      '<div class="comp-label">Buddy Practice</div>' +
+      '<p class="buddy-practice-intro">🤖 Your Buddy suggests for today</p>' +
+
+      '<a class="buddy-practice-rec" href="' + escHtml(rec.href) + '">' +
+        '<span class="buddy-practice-rec-icon" aria-hidden="true">' + rec.icon + '</span>' +
+        '<div class="buddy-practice-rec-body">' +
+          '<div class="buddy-practice-rec-label">' + escHtml(rec.label) + '</div>' +
+          '<div class="buddy-practice-rec-sub">' + escHtml(rec.sub) + '</div>' +
+        '</div>' +
+        '<span class="buddy-practice-rec-arrow" aria-hidden="true">→</span>' +
+      '</a>' +
+
+      '<div class="practice-grid">' + gridHtml + '</div>';
+      /*
+       * DAILY CHALLENGE — RESERVED ARCHITECTURE (Refinement 6)
+       * No implementation this sprint. Future sprint adds a daily
+       * rotating challenge card below this grid, seeded from TGS_CONTENT
+       * by day-of-year. XP multiplier for challenge completion.
+       * Storage key: tgs_home_v1.lastDailyChallengeId + date.
+       */
+
+    el.classList.remove('is-loading');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
      NAVIGATION — set dynamic Learn links
   ────────────────────────────────────────────────────────────── */
   function updateNavLinks(levelId) {
@@ -1391,12 +2187,15 @@ footer a:hover { color: rgba(255,255,255,.6); }
       renderCTA(nl, levelId, ld);
     });
 
-    /* Stamp earned — will power Passport animation in Sprint-003B-2 */
+    /* Stamp earned — Sprint-003B-2: refresh Passport Preview grid live */
     TGS.utils.events.on('achievement:stampEarned', function (data) {
-      /* Sprint-003B-2: animate passport stamp here */
-      /* Sprint-003B-3: update Buddy message with buddyMessage from event */
+      var latestEarned = safeGet(function() {
+        return FL.achievements ? FL.achievements.getEarned() : [];
+      }, []);
+      renderPassportPreview(latestEarned);
+      /* Sprint-003B-3: update Buddy message with buddyMessage from event payload */
       if (typeof console !== 'undefined') {
-        console.info('[TGS Home] Stamp earned:', data.stampId);
+        console.info('[TGS Home] Stamp earned:', data.stampId, '— Passport refreshed');
       }
     });
 
@@ -1455,20 +2254,34 @@ footer a:hover { color: rgba(255,255,255,.6); }
     /* 7. Next lesson */
     var nextLesson = findNextLesson(levelId);
 
-    /* 8. Render all components */
+    /* 8. Read profile creation timestamp for Identity Card */
+    /*    Reads tgs_profile_v1 directly — no public getCreatedAt() on TGS_PROFILE yet */
+    var profileCreated = safeGet(function() {
+      var raw = localStorage.getItem('tgs_profile_v1');
+      return raw ? (JSON.parse(raw).created || null) : null;
+    }, null);
+
+    /* 9. Render Sprint-003B-1 components */
     renderWelcome(greeting, levelId, streak, xp);
+    /* Identity Card panel + toggle wired AFTER renderWelcome injects the DOM nodes */
+    renderIdentityCard(xp, profileCreated, levelId);
     renderBuddy(buddyMsg);
     renderFocus(focus);
     renderCTA(nextLesson, levelId, levelDone);
     renderProgress(levelId, summary, levelDone);
 
-    /* 9. Update navigation deep links */
+    /* 10. Render Sprint-003B-2 components */
+    renderPassportPreview(earned);
+    renderJourneyPreview(levelId);
+    renderBuddyPractice(streak, lessonsComplete, levelId);
+
+    /* 11. Update navigation deep links */
     updateNavLinks(levelId);
 
-    /* 10. Wire live events */
+    /* 12. Wire live events */
     wireLiveEvents(levelId);
 
-    /* 11. Write home state for Sprint-003B-3 Last Visit Memory */
+    /* 13. Write home state for Sprint-003B-3 Last Visit Memory */
     var lastStamp = earned.length > 0 ? earned[earned.length - 1].id : null;
     var nextLessonId = nextLesson && nextLesson.lesson ? nextLesson.lesson.id : null;
     writeHomeState(buildHomeState(summary, levelId, nextLessonId, lastStamp));
