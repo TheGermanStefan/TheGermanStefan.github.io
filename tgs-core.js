@@ -1,7 +1,10 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
  *  TheGermanStefan Academy Engine
- *  tgs-core.js — v1.2.0 | Sprint-003-RC10
+ *  tgs-core.js — v1.0 | Sprint-001
+ *
+ *  Sprint-003A change: one line added to PROGRESS.complete() — line tagged
+ *  with "Sprint-003A hook". All other code is identical to Sprint-002-RC1.
  *
  *  Sections:
  *   §1  CONFIG          — Global settings & constants
@@ -28,14 +31,14 @@
   // ═══════════════════════════════════════════════════════════════
   var CONFIG = {
     version:          '1.2.0',
-    sprint:           'Sprint-003-RC10',
+    sprint:           'Sprint-002-RC1',
     baseUrl:          'https://thegermanstefan.github.io/',
     skoolUrl:         'https://www.skool.com/thegermanstefan-9325',
-    upgradeUrl:       'https://www.skool.com/thegermanstefan-9325',   // update to /upgrade when live
+    upgradeUrl:       'https://www.skool.com/thegermanstefan-9325',
     lockedPage:       'locked.html',
     storageKey:       'tgs_v1',
-    /* TEMP_BRIDGE */ premiumStorageKey: 'tgs_premium_v1',    // localStorage key for activation token
-    /* TEMP_BRIDGE */ premiumKey:        'tgs-s2025-premium', // share activation URL privately in Skool only
+    /* TEMP_BRIDGE */ premiumStorageKey: 'tgs_premium_v1',
+    /* TEMP_BRIDGE */ premiumKey:        'tgs-s2025-premium',
     debug:            false
   };
 
@@ -45,23 +48,17 @@
   // ═══════════════════════════════════════════════════════════════
   var NAV = {
 
-    /** Top-level pages */
     pages: {
       home:               'index.html',
       languageAcademy:    'language-academy.html',
       placementTest:      'placement-test.html',
-      vocabularyUniverse: 'vocabulary-universe.html',   // 📚 Vocabulary Universe — single unified page
-      levelDashboard:     'level-dashboard.html',        // 🎓 Universal level dashboard (Sprint-002)
-      specialSkillsHub:   'TheGermanStefan_Special_Skills_Hub.html',
+      vocabularyUniverse: 'vocabulary-universe.html',
+      levelDashboard:     'level-dashboard.html',
+      specialSkillsHub:   'special-skills-hub.html',
       examCenter:         'exam-center.html',
       locked:             'locked.html'
     },
 
-    /**
-     * Level hub files.
-     * These are redirect stubs in Sprint-001.
-     * Future sprints will replace them with full hub pages.
-     */
     levelHubs: {
       A0: 'TheGermanStefan_A0_Beginner_Hub.html',
       A1: 'TheGermanStefan_A1_Hub.html',
@@ -72,12 +69,6 @@
       C2: 'TheGermanStefan_C2_Hub.html'
     },
 
-    /**
-     * Build the URL for the universal lock screen.
-     * @param {string} academy   - e.g. 'language'
-     * @param {string} course    - e.g. 'A1'
-     * @param {string} [ret]     - page to return to on back
-     */
     premiumGateUrl: function (academy, course, ret) {
       var url = CONFIG.lockedPage
         + '?academy=' + encodeURIComponent(academy)
@@ -88,20 +79,17 @@
       return url;
     },
 
-    /** Navigate to a named page */
     go: function (name) {
       var page = NAV.pages[name];
       if (page) window.location.href = page;
     },
 
-    /** Detect current level from filename (e.g. A1_Grammar_01_...) */
     detectLevel: function () {
       var file = window.location.pathname.split('/').pop();
       var m = file.match(/^([ABC][012])_/i);
       return m ? m[1].toUpperCase() : null;
     },
 
-    /** Detect current module from filename */
     detectModule: function () {
       var file = window.location.pathname.split('/').pop();
       var m = file.match(/^[ABC][012]_([A-Za-z]+)_/i);
@@ -115,11 +103,6 @@
   // ═══════════════════════════════════════════════════════════════
   var BREADCRUMBS = {
 
-    /**
-     * Build breadcrumb data for the current page context.
-     * @param {object} ctx — { academy?, level?, module?, lesson? }
-     * @returns {Array}    — [{ label, url }, ...]
-     */
     build: function (ctx) {
       var crumbs = [{ label: 'Academy', url: NAV.pages.home }];
       if (ctx.academy) {
@@ -140,7 +123,6 @@
       return crumbs;
     },
 
-    /** Render breadcrumbs into a DOM container */
     render: function (crumbs, container) {
       if (!container) return;
       container.innerHTML = crumbs.map(function (c, i) {
@@ -177,15 +159,14 @@
       data.completed = data.completed || {};
       data.completed[lessonId] = Date.now();
       PROGRESS._save(data);
+      UTILS.events.emit('tgs:lessonComplete', { lessonId: lessonId, date: Date.now() }); /* Sprint-003A hook */
     },
 
-    /** Check whether a lesson has been completed */
     isComplete: function (lessonId) {
       var data = PROGRESS._store();
       return !!(data.completed && data.completed[lessonId]);
     },
 
-    /** Save placement test result */
     savePlacementResult: function (level) {
       var data = PROGRESS._store();
       data.placementLevel = level;
@@ -193,12 +174,10 @@
       PROGRESS._save(data);
     },
 
-    /** Get saved placement test result */
     getPlacementResult: function () {
       return (PROGRESS._store()).placementLevel || null;
     },
 
-    /** Return a summary object for dashboards / AI hooks */
     summary: function () {
       var data = PROGRESS._store();
       return {
@@ -212,52 +191,14 @@
 
   // ═══════════════════════════════════════════════════════════════
   // §5  PREMIUM ACCESS
-  //
-  // LONG-TERM TARGET ARCHITECTURE:
-  //
-  //   Skool Membership
-  //       ↓
-  //   Future Authentication Layer  (Skool SSO / JWT)
-  //       ↓
-  //   Academy Access
-  //
-  // PERMANENT PUBLIC INTERFACE (stable — survives any auth change):
-  //   isUnlocked()  — returns true when the session has premium access
-  //   gate()        — route to target (premium) or locked.html (free)
-  //   upgrade()     — open Skool upgrade page
-  //
-  // Only the body of isUnlocked() changes when the auth layer arrives.
-  // Every caller in every HTML file stays identical.
   // ═══════════════════════════════════════════════════════════════
   var PREMIUM = {
 
-    // ─── PERMANENT INTERFACE ───────────────────────────────────────
-    // These three functions are the stable contract with the rest of
-    // the codebase. Do not change their signatures or remove them.
-    // ───────────────────────────────────────────────────────────────
-
-    /**
-     * Check whether this session has active premium access.
-     *
-     * CURRENT BODY:  delegates to the temporary bridge (_checkLocalStorage).
-     * FUTURE BODY:   validate a Skool SSO token / JWT here instead.
-     *                The function name, signature and all call sites stay unchanged.
-     *
-     * @returns {boolean}
-     */
     isUnlocked: function () {
       /* TEMP_BRIDGE: replace this single line with real auth validation */
       return PREMIUM._checkLocalStorage();
     },
 
-    /**
-     * Gate a premium resource. Permanent — never changes.
-     * Routes to targetUrl (premium) or locked.html (free).
-     *
-     * @param {string} targetUrl  — e.g. 'level-dashboard.html?level=B2'
-     * @param {string} academy    — e.g. 'language'
-     * @param {string} course     — label shown on lock screen, e.g. 'B2'
-     */
     gate: function (targetUrl, academy, course) {
       if (PREMIUM.isUnlocked()) {
         window.location.href = targetUrl;
@@ -270,41 +211,11 @@
       }
     },
 
-    /** Open Skool upgrade page in a new tab. Permanent. */
     upgrade: function () {
       window.open(CONFIG.upgradeUrl, '_blank', 'noopener,noreferrer');
     },
 
-
-    // ┌─────────────────────────────────────────────────────────────┐
-    // │  TEMPORARY BRIDGE — Sprint-002-RC1                          │
-    // │                                                             │
-    // │  TODO: Remove this entire block when the Skool             │
-    // │  authentication layer is implemented.                       │
-    // │                                                             │
-    // │  WHY THIS EXISTS:                                           │
-    // │  GitHub Pages is static — no server-side session and no     │
-    // │  Skool API is available. This bridge provides a             │
-    // │  navigational unlock via a URL token shared privately       │
-    // │  inside the Skool community, stored in localStorage.        │
-    // │  It is a development/testing measure, not a security        │
-    // │  architecture. The real premium value is the Skool          │
-    // │  community (live coaching, Stammtisch, etc.).               │
-    // │                                                             │
-    // │  REMOVAL CHECKLIST (search "TEMP_BRIDGE" for all sites):   │
-    // │    □ CONFIG.premiumKey           (§1)                       │
-    // │    □ CONFIG.premiumStorageKey    (§1)                       │
-    // │    □ PREMIUM._checkLocalStorage  (§5 below)                 │
-    // │    □ PREMIUM._checkUrlActivation (§5 below)                 │
-    // │    □ PREMIUM.activate            (§5 below)                 │
-    // │    □ PREMIUM.deactivate          (§5 below)                 │
-    // │    □ PREMIUM.status              (§5 below)                 │
-    // │    □ PREMIUM._checkUrlActivation() call in init() (§10)     │
-    // │    □ isUnlocked() body (swap for real auth call)            │
-    // │    □ Clear 'tgs_premium_v1' from members' browsers          │
-    // └─────────────────────────────────────────────────────────────┘
-
-    /** @private TEMP_BRIDGE — validate the localStorage activation token */
+    /** @private TEMP_BRIDGE */
     _checkLocalStorage: function () {
       try {
         var raw = localStorage.getItem(CONFIG.premiumStorageKey);
@@ -312,16 +223,16 @@
         var data = JSON.parse(raw);
         if (!data || !data.expires) return false;
         if (Date.now() > data.expires) {
-          localStorage.removeItem(CONFIG.premiumStorageKey); /* expired — clean up */
+          localStorage.removeItem(CONFIG.premiumStorageKey);
           return false;
         }
         return true;
       } catch (e) {
-        return false; /* storage unavailable — fail safe to free */
+        return false;
       }
     },
 
-    /** @private TEMP_BRIDGE — process ?tgs_access= URL param at page load */
+    /** @private TEMP_BRIDGE */
     _checkUrlActivation: function () {
       try {
         var params = UTILS.getParams();
@@ -329,7 +240,6 @@
         var success = PREMIUM.activate(params.tgs_access);
         if (success) {
           if (CONFIG.debug) console.log('[TGS:PREMIUM] ✓ Activated via URL. 🎓');
-          /* Strip token from URL bar — clean URLs after activation */
           var clean = window.location.href
             .replace(/[?&]tgs_access=[^&]*/g, '')
             .replace(/[?&]$/, '');
@@ -337,22 +247,14 @@
         } else {
           if (CONFIG.debug) console.warn('[TGS:PREMIUM] URL activation failed — invalid key.');
         }
-      } catch (e) { /* history API unavailable — fail silently */ }
+      } catch (e) {}
     },
 
-    /**
-     * TEMP_BRIDGE — activate premium for 30 days in this browser.
-     * Called automatically via _checkUrlActivation() on page load.
-     * Can also be run in the browser console for testing:
-     *   TGS.premium.activate(TGS.config.premiumKey)
-     *
-     * @param  {string}  key
-     * @returns {boolean}
-     */
+    /** TEMP_BRIDGE */
     activate: function (key) {
       if (key !== CONFIG.premiumKey) return false;
       try {
-        var TTL_MS = 30 * 24 * 60 * 60 * 1000; /* 30 days */
+        var TTL_MS = 30 * 24 * 60 * 60 * 1000;
         localStorage.setItem(CONFIG.premiumStorageKey, JSON.stringify({
           activated: Date.now(),
           expires:   Date.now() + TTL_MS,
@@ -362,24 +264,13 @@
       } catch (e) { return false; }
     },
 
-    /**
-     * TEMP_BRIDGE — deactivate premium in this browser.
-     * Use to test the free-user experience:
-     *   TGS.premium.deactivate()
-     */
+    /** TEMP_BRIDGE */
     deactivate: function () {
       try { localStorage.removeItem(CONFIG.premiumStorageKey); }
-      catch (e) { /* fail silently */ }
+      catch (e) {}
     },
 
-    /**
-     * TEMP_BRIDGE — return readable activation status.
-     * Useful for Stefan to check member access:
-     *   TGS.premium.status()
-     *   // → { unlocked: true, expiresAt: '28/07/2025', daysLeft: 27 }
-     *
-     * @returns {{ unlocked: boolean, expiresAt: string|null, daysLeft: number|null }}
-     */
+    /** TEMP_BRIDGE */
     status: function () {
       try {
         var raw = localStorage.getItem(CONFIG.premiumStorageKey);
@@ -396,9 +287,6 @@
         return { unlocked: false, expiresAt: null, daysLeft: null };
       }
     }
-
-    // ── TEMP_BRIDGE_END ─────────────────────────────────────────────
-
   };
 
 
@@ -407,68 +295,39 @@
   // ═══════════════════════════════════════════════════════════════
   var ACADEMIES = {
 
-    /**
-     * Central registry of all academies.
-     * ─────────────────────────────────────────────────────────────
-     * To add a new academy: append an entry here.
-     * Pages that render academy cards read this registry —
-     * no HTML changes needed in most cases.
-     * ─────────────────────────────────────────────────────────────
-     */
     registry: [
       {
-        id:       'language',
-        name:     'German Language Academy',
-        tagline:  'A0 to C2 — Master German from the ground up',
-        icon:     '🇩🇪',
-        accent:   '#1464b4',
-        status:   'active',       // 'active' | 'coming-soon' | 'beta'
-        url:      'language-academy.html',
-        free:     true
+        id: 'language', name: 'German Language Academy',
+        tagline: 'A0 to C2 — Master German from the ground up',
+        icon: '🇩🇪', accent: '#1464b4', status: 'active',
+        url: 'language-academy.html', free: true
       },
       {
-        id:       'knowledge',
-        name:     'Germany Knowledge Academy',
-        tagline:  'History, geography, politics & culture',
-        icon:     '🏛️',
-        accent:   '#5c3d11',
-        status:   'coming-soon',
-        url:      null,
-        free:     false
+        id: 'knowledge', name: 'Germany Knowledge Academy',
+        tagline: 'History, geography, politics & culture',
+        icon: '🏛️', accent: '#5c3d11', status: 'coming-soon',
+        url: null, free: false
       },
       {
-        id:       'culinary',
-        name:     'German Culinary Academy',
-        tagline:  'Food, beer, wine & German traditions',
-        icon:     '🍺',
-        accent:   '#c62828',
-        status:   'coming-soon',
-        url:      null,
-        free:     false
+        id: 'culinary', name: 'German Culinary Academy',
+        tagline: 'Food, beer, wine & German traditions',
+        icon: '🍺', accent: '#c62828', status: 'coming-soon',
+        url: null, free: false
       },
       {
-        id:       'living',
-        name:     'Living in Germany Academy',
-        tagline:  'Bureaucracy, life, work & integration',
-        icon:     '🏠',
-        accent:   '#2e7d32',
-        status:   'coming-soon',
-        url:      null,
-        free:     false
+        id: 'living', name: 'Living in Germany Academy',
+        tagline: 'Bureaucracy, life, work & integration',
+        icon: '🏠', accent: '#2e7d32', status: 'coming-soon',
+        url: null, free: false
       },
       {
-        id:       'challenge-arena',
-        name:     'Challenge Arena',
-        tagline:  'Cross-academy challenges, quizzes and competitions',
-        icon:     '🏆',
-        accent:   '#6a1b9a',
-        status:   'coming-soon',
-        url:      null,
-        free:     false
+        id: 'challenge-arena', name: 'Challenge Arena',
+        tagline: 'Cross-academy challenges, quizzes and competitions',
+        icon: '🏆', accent: '#6a1b9a', status: 'coming-soon',
+        url: null, free: false
       }
     ],
 
-    /** Get one academy by ID */
     get: function (id) {
       for (var i = 0; i < ACADEMIES.registry.length; i++) {
         if (ACADEMIES.registry[i].id === id) return ACADEMIES.registry[i];
@@ -476,12 +335,10 @@
       return null;
     },
 
-    /** Get all academies with status === 'active' */
     getActive: function () {
       return ACADEMIES.registry.filter(function (a) { return a.status === 'active'; });
     },
 
-    /** Get all academies with status === 'coming-soon' */
     getComingSoon: function () {
       return ACADEMIES.registry.filter(function (a) { return a.status === 'coming-soon'; });
     }
@@ -490,41 +347,17 @@
 
   // ═══════════════════════════════════════════════════════════════
   // §7  VOCABULARY UNIVERSE  (stub — Sprint-002+)
-  //
-  //  Official product name: 📚 Vocabulary Universe
-  //  Single unified product — free A0–A2, premium B1–C2+.
-  //  Future: Master Vocabulary Database connects all academies.
-  //  Page: vocabulary-universe.html
   // ═══════════════════════════════════════════════════════════════
   var VOCAB = {
 
-    /**
-     * Look up a vocabulary entry across all academies.
-     * Future: queries the central Vocabulary Universe database.
-     *
-     * @param {string} term       — German word or phrase
-     * @param {string} [lang]     — target language code ('en', 'fr' …)
-     * @param {string} [academy]  — originating academy ID
-     * @returns {object|null}
-     */
     lookup: function (term, lang, academy) {
-      // TODO Sprint-002: connect to Vocabulary Universe Master Database
       if (CONFIG.debug) {
         console.log('[TGS:VOCAB] lookup stub — term:', term, '| lang:', lang, '| academy:', academy);
       }
       return null;
     },
 
-    /**
-     * Register vocabulary entries from any academy lesson.
-     * Future: feeds the Vocabulary Universe without duplication.
-     * Every academy (Language, Knowledge, Culinary, Living) can
-     * contribute vocabulary to the shared universe.
-     *
-     * @param {Array}  entries  — [{ de, en, level, academy, tags }, …]
-     */
     register: function (entries) {
-      // TODO Sprint-002: persist to Vocabulary Universe Master Database
       if (CONFIG.debug) {
         console.log('[TGS:VOCAB] register stub — entries:', entries.length);
       }
@@ -537,51 +370,21 @@
   // ═══════════════════════════════════════════════════════════════
   var AI = {
 
-    /**
-     * Request a contextual hint for the current exercise.
-     * Future: calls the AI Learning Assistant API.
-     *
-     * @param {object} context  — { question, level, module, userAnswer }
-     * @returns {Promise<string|null>}
-     */
     hint: function (context) {
       if (CONFIG.debug) console.log('[TGS:AI] hint stub — context:', context);
       return Promise.resolve(null);
     },
 
-    /**
-     * Submit a learner response for AI-powered feedback.
-     * Future: personalised explanations based on error patterns.
-     *
-     * @param {string} response   — what the user answered
-     * @param {string} expected   — correct answer
-     * @param {string} level      — CEFR level ('A1', 'B2' …)
-     * @returns {Promise<string|null>}
-     */
     feedback: function (response, expected, level) {
       if (CONFIG.debug) console.log('[TGS:AI] feedback stub');
       return Promise.resolve(null);
     },
 
-    /**
-     * Personalise the learning path based on progress data.
-     * Future: ML-based adaptive path recommendation.
-     *
-     * @param {object} progressData  — from PROGRESS.summary()
-     * @returns {object|null}        — recommended next steps
-     */
     adapt: function (progressData) {
       if (CONFIG.debug) console.log('[TGS:AI] adapt stub');
       return null;
     },
 
-    /**
-     * Log a learning event for future analytics / AI training.
-     * Future: feeds anonymised data to improvement pipeline.
-     *
-     * @param {string} event   — event type ('lesson_complete', 'quiz_score' …)
-     * @param {object} data    — event payload
-     */
     track: function (event, data) {
       if (CONFIG.debug) console.log('[TGS:AI] track stub — event:', event, '| data:', data);
     }
@@ -593,12 +396,10 @@
   // ═══════════════════════════════════════════════════════════════
   var UTILS = {
 
-    /** Capitalise first character of a string */
     capitalize: function (str) {
       return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
     },
 
-    /** Parse current URL query parameters into an object */
     getParams: function () {
       var params = {};
       window.location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) {
@@ -607,7 +408,6 @@
       return params;
     },
 
-    /** Minimal event bus for cross-module communication */
     events: (function () {
       var listeners = {};
       return {
@@ -637,7 +437,6 @@
         '%c TheGermanStefan Academy Engine v' + CONFIG.version + ' (' + CONFIG.sprint + ') ',
         'background:#0b2545;color:#f9a825;font-weight:bold;padding:4px 10px;border-radius:4px'
       );
-      /* TEMP_BRIDGE: remove this debug line with the bridge */
       console.log('[TGS:PREMIUM] status:', PREMIUM.status());
     }
 
