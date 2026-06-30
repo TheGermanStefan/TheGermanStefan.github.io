@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academy Home Â· TheGermanStefan Academy</title>
+<title>Academy Home · TheGermanStefan Academy</title>
 <meta name="robots" content="noindex">
 <style>
 /*
- * academy-home.html â Academy Home: The Living Academy
- * TheGermanStefan Academy Â· Sprint-003C (Journey Intelligence Edition)
+ * academy-home.html — Academy Home: The Living Academy
+ * TheGermanStefan Academy · Sprint-003C (Journey Intelligence Edition)
  *
  * Sprint-003B-1 Components (FROZEN):
  *   1. Welcome Header    2. German Buddy Card   3. Today's Focus
@@ -18,8 +18,8 @@
  *   6. German Passport Preview  7. Journey Preview  8. Buddy Practice
  *   +  Academy Identity Card
  *
- * Sprint-003C â Journey Intelligence Engine (this sprint):
- *   ð§  Remember  ð§­ Guide  â¤ï¸ Motivate  ð Celebrate
+ * Sprint-003C — Journey Intelligence Engine (this sprint):
+ *   🧠 Remember  🧭 Guide  ❤️ Motivate  🏆 Celebrate
  *   - buildJourneyIntelligence() replaces getLivingGreeting + selectBuddyMessage + selectTodaysFocus
  *   - MESSAGES library: all JI-aware strings with Felix / Sophia variants
  *   - Buddy name: "Felix" / "Sophia" (from tgs_profile_v1.buddyId)
@@ -36,15 +36,15 @@
  *   Daily Challenge, Your German Journey, Buddy Avatar illustrations,
  *   First Welcome Experience (Buddy Selection), Academy Passport Number
  *
- * Data sources: tgs-progress.js Â· tgs-profile.js Â· tgs-content-registry.js
- *               tgs-achievements.js Â· tgs_home_v1 (home state key)
+ * Data sources: tgs-progress.js · tgs-profile.js · tgs-content-registry.js
+ *               tgs-achievements.js · tgs_home_v1 (home state key)
  */
 
-/* ââ RESET & DESIGN TOKENS ââââââââââââââââââââââââââââââââââââââââ */
+/* ── RESET & DESIGN TOKENS ──────────────────────────────────────── */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Brand tokens â match level-dashboard.html exactly */
+  /* Brand tokens — match level-dashboard.html exactly */
   --navy:      #0b2545;
   --navy2:     #0d2e56;
   --blue:      #1464b4;
@@ -54,13 +54,13 @@
   --gray:      #f0f4f8;
   --border:    #e0e6f0;
 
-  /* Card tokens â upgraded for premium material feel */
+  /* Card tokens — upgraded for premium material feel */
   --card-bg:   rgba(255,255,255,.06);
   --card-bd:   rgba(255,255,255,.14);
   --txt-dim:   rgba(255,255,255,.55);
   --txt-faint: rgba(255,255,255,.3);
 
-  /* Level colour â set by JS after TGS_PROFILE.getCurrentLevel() */
+  /* Level colour — set by JS after TGS_PROFILE.getCurrentLevel() */
   --level-color: #1464b4;
 
   /* Home layout */
@@ -85,9 +85,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ââ ATMOSPHERIC BACKGROUND LAYER âââââââââââââââââââââââââââââââââ */
+/* ── ATMOSPHERIC BACKGROUND LAYER ───────────────────────────────── */
 /*
- * Fixed decorative layer â aria-hidden, pointer-events none.
+ * Fixed decorative layer — aria-hidden, pointer-events none.
  * Creates cinematic depth behind all content without affecting layout.
  * Two radial gradients: a cool blue glow upper-left, a deep blue
  * lower-right. Together they give the impression of light falling
@@ -103,7 +103,7 @@ body {
     radial-gradient(ellipse 55% 40% at 84% 100%,  rgba(15,50,110,.14)  0%, transparent 100%);
 }
 
-/* ââ TOPBAR âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* ── TOPBAR ─────────────────────────────────────────────────────── */
 .topbar {
   background: rgba(0,0,0,.35);
   padding: 10px 20px;
@@ -128,7 +128,7 @@ body {
 }
 .tgs-logo span { color: var(--amber); }
 
-/* Desktop nav links inside topbar â hidden on mobile */
+/* Desktop nav links inside topbar — hidden on mobile */
 .topbar-nav {
   display: none;
   align-items: center;
@@ -173,7 +173,7 @@ body {
 }
 .btn-skool:hover { filter: brightness(1.1); }
 
-/* ââ HOME LAYOUT ââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* ── HOME LAYOUT ────────────────────────────────────────────────── */
 .home-wrap {
   max-width: var(--home-max);
   margin: 0 auto;
@@ -191,11 +191,11 @@ body {
   }
 }
 
-/* ââ BASE COMPONENT CARD â PREMIUM MATERIAL âââââââââââââââââââââââ */
+/* ── BASE COMPONENT CARD — PREMIUM MATERIAL ─────────────────────── */
 /*
- * Design upgrade: richer surface â box-shadow creates depth below
+ * Design upgrade: richer surface — box-shadow creates depth below
  * the card; inset 1px top highlight mimics a surface catching light.
- * Padding increased 20px â 24px. Border opacity 0.10 â 0.14.
+ * Padding increased 20px → 24px. Border opacity 0.10 → 0.14.
  */
 .component {
   background: var(--card-bg);
@@ -216,14 +216,14 @@ body {
   margin-bottom: 12px;
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 1: WELCOME HEADER â HERO TREATMENT
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 1: WELCOME HEADER — HERO TREATMENT
    Design upgrade: no left-border card pattern (that is a dashboard
    convention). The hero breathes more, has atmospheric depth, and
    the greeting + name command the top of the page.
-   Living Academy ready â time-of-day greeting active (Sprint-003B-1)
-   Full Living Academy (birthday, cultural calendar) â Sprint-003B-3
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+   Living Academy ready — time-of-day greeting active (Sprint-003B-1)
+   Full Living Academy (birthday, cultural calendar) → Sprint-003B-3
+══════════════════════════════════════════════════════════════════ */
 .welcome-section {
   background: linear-gradient(160deg,
     rgba(255,255,255,.08) 0%,
@@ -231,7 +231,7 @@ body {
     rgba(249,168,37,.04)  100%
   );
   border: 1px solid rgba(255,255,255,.12);
-  /* No border-left accent â this is a hero, not a dashboard panel */
+  /* No border-left accent — this is a hero, not a dashboard panel */
   border-radius: var(--radius);
   padding: 42px 24px 30px;
   box-shadow:
@@ -239,7 +239,7 @@ body {
     inset 0 1px 0 rgba(255,255,255,.13);
 }
 
-/* Greeting line â time-of-day German greeting */
+/* Greeting line — time-of-day German greeting */
 .welcome-greeting {
   font-size: 14px;
   font-weight: 600;
@@ -265,7 +265,7 @@ body {
   flex-wrap: wrap;
   margin-bottom: 18px;
 }
-/* Design upgrade: 22px â 28px â confident, headline scale */
+/* Design upgrade: 22px → 28px — confident, headline scale */
 .welcome-name {
   font-size: 28px;
   font-weight: 900;
@@ -292,7 +292,7 @@ body {
 }
 /*
  * Design upgrade: gold is now reserved for the CTA button and active
- * nav only. Stat chips use clean white/opacity treatment â they read
+ * nav only. Stat chips use clean white/opacity treatment — they read
  * as neutral data, not competing calls to action.
  */
 .stat-chip {
@@ -318,26 +318,26 @@ body {
   font-weight: 700;
   color: var(--txt-faint);
   cursor: default;
-  /* Sprint-003B-2: this becomes a tappable expand â Academy Identity Card */
+  /* Sprint-003B-2: this becomes a tappable expand → Academy Identity Card */
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 2: GERMAN BUDDY CARD â COMPANION PRESENCE
-   Design upgrade: avatar 40px â 76px with amber gradient ring.
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 2: GERMAN BUDDY CARD — COMPANION PRESENCE
+   Design upgrade: avatar 40px → 76px with amber gradient ring.
    Buddy reads as a real companion, not a system notification.
    Message text is larger and breathes more. Name is title-case,
    not an all-caps system label.
    Template-based (Sprint-003B-1)
-   Last Visit Memory â Sprint-003B-3
-   AI-driven â Future Buddy Sprint
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+   Last Visit Memory → Sprint-003B-3
+   AI-driven → Future Buddy Sprint
+══════════════════════════════════════════════════════════════════ */
 .buddy-card {
   display: flex;
   gap: 18px;
   align-items: flex-start;
 }
 /*
- * Design upgrade: 40px â 76px. Gradient ring (level-color â amber)
+ * Design upgrade: 40px → 76px. Gradient ring (level-color → amber)
  * signals that the Buddy is part of the same Academy identity system.
  * Drop shadow gives the avatar physical presence on the card.
  */
@@ -357,7 +357,7 @@ body {
 }
 .buddy-body { flex: 1; min-width: 0; }
 /*
- * Design upgrade: sentence-case name with amber tint â reads as a
+ * Design upgrade: sentence-case name with amber tint — reads as a
  * person's name/title, not a system component label.
  */
 .buddy-name {
@@ -366,9 +366,9 @@ body {
   color: rgba(249,168,37,.65);
   margin-bottom: 8px;
   letter-spacing: .1px;
-  /* No text-transform: uppercase â this is a companion, not a label */
+  /* No text-transform: uppercase — this is a companion, not a label */
 }
-/* Design upgrade: 14px â 15px, more breathing room between lines */
+/* Design upgrade: 14px → 15px, more breathing room between lines */
 .buddy-message {
   font-size: 15px;
   line-height: 1.7;
@@ -386,11 +386,11 @@ body {
   /* Activates when Buddy conversation page is built */
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+/* ══════════════════════════════════════════════════════════════════
    COMPONENT 3: TODAY'S FOCUS
    Rule-based (Sprint-003B-1)
-   Renamed from "Today's Mission" â see Blueprint v2.0 Â§25
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+   Renamed from "Today's Mission" — see Blueprint v2.0 §25
+══════════════════════════════════════════════════════════════════ */
 .focus-card {
   display: flex;
   align-items: center;
@@ -421,15 +421,15 @@ body {
   color: rgba(255,255,255,.9);
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 4: CONTINUE JOURNEY  (PRIMARY CTA â THE CENTREPIECE)
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 4: CONTINUE JOURNEY  (PRIMARY CTA — THE CENTREPIECE)
    Design upgrade: the card now glows outward (ambient box-shadow).
    The ::before pseudo-element becomes a soft corner radial glow
-   rather than a solid accent bar â more cinematic, less dashboard.
+   rather than a solid accent bar — more cinematic, less dashboard.
    Button gains gold box-shadow to feel luminous.
    SACRED RULE: Always visible above the fold on mobile.
    Nothing competes with this element visually.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 .cta-card {
   background: linear-gradient(150deg,
     rgba(255,255,255,.10) 0%,
@@ -441,7 +441,7 @@ body {
   position: relative;
   overflow: hidden;
   /*
-   * The card emanates light â ambient blue glow behind it (not a
+   * The card emanates light — ambient blue glow behind it (not a
    * drop shadow), plus depth shadow and inset highlight.
    */
   box-shadow:
@@ -485,7 +485,7 @@ body {
   color: var(--txt-dim);
   font-weight: 600;
 }
-/* Design upgrade: lesson title 20px â 23px â it earns headline scale */
+/* Design upgrade: lesson title 20px → 23px — it earns headline scale */
 .cta-lesson-title {
   font-size: 23px;
   font-weight: 900;
@@ -506,8 +506,8 @@ body {
   gap: 4px;
 }
 /*
- * Design upgrade: button padding 14px â 16px (larger touch target,
- * more weight). Gold box-shadow makes the button appear to glow â
+ * Design upgrade: button padding 14px → 16px (larger touch target,
+ * more weight). Gold box-shadow makes the button appear to glow —
  * reinforcing it as the single most important action on the page.
  */
 .btn-continue {
@@ -551,12 +551,12 @@ body {
   margin-bottom: 8px;
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 5: PROGRESS SUMMARY â ACHIEVEMENT WALL
-   Design upgrade: numbers 20px â 30px (proud, scoreboard scale).
-   Progress bar 6px â 9px with subtle shimmer animation.
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 5: PROGRESS SUMMARY — ACHIEVEMENT WALL
+   Design upgrade: numbers 20px → 30px (proud, scoreboard scale).
+   Progress bar 6px → 9px with subtle shimmer animation.
    Motion-safe: shimmer gated behind prefers-reduced-motion check.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 .progress-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -572,7 +572,7 @@ body {
   padding: 16px 10px;
   text-align: center;
 }
-/* Design upgrade: 20px â 30px â numbers should feel proud */
+/* Design upgrade: 20px → 30px — numbers should feel proud */
 .prog-stat-val {
   font-size: 30px;
   font-weight: 900;
@@ -604,7 +604,7 @@ body {
   font-weight: 700;
   color: var(--level-color);
 }
-/* Design upgrade: 6px â 9px â a more substantial track */
+/* Design upgrade: 6px → 9px — a more substantial track */
 .pbar-wrap {
   background: rgba(255,255,255,.10);
   border-radius: 99px;
@@ -613,7 +613,7 @@ body {
 }
 /*
  * Design upgrade: bar carries a moving highlight (shimmer) using
- * background-position animation â no transform, no layout impact.
+ * background-position animation — no transform, no layout impact.
  * Gated behind prefers-reduced-motion for accessibility.
  */
 .pbar-fill {
@@ -647,11 +647,11 @@ body {
   color: var(--txt-faint);
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+/* ══════════════════════════════════════════════════════════════════
    SKELETON LOADING STATES
    Sections get .is-loading until JS renders them.
    Since data is from localStorage, duration is <50ms typically.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 .is-loading {
   pointer-events: none;
 }
@@ -689,13 +689,13 @@ body {
 .stagger-7 { animation-delay: 300ms; }
 .stagger-8 { animation-delay: 350ms; }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   IDENTITY CARD â Collapsible from Welcome Header
+/* ══════════════════════════════════════════════════════════════════
+   IDENTITY CARD — Collapsible from Welcome Header
    Sprint-003B-2
    Replaces the Sprint-003B-1 .identity-card-stub placeholder.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 
-/* Toggle button â replaces the static stub */
+/* Toggle button — replaces the static stub */
 .identity-card-trigger {
   display: inline-flex;
   align-items: center;
@@ -723,7 +723,7 @@ body {
 }
 .identity-card-trigger.open .id-trigger-arrow { transform: rotate(180deg); }
 
-/* Collapsible panel â max-height transition */
+/* Collapsible panel — max-height transition */
 .identity-card-panel {
   max-height: 0;
   overflow: hidden;
@@ -744,7 +744,7 @@ body {
   );
   border: 1px solid rgba(255,255,255,.15);
   border-radius: 14px;
-  padding: 20px 20px 6px;
+  padding: 20px 20px 16px;
   position: relative;
   overflow: hidden;
   box-shadow:
@@ -846,11 +846,12 @@ body {
   letter-spacing: .5px;
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 6: PASSPORT PEVIEP  Tâ 2 Sprint-003B-2 â miniature stamp layout (not dot indicators)
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 6: PASSPORT PREVIEW
+   Sprint-003B-2 — miniature stamp layout (not dot indicators)
    Refinement 1: stamp visual grid, not dot indicators
    Refinement 5: "Recognised Certifications" terminology only
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 
 .passport-stamp-count {
   font-size: 12px;
@@ -859,7 +860,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* 6-column Ã 2-row miniature stamp grid â passport page feel */
+/* 6-column × 2-row miniature stamp grid — passport page feel */
 .passport-mini-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -910,7 +911,7 @@ body {
   color: rgba(255,255,255,.2);
 }
 
-/* Passport CTA â disabled until Passport page is built */
+/* Passport CTA — disabled until Passport page is built */
 .btn-passport {
   display: flex;
   align-items: center;
@@ -933,10 +934,11 @@ body {
   color: #fff;
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   COMPONENT 7: JOURNEY PEVIEPSprint-003B-2 â Yesterday / Today / Next Destination
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 7: JOURNEY PREVIEW
+   Sprint-003B-2 — Yesterday / Today / Next Destination
    Refinement 2: travel metaphor wording exactly as specified
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 
 .journey-stops { display: flex; flex-direction: column; }
 
@@ -1008,11 +1010,11 @@ body {
 .journey-stop.present .journey-stop-sub { color: rgba(255,255,255,.45); }
 .journey-stop.future  .journey-stop-sub { color: rgba(255,255,255,.32); }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+/* ══════════════════════════════════════════════════════════════════
    COMPONENT 8: BUDDY PRACTICE
    Sprint-003B-2 (Refinement 4: renamed from "Quick Practice")
    Buddy attributes the recommendation; student chooses practice type.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+══════════════════════════════════════════════════════════════════ */
 
 .buddy-practice-intro {
   font-size: 12px;
@@ -1095,11 +1097,11 @@ body {
   color: rgba(255,255,255,.3);
 }
 
-/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   NAVIGATION â BOTTOM BAR (mobile) + integrated in topbar (desktop)
-   Design upgrade: active indicator wider (24â32px), icon scale
-   slightly larger (1.1â1.15). Gold stays on active state only.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* ══════════════════════════════════════════════════════════════════
+   NAVIGATION — BOTTOM BAR (mobile) + integrated in topbar (desktop)
+   Design upgrade: active indicator wider (24→32px), icon scale
+   slightly larger (1.1→1.15). Gold stays on active state only.
+══════════════════════════════════════════════════════════════════ */
 .bottom-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -1112,7 +1114,7 @@ body {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
-/* Hide bottom nav on desktop â topbar handles nav */
+/* Hide bottom nav on desktop — topbar handles nav */
 @media (min-width: 700px) {
   .bottom-nav { display: none; }
 }
@@ -1137,11 +1139,11 @@ body {
 .nav-item .nav-lbl  { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
 
 .nav-item.active             { color: var(--amber); }
-/* Design upgrade: scale 1.1 â 1.15 â the active icon steps forward */
+/* Design upgrade: scale 1.1 → 1.15 — the active icon steps forward */
 .nav-item.active .nav-icon   { transform: scale(1.15); }
 
 /* Active indicator bar */
-/* Design upgrade: width 24px â 32px â more visible crown */
+/* Design upgrade: width 24px → 32px — more visible crown */
 .nav-item.active::after {
   content: '';
   position: absolute;
@@ -1153,14 +1155,14 @@ body {
   border-radius: 0 0 99px 99px;
 }
 
-/* "Coming soon" nav items â visible but softened */
+/* "Coming soon" nav items — visible but softened */
 .nav-item.coming {
   opacity: .38;
   cursor: default;
   pointer-events: none;
 }
 
-/* ââ FOOTER âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* ── FOOTER ─────────────────────────────────────────────────────── */
 footer {
   text-align: center;
   padding: 18px;
@@ -1175,9 +1177,9 @@ footer {
 footer a { color: rgba(255,255,255,.35); text-decoration: none; }
 footer a:hover { color: rgba(255,255,255,.6); }
 
-/* ââ SPRINT-003C: JOURNEY INTELLIGENCE ââââââââââââââââââââââââââââ */
+/* ── SPRINT-003C: JOURNEY INTELLIGENCE ──────────────────────────── */
 
-/* Journey Preview â level progress bar inside Today stop */
+/* Journey Preview — level progress bar inside Today stop */
 .journey-today-meta {
   margin-top: 6px;
 }
@@ -1208,13 +1210,13 @@ footer a:hover { color: rgba(255,255,255,.6); }
   margin-top: 2px;
 }
 
-/* Buddy card â avatar placeholder slot (reserved for illustrations) */
+/* Buddy card — avatar placeholder slot (reserved for illustrations) */
 .buddy-avatar-placeholder {
   width: 0; height: 0; overflow: hidden;
   /* Will become the illustration container in a future UI Polish Sprint */
 }
 
-/* Passport â milestone anticipation line */
+/* Passport — milestone anticipation line */
 .passport-milestone-near {
   font-size: 12px;
   color: var(--amber);
@@ -1227,14 +1229,14 @@ footer a:hover { color: rgba(255,255,255,.6); }
 </head>
 <body>
 
-<!-- Atmospheric background layer â fixed, decorative, aria-hidden -->
+<!-- Atmospheric background layer — fixed, decorative, aria-hidden -->
 <div class="home-bg-layer" aria-hidden="true"></div>
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+<!-- ══════════════════════════════════════════════════════════════
      TOPBAR
      Desktop: contains navigation links
      Mobile: logo + Skool button only (bottom nav handles navigation)
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+══════════════════════════════════════════════════════════════════ -->
 <nav class="topbar" role="navigation" aria-label="Primary">
   <a class="tgs-logo" href="academy-home.html">
     The<span>German</span>Stefan
@@ -1243,24 +1245,24 @@ footer a:hover { color: rgba(255,255,255,.6); }
 
   <!-- Desktop nav -->
   <div class="topbar-nav" role="menubar">
-    <a class="tnav-item active" href="academy-home.html" role="menuitem">ð  Home</a>
-    <a class="tnav-item" href="#" id="tnav-learn" role="menuitem">ð Learn</a>
-    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in Sprint-003B-2">ð Passport</a>
-    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in future sprint">ð¤ Buddy</a>
-    <a class="tnav-item" href="vocabulary-universe.html" role="menuitem">ð¯ Practice</a>
+    <a class="tnav-item active" href="academy-home.html" role="menuitem">🏠 Home</a>
+    <a class="tnav-item" href="#" id="tnav-learn" role="menuitem">📚 Learn</a>
+    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in Sprint-003B-2">🛂 Passport</a>
+    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in future sprint">🤖 Buddy</a>
+    <a class="tnav-item" href="vocabulary-universe.html" role="menuitem">🎯 Practice</a>
   </div>
 
   <div class="topbar-right">
-    <a class="btn-skool" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool â</a>
+    <a class="btn-skool" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool →</a>
   </div>
 </nav>
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+<!-- ══════════════════════════════════════════════════════════════
      MAIN CONTENT
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+══════════════════════════════════════════════════════════════════ -->
 <main class="home-wrap" id="home-main">
 
-  <!-- ââ COMPONENT 1: WELCOME HEADER ââââââââââââââââââââââââââââ -->
+  <!-- ── COMPONENT 1: WELCOME HEADER ──────────────────────────── -->
   <!-- Living Academy ready: greeting slot is present for Sprint-003B-3 -->
   <section id="comp-welcome" class="welcome-section fade-in stagger-1 is-loading" aria-label="Welcome">
     <div class="skel skel-h2"></div>
@@ -1268,8 +1270,8 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="skel skel-h3" style="margin-top:14px;width:50%"></div>
   </section>
 
-  <!-- ââ COMPONENT 2: GERMAN BUDDY CARD âââââââââââââââââââââââââ -->
-  <!-- Template-based (Sprint-003B-1). Last Visit Memory â Sprint-003B-3 -->
+  <!-- ── COMPONENT 2: GERMAN BUDDY CARD ───────────────────────── -->
+  <!-- Template-based (Sprint-003B-1). Last Visit Memory → Sprint-003B-3 -->
   <section id="comp-buddy" class="component fade-in stagger-2 is-loading" aria-label="German Buddy">
     <div class="buddy-card">
       <div class="buddy-avatar skel" style="width:76px;height:76px"></div>
@@ -1281,14 +1283,14 @@ footer a:hover { color: rgba(255,255,255,.6); }
     </div>
   </section>
 
-  <!-- ââ COMPONENT 3: TODAY'S FOCUS âââââââââââââââââââââââââââââ -->
-  <!-- Renamed from "Today's Mission" â Blueprint v2.0 Â§25 -->
+  <!-- ── COMPONENT 3: TODAY'S FOCUS ───────────────────────────── -->
+  <!-- Renamed from "Today's Mission" — Blueprint v2.0 §25 -->
   <section id="comp-focus" class="component fade-in stagger-3 is-loading" aria-label="Today's Focus">
     <div class="skel skel-h3"></div>
     <div class="skel skel-h3" style="margin-top:8px;width:60%"></div>
   </section>
 
-  <!-- ââ COMPONENT 4: CONTINUE JOURNEY (PRIMARY CTA) âââââââââââ -->
+  <!-- ── COMPONENT 4: CONTINUE JOURNEY (PRIMARY CTA) ─────────── -->
   <!-- SACRED RULE: Must remain above the fold on mobile.         -->
   <!-- Do not insert content above this section without review.   -->
   <section id="comp-cta" class="cta-card fade-in stagger-4 is-loading" aria-label="Continue your journey">
@@ -1298,13 +1300,13 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="skel skel-btn"></div>
   </section>
 
-  <!-- ââ COMPONENT 5: PROGRESS SUMMARY âââââââââââââââââââââââââ -->
+  <!-- ── COMPONENT 5: PROGRESS SUMMARY ───────────────────────── -->
   <section id="comp-progress" class="component fade-in stagger-5 is-loading" aria-label="Your progress">
     <div class="skel" style="height:78px;width:100%;border-radius:8px"></div>
     <div class="skel" style="height:20px;width:100%;border-radius:99px;margin-top:16px"></div>
   </section>
 
-  <!-- ââ COMPONENT 6: PASSPORT PREVIEW âââââââââââââââââââââââââ -->
+  <!-- ── COMPONENT 6: PASSPORT PREVIEW ───────────────────────── -->
   <!-- Sprint-003B-2: Miniature stamp layout (Refinement 1)       -->
   <!-- Recognised Certifications terminology (Refinement 5)       -->
   <section id="comp-passport" class="component fade-in stagger-6 is-loading" aria-label="Your Passport">
@@ -1315,7 +1317,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="skel" style="height:42px;width:100%;border-radius:8px;margin-top:8px"></div>
   </section>
 
-  <!-- ââ COMPONENT 7: JOURNEY PREVIEW âââââââââââââââââââââââââââ -->
+  <!-- ── COMPONENT 7: JOURNEY PREVIEW ─────────────────────────── -->
   <!-- Sprint-003B-2: Yesterday / Today / Next Destination (R2)    -->
   <section id="comp-journey" class="component fade-in stagger-7 is-loading" aria-label="Your Journey">
     <div class="skel" style="height:14px;width:40%;border-radius:4px"></div>
@@ -1324,9 +1326,9 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="skel" style="height:52px;width:100%;border-radius:8px;margin-top:6px"></div>
   </section>
 
-  <!-- ââ COMPONENT 8: BUDDY PRACTICE ââââââââââââââââââââââââââââ -->
+  <!-- ── COMPONENT 8: BUDDY PRACTICE ──────────────────────────── -->
   <!-- Sprint-003B-2 (Refinement 4: renamed from "Quick Practice") -->
-  <!-- Daily Challenge architecture reserved â see JS comment      -->
+  <!-- Daily Challenge architecture reserved — see JS comment      -->
   <section id="comp-buddy-practice" class="component fade-in stagger-8 is-loading" aria-label="Buddy Practice">
     <div class="skel" style="height:14px;width:40%;border-radius:4px"></div>
     <div class="skel" style="height:12px;width:60%;border-radius:4px;margin-top:10px"></div>
@@ -1335,87 +1337,87 @@ footer a:hover { color: rgba(255,255,255,.6); }
   </section>
 
   <!--
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
   SPRINT-003B-2 STATUS: IMPLEMENTED
-  Components 6â8 + Identity Card expand are live above.
+  Components 6–8 + Identity Card expand are live above.
 
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-  DAILY CHALLENGE â RESERVED ARCHITECTURE (Sprint-003B-2, R6)
+  ════════════════════════════════════════════════════════════════
+  DAILY CHALLENGE — RESERVED ARCHITECTURE (Sprint-003B-2, R6)
   A daily rotating challenge card will appear below Buddy Practice.
   Seed: TGS_CONTENT rotating by day-of-year.
   XP: bonus multiplier for daily challenge completion.
   Storage: tgs_home_v1.lastDailyChallengeId + date.
   Implementation: Future dedicated sprint.
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
 
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
   SPRINT-003B-3 RESERVED SLOTS
   Living Academy full (birthday, cultural calendar, anniversary)
   Last Visit Memory (tgs_home_v1 infrastructure is already live)
   Discover Germany Today
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
 
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-  ACADEMY PASSPORT NUMBER â PERMANENT ARCHITECTURE NOTE (R3)
+  ════════════════════════════════════════════════════════════════
+  ACADEMY PASSPORT NUMBER — PERMANENT ARCHITECTURE NOTE (R3)
   Sprint-003B-2 derives passport numbers client-side from the
   profile creation timestamp (TGS-YYYY-NNNNN format).
   When server infrastructure is established, Passport Numbers
   should be permanent sequential integers issued at registration,
   stored server-side, and retrieved via authenticated account.
   The display format TGS-YYYY-NNNNN is intentionally reserved.
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
 
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-  YOUR GERMAN JOURNEY â RESERVED ARCHITECTURE
-  Annual personal learning summary â Spotify Wrapped spirit.
-  Suggested content: words learned Â· lessons completed Â· study
-  hours Â· longest streak Â· stamps earned Â· passport pages Â·
-  favourite learning category Â· biggest achievement of the year.
+  ════════════════════════════════════════════════════════════════
+  YOUR GERMAN JOURNEY — RESERVED ARCHITECTURE
+  Annual personal learning summary — Spotify Wrapped spirit.
+  Suggested content: words learned · lessons completed · study
+  hours · longest streak · stamps earned · passport pages ·
+  favourite learning category · biggest achievement of the year.
   Implementation: Future dedicated sprint.
   Data source: TGS_PROGRESS + TGS_ACHIEVEMENTS (already captured).
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  ════════════════════════════════════════════════════════════════
   -->
 
 </main><!-- /home-wrap -->
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-     BOTTOM NAVIGATION (mobile only â hidden on desktop via CSS)
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- ══════════════════════════════════════════════════════════════
+     BOTTOM NAVIGATION (mobile only — hidden on desktop via CSS)
+══════════════════════════════════════════════════════════════════ -->
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
   <a class="nav-item active" href="academy-home.html" aria-current="page">
-    <span class="nav-icon" aria-hidden="true">ð </span>
+    <span class="nav-icon" aria-hidden="true">🏠</span>
     <span class="nav-lbl">Home</span>
   </a>
   <a class="nav-item" href="#" id="bnav-learn">
-    <span class="nav-icon" aria-hidden="true">ð</span>
+    <span class="nav-icon" aria-hidden="true">📚</span>
     <span class="nav-lbl">Learn</span>
   </a>
   <a class="nav-item coming" href="#" aria-disabled="true" aria-label="Passport (coming soon)">
-    <span class="nav-icon" aria-hidden="true">ð</span>
+    <span class="nav-icon" aria-hidden="true">🛂</span>
     <span class="nav-lbl">Passport</span>
   </a>
   <a class="nav-item coming" href="#" aria-disabled="true" aria-label="Buddy (coming soon)">
-    <span class="nav-icon" aria-hidden="true">ð¤</span>
+    <span class="nav-icon" aria-hidden="true">🤖</span>
     <span class="nav-lbl">Buddy</span>
   </a>
   <a class="nav-item" href="vocabulary-universe.html">
-    <span class="nav-icon" aria-hidden="true">ð¯</span>
+    <span class="nav-icon" aria-hidden="true">🎯</span>
     <span class="nav-lbl">Practice</span>
   </a>
 </nav>
 
 <footer>
-  &copy; TheGermanStefan Academy &nbsp;Â·&nbsp;
-  <a href="language-academy.html">Language Academy</a> &nbsp;Â·&nbsp;
-  <a href="placement-test.html">Placement Test</a> &nbsp;Â·&nbsp;
-  <a href="vocabulary-universe.html">Vocabulary Universe</a> &nbsp;Â·&nbsp;
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="language-academy.html">Language Academy</a> &nbsp;·&nbsp;
+  <a href="placement-test.html">Placement Test</a> &nbsp;·&nbsp;
+  <a href="vocabulary-universe.html">Vocabulary Universe</a> &nbsp;·&nbsp;
   <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
 </footer>
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-     FOUNDATION LAYER â Sprint-003A
+<!-- ══════════════════════════════════════════════════════════════
+     FOUNDATION LAYER — Sprint-003A
      Load order is critical. Do not reorder.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+══════════════════════════════════════════════════════════════════ -->
 <script src="tgs-core.js"></script>
 <script src="tgs-levels.js"></script>
 <script src="tgs-progress.js"></script>
@@ -1423,22 +1425,22 @@ footer a:hover { color: rgba(255,255,255,.6); }
 <script src="tgs-content-registry.js"></script>
 <script src="tgs-achievements.js"></script>
 
-<!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-     ACADEMY HOME â Sprint-003B-1
+<!-- ══════════════════════════════════════════════════════════════
+     ACADEMY HOME — Sprint-003B-1
      Reads from Foundation Layer (Sprint-003A).
      Owns one localStorage key: tgs_home_v1
      Renders all Sprint-003B-1 components.
      Wires live Foundation Layer events.
      NOTE: This script block is unchanged from the functional MVP.
      The Design Upgrade is CSS-only.
-ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+══════════════════════════════════════════════════════════════════ -->
 <script>
 (function () {
   'use strict';
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  /* ──────────────────────────────────────────────────────────────
      CONSTANTS
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  ────────────────────────────────────────────────────────────── */
   var HOME_STORAGE_KEY = 'tgs_home_v1';
   var HOME_VERSION     = '1.0.0';
 
@@ -1458,26 +1460,26 @@ footer a:hover { color: rgba(255,255,255,.6); }
     C2: 'C2 Mastery'
   };
 
-  /* Level progression order â static, no FL query needed */
+  /* Level progression order — static, no FL query needed */
   var LEVEL_ORDER = ['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   /*
-   * STAMP MANIFEST â Sprint-003B-2
+   * STAMP MANIFEST — Sprint-003B-2
    * Must match stamp IDs emitted by tgs-achievements.js exactly.
    * stampId field is the authoritative key; icon/name are display only.
    */
   var STAMP_MANIFEST = [
-    { id: 'cross_academyEntry',    icon: 'ð', name: 'Academy Entry'    },
-    { id: 'milestone_lessons_1',   icon: 'âï¸',  name: 'First Lesson'     },
-    { id: 'milestone_lessons_10',  icon: 'ð', name: '10 Lessons'       },
-    { id: 'milestone_lessons_25',  icon: 'ð', name: '25 Lessons'       },
-    { id: 'milestone_lessons_50',  icon: 'ð', name: '50 Lessons'       },
-    { id: 'milestone_lessons_100', icon: 'ð', name: '100 Lessons'      },
-    { id: 'milestone_streak_3',    icon: 'ð¥', name: '3-Day Streak'     },
-    { id: 'milestone_streak_7',    icon: 'â¡', name: '7-Day Streak'     },
-    { id: 'milestone_streak_30',   icon: 'ð«', name: '30-Day Streak'    },
-    { id: 'milestone_streak_100',  icon: 'ð', name: '100-Day Streak'   },
-    { id: 'milestone_streak_365',  icon: 'â­', name: '365-Day Streak'   }
+    { id: 'cross_academyEntry',    icon: '🎓', name: 'Academy Entry'    },
+    { id: 'milestone_lessons_1',   icon: '✏️',  name: 'First Lesson'     },
+    { id: 'milestone_lessons_10',  icon: '📚', name: '10 Lessons'       },
+    { id: 'milestone_lessons_25',  icon: '🌟', name: '25 Lessons'       },
+    { id: 'milestone_lessons_50',  icon: '🏆', name: '50 Lessons'       },
+    { id: 'milestone_lessons_100', icon: '👑', name: '100 Lessons'      },
+    { id: 'milestone_streak_3',    icon: '🔥', name: '3-Day Streak'     },
+    { id: 'milestone_streak_7',    icon: '⚡', name: '7-Day Streak'     },
+    { id: 'milestone_streak_30',   icon: '💫', name: '30-Day Streak'    },
+    { id: 'milestone_streak_100',  icon: '🌙', name: '100-Day Streak'   },
+    { id: 'milestone_streak_365',  icon: '⭐', name: '365-Day Streak'   }
   ];
 
   /*
@@ -1487,51 +1489,51 @@ footer a:hover { color: rgba(255,255,255,.6); }
    */
   var _ji = null;
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  /* ──────────────────────────────────────────────────────────────
      SPRINT-003C: MESSAGE LIBRARY
-     ð§  Remember Â· ð§­ Guide Â· â¤ï¸ Motivate Â· ð Celebrate
+     🧠 Remember · 🧭 Guide · ❤️ Motivate · 🏆 Celebrate
      Single authoritative source for all JI-aware strings.
      Each Felix/Sophia variant reflects their distinct voice
      per the Visual Identity & Character Bible v1.0.
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  ────────────────────────────────────────────────────────────── */
   var MESSAGES = {
 
-    /* â¤ï¸ MOTIVATE â greeting subtitle (after the German time-greeting) */
+    /* ❤️ MOTIVATE — greeting subtitle (after the German time-greeting) */
     greeting: {
       firstVisit:    {
-        felix:  'Your German journey starts today â and I\'m honoured to be here from the very first step.',
-        sophia: 'Welcome to your Academy. From today, every lesson is a step forward â and I\'ll be with you for every one.'
+        felix:  'Your German journey starts today — and I\'m honoured to be here from the very first step.',
+        sophia: 'Welcome to your Academy. From today, every lesson is a step forward — and I\'ll be with you for every one.'
       },
       gapLong:       {
-        felix:  'Welcome back. It\'s been a while â and that\'s completely fine. Let\'s pick up where we left off.',
+        felix:  'Welcome back. It\'s been a while — and that\'s completely fine. Let\'s pick up where we left off.',
         sophia: 'It\'s so good to have you back. No matter how long the pause, your journey continues right here.'
       },
       gapShort:      {
-        felix:  'Good to see you back. A short break changes nothing â today we continue.',
+        felix:  'Good to see you back. A short break changes nothing — today we continue.',
         sophia: 'Welcome back. A few days away is perfectly normal. Your German is right here waiting.'
       },
       milestoneHit:  {
-        felix:  'A genuine milestone today â well earned. This kind of consistency is what builds real fluency.',
-        sophia: 'A real milestone today. Take a moment to feel that â you earned every single day of it.'
+        felix:  'A genuine milestone today — well earned. This kind of consistency is what builds real fluency.',
+        sophia: 'A real milestone today. Take a moment to feel that — you earned every single day of it.'
       },
       milestoneNear: {
         felix:  'One more day and you reach your next streak milestone. You are this close.',
         sophia: 'Just one day from your next streak milestone. I cannot wait to celebrate with you.'
       },
       champion:      {
-        felix:  'A {n}-day streak. That\'s not luck â that\'s character. I\'m genuinely proud of you.',
+        felix:  'A {n}-day streak. That\'s not luck — that\'s character. I\'m genuinely proud of you.',
         sophia: '{n} days of showing up. You are building something rare, and I want you to know I notice every one.'
       },
       monday:        {
         felix:  'New week. Clean slate. Let\'s make this one count.',
-        sophia: 'A new week begins â and so does another chapter of your German journey.'
+        sophia: 'A new week begins — and so does another chapter of your German journey.'
       },
       friday:        {
         felix:  'Great week so far. Finish it strong.',
         sophia: 'You\'ve made it to Friday. One more lesson and this week becomes a success.'
       },
       weekend:       {
-        felix:  'Studying on a weekend â that\'s the mindset that builds real fluency.',
+        felix:  'Studying on a weekend — that\'s the mindset that builds real fluency.',
         sophia: 'A weekend session. This kind of dedication is what truly sets you apart.'
       },
       default:       {
@@ -1540,18 +1542,18 @@ footer a:hover { color: rgba(255,255,255,.6); }
       }
     },
 
-    /* ð§­ GUIDE + â¤ï¸ MOTIVATE â Buddy card messages */
+    /* 🧭 GUIDE + ❤️ MOTIVATE — Buddy card messages */
     buddy: {
       gapLong:       {
-        felix:  'Welcome back! It\'s been over a week â no guilt, just forward momentum. Let\'s ease back in with something familiar.',
-        sophia: 'It\'s wonderful to have you back. No pressure at all â let\'s start gently and rebuild from there.'
+        felix:  'Welcome back! It\'s been over a week — no guilt, just forward momentum. Let\'s ease back in with something familiar.',
+        sophia: 'It\'s wonderful to have you back. No pressure at all — let\'s start gently and rebuild from there.'
       },
       gapShort:      {
-        felix:  'Good to have you back. A short break keeps things fresh â let\'s pick up exactly where we left off.',
-        sophia: 'Welcome back! A couple of days away is perfectly normal. Your momentum is still here â let\'s continue.'
+        felix:  'Good to have you back. A short break keeps things fresh — let\'s pick up exactly where we left off.',
+        sophia: 'Welcome back! A couple of days away is perfectly normal. Your momentum is still here — let\'s continue.'
       },
       milestoneNear: {
-        felix:  'You are one day away from your {n}-day streak. Keep going â we celebrate together tomorrow.',
+        felix:  'You are one day away from your {n}-day streak. Keep going — we celebrate together tomorrow.',
         sophia: 'Just one more day to your {n}-day streak. I am already looking forward to celebrating with you.'
       },
       champion:      {
@@ -1559,27 +1561,27 @@ footer a:hover { color: rgba(255,255,255,.6); }
         sophia: '{n} days of showing up. Every single one matters. What you are building here is genuine fluency.'
       },
       approaching:   {
-        felix:  'You\'re well into {level} now. The finish line is in sight â let\'s push through to completion.',
-        sophia: 'You have come so far in {level}. I can see the level completion from here â let\'s finish this together.'
+        felix:  'You\'re well into {level} now. The finish line is in sight — let\'s push through to completion.',
+        sophia: 'You have come so far in {level}. I can see the level completion from here — let\'s finish this together.'
       },
       newMember:     {
-        felix:  'Hallo! I\'m Felix â your German Buddy from today onwards. Every lesson, every milestone, every achievement: I\'ll be here.',
+        felix:  'Hallo! I\'m Felix — your German Buddy from today onwards. Every lesson, every milestone, every achievement: I\'ll be here.',
         sophia: 'Hallo! I\'m Sophia. From today, I\'ll be with you for every lesson, every milestone and every celebration. Welcome.'
       },
       monday:        {
-        felix:  'A new week â the best opportunity to build a lasting habit. Let\'s start this Monday with something solid.',
-        sophia: 'Monday is a wonderful day to study â everything feels possible. What shall we work on together today?'
+        felix:  'A new week — the best opportunity to build a lasting habit. Let\'s start this Monday with something solid.',
+        sophia: 'Monday is a wonderful day to study — everything feels possible. What shall we work on together today?'
       },
       weekend:       {
-        felix:  'Weekend studying â a choice that very few people make. That\'s exactly what sets you apart.',
+        felix:  'Weekend studying — a choice that very few people make. That\'s exactly what sets you apart.',
         sophia: 'Taking time on your weekend to learn is a beautiful thing. Let\'s make the very most of it.'
       },
       brokenStreak:  {
-        felix:  'Streaks break â it happens to everyone. What matters is today. Let\'s start a new one right now.',
+        felix:  'Streaks break — it happens to everyone. What matters is today. Let\'s start a new one right now.',
         sophia: 'Every streak starts with a single day. And today is that day. I\'m right here with you.'
       },
       firstLesson:   {
-        felix:  'Hallo! I\'m Felix â your German Buddy. Your very first lesson is waiting. This is where everything begins.',
+        felix:  'Hallo! I\'m Felix — your German Buddy. Your very first lesson is waiting. This is where everything begins.',
         sophia: 'Hallo! I\'m Sophia. I\'ll be with you from your very first lesson all the way to fluency. Shall we start?'
       },
       default:       {
@@ -1588,43 +1590,43 @@ footer a:hover { color: rgba(255,255,255,.6); }
       }
     },
 
-    /* ð§­ GUIDE â Today's Focus context frame prefix */
+    /* 🧭 GUIDE — Today's Focus context frame prefix */
     focus: {
-      morning:    'Start the day right â',
-      evening:    'A great way to end the day â',
-      returning:  'Pick up where you left off â',
-      approaching: 'Almost there â',
+      morning:    'Start the day right —',
+      evening:    'A great way to end the day —',
+      returning:  'Pick up where you left off —',
+      approaching: 'Almost there —',
       monday:     'Begin the week with',
-      default:    null   /* no prefix â existing focus text stands alone */
+      default:    null   /* no prefix — existing focus text stands alone */
     },
 
-    /* ð CELEBRATE â Passport milestone anticipation (shown when 1 day away) */
+    /* 🏆 CELEBRATE — Passport milestone anticipation (shown when 1 day away) */
     passport: {
       milestoneNear: '1 more streak day and you earn your {n}-Day Streak stamp {icon}'
     },
 
-    /* ð§­ GUIDE â Buddy Practice returning-after-gap intro */
+    /* 🧭 GUIDE — Buddy Practice returning-after-gap intro */
     practice: {
       returningGap: {
-        felix:  'ð¤ Felix suggests â welcome back! Let\'s ease back in',
-        sophia: 'ð¤ Sophia suggests â wonderful to have you back. Let\'s ease back in'
+        felix:  '🤖 Felix suggests — welcome back! Let\'s ease back in',
+        sophia: '🤖 Sophia suggests — wonderful to have you back. Let\'s ease back in'
       }
     }
   };
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  /* ──────────────────────────────────────────────────────────────
      SPRINT-003C: JOURNEY INTELLIGENCE ENGINE
      Reads Foundation Layer data + Date() + previous home state.
      Returns a single ji object consumed by all component renderers.
-     Four responsibilities: Remember Â· Guide Â· Motivate Â· Celebrate.
-     Pure computation â no DOM access, no async, no side effects.
+     Four responsibilities: Remember · Guide · Motivate · Celebrate.
+     Pure computation — no DOM access, no async, no side effects.
      Target: < 5ms.
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  ────────────────────────────────────────────────────────────── */
   function buildJourneyIntelligence(prevState) {
     var now = Date.now();
     var d   = new Date(now);
 
-    /* ââ ð§  REMEMBER ââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── 🧠 REMEMBER ────────────────────────────────────────── */
     var lastVisitTs       = prevState ? (prevState.lastVisitTimestamp || 0) : 0;
     var daysSinceVisit    = lastVisitTs
       ? Math.floor((now - lastVisitTs) / 86400000)
@@ -1644,7 +1646,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
       : 0;
     var isNewMember    = memberDays < 7;
 
-    /* ââ ð§­ GUIDE âââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── 🧭 GUIDE ───────────────────────────────────────────── */
     var levelId      = safeGet(function () {
       return FL.profile ? FL.profile.getCurrentLevel() : null;
     }, null) || 'A1';
@@ -1662,7 +1664,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
     var levelPct     = levelDone ? (levelDone.pct || 0) : 0;
     var levelProgress = levelPct < 33 ? 'early' : levelPct < 67 ? 'mid' : 'approaching';
 
-    /* Days at current level â tracks since level was first entered */
+    /* Days at current level — tracks since level was first entered */
     var prevLevel      = prevState ? (prevState.currentLevelId  || null) : null;
     var levelStartDate = prevState ? (prevState.levelStartDate  || 0)    : 0;
     if (!levelStartDate || (prevLevel && prevLevel !== levelId)) {
@@ -1670,13 +1672,13 @@ footer a:hover { color: rgba(255,255,255,.6); }
     }
     var daysAtLevel = Math.max(0, Math.floor((now - levelStartDate) / 86400000));
 
-    /* ââ â¤ï¸ MOTIVATE âââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── ❤️ MOTIVATE ─────────────────────────────────────────── */
     var hour     = d.getHours();
     var timeSlot = hour >= 5  && hour < 12 ? 'morning'
                  : hour >= 12 && hour < 18 ? 'afternoon'
                  : hour >= 18 && hour < 22 ? 'evening'
                  : 'night';
-    var dow      = d.getDay();  /* 0=Sun â¦ 6=Sat */
+    var dow      = d.getDay();  /* 0=Sun … 6=Sat */
     var dayType  = dow === 1              ? 'monday'
                  : dow === 5              ? 'friday'
                  : (dow === 0 || dow === 6) ? 'weekend'
@@ -1689,7 +1691,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
                        : streakCurrent >= 30              ? 'champion'
                        : 'building';
 
-    /* ââ ð CELEBRATE ââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── 🏆 CELEBRATE ────────────────────────────────────────── */
     var earned              = safeGet(function () {
       return FL.achievements ? FL.achievements.getEarned() : [];
     }, []);
@@ -1701,7 +1703,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
       && isFirstVisitToday;
 
     return {
-      /* ð§  REMEMBER */
+      /* 🧠 REMEMBER */
       daysSinceVisit:      daysSinceVisit,
       isFirstVisitToday:   isFirstVisitToday,
       returningAfterGap:   returningAfterGap,
@@ -1710,7 +1712,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
       buddyId:             buddyId,
       studentName:         studentName,
       profileCreated:      profileCreated,
-      /* ð§­ GUIDE */
+      /* 🧭 GUIDE */
       levelId:             levelId,
       levelProgress:       levelProgress,
       levelPct:            levelPct,
@@ -1719,18 +1721,18 @@ footer a:hover { color: rgba(255,255,255,.6); }
       daysAtLevel:         daysAtLevel,
       levelStartDate:      levelStartDate,
       levelDone:           levelDone,
-      /* â¤ï¸ MOTIVATE */
+      /* ❤️ MOTIVATE */
       timeSlot:            timeSlot,
       dayType:             dayType,
       streak:              streak,
       streakCurrent:       streakCurrent,
       streakMomentum:      streakMomentum,
-      /* ð CELEBRATE */
+      /* 🏆 CELEBRATE */
       earnedStamps:        earned,
       nextStreakMilestone:  nextSMTarget,
       daysToNextMilestone: daysToNextMilestone,
       milestoneHitToday:   milestoneHitToday,
-      /* Derived â convenience refs for renderers */
+      /* Derived — convenience refs for renderers */
       summary:             summary
     };
   }
@@ -1739,7 +1741,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
    * selectJIMessage(pool, ji, extras)
    * Walks the priority ladder for a given pool, selects the matching
    * key, returns the buddy-voiced string with dynamic substitutions.
-   * extras = { n, level, icon } â optional replacement tokens.
+   * extras = { n, level, icon } — optional replacement tokens.
    */
   function selectJIMessage(pool, ji, extras) {
     var buddyId = ji ? (ji.buddyId || 'felix') : 'felix';
@@ -1755,227 +1757,755 @@ footer a:hover { color: rgba(255,255,255,.6); }
       else if (ji.dayType === 'monday')                               key = 'monday';
       else if (ji.dayType === 'friday')                               key = 'friday';
       else if (ji.dayType === 'weekend')                              key = 'weekend';
-      else                                                             key = 'default';
+      else                                                            key = 'default';
     } else if (pool === MESSAGES.buddy) {
-      if (ji.daysSinceVisit >= 7)                                     key = 'gapLong';
+      if (ji.daysSinceVisit >= 7)                                    key = 'gapLong';
       else if (ji.returningAfterGap)                                  key = 'gapShort';
       else if (ji.streakMomentum === 'milestone_near')               key = 'milestoneNear';
-      else if (ji.streakMomentumOOH	ØÚ[\[ÛÊHÙ^HH	ØÚ[\[ÛÎÂ[ÙHY
-K][ÙÜ\ÜÈOOH	Ø\ØXÚ[ÉÊHÙ^HH	Ø\ØXÚ[ÉÎÂ[ÙHY
-K\Ó]ÓY[X\HÙ^HH	Û]ÓY[X\ÎÂ[ÙHY
-K^U\HOOH	Û[Û^IÊHÙ^HH	Û[Û^IÎÂ[ÙHY
-K^U\HOOH	ÝÙYZÙ[	ÊHÙ^HH	ÝÙYZÙ[	ÎÂ[ÙHY
-KÝXZÐÝ\[OOH	K\ÜÛÛÐÛÛ\]H
-HÙ^HH	ØÚÙ[ÝXZÉÎÂ[ÙHY
-K\ÜÛÛÐÛÛ\]HOOH
-HÙ^HH	Ù\Ý\ÜÛÛÎÂ[ÙHÙ^HH	ÙY][	ÎÂH[ÙHÂ]\	ÉÎÂB\[HHÛÛÚÙ^WNÂY
-Y[JH]\	ÉÎÂ\\ÙÈH[VØYRYH[VÉÙ[^	×H	ÉÎÂY
-^\ÊHÂY
-^\ËOOH[Y[Y
-H\ÙÈH\ÙË\XÙJ×ÛKÙËÝ[Ê^\ËJNÂY
-^\Ë][OOH[Y[Y
-H\ÙÈH\ÙË\XÙJ×Û][KÙËÝ[Ê^\Ë][
-JNÂY
-^\ËXÛÛOOH[Y[Y
-H\ÙÈH\ÙË\XÙJ×ÚXÛÛKÙËÝ[Ê^\ËXÛÛJNÂB]\\ÙÎÂBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÕSUSÓVQTÐQUHÕPTÂÜXÙY[YÜY][ÛY[H[Ù[HZ[YÈØY8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[ÛØYQÙ]
-[XÚÊHÂHÈ]\
-NÈHØ]Ú
-JHÈ]\[XÚÎÈBB\HÂÙÜ\ÜÎ\[ÙÔ×ÔÑÔTÔÈOOH	Ý[Y[Y	ÈÈÔ×ÔÑÔTÔÈ[Ù[N\[ÙÔ×ÔÑSHOOH	Ý[Y[Y	ÈÈÔ×ÔÑSH[ÛÛ[\[ÙÔ×ÐÓÓSOOH	Ý[Y[Y	ÈÈÔ×ÐÓÓS[XÚY][Y[Î\[ÙÔ×ÐPÒQUSQSÈOOH	Ý[Y[Y	ÈÈÔ×ÐPÒQUSQSÈ[][Î\[ÙÔ×ÓUSÈOOH	Ý[Y[Y	ÈÈÔ×ÓUSÈ[NÂÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÓQHÕUH
-Ü×ÚÛYWÝJBÜ][ÛXXÚYÙHØY8 %ÝY\È\Ý\Ú]Y[[ÜHÜÜ[LÐLËXY[È]ÝÈ[ÛÈÙYYÈH[\ÝXÝ\K8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[ÛXYÛYTÝ]J
-HÂHÂ\]ÈHØØ[ÝÜYÙKÙ]][JÓQWÔÕÔQÑWÒÑVJNÂ]\]ÈÈÓÓ\ÙJ]ÊH[ÂHØ]Ú
-JHÈ]\[ÈBB[Ý[ÛÜ]RÛYTÝ]J]JHÂHÂØØ[ÝÜYÙKÙ]][JÓQWÔÕÔQÑWÒÑVKÓÓÝ[ÚYJ]JJNÂHØ]Ú
-JHßBB[Ý[ÛZ[ÛYTÝ]JK^\ÜÛÛY\ÝÝ[\
-HÂ\Ý[[X\HHHÈKÝ[[X\H[Â]\Â\Ú[ÛÓQWÕTÒSÓ\Ý\Ú]]N]È]J
-KÒTÓÔÝ[Ê
-KÛXÙJL
-K\Ý\Ú][Y\Ý[\]KÝÊ
-KÝ\[][YHÈK][Y[\ÜÛÛÐÛÛ\]P]\Ú]Ý[[X\HÈ
-Ý[[X\K\ÜÛÛÐÛÛ\]H
-H]\Ú]Ý[[X\HÈ
-Ý[[X\K
-H\ÝXÝ]S\ÜÛÛY^\ÜÛÛY[\ÝÝ[\X\Y\ÝÝ[\[ÊÜ[LÐÈ8 %Ý\^H[[YÙ[ÙHÝ]H
-Â][Ý\]NHÈK][Ý\]H[Ê
-\Ý][ÛÛ\]NÙ]Ú[ÙÜ\ÜÎ][ÛÛ\]H\\Ë
-\Ý\ØÛÝ\RYÙ]Ú[\ØÛÝ\Ù\X[HÙ^H\ÈXÝ]H
-]\JK
-Â\Ý][ÛÛ\]N[\Ý\ØÛÝ\RY[NÂBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÑTPSÔQUSÈSTÛÛ\ÈK[YTÛÝ8¡¤Ù\X[[YK[ÙY^HÜY][ËØ[YH[\Ù[ÛÛYJJH8 %[YTÛÝ[XYHÛÛ\]Y[QK8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[ÛÙ]Ù\X[ÜY][Ê[YTÛÝ
-HÂY
-[YTÛÝOOH	Û[Ü[ÉÊH]\	ÑÝ][[ÜÙ[ÎÂY
-[YTÛÝOOH	ØY\ÛÛÊH]\	ÑÝ][YÉÎÂY
-[YTÛÝOOH	Ù][[ÉÊH]\	ÑÝ][X[	ÎÂ]\	ÕÚ[ÛÛ[Y[\°ïÚÉÎÂBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ RSTÕÓHUSUQTÂ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[Û^\ÜÛÛZ[\ÝÛJÛJHÂÜ
-\HHÈHTÔÓÓÓRSTÕÓTË[ÝÈJÊÊHÂY
-ÛHTÔÓÓÓRSTÕÓTÖÚWJHÂ]\È\Ù]TÔÓÓÓRSTÕÓTÖÚWK]Ø^NTÔÓÓÓRSTÕÓTÖÚWHHÛHNÂBB]\[ÂB[Ý[Û^ÝXZÓZ[\ÝÛJÝ\[
-HÂÜ
-\HHÈHÕPR×ÓRSTÕÓTË[ÝÈJÊÊHÂY
-Ý\[ÕPR×ÓRSTÕÓTÖÚWJHÂ]\È\Ù]ÕPR×ÓRSTÕÓTÖÚWK]Ø^NÕPR×ÓRSTÕÓTÖÚWHHÝ\[NÂBB]\[ÂBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÑVIÔÈÐÕTÈ8 %QKQUS
-Ü[LÐÊB\XÙ\ÈÜ[LÐLHÙ[XÝYSY\ÜØYÙH
-ÈÙ[XÝÙ^\ÑØÝ\ËYHY\ÜØYÙ\ÈÝÈÛÛYHÛHÙ[XÝSY\ÜØYÙJQTÔÐQÑTËYKJKØÝ\ÈY^ÛÛY\ÈÛHQTÔÐQÑTËØÝ\ÈÙ^YYHHÛÛ^Â[\ØÝ\ÊØÝ\ËJH\Y\È]\Ý[H^\Ý[È\ÜÛÛ^\È[Ý[ÛÛÛ\]\ÈHÐÕTÈÐPÕ
-XÛÛ
-È^
-HÛHK8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[ÛÙ[XÝÙ^\ÑØÝ\ÊJHÂ\Ý\[HHÈKÝXZÐÝ\[Â\ÛHHHÈK\ÜÛÛÐÛÛ\]HÂ\^HH^\ÜÛÛZ[\ÝÛJÛJNÂÊ\H\Ý\ÜÛÛ
-ÂY
-ÛHOOH
-HÂ]\ÈXÛÛ	ø§*	Ë^	ÐÛÛ\]H[Ý\\Ý\ÜÛÛ[Ý\Ù\X[Ý\^HYÚ[ÈÙ^KÈNÂBÊX\\ÜÛÛZ[\ÝÛH
-8¢i]Ø^JH
-ÂY
-^H	^K]Ø^HHHÂ]\ÂXÛÛ	ü'ãáË^	ÑX\[Ý\	È
-È^K\Ù]
-È	Ë[\ÜÛÛZ[\ÝÛH8 %\Ý	È
-Â^K]Ø^H
-È	È\ÜÛÛÈ
-È
-^K]Ø^HOOHHÈ	ÉÈ	ÜÉÊH
-È	È]Ø^KÂNÂBÊ\ØXÚ[È][ÛÛ\][Û
-ÂY
-H	K][ÙÜ\ÜÈOOH	Ø\ØXÚ[ÉÊHÂ]\ÈXÛÛ	ü'ã«ÉË^	Ö[ÝW	ÜHÛÜÙHÈ[\Ú[È	È
-È
-K][Y	ÉÊH
-È	Ë\ÚÝYÚÈH^][ÈNÂBÊ]\[ÈY\Ø\8 %X\ÙHXÚÈ[
-ÂY
-H	K]\[ÐY\Ø\
-HÂ]\ÈXÛÛ	ø¥­»î#ÉË^	ÕÙ[ÛÛYHXÚÈ8 %XÚÈ\Ú]H\ÜÛÛ[ÝHÛÝÈÙ[ÈNÂBÊÝXZÈ]
-ÂY
-Ý\[OOH
-HÂ]\ÈXÛÛ	ü'ã«ÉË^	ÔÝ\H]ÈÝXZÈÙ^KÛH\ÜÛÛ\È[ÝYÚÈYÚ[ÈNÂBÊÝXZÈ^HH
-ÂY
-Ý\[OOHJHÂ]\ÈXÛÛ	ü'ã«ÉË^	ÐZ[ÛÙ^W	ÜÈÝ\HÙXÛÛÙ\ÜÚ[ÛXZÙ\ÈHÝXZËÈNÂBÊY][XZ[Z[ÝXZÈ
-Â]\ÂXÛÛ	ü'å)IË^	ÓXZ[Z[[Ý\	È
-ÈÝ\[
-È	ËY^HÝXZËÛH\ÜÛÛÙY\È][]KÂNÂBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÓÓSQHÕTVH8 %SVTÔÓÓ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[Û[^\ÜÛÛ][Y
-HÂY
-QÛÛ[[][Y
-H]\[ÂHÂ\ÙÈHÛÛ[Ù]][ÙÜ\ÜÊ][Y
-NÂY
-ÙÈ	ÙË^\ÜÛÛH]\ÙË^\ÜÛÛÈÊÈ\ÜÛÛ[Ù[RÙ^K[Ù[HH
-ÂHØ]Ú
-JHßB]\[ÂB[Ý[ÛÛÝ[ÛJ][Y
-HÂY
-QÛÛ[[][Y
-H]\ÈÛNÝ[NÂHÂ\HÛÛ[Ù]][ÙÜ\ÜÊ][Y
-NÂ]\ÈÛNÛHÝ[Ý[ÝÝNÂHØ]Ú
-JHÈ]\ÈÛNÝ[ÝNÈBBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ USÓÓÕT8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-Â[Ý[Û\S][ÛÛÜ][Y
-HÂY
-Q][È[][Y
-H]\ÂHÂ\H][ËÙ]
-][Y
-NÂY
-	ÛÛÜHÂØÝ[Y[ØÝ[Y[[[Y[Ý[KÙ]Ü\J	ËK[][XÛÛÜËÛÛÜNÂBHØ]Ú
-JHßBBÊ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ ÓÓTÓSSTTÂ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
-ÂÊKÙ[ÛÛYHXY\8 %Ü[LÐÎÝÈ][HH
-Â[Ý[Û[\Ù[ÛÛYJJHÂ\[HØÝ[Y[Ù][[Y[RY
-	ØÛÛ\]Ù[ÛÛYIÊNÂY
-Y[
-H]\Â\][YHHÈK][Y	ÐLIÎÂ\ÝXZÈHHÈKÝXZÈ[Â\HHÈKÂ\ÝXZÐÛÝ[HHÈKÝXZÐÝ\[Â\ÝXZÒXÛÛHÝXZÐÛÝ[HÈÈ	ü'å)IÈ	ü'äáIÎÂÊÙ\X[[YK[ÙY^HÜY][È
-Â\ÜY][ÈHÙ]Ù\X[ÜY][ÊHÈK[YTÛÝ	ÙY][	ÊNÂÊK\Ù[XÝY[Ý]][Û[ÝX]H
-Â\ÝX]HHÙ[XÝSY\ÜØYÙJQTÔÐQÑTËÜY][ËKÈÝXZÐÛÝ[][USÓPSÖÛ][YH][YB
-NÂÊÝY[[YH8 %\ÛÛ[\ÙYY]Z[XH
-Â\\Ü^S[YHH
-H	KÝY[[YJHÈKÝY[[YH	ÕÙ[ÛÛYHXÚÉÎÂ[[\SB	ÏÛ\ÜÏHÙ[ÛÛYKYÜY][ÈYH][ËYÜY][ÈÈ
-È\ØÒ[
-ÜY][ÊH
-È	ÏÜÈ
-Â
-ÝX]BÈ	ÏÛ\ÜÏHÙ[ÛÛYK\ÝX]HYHÙ[ÛÛYK\ÝX]HÈ
-È\ØÒ[
-ÝX]JH
-È	ÏÜÂ	ÉÊH
-Â	Ï]Û\ÜÏHÙ[ÛÛYK[[YK\ÝÈÈ
-Â	ÏÜ[Û\ÜÏHÙ[ÛÛYK[[YHYHÙ[ÛÛYK[[YK]^È
-È\ØÒ[
-\Ü^S[YJH
-È	ÏÜÜ[È
-Â	ÏÜ[Û\ÜÏHÙ[ÛÛYK[][XÚ\YHÙ[ÛÛYK[][XÚ\È
-È\ØÒ[
-][Y	ø %	ÊH
-È	ÏÜÜ[È
-Â	ÏÙ]È
-Â	Ï]Û\ÜÏHÙ[ÛÛYK\Ý]ÈÈ
-Â	Ï]Û\ÜÏHÝ]XÚ\È
-Â	ÏÜ[Û\ÜÏHÝ]ZXÛÛÈ
-ÈÝXZÒXÛÛ
-È	ÏÜÜ[È
-Â	ÏÜ[Û\ÜÏHÝ]][È
-ÈÝXZÐÛÝ[
-È	ÏÜÜ[È
-Â	ÏÜ[Û\ÜÏHÝ][È
-È
-ÝXZÐÛÝ[OOHHÈ	Ù^IÈ	Ù^\ÉÊH
-È	ÏÜÜ[È
-Â	ÏÙ]È
-Â	Ï]Û\ÜÏHÝ]XÚ\È
-Â	ÏÜ[Û\ÜÏHÝ]ZXÛÛ¸«dÜÜ[È
-Â	ÏÜ[Û\ÜÏHÝ]][È
-È
-
-H
-È	ÏÜÜ[È
-Â	ÏÜ[Û\ÜÏHÝ][ÜÜ[È
-Â	ÏÙ]È
-Â	ÏÙ]È
-ÂÊY[]HØ\YÙÙ\
-ÈÛÛ\ÚXH[[8 %Ü[LÐL
-Â	Ï]ÛÛ\ÜÏHY[]KXØ\]YÙÙ\YHY[]KXØ\]YÙÙ\	È
-Â	Ý\OH]Û\XKY^[YH[ÙH\XKXÛÛÛÏHY[]KXØ\\[[È
-Â	ÏÜ[Û\ÜÏHY]YÙÙ\X\ÝÈ\XKZY[HYH¸¥¯ÜÜ[[Ý\XØY[^HØ\	È
-Â	ÏØ]ÛÈ
-Â	Ï]Û\ÜÏHY[]KXØ\\[[YHY[]KXØ\\[[	È
-Â	ÜÛOHYÚ[Û\XK[X[HXØY[^HY[]HØ\\XKZY[HYHÙ]ÎÂ[Û\ÜÓ\Ý[[ÝJ	Ú\Ë[ØY[ÉÊNÂBÊÙ\X[YHØ\8 %Ü[LÐÎKY][YK]ÚXÙY
-Â[Ý[Û[\YJJHÂ\[HØÝ[Y[Ù][[Y[RY
-	ØÛÛ\XYIÊNÂY
-Y[
-H]\Â\YRYHHÈ
-KYRY	Ù[^	ÊH	Ù[^	ÎÂ\YS[YHHYRYOOH	ÜÛÜXIÂÈ	ü'é%ÛÜXH8 %[Ý\Ù\X[YIÂ	ü'é%ÙYrP?Pe½ÕÈÉµ¸	Õäì(ÙÈµÍÍôÍ±Ñ)%5ÍÍ (5MML¹Õä°©¤°(ì¸è©¤ü©¤¹ÍÑÉ­
-ÕÉÉ¹ÐèÀ°±Ù°è1Y1}1	1Mm©¤ü©¤¹±Ù±%èÄtñð¡©¤ü©¤¹±Ù±%èÄ¤ô(¤ì((°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌôÕäµÉø¬(¼¨ÙÑÈÍ±½ÐPÉÍÉÙ½ÈY¥ÍÕ°%¹Ñ¥Ñä	¥±¡ÉÑÈÉÐ¨¼(ñ¥Ø±ÍÌôÕäµÙÑÈµÁ±¡½±ÈÉ¥µ¡¥¸ôÑÉÕøð½¥Øø¬(ñ¥Ø±ÍÌôÕäµÙÑÈÉ½±ô¥µÉ¥µ±°ô¬Í!Ñµ°¡Õå9µ¤¬ûÂ~Xð½¥Øø¬(ñ¥Ø±ÍÌôÕäµ½äø¬(ñ¥Ø±ÍÌôÕäµ¹µø¬Í!Ñµ°¡Õå9µ¤¬ð½¥Øø¬(ñÀ±ÍÌôÕäµµÍÍø¬Í!Ñµ°¡µÍÍ¤¬ð½Àø¬(ñÍÁ¸±ÍÌôÕäµÍ¬µ±¥¹¬Ñ¥Ñ±ôÍ¬	ÕäP½µ¥¹¥¸ÕÑÕÉÍÁÉ¥¹Ðø¬(Í¬	ÕäHñÍÁ¸ÍÑå±ô½¹ÐµÍ¥éèÄÁÁàí½Á¥Ñäè¸Ôø¡½µ¥¹Í½½¸¤ð½ÍÁ¸ø¬(ð½ÍÁ¸ø¬(ð½¥Øø¬(ð½¥Øøì((°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì(ô((¼¨Ì¸Q½äÌ½ÕÌPMÁÉ¥¹Ð´ÀÀÍè)$½¹ÑáÐÁÉ¥à¨¼(Õ¹Ñ¥½¸É¹É½ÕÌ¡½ÕÌ°©¤¤ì(ÙÈ°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ½µÀµ½ÕÌ¤ì(¥ °¤ÉÑÕÉ¸ì((¼¨M±Ð½¹ÑáÐµÁÁÉ½ÁÉ¥ÑÁÉ¥àÉ½´5MML¹½ÕÌ¨¼(ÙÈÁÉ¥á-äôÕ±Ðì(¥¡©¤¤ì(¥¡©¤¹ÉÑÕÉ¹¥¹ÑÉÀ¤ÁÉ¥á-äôÉÑÕÉ¹¥¹ì(±Í¥¡©¤¹±Ù±AÉ½ÉÍÌôôôÁÁÉ½¡¥¹¤ÁÉ¥á-äôÁÁÉ½¡¥¹ì(±Í¥¡©¤¹Ñ¥µM±½Ðôôôµ½É¹¥¹¤ÁÉ¥á-äôµ½É¹¥¹ì(±Í¥¡©¤¹Ñ¥µM±½ÐôôôÙ¹¥¹¤ÁÉ¥á-äôÙ¹¥¹ì(±Í¥¡©¤¹åQåÁôôôµ½¹ä¤ÁÉ¥á-äôµ½¹äì(ô(ÙÈÁÉ¥àô5MML¹½ÕÍmÁÉ¥á-åtñð¹Õ±°ì¼¨¹Õ±°ô¹¼ÁÉ¥à¨¼(ÙÈ½ÕÍQáÐôÁÉ¥à(üÁÉ¥à¬¬½ÕÌ¹ÑáÐ(è½ÕÌ¹ÑáÐì((°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌô½ÕÌµÉø¬(ñÍÁ¸±ÍÌô½ÕÌµ¥½¸É¥µ¡¥¸ôÑÉÕø¬½ÕÌ¹¥½¸¬ð½ÍÁ¸ø¬(ñ¥Ø±ÍÌô½ÕÌµ½äø¬(ñ¥Ø±ÍÌô½ÕÌµ±°ùQ½åpÌ½ÕÌð½¥Øø¬(ñ¥Ø±ÍÌô½ÕÌµÑáÐø¬Í!Ñµ°¡½ÕÍQáÐ¤¬ð½¥Øø¬(ð½¥Øø¬(ð½¥Øøì((°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì(ô((¼¨Ð¸
-½¹Ñ¥¹Õ)½ÕÉ¹ä¡AÉ¥µÉä
-Q¤¨¼(Õ¹Ñ¥½¸É¹É
-Q¡¹áÑ1ÍÍ½¸°±Ù±%°±Ù±½¹¤ì(ÙÈ°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ½µÀµÑ¤ì(¥ °¤ÉÑÕÉ¸ì((ÙÈ¡Ñµ°ôì((¥ ¹áÑ1ÍÍ½¸¤ì(¼¨¥ÉÍÐµÑ¥µÍÑÕ¹ÐP¹¼±Ù°ÍÍ¥¹åÐ¨¼(¥ ±Ù±%¤ì(¡Ñµ°ô(ñÀ±ÍÌôÑµµ½Õ±µ±°ÍÑå±ôµÉ¥¸µ½ÑÑ½´èÄÉÁàù	¥¸å½ÕÈÉµ¸©½ÕÉ¹äð½Àø¬(ñÀ±ÍÌôÑµ±ÍÍ½¸µÑ¥Ñ±ù]¡ÉÝ½Õ±å½Ô±¥­Ñ¼ÍÑÉÐüð½Àø¬(ñ¥Ø±ÍÌôÑµµÑµÉ½Üø¬(ñÍÁ¸±ÍÌôÑµµÑµ¥Ñ´ûÂ~N4¥¹å½ÕÈ±Ù°ð½ÍÁ¸ø¬(ð½¥Øø¬(ñ±ÍÌôÑ¸µ½¹Ñ¥¹ÕÑ¸µ¥¸¡ÉôÁ±µ¹ÐµÑÍÐ¹¡Ñµ°ø¬(r 	¥¸A±µ¹ÐQÍÐ¬(ð½øì(ô±Íì(¼¨1Ù°ÍÐÕÐ±°±ÍÍ½¹Ì½µÁ±Ñ¨¼(ÙÈ¹áÑ1Ù°ôÍÐ¡Õ¹Ñ¥½¸ ¤ì(ÙÈ±ô0¹±Ù±Ì¹Ð¡±Ù±%¤ì(ÉÑÕÉ¸±±¹¹áÑ1Ù°ü±¹¹áÑ1Ù°è¹Õ±°ì(ô°¹Õ±°¤ì((¡Ñµ°ô(ñÀ±ÍÌôÑµ½µÁ±Ñµ¹½ÑûÂ~:$e½ÕpÙ½µÁ±Ñ±°Ù¥±±±ÍÍ½¹Ì¥¸¬Í!Ñµ°¡±Ù±%¤¬ð½Àø¬(¡¹áÑ1Ù°(üñÀ±ÍÌôÑµ±ÍÍ½¸µÑ¥Ñ±ùIä½È¬Í!Ñµ°¡1Y1}1	1Mm¹áÑ1Ù±tñð¹áÑ1Ù°¤¬ð½Àø¬(ñ±ÍÌôÑ¸µ½¹Ñ¥¹Õ¡Éô±Ù°µÍ¡½É¹¡Ñµ°ý±Ù°ô¬Í!Ñµ°¡¹áÑ1Ù°¤¬ø¬(ZØ	¥¸¬Í!Ñµ°¡¹áÑ1Ù°¤¬H¬(ð½ø(èñÀ±ÍÌôÑµ±ÍÍ½¸µÑ¥Ñ±ù=ÕÑÍÑ¹¥¹¡¥Ùµ¹ÐPå½ÕpÙÉ¡Ñ¡Ñ½Àð½Àø¤ì(ô(ô±Íì(¼¨9½Éµ°½¹Ñ¥¹ÕÍÑÑ¨¼(ÙÈ±ÍÍ½¸ô¹áÑ1ÍÍ½¸¹±ÍÍ½¸ì(ÙÈµ½Õ±-äô¹áÑ1ÍÍ½¸¹µ½Õ±-äì(ÙÈµ½Õ±ô¹áÑ1ÍÍ½¸¹µ½Õ±ì((ÙÈµ½Õ±1°ôµ½Õ±ü¡µ½Õ±¹¥½¸ü¡µ½Õ±¹¥½¸¬¬µ½Õ±¹±°¤èµ½Õ±¹±°¤(è¡µ½Õ±-ä¹¡ÉÐ À¤¹Ñ½UÁÁÉ
-Í ¤¬µ½Õ±-ä¹Í±¥ Ä¤¤ì(ÙÈ½¹%¹¼ôì(¥¡±Ù±½¹±Ù±½¹¹Ñ½Ñ°øÀ¤ì(½¹%¹¼ô±Ù±½¹¹½¹¬½¬±Ù±½¹¹Ñ½Ñ°¬±ÍÍ½¹Ì½µÁ±Ñì(ô((ÙÈ±ÍÍ½¹
-½¹Ñ¹Ðô0¹½¹Ñ¹Ðü0¹½¹Ñ¹Ð¹Ñ1ÍÍ½¸¡±ÍÍ½¸¹¥¤è¹Õ±°ì(ÙÈÍÑ5¥¹Ìô±ÍÍ½¹
-½¹Ñ¹Ðü±ÍÍ½¹
-½¹Ñ¹Ð¹ÍÑ¥µÑ5¥¹ÕÑÌè¹Õ±°ì((¡Ñµ°ô(ñ¥Ø±ÍÌôÑµµ½Õ±µÉ½Üø¬(ñÍÁ¸±ÍÌôÑµµ½Õ±µø¬Í!Ñµ°¡±Ù±%ñð¤¬ð½ÍÁ¸ø¬(ñÍÁ¸±ÍÌôÑµµ½Õ±µ±°ø¬Í!Ñµ°¡µ½Õ±1°¤¬ð½ÍÁ¸ø¬(ð½¥Øø¬(ñ È±ÍÌôÑµ±ÍÍ½¸µÑ¥Ñ±ø¬Í!Ñµ°¡±ÍÍ½¸¹Ñ¥Ñ±¤¬ð½ Èø¬(ñ¥Ø±ÍÌôÑµµÑµÉ½Üø¬(¡ÍÑ5¥¹ÌüñÍÁ¸±ÍÌôÑµµÑµ¥Ñ´û>Äð¬ÍÑ5¥¹Ì¬µ¥¸ð½ÍÁ¸øè¤¬(¡½¹%¹¼üñÍÁ¸±ÍÌôÑµµÑµ¥Ñ´ûÂ~NX¬Í!Ñµ°¡½¹%¹¼¤¬ð½ÍÁ¸øè¤¬(ð½¥Øø¬(ñ±ÍÌôÑ¸µ½¹Ñ¥¹Õ¡Éô¬Í!Ñµ°¡±ÍÍ½¸¹¥±¤¬ø¬(ZØ
-½¹Ñ¥¹Õ¬(ð½øì(ô((°¹¥¹¹É!Q50ô¡Ñµ°ì(°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì(ô((¼¨Ô¸AÉ½ÉÍÌMÕµµÉä¨¼(Õ¹Ñ¥½¸É¹ÉAÉ½ÉÍÌ¡±Ù±%°ÍÕµµÉä°±Ù±½¹¤ì(ÙÈ°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ½µÀµÁÉ½ÉÍÌ¤ì(¥ °¤ÉÑÕÉ¸ì((ÙÈ±ÍÍ½¹ÌôÍÕµµÉäü¡ÍÕµµÉä¹±ÍÍ½¹Í
-½µÁ±ÑñðÀ¤èÀì(ÙÈáÀôÍÕµµÉäü¡ÍÕµµÉä¹áÀñðÀ¤èÀì(ÙÈÍÑÉ¬ôÍÕµµÉäü ¡ÍÕµµÉä¹ÍÑÉ¬ÍÕµµÉä¹ÍÑÉ¬¹ÕÉÉ¹Ð¤ñðÀ¤èÀì(ÙÈÁÐô±Ù±½¹ü¡±Ù±½¹¹ÁÐñðÀ¤èÀì(ÙÈ±Ù±9µô1Y1}1	1Mm±Ù±%tñð¡±Ù±%ñðe½ÕÈ)½ÕÉ¹ä¤ì((°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌô½µÀµ±°ùe½ÕÈAÉ½ÉÍÌð½¥Øø¬((ñ¥Ø±ÍÌôÁÉ½ÉÍÌµÉ¥ø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµÙ°ø¬áÀ¬ð½¥Øø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµ±°ùa@ð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµÙ°ø¬±ÍÍ½¹Ì¬ð½¥Øø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµ±°ù1ÍÍ½¹Ìð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµÙ°ø¬ÍÑÉ¬¬ð½¥Øø¬(ñ¥Ø±ÍÌôÁÉ½µÍÑÐµ±°ùäMÑÉ¬ð½¥Øø¬(ð½¥Øø¬(ð½¥Øø¬((ñ¥Ø±ÍÌô±Ù°µÁÉ½µ±°ø¬(ñÍÁ¸±ÍÌô±Ù°µÁÉ½µ¹µø¬Í!Ñµ°¡±Ù±9µ¤¬ð½ÍÁ¸ø¬(ñÍÁ¸±ÍÌô±Ù°µÁÉ½µÁÐø¬ÁÐ¬ð½ÍÁ¸ø¬(ð½¥Øø¬(ñ¥Ø±ÍÌôÁÈµÝÉÀÉ½±ôÁÉ½ÉÍÍÈÉ¥µÙ±Õ¹½Üô¬ÁÐ¬É¥µÙ±Õµ¥¸ôÀÉ¥µÙ±ÕµàôÄÀÀø¬(ñ¥Ø±ÍÌôÁÈµ¥±°¥ôÁÉ½µÈµ¥±°ÍÑå±ôÝ¥Ñ èÀøð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌô±Ù°µÁÉ½µÍÕø¬(¡±Ù±½¹±Ù±½¹¹Ñ½Ñ°øÀ(üÍ!Ñµ°¡±Ù±½¹¹½¹¬½¬±Ù±½¹¹Ñ½Ñ°¬Ù¥±±±ÍÍ½¹Ì½µÁ±Ñ¤(èe½ÕÈÁÉ½ÉÍÌÝ¥±°Õ¥±¡ÉÌå½Ô±É¸¤¬(ð½¥Øøì((°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì((¼¨¹¥µÑÈÑÈÁ¥¹Ð¨¼(ÉÅÕÍÑ¹¥µÑ¥½¹Éµ¡Õ¹Ñ¥½¸ ¤ì(ÍÑQ¥µ½ÕÐ¡Õ¹Ñ¥½¸ ¤ì(ÙÈÈô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ÁÉ½µÈµ¥±°¤ì(¥¡È¤È¹ÍÑå±¹Ý¥Ñ ôÁÐ¬ì(ô°àÀ¤ì(ô¤ì(ô((¼¨RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR (MAI%9P´ÀÀÍ´ÈUQ%1%Q%L(RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ¨¼((¼¨(¨AMMA=IP9U5	HPMÁÉ¥¹Ð´ÀÀÍ´ÈA1
-!=1H(¨É¥Ù±¥¹ÐµÍ¥É½´ÁÉ½¥±ÉÑ¥½¸Ñ¥µÍÑµÀ¸(¨(¨IMIYI
-!%Q
-QUIè]¡¸ÍÉÙÈ¥¹ÉÍÑÉÕÑÕÉ¥ÌÍÑ±¥Í¡°(¨µäAÍÍÁ½ÉÐ9ÕµÉÌÍ¡½Õ±ÁÉµ¹¹ÐÍÅÕ¹Ñ¥°¥¹ÑÉÌ(¨¥ÍÍÕÐÍÑÕ¹ÐÉ¥ÍÑÉÑ¥½¸°ÍÑ½ÉÍÉÙÈµÍ¥°¹ÉÑÉ¥Ù(¨Ù¥ÕÑ¡¹Ñ¥Ñ½Õ¹Ð¸¥ÍÁ±ä½ÉµÐQLµeeedµ99998ÉÍÉÙ¸(¨¼(Õ¹Ñ¥½¸Õ¥±AÍÍÁ½ÉÑ9ÕµÈ¡ÑÌ¤ì(¥ ÑÌ¤ÉÑÕÉ¸QLµaaa`µaaaa`ì(ÙÈô¹ÜÑ¡ÑÌ¤ì(ÙÈåÈô¹ÑÕ±±eÈ ¤ì(ÙÈÍÄôMÑÉ¥¹¡ÑÌÄÀÀÀÀÀ¤¹ÁMÑÉÐ Ô°À¤ì(ÉÑÕÉ¸QL´¬åÈ¬´¬ÍÄì(ô((Õ¹Ñ¥½¸½ÉµÑ5µÉM¥¹¡ÑÌ¤ì(¥ ÑÌ¤ÉÑÕÉ¸Pì(ÙÈµ½¹Ñ¡Ìôl)¹ÕÉä°ÉÕÉä°5É °ÁÉ¥°°5ä°)Õ¹°()Õ±ä°ÕÕÍÐ°MÁÑµÈ°=Ñ½È°9½ÙµÈ°µÈtì(ÙÈô¹ÜÑ¡ÑÌ¤ì(ÉÑÕÉ¸µ½¹Ñ¡Ím¹Ñ5½¹Ñ  ¥t¬¬¹ÑÕ±±eÈ ¤ì(ô((Õ¹Ñ¥½¸½ÉµÑ9Õ´¡¸¤ì(¥ ¸¤ÉÑÕÉ¸Àì(ÉÑÕÉ¸MÑÉ¥¹¡¸¤¹ÉÁ± ½q üô¡qìÍô¤¬ üq¤¤½°°¤ì(ô((¼¨RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR (Ø¸%9Q%Qd
-E¡MÑÉÉ¥¹Ð´ÀÀÍ´È¤(A½ÁÕ±ÑÌÑ¡½±±ÁÍ¥±Á¹°¥¹Í¥½µÀµÝ±½µ¸(
-±±QHÉ¹É]±½µ ¤Ý¡¥ ¥¹©ÑÌÑ¡ÑÉ¥È­Á¹°¸(RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ¨¼(Õ¹Ñ¥½¸É¹É%¹Ñ¥Ñå
-É¡áÀ°ÁÉ½¥±
-ÉÑ°±Ù±%¤ì(ÙÈÑÉ¥Èô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ¥¹Ñ¥ÑäµÉµÑÉ¥È¤ì(ÙÈÁ¹°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ¥¹Ñ¥ÑäµÉµÁ¹°¤ì(¥ ÑÉ¥ÈñðÁ¹°¤ÉÑÕÉ¸ì((ÙÈÁÍÍÁ½ÉÑ9¼ôÕ¥±AÍÍÁ½ÉÑ9ÕµÈ¡ÁÉ½¥±
-ÉÑ¤ì(ÙÈµµÉM¥¹ô½ÉµÑ5µÉM¥¹¡ÁÉ½¥±
-ÉÑ¤ì(ÙÈ±Ù±1°ô1Y1}1	1Mm±Ù±%tñð¡±Ù±%ñðÑÑ¥¹ÍÑÉÑ¤ì((Á¹°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌô¥µÉø¬(ñ¥Ø±ÍÌô¥µÉµ¡Èø¬(ñ¥Ø±ÍÌô¥µÉµµäùQ¡Éµ¹MÑ¸µäð½¥Øø¬(ñÕÑÑ½¸±ÍÌô¥µÉµ±½Í¥ô¥µÉµ±½ÍµÑ¸ÑåÁôÕÑÑ½¸É¥µ±°ô
-±½Íµä
-ÉûrTð½ÕÑÑ½¸ø¬(ð½¥Øø¬((¼¨MÑÕ¹Ð¹µPµä5µÈÕ¹Ñ¥°½¹½É¥¹ÍÁÉ¥¹ÐÌ¹µ¥±¨¼(¼¨QM}AI=%1¹¹µ¥ÌÉÍÉÙ½ÈÕÑÕÉ½¹½É¥¹ÍÁÉ¥¹Ð¨¼(ñ¥Ø±ÍÌô¥µÉµ¹µùµä5µÈð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ±Ù°ø¬Í!Ñµ°¡±Ù±1°¤¬ð½¥Øø¬((ñ¥Ø±ÍÌô¥µÉµ¥±Ìø¬(ñ¥Ø±ÍÌô¥µÉµ¥±ø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µ±°ù5µÈM¥¹ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µÙ°ø¬Í!Ñµ°¡µµÉM¥¹¤¬ð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ¥±ø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µ±°ùQ½Ñ°a@ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µÙ°ø¬Í!Ñµ°¡½ÉµÑ9Õ´¡áÀ¤¤¬ð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ¥±ø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µ±°ù1É¹¥¹9ð½¥Øø¬(¼¨IÍÉÙPÕÑÕÉÍÁÉ¥¹Ð¹±åÍÌ±É¹¥¹ÍÑå±ÁÑÑÉ¹Ì¨¼(ñ¥Ø±ÍÌô¥µÉµ¥±µÙ°ÉÍÉÙùU¹±½­¥¹¸¸¸ð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµ¥±ø¬(ñ¥Ø±ÍÌô¥µÉµ¥±µ±°ùI¹¬ð½¥Øø¬(¼¨IÍÉÙPÉ¹¬ÍåÍÑ´Ñ¼¥¹¥¸µä=LÕÁÑ¨¼(ñ¥Ø±ÍÌô¥µÉµ¥±µÙ°ÉÍÉÙù
-½µ¥¹Í½½¸ð½¥Øø¬(ð½¥Øø¬(ð½¥Øø¬((ñ¥Ø±ÍÌô¥µÉµ½½ÑÈø¬(ñ¥Øø¬(ñ¥Ø±ÍÌô¥µÉµÁÍÍÁ½ÉÐµ±°ùAÍÍÁ½ÉÐ9¼¸ð½¥Øø¬(ñ¥Ø±ÍÌô¥µÉµÁÍÍÁ½ÉÐµ¹¼ø¬Í!Ñµ°¡ÁÍÍÁ½ÉÑ9¼¤¬ð½¥Øø¬(ð½¥Øø¬(ñ¥ØÍÑå±ô½¹ÐµÍ¥éèÈÑÁàí½Á¥Ñäè¸ÄÈÉ¥µ¡¥¸ôÑÉÕûÂ~nð½¥Øø¬(ð½¥Øø¬(ð½¥Øøì((¼¨]¥ÉÑ½±¨¼(Õ¹Ñ¥½¸½Á¹
-É ¤ì(Á¹°¹±ÍÍ1¥ÍÐ¹ ½Á¸¤ì(ÑÉ¥È¹±ÍÍ1¥ÍÐ¹ ½Á¸¤ì(ÑÉ¥È¹ÍÑÑÑÉ¥ÕÑ É¥µáÁ¹°ÑÉÕ¤ì(Á¹°¹ÍÑÑÑÉ¥ÕÑ É¥µ¡¥¸°±Í¤ì(ô(Õ¹Ñ¥½¸±½Í
-É ¤ì(Á¹°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ½Á¸¤ì(ÑÉ¥È¹±ÍÍ1¥ÍÐ¹Éµ½Ù ½Á¸¤ì(ÑÉ¥È¹ÍÑÑÑÉ¥ÕÑ É¥µáÁ¹°±Í¤ì(Á¹°¹ÍÑÑÑÉ¥ÕÑ É¥µ¡¥¸°ÑÉÕ¤ì(ô(Õ¹Ñ¥½¸Ñ½±
-É ¤ì(Á¹°¹±ÍÍ1¥ÍÐ¹½¹Ñ¥¹Ì ½Á¸¤ü±½Í
-É ¤è½Á¹
-É ¤ì(ô((ÑÉ¥È¹Ù¹Ñ1¥ÍÑ¹È ±¥¬°Ñ½±
-É¤ì(ÑÉ¥È¹Ù¹Ñ1¥ÍÑ¹È ­å½Ý¸°Õ¹Ñ¥½¸¡¤ì(¥¡¹­äôôô¹ÑÈñð¹­äôôô¤ì¹ÁÉÙ¹ÑÕ±Ð ¤ìÑ½±
-É ¤ìô(ô¤ì((ÙÈ±½Í	Ñ¸ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ¥µÉµ±½ÍµÑ¸¤ì(¥¡±½Í	Ñ¸¤±½Í	Ñ¸¹Ù¹Ñ1¥ÍÑ¹È ±¥¬°Õ¹Ñ¥½¸¡¤ì(¹ÍÑ½ÁAÉ½ÁÑ¥½¸ ¤ì(±½Í
-É ¤ì(ô¤ì(ô((¼¨RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR (Ü¸AMMA=IPABÅY%\MÑÉÉ¥¹Ð´ÀÀÍ´È¤(I¥¹µ¹ÐÄèµ¥¹¥ÑÕÉÍÑµÀÉ¥°¹½Ð½Ð¥¹¥Ñ½ÉÌ¸(I¥¹µ¹ÐÔèI½¹¥Í
-ÉÑ¥¥Ñ¥½¹ÌP¹¼ÁÉ½Ù¥È¹µÌ¸(RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ¨¼(¼¨MÁÉ¥¹Ð´ÀÀÍèÍ½¹ÁÉ´©¤¹±Ìµ¥±ÍÑ½¹¹Ñ¥¥ÁÑ¥½¸±¥¹¨¼(Õ¹Ñ¥½¸É¹ÉAÍÍÁ½ÉÑAÉÙ¥Ü¡É¹°©¤¤ì(ÙÈ°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ½µÀµÁÍÍÁ½ÉÐ¤ì(¥ °¤ÉÑÕÉ¸ì((¼¨	Õ¥±É¹µ%±½½­ÕÀ¨¼(ÙÈÉ¹5Àôíôì(¡É¹ñðmt¤¹½É ¡Õ¹Ñ¥½¸¡Ì¤ì(ÙÈÍ¥ôÌ¹ÍÑµÁ%ñðÌ¹¥ñðì(¥¡Í¥¤É¹5ÁmÍ¥tôÑÉÕì(ô¤ì(ÙÈÉ¹
-½Õ¹Ðô=©Ð¹­åÌ¡É¹5À¤¹±¹Ñ ì((¼¨5¥¹¥ÑÕÉÍÑµÀÉ¥PÄÄ¥¹ÍÑµÁÌ¬ÄÉÍÉÙ±°ôÄÈ¨¼(ÙÈÉ¥!Ñµ°ôì(MQ5A}59%MP¹½É ¡Õ¹Ñ¥½¸¡Ì¤ì(¥¡É¹5ÁmÌ¹¥t¤ì(É¥!Ñµ°¬ô(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµµ¥¹¤µÍÑµÀÉ¹¬(Ñ¥Ñ±ô¬Í!Ñµ°¡Ì¹¹µ¤¬¬(É½±ô¥µÉ¥µ±°ôÉ¹è¬Í!Ñµ°¡Ì¹¹µ¤¬ø¬(Ì¹¥½¸¬(ð½¥Øøì(ô±Íì(É¥!Ñµ°¬ô(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµµ¥¹¤µÍÑµÀ±½­¬(Ñ¥Ñ±ô¬Í!Ñµ°¡Ì¹¹µ¤¬É¥µ¡¥¸ôÑÉÕøð½¥Øøì(ô(ô¤ì(¼¨ÄÉÑ ±°PÉÍÉÙ½ÈÕÑÕÉÍÑµÀÑåÁÌ¨¼(É¥!Ñµ°¬ôñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµµ¥¹¤µÍÑµÀÉÍÉÙÑ¥Ñ±ô5½ÉÍÑµÁÌ½µ¥¹É¥µ¡¥¸ôÑÉÕøð½¥Øøì((ÙÈÍÑµÁ1°ôÉ¹
-½Õ¹ÐôôôÀ(ü9¼ÍÑµÁÌåÐPÍÑÉÐ±É¹¥¹Ñ¼É¸å½ÕÈ¥ÉÍÐ(è¡É¹
-½Õ¹Ð¬½¬MQ5A}59%MP¹±¹Ñ ¬ÍÑµÁÌÉ¹¤ì((¼¨MÁÉ¥¹Ð´ÀÀÍèµ¥±ÍÑ½¹¹Ñ¥¥ÁÑ¥½¸PÍ¡½Ý¸Ää½ÉÍÑÉ¬ÍÑµÀ¨¼(ÙÈµ¥±ÍÑ½¹!Ñµ°ôì(¥¡©¤©¤¹åÍQ½9áÑ5¥±ÍÑ½¹ôôôÄ©¤¹¹áÑMÑÉ­5¥±ÍÑ½¹¤ì(ÙÈ¹áÑQÉÐô©¤¹¹áÑMÑÉ­5¥±ÍÑ½¹ì(¼¨¥¹Ñ¡¥½¸½ÈÑ¡¥ÌÍÑÉ¬ÍÑµÀÉ½´MQ5A}59%MP¨¼(ÙÈÍÑµÁô¹Õ±°ì(MQ5A}59%MP¹½É ¡Õ¹Ñ¥½¸¡Ì¤ì(¥¡Ì¹¥ôôôµ¥±ÍÑ½¹}ÍÑÉ­|¬¹áÑQÉÐ¤ÍÑµÁôÌì(ô¤ì(ÙÈÍÑµÁ%½¸ôÍÑµÁüÍÑµÁ¹¥½¸èÂ~>ì(ÙÈµ¥±ÍÑ½¹5Íô5MML¹ÁÍÍÁ½ÉÐ¹µ¥±ÍÑ½¹9È(¹ÉÁ± ½qí¹qô½°MÑÉ¥¹¡¹áÑQÉÐ¤¤(¹ÉÁ± ½qí¥½¹qô½°ÍÑµÁ%½¸¤ì(µ¥±ÍÑ½¹!Ñµ°ô(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµµ¥±ÍÑ½¹µ¹ÈÉ½±ôÍÑÑÕÌø¬(Í!Ñµ°¡µ¥±ÍÑ½¹5Í¤¬(ð½¥Øøì(ô((°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌô½µÀµ±°ùe½ÕÈAÍÍÁ½ÉÐð½¥Øø¬((ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµÍÑµÀµ½Õ¹Ðø¬Í!Ñµ°¡ÍÑµÁ1°¤¬ð½¥Øø¬(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµµ¥¹¤µÉ¥É½±ô±¥ÍÐÉ¥µ±°ôAÍÍÁ½ÉÐÍÑµÁÌø¬(É¥!Ñµ°¬(ð½¥Øø¬((µ¥±ÍÑ½¹!Ñµ°¬((¼¨I½¹¥Í
-ÉÑ¥¥Ñ¥½¹ÌPI¥¹µ¹ÐÔè¹¼ÍÁ¥¥ÁÉ½Ù¥È¹µÌ¨¼(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµÉÑÌµÉ½Üø¬(ñÍÁ¸±ÍÌôÁÍÍÁ½ÉÐµÉÐµ±½¬É¥µ¡¥¸ôÑÉÕûÂ~RHð½ÍÁ¸ø¬(ñ¥Øø¬(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµÉÐµÑ¥Ñ±ùI½¹¥Í
-ÉÑ¥¥Ñ¥½¹Ìð½¥Øø¬(ñ¥Ø±ÍÌôÁÍÍÁ½ÉÐµÉÐµÍÕù
-ÉÑ¥¥Ñ¥½¸ÑÉ­¥¹½µ¥¹Í½½¸ð½¥Øø¬(ð½¥Øø¬(ð½¥Øø¬((¼¨AÍÍÁ½ÉÐÁ
-QP¥Í±Õ¹Ñ¥°Õ±°AÍÍÁ½ÉÐÁ¥ÌÕ¥±Ð¨¼(ñ±ÍÌôÑ¸µÁÍÍÁ½ÉÐ¡ÉôÉ¥µ¥Í±ôÑÉÕÍÑå±ôÁ½¥¹ÑÈµÙ¹ÑÌé¹½¹ø¬(Â~nY¥ÜÕ±°AÍÍÁ½ÉÐ¬(ñÍÁ¸ÍÑå±ô½¹ÐµÍ¥éèÄÁÁàí½Á¥Ñäè¸ÔíµÉ¥¸µ±ÐèÑÁàø¡½µ¥¹Í½½¸¤ð½ÍÁ¸ø¬(ð½øì((°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì(ô((¼¨RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR (à¸)=UI9dAIY%\¡MÁÉ¥¹Ð´ÀÀÍ´È¤(I¥¹µ¹ÐÈèeÍÑÉä¼Q½ä¼9áÐÍÑ¥¹Ñ¥½¸Ý½É¥¹¸(9¼ÁÉ¹ÑÌPÑÉÙ°µÑÁ¡½È°¹½ÐÁÉ½ÉÍÌÈ¸(RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ¨¼(¼¨MÁÉ¥¹Ð´ÀÀÍè¹½ÜÉ¥Ù¸ä©¤PÌ±Ù°ÁÉ½ÉÍÌÈ¬åÌµÐµ±Ù°µÑ¨¼(Õ¹Ñ¥½¸É¹É)½ÕÉ¹åAÉÙ¥Ü¡©¤¤ì(ÙÈ°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ½µÀµ©½ÕÉ¹ä¤ì(¥ °¤ÉÑÕÉ¸ì((ÙÈ±Ù±%ô©¤ü©¤¹±Ù±%èÄì(ÙÈ±Ù±AÐô©¤ü¡©¤¹±Ù±AÐñðÀ¤èÀì(ÙÈåÍÐô©¤ü¡©¤¹åÍÑ1Ù°ñðÀ¤èÀì((ÙÈ¥àô1Y1}=IH¹¥¹á=¡±Ù±%¤ì(¥¡¥àðÀ¤¥àôÄì((ÙÈÁÉÙ%ô¥àøÀü1Y1}=IIm¥à´Åtè¹Õ±°ì(ÙÈ¹áÑ%ô¥àð1Y1}=IH¹±¹Ñ ´Äü1Y1}=IIm¥à¬Åtè¹Õ±°ì((Õ¹Ñ¥½¸ÍÑ½Á!Ñµ°¡ÑåÁ°¥°±±=ÙÉÉ¥°ÍÕ=ÙÉÉ¥°¥½¹=ÙÉÉ¥¤ì(ÙÈ¥½¸ô¥½¹=ÙÉÉ¥ñð¡ÑåÁôôôÁÍÐürLèÑåÁôôôÁÉÍ¹ÐüÂ~N4èL¤ì(ÙÈ±°ô±±=ÙÉÉ¥ñð1Y1}1	1Mm¥tñð¡¥ñðP¤ì(ÙÈÍÕôÍÕ=ÙÉÉ¥ñð¡ÑåÁôôôÁÍÐü
-½µÁ±Ñ(èÑåÁôôôÁÉÍ¹Ðüe½ÔÉ¡É(èe½ÕÈ¹áÐ¡½É¥é½¸¤ì(ÙÈÑôÑåÁôôôÁÍÐüeÍÑÉäèÑåÁôôôÁÉÍ¹ÐüQ½äè9áÐÍÑ¥¹Ñ¥½¸ì(ÉÑÕÉ¸ (ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½À¬ÑåÁ¬ø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½Àµ¥¹¥Ñ½ÈÉ¥µ¡¥¸ôÑÉÕø¬¥½¸¬ð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½Àµ½äø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½ÀµÑø¬Í!Ñµ°¡Ñ¤¬ð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½Àµ±Ù°ø¬Í!Ñµ°¡±°¤¬ð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½ÀµÍÕø¬Í!Ñµ°¡ÍÕ¤¬ð½¥Øø¬(ð½¥Øø¬(ð½¥Øø(¤ì(ô((ÙÈÁÉÙMÑ½ÀôÁÉÙ%(üÍÑ½Á!Ñµ° ÁÍÐ°ÁÉÙ%¤(èÍÑ½Á!Ñµ° ÁÍÐ°¹Õ±°°	½ÉÑ¡µä°]¡Éå½ÕÈ©½ÕÉ¹ä¥¹Ì°r¤ì((ÙÈÕÉÉMÑ½ÀôÍÑ½Á!Ñµ° ÁÉÍ¹Ð°±Ù±%¤ì((ÙÈ¹áÑMÑ½Àô¹áÑ%(üÍÑ½Á!Ñµ° ÕÑÕÉ°¹áÑ%¤(èÍÑ½Á!Ñµ° ÕÑÕÉ°¹Õ±°°Q¡MÕµµ¥Ð°e½Ô¡ÙÉÉ¥ÙPµÍÑÉä¡¥Ù°¶@¤ì((¼¨MÁÉ¥¹Ð´ÀÀÍè±Ù°ÁÉ½ÉÍÌÈ¬åÌµÐµ±Ù°µÑ¨¼(ÙÈåÍ1°ôåÍÐôôôÄüÄäÐÑ¡¥Ì±Ù°èåÍÐ¬åÌÐÑ¡¥Ì±Ù°ì(ÙÈµÑ!Ñµ°ô(ñ¥Ø±ÍÌô©½ÕÉ¹äµÑ½äµµÑø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÑ½äµÁÈµÝÉÀø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÑ½äµÁÈµ¥±°¥ô©½ÕÉ¹äµÁÈµ¥±°¬(ÍÑå±ôÝ¥Ñ èÀÉ¥µ¡¥¸ôÑÉÕøð½¥Øø¬(ð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÑ½äµÁÈµ±°ø¬(Í!Ñµ°¡5Ñ ¹É½Õ¹¡±Ù±AÐ¤¬Ñ¡É½Õ ¬¡1Y1}1	1Mm±Ù±%tñð±Ù±%¤¤¬(ð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÑ½äµåÌø¬Í!Ñµ°¡åÍ1°¤¬ð½¥Øø¬(ð½¥Øøì((°¹¥¹¹É!Q50ô(ñ¥Ø±ÍÌô½µÀµ±°ùe½ÕÈ)½ÕÉ¹äð½¥Øø¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÍÑ½ÁÌø¬(ÁÉÙMÑ½À¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÉÉ½ÜÉ¥µ¡¥¸ôÑÉÕû
-Lð½¥Øø¬(ÕÉÉMÑ½À¬(ñ¥Ø±ÍÌô©½ÕÉ¹äµÉÉ½ÜÉ¥µ¡¥¸ôÑÉÕû
-Lð½¥Øø¬(¹áÑMÑ½À¬(ð½¥Øø¬(µÑ!Ñµ°ì((¼¨¹¥µÑÁÉ½ÉÍÌÈÑÈ=4¥ÌÁ¥¹Ñ¨¼(ÙÈÁÐô5Ñ ¹µ¥¸ ÄÀÀ°5Ñ ¹µà À°5Ñ ¹É½Õ¹¡±Ù±AÐ¤¤¤ì(ÍÑQ¥µ½ÕÐ¡Õ¹Ñ¥½¸ ¤ì(ÙÈ¥±°ô½Õµ¹Ð¹Ñ±µ¹Ñ	å% ©½ÕÉ¹äµÁÈµ¥±°¤ì(¥¡¥±°¤¥±°¹ÍÑå±¹Ý¥Ñ ôÁÐ¬ì(ô°àÀ¤ì((°¹±ÍÍ1¥ÍÐ¹Éµ½Ù ¥Ìµ±½¥¹¤ì(ô((¼¨RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR (ä¸	UdAI
-Q%
-¡MÁÉ¥¹Ð´ÀÀÍ´È¤(I¥¹µ¹ÐÐèÉ¹µÉ½´EÕ¥¬AÉÑ¥¸(	ÕäÑÑÉ¥ÕÑÌÑ¡Ñ½ÀÉ½µµ¹Ñ¥½¸ìÍÑÕ¹Ð¡½½ÍÌÑåÁ¸(I¥¹µ¹ÐØè¥±ä
-¡±±¹ÉÍÉÙÙ¥!Q50½µµ¹Ð¸(RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ¨¼(¼¨MÁÉ¥¹Ð´ÀÀÍè)$µÉ¥Ù¸PÕäµÙ½¥¥¹ÑÉ¼°ÀµÉÑÕÉ¸Üareness */
+      else if (ji.streakMomentum === 'champion')                     key = 'champion';
+      else if (ji.levelProgress === 'approaching')                   key = 'approaching';
+      else if (ji.isNewMember)                                        key = 'newMember';
+      else if (ji.dayType === 'monday')                               key = 'monday';
+      else if (ji.dayType === 'weekend')                              key = 'weekend';
+      else if (ji.streakCurrent === 0 && ji.lessonsComplete > 0)    key = 'brokenStreak';
+      else if (ji.lessonsComplete === 0)                              key = 'firstLesson';
+      else                                                            key = 'default';
+    } else {
+      return '';
+    }
+
+    var entry = pool[key];
+    if (!entry) return '';
+    var msg = entry[buddyId] || entry['felix'] || '';
+    if (extras) {
+      if (extras.n    !== undefined) msg = msg.replace(/\{n\}/g,     String(extras.n));
+      if (extras.level !== undefined) msg = msg.replace(/\{level\}/g, String(extras.level));
+      if (extras.icon !== undefined) msg = msg.replace(/\{icon\}/g,  String(extras.icon));
+    }
+    return msg;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     FOUNDATION LAYER SAFETY GUARDS
+     Graceful degradation if any module failed to load.
+  ────────────────────────────────────────────────────────────── */
+  function safeGet(fn, fallback) {
+    try { return fn(); } catch (e) { return fallback; }
+  }
+  var FL = {
+    progress:     typeof TGS_PROGRESS     !== 'undefined' ? TGS_PROGRESS     : null,
+    profile:      typeof TGS_PROFILE      !== 'undefined' ? TGS_PROFILE      : null,
+    content:      typeof TGS_CONTENT      !== 'undefined' ? TGS_CONTENT      : null,
+    achievements: typeof TGS_ACHIEVEMENTS !== 'undefined' ? TGS_ACHIEVEMENTS : null,
+    levels:       typeof TGS_LEVELS       !== 'undefined' ? TGS_LEVELS       : null
+  };
+
+  /* ──────────────────────────────────────────────────────────────
+     HOME STATE (tgs_home_v1)
+     Written on each page load — provides Last Visit Memory for
+     Sprint-003B-3. Reading it now also seeds the infrastructure.
+  ────────────────────────────────────────────────────────────── */
+  function readHomeState() {
+    try {
+      var raw = localStorage.getItem(HOME_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function writeHomeState(data) {
+    try {
+      localStorage.setItem(HOME_STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function buildHomeState(ji, nextLessonId, lastStamp) {
+    var summary = ji ? ji.summary : null;
+    return {
+      version:                 HOME_VERSION,
+      lastVisitDate:           new Date().toISOString().slice(0, 10),
+      lastVisitTimestamp:      Date.now(),
+      currentLevelId:          ji ? ji.levelId : null,
+      lessonsCompleteAtVisit:  summary ? (summary.lessonsComplete || 0) : 0,
+      xpAtVisit:               summary ? (summary.xp || 0) : 0,
+      lastActiveLessonId:      nextLessonId || null,
+      lastStampEarned:         lastStamp    || null,
+      /* Sprint-003C — Journey Intelligence state */
+      levelStartDate:          ji ? ji.levelStartDate : null,
+      /*
+       * lastLevelComplete: set when progress:levelComplete fires.
+       * lastDiscoveryId: set when Discover Germany Today is active (future).
+       */
+      lastLevelComplete:       null,
+      lastDiscoveryId:         null
+    };
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     GERMAN GREETING HELPER
+     Converts ji.timeSlot → German time-of-day greeting.
+     Called by renderWelcome(ji) — timeSlot already computed in JIE.
+  ────────────────────────────────────────────────────────────── */
+  function getGermanGreeting(timeSlot) {
+    if (timeSlot === 'morning')   return 'Guten Morgen';
+    if (timeSlot === 'afternoon') return 'Guten Tag';
+    if (timeSlot === 'evening')   return 'Guten Abend';
+    return 'Willkommen zurück';
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     MILESTONE UTILITIES
+  ────────────────────────────────────────────────────────────── */
+  function nextLessonMilestone(done) {
+    for (var i = 0; i < LESSON_MILESTONES.length; i++) {
+      if (done < LESSON_MILESTONES[i]) {
+        return { target: LESSON_MILESTONES[i], away: LESSON_MILESTONES[i] - done };
+      }
+    }
+    return null;
+  }
+
+  function nextStreakMilestone(current) {
+    for (var i = 0; i < STREAK_MILESTONES.length; i++) {
+      if (current < STREAK_MILESTONES[i]) {
+        return { target: STREAK_MILESTONES[i], away: STREAK_MILESTONES[i] - current };
+      }
+    }
+    return null;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     TODAY'S FOCUS — JIE-DRIVEN (Sprint-003C)
+     Replaces Sprint-003B-1 selectBuddyMessage + selectTodaysFocus.
+     Buddy messages now come from selectJIMessage(MESSAGES.buddy, ji).
+     Focus prefix comes from MESSAGES.focus keyed by ji context;
+     renderFocus(focus, ji) applies it around the existing lesson text.
+     This function computes the FOCUS OBJECT (icon + text) from ji.
+  ────────────────────────────────────────────────────────────── */
+  function selectTodaysFocus(ji) {
+    var current  = ji ? ji.streakCurrent : 0;
+    var done     = ji ? ji.lessonsComplete : 0;
+    var nextLM   = nextLessonMilestone(done);
+
+    /* Very first lesson */
+    if (done === 0) {
+      return { icon: '✨', text: 'Complete your first lesson. Your German journey begins today.' };
+    }
+
+    /* Near lesson milestone (≤2 away) */
+    if (nextLM && nextLM.away <= 2) {
+      return {
+        icon: '🏆',
+        text: 'Earn your ' + nextLM.target + '-lesson milestone — just ' +
+              nextLM.away + ' lesson' + (nextLM.away === 1 ? '' : 's') + ' away.'
+      };
+    }
+
+    /* Approaching level completion */
+    if (ji && ji.levelProgress === 'approaching') {
+      return { icon: '🎯', text: 'You\'re close to finishing ' + (ji.levelId || '') + '. Push through to the next level.' };
+    }
+
+    /* Returning after gap — ease back in */
+    if (ji && ji.returningAfterGap) {
+      return { icon: '▶️', text: 'Welcome back — pick up with a lesson you know well.' };
+    }
+
+    /* Streak at 0 */
+    if (current === 0) {
+      return { icon: '🎯', text: 'Start a new streak today. One lesson is enough to begin.' };
+    }
+
+    /* Streak day 1 */
+    if (current === 1) {
+      return { icon: '🎯', text: 'Build on today\'s start. A second session makes a streak.' };
+    }
+
+    /* Default: maintain streak */
+    return {
+      icon: '🔥',
+      text: 'Maintain your ' + current + '-day streak. One lesson keeps it alive.'
+    };
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     CONTINUE JOURNEY — FIND NEXT LESSON
+  ────────────────────────────────────────────────────────────── */
+  function findNextLesson(levelId) {
+    if (!FL.content || !levelId) return null;
+    try {
+      var prog = FL.content.getLevelProgress(levelId);
+      if (prog && prog.nextLesson) return prog.nextLesson; /* { lesson, moduleKey, module } */
+    } catch (e) {}
+    return null;
+  }
+
+  function countDone(levelId) {
+    if (!FL.content || !levelId) return { done: 0, total: 0 };
+    try {
+      var lp = FL.content.getLevelProgress(levelId);
+      return { done: lp.done || 0, total: lp.total || 0, pct: lp.pct || 0 };
+    } catch (e) { return { done: 0, total: 0, pct: 0 }; }
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     LEVEL COLOUR
+  ────────────────────────────────────────────────────────────── */
+  function applyLevelColor(levelId) {
+    if (!FL.levels || !levelId) return;
+    try {
+      var ld = FL.levels.get(levelId);
+      if (ld && ld.color) {
+        document.documentElement.style.setProperty('--level-color', ld.color);
+      }
+    } catch (e) {}
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     COMPONENT RENDERERS
+  ────────────────────────────────────────────────────────────── */
+
+  /* 1. Welcome Header — Sprint-003C: now driven by ji */
+  function renderWelcome(ji) {
+    var el = document.getElementById('comp-welcome');
+    if (!el) return;
+
+    var levelId     = ji ? ji.levelId    : 'A1';
+    var streak      = ji ? ji.streak     : null;
+    var xp          = ji ? ji.xp         : 0;
+    var streakCount = ji ? ji.streakCurrent : 0;
+    var streakIcon  = streakCount >= 3 ? '🔥' : '📅';
+
+    /* German time-of-day greeting */
+    var greeting  = getGermanGreeting(ji ? ji.timeSlot : 'default');
+
+    /* JI-selected motivational subtitle */
+    var subtitle  = selectJIMessage(
+      MESSAGES.greeting, ji,
+      { n: streakCount, level: LEVEL_LABELS[levelId] || levelId }
+    );
+
+    /* Student name — personalised if available */
+    var displayName = (ji && ji.studentName) ? ji.studentName : 'Welcome back';
+
+    el.innerHTML =
+      '<p class="welcome-greeting" id="living-greeting">' + escHtml(greeting) + '</p>' +
+
+      (subtitle
+        ? '<p class="welcome-subtitle" id="welcome-subtitle">' + escHtml(subtitle) + '</p>'
+        : '') +
+
+      '<div class="welcome-name-row">' +
+        '<span class="welcome-name" id="welcome-name-text">' + escHtml(displayName) + '</span>' +
+        '<span class="welcome-level-chip" id="welcome-level-chip">' + escHtml(levelId || '—') + '</span>' +
+      '</div>' +
+
+      '<div class="welcome-stats">' +
+        '<div class="stat-chip">' +
+          '<span class="stat-icon">' + streakIcon + '</span>' +
+          '<span class="stat-val">' + streakCount + '</span>' +
+          '<span class="stat-lbl">' + (streakCount === 1 ? 'day' : 'days') + '</span>' +
+        '</div>' +
+        '<div class="stat-chip">' +
+          '<span class="stat-icon">⭐</span>' +
+          '<span class="stat-val">' + (xp || 0) + '</span>' +
+          '<span class="stat-lbl">XP</span>' +
+        '</div>' +
+      '</div>' +
+
+      /* Identity Card trigger + collapsible panel — Sprint-003B-2 */
+      '<button class="identity-card-trigger" id="identity-card-trigger" ' +
+              'type="button" aria-expanded="false" aria-controls="identity-card-panel">' +
+        '<span class="id-trigger-arrow" aria-hidden="true">▾</span> Your Academy Card' +
+      '</button>' +
+      '<div class="identity-card-panel" id="identity-card-panel" ' +
+           'role="region" aria-label="Academy Identity Card" aria-hidden="true"></div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 2. German Buddy Card — Sprint-003C: JI-driven, buddy-voiced */
+  function renderBuddy(ji) {
+    var el = document.getElementById('comp-buddy');
+    if (!el) return;
+
+    var buddyId   = ji ? (ji.buddyId || 'felix') : 'felix';
+    var buddyName = buddyId === 'sophia'
+      ? '🤖 Sophia — Your German Buddy'
+      : '🤖 Felix — Your German Buddy';
+    var message   = selectJIMessage(
+      MESSAGES.buddy, ji,
+      { n: ji ? ji.streakCurrent : 0, level: LEVEL_LABELS[ji ? ji.levelId : 'A1'] || (ji ? ji.levelId : 'A1') }
+    );
+
+    el.innerHTML =
+      '<div class="buddy-card">' +
+        /* Avatar slot — reserved for Visual Identity Bible character art */
+        '<div class="buddy-avatar-placeholder" aria-hidden="true"></div>' +
+        '<div class="buddy-avatar" role="img" aria-label="' + escHtml(buddyName) + '">🤖</div>' +
+        '<div class="buddy-body">' +
+          '<div class="buddy-name">' + escHtml(buddyName) + '</div>' +
+          '<p class="buddy-message">' + escHtml(message) + '</p>' +
+          '<span class="buddy-ask-link" title="Ask Buddy — coming in future sprint">' +
+            'Ask Buddy → <span style="font-size:10px;opacity:.5">(coming soon)</span>' +
+          '</span>' +
+        '</div>' +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 3. Today's Focus — Sprint-003C: JI context prefix */
+  function renderFocus(focus, ji) {
+    var el = document.getElementById('comp-focus');
+    if (!el) return;
+
+    /* Select context-appropriate prefix from MESSAGES.focus */
+    var prefixKey = 'default';
+    if (ji) {
+      if (ji.returningAfterGap)               prefixKey = 'returning';
+      else if (ji.levelProgress === 'approaching') prefixKey = 'approaching';
+      else if (ji.timeSlot === 'morning')      prefixKey = 'morning';
+      else if (ji.timeSlot === 'evening')      prefixKey = 'evening';
+      else if (ji.dayType   === 'monday')      prefixKey = 'monday';
+    }
+    var prefix     = MESSAGES.focus[prefixKey] || null; /* null = no prefix */
+    var focusText  = prefix
+      ? prefix + ' ' + focus.text
+      : focus.text;
+
+    el.innerHTML =
+      '<div class="focus-card">' +
+        '<span class="focus-icon" aria-hidden="true">' + focus.icon + '</span>' +
+        '<div class="focus-body">' +
+          '<div class="focus-label">Today\'s Focus</div>' +
+          '<div class="focus-text">' + escHtml(focusText) + '</div>' +
+        '</div>' +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 4. Continue Journey (Primary CTA) */
+  function renderCTA(nextLesson, levelId, levelDone) {
+    var el = document.getElementById('comp-cta');
+    if (!el) return;
+
+    var html = '';
+
+    if (!nextLesson) {
+      /* First-time student — no level assigned yet */
+      if (!levelId) {
+        html =
+          '<p class="cta-module-label" style="margin-bottom:12px">Begin your German journey</p>' +
+          '<p class="cta-lesson-title">Where would you like to start?</p>' +
+          '<div class="cta-meta-row">' +
+            '<span class="cta-meta-item">📍 Find your level</span>' +
+          '</div>' +
+          '<a class="btn-continue btn-begin" href="placement-test.html">' +
+            '✨ Begin Placement Test' +
+          '</a>';
+      } else {
+        /* Level set but all lessons complete */
+        var nextLevel = safeGet(function() {
+          var ld = FL.levels.get(levelId);
+          return ld && ld.nextLevel ? ld.nextLevel : null;
+        }, null);
+
+        html =
+          '<p class="cta-complete-note">🎉 You\'ve completed all available lessons in ' + escHtml(levelId) + '!</p>' +
+          (nextLevel
+            ? '<p class="cta-lesson-title">Ready for ' + escHtml(LEVEL_LABELS[nextLevel] || nextLevel) + '</p>' +
+              '<a class="btn-continue" href="level-dashboard.html?level=' + escHtml(nextLevel) + '">' +
+                '▶ Begin ' + escHtml(nextLevel) + ' →' +
+              '</a>'
+            : '<p class="cta-lesson-title">Outstanding achievement — you\'ve reached the top!</p>');
+      }
+    } else {
+      /* Normal continue state */
+      var lesson    = nextLesson.lesson;
+      var moduleKey = nextLesson.moduleKey;
+      var module    = nextLesson.module;
+
+      var moduleLabel = module ? (module.icon ? (module.icon + ' ' + module.label) : module.label)
+                                : (moduleKey.charAt(0).toUpperCase() + moduleKey.slice(1));
+      var doneInfo    = '';
+      if (levelDone && levelDone.total > 0) {
+        doneInfo = levelDone.done + ' of ' + levelDone.total + ' lessons complete';
+      }
+
+      var lessonContent = FL.content ? FL.content.getLesson(lesson.id) : null;
+      var estMins       = lessonContent ? lessonContent.estimatedMinutes : null;
+
+      html =
+        '<div class="cta-module-row">' +
+          '<span class="cta-module-badge">' + escHtml(levelId || '') + '</span>' +
+          '<span class="cta-module-label">' + escHtml(moduleLabel) + '</span>' +
+        '</div>' +
+        '<h2 class="cta-lesson-title">' + escHtml(lesson.title) + '</h2>' +
+        '<div class="cta-meta-row">' +
+          (estMins ? '<span class="cta-meta-item">⏱ ~' + estMins + ' min</span>' : '') +
+          (doneInfo ? '<span class="cta-meta-item">📖 ' + escHtml(doneInfo) + '</span>' : '') +
+        '</div>' +
+        '<a class="btn-continue" href="' + escHtml(lesson.file) + '">' +
+          '▶ Continue' +
+        '</a>';
+    }
+
+    el.innerHTML = html;
+    el.classList.remove('is-loading');
+  }
+
+  /* 5. Progress Summary */
+  function renderProgress(levelId, summary, levelDone) {
+    var el = document.getElementById('comp-progress');
+    if (!el) return;
+
+    var lessons  = summary ? (summary.lessonsComplete || 0) : 0;
+    var xp       = summary ? (summary.xp || 0) : 0;
+    var streak   = summary ? ((summary.streak && summary.streak.current) || 0) : 0;
+    var pct      = levelDone ? (levelDone.pct || 0) : 0;
+    var levelName = LEVEL_LABELS[levelId] || (levelId || 'Your Journey');
+
+    el.innerHTML =
+      '<div class="comp-label">Your Progress</div>' +
+
+      '<div class="progress-grid">' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + xp + '</div>' +
+          '<div class="prog-stat-lbl">XP</div>' +
+        '</div>' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + lessons + '</div>' +
+          '<div class="prog-stat-lbl">Lessons</div>' +
+        '</div>' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + streak + '</div>' +
+          '<div class="prog-stat-lbl">Day Streak</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="level-prog-label">' +
+        '<span class="level-prog-name">' + escHtml(levelName) + '</span>' +
+        '<span class="level-prog-pct">' + pct + '%</span>' +
+      '</div>' +
+      '<div class="pbar-wrap" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100">' +
+        '<div class="pbar-fill" id="prog-bar-fill" style="width:0%"></div>' +
+      '</div>' +
+      '<div class="level-prog-sub">' +
+        (levelDone && levelDone.total > 0
+          ? escHtml(levelDone.done + ' of ' + levelDone.total + ' available lessons complete')
+          : 'Your progress will build here as you learn') +
+      '</div>';
+
+    el.classList.remove('is-loading');
+
+    /* Animate bar after paint */
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        var bar = document.getElementById('prog-bar-fill');
+        if (bar) bar.style.width = pct + '%';
+      }, 80);
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     SPRINT-003B-2 UTILITIES
+  ────────────────────────────────────────────────────────────── */
+
+  /*
+   * PASSPORT NUMBER — Sprint-003B-2 PLACEHOLDER
+   * Derived client-side from profile creation timestamp.
+   *
+   * RESERVED ARCHITECTURE: When server infrastructure is established,
+   * Academy Passport Numbers should be permanent sequential integers
+   * issued at student registration, stored server-side, and retrieved
+   * via authenticated account. Display format TGS-YYYY-NNNNN reserved.
+   */
+  function buildPassportNumber(ts) {
+    if (!ts) return 'TGS-XXXX-XXXXX';
+    var d   = new Date(ts);
+    var yr  = d.getFullYear();
+    var seq = String(ts % 100000).padStart(5, '0');
+    return 'TGS-' + yr + '-' + seq;
+  }
+
+  function formatMemberSince(ts) {
+    if (!ts) return '—';
+    var months = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+    var d = new Date(ts);
+    return months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function formatNum(n) {
+    if (!n) return '0';
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     6. IDENTITY CARD (Sprint-003B-2)
+        Populates the collapsible panel inside #comp-welcome.
+        Called AFTER renderWelcome() which injects the trigger+panel.
+  ────────────────────────────────────────────────────────────── */
+  function renderIdentityCard(xp, profileCreated, levelId) {
+    var trigger = document.getElementById('identity-card-trigger');
+    var panel   = document.getElementById('identity-card-panel');
+    if (!trigger || !panel) return;
+
+    var passportNo  = buildPassportNumber(profileCreated);
+    var memberSince = formatMemberSince(profileCreated);
+    var levelLabel  = LEVEL_LABELS[levelId] || (levelId || 'Getting started');
+
+    panel.innerHTML =
+      '<div class="id-card">' +
+        '<div class="id-card-header">' +
+          '<div class="id-card-academy">TheGermanStefan Academy</div>' +
+          '<button class="id-card-close" id="id-card-close-btn" type="button" aria-label="Close Academy Card">✕</button>' +
+        '</div>' +
+
+        /* Student name — "Academy Member" until onboarding sprint adds name field */
+        /* TGS_PROFILE.name is reserved for future onboarding sprint */
+        '<div class="id-card-name">Academy Member</div>' +
+        '<div class="id-card-level">' + escHtml(levelLabel) + '</div>' +
+
+        '<div class="id-card-fields">' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Member Since</div>' +
+            '<div class="id-card-field-val">' + escHtml(memberSince) + '</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Total XP</div>' +
+            '<div class="id-card-field-val">' + escHtml(formatNum(xp)) + '</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Learning DNA</div>' +
+            /* Reserved — future sprint analyses learning style patterns */
+            '<div class="id-card-field-val reserved">Unlocking...</div>' +
+          '</div>' +
+          '<div class="id-card-field">' +
+            '<div class="id-card-field-label">Rank</div>' +
+            /* Reserved — rank system to be defined in Academy OS update */
+            '<div class="id-card-field-val reserved">Coming soon</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="id-card-footer">' +
+          '<div>' +
+            '<div class="id-card-passport-label">Passport No.</div>' +
+            '<div class="id-card-passport-no">' + escHtml(passportNo) + '</div>' +
+          '</div>' +
+          '<div style="font-size:24px;opacity:.12" aria-hidden="true">🛂</div>' +
+        '</div>' +
+      '</div>';
+
+    /* Wire toggle */
+    function openCard() {
+      panel.classList.add('open');
+      trigger.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+    }
+    function closeCard() {
+      panel.classList.remove('open');
+      trigger.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+    function toggleCard() {
+      panel.classList.contains('open') ? closeCard() : openCard();
+    }
+
+    trigger.addEventListener('click', toggleCard);
+    trigger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCard(); }
+    });
+
+    var closeBtn = document.getElementById('id-card-close-btn');
+    if (closeBtn) closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeCard();
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     7. PASSPORT PREVIEW (Sprint-003B-2)
+        Refinement 1: miniature stamp grid, not dot indicators.
+        Refinement 5: "Recognised Certifications" — no provider names.
+  ────────────────────────────────────────────────────────────── */
+  /* Sprint-003C: second param ji enables milestone anticipation line */
+  function renderPassportPreview(earned, ji) {
+    var el = document.getElementById('comp-passport');
+    if (!el) return;
+
+    /* Build earned-ID lookup */
+    var earnedMap = {};
+    (earned || []).forEach(function(s) {
+      var sid = s.stampId || s.id || '';
+      if (sid) earnedMap[sid] = true;
+    });
+    var earnedCount = Object.keys(earnedMap).length;
+
+    /* Miniature stamp grid — 11 defined stamps + 1 reserved cell = 12 */
+    var gridHtml = '';
+    STAMP_MANIFEST.forEach(function(s) {
+      if (earnedMap[s.id]) {
+        gridHtml +=
+          '<div class="passport-mini-stamp earned" ' +
+               'title="' + escHtml(s.name) + '" ' +
+               'role="img" aria-label="Earned: ' + escHtml(s.name) + '">' +
+            s.icon +
+          '</div>';
+      } else {
+        gridHtml +=
+          '<div class="passport-mini-stamp locked" ' +
+               'title="' + escHtml(s.name) + '" aria-hidden="true"></div>';
+      }
+    });
+    /* 12th cell — reserved for future stamp types */
+    gridHtml += '<div class="passport-mini-stamp reserved" title="More stamps coming" aria-hidden="true"></div>';
+
+    var stampLabel = earnedCount === 0
+      ? 'No stamps yet — start learning to earn your first'
+      : (earnedCount + ' of ' + STAMP_MANIFEST.length + ' stamps earned');
+
+    /* Sprint-003C: milestone anticipation — shown 1 day before a streak stamp */
+    var milestoneHtml = '';
+    if (ji && ji.daysToNextMilestone === 1 && ji.nextStreakMilestone) {
+      var nextTarget = ji.nextStreakMilestone;
+      /* Find the icon for this streak stamp from STAMP_MANIFEST */
+      var stampDef = null;
+      STAMP_MANIFEST.forEach(function(s) {
+        if (s.id === 'milestone_streak_' + nextTarget) stampDef = s;
+      });
+      var stampIcon = stampDef ? stampDef.icon : '🏅';
+      var milestoneMsg = MESSAGES.passport.milestoneNear
+        .replace(/\{n\}/g, String(nextTarget))
+        .replace(/\{icon\}/g, stampIcon);
+      milestoneHtml =
+        '<div class="passport-milestone-near" role="status">' +
+          escHtml(milestoneMsg) +
+        '</div>';
+    }
+
+    el.innerHTML =
+      '<div class="comp-label">Your Passport</div>' +
+
+      '<div class="passport-stamp-count">' + escHtml(stampLabel) + '</div>' +
+      '<div class="passport-mini-grid" role="list" aria-label="Passport stamps">' +
+        gridHtml +
+      '</div>' +
+
+      milestoneHtml +
+
+      /* Recognised Certifications — Refinement 5: no specific provider names */
+      '<div class="passport-certs-row">' +
+        '<span class="passport-cert-lock" aria-hidden="true">🔒</span>' +
+        '<div>' +
+          '<div class="passport-cert-title">Recognised Certifications</div>' +
+          '<div class="passport-cert-sub">Certification tracking coming soon</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* Passport page CTA — disabled until full Passport page is built */
+      '<a class="btn-passport" href="#" aria-disabled="true" style="pointer-events:none">' +
+        '🛂 View Full Passport' +
+        '<span style="font-size:10px;opacity:.5;margin-left:4px">(coming soon)</span>' +
+      '</a>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     8. JOURNEY PREVIEW (Sprint-003B-2)
+        Refinement 2: Yesterday / Today / Next Destination wording.
+        No percentages — travel metaphor, not progress bar.
+  ────────────────────────────────────────────────────────────── */
+  /* Sprint-003C: now driven by ji — adds level progress bar + days-at-level */
+  function renderJourneyPreview(ji) {
+    var el = document.getElementById('comp-journey');
+    if (!el) return;
+
+    var levelId  = ji ? ji.levelId  : 'A1';
+    var levelPct = ji ? (ji.levelPct || 0) : 0;
+    var daysAt   = ji ? (ji.daysAtLevel || 0) : 0;
+
+    var idx = LEVEL_ORDER.indexOf(levelId);
+    if (idx < 0) idx = 1;
+
+    var prevId = idx > 0                      ? LEVEL_ORDER[idx - 1] : null;
+    var nextId = idx < LEVEL_ORDER.length - 1 ? LEVEL_ORDER[idx + 1] : null;
+
+    function stopHtml(type, id, labelOverride, subOverride, iconOverride) {
+      var icon  = iconOverride  || (type === 'past' ? '✓' : type === 'present' ? '📍' : '→');
+      var label = labelOverride || LEVEL_LABELS[id] || (id || '—');
+      var sub   = subOverride   || (type === 'past' ? 'Completed'
+                                  : type === 'present' ? 'You are here'
+                                  : 'Your next horizon');
+      var tag   = type === 'past' ? 'Yesterday' : type === 'present' ? 'Today' : 'Next Destination';
+      return (
+        '<div class="journey-stop ' + type + '">' +
+          '<div class="journey-stop-indicator" aria-hidden="true">' + icon + '</div>' +
+          '<div class="journey-stop-body">' +
+            '<div class="journey-stop-tag">' + escHtml(tag) + '</div>' +
+            '<div class="journey-stop-level">' + escHtml(label) + '</div>' +
+            '<div class="journey-stop-sub">' + escHtml(sub) + '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    var prevStop = prevId
+      ? stopHtml('past', prevId)
+      : stopHtml('past', null, 'Before the Academy', 'Where your journey begins', '✦');
+
+    var currStop = stopHtml('present', levelId);
+
+    var nextStop = nextId
+      ? stopHtml('future', nextId)
+      : stopHtml('future', null, 'The Summit', 'You have arrived — mastery achieved!', '⭐');
+
+    /* Sprint-003C: level progress bar + days-at-level meta */
+    var daysLabel = daysAt === 1 ? '1 day at this level' : daysAt + ' days at this level';
+    var metaHtml =
+      '<div class="journey-today-meta">' +
+        '<div class="journey-today-pbar-wrap">' +
+          '<div class="journey-today-pbar-fill" id="journey-pbar-fill" ' +
+               'style="width:0%" aria-hidden="true"></div>' +
+        '</div>' +
+        '<div class="journey-today-pbar-label">' +
+          escHtml(Math.round(levelPct) + '% through ' + (LEVEL_LABELS[levelId] || levelId)) +
+        '</div>' +
+        '<div class="journey-today-days">' + escHtml(daysLabel) + '</div>' +
+      '</div>';
+
+    el.innerHTML =
+      '<div class="comp-label">Your Journey</div>' +
+      '<div class="journey-stops">' +
+        prevStop +
+        '<div class="journey-arrow" aria-hidden="true">↓</div>' +
+        currStop +
+        '<div class="journey-arrow" aria-hidden="true">↓</div>' +
+        nextStop +
+      '</div>' +
+      metaHtml;
+
+    /* Animate progress bar after DOM is painted */
+    var pct = Math.min(100, Math.max(0, Math.round(levelPct)));
+    setTimeout(function() {
+      var fill = document.getElementById('journey-pbar-fill');
+      if (fill) fill.style.width = pct + '%';
+    }, 80);
+
+    el.classList.remove('is-loading');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     9. BUDDY PRACTICE (Sprint-003B-2)
+        Refinement 4: renamed from "Quick Practice".
+        Buddy attributes the top recommendation; student chooses type.
+        Refinement 6: Daily Challenge reserved via HTML comment.
+  ────────────────────────────────────────────────────────────── */
+  /* Sprint-003C: JI-driven — buddy-voiced intro, gap-return awareness */
   function renderBuddyPractice(ji) {
     var el = document.getElementById('comp-buddy-practice');
     if (!el) return;
@@ -1986,35 +2516,35 @@ Q%
     var streakCurrent   = ji ? ji.streakCurrent : 0;
     var buddyId         = ji ? (ji.buddyId || 'felix') : 'felix';
 
-    /* Buddy intro line â gap-return gets JI message; otherwise generic */
+    /* Buddy intro line — gap-return gets JI message; otherwise generic */
     var introLine;
     if (ji && ji.returningAfterGap) {
       introLine = MESSAGES.practice.returningGap[buddyId]
         || MESSAGES.practice.returningGap['felix'];
     } else {
       introLine = buddyId === 'sophia'
-        ? 'ð¤ Sophia suggests for today'
-        : 'ð¤ Felix suggests for today';
+        ? '🤖 Sophia suggests for today'
+        : '🤖 Felix suggests for today';
     }
 
-    /* Top recommendation waterfall â first match wins */
+    /* Top recommendation waterfall — first match wins */
     var rec;
     if (lessonsComplete === 0) {
-      rec = { icon: 'âï¸',  label: 'Start with Grammar',    sub: 'Build your foundation from day one',       href: dashHref };
+      rec = { icon: '✏️',  label: 'Start with Grammar',    sub: 'Build your foundation from day one',       href: dashHref };
     } else if (ji && ji.returningAfterGap) {
-      rec = { icon: 'â¶ï¸',  label: 'Continue from where you left off', sub: 'Ease back in â pick a familiar topic', href: dashHref };
+      rec = { icon: '▶️',  label: 'Continue from where you left off', sub: 'Ease back in — pick a familiar topic', href: dashHref };
     } else if (streakCurrent === 0) {
-      rec = { icon: 'ð', label: 'Grammar Practice',        sub: 'Rebuild momentum with solid foundations',  href: dashHref };
+      rec = { icon: '📖', label: 'Grammar Practice',        sub: 'Rebuild momentum with solid foundations',  href: dashHref };
     } else {
-      rec = { icon: 'ðï¸', label: 'Vocabulary Universe',     sub: 'Expand your word bank today',              href: 'vocabulary-universe.html' };
+      rec = { icon: '🗂️', label: 'Vocabulary Universe',     sub: 'Expand your word bank today',              href: 'vocabulary-universe.html' };
     }
 
-    /* Secondary grid â 4 practice types */
+    /* Secondary grid — 4 practice types */
     var SECONDARY = [
-      { icon: 'ðï¸', label: 'Vocabulary', href: 'vocabulary-universe.html', coming: false },
-      { icon: 'ð', label: 'Grammar',    href: dashHref,                    coming: false },
-      { icon: 'ð', label: 'Reading',    href: '#',                          coming: true  },
-      { icon: 'ð£ï¸', label: 'Speaking',   href: '#',                          coming: true  }
+      { icon: '🗂️', label: 'Vocabulary', href: 'vocabulary-universe.html', coming: false },
+      { icon: '📖', label: 'Grammar',    href: dashHref,                    coming: false },
+      { icon: '📖', label: 'Reading',    href: '#',                          coming: true  },
+      { icon: '🗣️', label: 'Speaking',   href: '#',                          coming: true  }
     ];
 
     var gridHtml = '';
@@ -2037,23 +2567,23 @@ Q%
         '<span class="buddy-practice-rec-icon" aria-hidden="true">' + rec.icon + '</span>' +
         '<div class="buddy-practice-rec-body">' +
           '<div class="buddy-practice-rec-label">' + escHtml(rec.label) + '</div>' +
-          '<div class="buddy-practice-rec-sub">' + escHtmm(rec.sub) + '</div>' +
+          '<div class="buddy-practice-rec-sub">' + escHtml(rec.sub) + '</div>' +
         '</div>' +
-        '<span class="buddy-practice-rec-arrow" aria-hidden="true">â</span>' +
+        '<span class="buddy-practice-rec-arrow" aria-hidden="true">→</span>' +
       '</a>' +
 
       '<div class="practice-grid">' + gridHtml + '</div>';
       /*
-       * DAILY CHALLENGE â RESERVED ARCHITECTURE (Refinement 6)
+       * DAILY CHALLENGE — RESERVED ARCHITECTURE (Refinement 6)
        * Future sprint adds rotating challenge card here.
        */
 
     el.classList.remove('is-loading');
   }
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-     NAVIGATION â set dynamic Learn links
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  /* ──────────────────────────────────────────────────────────────
+     NAVIGATION — set dynamic Learn links
+  ────────────────────────────────────────────────────────────── */
   function updateNavLinks(levelId) {
     var lvl   = levelId || 'A1';
     var href  = 'level-dashboard.html?level=' + encodeURIComponent(lvl);
@@ -2063,15 +2593,15 @@ Q%
     if (bLink) bLink.href = href;
   }
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  /* ──────────────────────────────────────────────────────────────
      LIVE EVENT WIRING
      Updates components in real time when student returns from a lesson
      while the Home tab is still open.
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  ────────────────────────────────────────────────────────────── */
   function wireLiveEvents(levelId) {
     if (!TGS || !TGS.utils || !TGS.utils.events) return;
 
-    /* Progress updated â refresh progress bar and stats */
+    /* Progress updated — refresh progress bar and stats */
     TGS.utils.events.on('progress:lessonComplete', function () {
       var s  = safeGet(function() { return FL.progress.summary(); }, null);
       var ld = countDone(levelId);
@@ -2081,18 +2611,18 @@ Q%
       renderCTA(nl, levelId, ld);
     });
 
-    /* Stamp earned â refresh Passport Preview grid live with current _ji */
+    /* Stamp earned — refresh Passport Preview grid live with current _ji */
     TGS.utils.events.on('achievement:stampEarned', function (data) {
       var latestEarned = safeGet(function() {
         return FL.achievements ? FL.achievements.getEarned() : [];
       }, []);
       renderPassportPreview(latestEarned, _ji);
       if (typeof console !== 'undefined') {
-        console.info('[TGS Home] Stamp earned:', data.stampId, 'â Passport refreshed');
+        console.info('[TGS Home] Stamp earned:', data.stampId, '— Passport refreshed');
       }
     });
 
-    /* Level complete â set in home state for celebration window */
+    /* Level complete — set in home state for celebration window */
     TGS.utils.events.on('progress:levelComplete', function (data) {
       try {
         var hs = readHomeState() || {};
@@ -2102,9 +2632,9 @@ Q%
     });
   }
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  /* ──────────────────────────────────────────────────────────────
      ESCAPE UTILITY (XSS prevention)
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  ────────────────────────────────────────────────────────────── */
   function escHtml(str) {
     if (str == null) return '';
     return String(str)
@@ -2114,34 +2644,34 @@ Q%
       .replace(/"/g, '&quot;');
   }
 
-  /* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-     BOOTSTRAP â MAIN INIT
-  ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+  /* ──────────────────────────────────────────────────────────────
+     BOOTSTRAP — MAIN INIT
+  ────────────────────────────────────────────────────────────── */
   function init() {
 
-    /* ââ 1. Read prior home state (for JIE last-visit memory) ââ */
+    /* ── 1. Read prior home state (for JIE last-visit memory) ── */
     var prevState = readHomeState();
 
-    /* ââ 2. Build Journey Intelligence (pure computation, < 5ms) â */
+    /* ── 2. Build Journey Intelligence (pure computation, < 5ms) ─ */
     var ji = buildJourneyIntelligence(prevState);
 
     /* Store on module scope so wireLiveEvents handlers can use it */
     _ji = ji;
 
-    /* ââ 3. Apply level colour âââââââââââââââââââââââââââââââââââ */
+    /* ── 3. Apply level colour ─────────────────────────────────── */
     applyLevelColor(ji.levelId);
 
-    /* ââ 4. Today's Focus (JIE-driven) ââââââââââââââââââââââââââââ */
+    /* ── 4. Today's Focus (JIE-driven) ──────────────────────────── */
     var focus = selectTodaysFocus(ji);
 
-    /* ââ 5. Next lesson ââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ── 5. Next lesson ──────────────────────────────────────────── */
     var nextLesson = findNextLesson(ji.levelId);
     var levelDone  = ji.levelDone || countDone(ji.levelId);
 
-    /* ââ 6. Read profile creation timestamp for Identity Card ââââââ */
+    /* ── 6. Read profile creation timestamp for Identity Card ────── */
     var profileCreated = ji.profileCreated || null;
 
-    /* ââ 7. Render Sprint-003B-1 components (now JI-aware) ââââââââ */
+    /* ── 7. Render Sprint-003B-1 components (now JI-aware) ──────── */
     renderWelcome(ji);
     renderIdentityCard(ji.xp, profileCreated, ji.levelId);
     renderBuddy(ji);
@@ -2149,18 +2679,18 @@ Q%
     renderCTA(nextLesson, ji.levelId, levelDone);
     renderProgress(ji.levelId, ji.summary, levelDone);
 
-    /* ââ 8. Render Sprint-003B-2 components (now JI-aware) ââââââââ */
+    /* ── 8. Render Sprint-003B-2 components (now JI-aware) ──────── */
     renderPassportPreview(ji.earnedStamps, ji);
     renderJourneyPreview(ji);
     renderBuddyPractice(ji);
 
-    /* ââ 9. Update navigation deep links ââââââââââââââââââââââââââ */
+    /* ── 9. Update navigation deep links ────────────────────────── */
     updateNavLinks(ji.levelId);
 
-    /* ââ 10. Wire live events ââââââââââââââââââââââââââââââââââââââ */
+    /* ── 10. Wire live events ────────────────────────────────────── */
     wireLiveEvents(ji.levelId);
 
-    /* ââ 11. Persist home state (JIE fields included) âââââââââââââ */
+    /* ── 11. Persist home state (JIE fields included) ───────────── */
     var lastStamp    = ji.earnedStamps && ji.earnedStamps.length > 0
       ? ji.earnedStamps[ji.earnedStamps.length - 1].id
       : null;
@@ -2168,10 +2698,10 @@ Q%
     writeHomeState(buildHomeState(ji, nextLessonId, lastStamp));
 
     /*
-     * YOUR GERMAN JOURNEY â RESERVED ARCHITECTURE NOTE
+     * YOUR GERMAN JOURNEY — RESERVED ARCHITECTURE NOTE
      * When "Your German Journey" is implemented (future sprint), it will:
      * - Read: TGS_PROGRESS.export(), TGS_ACHIEVEMENTS.export()
-     * - Calculate: year of data (Jan 1 â Dec 31)
+     * - Calculate: year of data (Jan 1 – Dec 31)
      * - Display: lessons completed, XP earned, study time, longest streak,
      *            stamps earned, favourite learning category, biggest achievement
      * - Trigger: annually (dec 31 / jan 1) or on demand
