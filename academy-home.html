@@ -1411,26 +1411,7 @@ body[data-atm="night"] .home-bg-layer {
     0 0 0 3px rgba(201,168,76,.72),
     0 0 20px rgba(201,168,76,.28);
 }
-.companion-svg {
-  width: 72px;
-  height: 72px;
-  display: block;
-}
-.companion-svg .expr-celebrating,
-.companion-svg .expr-motivating,
-.companion-svg .expr-recommending { display: none; }
-.companion-svg.celebrating .expr-default,
-.companion-svg.celebrating .expr-motivating,
-.companion-svg.celebrating .expr-recommending { display: none; }
-.companion-svg.celebrating .expr-celebrating  { display: block; }
-.companion-svg.motivating .expr-default,
-.companion-svg.motivating .expr-celebrating,
-.companion-svg.motivating .expr-recommending  { display: none; }
-.companion-svg.motivating .expr-motivating    { display: block; }
-.companion-svg.recommending .expr-default,
-.companion-svg.recommending .expr-celebrating,
-.companion-svg.recommending .expr-motivating  { display: none; }
-.companion-svg.recommending .expr-recommending { display: block; }
+.companion-svg { display: block; }
 
 .why-rationale {
   font-size: 13px;
@@ -1893,104 +1874,21 @@ body[data-atm="night"] .home-bg-layer {
     }
   };
 
-  /* PLACEHOLDER ARTWORK — Sprint-003D implementation scaffolding only.
-     These SVGs demonstrate the expression-switching architecture
-     (four expr-* groups, CSS-driven, companion state integration).
-     They do NOT reproduce the approved Character Bible.
-     Final Felix & Sophia artwork must be supplied separately and
-     must match the master reference exactly (face, hairstyle,
+  /* COMPANION ARTWORK — PENDING OFFICIAL CHARACTER BIBLE IMPLEMENTATION
+     Felix and Sophia visual portraits are not shown until the approved
+     Character Bible artwork is available (correct face, hairstyle,
      proportions, clothing, premium semi-realistic style).
-     Do not treat these as official character artwork. */
+     A neutral academy symbol is displayed in the premium avatar ring.
+     The full companion state architecture (expression mapping, celebration
+     glow, why-first, memory, milestones) remains intact and functional. */
   var COMPANION_SVG = {
     felix: function (expr) {
       var cls = 'companion-svg' + (expr && expr !== 'default' ? ' ' + expr : '');
-      return '<svg class="' + cls + '" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-'<path d="M8 72 Q8 56 20 54 L28 51 L36 57 L44 51 L52 54 Q64 56 64 72Z" fill="#1A3558"/>' +
-'<path d="M33 51 L36 58 L39 51" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>' +
-'<rect x="30" y="44" width="12" height="10" rx="4" fill="#EDB882"/>' +
-'<ellipse cx="36" cy="31" rx="18" ry="20" fill="#EDB882"/>' +
-'<path d="M18 25 Q18 10 36 9 Q54 10 54 25 L51 19 Q44 12 36 13 Q28 12 21 19Z" fill="#2C1A0E"/>' +
-'<path d="M18 25 L18 33 Q19 33 20 31 L20 23Z" fill="#2C1A0E"/>' +
-        '<path d="M54 25 L54 33 Q53 33 52 31 L52 23Z" fill="#2C1A0E"/>' +
-'<ellipse cx="29" cy="31" rx="4.2" ry="4.5" fill="#fff"/>' +
-        '<ellipse cx="43" cy="31" rx="4.2" ry="4.5" fill="#fff"/>' +
-'<circle cx="30" cy="32" r="2.8" fill="#2C1A0E"/>' +
-        '<circle cx="44" cy="32" r="2.8" fill="#2C1A0E"/>' +
-'<circle cx="31" cy="30.8" r=".9" fill="#fff"/>' +
-        '<circle cx="45" cy="30.8" r=".9" fill="#fff"/>' +
-        '<g class="expr-default">' +
-          '<path d="M25 25 Q29 23 33 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 25 Q43 23 47 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M29 40 Q36 44 43 40" stroke="#B06040" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
-        '</g>' +
-        '<g class="expr-celebrating">' +
-          '<path d="M25 23 Q29 21 33 23" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 23 Q43 21 47 23" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M27 39 Q36 46 45 39" stroke="#B06040" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-          '<line x1="27" y1="38.5" x2="26" y2="42" stroke="#B06040" stroke-width="1" stroke-linecap="round"/>' +
-          '<line x1="45" y1="38.5" x2="46" y2="42" stroke="#B06040" stroke-width="1" stroke-linecap="round"/>' +
-        '</g>' +
-        '<g class="expr-motivating">' +
-          '<path d="M25 26 Q29 24 33 26" stroke="#2C1A0E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 26 Q43 24 47 26" stroke="#2C1A0E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
-          '<path d="M30 41 Q36 44 42 41" stroke="#B06040" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
-        '</g>' +
-        '<g class="expr-recommending">' +
-          '<path d="M25 24 Q29 22 33 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 25 Q43 23 47 24" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M30 40 Q36 43 42 40" stroke="#B06040" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-        '</g>' +
-      '</svg>';
+      return '<span class="' + cls + '" aria-hidden="true" style="font-size:34px;line-height:72px;display:block;width:72px;height:72px;text-align:center;">🏰</span>';
     },
     sophia: function (expr) {
       var cls = 'companion-svg' + (expr && expr !== 'default' ? ' ' + expr : '');
-      return '<svg class="' + cls + '" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-'<path d="M6 72 Q6 56 18 54 L27 51 L36 57 L45 51 L54 54 Q66 56 66 72Z" fill="#1A3558"/>' +
-'<path d="M30 52 Q36 59 42 52" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>' +
-'<rect x="30" y="44" width="12" height="11" rx="5" fill="#EDB882"/>' +
-'<ellipse cx="36" cy="30" rx="17" ry="20" fill="#EDB882"/>' +
-'<path d="M19 23 Q17 9 36 8 Q55 9 53 23 L50 16 Q44 10 36 11 Q28 10 22 16Z" fill="#5C2A0A"/>' +
-'<path d="M19 23 L16 38 Q17 45 20 47 L21 40 L22 26Z" fill="#5C2A0A"/>' +
-'<path d="M53 23 L56 38 Q55 45 52 47 L51 40 L50 26Z" fill="#5C2A0A"/>' +
-'<ellipse cx="28.5" cy="30" rx="4.5" ry="4.8" fill="#fff"/>' +
-        '<ellipse cx="43.5" cy="30" rx="4.5" ry="4.8" fill="#fff"/>' +
-'<circle cx="29.5" cy="31" r="3" fill="#2C1A0E"/>' +
-        '<circle cx="44.5" cy="31" r="3" fill="#2C1A0E"/>' +
-'<circle cx="30.5" cy="30" r="1" fill="#fff"/>' +
-        '<circle cx="45.5" cy="30" r="1" fill="#fff"/>' +
-'<path d="M25 26.5 L24 24.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
-        '<path d="M27 25.5 L27 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
-        '<path d="M40 25.5 L40 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
-        '<path d="M42 25.5 L43 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
-        '<g class="expr-default">' +
-          '<path d="M24 23.5 Q28.5 21 33 23.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 23.5 Q43.5 21 48 23.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M28 40 Q36 45 44 40" stroke="#B06060" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<circle cx="22" cy="37" r="4.5" fill="rgba(220,110,90,.10)"/>' +
-          '<circle cx="50" cy="37" r="4.5" fill="rgba(220,110,90,.10)"/>' +
-        '</g>' +
-        '<g class="expr-celebrating">' +
-          '<path d="M24 21.5 Q28.5 19 33 21.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 21.5 Q43.5 19 48 21.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M26 39 Q36 47 46 39" stroke="#B06060" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-          '<circle cx="22" cy="36" r="5.5" fill="rgba(220,110,90,.18)"/>' +
-          '<circle cx="50" cy="36" r="5.5" fill="rgba(220,110,90,.18)"/>' +
-        '</g>' +
-        '<g class="expr-motivating">' +
-          '<path d="M24 23 Q28.5 21 33 23" stroke="#5C2A0A" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 23 Q43.5 21 48 23" stroke="#5C2A0A" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
-          '<path d="M29 40 Q36 44 43 40" stroke="#B06060" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
-          '<circle cx="22" cy="37" r="4" fill="rgba(220,110,90,.12)"/>' +
-          '<circle cx="50" cy="37" r="4" fill="rgba(220,110,90,.12)"/>' +
-        '</g>' +
-        '<g class="expr-recommending">' +
-          '<path d="M24 23 Q28.5 21 33 24" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M39 24 Q43.5 22 48 23" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
-          '<path d="M29 40 Q36 43 43 40" stroke="#B06060" stroke-width="1.4" fill="none" stroke-linecap="round"/>' +
-          '<circle cx="22" cy="37" r="3.5" fill="rgba(220,110,90,.09)"/>' +
-          '<circle cx="50" cy="37" r="3.5" fill="rgba(220,110,90,.09)"/>' +
-        '</g>' +
-      '</svg>';
+      return '<span class="' + cls + '" aria-hidden="true" style="font-size:34px;line-height:72px;display:block;width:72px;height:72px;text-align:center;">🏰</span>';
     }
   };
 
