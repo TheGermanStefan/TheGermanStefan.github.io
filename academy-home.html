@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academy Home · TheGermanStefan Academy</title>
+<meta name="robots" content="noindex">
+<style>
+/*
+ * academy-home.html — Academy Home MVP
+ * TheGermanStefan Academy · Sprint-003B-1 (Design Upgrade)
+ *
+ * Components (this sprint):
+ *   1. Welcome Header    (Living Academy ready)
+ *   2. German Buddy Card
+ *   3. Today's Focus
+ *   4. Continue Journey  (Primary CTA — always above fold)
+ *   5. Progress Summary
+ *   6. Navigation        (topbar desktop + bottom bar mobile)
+ *
+ * Design Upgrade (CSS-only — no architecture, JS or Foundation Layer changes):
+ *   - Cinematic dark premium atmosphere via fixed background layer
+ *   - Welcome Header is a hero, not a card
+ *   - German Buddy has a companion-scale avatar (76px + amber ring)
+ *   - Continue Journey CTA is the luminous centrepiece
+ *   - Gold (amber) used selectively — CTA button + active nav only
+ *   - Progress numbers proud and large (30px)
+ *   - Premium card material: box-shadow + inset highlight throughout
+ *   - Progress bar taller with shimmer animation (motion-safe)
+ *
+ * Reserved (future sprints):
+ *   Sprint-003B-2: Passport Preview, Journey Preview, Identity Card, Quick Practice
+ *   Sprint-003B-3: Living Academy full, Last Visit Memory, Discover Germany Today
+ *   Future:        Your German Journey (annual summary)
+ *
+ * Data sources: tgs-progress.js · tgs-profile.js · tgs-content-registry.js
+ *               tgs-achievements.js · tgs_home_v1 (home state key)
+ */
+
+/* ── RESET & DESIGN TOKENS ──────────────────────────────────────── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Brand tokens — match level-dashboard.html exactly */
+  --navy:      #0b2545;
+  --navy2:     #0d2e56;
+  --blue:      #1464b4;
+  --amber:     #f9a825;
+  --green:     #2e7d32;
+  --red:       #c62828;
+  --gray:      #f0f4f8;
+  --border:    #e0e6f0;
+
+  /* Card tokens — upgraded for premium material feel */
+  --card-bg:   rgba(255,255,255,.06);
+  --card-bd:   rgba(255,255,255,.14);
+  --txt-dim:   rgba(255,255,255,.55);
+  --txt-faint: rgba(255,255,255,.3);
+
+  /* Level colour — set by JS after TGS_PROFILE.getCurrentLevel() */
+  --level-color: #1464b4;
+
+  /* Home layout */
+  --home-max:  680px;
+  --home-pad:  16px;
+  --gap:       14px;
+  --radius:    16px;
+  --radius-sm: 10px;
+
+  /* Bottom nav height (mobile) */
+  --nav-h: 64px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--navy);
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── ATMOSPHERIC BACKGROUND LAYER ───────────────────────────────── */
+/*
+ * Fixed decorative layer — aria-hidden, pointer-events none.
+ * Creates cinematic depth behind all content without affecting layout.
+ * Two radial gradients: a cool blue glow upper-left, a deep blue
+ * lower-right. Together they give the impression of light falling
+ * into a large, calm room.
+ */
+.home-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 75% 55% at 18% 0%,   rgba(20,100,180,.17) 0%, transparent 100%),
+    radial-gradient(ellipse 55% 40% at 84% 100%,  rgba(15,50,110,.14)  0%, transparent 100%);
+}
+
+/* ── TOPBAR ─────────────────────────────────────────────────────── */
+.topbar {
+  background: rgba(0,0,0,.35);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.tgs-logo {
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tgs-logo span { color: var(--amber); }
+
+/* Desktop nav links inside topbar — hidden on mobile */
+.topbar-nav {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+@media (min-width: 700px) {
+  .topbar-nav { display: flex; }
+}
+.tnav-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt-dim);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+.tnav-item:hover { color: #fff; background: rgba(255,255,255,.08); }
+.tnav-item.active { color: var(--amber); }
+.tnav-item.coming { opacity: .4; cursor: default; pointer-events: none; }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.btn-skool {
+  background: var(--amber);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: filter .15s;
+  white-space: nowrap;
+}
+.btn-skool:hover { filter: brightness(1.1); }
+
+/* ── HOME LAYOUT ────────────────────────────────────────────────── */
+.home-wrap {
+  max-width: var(--home-max);
+  margin: 0 auto;
+  padding: 20px var(--home-pad) calc(var(--nav-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* Desktop: slightly wider, no bottom nav padding needed */
+@media (min-width: 700px) {
+  .home-wrap {
+    max-width: 860px;
+    padding-bottom: 48px;
+  }
+}
+
+/* ── BASE COMPONENT CARD — PREMIUM MATERIAL ─────────────────────── */
+/*
+ * Design upgrade: richer surface — box-shadow creates depth below
+ * the card; inset 1px top highlight mimics a surface catching light.
+ * Padding increased 20px → 24px. Border opacity 0.10 → 0.14.
+ */
+.component {
+  background: var(--card-bg);
+  border: 1px solid var(--card-bd);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow:
+    0 2px 16px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.10);
+  transition: opacity .3s ease;
+}
+.comp-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--txt-faint);
+  margin-bottom: 12px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 1: WELCOME HEADER — HERO TREATMENT
+   Design upgrade: no left-border card pattern (that is a dashboard
+   convention). The hero breathes more, has atmospheric depth, and
+   the greeting + name command the top of the page.
+   Living Academy ready — time-of-day greeting active (Sprint-003B-1)
+   Full Living Academy (birthday, cultural calendar) → Sprint-003B-3
+══════════════════════════════════════════════════════════════════ */
+.welcome-section {
+  background: linear-gradient(160deg,
+    rgba(255,255,255,.08) 0%,
+    rgba(255,255,255,.03) 65%,
+    rgba(249,168,37,.04)  100%
+  );
+  border: 1px solid rgba(255,255,255,.12);
+  /* No border-left accent — this is a hero, not a dashboard panel */
+  border-radius: var(--radius);
+  padding: 42px 24px 30px;
+  box-shadow:
+    0 4px 28px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.13);
+}
+
+/* Greeting line — Living Academy slot */
+/* Design upgrade: softer, slightly larger, letter-spaced */
+.welcome-greeting {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: rgba(255,255,255,.48);
+  margin-bottom: 8px;
+  /* Sprint-003B-3: this line becomes fully dynamic (birthday, cultural calendar, etc.) */
+}
+
+/* Student name + level row */
+.welcome-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+/* Design upgrade: 22px → 28px — confident, headline scale */
+.welcome-name {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+.welcome-level-chip {
+  background: var(--level-color);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 99px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+/* Stats row: streak + XP */
+.welcome-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+/*
+ * Design upgrade: gold is now reserved for the CTA button and active
+ * nav only. Stat chips use clean white/opacity treatment — they read
+ * as neutral data, not competing calls to action.
+ */
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.stat-chip .stat-icon { font-size: 13px; opacity: .65; }
+.stat-chip .stat-val  { color: #fff; }
+.stat-chip .stat-lbl  { color: rgba(255,255,255,.42); font-weight: 600; }
+
+/* Sprint-003B-3: Your Card tap target (Identity Card stub) */
+.identity-card-stub {
+  margin-top: 14px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--txt-faint);
+  cursor: default;
+  /* Sprint-003B-2: this becomes a tappable expand → Academy Identity Card */
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 2: GERMAN BUDDY CARD — COMPANION PRESENCE
+   Design upgrade: avatar 40px → 76px with amber gradient ring.
+   Buddy reads as a real companion, not a system notification.
+   Message text is larger and breathes more. Name is title-case,
+   not an all-caps system label.
+   Template-based (Sprint-003B-1)
+   Last Visit Memory → Sprint-003B-3
+   AI-driven → Future Buddy Sprint
+══════════════════════════════════════════════════════════════════ */
+.buddy-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+/*
+ * Design upgrade: 40px → 76px. Gradient ring (level-color → amber)
+ * signals that the Buddy is part of the same Academy identity system.
+ * Drop shadow gives the avatar physical presence on the card.
+ */
+.buddy-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--level-color) 0%, var(--amber) 100%);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,.40),
+    0 0 0 3px rgba(249,168,37,.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  flex-shrink: 0;
+}
+.buddy-body { flex: 1; min-width: 0; }
+/*
+ * Design upgrade: sentence-case name with amber tint — reads as a
+ * person's name/title, not a system component label.
+ */
+.buddy-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(249,168,37,.65);
+  margin-bottom: 8px;
+  letter-spacing: .1px;
+  /* No text-transform: uppercase — this is a companion, not a label */
+}
+/* Design upgrade: 14px → 15px, more breathing room between lines */
+.buddy-message {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.9);
+}
+/* Sprint-003B (future): Ask Buddy link */
+.buddy-ask-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt-faint);
+  text-decoration: none;
+  cursor: default;
+  /* Activates when Buddy conversation page is built */
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 3: TODAY'S FOCUS
+   Rule-based (Sprint-003B-1)
+   Renamed from "Today's Mission" — see Blueprint v2.0 §25
+══════════════════════════════════════════════════════════════════ */
+.focus-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+}
+.focus-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.focus-body { flex: 1; min-width: 0; }
+.focus-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--txt-faint);
+  margin-bottom: 4px;
+}
+.focus-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: rgba(255,255,255,.9);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 4: CONTINUE JOURNEY  (PRIMARY CTA — THE CENTREPIECE)
+   Design upgrade: the card now glows outward (ambient box-shadow).
+   The ::before pseudo-element becomes a soft corner radial glow
+   rather than a solid accent bar — more cinematic, less dashboard.
+   Button gains gold box-shadow to feel luminous.
+   SACRED RULE: Always visible above the fold on mobile.
+   Nothing competes with this element visually.
+══════════════════════════════════════════════════════════════════ */
+.cta-card {
+  background: linear-gradient(150deg,
+    rgba(255,255,255,.10) 0%,
+    rgba(255,255,255,.05) 100%
+  );
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  position: relative;
+  overflow: hidden;
+  /*
+   * The card emanates light — ambient blue glow behind it (not a
+   * drop shadow), plus depth shadow and inset highlight.
+   */
+  box-shadow:
+    0 0 60px rgba(20,100,180,.20),
+    0 4px 28px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.15);
+}
+/*
+ * Design upgrade: ::before is now an atmospheric corner glow,
+ * not a solid accent bar. Creates a sense of depth within the card.
+ */
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -70px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(20,100,180,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-module-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.cta-module-badge {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  background: var(--level-color);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 99px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.25);
+}
+.cta-module-label {
+  font-size: 12px;
+  color: var(--txt-dim);
+  font-weight: 600;
+}
+/* Design upgrade: lesson title 20px → 23px — it earns headline scale */
+.cta-lesson-title {
+  font-size: 23px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.cta-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.cta-meta-item {
+  font-size: 12px;
+  color: var(--txt-dim);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+/*
+ * Design upgrade: button padding 14px → 16px (larger touch target,
+ * more weight). Gold box-shadow makes the button appear to glow —
+ * reinforcing it as the single most important action on the page.
+ */
+.btn-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--amber);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 900;
+  padding: 16px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 18px rgba(249,168,37,.28);
+  transition: filter .15s, transform .1s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-continue:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 28px rgba(249,168,37,.40);
+}
+.btn-continue:active { transform: scale(.98); }
+
+/* First-time CTA variant */
+.btn-continue.btn-begin {
+  background: linear-gradient(135deg, var(--level-color), color-mix(in srgb, var(--level-color) 70%, #fff));
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(20,100,180,.30);
+}
+
+/* Level complete CTA variant */
+.cta-complete-note {
+  font-size: 13px;
+  color: var(--amber);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   COMPONENT 5: PROGRESS SUMMARY — ACHIEVEMENT WALL
+   Design upgrade: numbers 20px → 30px (proud, scoreboard scale).
+   Progress bar 6px → 9px with subtle shimmer animation.
+   Motion-safe: shimmer gated behind prefers-reduced-motion check.
+══════════════════════════════════════════════════════════════════ */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.07);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+/* Design upgrade: more vertical padding so large numbers breathe */
+.prog-stat {
+  background: var(--navy2);
+  padding: 16px 10px;
+  text-align: center;
+}
+/* Design upgrade: 20px → 30px — numbers should feel proud */
+.prog-stat-val {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.prog-stat-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,.38);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Level progress bar */
+.level-prog-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 7px;
+}
+.level-prog-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.8);
+}
+.level-prog-pct {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--level-color);
+}
+/* Design upgrade: 6px → 9px — a more substantial track */
+.pbar-wrap {
+  background: rgba(255,255,255,.10);
+  border-radius: 99px;
+  height: 9px;
+  overflow: hidden;
+}
+/*
+ * Design upgrade: bar carries a moving highlight (shimmer) using
+ * background-position animation — no transform, no layout impact.
+ * Gated behind prefers-reduced-motion for accessibility.
+ */
+.pbar-fill {
+  height: 100%;
+  background: linear-gradient(90deg,
+    var(--level-color)           0%,
+    rgba(255,255,255,.30)        50%,
+    var(--level-color)           100%
+  );
+  background-size: 200% 100%;
+  border-radius: 99px;
+  transition: width .7s ease;
+  min-width: 2px;
+  animation: bar-shimmer 2.8s ease-in-out 1.2s infinite;
+}
+@keyframes bar-shimmer {
+  0%   { background-position:  100% 0; }
+  60%  { background-position: -100% 0; }
+  100% { background-position: -100% 0; }
+}
+/* Accessibility: disable animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pbar-fill {
+    animation: none;
+    background: var(--level-color);
+  }
+}
+.level-prog-sub {
+  margin-top: 7px;
+  font-size: 11px;
+  color: var(--txt-faint);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   SKELETON LOADING STATES
+   Sections get .is-loading until JS renders them.
+   Since data is from localStorage, duration is <50ms typically.
+══════════════════════════════════════════════════════════════════ */
+.is-loading {
+  pointer-events: none;
+}
+.is-loading .skel {
+  background: rgba(255,255,255,.06);
+  border-radius: 6px;
+  animation: skel-pulse 1.2s ease-in-out infinite;
+}
+.skel-h1  { height: 28px; width: 60%; margin-bottom: 12px; }
+.skel-h2  { height: 18px; width: 80%; margin-bottom: 8px; }
+.skel-h3  { height: 14px; width: 90%; margin-bottom: 6px; }
+.skel-btn { height: 52px; width: 100%; margin-top: 14px; }
+@keyframes skel-pulse {
+  0%,100% { opacity: .5; }
+  50%      { opacity: 1; }
+}
+
+/* Fade-in animation for rendered content */
+.fade-in {
+  animation: fadeUp .3s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger delays for sequential reveal */
+.stagger-1 { animation-delay: 0ms;   }
+.stagger-2 { animation-delay: 50ms;  }
+.stagger-3 { animation-delay: 100ms; }
+.stagger-4 { animation-delay: 150ms; }
+.stagger-5 { animation-delay: 200ms; }
+
+/* ══════════════════════════════════════════════════════════════════
+   NAVIGATION — BOTTOM BAR (mobile) + integrated in topbar (desktop)
+   Design upgrade: active indicator wider (24→32px), icon scale
+   slightly larger (1.1→1.15). Gold stays on active state only.
+══════════════════════════════════════════════════════════════════ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(11,37,69,.97);
+  border-top: 1px solid rgba(255,255,255,.10);
+  display: flex;
+  align-items: stretch;
+  z-index: 200;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+/* Hide bottom nav on desktop — topbar handles nav */
+@media (min-width: 700px) {
+  .bottom-nav { display: none; }
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--txt-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .15s;
+  padding: 8px 4px;
+  position: relative;
+}
+.nav-item .nav-icon { font-size: 18px; line-height: 1; transition: transform .15s; }
+.nav-item .nav-lbl  { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
+
+.nav-item.active             { color: var(--amber); }
+/* Design upgrade: scale 1.1 → 1.15 — the active icon steps forward */
+.nav-item.active .nav-icon   { transform: scale(1.15); }
+
+/* Active indicator bar */
+/* Design upgrade: width 24px → 32px — more visible crown */
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 3px;
+  background: var(--amber);
+  border-radius: 0 0 99px 99px;
+}
+
+/* "Coming soon" nav items — visible but softened */
+.nav-item.coming {
+  opacity: .38;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 18px;
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: none; /* Hidden on mobile (bottom nav takes that space) */
+}
+@media (min-width: 700px) {
+  footer { display: block; }
+}
+footer a { color: rgba(255,255,255,.35); text-decoration: none; }
+footer a:hover { color: rgba(255,255,255,.6); }
+
+</style>
+</head>
+<body>
+
+<!-- Atmospheric background layer — fixed, decorative, aria-hidden -->
+<div class="home-bg-layer" aria-hidden="true"></div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TOPBAR
+     Desktop: contains navigation links
+     Mobile: logo + Skool button only (bottom nav handles navigation)
+══════════════════════════════════════════════════════════════════ -->
+<nav class="topbar" role="navigation" aria-label="Primary">
+  <a class="tgs-logo" href="academy-home.html">
+    The<span>German</span>Stefan
+    <span style="font-size:11px;font-weight:500;opacity:.45;margin-left:3px">Academy</span>
+  </a>
+
+  <!-- Desktop nav -->
+  <div class="topbar-nav" role="menubar">
+    <a class="tnav-item active" href="academy-home.html" role="menuitem">🏠 Home</a>
+    <a class="tnav-item" href="#" id="tnav-learn" role="menuitem">📚 Learn</a>
+    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in Sprint-003B-2">🛂 Passport</a>
+    <a class="tnav-item coming" href="#" role="menuitem" aria-disabled="true" title="Coming in future sprint">🤖 Buddy</a>
+    <a class="tnav-item" href="vocabulary-universe.html" role="menuitem">🎯 Practice</a>
+  </div>
+
+  <div class="topbar-right">
+    <a class="btn-skool" href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool →</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════════════════════════ -->
+<main class="home-wrap" id="home-main">
+
+  <!-- ── COMPONENT 1: WELCOME HEADER ──────────────────────────── -->
+  <!-- Living Academy ready: greeting slot is present for Sprint-003B-3 -->
+  <section id="comp-welcome" class="welcome-section fade-in stagger-1 is-loading" aria-label="Welcome">
+    <div class="skel skel-h2"></div>
+    <div class="skel skel-h1" style="margin-top:8px"></div>
+    <div class="skel skel-h3" style="margin-top:14px;width:50%"></div>
+  </section>
+
+  <!-- ── COMPONENT 2: GERMAN BUDDY CARD ───────────────────────── -->
+  <!-- Template-based (Sprint-003B-1). Last Visit Memory → Sprint-003B-3 -->
+  <section id="comp-buddy" class="component fade-in stagger-2 is-loading" aria-label="German Buddy">
+    <div class="buddy-card">
+      <div class="buddy-avatar skel" style="width:76px;height:76px"></div>
+      <div style="flex:1">
+        <div class="skel skel-h3" style="width:40%"></div>
+        <div class="skel skel-h3" style="margin-top:8px"></div>
+        <div class="skel skel-h3" style="margin-top:6px;width:70%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPONENT 3: TODAY'S FOCUS ───────────────────────────── -->
+  <!-- Renamed from "Today's Mission" — Blueprint v2.0 §25 -->
+  <section id="comp-focus" class="component fade-in stagger-3 is-loading" aria-label="Today's Focus">
+    <div class="skel skel-h3"></div>
+    <div class="skel skel-h3" style="margin-top:8px;width:60%"></div>
+  </section>
+
+  <!-- ── COMPONENT 4: CONTINUE JOURNEY (PRIMARY CTA) ─────────── -->
+  <!-- SACRED RULE: Must remain above the fold on mobile.         -->
+  <!-- Do not insert content above this section without review.   -->
+  <section id="comp-cta" class="cta-card fade-in stagger-4 is-loading" aria-label="Continue your journey">
+    <div class="skel skel-h3" style="width:40%"></div>
+    <div class="skel skel-h1" style="margin-top:10px"></div>
+    <div class="skel skel-h3" style="margin-top:8px;width:50%"></div>
+    <div class="skel skel-btn"></div>
+  </section>
+
+  <!-- ── COMPONENT 5: PROGRESS SUMMARY ───────────────────────── -->
+  <section id="comp-progress" class="component fade-in stagger-5 is-loading" aria-label="Your progress">
+    <div class="skel" style="height:78px;width:100%;border-radius:8px"></div>
+    <div class="skel" style="height:20px;width:100%;border-radius:99px;margin-top:16px"></div>
+  </section>
+
+  <!--
+  ════════════════════════════════════════════════════════════════
+  SPRINT-003B-2 RESERVED SLOTS
+  The following components are specified in Blueprint v2.0 but
+  are not built in Sprint-003B-1. Their position in the layout
+  is reserved here as HTML comments.
+
+  German Passport Preview  → Sprint-003B-2
+  Journey Preview          → Sprint-003B-2
+  Academy Identity Card    → Sprint-003B-2 (expand from Welcome Header)
+  Quick Practice           → Sprint-003B-2 (with Ambient Mode stub)
+
+  SPRINT-003B-3 RESERVED SLOTS
+  Living Academy full (birthday, cultural calendar, anniversary)
+  Last Visit Memory (tgs_home_v1 — infrastructure written now)
+  Discover Germany Today
+  ════════════════════════════════════════════════════════════════
+
+  ════════════════════════════════════════════════════════════════
+  YOUR GERMAN JOURNEY — RESERVED ARCHITECTURE
+  Annual personal learning summary — Spotify Wrapped spirit.
+  Suggested content: words learned · lessons completed · study
+  hours · longest streak · stamps earned · passport pages ·
+  favourite learning category · biggest achievement of the year.
+  Enormous emotional value and sharing potential.
+  Implementation: Future dedicated sprint.
+  Data source: TGS_PROGRESS + TGS_ACHIEVEMENTS (already captured).
+  ════════════════════════════════════════════════════════════════
+  -->
+
+</main><!-- /home-wrap -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     BOTTOM NAVIGATION (mobile only — hidden on desktop via CSS)
+══════════════════════════════════════════════════════════════════ -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a class="nav-item active" href="academy-home.html" aria-current="page">
+    <span class="nav-icon" aria-hidden="true">🏠</span>
+    <span class="nav-lbl">Home</span>
+  </a>
+  <a class="nav-item" href="#" id="bnav-learn">
+    <span class="nav-icon" aria-hidden="true">📚</span>
+    <span class="nav-lbl">Learn</span>
+  </a>
+  <a class="nav-item coming" href="#" aria-disabled="true" aria-label="Passport (coming soon)">
+    <span class="nav-icon" aria-hidden="true">🛂</span>
+    <span class="nav-lbl">Passport</span>
+  </a>
+  <a class="nav-item coming" href="#" aria-disabled="true" aria-label="Buddy (coming soon)">
+    <span class="nav-icon" aria-hidden="true">🤖</span>
+    <span class="nav-lbl">Buddy</span>
+  </a>
+  <a class="nav-item" href="vocabulary-universe.html">
+    <span class="nav-icon" aria-hidden="true">🎯</span>
+    <span class="nav-lbl">Practice</span>
+  </a>
+</nav>
+
+<footer>
+  &copy; TheGermanStefan Academy &nbsp;·&nbsp;
+  <a href="language-academy.html">Language Academy</a> &nbsp;·&nbsp;
+  <a href="placement-test.html">Placement Test</a> &nbsp;·&nbsp;
+  <a href="vocabulary-universe.html">Vocabulary Universe</a> &nbsp;·&nbsp;
+  <a href="https://www.skool.com/thegermanstefan-9325" target="_blank" rel="noopener">Skool Community</a>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     FOUNDATION LAYER — Sprint-003A
+     Load order is critical. Do not reorder.
+══════════════════════════════════════════════════════════════════ -->
+<script src="tgs-core.js"></script>
+<script src="tgs-levels.js"></script>
+<script src="tgs-progress.js"></script>
+<script src="tgs-profile.js"></script>
+<script src="tgs-content-registry.js"></script>
+<script src="tgs-achievements.js"></script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ACADEMY HOME — Sprint-003B-1
+     Reads from Foundation Layer (Sprint-003A).
+     Owns one localStorage key: tgs_home_v1
+     Renders all Sprint-003B-1 components.
+     Wires live Foundation Layer events.
+     NOTE: This script block is unchanged from the functional MVP.
+     The Design Upgrade is CSS-only.
+══════════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ──────────────────────────────────────────────────────────────
+     CONSTANTS
+  ────────────────────────────────────────────────────────────── */
+  var HOME_STORAGE_KEY = 'tgs_home_v1';
+  var HOME_VERSION     = '1.0.0';
+
+  /* Lesson milestone thresholds (must match tgs-achievements.js) */
+  var LESSON_MILESTONES = [1, 10, 25, 50, 100];
+  /* Streak milestone thresholds */
+  var STREAK_MILESTONES = [3, 7, 30, 100, 365];
+
+  /* Level label map (full name for display) */
+  var LEVEL_LABELS = {
+    A0: 'A0 Beginner',
+    A1: 'A1 Elementary',
+    A2: 'A2 Pre-Intermediate',
+    B1: 'B1 Intermediate',
+    B2: 'B2 Upper-Intermediate',
+    C1: 'C1 Advanced',
+    C2: 'C2 Mastery'
+  };
+
+  /* ──────────────────────────────────────────────────────────────
+     FOUNDATION LAYER SAFETY GUARDS
+     Graceful degradation if any module failed to load.
+  ────────────────────────────────────────────────────────────── */
+  function safeGet(fn, fallback) {
+    try { return fn(); } catch (e) { return fallback; }
+  }
+  var FL = {
+    progress:     typeof TGS_PROGRESS     !== 'undefined' ? TGS_PROGRESS     : null,
+    profile:      typeof TGS_PROFILE      !== 'undefined' ? TGS_PROFILE      : null,
+    content:      typeof TGS_CONTENT      !== 'undefined' ? TGS_CONTENT      : null,
+    achievements: typeof TGS_ACHIEVEMENTS !== 'undefined' ? TGS_ACHIEVEMENTS : null,
+    levels:       typeof TGS_LEVELS       !== 'undefined' ? TGS_LEVELS       : null
+  };
+
+  /* ──────────────────────────────────────────────────────────────
+     HOME STATE (tgs_home_v1)
+     Written on each page load — provides Last Visit Memory for
+     Sprint-003B-3. Reading it now also seeds the infrastructure.
+  ────────────────────────────────────────────────────────────── */
+  function readHomeState() {
+    try {
+      var raw = localStorage.getItem(HOME_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function writeHomeState(data) {
+    try {
+      localStorage.setItem(HOME_STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function buildHomeState(summary, levelId, nextLessonId, lastStamp) {
+    return {
+      version:                 HOME_VERSION,
+      lastVisitDate:           new Date().toISOString().slice(0, 10),
+      lastVisitTimestamp:      Date.now(),
+      currentLevelId:          levelId,
+      lessonsCompleteAtVisit:  summary ? (summary.lessonsComplete || 0) : 0,
+      xpAtVisit:               summary ? (summary.xp || 0) : 0,
+      lastActiveLessonId:      nextLessonId || null,
+      lastStampEarned:         lastStamp    || null,
+      /*
+       * Sprint-003B-3 — Last Visit Memory uses this state on next visit.
+       * lastLevelComplete: set when progress:levelComplete fires.
+       * lastDiscoveryId: set when Discover Germany Today is active.
+       */
+      lastLevelComplete:       null,
+      lastDiscoveryId:         null
+    };
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     LIVING ACADEMY — TIME-OF-DAY GREETING
+     Sprint-003B-1: time-of-day only.
+     Sprint-003B-3 will extend this with: birthday, anniversary,
+     cultural calendar, seasonal visual — see Blueprint v2.0 §19.
+  ────────────────────────────────────────────────────────────── */
+  function getLivingGreeting() {
+    var h = new Date().getHours();
+    if (h >= 5  && h < 12) return 'Guten Morgen';
+    if (h >= 12 && h < 18) return 'Guten Tag';
+    if (h >= 18 && h < 22) return 'Guten Abend';
+    return 'Willkommen zurück';
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     MILESTONE UTILITIES
+  ────────────────────────────────────────────────────────────── */
+  function nextLessonMilestone(done) {
+    for (var i = 0; i < LESSON_MILESTONES.length; i++) {
+      if (done < LESSON_MILESTONES[i]) {
+        return { target: LESSON_MILESTONES[i], away: LESSON_MILESTONES[i] - done };
+      }
+    }
+    return null;
+  }
+
+  function nextStreakMilestone(current) {
+    for (var i = 0; i < STREAK_MILESTONES.length; i++) {
+      if (current < STREAK_MILESTONES[i]) {
+        return { target: STREAK_MILESTONES[i], away: STREAK_MILESTONES[i] - current };
+      }
+    }
+    return null;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     BUDDY MESSAGE TEMPLATE ENGINE (Sprint-003B-1)
+     Priority waterfall — first matching condition wins.
+     Sprint-003B-3 adds: Last Visit Memory, cultural cross-reference.
+     Future Buddy Sprint replaces templates with AI-generated messages.
+  ────────────────────────────────────────────────────────────── */
+  function selectBuddyMessage(streak, lessonsComplete, nextMilestone) {
+    var current = streak ? (streak.current || 0) : 0;
+
+    /* First ever visit — no progress at all */
+    if (lessonsComplete === 0 && current === 0) {
+      return 'Hallo! I\'m your German Buddy — I\'ll be with you every step of your journey. Let\'s begin.';
+    }
+
+    /* Near lesson milestone (≤2 lessons away) */
+    if (nextMilestone && nextMilestone.away <= 2) {
+      var away = nextMilestone.away;
+      return 'Just ' + away + ' more lesson' + (away === 1 ? '' : 's') +
+             ' until your ' + nextMilestone.target + '-lesson milestone. You\'re closer than you think.';
+    }
+
+    /* Streak broken (current = 0 but has done lessons) */
+    if (current === 0) {
+      return 'Welcome back. Today is a perfect day to start a new streak — even one lesson changes the direction of the day.';
+    }
+
+    /* Impressive streak (7+) */
+    if (current >= 7) {
+      return 'Your ' + current + '-day streak is genuinely impressive. This kind of consistency is what builds real fluency.';
+    }
+
+    /* Building streak (3–6) */
+    if (current >= 3) {
+      return 'Your ' + current + '-day streak is building momentum. Keep going — consistency is the best teacher.';
+    }
+
+    /* First day of a new streak (1) */
+    if (current === 1 && lessonsComplete > 1) {
+      return 'Good start today. One lesson keeps the momentum going — and a new streak begins.';
+    }
+
+    /* Default: active student */
+    return 'Your ' + current + '-day streak is going strong. Ready to continue your German journey?';
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     TODAY'S FOCUS LOGIC (Sprint-003B-1)
+     Rule-based. Single clear daily goal.
+     Renamed from "Today's Mission" — Blueprint v2.0 §25.
+  ────────────────────────────────────────────────────────────── */
+  function selectTodaysFocus(streak, lessonsComplete, nextMilestone) {
+    var current = streak ? (streak.current || 0) : 0;
+
+    /* Very first lesson */
+    if (lessonsComplete === 0) {
+      return { icon: '✨', text: 'Complete your first lesson. Your German journey begins today.' };
+    }
+
+    /* Near lesson milestone */
+    if (nextMilestone && nextMilestone.away <= 2) {
+      var away = nextMilestone.away;
+      return {
+        icon: '🏆',
+        text: 'Earn your ' + nextMilestone.target + '-lesson milestone — just ' + away +
+              ' lesson' + (away === 1 ? '' : 's') + ' away.'
+      };
+    }
+
+    /* Streak at 0 */
+    if (current === 0) {
+      return { icon: '🎯', text: 'Start a new streak today. One lesson is enough to begin.' };
+    }
+
+    /* Streak day 1 */
+    if (current === 1) {
+      return { icon: '🎯', text: 'Build on today\'s start. A second session makes a streak.' };
+    }
+
+    /* Default: maintain streak */
+    return {
+      icon: '🔥',
+      text: 'Maintain your ' + current + '-day streak. One lesson keeps it alive.'
+    };
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     CONTINUE JOURNEY — FIND NEXT LESSON
+  ────────────────────────────────────────────────────────────── */
+  function findNextLesson(levelId) {
+    if (!FL.content || !levelId) return null;
+    try {
+      var prog = FL.content.getLevelProgress(levelId);
+      if (prog && prog.nextLesson) return prog.nextLesson; /* { lesson, moduleKey, module } */
+    } catch (e) {}
+    return null;
+  }
+
+  function countDone(levelId) {
+    if (!FL.content || !levelId) return { done: 0, total: 0 };
+    try {
+      var lp = FL.content.getLevelProgress(levelId);
+      return { done: lp.done || 0, total: lp.total || 0, pct: lp.pct || 0 };
+    } catch (e) { return { done: 0, total: 0, pct: 0 }; }
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     LEVEL COLOUR
+  ────────────────────────────────────────────────────────────── */
+  function applyLevelColor(levelId) {
+    if (!FL.levels || !levelId) return;
+    try {
+      var ld = FL.levels.get(levelId);
+      if (ld && ld.color) {
+        document.documentElement.style.setProperty('--level-color', ld.color);
+      }
+    } catch (e) {}
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     COMPONENT RENDERERS
+  ────────────────────────────────────────────────────────────── */
+
+  /* 1. Welcome Header */
+  function renderWelcome(greeting, levelId, streak, xp) {
+    var el       = document.getElementById('comp-welcome');
+    if (!el) return;
+
+    var levelLabel  = LEVEL_LABELS[levelId] || (levelId || 'Getting started');
+    var streakCount = streak ? (streak.current || 0) : 0;
+    var streakIcon  = streakCount >= 3 ? '🔥' : '📅';
+    var streakText  = streakCount > 0
+      ? (streakCount + '-day streak')
+      : 'Day 1 — let\'s start';
+
+    el.innerHTML =
+      /* Living Academy greeting slot — Sprint-003B-3 makes this fully dynamic */
+      '<p class="welcome-greeting" id="living-greeting">' + escHtml(greeting) + '</p>' +
+
+      '<div class="welcome-name-row">' +
+        '<span class="welcome-name" id="welcome-name-text">Welcome back</span>' +
+        '<span class="welcome-level-chip" id="welcome-level-chip">' + escHtml(levelId || '—') + '</span>' +
+      '</div>' +
+
+      '<div class="welcome-stats">' +
+        '<div class="stat-chip">' +
+          '<span class="stat-icon">' + streakIcon + '</span>' +
+          '<span class="stat-val">' + streakCount + '</span>' +
+          '<span class="stat-lbl">' + (streakCount === 1 ? 'day' : 'days') + '</span>' +
+        '</div>' +
+        '<div class="stat-chip">' +
+          '<span class="stat-icon">⭐</span>' +
+          '<span class="stat-val">' + (xp || 0) + '</span>' +
+          '<span class="stat-lbl">XP</span>' +
+        '</div>' +
+      '</div>' +
+
+      /* Identity Card stub — expands to full card in Sprint-003B-2 */
+      '<div class="identity-card-stub" title="Academy Identity Card — coming in Sprint-003B-2">' +
+        'Your Academy Card ▾ <span style="font-size:10px;opacity:.5">(coming soon)</span>' +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 2. German Buddy Card */
+  function renderBuddy(message) {
+    var el = document.getElementById('comp-buddy');
+    if (!el) return;
+
+    el.innerHTML =
+      '<div class="buddy-card">' +
+        '<div class="buddy-avatar" role="img" aria-label="German Buddy">🤖</div>' +
+        '<div class="buddy-body">' +
+          '<div class="buddy-name">German Buddy</div>' +
+          '<p class="buddy-message">' + escHtml(message) + '</p>' +
+          /* Ask Buddy link — activates when Buddy conversation page is built */
+          '<span class="buddy-ask-link" title="Ask Buddy — coming in future sprint">' +
+            'Ask Buddy → <span style="font-size:10px;opacity:.5">(coming soon)</span>' +
+          '</span>' +
+        '</div>' +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 3. Today's Focus */
+  function renderFocus(focus) {
+    var el = document.getElementById('comp-focus');
+    if (!el) return;
+
+    el.innerHTML =
+      '<div class="focus-card">' +
+        '<span class="focus-icon" aria-hidden="true">' + focus.icon + '</span>' +
+        '<div class="focus-body">' +
+          '<div class="focus-label">Today\'s Focus</div>' +
+          '<div class="focus-text">' + escHtml(focus.text) + '</div>' +
+        '</div>' +
+      '</div>';
+
+    el.classList.remove('is-loading');
+  }
+
+  /* 4. Continue Journey (Primary CTA) */
+  function renderCTA(nextLesson, levelId, levelDone) {
+    var el = document.getElementById('comp-cta');
+    if (!el) return;
+
+    var html = '';
+
+    if (!nextLesson) {
+      /* First-time student — no level assigned yet */
+      if (!levelId) {
+        html =
+          '<p class="cta-module-label" style="margin-bottom:12px">Begin your German journey</p>' +
+          '<p class="cta-lesson-title">Where would you like to start?</p>' +
+          '<div class="cta-meta-row">' +
+            '<span class="cta-meta-item">📍 Find your level</span>' +
+          '</div>' +
+          '<a class="btn-continue btn-begin" href="placement-test.html">' +
+            '✨ Begin Placement Test' +
+          '</a>';
+      } else {
+        /* Level set but all lessons complete */
+        var nextLevel = safeGet(function() {
+          var ld = FL.levels.get(levelId);
+          return ld && ld.nextLevel ? ld.nextLevel : null;
+        }, null);
+
+        html =
+          '<p class="cta-complete-note">🎉 You\'ve completed all available lessons in ' + escHtml(levelId) + '!</p>' +
+          (nextLevel
+            ? '<p class="cta-lesson-title">Ready for ' + escHtml(LEVEL_LABELS[nextLevel] || nextLevel) + '</p>' +
+              '<a class="btn-continue" href="level-dashboard.html?level=' + escHtml(nextLevel) + '">' +
+                '▶ Begin ' + escHtml(nextLevel) + ' →' +
+              '</a>'
+            : '<p class="cta-lesson-title">Outstanding achievement — you\'ve reached the top!</p>');
+      }
+    } else {
+      /* Normal continue state */
+      var lesson    = nextLesson.lesson;
+      var moduleKey = nextLesson.moduleKey;
+      var module    = nextLesson.module;
+
+      var moduleLabel = module ? (module.icon ? (module.icon + ' ' + module.label) : module.label)
+                                : (moduleKey.charAt(0).toUpperCase() + moduleKey.slice(1));
+      var doneInfo    = '';
+      if (levelDone && levelDone.total > 0) {
+        doneInfo = levelDone.done + ' of ' + levelDone.total + ' lessons complete';
+      }
+
+      var lessonContent = FL.content ? FL.content.getLesson(lesson.id) : null;
+      var estMins       = lessonContent ? lessonContent.estimatedMinutes : null;
+
+      html =
+        '<div class="cta-module-row">' +
+          '<span class="cta-module-badge">' + escHtml(levelId || '') + '</span>' +
+          '<span class="cta-module-label">' + escHtml(moduleLabel) + '</span>' +
+        '</div>' +
+        '<h2 class="cta-lesson-title">' + escHtml(lesson.title) + '</h2>' +
+        '<div class="cta-meta-row">' +
+          (estMins ? '<span class="cta-meta-item">⏱ ~' + estMins + ' min</span>' : '') +
+          (doneInfo ? '<span class="cta-meta-item">📖 ' + escHtml(doneInfo) + '</span>' : '') +
+        '</div>' +
+        '<a class="btn-continue" href="' + escHtml(lesson.file) + '">' +
+          '▶ Continue' +
+        '</a>';
+    }
+
+    el.innerHTML = html;
+    el.classList.remove('is-loading');
+  }
+
+  /* 5. Progress Summary */
+  function renderProgress(levelId, summary, levelDone) {
+    var el = document.getElementById('comp-progress');
+    if (!el) return;
+
+    var lessons  = summary ? (summary.lessonsComplete || 0) : 0;
+    var xp       = summary ? (summary.xp || 0) : 0;
+    var streak   = summary ? ((summary.streak && summary.streak.current) || 0) : 0;
+    var pct      = levelDone ? (levelDone.pct || 0) : 0;
+    var levelName = LEVEL_LABELS[levelId] || (levelId || 'Your Journey');
+
+    el.innerHTML =
+      '<div class="comp-label">Your Progress</div>' +
+
+      '<div class="progress-grid">' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + xp + '</div>' +
+          '<div class="prog-stat-lbl">XP</div>' +
+        '</div>' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + lessons + '</div>' +
+          '<div class="prog-stat-lbl">Lessons</div>' +
+        '</div>' +
+        '<div class="prog-stat">' +
+          '<div class="prog-stat-val">' + streak + '</div>' +
+          '<div class="prog-stat-lbl">Day Streak</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="level-prog-label">' +
+        '<span class="level-prog-name">' + escHtml(levelName) + '</span>' +
+        '<span class="level-prog-pct">' + pct + '%</span>' +
+      '</div>' +
+      '<div class="pbar-wrap" role="progressbar" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100">' +
+        '<div class="pbar-fill" id="prog-bar-fill" style="width:0%"></div>' +
+      '</div>' +
+      '<div class="level-prog-sub">' +
+        (levelDone && levelDone.total > 0
+          ? escHtml(levelDone.done + ' of ' + levelDone.total + ' available lessons complete')
+          : 'Your progress will build here as you learn') +
+      '</div>';
+
+    el.classList.remove('is-loading');
+
+    /* Animate bar after paint */
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        var bar = document.getElementById('prog-bar-fill');
+        if (bar) bar.style.width = pct + '%';
+      }, 80);
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     NAVIGATION — set dynamic Learn links
+  ────────────────────────────────────────────────────────────── */
+  function updateNavLinks(levelId) {
+    var lvl   = levelId || 'A1';
+    var href  = 'level-dashboard.html?level=' + encodeURIComponent(lvl);
+    var tLink = document.getElementById('tnav-learn');
+    var bLink = document.getElementById('bnav-learn');
+    if (tLink) tLink.href = href;
+    if (bLink) bLink.href = href;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     LIVE EVENT WIRING
+     Updates components in real time when student returns from a lesson
+     while the Home tab is still open.
+  ────────────────────────────────────────────────────────────── */
+  function wireLiveEvents(levelId) {
+    if (!TGS || !TGS.utils || !TGS.utils.events) return;
+
+    /* Progress updated — refresh progress bar and stats */
+    TGS.utils.events.on('progress:lessonComplete', function () {
+      var s  = safeGet(function() { return FL.progress.summary(); }, null);
+      var ld = countDone(levelId);
+      if (s) renderProgress(levelId, s, ld);
+      /* Refresh CTA to point to new next lesson */
+      var nl = findNextLesson(levelId);
+      renderCTA(nl, levelId, ld);
+    });
+
+    /* Stamp earned — will power Passport animation in Sprint-003B-2 */
+    TGS.utils.events.on('achievement:stampEarned', function (data) {
+      /* Sprint-003B-2: animate passport stamp here */
+      /* Sprint-003B-3: update Buddy message with buddyMessage from event */
+      if (typeof console !== 'undefined') {
+        console.info('[TGS Home] Stamp earned:', data.stampId);
+      }
+    });
+
+    /* Level complete — set in home state for celebration window */
+    TGS.utils.events.on('progress:levelComplete', function (data) {
+      try {
+        var hs = readHomeState() || {};
+        hs.lastLevelComplete = Date.now();
+        writeHomeState(hs);
+      } catch (e) {}
+    });
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     ESCAPE UTILITY (XSS prevention)
+  ────────────────────────────────────────────────────────────── */
+  function escHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     BOOTSTRAP — MAIN INIT
+  ────────────────────────────────────────────────────────────── */
+  function init() {
+
+    /* 1. Read Foundation Layer data */
+    var levelId  = safeGet(function() { return FL.profile ? FL.profile.getCurrentLevel() : null; }, null)
+                   || 'A1'; /* default if no placement yet */
+    var summary  = safeGet(function() { return FL.progress ? FL.progress.summary() : null; }, null);
+    var streak   = safeGet(function() { return FL.progress ? FL.progress.getStreak() : null; }, null);
+    var xp       = safeGet(function() { return FL.progress ? FL.progress.getXP() : 0; }, 0);
+    var levelDone = countDone(levelId);
+    var earned   = safeGet(function() { return FL.achievements ? FL.achievements.getEarned() : []; }, []);
+
+    /* 2. Apply level colour */
+    applyLevelColor(levelId);
+
+    /* 3. Milestone proximity */
+    var lessonsComplete = summary ? (summary.lessonsComplete || 0) : 0;
+    var nextMilestone   = nextLessonMilestone(lessonsComplete);
+
+    /* 4. Living Academy greeting (Sprint-003B-1: time-of-day only) */
+    var greeting = getLivingGreeting();
+
+    /* 5. Buddy message */
+    var buddyMsg = selectBuddyMessage(streak, lessonsComplete, nextMilestone);
+
+    /* 6. Today's Focus */
+    var focus = selectTodaysFocus(streak, lessonsComplete, nextMilestone);
+
+    /* 7. Next lesson */
+    var nextLesson = findNextLesson(levelId);
+
+    /* 8. Render all components */
+    renderWelcome(greeting, levelId, streak, xp);
+    renderBuddy(buddyMsg);
+    renderFocus(focus);
+    renderCTA(nextLesson, levelId, levelDone);
+    renderProgress(levelId, summary, levelDone);
+
+    /* 9. Update navigation deep links */
+    updateNavLinks(levelId);
+
+    /* 10. Wire live events */
+    wireLiveEvents(levelId);
+
+    /* 11. Write home state for Sprint-003B-3 Last Visit Memory */
+    var lastStamp = earned.length > 0 ? earned[earned.length - 1].id : null;
+    var nextLessonId = nextLesson && nextLesson.lesson ? nextLesson.lesson.id : null;
+    writeHomeState(buildHomeState(summary, levelId, nextLessonId, lastStamp));
+
+    /*
+     * YOUR GERMAN JOURNEY — RESERVED ARCHITECTURE NOTE
+     * When "Your German Journey" is implemented (future sprint), it will:
+     * - Read: TGS_PROGRESS.export(), TGS_ACHIEVEMENTS.export()
+     * - Calculate: year of data (Jan 1 – Dec 31)
+     * - Display: lessons completed, XP earned, study time, longest streak,
+     *            stamps earned, favourite learning category, biggest achievement
+     * - Trigger: annually (dec 31 / jan 1) or on demand
+     * - Share: screenshot-friendly card with Academy branding
+     * No implementation here. Infrastructure (Foundation Layer data) is complete.
+     */
+  }
+
+  /* Run after DOM is ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    /* readyState is 'interactive' or 'complete' */
+    setTimeout(init, 0);
+  }
+
+}());
+</script>
+
+</body>
+</html>
