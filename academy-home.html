@@ -1225,43 +1225,28 @@ footer a:hover { color: rgba(255,255,255,.6); }
   letter-spacing: .01em;
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   SPRINT-003D — PREMIUM EXPERIENCE
-   Phase 1: Material system · Typography · Atmosphere
-   Phase 2: Component visual refinement
-   Phase 3: Micro-interactions · Animation
-   Phase 4: Memory Pillar · Why-First
-   Phase 5: Felix & Sophia companions · Signature Moments
-══════════════════════════════════════════════════════════════════ */
 
-/* ── PHASE 1: ATMOSPHERE SYSTEM ─────────────────────────────────── */
-/* body[data-atm] drives warm/cool tint per time-of-day slot */
 body[data-atm="morning"]   { --atm-a: 16; --atm-b-r: 14; --atm-b-g: 38; --atm-b-b: 70; }
 body[data-atm="afternoon"] { --atm-a: 12; --atm-b-r: 11; --atm-b-g: 25; --atm-b-b: 57; }
 body[data-atm="evening"]   { --atm-a: 22; --atm-b-r: 18; --atm-b-g: 22; --atm-b-b: 50; }
 body[data-atm="night"]     { --atm-a: 10; --atm-b-r: 8;  --atm-b-g: 16; --atm-b-b: 42; }
 
-/* Morning: cooler blue radial at top */
 body[data-atm="morning"] .home-bg-layer {
   background:
     radial-gradient(ellipse 80% 50% at 18% 0%, rgba(14,60,110,.20) 0%, transparent 100%),
     radial-gradient(ellipse 55% 40% at 84% 100%, rgba(15,50,110,.14) 0%, transparent 100%);
 }
-/* Evening: warm amber undertone from bottom */
 body[data-atm="evening"] .home-bg-layer {
   background:
     radial-gradient(ellipse 75% 55% at 18% 0%, rgba(20,60,120,.17) 0%, transparent 100%),
     radial-gradient(ellipse 60% 50% at 50% 100%, rgba(80,40,10,.14) 0%, transparent 100%);
 }
-/* Night: deep cool, reduced brightness */
 body[data-atm="night"] .home-bg-layer {
   background:
     radial-gradient(ellipse 75% 55% at 18% 0%, rgba(10,30,70,.22) 0%, transparent 100%),
     radial-gradient(ellipse 55% 40% at 84% 100%, rgba(8,20,60,.18) 0%, transparent 100%);
 }
 
-/* ── PHASE 1: TYPOGRAPHY OVERRIDES ─────────────────────────────── */
-/* German greeting: lighter weight, larger — feels like a whisper */
 .welcome-greeting {
   font-size: 15px;
   font-weight: 300;
@@ -1269,7 +1254,6 @@ body[data-atm="night"] .home-bg-layer {
   color: rgba(255,255,255,.50);
   margin-bottom: 5px;
 }
-/* JI subtitle: more generous line-height */
 .welcome-subtitle {
   font-size: 13px;
   color: rgba(255,255,255,.38);
@@ -1277,9 +1261,7 @@ body[data-atm="night"] .home-bg-layer {
   margin-bottom: 10px;
   font-style: italic;
 }
-/* Student name: headline scale */
 .welcome-name { font-size: 30px; }
-/* Buddy message: max-width constraint, more breathing room */
 .buddy-message {
   font-size: 15px;
   line-height: 1.78;
@@ -1287,7 +1269,6 @@ body[data-atm="night"] .home-bg-layer {
   max-width: 560px;
 }
 
-/* ── PHASE 2: CARD HOVER LIFT ───────────────────────────────────── */
 .component {
   transition: box-shadow .2s ease, transform .2s ease, opacity .3s ease;
 }
@@ -1300,13 +1281,11 @@ body[data-atm="night"] .home-bg-layer {
   }
 }
 
-/* ── PHASE 3: BUTTON TACTILE PRESS ─────────────────────────────── */
 .btn-continue:active        { transform: scale(.97); }
 .btn-passport:active,
 .practice-chip:active,
 .buddy-practice-rec:active  { transform: scale(.98); }
 
-/* ── PHASE 2: PROGRESS BAR — GOLD GRADIENT SHIMMER ─────────────── */
 .pbar-fill {
   background: linear-gradient(90deg,
     var(--level-color) 0%,
@@ -1329,14 +1308,11 @@ body[data-atm="night"] .home-bg-layer {
   }
 }
 
-/* ── PHASE 3: SECTION ENTRY STAGGER — 12px ELEVATION ───────────── */
-/* Overrides the Sprint-003C fadeUp (was 6px) */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── PHASE 3: TODAY NODE PULSE ──────────────────────────────────── */
 .journey-stop.present .journey-stop-indicator {
   animation: s003d-today-pulse 2.6s ease-in-out infinite;
 }
@@ -1348,7 +1324,6 @@ body[data-atm="night"] .home-bg-layer {
   .journey-stop.present .journey-stop-indicator { animation: none; }
 }
 
-/* ── PHASE 2: PASSPORT PAPER TEXTURE ────────────────────────────── */
 #comp-passport .passport-mini-grid {
   background: #F8F4ED;
   border-radius: var(--radius-sm);
@@ -1371,7 +1346,6 @@ body[data-atm="night"] .home-bg-layer {
   border: 1px dashed rgba(0,0,0,.05);
 }
 
-/* ── PHASE 3/5: STAMP EARN ANIMATION ────────────────────────────── */
 @keyframes s003d-stamp-earn {
   0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
   55%  { transform: scale(1.14) rotate( 3deg); opacity: 1; }
@@ -1382,7 +1356,6 @@ body[data-atm="night"] .home-bg-layer {
   animation: s003d-stamp-earn 620ms cubic-bezier(.34,1.56,.64,1) both;
 }
 
-/* ── PHASE 5: PASSPORT FIRST-OPEN SIGNATURE MOMENT ─────────────── */
 @keyframes s003d-passport-slot-reveal {
   from { opacity: 0; transform: translateY(-5px) scale(.92); }
   to   { opacity: 1; transform: translateY(0)    scale(1);   }
@@ -1402,7 +1375,6 @@ body[data-atm="night"] .home-bg-layer {
 .passport-mini-stamp:nth-child(10).s003d-first-reveal { animation-delay: 495ms; }
 .passport-mini-stamp:nth-child(11).s003d-first-reveal { animation-delay: 550ms; }
 
-/* ── PHASE 5: BUDDY CARD CELEBRATION GLOW ───────────────────────── */
 @keyframes s003d-buddy-glow {
   0%,100% {
     border-color: var(--card-bd);
@@ -1418,7 +1390,6 @@ body[data-atm="night"] .home-bg-layer {
   animation: s003d-buddy-glow 1.7s ease-in-out 2;
 }
 
-/* ── PHASE 5: COMPANION AVATAR — SVG CONTAINER ──────────────────── */
 .companion-wrap {
   width: 76px;
   height: 76px;
@@ -1445,27 +1416,22 @@ body[data-atm="night"] .home-bg-layer {
   height: 72px;
   display: block;
 }
-/* Expression groups: default shows .expr-default only */
 .companion-svg .expr-celebrating,
 .companion-svg .expr-motivating,
 .companion-svg .expr-recommending { display: none; }
-/* Celebrating state */
 .companion-svg.celebrating .expr-default,
 .companion-svg.celebrating .expr-motivating,
 .companion-svg.celebrating .expr-recommending { display: none; }
 .companion-svg.celebrating .expr-celebrating  { display: block; }
-/* Motivating state */
 .companion-svg.motivating .expr-default,
 .companion-svg.motivating .expr-celebrating,
 .companion-svg.motivating .expr-recommending  { display: none; }
 .companion-svg.motivating .expr-motivating    { display: block; }
-/* Recommending state */
 .companion-svg.recommending .expr-default,
 .companion-svg.recommending .expr-celebrating,
 .companion-svg.recommending .expr-motivating  { display: none; }
 .companion-svg.recommending .expr-recommending { display: block; }
 
-/* ── PHASE 4: WHY-FIRST RATIONALE ───────────────────────────────── */
 .why-rationale {
   font-size: 13px;
   font-style: italic;
@@ -1482,7 +1448,6 @@ body[data-atm="night"] .home-bg-layer {
   line-height: 1.45;
 }
 
-/* ── PHASE 4: MEMORY REFERENCE ──────────────────────────────────── */
 .memory-ref {
   font-size: 13px;
   font-style: italic;
@@ -1500,7 +1465,6 @@ body[data-atm="night"] .home-bg-layer {
   .memory-ref { animation: none; }
 }
 
-/* ── PHASE 4/5: PERSONAL MILESTONE BANNER ───────────────────────── */
 .personal-milestone-banner {
   background: linear-gradient(135deg,
     rgba(201,168,76,.12) 0%,
@@ -1929,36 +1893,36 @@ body[data-atm="night"] .home-bg-layer {
     }
   };
 
-  /* ──────────────────────────────────────────────────────────────
-     SPRINT-003D: COMPANION SVG ILLUSTRATIONS
-     Felix (felix) and Sophia (sophia) — inline SVG, 4 expressions.
-     Expression driven by class on the SVG element.
-     CSS hides/shows .expr-* groups per companion state.
-  ────────────────────────────────────────────────────────────── */
+  /* PLACEHOLDER ARTWORK — Sprint-003D implementation scaffolding only.
+     These SVGs demonstrate the expression-switching architecture
+     (four expr-* groups, CSS-driven, companion state integration).
+     They do NOT reproduce the approved Character Bible.
+     Final Felix & Sophia artwork must be supplied separately and
+     must match the master reference exactly (face, hairstyle,
+     proportions, clothing, premium semi-realistic style).
+     Do not treat these as official character artwork. */
   var COMPANION_SVG = {
     felix: function (expr) {
       var cls = 'companion-svg' + (expr && expr !== 'default' ? ' ' + expr : '');
       return '<svg class="' + cls + '" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-        /* Body / shirt */ '<path d="M8 72 Q8 56 20 54 L28 51 L36 57 L44 51 L52 54 Q64 56 64 72Z" fill="#1A3558"/>' +
-        /* Gold collar V */ '<path d="M33 51 L36 58 L39 51" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>' +
-        /* Neck */ '<rect x="30" y="44" width="12" height="10" rx="4" fill="#EDB882"/>' +
-        /* Face */ '<ellipse cx="36" cy="31" rx="18" ry="20" fill="#EDB882"/>' +
-        /* Hair crown */ '<path d="M18 25 Q18 10 36 9 Q54 10 54 25 L51 19 Q44 12 36 13 Q28 12 21 19Z" fill="#2C1A0E"/>' +
-        /* Sideburns */ '<path d="M18 25 L18 33 Q19 33 20 31 L20 23Z" fill="#2C1A0E"/>' +
+'<path d="M8 72 Q8 56 20 54 L28 51 L36 57 L44 51 L52 54 Q64 56 64 72Z" fill="#1A3558"/>' +
+'<path d="M33 51 L36 58 L39 51" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linejoin="round"/>' +
+'<rect x="30" y="44" width="12" height="10" rx="4" fill="#EDB882"/>' +
+'<ellipse cx="36" cy="31" rx="18" ry="20" fill="#EDB882"/>' +
+'<path d="M18 25 Q18 10 36 9 Q54 10 54 25 L51 19 Q44 12 36 13 Q28 12 21 19Z" fill="#2C1A0E"/>' +
+'<path d="M18 25 L18 33 Q19 33 20 31 L20 23Z" fill="#2C1A0E"/>' +
         '<path d="M54 25 L54 33 Q53 33 52 31 L52 23Z" fill="#2C1A0E"/>' +
-        /* Eye whites */ '<ellipse cx="29" cy="31" rx="4.2" ry="4.5" fill="#fff"/>' +
+'<ellipse cx="29" cy="31" rx="4.2" ry="4.5" fill="#fff"/>' +
         '<ellipse cx="43" cy="31" rx="4.2" ry="4.5" fill="#fff"/>' +
-        /* Pupils */ '<circle cx="30" cy="32" r="2.8" fill="#2C1A0E"/>' +
+'<circle cx="30" cy="32" r="2.8" fill="#2C1A0E"/>' +
         '<circle cx="44" cy="32" r="2.8" fill="#2C1A0E"/>' +
-        /* Highlights */ '<circle cx="31" cy="30.8" r=".9" fill="#fff"/>' +
+'<circle cx="31" cy="30.8" r=".9" fill="#fff"/>' +
         '<circle cx="45" cy="30.8" r=".9" fill="#fff"/>' +
-        /* === ENCOURAGING (default) === */
         '<g class="expr-default">' +
           '<path d="M25 25 Q29 23 33 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 25 Q43 23 47 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
           '<path d="M29 40 Q36 44 43 40" stroke="#B06040" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
         '</g>' +
-        /* === CELEBRATING === */
         '<g class="expr-celebrating">' +
           '<path d="M25 23 Q29 21 33 23" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 23 Q43 21 47 23" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
@@ -1966,13 +1930,11 @@ body[data-atm="night"] .home-bg-layer {
           '<line x1="27" y1="38.5" x2="26" y2="42" stroke="#B06040" stroke-width="1" stroke-linecap="round"/>' +
           '<line x1="45" y1="38.5" x2="46" y2="42" stroke="#B06040" stroke-width="1" stroke-linecap="round"/>' +
         '</g>' +
-        /* === MOTIVATING === */
         '<g class="expr-motivating">' +
           '<path d="M25 26 Q29 24 33 26" stroke="#2C1A0E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 26 Q43 24 47 26" stroke="#2C1A0E" stroke-width="1.9" fill="none" stroke-linecap="round"/>' +
           '<path d="M30 41 Q36 44 42 41" stroke="#B06040" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
         '</g>' +
-        /* === RECOMMENDING (slight asymmetric brow) === */
         '<g class="expr-recommending">' +
           '<path d="M25 24 Q29 22 33 25" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 25 Q43 23 47 24" stroke="#2C1A0E" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
@@ -1983,24 +1945,23 @@ body[data-atm="night"] .home-bg-layer {
     sophia: function (expr) {
       var cls = 'companion-svg' + (expr && expr !== 'default' ? ' ' + expr : '');
       return '<svg class="' + cls + '" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-        /* Body / blouse */ '<path d="M6 72 Q6 56 18 54 L27 51 L36 57 L45 51 L54 54 Q66 56 66 72Z" fill="#1A3558"/>' +
-        /* Blouse collar */ '<path d="M30 52 Q36 59 42 52" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>' +
-        /* Neck */ '<rect x="30" y="44" width="12" height="11" rx="5" fill="#EDB882"/>' +
-        /* Face (softer oval) */ '<ellipse cx="36" cy="30" rx="17" ry="20" fill="#EDB882"/>' +
-        /* Hair crown */ '<path d="M19 23 Q17 9 36 8 Q55 9 53 23 L50 16 Q44 10 36 11 Q28 10 22 16Z" fill="#5C2A0A"/>' +
-        /* Left hair sweep */ '<path d="M19 23 L16 38 Q17 45 20 47 L21 40 L22 26Z" fill="#5C2A0A"/>' +
-        /* Right hair sweep */ '<path d="M53 23 L56 38 Q55 45 52 47 L51 40 L50 26Z" fill="#5C2A0A"/>' +
-        /* Eye whites */ '<ellipse cx="28.5" cy="30" rx="4.5" ry="4.8" fill="#fff"/>' +
+'<path d="M6 72 Q6 56 18 54 L27 51 L36 57 L45 51 L54 54 Q66 56 66 72Z" fill="#1A3558"/>' +
+'<path d="M30 52 Q36 59 42 52" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>' +
+'<rect x="30" y="44" width="12" height="11" rx="5" fill="#EDB882"/>' +
+'<ellipse cx="36" cy="30" rx="17" ry="20" fill="#EDB882"/>' +
+'<path d="M19 23 Q17 9 36 8 Q55 9 53 23 L50 16 Q44 10 36 11 Q28 10 22 16Z" fill="#5C2A0A"/>' +
+'<path d="M19 23 L16 38 Q17 45 20 47 L21 40 L22 26Z" fill="#5C2A0A"/>' +
+'<path d="M53 23 L56 38 Q55 45 52 47 L51 40 L50 26Z" fill="#5C2A0A"/>' +
+'<ellipse cx="28.5" cy="30" rx="4.5" ry="4.8" fill="#fff"/>' +
         '<ellipse cx="43.5" cy="30" rx="4.5" ry="4.8" fill="#fff"/>' +
-        /* Pupils */ '<circle cx="29.5" cy="31" r="3" fill="#2C1A0E"/>' +
+'<circle cx="29.5" cy="31" r="3" fill="#2C1A0E"/>' +
         '<circle cx="44.5" cy="31" r="3" fill="#2C1A0E"/>' +
-        /* Highlights */ '<circle cx="30.5" cy="30" r="1" fill="#fff"/>' +
+'<circle cx="30.5" cy="30" r="1" fill="#fff"/>' +
         '<circle cx="45.5" cy="30" r="1" fill="#fff"/>' +
-        /* Eyelashes (subtle) */ '<path d="M25 26.5 L24 24.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
+'<path d="M25 26.5 L24 24.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
         '<path d="M27 25.5 L27 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
         '<path d="M40 25.5 L40 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
         '<path d="M42 25.5 L43 23.5" stroke="#2C1A0E" stroke-width=".8" stroke-linecap="round"/>' +
-        /* === ENCOURAGING (default) === */
         '<g class="expr-default">' +
           '<path d="M24 23.5 Q28.5 21 33 23.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 23.5 Q43.5 21 48 23.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
@@ -2008,7 +1969,6 @@ body[data-atm="night"] .home-bg-layer {
           '<circle cx="22" cy="37" r="4.5" fill="rgba(220,110,90,.10)"/>' +
           '<circle cx="50" cy="37" r="4.5" fill="rgba(220,110,90,.10)"/>' +
         '</g>' +
-        /* === CELEBRATING === */
         '<g class="expr-celebrating">' +
           '<path d="M24 21.5 Q28.5 19 33 21.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 21.5 Q43.5 19 48 21.5" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
@@ -2016,7 +1976,6 @@ body[data-atm="night"] .home-bg-layer {
           '<circle cx="22" cy="36" r="5.5" fill="rgba(220,110,90,.18)"/>' +
           '<circle cx="50" cy="36" r="5.5" fill="rgba(220,110,90,.18)"/>' +
         '</g>' +
-        /* === MOTIVATING === */
         '<g class="expr-motivating">' +
           '<path d="M24 23 Q28.5 21 33 23" stroke="#5C2A0A" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 23 Q43.5 21 48 23" stroke="#5C2A0A" stroke-width="1.7" fill="none" stroke-linecap="round"/>' +
@@ -2024,7 +1983,6 @@ body[data-atm="night"] .home-bg-layer {
           '<circle cx="22" cy="37" r="4" fill="rgba(220,110,90,.12)"/>' +
           '<circle cx="50" cy="37" r="4" fill="rgba(220,110,90,.12)"/>' +
         '</g>' +
-        /* === RECOMMENDING === */
         '<g class="expr-recommending">' +
           '<path d="M24 23 Q28.5 21 33 24" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
           '<path d="M39 24 Q43.5 22 48 23" stroke="#5C2A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
@@ -2036,24 +1994,15 @@ body[data-atm="night"] .home-bg-layer {
     }
   };
 
-  /* ──────────────────────────────────────────────────────────────
-     SPRINT-003D: MEMORY PILLAR — buildMemoryReference(ji)
-     Pure function. Returns a string (memory reference) or null.
-     Maximum one reference per session — caller may gate on a flag.
-     Constitutional constraints: never counts absence negatively;
-     only surfaces affirmative journey facts.
-  ────────────────────────────────────────────────────────────── */
   function buildMemoryReference(ji) {
     if (!ji || ji.memberDays === 0 || ji.daysSinceVisit === 999) return null;
 
-    /* Academy Anniversary (365, 730, 1095 days) — only on first visit */
     if (ji.isFirstVisitToday) {
       if (ji.memberDays === 365) return 'One year ago today, you began your German journey here.';
       if (ji.memberDays === 730) return 'Two years since you began. Your German has come a very long way.';
       if (ji.memberDays === 1095) return 'Three years together. A rare and remarkable journey.';
     }
 
-    /* Round month milestones — only on first visit of that calendar day */
     if (ji.isFirstVisitToday) {
       if (ji.memberDays === 30)  return 'You started your German journey one month ago.';
       if (ji.memberDays === 60)  return 'Two months since you started. The habit is forming.';
@@ -2061,17 +2010,14 @@ body[data-atm="night"] .home-bg-layer {
       if (ji.memberDays === 180) return 'Half a year of German. That is something to be proud of.';
     }
 
-    /* Long gap return — journey continuity (Constitutional Article I + III) */
     if (ji.daysSinceVisit >= 14 && ji.daysSinceVisit < 999) {
       return 'Your journey has been waiting. It picks up exactly where you left it.';
     }
 
-    /* Champion streak with first-visit reference */
     if (ji.streakCurrent >= 30 && ji.isFirstVisitToday && ji.streakCurrent % 10 === 0) {
       return ji.streakCurrent + ' consecutive days. Every single one mattered.';
     }
 
-    /* Level start reference — weekly check-in (7, 14, 21, 28 days into level) */
     if (ji.daysAtLevel > 0 && ji.daysAtLevel <= 28 &&
         ji.daysAtLevel % 7 === 0 && ji.isFirstVisitToday) {
       return ji.daysAtLevel === 7
@@ -2082,17 +2028,8 @@ body[data-atm="night"] .home-bg-layer {
     return null;
   }
 
-  /* ──────────────────────────────────────────────────────────────
-     SPRINT-003D: PERSONAL MILESTONES
-     detectPersonalMilestones(ji, prevState)
-     Checks which milestones are newly crossed and not yet stored.
-     Returns { milestones: updated object, triggered: first new hit }
-     Writes to tgs_home_v1.milestones{} (additive — no overwrites).
-     tgs_premium_v1 is NOT touched.
-  ────────────────────────────────────────────────────────────── */
   function detectPersonalMilestones(ji, prevState) {
     var milestones = {};
-    /* Preserve all existing milestone timestamps (additive merge) */
     if (prevState && prevState.milestones && typeof prevState.milestones === 'object') {
       var keys = Object.keys(prevState.milestones);
       for (var k = 0; k < keys.length; k++) {
@@ -2100,9 +2037,7 @@ body[data-atm="night"] .home-bg-layer {
       }
     }
     var now = Date.now();
-    var triggered = null; /* only surface the first new milestone per session */
-
-    /* First Lesson */
+    var triggered = null;
     if (!milestones.firstLesson && ji.lessonsComplete >= 1) {
       milestones.firstLesson = now;
       if (!triggered) triggered = {
@@ -2110,7 +2045,6 @@ body[data-atm="night"] .home-bg-layer {
         reason: 'Every German speaker in the world started with a single lesson. So did you.'
       };
     }
-    /* First 100 XP */
     if (!milestones.first100XP && ji.xp >= 100) {
       milestones.first100XP = now;
       if (!triggered) triggered = {
@@ -2118,7 +2052,6 @@ body[data-atm="night"] .home-bg-layer {
         reason: 'One hundred moments of real learning — not passive, not guessed.'
       };
     }
-    /* First Journey Stamp */
     if (!milestones.firstStamp && ji.earnedStamps && ji.earnedStamps.length >= 1) {
       milestones.firstStamp = now;
       if (!triggered) triggered = {
@@ -2126,7 +2059,6 @@ body[data-atm="night"] .home-bg-layer {
         reason: 'The Passport has started filling. This is what the journey looks like.'
       };
     }
-    /* First Week */
     if (!milestones.firstWeek && ji.memberDays >= 7) {
       milestones.firstWeek = now;
       if (!triggered) triggered = {
@@ -2134,7 +2066,6 @@ body[data-atm="night"] .home-bg-layer {
         reason: 'The first week is when habits are formed. You formed yours.'
       };
     }
-    /* First Month */
     if (!milestones.firstMonth && ji.memberDays >= 30) {
       milestones.firstMonth = now;
       if (!triggered) triggered = {
@@ -2142,7 +2073,6 @@ body[data-atm="night"] .home-bg-layer {
         reason: 'Your German today is already different from what it was a month ago.'
       };
     }
-    /* Academy Anniversary */
     if (!milestones.anniversary1 && ji.memberDays >= 365) {
       milestones.anniversary1 = now;
       if (!triggered) triggered = {
